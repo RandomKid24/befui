@@ -1,0 +1,515 @@
+{
+  "accordion": [
+    "icons"
+  ],
+  "activity-feed": [
+    "avatar",
+    "relative-time"
+  ],
+  "alert": [
+    "icons"
+  ],
+  "alert-dialog": [
+    "button",
+    "dialog",
+    "icons"
+  ],
+  "analog-clock": [],
+  "app-shell": [
+    "sidebar"
+  ],
+  "approval-flow": [
+    "avatar",
+    "button",
+    "icons"
+  ],
+  "area-chart": [
+    "charts"
+  ],
+  "audit-log": [
+    "avatar",
+    "badge",
+    "icons"
+  ],
+  "avatar": [],
+  "avatar-upload": [
+    "avatar",
+    "icons"
+  ],
+  "badge": [],
+  "banner": [
+    "icons"
+  ],
+  "bar-list": [],
+  "border-beam": [],
+  "bottom-nav": [],
+  "bottom-sheet": [],
+  "box-plot-chart": [
+    "charts"
+  ],
+  "breadcrumb": [
+    "icons"
+  ],
+  "bullet-chart": [
+    "charts"
+  ],
+  "bump-chart": [
+    "charts"
+  ],
+  "butterfly-chart": [
+    "charts"
+  ],
+  "button": [
+    "icons"
+  ],
+  "calendar": [
+    "icons"
+  ],
+  "candlestick-chart": [
+    "charts"
+  ],
+  "card": [],
+  "carousel": [
+    "icons"
+  ],
+  "changelog": [
+    "badge"
+  ],
+  "charts": [],
+  "chat": [
+    "avatar",
+    "icons"
+  ],
+  "checkbox": [
+    "icons"
+  ],
+  "chip": [
+    "icons"
+  ],
+  "chord-chart": [
+    "charts"
+  ],
+  "circle-pack-chart": [
+    "charts"
+  ],
+  "code-block": [
+    "icons"
+  ],
+  "collapsible": [
+    "icons"
+  ],
+  "color-picker": [
+    "icons"
+  ],
+  "combobox": [
+    "badge",
+    "command",
+    "icons",
+    "popover"
+  ],
+  "command": [
+    "icons"
+  ],
+  "comment-thread": [
+    "avatar",
+    "button",
+    "input"
+  ],
+  "compare": [],
+  "comparison-table": [
+    "icons"
+  ],
+  "confetti": [],
+  "context-menu": [
+    "icons"
+  ],
+  "cookie-consent": [
+    "button"
+  ],
+  "copy-button": [
+    "icons"
+  ],
+  "countdown": [],
+  "coupon-input": [
+    "button",
+    "icons",
+    "input"
+  ],
+  "credit-card": [],
+  "currency-input": [],
+  "data-table": [
+    "button",
+    "checkbox",
+    "dropdown-menu",
+    "icons",
+    "pagination",
+    "table"
+  ],
+  "date-picker": [
+    "calendar",
+    "icons",
+    "popover"
+  ],
+  "datetime-picker": [
+    "calendar",
+    "icons",
+    "popover",
+    "time-picker"
+  ],
+  "day-agenda": [],
+  "description-list": [],
+  "dialog": [
+    "icons"
+  ],
+  "diff-viewer": [],
+  "dock": [],
+  "dropdown-menu": [
+    "icons"
+  ],
+  "dropzone": [
+    "icons"
+  ],
+  "dumbbell-chart": [
+    "charts"
+  ],
+  "empty-state": [],
+  "error-state": [
+    "icons"
+  ],
+  "event-calendar": [
+    "button",
+    "calendar",
+    "icons"
+  ],
+  "fab": [
+    "icons"
+  ],
+  "file-manager": [
+    "icons"
+  ],
+  "file-uploader": [
+    "icons",
+    "progress"
+  ],
+  "filter-bar": [
+    "button",
+    "icons",
+    "popover"
+  ],
+  "forecast-chart": [
+    "area-chart",
+    "charts"
+  ],
+  "format": [],
+  "funnel-chart": [],
+  "gantt": [],
+  "gauge": [],
+  "half-donut-chart": [
+    "charts"
+  ],
+  "heatmap": [],
+  "histogram-chart": [
+    "area-chart",
+    "charts"
+  ],
+  "icons": [],
+  "image-upload": [
+    "icons"
+  ],
+  "image-viewer": [
+    "icons"
+  ],
+  "inline-edit": [
+    "icons"
+  ],
+  "input": [],
+  "invoice": [
+    "badge"
+  ],
+  "kanban": [],
+  "kbd": [],
+  "label": [],
+  "landing-sections": [
+    "accordion"
+  ],
+  "leaderboard": [
+    "avatar",
+    "charts",
+    "icons"
+  ],
+  "line-chart": [
+    "charts"
+  ],
+  "live-chart": [],
+  "loader": [],
+  "lollipop-chart": [
+    "charts"
+  ],
+  "marimekko-chart": [
+    "charts"
+  ],
+  "marquee": [],
+  "matrix-heatmap": [
+    "charts"
+  ],
+  "mention-input": [
+    "avatar"
+  ],
+  "navbar": [
+    "icons"
+  ],
+  "notification-center": [
+    "button",
+    "icons",
+    "popover"
+  ],
+  "notification-preferences": [
+    "switch"
+  ],
+  "number-stepper": [
+    "icons"
+  ],
+  "number-ticker": [],
+  "onboarding-carousel": [
+    "button"
+  ],
+  "onboarding-checklist": [
+    "icons",
+    "progress"
+  ],
+  "order-summary": [],
+  "order-tracker": [
+    "icons"
+  ],
+  "org-chart": [
+    "avatar",
+    "icons"
+  ],
+  "otp-input": [],
+  "pagination": [
+    "icons"
+  ],
+  "pareto-chart": [
+    "area-chart",
+    "charts"
+  ],
+  "password-input": [
+    "icons",
+    "input"
+  ],
+  "permission-matrix": [
+    "checkbox",
+    "table"
+  ],
+  "phone-input": [],
+  "pie-chart": [
+    "charts"
+  ],
+  "pivot-table": [],
+  "popover": [],
+  "pricing-card": [
+    "badge",
+    "border-beam",
+    "button",
+    "icons",
+    "number-ticker"
+  ],
+  "product-card": [
+    "button",
+    "icons",
+    "rating"
+  ],
+  "profile-card": [
+    "avatar"
+  ],
+  "progress": [],
+  "progress-ring": [],
+  "pull-to-refresh": [
+    "icons"
+  ],
+  "punch-card-chart": [
+    "charts"
+  ],
+  "radar-chart": [
+    "charts"
+  ],
+  "radial-bar-chart": [
+    "charts"
+  ],
+  "radial-line-chart": [
+    "charts"
+  ],
+  "radio-group": [],
+  "rating": [
+    "icons"
+  ],
+  "rating-breakdown": [
+    "charts",
+    "icons"
+  ],
+  "relative-time": [],
+  "reveal": [],
+  "rich-text-editor": [],
+  "ridgeline-chart": [
+    "area-chart",
+    "charts"
+  ],
+  "rose-chart": [
+    "charts"
+  ],
+  "sankey-chart": [
+    "charts"
+  ],
+  "saved-views": [
+    "button",
+    "icons",
+    "popover"
+  ],
+  "scatter-chart": [
+    "charts"
+  ],
+  "schema-form": [
+    "button",
+    "checkbox",
+    "input",
+    "label",
+    "select",
+    "stepper"
+  ],
+  "scroll-progress": [],
+  "search-bar": [
+    "icons"
+  ],
+  "search-input": [
+    "icons"
+  ],
+  "segmented": [],
+  "select": [
+    "icons"
+  ],
+  "separator": [],
+  "settings-layout": [],
+  "shimmer-text": [],
+  "shortcuts-dialog": [
+    "dialog",
+    "kbd"
+  ],
+  "sidebar": [
+    "dialog",
+    "icons",
+    "tooltip"
+  ],
+  "signature-pad": [
+    "button"
+  ],
+  "skeleton": [],
+  "slider": [],
+  "slope-chart": [
+    "charts"
+  ],
+  "sortable-list": [],
+  "spinner": [],
+  "split-pane": [],
+  "spotlight-card": [],
+  "stacked-bar-chart": [
+    "charts"
+  ],
+  "stat-card": [
+    "card",
+    "icons"
+  ],
+  "status-dot": [],
+  "stepper": [
+    "icons"
+  ],
+  "stopwatch": [
+    "button",
+    "icons"
+  ],
+  "stream-chart": [
+    "area-chart",
+    "charts"
+  ],
+  "sunburst-chart": [
+    "charts"
+  ],
+  "swipe-actions": [],
+  "switch": [],
+  "table": [],
+  "table-of-contents": [],
+  "tabs": [],
+  "tag-input": [
+    "icons"
+  ],
+  "tag-manager": [
+    "icons"
+  ],
+  "terminal": [],
+  "testimonial-card": [
+    "avatar",
+    "icons"
+  ],
+  "theme-toggle": [
+    "button",
+    "icons"
+  ],
+  "tilt-card": [],
+  "time-picker": [
+    "icons"
+  ],
+  "timeline": [],
+  "timer": [
+    "button",
+    "icons"
+  ],
+  "toast": [
+    "icons"
+  ],
+  "toggle": [],
+  "tooltip": [
+    "icons",
+    "kbd"
+  ],
+  "tree-table": [
+    "icons"
+  ],
+  "tree-view": [
+    "icons"
+  ],
+  "treemap": [
+    "charts"
+  ],
+  "typewriter": [],
+  "uptime-bar": [
+    "charts"
+  ],
+  "user-menu": [
+    "avatar",
+    "dropdown-menu",
+    "icons"
+  ],
+  "venn-chart": [
+    "charts"
+  ],
+  "version-log": [
+    "badge",
+    "icons",
+    "segmented"
+  ],
+  "virtual-list": [],
+  "waffle-chart": [
+    "charts"
+  ],
+  "waterfall-chart": [
+    "charts"
+  ],
+  "week-strip": [
+    "icons"
+  ],
+  "word-cloud": [
+    "charts"
+  ],
+  "world-clock": [
+    "icons"
+  ]
+}

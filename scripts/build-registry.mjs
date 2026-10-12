@@ -63,6 +63,8 @@ for (const [kind, dir, prefix] of [['ui', 'src/components/ui', ''], ['blocks', '
   }
 }
 
+// The docs site lists "copy these files" from real imports, not hand-kept metadata (they drifted: 29 components were missing icons).
+writeFileSync('src/registry/requires.json', JSON.stringify(Object.fromEntries(docs.filter((d) => d.kind === 'ui').map((d) => [d.name, d.requires]).sort(([a], [b]) => a.localeCompare(b))), null, 2) + '\n');
 writeFileSync(`${out}/index.json`, JSON.stringify(items));
 writeFileSync(`${out}/init.json`, JSON.stringify({
   name: 'init',
@@ -83,7 +85,8 @@ const head = `# befui
 
 ## Setup
 - One time: \`npx github:RandomKid24/befui init\` (theme CSS, cn helper, AGENTS.md rules, .mcp.json)
-- Add: \`npx github:RandomKid24/befui add <name> [name...]\` or \`add all\`; blocks are \`block:<name>\`. It also installs npm packages and any befui files a component imports.
+- Add: \`npx github:RandomKid24/befui add <name> [name...]\` or \`add all\`; blocks are \`block:<name>\`. It also installs npm packages and any befui files a component imports. (There is no \`befui\` package on npm: \`npx befui\` will fail, always use the \`github:\` form.)
+- CLI blocked or GitHub unreachable? Do not retype components and never swap in another icon package. Fetch the JSON for the component (${RAW}/r/<name>.json, or the same \`/r/<name>.json\` path on the docs site), write every \`files[].content\` to \`src/<path>\`, do the same for every name in its \`requires\` (\`icons\` is the common one: r/icons.json, it holds every icon), \`npm i\` its \`deps\`, and merge \`r/init.json\` (cn helper, theme CSS) once.
 - Exact source of any component as JSON (files, npm deps, requires, example): ${RAW}/r/<name>.json (blocks: block-<name>.json). Every name below works in that URL.
 - MCP: \`npx github:RandomKid24/befui mcp\` gives tools list_components, get_component, add_components
 - Icons: our own set in \`@/components/ui/icons\`, e.g. \`import { SearchIcon } from '@/components/ui/icons'\`; no icon package needed
