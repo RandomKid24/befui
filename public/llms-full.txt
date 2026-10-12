@@ -21,8 +21,9 @@
 - Merge classes with `cn` from `@/lib/utils`. Edit copied files freely; `add <name> --force` overwrites local edits.
 
 ## Which component for what
+- Dates, delivery and changes: week-strip (pick a day), day-agenda (one day as a time grid), order-tracker (delivery steps), diff-viewer (before and after text), event-calendar (month and week), countdown
 - Status, ranking and reviews: uptime-bar (status page), leaderboard (ranked people), rating-breakdown (review summary), credit-card (card preview that flips, for checkout and add-card forms)
-- Draw a chart: trend over time: line-chart or area-chart (stacked); compare categories: charts BarChart or stacked-bar-chart; share of whole: DonutChart or radial-bar-chart; correlation or outliers: scatter-chart; day-by-hour or cohort grid: matrix-heatmap; yearly activity: heatmap; tiny trend in a card: Sparkline; live feed: live-chart; stages: funnel-chart; scores on axes: radar-chart; parts of a budget: treemap; start-to-end bridge (profit): waterfall-chart; flow between stages: sankey-chart; mix shifting over time: stream-chart; price range per period: candlestick-chart; rank changes: bump-chart; seasonal cycle: rose-chart; KPI vs target: bullet-chart; before vs after per item: dumbbell-chart; percent of 100 as squares: waffle-chart; nested breakdown: sunburst-chart; per-row curves: ridgeline-chart; spread and outliers: box-plot-chart; flow between every pair: chord-chart; parts of a whole: pie-chart (3 to 5 slices) or half-donut-chart (short card); cyclic data like 24 hours: radial-line-chart; distribution of raw values: histogram-chart; few causes behind most of a problem: pareto-chart; two moments per item: slope-chart or dumbbell-chart; two groups back to back: butterfly-chart; many ranked items: lollipop-chart. Five to eight scores as a pentagon or hexagon: radar-chart. The explanation of each chart (what it shows, how to read it, when to use or skip it) is in llms-full.txt; give it to the user when they ask what a chart means. All animate in on scroll.
+- Draw a chart: trend over time: line-chart or area-chart (stacked); compare categories: charts BarChart or stacked-bar-chart; share of whole: DonutChart or radial-bar-chart; correlation or outliers: scatter-chart; day-by-hour or cohort grid: matrix-heatmap; yearly activity: heatmap; tiny trend in a card: Sparkline; live feed: live-chart; stages: funnel-chart; scores on axes: radar-chart; parts of a budget: treemap; start-to-end bridge (profit): waterfall-chart; flow between stages: sankey-chart; mix shifting over time: stream-chart; price range per period: candlestick-chart; rank changes: bump-chart; seasonal cycle: rose-chart; KPI vs target: bullet-chart; before vs after per item: dumbbell-chart; percent of 100 as squares: waffle-chart; nested breakdown: sunburst-chart; per-row curves: ridgeline-chart; spread and outliers: box-plot-chart; flow between every pair: chord-chart; parts of a whole: pie-chart (3 to 5 slices) or half-donut-chart (short card); cyclic data like 24 hours: radial-line-chart; distribution of raw values: histogram-chart; few causes behind most of a problem: pareto-chart; two moments per item: slope-chart or dumbbell-chart; two groups back to back: butterfly-chart; many ranked items: lollipop-chart; bubbles by size: circle-pack-chart; share by size and group: marimekko-chart; dots sized by value in a grid: punch-card-chart; projection with a likely range: forecast-chart; overlap of two or three groups: venn-chart; frequent words: word-cloud. Five to eight scores as a pentagon or hexagon: radar-chart. The explanation of each chart (what it shows, how to read it, when to use or skip it) is in llms-full.txt; give it to the user when they ask what a chart means. All animate in on scroll.
 - Show tabular data: table (static), data-table (sort/filter/select/paginate), permission-matrix (roles by permissions), kanban (cards in columns), heatmap, charts, line-chart, radar-chart, funnel-chart, gantt (schedule), org-chart, saved-views (table presets), audit-log (who changed what), file-manager
 - Hint or explain on hover: tooltip (title, shortcut, arrow), InfoTip and TruncatedText (both exported by tooltip), popover for richer content
 - Pick a value: select, combobox, radio-group, segmented, chip, switch, checkbox, slider, calendar, date-picker, time-picker, color-picker
@@ -426,6 +427,35 @@ export default function OnboardingCarouselDemo() {
         { title: 'Apply for leave in seconds', description: 'Pick your dates, choose an approver and send. No emails, no spreadsheets.', visual: <CalendarIcon /> },
         { title: 'Know where your team is', description: 'See who is in, out or on leave today, right from the home screen.', visual: <UsersIcon /> },
         { title: 'Never miss an approval', description: 'Get a nudge when something needs your attention, and none when it does not.', visual: <BellIcon /> },
+      ]}
+    />
+  );
+}
+```
+
+## Order tracker (`order-tracker`)
+Delivery progress as steps joined by a line that fills up to the current one. Horizontal on wide screens, vertical on phones.
+- Group: Navigation
+- Add: `npx github:RandomKid24/befui add order-tracker`
+- Import: `import { OrderTracker } from '@/components/ui/order-tracker'`
+- Also needs: icons
+
+Example:
+
+```tsx
+import { OrderTracker } from '@/components/ui/order-tracker';
+
+export default function OrderTrackerDemo() {
+  return (
+    <OrderTracker
+      className="w-[40rem] max-w-full"
+      current={2}
+      steps={[
+        { label: 'Ordered', time: '10 Oct, 9:12 am' },
+        { label: 'Packed', time: '10 Oct, 6:40 pm' },
+        { label: 'Shipped', description: 'Pune hub', time: '11 Oct, 8:05 am' },
+        { label: 'Out for delivery' },
+        { label: 'Delivered' },
       ]}
     />
   );
@@ -2141,6 +2171,52 @@ export default function DescriptionListDemo() {
 }
 ```
 
+## Diff viewer (`diff-viewer`)
+Before and after text as a unified diff: red removed lines, green added lines, line numbers, and unchanged stretches folded.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add diff-viewer`
+- Import: `import { DiffViewer } from '@/components/ui/diff-viewer'`
+
+Example:
+
+```tsx
+import { DiffViewer } from '@/components/ui/diff-viewer';
+
+const before = `# Plan limits
+seats: 10
+storage_gb: 50
+support: email
+sso: false
+audit_log: false
+
+# Billing
+currency: INR
+tax_rate: 0.18
+invoice_prefix: INV
+net_days: 14
+late_fee_percent: 1.5
+`;
+const after = `# Plan limits
+seats: 25
+storage_gb: 100
+support: email
+sso: true
+audit_log: false
+
+# Billing
+currency: INR
+tax_rate: 0.18
+invoice_prefix: INV
+net_days: 14
+late_fee_percent: 1.5
+grace_days: 3
+`;
+
+export default function DiffViewerDemo() {
+  return <DiffViewer className="w-[36rem] max-w-full" title="plans.yml" before={before} after={after} context={1} />;
+}
+```
+
 ## Empty state (`empty-state`)
 Dashed placeholder with icon, text and an action.
 - Group: Display
@@ -3253,6 +3329,36 @@ export default function ChordChartDemo() {
 }
 ```
 
+## Circle pack chart (`circle-pack-chart`)
+One bubble per item, area by value, packed into a cluster. Bubbles pop out from the center biggest first; hover for the share.
+- Group: Data
+- What it shows: Bubbles packed together, one per item, where the area of each bubble is its value.
+- How to read it: A bigger bubble is a bigger value. Biggest sits in the middle. Compare areas, not widths. Hover a bubble for its exact share.
+- Use it for: Users by country, revenue by customer, tags by use: lots of items with a few giants and a long tail.
+- Skip it when: Close values (people misjudge circle area) and anything that needs an order. A lollipop or bar chart ranks better.
+- Add: `npx github:RandomKid24/befui add circle-pack-chart`
+- Import: `import { CirclePackChart } from '@/components/ui/circle-pack-chart'`
+- Also needs: charts
+
+Example:
+
+```tsx
+import { CirclePackChart } from '@/components/ui/circle-pack-chart';
+
+export default function CirclePackChartDemo() {
+  return (
+    <CirclePackChart
+      className="w-[34rem] max-w-full"
+      items={[
+        { label: 'India', value: 4200 }, { label: 'USA', value: 2600 }, { label: 'UAE', value: 1500 }, { label: 'UK', value: 1200 },
+        { label: 'Germany', value: 800 }, { label: 'Singapore', value: 700 }, { label: 'Canada', value: 520 }, { label: 'Brazil', value: 380 },
+        { label: 'Japan', value: 300 }, { label: 'Kenya', value: 160 }, { label: 'Chile', value: 90 },
+      ]}
+    />
+  );
+}
+```
+
 ## Comparison table (`comparison-table`)
 Plans across the top, features down the side, a check, dash or text in each cell. For pricing pages.
 - Group: Data
@@ -3490,6 +3596,37 @@ export default function FilterBarDemo() {
         { key: 'dept', label: 'Department', options: ['Engineering', 'Sales', 'People', 'Finance'] },
         { key: 'type', label: 'Type', options: ['Full-time', 'Contract', 'Intern'] },
       ]}
+    />
+  );
+}
+```
+
+## Forecast chart (`forecast-chart`)
+Solid line for what happened, dashed line inside a shaded band for what is expected. The band is the likely range.
+- Group: Data
+- What it shows: What happened so far, plus what we expect next with a range around it.
+- How to read it: The solid line is real data. After the vertical divider the dashed line is the prediction and the shaded band is the likely range. A wider band means less certainty.
+- Use it for: Revenue, demand or headcount projections where you want to show uncertainty honestly.
+- Skip it when: Predictions with no real uncertainty estimate: a band you made up is worse than a plain dashed line.
+- Add: `npx github:RandomKid24/befui add forecast-chart`
+- Import: `import { ForecastChart } from '@/components/ui/forecast-chart'`
+- Also needs: area-chart, charts
+
+Example:
+
+```tsx
+import { ForecastChart } from '@/components/ui/forecast-chart';
+
+export default function ForecastChartDemo() {
+  return (
+    <ForecastChart
+      className="w-[36rem] max-w-full"
+      format={(n) => `₹${n}L`}
+      labels={['Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb']}
+      actual={[42, 48, 45, 58, 63, 61, 72]}
+      forecast={[76, 81, 84, 90]}
+      low={[72, 74, 74, 77]}
+      high={[80, 88, 94, 103]}
     />
   );
 }
@@ -3832,6 +3969,39 @@ export default function LollipopChartDemo() {
 }
 ```
 
+## Marimekko chart (`marimekko-chart`)
+Stacked 100% bars whose widths also mean something: column width is group size, block height is mix. Columns grow up on scroll.
+- Group: Data
+- What it shows: Stacked 100% bars where the width of each column is also data. Also called a mosaic or Mekko chart.
+- How to read it: Column width is how big that group is. Block height is the mix inside it. A block's area is its share of everything. Hover a block for both percentages.
+- Use it for: Market share by region (wide regions are bigger markets), plan mix per customer segment.
+- Skip it when: More than five blocks per column, or when widths do not carry meaning: use a stacked bar chart.
+- Add: `npx github:RandomKid24/befui add marimekko-chart`
+- Import: `import { MarimekkoChart } from '@/components/ui/marimekko-chart'`
+- Also needs: charts
+
+Example:
+
+```tsx
+import { MarimekkoChart } from '@/components/ui/marimekko-chart';
+
+export default function MarimekkoChartDemo() {
+  return (
+    <MarimekkoChart
+      className="w-[36rem] max-w-full"
+      format={(n) => `₹${n}L`}
+      keys={[{ key: 'pro', label: 'Pro' }, { key: 'biz', label: 'Business', color: 'text-success' }, { key: 'starter', label: 'Starter', color: 'text-warning' }]}
+      columns={[
+        { label: 'North', values: { pro: 40, biz: 30, starter: 10 } },
+        { label: 'West', values: { pro: 55, biz: 50, starter: 20 } },
+        { label: 'South', values: { pro: 30, biz: 20, starter: 25 } },
+        { label: 'East', values: { pro: 10, biz: 8, starter: 12 } },
+      ]}
+    />
+  );
+}
+```
+
 ## Matrix heatmap (`matrix-heatmap`)
 Rows by columns shaded by value: traffic by hour and weekday, cohort retention. Cells fade in as a wave; hover lights up the row and column.
 - Group: Data
@@ -4095,6 +4265,31 @@ export default function ProgressRingDemo() {
       <button className="text-sm text-primary hover:underline" onClick={() => setV((x) => (x === 72 ? 30 : 72))}>Animate</button>
     </div>
   );
+}
+```
+
+## Punch card chart (`punch-card-chart`)
+A grid of dots where dot size is the value, like commits by weekday and hour. Dots pop in on a diagonal wave.
+- Group: Data
+- What it shows: A grid of dots where the size of a dot is the value.
+- How to read it: Find a row and a column; a bigger dot where they meet is a bigger value. Look for rows or columns with big dots in a line.
+- Use it for: Commits by weekday and hour, tickets by day and shift, orders by slot. Smaller grids than a heatmap.
+- Skip it when: Large grids over about 10 by 24, where dots blur together. Use a matrix heatmap.
+- Add: `npx github:RandomKid24/befui add punch-card-chart`
+- Import: `import { PunchCardChart } from '@/components/ui/punch-card-chart'`
+- Also needs: charts
+
+Example:
+
+```tsx
+import { PunchCardChart } from '@/components/ui/punch-card-chart';
+
+const rows = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+const cols = ['6a', '8a', '10a', '12p', '2p', '4p', '6p', '8p', '10p'];
+const values = rows.map((_, r) => cols.map((_, c) => Math.max(0, Math.round((r > 4 ? 4 : 18) * (1 + Math.sin((c + 1) * 0.9) * 0.9) + ((r * 5 + c * 11) % 7) - 3))));
+
+export default function PunchCardChartDemo() {
+  return <PunchCardChart className="w-[34rem] max-w-full" rows={rows} cols={cols} values={values} format={(n) => `${n} commits`} />;
 }
 ```
 
@@ -4610,6 +4805,32 @@ export default function UptimeBarDemo() {
 }
 ```
 
+## Venn chart (`venn-chart`)
+Two or three overlapping circles with a count in every region: who is in one group, who is in several.
+- Group: Data
+- What it shows: Overlapping circles showing what groups share. Two or three sets.
+- How to read it: Each circle is a group. The number where circles overlap is how many are in both groups. The number in the part of a circle that does not overlap is those in only that group.
+- Use it for: Customers on web, app or both; skills shared between teams; audience overlap.
+- Skip it when: More than three groups (circles cannot show every overlap). Use an upset plot or a table. Circle sizes here do not scale with the counts.
+- Add: `npx github:RandomKid24/befui add venn-chart`
+- Import: `import { VennChart } from '@/components/ui/venn-chart'`
+- Also needs: charts
+
+Example:
+
+```tsx
+import { VennChart } from '@/components/ui/venn-chart';
+
+export default function VennChartDemo() {
+  return (
+    <VennChart
+      sets={[{ id: 'web', label: 'Web users' }, { id: 'app', label: 'App users' }, { id: 'api', label: 'API users' }]}
+      values={{ web: 420, app: 310, api: 90, 'web+app': 180, 'web+api': 40, 'app+api': 35, 'web+app+api': 22 }}
+    />
+  );
+}
+```
+
 ## Virtual list (`virtual-list`)
 Windowed list that renders only the visible rows. 100,000 items stay smooth.
 - Group: Data
@@ -4702,6 +4923,33 @@ export default function WaterfallChartDemo() {
         { label: 'Tax', value: -9 },
         { label: 'Profit', value: 32, total: true },
       ]}
+    />
+  );
+}
+```
+
+## Word cloud (`word-cloud`)
+Words sized by how often they appear, biggest in the middle. Words grow in; hover to focus one, or make them clickable filters.
+- Group: Data
+- What it shows: The words used most, sized by how often they appear.
+- How to read it: A bigger word was used more. Position does not matter except that the biggest words sit near the middle. Hover a word for its count.
+- Use it for: Survey answers, support topics, search terms: a quick feel for what people talk about.
+- Skip it when: Precise comparison (use a lollipop or bar chart) and long phrases. It also hides context, so do not use it for decisions alone.
+- Add: `npx github:RandomKid24/befui add word-cloud`
+- Import: `import { WordCloud } from '@/components/ui/word-cloud'`
+- Also needs: charts
+
+Example:
+
+```tsx
+import { WordCloud } from '@/components/ui/word-cloud';
+
+export default function WordCloudDemo() {
+  const w = (text: string, value: number) => ({ text, value });
+  return (
+    <WordCloud
+      className="w-[36rem] max-w-full"
+      words={[w('pricing', 98), w('login', 84), w('export', 61), w('invoice', 57), w('slow', 52), w('mobile', 48), w('refund', 40), w('API', 38), w('dark mode', 33), w('SSO', 30), w('billing', 28), w('search', 24), w('import', 22), w('webhook', 19), w('GST', 17), w('crash', 15), w('reports', 14), w('onboarding', 12), w('widgets', 10), w('timezone', 9)]}
     />
   );
 }
@@ -5431,6 +5679,36 @@ export default function AnalogClockDemo() {
 }
 ```
 
+## Day agenda (`day-agenda`)
+One day as a time grid: events sit at their time, overlapping ones share the width, a red now-line marks the time.
+- Group: Time
+- Add: `npx github:RandomKid24/befui add day-agenda`
+- Import: `import { DayAgenda } from '@/components/ui/day-agenda'`
+
+Example:
+
+```tsx
+import { DayAgenda } from '@/components/ui/day-agenda';
+
+export default function DayAgendaDemo() {
+  return (
+    <DayAgenda
+      className="w-[30rem] max-w-full"
+      height={420}
+      now="11:20"
+      onSelect={() => {}}
+      events={[
+        { id: '1', title: 'Stand-up', start: '09:00', end: '09:30', location: 'Room 2' },
+        { id: '2', title: 'Design review', start: '10:00', end: '11:30', location: 'Zoom', color: 'text-success' },
+        { id: '3', title: '1:1 with Isha', start: '10:30', end: '11:00', color: 'text-warning' },
+        { id: '4', title: 'Lunch', start: '13:00', end: '14:00', color: 'text-info' },
+        { id: '5', title: 'Sprint planning', start: '15:00', end: '17:00', location: 'Main hall' },
+      ]}
+    />
+  );
+}
+```
+
 ## Event calendar (`event-calendar`)
 Month view with events on their days, multi-day spans, +n more overflow, locale-aware names and RTL arrows.
 - Group: Time
@@ -5550,6 +5828,33 @@ import { toast } from '@/components/ui/toast';
 
 export default function TimerDemo() {
   return <Timer onDone={() => toast.success('Time is up')} />;
+}
+```
+
+## Week strip (`week-strip`)
+Seven day pills with previous and next week arrows, a selected day and dots under days that have something. Arrow keys move the day.
+- Group: Time
+- Add: `npx github:RandomKid24/befui add week-strip`
+- Import: `import { WeekStrip } from '@/components/ui/week-strip'`
+- Also needs: icons
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { WeekStrip } from '@/components/ui/week-strip';
+
+export default function WeekStripDemo() {
+  const [day, setDay] = React.useState(() => new Date());
+  const iso = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  const t = new Date();
+  const at = (n: number) => { const d = new Date(t); d.setDate(d.getDate() + n); return iso(d); };
+  return (
+    <div className="grid w-[26rem] max-w-full gap-3">
+      <WeekStrip value={day} onChange={setDay} marks={{ [at(-1)]: 1, [at(0)]: 2, [at(1)]: 3, [at(3)]: true }} />
+      <p className="text-center text-xs text-muted-foreground">Selected: {day.toDateString()}</p>
+    </div>
+  );
 }
 ```
 

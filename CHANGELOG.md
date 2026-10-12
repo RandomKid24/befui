@@ -5,17 +5,18 @@ All notable changes to befui. Versions follow [semver](https://semver.org): new 
 
 ## 1.6.0 - 2026-10-12
 
-28 animated charts with how-to-read guides, 13 page blocks, 12 building parts and 90 more icons
+34 animated charts with how-to-read guides, 13 page blocks, 16 building parts and 90 more icons
 
 - **Added:** Chart guides: every chart page has a "New to this chart? Start here" panel that says what it shows, how to read it, when to use it and when to skip it. The same text is in llms-full.txt, so an AI can explain a chart to your users. (Charts, Line chart, Radar chart, Area chart, Treemap, Sankey chart, Box plot chart, Chord chart)
-- **Added:** Everyday charts: pie, half donut, area (stacked or overlapping), stacked bar, histogram, lollipop and scatter or bubble. Each plays its entrance when scrolled into view. (Pie chart, Half donut chart, Area chart, Stacked bar chart, Histogram chart, Lollipop chart, Scatter chart)
-- **Added:** Comparison charts: slope, dumbbell, bullet, butterfly, bump (rank over time), Pareto (the 80/20 view) and waterfall. (Slope chart, Dumbbell chart, Bullet chart, Butterfly chart, Bump chart, Pareto chart, Waterfall chart)
+- **Added:** Everyday charts: pie, half donut, area (stacked or overlapping), stacked bar, histogram, lollipop, scatter or bubble, circle packing and word cloud. Each plays its entrance when scrolled into view. (Pie chart, Half donut chart, Area chart, Stacked bar chart, Histogram chart, Lollipop chart, Scatter chart, Circle pack chart, Word cloud)
+- **Added:** Comparison charts: slope, dumbbell, bullet, butterfly, bump (rank over time), Pareto (the 80/20 view), waterfall, forecast with a confidence band and Marimekko. (Slope chart, Dumbbell chart, Bullet chart, Butterfly chart, Bump chart, Pareto chart, Waterfall chart, Forecast chart, Marimekko chart)
 - **Added:** Flow and hierarchy charts: Sankey, chord, treemap, sunburst and streamgraph. Ribbons draw in, tiles spring, rings sweep. (Sankey chart, Chord chart, Treemap, Sunburst chart, Stream chart)
 - **Added:** Circular charts: radial bar, radial line, rose and waffle. The radar (pentagon) chart now grows out from the center too. (Radial bar chart, Radial line chart, Rose chart, Waffle chart, Radar chart)
-- **Added:** Distribution and live charts: box plot, ridgeline, matrix heatmap, candlestick, and a live streaming chart that slides as new values arrive. (Box plot chart, Ridgeline chart, Matrix heatmap, Candlestick chart, Live chart)
+- **Added:** Distribution and live charts: box plot, ridgeline, matrix heatmap, punch card, Venn, candlestick, and a live streaming chart that slides as new values arrive. (Box plot chart, Ridgeline chart, Matrix heatmap, Candlestick chart, Live chart, Punch card chart, Venn chart)
 - **Added:** New blocks for common pages: analytics dashboard, ecommerce dashboard, project overview, user management, profile, billing, API keys, invoice, checkout, landing page, inbox, top-nav layout and a 404 page. (Analytics dashboard, Ecommerce dashboard, Project overview, User management, Profile page, Billing page, API keys page, Invoice page, Checkout page, Landing page, Inbox, Top-nav layout, Not found page)
 - **Added:** Page building parts: theme toggle, user menu, settings layout, description list, bar list, comparison table, invoice and landing sections (hero, feature grid, stats, FAQ, CTA banner, footer). (Theme toggle, User menu, Settings layout, Description list, Bar list, Comparison table, Invoice, Landing sections)
 - **Added:** More building blocks: uptime bar for status pages, leaderboard with rank badges, rating breakdown for reviews, and a credit card preview that flips in 3D. (Uptime bar, Leaderboard, Rating breakdown, Credit card)
+- **Added:** More everyday parts: week strip for picking a day, order tracker for delivery progress, diff viewer for before and after text, and a day agenda time grid with overlapping events. (Week strip, Order tracker, Diff viewer, Day agenda)
 - **Added:** About 90 new icons: arrows, finance, files, devices, status, layout, people and editor tools.
 - **Changed:** Chart entrances: sparkline, bar chart, donut and line chart now wipe, grow or sweep in when scrolled into view, and skip it for reduced motion. (Charts, Line chart)
 - **Changed:** AI docs: llms.txt now has a page-recipe section (which blocks and parts to combine for a dashboard, settings page, landing page and more) and a block index grouped by purpose.

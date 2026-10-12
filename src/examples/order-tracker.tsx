@@ -1,0 +1,17 @@
+import { OrderTracker } from '@/components/ui/order-tracker';
+
+export default function OrderTrackerDemo() {
+  return (
+    <OrderTracker
+      className="w-[40rem] max-w-full"
+      current={2}
+      steps={[
+        { label: 'Ordered', time: '10 Oct, 9:12 am' },
+        { label: 'Packed', time: '10 Oct, 6:40 pm' },
+        { label: 'Shipped', description: 'Pune hub', time: '11 Oct, 8:05 am' },
+        { label: 'Out for delivery' },
+        { label: 'Delivered' },
+      ]}
+    />
+  );
+}

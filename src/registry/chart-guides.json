@@ -226,5 +226,41 @@
     "read": "Green is up, amber is slow or partly down, red is down. The percentage is how much of the period was healthy. Hover a tick for the date and what happened.",
     "use": "Service status pages, monitoring dashboards.",
     "avoid": "Short or irregular monitoring data. Use a line chart of response time."
+  },
+  "circle-pack-chart": {
+    "what": "Bubbles packed together, one per item, where the area of each bubble is its value.",
+    "read": "A bigger bubble is a bigger value. Biggest sits in the middle. Compare areas, not widths. Hover a bubble for its exact share.",
+    "use": "Users by country, revenue by customer, tags by use: lots of items with a few giants and a long tail.",
+    "avoid": "Close values (people misjudge circle area) and anything that needs an order. A lollipop or bar chart ranks better."
+  },
+  "marimekko-chart": {
+    "what": "Stacked 100% bars where the width of each column is also data. Also called a mosaic or Mekko chart.",
+    "read": "Column width is how big that group is. Block height is the mix inside it. A block's area is its share of everything. Hover a block for both percentages.",
+    "use": "Market share by region (wide regions are bigger markets), plan mix per customer segment.",
+    "avoid": "More than five blocks per column, or when widths do not carry meaning: use a stacked bar chart."
+  },
+  "punch-card-chart": {
+    "what": "A grid of dots where the size of a dot is the value.",
+    "read": "Find a row and a column; a bigger dot where they meet is a bigger value. Look for rows or columns with big dots in a line.",
+    "use": "Commits by weekday and hour, tickets by day and shift, orders by slot. Smaller grids than a heatmap.",
+    "avoid": "Large grids over about 10 by 24, where dots blur together. Use a matrix heatmap."
+  },
+  "forecast-chart": {
+    "what": "What happened so far, plus what we expect next with a range around it.",
+    "read": "The solid line is real data. After the vertical divider the dashed line is the prediction and the shaded band is the likely range. A wider band means less certainty.",
+    "use": "Revenue, demand or headcount projections where you want to show uncertainty honestly.",
+    "avoid": "Predictions with no real uncertainty estimate: a band you made up is worse than a plain dashed line."
+  },
+  "venn-chart": {
+    "what": "Overlapping circles showing what groups share. Two or three sets.",
+    "read": "Each circle is a group. The number where circles overlap is how many are in both groups. The number in the part of a circle that does not overlap is those in only that group.",
+    "use": "Customers on web, app or both; skills shared between teams; audience overlap.",
+    "avoid": "More than three groups (circles cannot show every overlap). Use an upset plot or a table. Circle sizes here do not scale with the counts."
+  },
+  "word-cloud": {
+    "what": "The words used most, sized by how often they appear.",
+    "read": "A bigger word was used more. Position does not matter except that the biggest words sit near the middle. Hover a word for its count.",
+    "use": "Survey answers, support topics, search terms: a quick feel for what people talk about.",
+    "avoid": "Precise comparison (use a lollipop or bar chart) and long phrases. It also hides context, so do not use it for decisions alone."
   }
 }

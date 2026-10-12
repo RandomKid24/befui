@@ -21,8 +21,9 @@
 - Merge classes with `cn` from `@/lib/utils`. Edit copied files freely; `add <name> --force` overwrites local edits.
 
 ## Which component for what
+- Dates, delivery and changes: week-strip (pick a day), day-agenda (one day as a time grid), order-tracker (delivery steps), diff-viewer (before and after text), event-calendar (month and week), countdown
 - Status, ranking and reviews: uptime-bar (status page), leaderboard (ranked people), rating-breakdown (review summary), credit-card (card preview that flips, for checkout and add-card forms)
-- Draw a chart: trend over time: line-chart or area-chart (stacked); compare categories: charts BarChart or stacked-bar-chart; share of whole: DonutChart or radial-bar-chart; correlation or outliers: scatter-chart; day-by-hour or cohort grid: matrix-heatmap; yearly activity: heatmap; tiny trend in a card: Sparkline; live feed: live-chart; stages: funnel-chart; scores on axes: radar-chart; parts of a budget: treemap; start-to-end bridge (profit): waterfall-chart; flow between stages: sankey-chart; mix shifting over time: stream-chart; price range per period: candlestick-chart; rank changes: bump-chart; seasonal cycle: rose-chart; KPI vs target: bullet-chart; before vs after per item: dumbbell-chart; percent of 100 as squares: waffle-chart; nested breakdown: sunburst-chart; per-row curves: ridgeline-chart; spread and outliers: box-plot-chart; flow between every pair: chord-chart; parts of a whole: pie-chart (3 to 5 slices) or half-donut-chart (short card); cyclic data like 24 hours: radial-line-chart; distribution of raw values: histogram-chart; few causes behind most of a problem: pareto-chart; two moments per item: slope-chart or dumbbell-chart; two groups back to back: butterfly-chart; many ranked items: lollipop-chart. Five to eight scores as a pentagon or hexagon: radar-chart. The explanation of each chart (what it shows, how to read it, when to use or skip it) is in llms-full.txt; give it to the user when they ask what a chart means. All animate in on scroll.
+- Draw a chart: trend over time: line-chart or area-chart (stacked); compare categories: charts BarChart or stacked-bar-chart; share of whole: DonutChart or radial-bar-chart; correlation or outliers: scatter-chart; day-by-hour or cohort grid: matrix-heatmap; yearly activity: heatmap; tiny trend in a card: Sparkline; live feed: live-chart; stages: funnel-chart; scores on axes: radar-chart; parts of a budget: treemap; start-to-end bridge (profit): waterfall-chart; flow between stages: sankey-chart; mix shifting over time: stream-chart; price range per period: candlestick-chart; rank changes: bump-chart; seasonal cycle: rose-chart; KPI vs target: bullet-chart; before vs after per item: dumbbell-chart; percent of 100 as squares: waffle-chart; nested breakdown: sunburst-chart; per-row curves: ridgeline-chart; spread and outliers: box-plot-chart; flow between every pair: chord-chart; parts of a whole: pie-chart (3 to 5 slices) or half-donut-chart (short card); cyclic data like 24 hours: radial-line-chart; distribution of raw values: histogram-chart; few causes behind most of a problem: pareto-chart; two moments per item: slope-chart or dumbbell-chart; two groups back to back: butterfly-chart; many ranked items: lollipop-chart; bubbles by size: circle-pack-chart; share by size and group: marimekko-chart; dots sized by value in a grid: punch-card-chart; projection with a likely range: forecast-chart; overlap of two or three groups: venn-chart; frequent words: word-cloud. Five to eight scores as a pentagon or hexagon: radar-chart. The explanation of each chart (what it shows, how to read it, when to use or skip it) is in llms-full.txt; give it to the user when they ask what a chart means. All animate in on scroll.
 - Show tabular data: table (static), data-table (sort/filter/select/paginate), permission-matrix (roles by permissions), kanban (cards in columns), heatmap, charts, line-chart, radar-chart, funnel-chart, gantt (schedule), org-chart, saved-views (table presets), audit-log (who changed what), file-manager
 - Hint or explain on hover: tooltip (title, shortcut, arrow), InfoTip and TruncatedText (both exported by tooltip), popover for richer content
 - Pick a value: select, combobox, radio-group, segmented, chip, switch, checkbox, slider, calendar, date-picker, time-picker, color-picker
@@ -60,7 +61,7 @@ Add the block with `add block:<name>`; it pulls in everything it uses. Layout fr
 Import from `@/components/ui/icons`. Use only these names; do not guess or add an icon package. Props: className (size-4 default, e.g. size-5), weight, draw.
 SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, ChevronRightIcon, SunIcon, MoonIcon, SparkleIcon, ZapIcon, ComponentsIcon, BlocksIcon, LayersIcon, PackageIcon, PaletteIcon, BookIcon, CommandKeyIcon, MonitorIcon, TabletIcon, PhoneIcon, UploadIcon, ChevronLeftIcon, ChevronDownIcon, ChevronUpIcon, ArrowLeftIcon, ArrowUpIcon, ArrowDownIcon, SortIcon, MinusIcon, MoreIcon, RefreshIcon, InfoIcon, AlertIcon, AlertCircleIcon, CheckCircleIcon, XCircleIcon, LoaderIcon, ShieldIcon, UserIcon, UsersIcon, MailIcon, BellIcon, CalendarIcon, ClockIcon, HomeIcon, SettingsIcon, LockIcon, GlobeIcon, StarIcon, HeartIcon, BookmarkIcon, EditIcon, TrashIcon, DownloadIcon, FilterIcon, EyeIcon, EyeOffIcon, LinkIcon, ExternalLinkIcon, LogOutIcon, ListIcon, FileIcon, FolderIcon, ImageIcon, PlayIcon, PauseIcon, BarChartIcon, TrendingIcon, CodeIcon, TerminalIcon, ArchiveIcon, CakeIcon, CreditCardIcon, FolderInputIcon, GitMergeIcon, InboxIcon, IndianRupeeIcon, LayoutDashboardIcon, LayoutGridIcon, MegaphoneIcon, MessageSquareIcon, MousePointerClickIcon, PanelLeftIcon, SaveIcon, Share2Icon, TargetIcon, UserCircleIcon, UserMinusIcon, UserPlusIcon, WalletIcon, ArrowUpRightIcon, ArrowDownRightIcon, PrinterIcon, CallIcon, MapPinIcon, CameraIcon, MicIcon, VideoIcon, WifiIcon, BatteryIcon, BluetoothIcon, ShareIcon, SendIcon, PaperclipIcon, TagIcon, FlagIcon, PinIcon, ThumbsUpIcon, SmileIcon, KeyIcon, UnlockIcon, TableIcon, DatabaseIcon, ServerIcon, CloudIcon, CloudUploadIcon, PieChartIcon, LineChartIcon, ActivityIcon, PercentIcon, CalculatorIcon, ReceiptIcon, TruckIcon, ShoppingCartIcon, ShoppingBagIcon, GiftIcon, BriefcaseIcon, BuildingIcon, GraduationCapIcon, AwardIcon, TrophyIcon, RocketIcon, LightbulbIcon, FlameIcon, DropletIcon, LeafIcon, MoreVerticalIcon, GripIcon, MaximizeIcon, MinimizeIcon, ZoomInIcon, ZoomOutIcon, UndoIcon, RedoIcon, BoldIcon, ItalicIcon, UnderlineIcon, AlignLeftIcon, AlignCenterIcon, QuoteIcon, HashIcon, AtSignIcon, GitBranchIcon, HelpCircleIcon, ShieldCheckIcon, BanIcon, LifeBuoyIcon, PowerIcon, TimerIcon, HourglassIcon, CompassIcon, MapIcon, NavigationIcon, BoxIcon, CornerDownRightIcon, ChevronsLeftIcon, ChevronsRightIcon, PlusCircleIcon, MinusCircleIcon, UserCheckIcon, FileTextIcon, FileSpreadsheetIcon, FolderPlusIcon, FolderOpenIcon, KanbanIcon, PanelRightIcon, ColumnsIcon, TextIcon, ClipboardIcon, ClipboardCheckIcon, CheckSquareIcon, SquareIcon, CircleIcon, VolumeIcon, VolumeOffIcon, SkipForwardIcon, SkipBackIcon, ChevronsUpDownIcon, ArrowUpLeftIcon, ArrowDownLeftIcon, ReplyIcon, ForwardIcon, RepeatIcon, ShuffleIcon, MoveIcon, RotateCwIcon, RotateCcwIcon, HistoryIcon, LogInIcon, SlidersIcon, ToggleIcon, GaugeIcon, ChartAreaIcon, BarChartHorizontalIcon, TrendingDownIcon, ListChecksIcon, LayoutListIcon, PanelTopIcon, PanelBottomIcon, RowsIcon, GridIcon, SidebarLeftIcon, WorkflowIcon, NetworkIcon, DiamondIcon, TriangleIcon, HexagonIcon, CircleDotIcon, AsteriskIcon, BellOffIcon, BellRingIcon, MailOpenIcon, MessageCircleIcon, IdCardIcon, UserXIcon, BadgeCheckIcon, CrownIcon, GemIcon, MedalIcon, WandIcon, BotIcon, MehIcon, FrownIcon, BanknoteIcon, CoinsIcon, DollarSignIcon, LandmarkIcon, StoreIcon, TicketIcon, WarehouseIcon, Building2Icon, ScaleIcon, FileCodeIcon, FilePlusIcon, FileCheckIcon, ClipboardListIcon, StickyNoteIcon, NewspaperIcon, RssIcon, FilmIcon, MusicIcon, HeadphonesIcon, CpuIcon, HardDriveIcon, LaptopIcon, PlugIcon, CloudDownloadIcon, WifiOffIcon, ScanIcon, QrCodeIcon, BugIcon, FlaskIcon, ShieldAlertIcon, OctagonAlertIcon, TriangleAlertIcon, CalendarCheckIcon, AlarmClockIcon, ThermometerIcon, CoffeeIcon, CarIcon, PillIcon, TypeIcon, StrikethroughIcon, AlignRightIcon, TranslateIcon, ContrastIcon, ScissorsIcon, CropIcon, RulerIcon
 
-## Components (182)
+## Components (192)
 
 ### Layout (5)
 - `app-shell`: Sidebar, topbar and scrolling content area, plus a page header. Exports: AppShell, Topbar, AppContent, PageHeader. Needs: sidebar.
@@ -69,12 +70,13 @@ SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, Chev
 - `sidebar`: Collapsible nav with groups, nested links and badges. Icon rail on desktop, slide-over on mobile. Exports: useSidebar, SidebarProvider, SidebarTrigger, Sidebar, SidebarHeader, SidebarContent, SidebarFooter, SidebarGroup, .... Needs: dialog, icons, tooltip.
 - `split-pane`: Two resizable panels with a draggable divider. Keyboard resizable. Horizontal or vertical. Exports: SplitPane.
 
-### Navigation (12)
+### Navigation (13)
 - `bottom-nav`: Mobile tab bar with icons, labels, an active pill and count badges. Exports: BottomNav.
 - `breadcrumb`: Trail of parent pages. Exports: Breadcrumb. Needs: icons.
 - `dock`: Icons that grow toward the pointer, like the macOS dock. Exports: Dock.
 - `navbar`: Top bar with brand, links and actions that folds into a menu on small screens. Exports: Navbar. Needs: icons.
 - `onboarding-carousel`: Mobile first-run intro with swipeable slides, dots, Skip and a final Get started button. Exports: OnboardingCarousel. Needs: button.
+- `order-tracker`: Delivery progress as steps joined by a line that fills up to the current one. Horizontal on wide screens, vertical on phones. Exports: OrderTracker. Needs: icons.
 - `pagination`: Page buttons with ellipsis for long ranges. Exports: Pagination. Needs: icons.
 - `scroll-progress`: Thin bar that fills as you scroll the page or a container. Exports: ScrollProgress.
 - `stepper`: Horizontal steps for multi-step forms and onboarding. Exports: Stepper. Needs: icons.
@@ -124,7 +126,7 @@ SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, Chev
 - `theme-toggle`: Icon button that flips light and dark mode and remembers the choice. Also exports a useTheme hook. Exports: useTheme, ThemeToggle. Needs: button, icons.
 - `toggle`: Two-state button for favourite, bold or mute. Announces its state to screen readers. Exports: Toggle.
 
-### Display (42)
+### Display (43)
 - `accordion`: Collapsible sections with a smooth height animation. Single or multiple open. Exports: Accordion. Needs: icons.
 - `activity-feed`: Who did what and when, grouped under Today and Yesterday, with live relative times and an optional quoted detail. Exports: ActivityFeed. Needs: avatar, relative-time.
 - `approval-flow`: Chain of approvers with decisions, comments and times. The current approver gets Approve and Reject buttons. Exports: ApprovalFlow. Needs: avatar, button, icons.
@@ -141,6 +143,7 @@ SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, Chev
 - `compare`: Before and after slider. Drag or use arrow keys. Exports: Compare.
 - `credit-card`: Payment card preview that flips in 3D to show the CVV. Formats as the user types, guesses Visa, Mastercard, AmEx or RuPay, and can mask the number. Exports: CreditCard.
 - `description-list`: Label and value pairs for a details panel, in one to three columns, optionally with dividers. Exports: DescriptionList.
+- `diff-viewer`: Before and after text as a unified diff: red removed lines, green added lines, line numbers, and unchanged stretches folded. Exports: DiffViewer.
 - `empty-state`: Dashed placeholder with icon, text and an action. Exports: EmptyState.
 - `format`: formatCurrency, formatCompact, formatPercent, formatBytes, formatDuration and a signed Currency component. Indian rupees by default. Exports: formatCurrency, formatCompact, formatPercent, formatBytes, formatDuration, Currency.
 - `invoice`: Printable invoice with number, status, from and bill-to, line items, tax and total computed from the lines. Exports: Invoice. Needs: badge.
@@ -168,7 +171,7 @@ SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, Chev
 - `typewriter`: Types, holds and deletes phrases in a loop. Static for reduced motion. Exports: Typewriter.
 - `version-log`: Animated version history: the rail draws and dots pop as releases scroll in, entries slide in one by one, releases fold open, with a version jump strip and a kind filter. Exports: VersionLog. Needs: badge, icons, segmented.
 
-### Data (55)
+### Data (61)
 - `area-chart`: Smooth gradient areas, stacked or overlapping, that wipe in on scroll. Hover for a readout across series. Exports: smoothPath, AreaChart. Needs: charts.
 - `audit-log`: Who changed what and when, with expandable before and after values. Exports: AuditLog. Needs: avatar, badge, icons.
 - `bar-list`: Ranked list with a bar behind each row: top pages, products, sources, countries. Exports: BarList.
@@ -179,12 +182,14 @@ SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, Chev
 - `candlestick-chart`: Open, high, low and close per period. Green closed up, red closed down. Candles grow from their midpoint in sequence; hover for the four numbers. Exports: CandlestickChart. Needs: charts.
 - `charts`: Sparkline, bar chart and donut in plain SVG. No chart library. Exports: useChartIn, Sparkline, BarChart, DonutChart.
 - `chord-chart`: Flow between every pair of items around a circle. Arcs sweep in, then ribbons fade in; hover an item to keep only its ribbons. Exports: ChordChart. Needs: charts.
+- `circle-pack-chart`: One bubble per item, area by value, packed into a cluster. Bubbles pop out from the center biggest first; hover for the share. Exports: CirclePackChart. Needs: charts.
 - `comparison-table`: Plans across the top, features down the side, a check, dash or text in each cell. For pricing pages. Exports: ComparisonTable. Needs: icons.
 - `countdown`: Live countdown with flipping digits. Exports: Countdown.
 - `data-table`: Sortable columns, a search box and pagination, with optional row selection and bulk actions, column visibility menu, sticky header, toolbar slot, row action menus and clickable rows. You pass rows and column definitions. Exports: DataTable. Needs: button, checkbox, dropdown-menu, icons, pagination, table.
 - `dumbbell-chart`: Change per item as two dots joined by a line: before and after, plan and actual. Green when good, red when bad. Exports: DumbbellChart. Needs: charts.
 - `file-manager`: Folder browser with breadcrumb, list and grid views, selection and double-click or Enter to open. Exports: FileManager. Needs: icons.
 - `filter-bar`: Removable filter chips with an Add filter menu: pick a field, then a value. Exports: FilterBar. Needs: button, icons, popover.
+- `forecast-chart`: Solid line for what happened, dashed line inside a shaded band for what is expected. The band is the likely range. Exports: ForecastChart. Needs: area-chart, charts.
 - `funnel-chart`: Conversion funnel with a bar per stage and the step-to-step rate. Exports: FunnelChart.
 - `gantt`: Schedule view with a bar per task, progress fill, weekend shading and a today line. Exports: Gantt.
 - `gauge`: Half-circle meter with a needle that swings to the value. Exports: Gauge.
@@ -196,6 +201,7 @@ SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, Chev
 - `line-chart`: Multi-series line or area chart in plain SVG with grid, axis labels, legend and a hover readout. Exports: LineChart. Needs: charts.
 - `live-chart`: Streaming line chart that slides left as new values arrive. You give it a function for the next value; pause it any time. Exports: LiveChart.
 - `lollipop-chart`: A bar chart as a thin stick with a dot on the end, sorted largest first. Lighter than bars when there are many items. Exports: LollipopChart. Needs: charts.
+- `marimekko-chart`: Stacked 100% bars whose widths also mean something: column width is group size, block height is mix. Columns grow up on scroll. Exports: MarimekkoChart. Needs: charts.
 - `matrix-heatmap`: Rows by columns shaded by value: traffic by hour and weekday, cohort retention. Cells fade in as a wave; hover lights up the row and column. Exports: MatrixHeatmap. Needs: charts.
 - `number-ticker`: Counts up to a value with easing once it scrolls into view. Exports: NumberTicker.
 - `org-chart`: Reporting tree with connector lines and collapsible teams. Exports: OrgChart. Needs: avatar, icons.
@@ -205,6 +211,7 @@ SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, Chev
 - `pivot-table`: Cross-tab of your rows: one field down the side, another across the top, sum, count, average, min or max in each cell, with totals and heat shading. Exports: PivotTable.
 - `progress`: Thin progress bar with four tones. Exports: Progress.
 - `progress-ring`: Circular progress with an eased stroke animation. Exports: ProgressRing.
+- `punch-card-chart`: A grid of dots where dot size is the value, like commits by weekday and hour. Dots pop in on a diagonal wave. Exports: PunchCardChart. Needs: charts.
 - `radar-chart`: Spider chart for several scores on the same axes: a pentagon with five, a hexagon with six. Shapes grow from the center on scroll; hover a legend name to highlight a series. Exports: RadarChart. Needs: charts.
 - `radial-bar-chart`: Concentric rings, one per goal, that sweep in on scroll. Legend hover highlights a ring; the middle takes any content. Exports: RadialBarChart. Needs: charts.
 - `radial-line-chart`: A line chart bent into a circle for things that repeat: 24 hours, 12 months. A smooth closed shape grows from the middle. Exports: RadialLineChart. Needs: charts.
@@ -221,9 +228,11 @@ SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, Chev
 - `tree-table`: Table whose rows have child rows. Expand and collapse branches by click or arrow keys. Exports: TreeTable. Needs: icons.
 - `treemap`: Tiles sized by value, packed to stay square. Budget by team, revenue by product. Spring in on scroll; hover lifts one tile and dims the rest. Exports: Treemap. Needs: charts.
 - `uptime-bar`: Status-page strip with one tick per day in green, amber or red, the uptime percentage and an incident note on hover. Exports: UptimeBar. Needs: charts.
+- `venn-chart`: Two or three overlapping circles with a count in every region: who is in one group, who is in several. Exports: VennChart. Needs: charts.
 - `virtual-list`: Windowed list that renders only the visible rows. 100,000 items stay smooth. Exports: VirtualList.
 - `waffle-chart`: A grid of 100 squares, each one percent of the whole. Squares pop in as a wave; hover a legend row to light up its squares. Exports: WaffleChart. Needs: charts.
 - `waterfall-chart`: How a start number becomes an end number: green adds, red subtracts, blue totals. Bars drop in one after another with connector lines. Exports: WaterfallChart. Needs: charts.
+- `word-cloud`: Words sized by how often they appear, biggest in the middle. Words grow in; hover to focus one, or make them clickable filters. Exports: WordCloud. Needs: charts.
 
 ### Feedback (11)
 - `alert`: Inline message in info, success, warning and danger. Exports: Alert. Needs: icons.
@@ -250,13 +259,15 @@ SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, Chev
 - `shortcuts-dialog`: Keyboard cheat sheet that opens on ? and shows grouped shortcuts as keycaps. Exports: ShortcutsDialog. Needs: dialog, kbd.
 - `tooltip`: Hint on hover and focus. Optional title, keyboard shortcut, light style and arrow, plus an (i) InfoTip and a TruncatedText that only shows a tooltip when cut off. Exports: TooltipProvider, Tooltip, InfoTip, TruncatedText. Needs: icons, kbd.
 
-### Time (7)
+### Time (9)
 - `analog-clock`: SVG clock for any time zone, with a second hand that ticks with a small bounce. Exports: AnalogClock.
+- `day-agenda`: One day as a time grid: events sit at their time, overlapping ones share the width, a red now-line marks the time. Exports: DayAgenda.
 - `event-calendar`: Month view with events on their days, multi-day spans, +n more overflow, locale-aware names and RTL arrows. Exports: EventCalendar. Needs: button, calendar, icons.
 - `relative-time`: "3 minutes ago", kept live. Hover for the full date. Uses Intl, so it speaks your locale. Exports: relative, RelativeTime.
 - `stopwatch`: Start, pause, lap and reset, down to hundredths of a second. Exports: Stopwatch. Needs: button, icons.
 - `time-picker`: Hour, minute and AM/PM segments you type into or step with arrow keys. 12 or 24 hour. Exports: TimePicker. Needs: icons.
 - `timer`: Countdown with a ring that drains smoothly, presets and an onDone callback. Exports: Timer. Needs: button, icons.
+- `week-strip`: Seven day pills with previous and next week arrows, a selected day and dots under days that have something. Arrow keys move the day. Exports: WeekStrip. Needs: icons.
 - `world-clock`: Cities with live local time, a day or night icon and the hour difference from you. Exports: WorldClock. Needs: icons.
 
 ### ui (1)

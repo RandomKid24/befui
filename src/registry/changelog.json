@@ -2,7 +2,7 @@
   {
     "version": "1.6.0",
     "date": "2026-10-12",
-    "title": "28 animated charts with how-to-read guides, 13 page blocks, 12 building parts and 90 more icons",
+    "title": "34 animated charts with how-to-read guides, 13 page blocks, 16 building parts and 90 more icons",
     "entries": [
       {
         "kind": "added",
@@ -20,7 +20,7 @@
       },
       {
         "kind": "added",
-        "text": "Everyday charts: pie, half donut, area (stacked or overlapping), stacked bar, histogram, lollipop and scatter or bubble. Each plays its entrance when scrolled into view.",
+        "text": "Everyday charts: pie, half donut, area (stacked or overlapping), stacked bar, histogram, lollipop, scatter or bubble, circle packing and word cloud. Each plays its entrance when scrolled into view.",
         "slugs": [
           "pie-chart",
           "half-donut-chart",
@@ -28,12 +28,14 @@
           "stacked-bar-chart",
           "histogram-chart",
           "lollipop-chart",
-          "scatter-chart"
+          "scatter-chart",
+          "circle-pack-chart",
+          "word-cloud"
         ]
       },
       {
         "kind": "added",
-        "text": "Comparison charts: slope, dumbbell, bullet, butterfly, bump (rank over time), Pareto (the 80/20 view) and waterfall.",
+        "text": "Comparison charts: slope, dumbbell, bullet, butterfly, bump (rank over time), Pareto (the 80/20 view), waterfall, forecast with a confidence band and Marimekko.",
         "slugs": [
           "slope-chart",
           "dumbbell-chart",
@@ -41,7 +43,9 @@
           "butterfly-chart",
           "bump-chart",
           "pareto-chart",
-          "waterfall-chart"
+          "waterfall-chart",
+          "forecast-chart",
+          "marimekko-chart"
         ]
       },
       {
@@ -68,13 +72,15 @@
       },
       {
         "kind": "added",
-        "text": "Distribution and live charts: box plot, ridgeline, matrix heatmap, candlestick, and a live streaming chart that slides as new values arrive.",
+        "text": "Distribution and live charts: box plot, ridgeline, matrix heatmap, punch card, Venn, candlestick, and a live streaming chart that slides as new values arrive.",
         "slugs": [
           "box-plot-chart",
           "ridgeline-chart",
           "matrix-heatmap",
           "candlestick-chart",
-          "live-chart"
+          "live-chart",
+          "punch-card-chart",
+          "venn-chart"
         ]
       },
       {
@@ -118,6 +124,16 @@
           "leaderboard",
           "rating-breakdown",
           "credit-card"
+        ]
+      },
+      {
+        "kind": "added",
+        "text": "More everyday parts: week strip for picking a day, order tracker for delivery progress, diff viewer for before and after text, and a day agenda time grid with overlapping events.",
+        "slugs": [
+          "week-strip",
+          "order-tracker",
+          "diff-viewer",
+          "day-agenda"
         ]
       },
       {

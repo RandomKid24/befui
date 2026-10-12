@@ -1,0 +1,17 @@
+import { MarimekkoChart } from '@/components/ui/marimekko-chart';
+
+export default function MarimekkoChartDemo() {
+  return (
+    <MarimekkoChart
+      className="w-[36rem] max-w-full"
+      format={(n) => `₹${n}L`}
+      keys={[{ key: 'pro', label: 'Pro' }, { key: 'biz', label: 'Business', color: 'text-success' }, { key: 'starter', label: 'Starter', color: 'text-warning' }]}
+      columns={[
+        { label: 'North', values: { pro: 40, biz: 30, starter: 10 } },
+        { label: 'West', values: { pro: 55, biz: 50, starter: 20 } },
+        { label: 'South', values: { pro: 30, biz: 20, starter: 25 } },
+        { label: 'East', values: { pro: 10, biz: 8, starter: 12 } },
+      ]}
+    />
+  );
+}
