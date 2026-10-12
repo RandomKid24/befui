@@ -1,0 +1,22 @@
+import { SankeyChart } from '@/components/ui/sankey-chart';
+
+export default function SankeyChartDemo() {
+  return (
+    <SankeyChart
+      className="w-[42rem] max-w-full"
+      nodes={[
+        { id: 'search', label: 'Search' }, { id: 'social', label: 'Social', color: 'text-success' }, { id: 'email', label: 'Email', color: 'text-warning' },
+        { id: 'home', label: 'Home' }, { id: 'pricing', label: 'Pricing', color: 'text-info' }, { id: 'docs', label: 'Docs', color: 'text-success' },
+        { id: 'signup', label: 'Signed up', color: 'text-success' }, { id: 'left', label: 'Left', color: 'text-destructive' },
+      ]}
+      links={[
+        { source: 'search', target: 'home', value: 320 }, { source: 'search', target: 'docs', value: 210 },
+        { source: 'social', target: 'home', value: 180 }, { source: 'social', target: 'pricing', value: 90 },
+        { source: 'email', target: 'pricing', value: 140 }, { source: 'email', target: 'home', value: 40 },
+        { source: 'home', target: 'signup', value: 120 }, { source: 'home', target: 'left', value: 420 },
+        { source: 'pricing', target: 'signup', value: 110 }, { source: 'pricing', target: 'left', value: 120 },
+        { source: 'docs', target: 'signup', value: 60 }, { source: 'docs', target: 'left', value: 150 },
+      ]}
+    />
+  );
+}

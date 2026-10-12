@@ -1,0 +1,16 @@
+import { StreamChart } from '@/components/ui/stream-chart';
+
+export default function StreamChartDemo() {
+  return (
+    <StreamChart
+      className="w-full max-w-xl"
+      labels={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct']}
+      series={[
+        { name: 'Billing', data: [20, 24, 30, 28, 22, 18, 16, 20, 26, 30] },
+        { name: 'Login', data: [12, 14, 13, 18, 26, 34, 30, 22, 16, 14] },
+        { name: 'Bugs', data: [8, 10, 14, 20, 24, 22, 28, 34, 30, 24] },
+        { name: 'How-to', data: [14, 12, 11, 10, 12, 14, 16, 18, 20, 22] },
+      ]}
+    />
+  );
+}

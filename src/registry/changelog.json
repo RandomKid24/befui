@@ -39,8 +39,13 @@
       },
       {
         "kind": "added",
-        "text": "Animated charts: area chart (stacked or overlapping), scatter and bubble chart, matrix heatmap, stacked bar chart, radial bar chart and a live streaming chart. Sparkline, bar chart, donut and line chart now play an entrance (wipe, grow or sweep) when scrolled into view, and skip it for reduced motion.",
+        "text": "Animated charts: treemap, waterfall, Sankey flow, streamgraph, candlestick, area chart (stacked or overlapping), scatter and bubble chart, matrix heatmap, stacked bar chart, radial bar chart and a live streaming chart. Sparkline, bar chart, donut and line chart now play an entrance (wipe, grow or sweep) when scrolled into view, and skip it for reduced motion.",
         "slugs": [
+          "treemap",
+          "waterfall-chart",
+          "sankey-chart",
+          "stream-chart",
+          "candlestick-chart",
           "area-chart",
           "scatter-chart",
           "matrix-heatmap",

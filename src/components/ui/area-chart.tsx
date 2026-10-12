@@ -20,7 +20,7 @@ const nice = (max: number) => {
 };
 
 /** Smooth path through points (Catmull-Rom turned into cubic curves). */
-const curve = (pts: [number, number][]) =>
+export const smoothPath = (pts: [number, number][]) =>
   pts.map(([x, y], i) => {
     if (!i) return `M${x.toFixed(1)},${y.toFixed(1)}`;
     const [x0, y0] = pts[i - 2] ?? pts[i - 1]!;
@@ -58,7 +58,7 @@ export function AreaChart({
   const x = (i: number) => pad.l + (n === 1 ? 0 : (i / (n - 1)) * (W - pad.l - pad.r));
   const y = (v: number) => pad.t + (1 - v / max) * (H - pad.t - pad.b);
   const edge = (v: number[]) => v.map((val, i) => [x(i), y(val)] as [number, number]);
-  const line = (pts: [number, number][]) => (smooth ? curve(pts) : pts.map(([px, py], i) => `${i ? 'L' : 'M'}${px.toFixed(1)},${py.toFixed(1)}`).join(' '));
+  const line = (pts: [number, number][]) => (smooth ? smoothPath(pts) : pts.map(([px, py], i) => `${i ? 'L' : 'M'}${px.toFixed(1)},${py.toFixed(1)}`).join(' '));
   const ticks = [0, 0.25, 0.5, 0.75, 1].map((t) => t * max);
   const color = (si: number) => series[si]!.color ?? palette[si % palette.length];
 

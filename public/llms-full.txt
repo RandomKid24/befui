@@ -21,7 +21,7 @@
 - Merge classes with `cn` from `@/lib/utils`. Edit copied files freely; `add <name> --force` overwrites local edits.
 
 ## Which component for what
-- Draw a chart: trend over time: line-chart or area-chart (stacked); compare categories: charts BarChart or stacked-bar-chart; share of whole: DonutChart or radial-bar-chart; correlation or outliers: scatter-chart; day-by-hour or cohort grid: matrix-heatmap; yearly activity: heatmap; tiny trend in a card: Sparkline; live feed: live-chart; stages: funnel-chart; scores on axes: radar-chart. All animate in on scroll.
+- Draw a chart: trend over time: line-chart or area-chart (stacked); compare categories: charts BarChart or stacked-bar-chart; share of whole: DonutChart or radial-bar-chart; correlation or outliers: scatter-chart; day-by-hour or cohort grid: matrix-heatmap; yearly activity: heatmap; tiny trend in a card: Sparkline; live feed: live-chart; stages: funnel-chart; scores on axes: radar-chart; parts of a budget: treemap; start-to-end bridge (profit): waterfall-chart; flow between stages: sankey-chart; mix shifting over time: stream-chart; price range per period: candlestick-chart. All animate in on scroll.
 - Show tabular data: table (static), data-table (sort/filter/select/paginate), permission-matrix (roles by permissions), kanban (cards in columns), heatmap, charts, line-chart, radar-chart, funnel-chart, gantt (schedule), org-chart, saved-views (table presets), audit-log (who changed what), file-manager
 - Hint or explain on hover: tooltip (title, shortcut, arrow), InfoTip and TruncatedText (both exported by tooltip), popover for richer content
 - Pick a value: select, combobox, radio-group, segmented, chip, switch, checkbox, slider, calendar, date-picker, time-picker, color-picker
@@ -2877,7 +2877,7 @@ export default function VersionLogDemo() {
 Smooth gradient areas, stacked or overlapping, that wipe in on scroll. Hover for a readout across series.
 - Group: Data
 - Add: `npx github:RandomKid24/befui add area-chart`
-- Import: `import { AreaChart } from '@/components/ui/area-chart'`
+- Import: `import { smoothPath, AreaChart } from '@/components/ui/area-chart'`
 - Also needs: charts
 
 Example:
@@ -2957,6 +2957,35 @@ export default function BarListDemo() {
       ]}
     />
   );
+}
+```
+
+## Candlestick chart (`candlestick-chart`)
+Open, high, low and close per period. Green closed up, red closed down. Candles grow from their midpoint in sequence; hover for the four numbers.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add candlestick-chart`
+- Import: `import { CandlestickChart } from '@/components/ui/candlestick-chart'`
+- Also needs: charts
+
+Example:
+
+```tsx
+import { CandlestickChart, type Candle } from '@/components/ui/candlestick-chart';
+
+// Deterministic walk so the demo looks the same every time.
+const rnd = (i: number) => { const x = Math.sin(i * 12.9898) * 43758.5453; return x - Math.floor(x); };
+const data: Candle[] = (() => {
+  let price = 100;
+  return Array.from({ length: 24 }, (_, i) => {
+    const open = price;
+    const close = open + (rnd(i) - 0.45) * 8;
+    price = close;
+    return { label: `D${i + 1}`, open, close, high: Math.max(open, close) + rnd(i + 50) * 3, low: Math.min(open, close) - rnd(i + 90) * 3 };
+  });
+})();
+
+export default function CandlestickChartDemo() {
+  return <CandlestickChart className="w-full max-w-xl" data={data} />;
 }
 ```
 
@@ -3657,6 +3686,40 @@ export default function RadialBarChartDemo() {
 }
 ```
 
+## Sankey chart (`sankey-chart`)
+Flow diagram where ribbon width is the amount: traffic to page to outcome, budget to team. Ribbons draw in; hover follows a flow.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add sankey-chart`
+- Import: `import { SankeyChart } from '@/components/ui/sankey-chart'`
+- Also needs: charts
+
+Example:
+
+```tsx
+import { SankeyChart } from '@/components/ui/sankey-chart';
+
+export default function SankeyChartDemo() {
+  return (
+    <SankeyChart
+      className="w-[42rem] max-w-full"
+      nodes={[
+        { id: 'search', label: 'Search' }, { id: 'social', label: 'Social', color: 'text-success' }, { id: 'email', label: 'Email', color: 'text-warning' },
+        { id: 'home', label: 'Home' }, { id: 'pricing', label: 'Pricing', color: 'text-info' }, { id: 'docs', label: 'Docs', color: 'text-success' },
+        { id: 'signup', label: 'Signed up', color: 'text-success' }, { id: 'left', label: 'Left', color: 'text-destructive' },
+      ]}
+      links={[
+        { source: 'search', target: 'home', value: 320 }, { source: 'search', target: 'docs', value: 210 },
+        { source: 'social', target: 'home', value: 180 }, { source: 'social', target: 'pricing', value: 90 },
+        { source: 'email', target: 'pricing', value: 140 }, { source: 'email', target: 'home', value: 40 },
+        { source: 'home', target: 'signup', value: 120 }, { source: 'home', target: 'left', value: 420 },
+        { source: 'pricing', target: 'signup', value: 110 }, { source: 'pricing', target: 'left', value: 120 },
+        { source: 'docs', target: 'signup', value: 60 }, { source: 'docs', target: 'left', value: 150 },
+      ]}
+    />
+  );
+}
+```
+
 ## Saved views (`saved-views`)
 Menu of saved table setups: pick one, save the current one under a name, delete.
 - Group: Data
@@ -3775,6 +3838,34 @@ export default function StatCardDemo() {
 }
 ```
 
+## Stream chart (`stream-chart`)
+Streamgraph: smooth stacked flows around a center line to show shifts in mix over time. Ripples in from the left; hover a flow to focus it.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add stream-chart`
+- Import: `import { StreamChart } from '@/components/ui/stream-chart'`
+- Also needs: area-chart, charts
+
+Example:
+
+```tsx
+import { StreamChart } from '@/components/ui/stream-chart';
+
+export default function StreamChartDemo() {
+  return (
+    <StreamChart
+      className="w-full max-w-xl"
+      labels={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct']}
+      series={[
+        { name: 'Billing', data: [20, 24, 30, 28, 22, 18, 16, 20, 26, 30] },
+        { name: 'Login', data: [12, 14, 13, 18, 26, 34, 30, 22, 16, 14] },
+        { name: 'Bugs', data: [8, 10, 14, 20, 24, 22, 28, 34, 30, 24] },
+        { name: 'How-to', data: [14, 12, 11, 10, 12, 14, 16, 18, 20, 22] },
+      ]}
+    />
+  );
+}
+```
+
 ## Tree table (`tree-table`)
 Table whose rows have child rows. Expand and collapse branches by click or arrow keys.
 - Group: Data
@@ -3825,6 +3916,38 @@ export default function TreeTableDemo() {
 }
 ```
 
+## Treemap (`treemap`)
+Tiles sized by value, packed to stay square. Budget by team, revenue by product. Spring in on scroll; hover lifts one tile and dims the rest.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add treemap`
+- Import: `import { Treemap } from '@/components/ui/treemap'`
+- Also needs: charts
+
+Example:
+
+```tsx
+import { Treemap } from '@/components/ui/treemap';
+
+export default function TreemapDemo() {
+  return (
+    <Treemap
+      className="w-[36rem] max-w-full"
+      format={(n) => `₹${(n / 100000).toFixed(1)}L`}
+      items={[
+        { label: 'Engineering', value: 9000000 },
+        { label: 'Sales', value: 5300000, color: 'text-success' },
+        { label: 'Marketing', value: 3200000, color: 'text-warning' },
+        { label: 'Operations', value: 2600000, color: 'text-info' },
+        { label: 'People', value: 1500000 },
+        { label: 'Finance', value: 1100000, color: 'text-success' },
+        { label: 'Legal', value: 600000, color: 'text-warning' },
+        { label: 'IT', value: 450000, color: 'text-info' },
+      ]}
+    />
+  );
+}
+```
+
 ## Virtual list (`virtual-list`)
 Windowed list that renders only the visible rows. 100,000 items stay smooth.
 - Group: Data
@@ -3856,6 +3979,38 @@ export default function VirtualListDemo() {
         )}
       />
     </div>
+  );
+}
+```
+
+## Waterfall chart (`waterfall-chart`)
+How a start number becomes an end number: green adds, red subtracts, blue totals. Bars drop in one after another with connector lines.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add waterfall-chart`
+- Import: `import { WaterfallChart } from '@/components/ui/waterfall-chart'`
+- Also needs: charts
+
+Example:
+
+```tsx
+import { WaterfallChart } from '@/components/ui/waterfall-chart';
+
+export default function WaterfallChartDemo() {
+  return (
+    <WaterfallChart
+      className="w-[36rem] max-w-full"
+      format={(n) => `₹${n}L`}
+      steps={[
+        { label: 'Revenue', value: 120, total: true },
+        { label: 'COGS', value: -42 },
+        { label: 'Gross', value: 78, total: true },
+        { label: 'Payroll', value: -31 },
+        { label: 'Marketing', value: -12 },
+        { label: 'Grants', value: 6 },
+        { label: 'Tax', value: -9 },
+        { label: 'Profit', value: 32, total: true },
+      ]}
+    />
   );
 }
 ```
