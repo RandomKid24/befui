@@ -6,7 +6,7 @@ const meta = {
   title: "Overlays/Tooltip",
   component: Demo,
   tags: ['autodocs'],
-  parameters: { layout: 'centered', docs: { description: { component: "One-line hint on hover and focus." } } },
+  parameters: { layout: 'centered', docs: { description: { component: "Hint on hover and focus. Optional title, keyboard shortcut, light style and arrow, plus an (i) InfoTip and a TruncatedText that only shows a tooltip when cut off." } } },
 } satisfies Meta<typeof Demo>;
 export default meta;
 

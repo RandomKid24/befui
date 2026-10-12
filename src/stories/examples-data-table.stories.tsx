@@ -6,7 +6,7 @@ const meta = {
   title: "Data/Data table",
   component: Demo,
   tags: ['autodocs'],
-  parameters: { layout: 'centered', docs: { description: { component: "Sortable columns, a filter box and pagination. You pass rows and column definitions." } } },
+  parameters: { layout: 'centered', docs: { description: { component: "Sortable columns, a search box and pagination, with optional row selection and bulk actions, column visibility menu, sticky header, toolbar slot, row action menus and clickable rows. You pass rows and column definitions." } } },
 } satisfies Meta<typeof Demo>;
 export default meta;
 

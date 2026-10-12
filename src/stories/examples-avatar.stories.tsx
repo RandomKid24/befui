@@ -6,7 +6,7 @@ const meta = {
   title: "Display/Avatar",
   component: Demo,
   tags: ['autodocs'],
-  parameters: { layout: 'centered', docs: { description: { component: "Image with initials fallback in a stable color, plus a stacked group." } } },
+  parameters: { layout: 'centered', docs: { description: { component: "Image with initials fallback in a stable color. Five sizes, circle or square, presence dot (online, away, busy, offline), a stacked group with hover names, and UserInfo for avatar plus name and subtitle." } } },
 } satisfies Meta<typeof Demo>;
 export default meta;
 

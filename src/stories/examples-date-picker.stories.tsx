@@ -6,7 +6,7 @@ const meta = {
   title: "Inputs/Date picker",
   component: Demo,
   tags: ['autodocs'],
-  parameters: { layout: 'centered', docs: { description: { component: "Date and date range fields that open a calendar. Closes on pick." } } },
+  parameters: { layout: 'centered', docs: { description: { component: "Date and date range fields that open a calendar. The range picker has optional quick presets (Last 7 days, This month...) and a day count. Closes on pick." } } },
 } satisfies Meta<typeof Demo>;
 export default meta;
 

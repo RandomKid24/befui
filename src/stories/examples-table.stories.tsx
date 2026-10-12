@@ -6,7 +6,7 @@ const meta = {
   title: "Display/Table",
   component: Demo,
   tags: ['autodocs'],
-  parameters: { layout: 'centered', docs: { description: { component: "Dense table parts with hover rows and a selected state." } } },
+  parameters: { layout: 'centered', docs: { description: { component: "Dense table parts with hover rows, a selected state, footer and caption." } } },
 } satisfies Meta<typeof Demo>;
 export default meta;
 
