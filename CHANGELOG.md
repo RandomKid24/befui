@@ -3,6 +3,15 @@
 All notable changes to befui. Versions follow [semver](https://semver.org): new components are minor releases, breaking prop changes are major. The same list, with links to each component, is on the docs site under Changelog.
 (Generated from src/registry/changelog.json by `npm run registry:build`. Edit the JSON, not this file.)
 
+## 1.6.0 - 2026-10-12
+
+Dashboard, account and marketing pages, eight building blocks and 90 more icons
+
+- **Added:** New blocks for common pages: analytics dashboard, ecommerce dashboard, project overview, user management, profile, billing, API keys, invoice, checkout, landing page, inbox, top-nav layout and a 404 page. (Analytics dashboard, Ecommerce dashboard, Project overview, User management, Profile page, Billing page, API keys page, Invoice page, Checkout page, Landing page, Inbox, Top-nav layout, Not found page)
+- **Added:** Page building parts: theme toggle, user menu, settings layout, description list, bar list, comparison table, invoice and landing sections (hero, feature grid, stats, FAQ, CTA banner, footer). (Theme toggle, User menu, Settings layout, Description list, Bar list, Comparison table, Invoice, Landing sections)
+- **Added:** About 90 new icons: arrows, finance, files, devices, status, layout, people and editor tools.
+- **Changed:** AI docs: llms.txt now has a page-recipe section (which blocks and parts to combine for a dashboard, settings page, landing page and more) and a block index grouped by purpose.
+
 ## 1.5.0 - 2026-10-09
 
 Pivot and tree tables, week view, uploads with progress and auth blocks

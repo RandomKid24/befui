@@ -1,5 +1,53 @@
 [
   {
+    "version": "1.6.0",
+    "date": "2026-10-12",
+    "title": "Dashboard, account and marketing pages, eight building blocks and 90 more icons",
+    "entries": [
+      {
+        "kind": "added",
+        "text": "New blocks for common pages: analytics dashboard, ecommerce dashboard, project overview, user management, profile, billing, API keys, invoice, checkout, landing page, inbox, top-nav layout and a 404 page.",
+        "slugs": [
+          "block:analytics-dashboard",
+          "block:ecommerce-dashboard",
+          "block:project-overview",
+          "block:user-management",
+          "block:profile-page",
+          "block:billing-page",
+          "block:api-keys-page",
+          "block:invoice-page",
+          "block:checkout-page",
+          "block:landing-page",
+          "block:inbox",
+          "block:top-nav-layout",
+          "block:not-found-page"
+        ]
+      },
+      {
+        "kind": "added",
+        "text": "Page building parts: theme toggle, user menu, settings layout, description list, bar list, comparison table, invoice and landing sections (hero, feature grid, stats, FAQ, CTA banner, footer).",
+        "slugs": [
+          "theme-toggle",
+          "user-menu",
+          "settings-layout",
+          "description-list",
+          "bar-list",
+          "comparison-table",
+          "invoice",
+          "landing-sections"
+        ]
+      },
+      {
+        "kind": "added",
+        "text": "About 90 new icons: arrows, finance, files, devices, status, layout, people and editor tools."
+      },
+      {
+        "kind": "changed",
+        "text": "AI docs: llms.txt now has a page-recipe section (which blocks and parts to combine for a dashboard, settings page, landing page and more) and a block index grouped by purpose."
+      }
+    ]
+  },
+  {
     "version": "1.5.0",
     "date": "2026-10-09",
     "title": "Pivot and tree tables, week view, uploads with progress and auth blocks",

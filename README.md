@@ -4,7 +4,7 @@
 
 **Interfaces people actually enjoy using.**
 
-141 copy-paste React components, 189 hand-drawn icons and 14 full-page blocks.<br/>
+150 copy-paste React components, 280 hand-drawn icons and 27 full-page blocks.<br/>
 Built on Radix, Tailwind 4 and CSS variables. You own every file.
 
 [![React 19](https://img.shields.io/badge/React-19-61dafb?logo=react&logoColor=white)](https://react.dev)
@@ -199,7 +199,7 @@ Some components (loader, bottom sheet, toast...) need keyframes from `index.css`
 
 Browse them live with search at the docs site, or run `npx github:RandomKid24/befui list`.
 
-### Blocks (14)
+### Blocks (27)
 
 Full screens built from the components, with mock data you swap for your own API.
 
@@ -218,6 +218,19 @@ Full screens built from the components, with mock data you swap for your own API
 | `block:settings-page` | Account | Profile form with photo and phone number, notification switches and language and time zone, in tabs. |
 | `block:sign-up` | Auth | Registration card with name, email, password strength meter, terms checkbox, validation and a check-your-inbox confirmation. |
 | `block:reset-password` | Auth | Four steps: ask for email, check your inbox with a resend timer, choose a new password, done. |
+| `block:analytics-dashboard` | Dashboard | Visitors, page views, session time and conversion KPIs, a traffic area chart, device donut, top pages bar list and weekday bars. |
+| `block:ecommerce-dashboard` | Commerce | Sales, orders, customers and to-ship KPIs, revenue chart, top products and a recent orders table. |
+| `block:project-overview` | Dashboard | Project header, progress ring with phase bars, task list and a milestone timeline. |
+| `block:user-management` | Account | Team table with search, sort, role and status, row actions and an invite dialog. |
+| `block:profile-page` | Account | Cover and avatar header, About and Activity tabs. |
+| `block:billing-page` | Account | Plan with usage bars, payment method and invoice history. |
+| `block:api-keys-page` | Account | Create, reveal, copy and revoke keys. |
+| `block:invoice-page` | Commerce | A full invoice with print, download and send. |
+| `block:checkout-page` | Commerce | Address form, shipping options, coupon and live order summary. |
+| `block:landing-page` | Landing | Navbar, hero, logos, features, stats, FAQ, CTA and footer. |
+| `block:not-found-page` | Layout | Full-page 404 with search. |
+| `block:inbox` | Layout | Two-pane mail view with search, unread dots and reader. |
+| `block:top-nav-layout` | Layout | App frame with a top navigation bar, theme toggle and user menu. |
 | `block:sign-in` | Auth | Login card with validation, loading button and an error alert. |
 
 ### Icons (189)

@@ -38,7 +38,7 @@ export function useSource(load: () => Promise<string>): string {
 }
 
 /** Slugs shown as "New". Trim this list when a release is no longer recent. */
-export const NEW_SLUGS = new Set(['pivot-table', 'tree-table', 'file-uploader', 'onboarding-carousel', 'event-calendar', 'version-log', 'schema-form', 'rich-text-editor', 'org-chart', 'gantt', 'approval-flow', 'notification-preferences', 'funnel-chart', 'onboarding-checklist', 'shortcuts-dialog', 'tag-manager', 'saved-views', 'format', 'avatar', 'avatar-upload', 'data-table', 'tooltip']);
+export const NEW_SLUGS = new Set(['theme-toggle', 'user-menu', 'description-list', 'bar-list', 'settings-layout', 'comparison-table', 'invoice', 'landing-sections', 'pivot-table', 'tree-table', 'file-uploader', 'onboarding-carousel', 'event-calendar']);
 
 const m = (
   slug: string,
@@ -67,6 +67,15 @@ const metas: Meta[] = [
   m('file-uploader', 'File uploader', 'Inputs', 'Multi-file drop area with a progress bar per file, cancel, retry and a concurrency limit. You supply the upload function.', { requires: ['icons', 'progress'], keywords: ['upload', 'progress', 'dropzone', 'attachments', 'drag'] }),
   m('onboarding-carousel', 'Onboarding carousel', 'Navigation', 'Mobile first-run intro with swipeable slides, dots, Skip and a final Get started button.', { requires: ['button'], keywords: ['intro', 'welcome', 'walkthrough', 'mobile', 'swipe', 'first run'] }),
   m('segmented', 'Segmented control', 'Inputs', 'Pick one of a few views or ranges. Smaller than tabs.', { deps: ['@radix-ui/react-toggle-group'], keywords: ['toggle', 'filter', 'range'] }),
+
+  m('theme-toggle', 'Theme toggle', 'Inputs', 'Icon button that flips light and dark mode and remembers the choice. Also exports a useTheme hook.', { requires: ['button', 'icons'], keywords: ['dark mode', 'light mode', 'theme', 'appearance', 'topbar'] }),
+  m('user-menu', 'User menu', 'Navigation', 'Avatar button for the topbar that opens a menu with name, email, your links and Sign out.', { requires: ['avatar', 'dropdown-menu', 'icons'], keywords: ['account', 'profile', 'avatar', 'logout', 'topbar', 'sign out'] }),
+  m('settings-layout', 'Settings layout', 'Layout', 'Settings page frame: vertical section list on the left, SettingsSection rows (title and help on the left, controls on the right).', { keywords: ['preferences', 'account', 'profile', 'sections', 'form'] }),
+  m('description-list', 'Description list', 'Display', 'Label and value pairs for a details panel, in one to three columns, optionally with dividers.', { keywords: ['details', 'key value', 'properties', 'summary', 'record', 'definition'] }),
+  m('bar-list', 'Bar list', 'Data', 'Ranked list with a bar behind each row: top pages, products, sources, countries.', { keywords: ['top', 'ranking', 'leaderboard', 'analytics', 'horizontal bar', 'dashboard'] }),
+  m('comparison-table', 'Comparison table', 'Data', 'Plans across the top, features down the side, a check, dash or text in each cell. For pricing pages.', { requires: ['icons'], wide: true, keywords: ['pricing', 'plans', 'features', 'tiers', 'compare'] }),
+  m('invoice', 'Invoice', 'Display', 'Printable invoice with number, status, from and bill-to, line items, tax and total computed from the lines.', { requires: ['badge'], keywords: ['bill', 'receipt', 'billing', 'gst', 'payment', 'order'] }),
+  m('landing-sections', 'Landing sections', 'Layout', 'Marketing page parts: Hero, LogoStrip, FeatureGrid, StatsStrip, Faq, CtaBanner and SiteFooter. Stack them with a Navbar.', { requires: ['accordion'], wide: true, keywords: ['marketing', 'homepage', 'hero', 'footer', 'features', 'faq', 'cta', 'website'] }),
 
   m('accordion', 'Accordion', 'Display', 'Collapsible sections with a smooth height animation. Single or multiple open.', { deps: [], keywords: ['faq', 'collapse', 'expand'] }),
   m('spotlight-card', 'Spotlight card', 'Display', 'Card with a glow and border highlight that follow the cursor.', { keywords: ['hover', 'glow', 'feature', 'marketing'] }),
@@ -229,7 +238,7 @@ export const categories: Category[] = ['Layout', 'Inputs', 'Time', 'Display', 'D
 export interface Block {
   slug: string;
   name: string;
-  module: 'HRMS' | 'Marketing' | 'Auth' | 'Layout' | 'Reports' | 'Account';
+  module: 'HRMS' | 'Marketing' | 'Auth' | 'Layout' | 'Reports' | 'Account' | 'Dashboard' | 'Commerce' | 'Landing';
   description: string;
   uses: string[];
   Demo: ComponentType;
@@ -238,6 +247,19 @@ export interface Block {
 }
 
 const bMeta: Omit<Block, 'Demo' | 'loadSource' | 'path'>[] = [
+  { slug: 'analytics-dashboard', name: 'Analytics dashboard', module: 'Dashboard', description: 'Visitors, page views, session time and conversion KPIs, a traffic area chart, device donut, top pages bar list and weekday bars.', uses: ['stat-card', 'charts', 'line-chart', 'bar-list', 'card'] },
+  { slug: 'ecommerce-dashboard', name: 'Ecommerce dashboard', module: 'Commerce', description: 'Sales, orders, customers and to-ship KPIs, revenue chart, top products and a recent orders table with status badges.', uses: ['stat-card', 'line-chart', 'bar-list', 'table', 'badge', 'avatar', 'format'] },
+  { slug: 'project-overview', name: 'Project overview', module: 'Dashboard', description: 'Project header with status and team, progress ring with phase bars, task list and a milestone timeline.', uses: ['card', 'progress', 'progress-ring', 'badge', 'avatar', 'timeline'] },
+  { slug: 'user-management', name: 'User management', module: 'Account', description: 'Team members table with search, sort, role and status, row actions (suspend, remove) and an invite dialog with validation.', uses: ['data-table', 'dialog', 'dropdown-menu', 'select', 'avatar', 'badge', 'toast'] },
+  { slug: 'profile-page', name: 'Profile page', module: 'Account', description: 'Cover and avatar header with actions, then About (details list) and Activity (timeline) tabs.', uses: ['card', 'avatar', 'description-list', 'tabs', 'timeline', 'badge'] },
+  { slug: 'billing-page', name: 'Billing page', module: 'Account', description: 'Current plan with seat and storage usage bars, payment method card and an invoice history table.', uses: ['card', 'progress', 'table', 'badge', 'button', 'toast'] },
+  { slug: 'api-keys-page', name: 'API keys page', module: 'Account', description: 'Create, reveal, copy and revoke keys, with a masked secret and an empty state.', uses: ['card', 'input', 'copy-button', 'empty-state', 'badge', 'toast'] },
+  { slug: 'invoice-page', name: 'Invoice page', module: 'Commerce', description: 'A full invoice with print, download and send actions.', uses: ['invoice', 'button', 'toast'] },
+  { slug: 'checkout-page', name: 'Checkout page', module: 'Commerce', description: 'Delivery address form with validation, shipping options, coupon code and a live order summary.', uses: ['card', 'input', 'label', 'radio-group', 'order-summary', 'coupon-input', 'button', 'toast'] },
+  { slug: 'landing-page', name: 'Landing page', module: 'Landing', description: 'Whole marketing page: navbar, hero, logos, feature grid, stats, FAQ, call to action and footer.', uses: ['navbar', 'landing-sections', 'button', 'icons'] },
+  { slug: 'not-found-page', name: 'Not found page', module: 'Layout', description: 'Full-page 404 with search and two ways out. Reuse for 403 and 500.', uses: ['error-state', 'search-input', 'button'] },
+  { slug: 'inbox', name: 'Inbox', module: 'Layout', description: 'Two-pane mail view: searchable list with unread dots, message reader with reply, archive and delete. Single pane on mobile.', uses: ['avatar', 'search-input', 'empty-state', 'button'] },
+  { slug: 'top-nav-layout', name: 'Top-nav layout', module: 'Layout', description: 'App frame with a top navigation bar instead of a sidebar, with notifications, theme toggle and user menu.', uses: ['navbar', 'user-menu', 'theme-toggle', 'stat-card', 'card'] },
   { slug: 'admin-shell', name: 'Admin shell', module: 'Layout', description: 'Full app frame: grouped sidebar with nested links, topbar with search, alerts and user menu, and a dashboard page.', uses: ['app-shell', 'sidebar', 'date-picker', 'stat-card', 'dropdown-menu', 'breadcrumb', 'timeline'] },
   { slug: 'hrms-overview', name: 'People overview', module: 'HRMS', description: 'Headcount, attendance, department split and activity feed.', uses: ['stat-card', 'charts', 'card', 'timeline', 'avatar'] },
   { slug: 'employee-directory', name: 'Employee directory', module: 'HRMS', description: 'Searchable table with status filter, row selection, actions and pagination.', uses: ['table', 'checkbox', 'segmented', 'dropdown-menu', 'pagination', 'badge', 'avatar'] },

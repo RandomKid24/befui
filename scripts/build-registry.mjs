@@ -112,13 +112,33 @@ ${[
   ['Online shop and checkout', 'product-card (and Price), order-summary, coupon-input, number-stepper (quantity), rating'],
   ['Reorder or resize', 'sortable-list (rows), kanban (cards across columns), split-pane (resizable panels)'],
   ['Tell the user something', 'toast (transient), alert (inline), banner (page-wide), notification-center (inbox), cookie-consent'],
-  ['Navigate', 'sidebar, app-shell, navbar (marketing top bar), bottom-nav (mobile), swipe-actions (row gestures), tabs, breadcrumb, pagination, stepper, command (Ctrl K), table-of-contents, fab'],
-  ['Show KPIs and status', 'stat-card, gauge, progress, progress-ring, number-ticker, badge, status-dot, charts (Sparkline, BarChart, DonutChart)'],
+  ['Navigate', 'sidebar, app-shell, navbar (top bar), user-menu (avatar menu), theme-toggle (dark mode), settings-layout (side nav for settings), bottom-nav (mobile), swipe-actions (row gestures), tabs, breadcrumb, pagination, stepper, command (Ctrl K), table-of-contents, fab'],
+  ['Show KPIs and status', 'stat-card, bar-list (ranked bars), description-list (details), invoice, gauge, progress, progress-ring, number-ticker, badge, status-dot, charts (Sparkline, BarChart, DonutChart)'],
   ['Show people and activity', 'avatar, profile-card, activity-feed, timeline, chat, comment-thread, changelog, testimonial-card, rating, terminal (CLI output)'],
   ['Time', 'time-picker, analog-clock, world-clock, stopwatch, timer, countdown, relative-time'],
-  ['Whole pages', 'blocks: admin-shell, sales-dashboard, reports-table, hrms-overview, employee-directory, leave-approvals, leave-request-form, lead-pipeline, campaign-performance, sign-in'],
+  ['Whole pages', 'see Page recipes below; all blocks are listed under Blocks'],
+].map(([task, use]) => `- ${task}: ${use}`).join('\n')}
+
+## Page recipes (start from a block, then edit it)
+Add the block with \`add block:<name>\`; it pulls in everything it uses. Layout frames: wrap pages in \`app-shell\` (sidebar), or use \`block:top-nav-layout\` (navbar, no sidebar).
+${[
+  ['Admin app frame (sidebar + topbar)', 'block:admin-shell. Topbar extras: theme-toggle, user-menu, notification-center, command (Ctrl K)'],
+  ['Analytics / traffic dashboard', 'block:analytics-dashboard (stat-card, line-chart, donut, bar-list)'],
+  ['Sales or CRM dashboard', 'block:sales-dashboard, block:lead-pipeline, block:campaign-performance'],
+  ['Online store admin', 'block:ecommerce-dashboard, block:checkout-page, block:invoice-page'],
+  ['Project or team dashboard', 'block:project-overview, kanban, gantt, org-chart'],
+  ['HR / people', 'block:hrms-overview, block:employee-directory, block:leave-approvals, block:leave-request-form'],
+  ['Users, roles, API keys', 'block:user-management (invite dialog + table), permission-matrix, block:api-keys-page'],
+  ['Account area', 'block:settings-page (tabs) or settings-layout (side nav), block:profile-page, block:billing-page'],
+  ['Sign in / sign up / reset', 'block:sign-in, block:sign-up, block:reset-password'],
+  ['Marketing site', 'block:landing-page (landing-sections: Hero, FeatureGrid, StatsStrip, Faq, CtaBanner, SiteFooter + navbar), block:pricing-page, comparison-table'],
+  ['Mail or messages', 'block:inbox, chat, comment-thread'],
+  ['Error pages', 'block:not-found-page or error-state (code 403, 404, 500)'],
+  ['Details panel for one record', 'description-list inside a card, plus timeline or audit-log for history'],
 ].map(([task, use]) => `- ${task}: ${use}`).join('\n')}
 `;
+const iconNames = [...readFileSync('src/components/ui/icons.tsx', 'utf8').matchAll(/^export const (\w+Icon) = make/gm)].map((m) => m[1]);
+const iconSection = `## Icons (${iconNames.length})\nImport from \`@/components/ui/icons\`. Use only these names; do not guess or add an icon package. Props: className (size-4 default, e.g. size-5), weight, draw.\n${iconNames.join(', ')}\n`;
 const ORDER = ['Layout', 'Navigation', 'Inputs', 'Display', 'Data', 'Feedback', 'Overlays', 'Time'];
 const rank = (g) => (ORDER.includes(g) ? ORDER.indexOf(g) : ORDER.length);
 const byGroup = [...ui].sort((x, y) => rank(x.group) - rank(y.group) || x.name.localeCompare(y.name));
@@ -129,8 +149,8 @@ const sections = ORDER.concat([...new Set(ui.map((d) => d.group))].filter((g) =>
   .filter((x) => x.list.length)
   .map((x) => `### ${x.g} (${x.list.length})\n${x.list.map(line).join('\n')}`)
   .join('\n\n');
-writeFileSync('public/llms.txt', `${head}\n## Components (${ui.length})\n\n${sections}\n\n## Blocks\n${bl.map((d) => `- \`${d.name}\`: ${d.description} Uses: ${d.requires.join(', ')}.`).join('\n')}\n`);
+writeFileSync('public/llms.txt', `${head}\n${iconSection}\n## Components (${ui.length})\n\n${sections}\n\n## Blocks\n${bl.map((d) => `- \`${d.name}\`: ${d.description} Uses: ${d.requires.join(', ')}.`).join('\n')}\n`);
 const full = byGroup.map((d) => `## ${d.title} (\`${d.name}\`)\n${d.description}\n- Group: ${d.group}\n- Add: \`npx github:RandomKid24/befui add ${d.name}\`\n- Import: \`import { ${importOf(d).join(', ')} } from '@/components/ui/${d.name}'\`\n${d.requires.length ? `- Also needs: ${d.requires.join(', ')}\n` : ''}${d.deps.length ? `- npm packages: ${d.deps.join(', ')}\n` : ''}\nExample:\n\n\`\`\`tsx\n${d.example.trim()}\n\`\`\`\n`).join('\n');
-writeFileSync('public/llms-full.txt', `${head}\n# Components\n\n${full}`);
+writeFileSync('public/llms-full.txt', `${head}\n${iconSection}\n# Components\n\n${full}`);
 writeFileSync(`${out}/agents.md`, readFileSync('scripts/agents-snippet.md', 'utf8'));
 console.log(`registry: ${items.length} items, llms.txt for ${ui.length} components`);
