@@ -39,8 +39,12 @@
       },
       {
         "kind": "added",
-        "text": "Animated charts: bump, rose, bullet, dumbbell, waffle, treemap, waterfall, Sankey flow, streamgraph, candlestick, area chart (stacked or overlapping), scatter and bubble chart, matrix heatmap, stacked bar chart, radial bar chart and a live streaming chart. Sparkline, bar chart, donut and line chart now play an entrance (wipe, grow or sweep) when scrolled into view, and skip it for reduced motion.",
+        "text": "Animated charts: sunburst, ridgeline, box plot, chord, bump, rose, bullet, dumbbell, waffle, treemap, waterfall, Sankey flow, streamgraph, candlestick, area chart (stacked or overlapping), scatter and bubble chart, matrix heatmap, stacked bar chart, radial bar chart and a live streaming chart. Sparkline, bar chart, donut and line chart now play an entrance (wipe, grow or sweep) when scrolled into view, and skip it for reduced motion.",
         "slugs": [
+          "sunburst-chart",
+          "ridgeline-chart",
+          "box-plot-chart",
+          "chord-chart",
           "bump-chart",
           "rose-chart",
           "bullet-chart",
@@ -59,6 +63,16 @@
           "live-chart",
           "charts",
           "line-chart"
+        ]
+      },
+      {
+        "kind": "added",
+        "text": "More building blocks: uptime bar for status pages, leaderboard with rank badges, rating breakdown for reviews, and a credit card preview that flips in 3D.",
+        "slugs": [
+          "uptime-bar",
+          "leaderboard",
+          "rating-breakdown",
+          "credit-card"
         ]
       },
       {

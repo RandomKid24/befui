@@ -21,7 +21,8 @@
 - Merge classes with `cn` from `@/lib/utils`. Edit copied files freely; `add <name> --force` overwrites local edits.
 
 ## Which component for what
-- Draw a chart: trend over time: line-chart or area-chart (stacked); compare categories: charts BarChart or stacked-bar-chart; share of whole: DonutChart or radial-bar-chart; correlation or outliers: scatter-chart; day-by-hour or cohort grid: matrix-heatmap; yearly activity: heatmap; tiny trend in a card: Sparkline; live feed: live-chart; stages: funnel-chart; scores on axes: radar-chart; parts of a budget: treemap; start-to-end bridge (profit): waterfall-chart; flow between stages: sankey-chart; mix shifting over time: stream-chart; price range per period: candlestick-chart; rank changes: bump-chart; seasonal cycle: rose-chart; KPI vs target: bullet-chart; before vs after per item: dumbbell-chart; percent of 100 as squares: waffle-chart. All animate in on scroll.
+- Status, ranking and reviews: uptime-bar (status page), leaderboard (ranked people), rating-breakdown (review summary), credit-card (card preview that flips, for checkout and add-card forms)
+- Draw a chart: trend over time: line-chart or area-chart (stacked); compare categories: charts BarChart or stacked-bar-chart; share of whole: DonutChart or radial-bar-chart; correlation or outliers: scatter-chart; day-by-hour or cohort grid: matrix-heatmap; yearly activity: heatmap; tiny trend in a card: Sparkline; live feed: live-chart; stages: funnel-chart; scores on axes: radar-chart; parts of a budget: treemap; start-to-end bridge (profit): waterfall-chart; flow between stages: sankey-chart; mix shifting over time: stream-chart; price range per period: candlestick-chart; rank changes: bump-chart; seasonal cycle: rose-chart; KPI vs target: bullet-chart; before vs after per item: dumbbell-chart; percent of 100 as squares: waffle-chart; nested breakdown: sunburst-chart; per-row curves: ridgeline-chart; spread and outliers: box-plot-chart; flow between every pair: chord-chart. All animate in on scroll.
 - Show tabular data: table (static), data-table (sort/filter/select/paginate), permission-matrix (roles by permissions), kanban (cards in columns), heatmap, charts, line-chart, radar-chart, funnel-chart, gantt (schedule), org-chart, saved-views (table presets), audit-log (who changed what), file-manager
 - Hint or explain on hover: tooltip (title, shortcut, arrow), InfoTip and TruncatedText (both exported by tooltip), popover for richer content
 - Pick a value: select, combobox, radio-group, segmented, chip, switch, checkbox, slider, calendar, date-picker, time-picker, color-picker
@@ -2077,6 +2078,37 @@ export default function CompareDemo() {
 }
 ```
 
+## Credit card (`credit-card`)
+Payment card preview that flips in 3D to show the CVV. Formats as the user types, guesses Visa, Mastercard, AmEx or RuPay, and can mask the number.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add credit-card`
+- Import: `import { CreditCard } from '@/components/ui/credit-card'`
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { CreditCard } from '@/components/ui/credit-card';
+import { Input } from '@/components/ui/input';
+
+export default function CreditCardDemo() {
+  const [f, setF] = React.useState({ number: '4111 1111 1111 1111', name: 'Aarav Mehta', expiry: '08/28', cvv: '' });
+  const [back, setBack] = React.useState(false);
+  const set = (k: keyof typeof f) => (e: React.ChangeEvent<HTMLInputElement>) => setF({ ...f, [k]: e.target.value });
+  return (
+    <div className="grid justify-items-center gap-5">
+      <CreditCard {...f} flipped={back} onFlip={setBack} />
+      <div className="grid w-80 max-w-full grid-cols-2 gap-2">
+        <Input className="col-span-2" aria-label="Card number" inputMode="numeric" maxLength={19} value={f.number} onChange={set('number')} onFocus={() => setBack(false)} />
+        <Input className="col-span-2" aria-label="Name" value={f.name} onChange={set('name')} onFocus={() => setBack(false)} />
+        <Input aria-label="Expiry" placeholder="MM/YY" maxLength={5} value={f.expiry} onChange={set('expiry')} onFocus={() => setBack(false)} />
+        <Input aria-label="CVV" placeholder="CVV" inputMode="numeric" maxLength={4} value={f.cvv} onChange={set('cvv')} onFocus={() => setBack(true)} />
+      </div>
+    </div>
+  );
+}
+```
+
 ## Description list (`description-list`)
 Label and value pairs for a details panel, in one to three columns, optionally with dividers.
 - Group: Display
@@ -2396,6 +2428,30 @@ export default function ProfileCardDemo() {
       <Button variant="outline">Message</Button>
       <Button>View profile</Button>
     </ProfileCard>
+  );
+}
+```
+
+## Rating breakdown (`rating-breakdown`)
+Review summary: big average, stars and a bar per star level. Rows can act as filters. Bars fill in on scroll.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add rating-breakdown`
+- Import: `import { RatingBreakdown } from '@/components/ui/rating-breakdown'`
+- Also needs: charts, icons
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { RatingBreakdown } from '@/components/ui/rating-breakdown';
+
+export default function RatingBreakdownDemo() {
+  const [sel, setSel] = React.useState<number | null>(null);
+  return (
+    <div className="grid w-[32rem] max-w-full gap-3">
+      <RatingBreakdown counts={[812, 340, 96, 38, 54]} selected={sel} onSelect={setSel} />
+      <p className="text-center text-xs text-muted-foreground">{sel ? `Showing ${sel}-star reviews` : 'Click a row to filter reviews'}</p>
+    </div>
   );
 }
 ```
@@ -2960,6 +3016,35 @@ export default function BarListDemo() {
 }
 ```
 
+## Box plot chart (`box-plot-chart`)
+Spread per group: box for the middle half, median line, whiskers and outlier dots. Boxes open from the median; hover for the five numbers.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add box-plot-chart`
+- Import: `import { BoxPlotChart } from '@/components/ui/box-plot-chart'`
+- Also needs: charts
+
+Example:
+
+```tsx
+import { BoxPlotChart } from '@/components/ui/box-plot-chart';
+
+export default function BoxPlotChartDemo() {
+  return (
+    <BoxPlotChart
+      className="w-[36rem] max-w-full"
+      format={(n) => `${n}ms`}
+      groups={[
+        { label: '/login', min: 40, q1: 70, median: 95, q3: 130, max: 190, outliers: [260, 310] },
+        { label: '/search', min: 90, q1: 140, median: 210, q3: 320, max: 480, outliers: [620] },
+        { label: '/orders', min: 60, q1: 110, median: 150, q3: 190, max: 260 },
+        { label: '/export', min: 300, q1: 520, median: 740, q3: 980, max: 1400, outliers: [1750] },
+        { label: '/health', min: 8, q1: 12, median: 15, q3: 19, max: 28 },
+      ]}
+    />
+  );
+}
+```
+
 ## Bullet chart (`bullet-chart`)
 A KPI against its target in one thin row, with shaded bands for poor, ok and good. The bar slides in on scroll.
 - Group: Data
@@ -3072,6 +3157,35 @@ export default function ChartsDemo() {
         <div className="h-10 w-40"><Sparkline data={[4, 6, 5, 8, 7, 10, 9, 13]} /></div>
       </Card>
     </div>
+  );
+}
+```
+
+## Chord chart (`chord-chart`)
+Flow between every pair of items around a circle. Arcs sweep in, then ribbons fade in; hover an item to keep only its ribbons.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add chord-chart`
+- Import: `import { ChordChart } from '@/components/ui/chord-chart'`
+- Also needs: charts
+
+Example:
+
+```tsx
+import { ChordChart } from '@/components/ui/chord-chart';
+
+export default function ChordChartDemo() {
+  return (
+    <ChordChart
+      size={340}
+      labels={['Pune', 'Mumbai', 'Delhi', 'Bengaluru', 'Chennai']}
+      matrix={[
+        [0, 120, 40, 60, 20],
+        [110, 0, 70, 50, 30],
+        [30, 80, 0, 90, 25],
+        [70, 40, 100, 0, 85],
+        [15, 35, 20, 95, 0],
+      ]}
+    />
   );
 }
 ```
@@ -3466,6 +3580,35 @@ export default function KanbanDemo() {
 }
 ```
 
+## Leaderboard (`leaderboard`)
+Ranked people or teams with avatars, score bars, gold, silver and bronze badges and place changes. Sorted for you; bars fill in on scroll.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add leaderboard`
+- Import: `import { Leaderboard } from '@/components/ui/leaderboard'`
+- Also needs: avatar, charts, icons
+
+Example:
+
+```tsx
+import { Leaderboard } from '@/components/ui/leaderboard';
+
+export default function LeaderboardDemo() {
+  return (
+    <Leaderboard
+      className="w-[30rem] max-w-full"
+      format={(n) => `₹${(n / 100000).toFixed(1)}L`}
+      items={[
+        { name: 'Rohan Das', subtitle: 'Enterprise', value: 2450000, delta: 2 },
+        { name: 'Diya Rao', subtitle: 'Mid-market', value: 3120000, delta: -1 },
+        { name: 'Isha Nair', subtitle: 'Enterprise', value: 2980000, delta: 1 },
+        { name: 'Kabir Shah', subtitle: 'SMB', value: 1620000, delta: 0 },
+        { name: 'Ananya Kulkarni', subtitle: 'SMB', value: 1240000, delta: -2 },
+      ]}
+    />
+  );
+}
+```
+
 ## Line chart (`line-chart`)
 Multi-series line or area chart in plain SVG with grid, axis labels, legend and a hover readout.
 - Group: Data
@@ -3772,6 +3915,36 @@ export default function RadialBarChartDemo() {
 }
 ```
 
+## Ridgeline chart (`ridgeline-chart`)
+One smooth curve per row, overlapping like mountain ridges on a shared scale. Ridges rise in turn; hover one to bring it forward.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add ridgeline-chart`
+- Import: `import { RidgelineChart } from '@/components/ui/ridgeline-chart'`
+- Also needs: area-chart, charts
+
+Example:
+
+```tsx
+import { RidgelineChart } from '@/components/ui/ridgeline-chart';
+
+export default function RidgelineChartDemo() {
+  const hours = Array.from({ length: 24 }, (_, h) => `${h}h`);
+  const peak = (center: number, width: number, height: number) => hours.map((_, h) => Math.round(height * Math.exp(-((h - center) ** 2) / (2 * width ** 2)) + 3));
+  return (
+    <RidgelineChart
+      className="w-[38rem] max-w-full"
+      labels={hours}
+      series={[
+        { name: 'Support', data: peak(11, 3, 60) },
+        { name: 'Sales', data: peak(14, 2.5, 80) },
+        { name: 'Engineering', data: peak(16, 4, 50) },
+        { name: 'Ops', data: peak(21, 2, 70) },
+      ]}
+    />
+  );
+}
+```
+
 ## Rose chart (`rose-chart`)
 Polar area chart: equal-angle petals whose length is the value. Petals bloom from the center in turn; hover one to read it.
 - Group: Data
@@ -3971,6 +4144,33 @@ export default function StreamChartDemo() {
 }
 ```
 
+## Sunburst chart (`sunburst-chart`)
+A hierarchy as concentric rings: each ring splits its parent. Rings sweep outward; hover a slice to light up its parents and children.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add sunburst-chart`
+- Import: `import { SunburstChart } from '@/components/ui/sunburst-chart'`
+- Also needs: charts
+
+Example:
+
+```tsx
+import { SunburstChart } from '@/components/ui/sunburst-chart';
+
+export default function SunburstChartDemo() {
+  return (
+    <SunburstChart
+      format={(n) => `₹${(n / 100000).toFixed(1)}L`}
+      data={[
+        { label: 'Engineering', children: [{ label: 'Web', children: [{ label: 'Frontend', value: 2200000 }, { label: 'Backend', value: 1800000 }] }, { label: 'Mobile', value: 3000000 }, { label: 'Infra', value: 2000000 }] },
+        { label: 'Sales', children: [{ label: 'India', value: 3000000 }, { label: 'Middle East', value: 2000000 }] },
+        { label: 'People', children: [{ label: 'Hiring', value: 900000 }, { label: 'Benefits', value: 600000 }] },
+        { label: 'Marketing', children: [{ label: 'Paid', value: 1500000 }, { label: 'Content', value: 900000 }] },
+      ]}
+    />
+  );
+}
+```
+
 ## Tree table (`tree-table`)
 Table whose rows have child rows. Expand and collapse branches by click or arrow keys.
 - Group: Data
@@ -4049,6 +4249,31 @@ export default function TreemapDemo() {
         { label: 'IT', value: 450000, color: 'text-info' },
       ]}
     />
+  );
+}
+```
+
+## Uptime bar (`uptime-bar`)
+Status-page strip with one tick per day in green, amber or red, the uptime percentage and an incident note on hover.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add uptime-bar`
+- Import: `import { UptimeBar } from '@/components/ui/uptime-bar'`
+- Also needs: charts
+
+Example:
+
+```tsx
+import { UptimeBar, type UptimeDay } from '@/components/ui/uptime-bar';
+
+const days = (bad: Record<number, UptimeDay['status']>): UptimeDay[] => Array.from({ length: 60 }, (_, i) => ({ date: `${60 - i} days ago`, status: bad[i] ?? 'up', note: bad[i] === 'down' ? 'Outage: database failover took 22 minutes' : bad[i] === 'degraded' ? 'Slow responses for some users' : undefined }));
+
+export default function UptimeBarDemo() {
+  return (
+    <div className="grid w-[36rem] max-w-full gap-6">
+      <UptimeBar name="API" days={days({ 14: 'degraded', 41: 'down' })} />
+      <UptimeBar name="Dashboard" days={days({ 22: 'degraded', 23: 'degraded', 58: 'degraded' })} />
+      <UptimeBar name="Webhooks" days={days({})} />
+    </div>
   );
 }
 ```

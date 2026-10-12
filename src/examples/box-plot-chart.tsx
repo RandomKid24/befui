@@ -1,0 +1,17 @@
+import { BoxPlotChart } from '@/components/ui/box-plot-chart';
+
+export default function BoxPlotChartDemo() {
+  return (
+    <BoxPlotChart
+      className="w-[36rem] max-w-full"
+      format={(n) => `${n}ms`}
+      groups={[
+        { label: '/login', min: 40, q1: 70, median: 95, q3: 130, max: 190, outliers: [260, 310] },
+        { label: '/search', min: 90, q1: 140, median: 210, q3: 320, max: 480, outliers: [620] },
+        { label: '/orders', min: 60, q1: 110, median: 150, q3: 190, max: 260 },
+        { label: '/export', min: 300, q1: 520, median: 740, q3: 980, max: 1400, outliers: [1750] },
+        { label: '/health', min: 8, q1: 12, median: 15, q3: 19, max: 28 },
+      ]}
+    />
+  );
+}
