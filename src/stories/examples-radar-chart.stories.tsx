@@ -6,7 +6,7 @@ const meta = {
   title: "Data/Radar chart",
   component: Demo,
   tags: ['autodocs'],
-  parameters: { layout: 'centered', docs: { description: { component: "Spider chart for comparing several scores across the same axes. Hover a legend name to highlight a series." } } },
+  parameters: { layout: 'centered', docs: { description: { component: "Spider chart for several scores on the same axes: a pentagon with five, a hexagon with six. Shapes grow from the center on scroll; hover a legend name to highlight a series." } } },
 } satisfies Meta<typeof Demo>;
 export default meta;
 

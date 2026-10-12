@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Github } from 'lucide-react';
-import { ArrowRightIcon, CheckIcon, SearchIcon, SparkleIcon } from '@/components/ui/icons';
+import { ArrowRightIcon, CheckIcon, EyeIcon, LightbulbIcon, SearchIcon, SparkleIcon, TargetIcon, XCircleIcon } from '@/components/ui/icons';
 import { Badge } from '@/components/ui/badge';
 import { ChipGroup } from '@/components/ui/chip';
 import { EmptyState } from '@/components/ui/empty-state';
@@ -16,7 +16,7 @@ import { StatCard } from '@/components/ui/stat-card';
 import { Avatar } from '@/components/ui/avatar';
 import { Progress } from '@/components/ui/progress';
 import { Users, IndianRupee } from 'lucide-react';
-import { blocks, categories, components, globalCss, useSource, utilsSource } from '@/registry';
+import { blocks, categories, components, globalCss, useSource, utilsSource, type ChartGuide } from '@/registry';
 import { cn } from '@/lib/utils';
 import { Command, CodeBlock } from './code';
 import { Link } from './router';
@@ -265,6 +265,32 @@ function CopyForAI({ c }: { c: (typeof components)[number] }) {
   );
 }
 
+/** Plain-language help under a chart: what it shows, how to read it, when to use it and when not to. */
+function GuidePanel({ guide }: { guide: ChartGuide }) {
+  const rows = [
+    { icon: <LightbulbIcon />, title: 'What it shows', text: guide.what, tone: 'text-primary bg-primary/10' },
+    { icon: <EyeIcon />, title: 'How to read it', text: guide.read, tone: 'text-info bg-info/10' },
+    { icon: <TargetIcon />, title: 'Use it for', text: guide.use, tone: 'text-success bg-success/10' },
+    { icon: <XCircleIcon />, title: 'Skip it when', text: guide.avoid, tone: 'text-warning bg-warning/10' },
+  ];
+  return (
+    <section aria-label="How to read this chart" className="mt-8">
+      <h2 className="mb-3 text-sm font-semibold text-muted-foreground">New to this chart? Start here</h2>
+      <div className="grid gap-3 sm:grid-cols-2">
+        {rows.map((r) => (
+          <div key={r.title} className="flex gap-3 rounded-xl border bg-card p-4">
+            <span className={cn('grid size-8 shrink-0 place-items-center rounded-lg [&_svg]:size-4', r.tone)}>{r.icon}</span>
+            <div className="grid content-start gap-1">
+              <h3 className="text-[13px] font-semibold">{r.title}</h3>
+              <p className="text-[13px] leading-relaxed text-muted-foreground">{r.text}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 export function ComponentPage({ slug }: { slug: string }) {
   const c = components.find((x) => x.slug === slug);
   if (!c) return <NotFound />;
@@ -287,6 +313,8 @@ export function ComponentPage({ slug }: { slug: string }) {
           <LazyPreview bleed={c.wide} title={`examples/${c.slug}.tsx`} load={c.loadDemoSource} playground={hasPlayground(c.slug) ? <Playground slug={c.slug} /> : undefined}><React.Suspense fallback={demoFallback}><c.Demo /></React.Suspense></LazyPreview>
         )}
       </div>
+
+      {c.guide && <GuidePanel guide={c.guide} />}
 
       <h2 className={h2}>Install</h2>
       <p className="mb-3 text-[13px] text-muted-foreground">With the CLI. It installs packages and adds any components this one needs:</p>

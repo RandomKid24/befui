@@ -39,8 +39,16 @@
       },
       {
         "kind": "added",
-        "text": "Animated charts: sunburst, ridgeline, box plot, chord, bump, rose, bullet, dumbbell, waffle, treemap, waterfall, Sankey flow, streamgraph, candlestick, area chart (stacked or overlapping), scatter and bubble chart, matrix heatmap, stacked bar chart, radial bar chart and a live streaming chart. Sparkline, bar chart, donut and line chart now play an entrance (wipe, grow or sweep) when scrolled into view, and skip it for reduced motion.",
+        "text": "Animated charts: pie, half donut, radial line, histogram, Pareto, slope, butterfly, lollipop, sunburst, ridgeline, box plot, chord, bump, rose, bullet, dumbbell, waffle, treemap, waterfall, Sankey flow, streamgraph, candlestick, area chart (stacked or overlapping), scatter and bubble chart, matrix heatmap, stacked bar chart, radial bar chart and a live streaming chart. Sparkline, bar chart, donut and line chart now play an entrance (wipe, grow or sweep) when scrolled into view, and skip it for reduced motion.",
         "slugs": [
+          "pie-chart",
+          "half-donut-chart",
+          "radial-line-chart",
+          "histogram-chart",
+          "pareto-chart",
+          "slope-chart",
+          "butterfly-chart",
+          "lollipop-chart",
           "sunburst-chart",
           "ridgeline-chart",
           "box-plot-chart",
@@ -62,7 +70,8 @@
           "radial-bar-chart",
           "live-chart",
           "charts",
-          "line-chart"
+          "line-chart",
+          "radar-chart"
         ]
       },
       {
@@ -73,6 +82,20 @@
           "leaderboard",
           "rating-breakdown",
           "credit-card"
+        ]
+      },
+      {
+        "kind": "added",
+        "text": "Chart guides: every chart page now has a \"New to this chart? Start here\" panel that says what it shows, how to read it, when to use it and when to skip it. The same text is in llms-full.txt. The radar (pentagon) chart now grows out from the center on scroll.",
+        "slugs": [
+          "radar-chart",
+          "charts",
+          "line-chart",
+          "area-chart",
+          "treemap",
+          "sankey-chart",
+          "box-plot-chart",
+          "chord-chart"
         ]
       },
       {

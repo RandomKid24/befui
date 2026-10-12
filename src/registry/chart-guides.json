@@ -1,0 +1,230 @@
+{
+  "charts": {
+    "what": "Three small charts: a sparkline (a tiny trend line), a bar chart, and a donut (share of a whole).",
+    "read": "Sparkline: only the shape matters, left is older, right is newer. Bars: taller means more. Donut: a bigger slice means a bigger share, and the slices add up to 100%.",
+    "use": "Sparkline inside a stat card, bars to compare a few categories, donut for a split like plan mix.",
+    "avoid": "Donut with more than five or six slices, or when you need exact numbers: use a table or bar list instead."
+  },
+  "line-chart": {
+    "what": "How one or more numbers change over time.",
+    "read": "Left to right is time. Higher is more. A line going up is growth, down is decline. Hover to read exact values.",
+    "use": "Revenue by month, signups by week, anything where the trend matters more than any single point.",
+    "avoid": "Comparing categories with no time order (use bars), or fewer than 4 points (a stat card says it better)."
+  },
+  "area-chart": {
+    "what": "A line chart with the space under it filled in, so the total amount feels like volume. Stacked, it also shows what each part adds.",
+    "read": "Stacked: the top edge is the total, each colored band is one part, and a band getting thicker means that part grew. Overlap mode compares series that each start at zero.",
+    "use": "Traffic by source, revenue by plan, any total made of parts that changes over time.",
+    "avoid": "Many series (more than four bands get unreadable), or when you must compare the exact size of a middle band: its baseline moves, so use lines."
+  },
+  "stacked-bar-chart": {
+    "what": "Bars split into colored segments: each bar is a total, each segment is a part of it.",
+    "read": "Bar height is the total for that period. Segment height is that part. Compare bottom segments directly, they all start at the same line; upper ones are harder.",
+    "use": "Sessions by device per day, revenue by product per month.",
+    "avoid": "More than four segments, or when the middle segments matter most: they have no shared baseline, so use grouped bars or small multiples."
+  },
+  "radial-bar-chart": {
+    "what": "Several progress rings nested inside each other, one ring per goal.",
+    "read": "A ring is full at the target (100%). A longer arc means closer to the goal. Outer rings are longer, so compare the percentages, not the arc length.",
+    "use": "Goals vs target on a dashboard: calls, revenue, tickets closed. Fitness-style activity rings.",
+    "avoid": "Comparing raw values across rings, or more than five rings."
+  },
+  "live-chart": {
+    "what": "A line that keeps moving as fresh numbers arrive, like a heart-rate monitor.",
+    "read": "The right edge is now; older values slide off to the left. The tag at the top right is the latest value.",
+    "use": "Active users right now, requests per second, CPU, queue length.",
+    "avoid": "Historical analysis. It forgets old points; use a line or area chart for a full history."
+  },
+  "radar-chart": {
+    "what": "Several scores for one thing on the same scale, drawn as a polygon. With five axes it is a pentagon, with six a hexagon. Also called a spider or web chart.",
+    "read": "Each spoke is one skill or measure; the further the corner from the center, the higher the score. A big, even shape is well rounded; a lopsided shape has a weak spot. Compare shapes, not exact numbers.",
+    "use": "Skill profiles, team reviews, product vs competitor on 5 to 8 qualities, player stats.",
+    "avoid": "Axes that are not on the same scale, more than 8 axes, or more than 3 shapes at once. Use bars when exact comparison matters."
+  },
+  "funnel-chart": {
+    "what": "How many people drop off at each step of a process.",
+    "read": "Each bar is a step, widest first. The gap between two bars is the drop-off. The percentage is how many made it from the step before.",
+    "use": "Signup flow, sales pipeline, checkout steps.",
+    "avoid": "Steps that are not in order, or processes where people can skip steps."
+  },
+  "gauge": {
+    "what": "One number against a range, like a car speedometer.",
+    "read": "The needle and filled arc show where the value sits between the minimum and maximum. Colored zones tell you if that is good, so a needle in green is fine.",
+    "use": "A single health score, CPU load, quota used.",
+    "avoid": "More than one measure, or precise values. Pair with the number printed in the middle."
+  },
+  "heatmap": {
+    "what": "Activity per day over many weeks, like the GitHub contribution graph.",
+    "read": "Each square is a day. Darker means more activity. Each column is a week and each row is a weekday, so streaks look like dark lines.",
+    "use": "Check-ins, commits, support tickets per day, habit tracking.",
+    "avoid": "Short spans of a few days, or when exact counts matter (hover shows them, but a table is clearer)."
+  },
+  "matrix-heatmap": {
+    "what": "A grid where the color of each cell shows a value: rows by columns.",
+    "read": "Find a row and a column, read the cell where they meet. Darker or brighter means a bigger number. Look for bright clusters and dark gaps.",
+    "use": "Traffic by hour and weekday, cohort retention by month, errors by service and day.",
+    "avoid": "When you need to compare exact values (colors are hard to compare closely), or hundreds of rows. Turn on showValues to print the numbers."
+  },
+  "progress-ring": {
+    "what": "One percentage shown as a circle that fills up.",
+    "read": "A full circle is 100%. The number in the middle is the exact value.",
+    "use": "Profile completion, upload progress, a single KPI vs target.",
+    "avoid": "Several values at once: use radial-bar-chart or a progress bar list."
+  },
+  "scatter-chart": {
+    "what": "Each dot is one item, placed by two numbers. Bubble size can add a third, color a fourth.",
+    "read": "Right means a bigger x value, higher means a bigger y. A cloud sloping up means the two numbers rise together. Dots far from the cloud are outliers. Bigger bubbles mean a bigger size value.",
+    "use": "Seats vs revenue per customer, price vs rating, spotting outliers and clusters.",
+    "avoid": "Fewer than 10 points (use a table), or time series (use a line chart)."
+  },
+  "treemap": {
+    "what": "A whole split into rectangles, where area is the amount.",
+    "read": "A bigger rectangle is a bigger share. Rectangles are sorted biggest first from the top left. Hover for the exact value and percent.",
+    "use": "Budget by team, revenue by product, disk space by folder.",
+    "avoid": "Comparing close values: area is hard to judge. Use bars. Also not for negative numbers."
+  },
+  "waterfall-chart": {
+    "what": "How a starting number turns into an ending number through a series of ups and downs.",
+    "read": "Blue bars are totals. Green floats up from the previous level (an increase), red floats down (a decrease). Each step starts where the last one ended, joined by a thin line.",
+    "use": "Revenue to profit, cash flow, headcount changes, budget variance.",
+    "avoid": "More than about 10 steps, or data with no meaningful running total."
+  },
+  "sankey-chart": {
+    "what": "How a quantity flows and splits between stages. The thicker the ribbon, the more flows through it.",
+    "read": "Read left to right. A node is a stage; each ribbon is a path from one stage to the next, with width equal to the amount. Hover a node to follow where its amount goes.",
+    "use": "Traffic source to page to signup, budget to team to project, energy or money flows.",
+    "avoid": "Cycles (flows that loop back), or very many nodes. Keep it to about 10 nodes."
+  },
+  "stream-chart": {
+    "what": "A smooth stacked area drawn around a center line, so shifts in mix stand out. Also called a streamgraph.",
+    "read": "Each colored flow is a topic. A flow getting thicker means it grew in share. Read the width of a flow, not its height. Hover a flow to isolate it.",
+    "use": "Support ticket topics over months, music genres by year, how the mix of anything shifts.",
+    "avoid": "Reading exact values: flows have no common baseline. Use a stacked area or a table."
+  },
+  "candlestick-chart": {
+    "what": "Open, high, low and close for each period, used for prices.",
+    "read": "The thick body runs from the open to the close. Green means the close was higher than the open, red means lower. The thin line (the wick) reaches the highest and lowest value in the period.",
+    "use": "Share prices, currency rates, any value with a daily range.",
+    "avoid": "Data with only one value per period: use a line chart."
+  },
+  "bump-chart": {
+    "what": "How rank changes over time. Not the values, only the order.",
+    "read": "Each line is one item. Numbers in the dots are ranks, with 1 at the top. A line moving up means the item climbed. Crossing lines swapped places.",
+    "use": "Leaderboards by month, search position, product popularity, league tables.",
+    "avoid": "When the gap between ranks matters (first can be far ahead of second): use a line chart of the values."
+  },
+  "rose-chart": {
+    "what": "Petals around a circle where the length of each petal is a value. Also called a polar area or Nightingale chart.",
+    "read": "Each petal is one category, in order around the circle. A longer petal is a bigger value. Length is scaled so area matches the value, so small differences look small.",
+    "use": "Seasonal data: sales by month, incidents by hour or weekday.",
+    "avoid": "Comparing precise values: bars are easier to read. Not for data that has no cycle or order."
+  },
+  "bullet-chart": {
+    "what": "One measure against its target, in a single thin row. It replaces a gauge and uses less space.",
+    "read": "The dark or colored bar is the actual value. The vertical tick is the target. The shaded bands behind are poor, okay and good ranges. A bar that passes the tick beat the target.",
+    "use": "KPIs vs goals: revenue vs quota, uptime vs SLA, NPS vs target.",
+    "avoid": "A single number with no target or range: use a stat card."
+  },
+  "dumbbell-chart": {
+    "what": "Change per item, shown as two dots joined by a line.",
+    "read": "The hollow dot is the earlier value, the filled dot the later one. A longer line means a bigger change. Green means a good change, red a bad one.",
+    "use": "Before and after, plan vs actual, this year vs last year across many items.",
+    "avoid": "More than two moments in time (use lines), or a single item."
+  },
+  "waffle-chart": {
+    "what": "A grid of 100 squares, each one percent of the whole.",
+    "read": "Count the squares of one color to read its percent. Easier to feel than a pie: \"46 out of 100\".",
+    "use": "Survey answers, task status, budget split, progress toward a whole.",
+    "avoid": "More than four or five categories, or values under 1%, which vanish."
+  },
+  "sunburst-chart": {
+    "what": "A hierarchy drawn as rings. The center is the whole, and each ring out splits the one inside it.",
+    "read": "Angle (how far around) is the size. Each ring is one level deeper. A slice and its children sit directly on top of each other. Hover to highlight a slice with its parents and children.",
+    "use": "Spend by team then project, files by folder, categories and subcategories.",
+    "avoid": "Deep or lopsided trees, and when comparing exact values. A treemap or table is easier."
+  },
+  "ridgeline-chart": {
+    "what": "One curve per row, stacked so they overlap like mountain ridges. All rows share one scale.",
+    "read": "Each row is one group. A high peak is a busy moment. Look at where each ridge peaks to compare groups. Overlap is on purpose.",
+    "use": "Activity by hour for several teams, score distributions per class, seasonality per city.",
+    "avoid": "Exact values, or more than about 8 rows. For one group use an area chart."
+  },
+  "box-plot-chart": {
+    "what": "The spread of values in each group, in five numbers: lowest, lower quarter, median, upper quarter, highest.",
+    "read": "The line in the box is the median (the typical value). The box covers the middle half of the data. The whiskers reach the lowest and highest normal values. Dots are outliers. A tall box means the values vary a lot.",
+    "use": "Response time per endpoint, salary per level, delivery days per carrier.",
+    "avoid": "Audiences who do not know statistics (add a short caption), or very small groups of fewer than 5 values."
+  },
+  "chord-chart": {
+    "what": "How much flows between every pair of items, drawn around a circle.",
+    "read": "Each arc on the ring is one item. A ribbon joining two arcs is the flow between them. A wider ribbon is more flow. Hover an item to keep only its ribbons.",
+    "use": "Migration between cities, messages between teams, trades between desks.",
+    "avoid": "More than about 10 items (it turns into a tangle), or when direction matters a lot. A sankey shows direction better."
+  },
+  "pie-chart": {
+    "what": "One whole divided into slices.",
+    "read": "A bigger slice is a bigger share. The slices add up to 100%. Hover a slice to pull it out and see the value.",
+    "use": "Three to five parts of a whole: plan mix, traffic by source.",
+    "avoid": "Many slices, similar-sized slices (hard to tell apart), or comparing across several pies. Use a bar chart."
+  },
+  "half-donut-chart": {
+    "what": "A semicircle split into parts, with a total or headline number under the arch.",
+    "read": "The full arch is the whole (or the maximum if you set one). Each colored arc is one part. An empty stretch at the end is the unused part.",
+    "use": "Budget used, storage by file type, seats by group, a dashboard card with little height.",
+    "avoid": "Many parts, or values that need precise comparison."
+  },
+  "radial-line-chart": {
+    "what": "A line chart bent into a circle so the end meets the start. Good for things that repeat.",
+    "read": "Each spoke is one label, like an hour or a month. Distance from the center is the value. A bulge shows a busy period. Move over the chart to read the nearest spoke.",
+    "use": "24 hours, 12 months or 7 weekdays: traffic by hour, sales by month.",
+    "avoid": "Data that does not repeat (the start and end join, which is misleading), or exact comparison. Use a line chart."
+  },
+  "histogram-chart": {
+    "what": "How many values fall into each range.",
+    "read": "Each bar is a range of values. Taller means more values land there. The shape tells you the story: a hill in the middle is typical, a long tail means a few big values, two humps mean two groups.",
+    "use": "Order sizes, response times, ages, exam scores.",
+    "avoid": "Categories (use a bar chart), or fewer than about 30 values."
+  },
+  "pareto-chart": {
+    "what": "Causes sorted biggest to smallest as bars, plus a running-total line.",
+    "read": "Read the bars left to right: the biggest cause first. The line shows the running percent of the total. Where it crosses the dashed 80% line is how many causes make up most of the problem.",
+    "use": "Finding the few causes behind most defects, tickets or costs (the 80/20 rule).",
+    "avoid": "Items that are not causes of one total, or fewer than five items."
+  },
+  "slope-chart": {
+    "what": "Each item is one line between two moments in time.",
+    "read": "Left dots are the earlier value, right dots the later one. A steep line changed a lot, a flat line did not. Green went up, red went down. Crossing lines swapped places.",
+    "use": "Before vs after for several items, this year vs last year, survey wave 1 vs wave 2.",
+    "avoid": "More than about 12 items, or more than two moments. Use a line chart."
+  },
+  "butterfly-chart": {
+    "what": "Two sets of bars back to back around a shared list. Also called a population pyramid.",
+    "read": "The center column names each row. Bars to the left belong to the left group, bars to the right to the right group. Longer is more. Compare the two sides row by row.",
+    "use": "Population by age and gender, desktop vs mobile per page, hires and exits per team.",
+    "avoid": "Groups that are not comparable, or a single group. Use a bar chart."
+  },
+  "lollipop-chart": {
+    "what": "A bar chart drawn with a thin stick and a dot. Same message, less ink.",
+    "read": "The further the dot from the left, the bigger the value. Sorted biggest first so the ranking reads from the top.",
+    "use": "Many items to rank: tickets per customer, bugs per module.",
+    "avoid": "Only two or three items: a plain bar is fine."
+  },
+  "gantt": {
+    "what": "Tasks as bars on a calendar, so you see when each starts, ends and overlaps.",
+    "read": "Each row is a task. The bar runs from its start to its end date. The filled part is progress. The vertical line is today.",
+    "use": "Project plans, roadmaps, team schedules.",
+    "avoid": "Tasks without dates, or very large plans (use a roadmap board)."
+  },
+  "bar-list": {
+    "what": "A ranked list with a bar behind each name.",
+    "read": "The longer the bar behind a row, the bigger its value, scaled to the biggest row. The number is on the right.",
+    "use": "Top pages, top products, sources, countries.",
+    "avoid": "Time series, or when you need more than one number per row."
+  },
+  "uptime-bar": {
+    "what": "A status-page strip: one tick per day showing if a service was healthy.",
+    "read": "Green is up, amber is slow or partly down, red is down. The percentage is how much of the period was healthy. Hover a tick for the date and what happened.",
+    "use": "Service status pages, monitoring dashboards.",
+    "avoid": "Short or irregular monitoring data. Use a line chart of response time."
+  }
+}

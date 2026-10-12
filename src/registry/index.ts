@@ -1,5 +1,9 @@
 import { lazy, useEffect, useState, type ComponentType } from 'react';
 
+import guides from './chart-guides.json';
+
+export interface ChartGuide { what: string; read: string; use: string; avoid: string }
+
 export type Category = 'Inputs' | 'Display' | 'Feedback' | 'Overlays' | 'Navigation' | 'Data' | 'Layout' | 'Time';
 
 export interface Entry {
@@ -21,6 +25,8 @@ export interface Entry {
   loadDemoSource: () => Promise<string>;
   loadSource: () => Promise<string>;
   path: string;
+  /** For charts: plain-language help on what it shows and how to read it. */
+  guide?: ChartGuide;
 }
 
 type Meta = Omit<Entry, 'Demo' | 'loadDemoSource' | 'loadSource' | 'path' | 'isNew'>;
@@ -38,7 +44,7 @@ export function useSource(load: () => Promise<string>): string {
 }
 
 /** Slugs shown as "New". Trim this list when a release is no longer recent. */
-export const NEW_SLUGS = new Set(['sunburst-chart', 'ridgeline-chart', 'box-plot-chart', 'chord-chart', 'uptime-bar', 'leaderboard', 'rating-breakdown', 'credit-card', 'bump-chart', 'rose-chart', 'bullet-chart', 'dumbbell-chart', 'waffle-chart', 'treemap', 'waterfall-chart', 'sankey-chart', 'stream-chart', 'candlestick-chart', 'area-chart', 'scatter-chart', 'matrix-heatmap', 'stacked-bar-chart', 'radial-bar-chart', 'live-chart', 'theme-toggle', 'user-menu', 'description-list', 'bar-list', 'settings-layout', 'comparison-table', 'invoice', 'landing-sections', 'pivot-table', 'tree-table', 'file-uploader', 'onboarding-carousel', 'event-calendar']);
+export const NEW_SLUGS = new Set(['pie-chart', 'half-donut-chart', 'radial-line-chart', 'histogram-chart', 'pareto-chart', 'slope-chart', 'butterfly-chart', 'lollipop-chart', 'sunburst-chart', 'ridgeline-chart', 'box-plot-chart', 'chord-chart', 'uptime-bar', 'leaderboard', 'rating-breakdown', 'credit-card', 'bump-chart', 'rose-chart', 'bullet-chart', 'dumbbell-chart', 'waffle-chart', 'treemap', 'waterfall-chart', 'sankey-chart', 'stream-chart', 'candlestick-chart', 'area-chart', 'scatter-chart', 'matrix-heatmap', 'stacked-bar-chart', 'radial-bar-chart', 'live-chart', 'theme-toggle', 'user-menu', 'description-list', 'bar-list', 'settings-layout', 'comparison-table', 'invoice', 'landing-sections', 'pivot-table', 'tree-table', 'file-uploader', 'onboarding-carousel', 'event-calendar']);
 
 const m = (
   slug: string,
@@ -62,6 +68,14 @@ const metas: Meta[] = [
   m('signature-pad', 'Signature pad', 'Inputs', 'Draw-your-signature canvas for mouse, touch and pen. Sharp on retina screens, exports a PNG.', { requires: ['button'], keywords: ['sign', 'draw', 'canvas', 'contract', 'esign'] }),
   m('event-calendar', 'Event calendar', 'Time', 'Month view with events on their days, multi-day spans, +n more overflow, locale-aware names and RTL arrows.', { requires: ['button', 'calendar', 'icons'], wide: true, keywords: ['schedule', 'agenda', 'month', 'planner', 'holidays'] }),
   m('virtual-list', 'Virtual list', 'Data', 'Windowed list that renders only the visible rows. 100,000 items stay smooth.', { keywords: ['windowing', 'large list', 'performance', 'infinite', 'scroll'] }),
+  m('pie-chart', 'Pie chart', 'Data', 'Slices of one whole that sweep around on scroll. Hover a slice or legend row and it pulls out.', { requires: ['charts'], keywords: ['chart', 'share', 'percent', 'proportion', 'animated', 'split', 'distribution'] }),
+  m('half-donut-chart', 'Half donut chart', 'Data', 'A semicircle split into parts with a total under the arch. Half the height of a donut, so it fits dashboard cards.', { requires: ['charts'], keywords: ['chart', 'semicircle', 'budget', 'storage', 'usage', 'animated', 'arch', 'parliament'] }),
+  m('radial-line-chart', 'Radial line chart', 'Data', 'A line chart bent into a circle for things that repeat: 24 hours, 12 months. A smooth closed shape grows from the middle.', { requires: ['charts'], keywords: ['chart', 'radial', 'polar', 'cyclic', 'hourly', 'monthly', 'animated', 'circular'] }),
+  m('histogram-chart', 'Histogram chart', 'Data', 'Counts how many values fall in each range from raw data, with a smooth curve over the bars. Bars rise in turn.', { requires: ['area-chart', 'charts'], keywords: ['chart', 'distribution', 'bins', 'frequency', 'animated', 'statistics', 'bell curve'] }),
+  m('pareto-chart', 'Pareto chart', 'Data', 'Causes sorted by size as bars plus a running-total line with an 80% mark. Shows which few causes matter most.', { requires: ['area-chart', 'charts'], keywords: ['chart', '80 20', 'defects', 'causes', 'quality', 'animated', 'prioritize', 'cumulative'] }),
+  m('slope-chart', 'Slope chart', 'Data', 'One line per item between two moments. Steep means big change, crossing means swapped places. Green rose, red fell.', { requires: ['charts'], keywords: ['chart', 'before after', 'change', 'comparison', 'animated', 'two periods', 'delta'] }),
+  m('butterfly-chart', 'Butterfly chart', 'Data', 'Two bar sets back to back around shared rows, like a population pyramid. Bars grow outward from the middle.', { requires: ['charts'], keywords: ['chart', 'pyramid', 'comparison', 'back to back', 'demographics', 'animated', 'two groups'] }),
+  m('lollipop-chart', 'Lollipop chart', 'Data', 'A bar chart as a thin stick with a dot on the end, sorted largest first. Lighter than bars when there are many items.', { requires: ['charts'], keywords: ['chart', 'ranking', 'bars', 'lollipop', 'animated', 'top items', 'dot plot'] }),
   m('sunburst-chart', 'Sunburst chart', 'Data', 'A hierarchy as concentric rings: each ring splits its parent. Rings sweep outward; hover a slice to light up its parents and children.', { requires: ['charts'], keywords: ['chart', 'hierarchy', 'nested', 'drill down', 'budget', 'animated', 'tree', 'folders'] }),
   m('ridgeline-chart', 'Ridgeline chart', 'Data', 'One smooth curve per row, overlapping like mountain ridges on a shared scale. Ridges rise in turn; hover one to bring it forward.', { requires: ['area-chart', 'charts'], keywords: ['chart', 'joyplot', 'distribution', 'hourly', 'seasonality', 'animated', 'activity'] }),
   m('box-plot-chart', 'Box plot chart', 'Data', 'Spread per group: box for the middle half, median line, whiskers and outlier dots. Boxes open from the median; hover for the five numbers.', { requires: ['charts'], keywords: ['chart', 'distribution', 'quartile', 'statistics', 'latency', 'animated', 'outliers', 'variance'] }),
@@ -180,7 +194,7 @@ const metas: Meta[] = [
   m('image-viewer', 'Image viewer', 'Overlays', 'Lightbox with arrows, click to zoom and keyboard control.', { deps: ['@radix-ui/react-dialog'], requires: ['icons'], keywords: ['gallery', 'lightbox', 'photo', 'zoom', 'preview'] }),
 
   m('line-chart', 'Line chart', 'Data', 'Multi-series line or area chart in plain SVG with grid, axis labels, legend and a hover readout.', { keywords: ['trend', 'graph', 'area', 'timeseries', 'analytics', 'revenue'] }),
-  m('radar-chart', 'Radar chart', 'Data', 'Spider chart for comparing several scores across the same axes. Hover a legend name to highlight a series.', { keywords: ['spider', 'skills', 'performance', 'compare', 'review'] }),
+  m('radar-chart', 'Radar chart', 'Data', 'Spider chart for several scores on the same axes: a pentagon with five, a hexagon with six. Shapes grow from the center on scroll; hover a legend name to highlight a series.', { keywords: ['spider', 'skills', 'performance', 'compare', 'review'] }),
   m('audit-log', 'Audit log', 'Data', 'Who changed what and when, with expandable before and after values.', { requires: ['avatar', 'badge', 'icons'], keywords: ['history', 'changes', 'compliance', 'activity', 'diff', 'security'] }),
   m('file-manager', 'File manager', 'Data', 'Folder browser with breadcrumb, list and grid views, selection and double-click or Enter to open.', { requires: ['icons'], keywords: ['files', 'folders', 'documents', 'drive', 'explorer'] }),
   m('swipe-actions', 'Swipe actions', 'Display', 'List row you swipe left to reveal action buttons. Touch, mouse drag and keyboard.', { keywords: ['mobile', 'list', 'archive', 'delete', 'gesture', 'row'] }),
@@ -254,6 +268,7 @@ export const components: Entry[] = metas.map((meta) => {
     loadDemoSource: exSrc[f('examples')],
     loadSource: uiSrc[f('components/ui')],
     path: `components/ui/${meta.slug}.tsx`,
+    guide: (guides as Record<string, ChartGuide>)[meta.slug],
   };
 });
 

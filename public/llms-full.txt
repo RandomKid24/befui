@@ -22,7 +22,7 @@
 
 ## Which component for what
 - Status, ranking and reviews: uptime-bar (status page), leaderboard (ranked people), rating-breakdown (review summary), credit-card (card preview that flips, for checkout and add-card forms)
-- Draw a chart: trend over time: line-chart or area-chart (stacked); compare categories: charts BarChart or stacked-bar-chart; share of whole: DonutChart or radial-bar-chart; correlation or outliers: scatter-chart; day-by-hour or cohort grid: matrix-heatmap; yearly activity: heatmap; tiny trend in a card: Sparkline; live feed: live-chart; stages: funnel-chart; scores on axes: radar-chart; parts of a budget: treemap; start-to-end bridge (profit): waterfall-chart; flow between stages: sankey-chart; mix shifting over time: stream-chart; price range per period: candlestick-chart; rank changes: bump-chart; seasonal cycle: rose-chart; KPI vs target: bullet-chart; before vs after per item: dumbbell-chart; percent of 100 as squares: waffle-chart; nested breakdown: sunburst-chart; per-row curves: ridgeline-chart; spread and outliers: box-plot-chart; flow between every pair: chord-chart. All animate in on scroll.
+- Draw a chart: trend over time: line-chart or area-chart (stacked); compare categories: charts BarChart or stacked-bar-chart; share of whole: DonutChart or radial-bar-chart; correlation or outliers: scatter-chart; day-by-hour or cohort grid: matrix-heatmap; yearly activity: heatmap; tiny trend in a card: Sparkline; live feed: live-chart; stages: funnel-chart; scores on axes: radar-chart; parts of a budget: treemap; start-to-end bridge (profit): waterfall-chart; flow between stages: sankey-chart; mix shifting over time: stream-chart; price range per period: candlestick-chart; rank changes: bump-chart; seasonal cycle: rose-chart; KPI vs target: bullet-chart; before vs after per item: dumbbell-chart; percent of 100 as squares: waffle-chart; nested breakdown: sunburst-chart; per-row curves: ridgeline-chart; spread and outliers: box-plot-chart; flow between every pair: chord-chart; parts of a whole: pie-chart (3 to 5 slices) or half-donut-chart (short card); cyclic data like 24 hours: radial-line-chart; distribution of raw values: histogram-chart; few causes behind most of a problem: pareto-chart; two moments per item: slope-chart or dumbbell-chart; two groups back to back: butterfly-chart; many ranked items: lollipop-chart. Five to eight scores as a pentagon or hexagon: radar-chart. The explanation of each chart (what it shows, how to read it, when to use or skip it) is in llms-full.txt; give it to the user when they ask what a chart means. All animate in on scroll.
 - Show tabular data: table (static), data-table (sort/filter/select/paginate), permission-matrix (roles by permissions), kanban (cards in columns), heatmap, charts, line-chart, radar-chart, funnel-chart, gantt (schedule), org-chart, saved-views (table presets), audit-log (who changed what), file-manager
 - Hint or explain on hover: tooltip (title, shortcut, arrow), InfoTip and TruncatedText (both exported by tooltip), popover for richer content
 - Pick a value: select, combobox, radio-group, segmented, chip, switch, checkbox, slider, calendar, date-picker, time-picker, color-picker
@@ -2932,6 +2932,10 @@ export default function VersionLogDemo() {
 ## Area chart (`area-chart`)
 Smooth gradient areas, stacked or overlapping, that wipe in on scroll. Hover for a readout across series.
 - Group: Data
+- What it shows: A line chart with the space under it filled in, so the total amount feels like volume. Stacked, it also shows what each part adds.
+- How to read it: Stacked: the top edge is the total, each colored band is one part, and a band getting thicker means that part grew. Overlap mode compares series that each start at zero.
+- Use it for: Traffic by source, revenue by plan, any total made of parts that changes over time.
+- Skip it when: Many series (more than four bands get unreadable), or when you must compare the exact size of a middle band: its baseline moves, so use lines.
 - Add: `npx github:RandomKid24/befui add area-chart`
 - Import: `import { smoothPath, AreaChart } from '@/components/ui/area-chart'`
 - Also needs: charts
@@ -2992,6 +2996,10 @@ export default function AuditLogDemo() {
 ## Bar list (`bar-list`)
 Ranked list with a bar behind each row: top pages, products, sources, countries.
 - Group: Data
+- What it shows: A ranked list with a bar behind each name.
+- How to read it: The longer the bar behind a row, the bigger its value, scaled to the biggest row. The number is on the right.
+- Use it for: Top pages, top products, sources, countries.
+- Skip it when: Time series, or when you need more than one number per row.
 - Add: `npx github:RandomKid24/befui add bar-list`
 - Import: `import { BarList } from '@/components/ui/bar-list'`
 
@@ -3019,6 +3027,10 @@ export default function BarListDemo() {
 ## Box plot chart (`box-plot-chart`)
 Spread per group: box for the middle half, median line, whiskers and outlier dots. Boxes open from the median; hover for the five numbers.
 - Group: Data
+- What it shows: The spread of values in each group, in five numbers: lowest, lower quarter, median, upper quarter, highest.
+- How to read it: The line in the box is the median (the typical value). The box covers the middle half of the data. The whiskers reach the lowest and highest normal values. Dots are outliers. A tall box means the values vary a lot.
+- Use it for: Response time per endpoint, salary per level, delivery days per carrier.
+- Skip it when: Audiences who do not know statistics (add a short caption), or very small groups of fewer than 5 values.
 - Add: `npx github:RandomKid24/befui add box-plot-chart`
 - Import: `import { BoxPlotChart } from '@/components/ui/box-plot-chart'`
 - Also needs: charts
@@ -3048,6 +3060,10 @@ export default function BoxPlotChartDemo() {
 ## Bullet chart (`bullet-chart`)
 A KPI against its target in one thin row, with shaded bands for poor, ok and good. The bar slides in on scroll.
 - Group: Data
+- What it shows: One measure against its target, in a single thin row. It replaces a gauge and uses less space.
+- How to read it: The dark or colored bar is the actual value. The vertical tick is the target. The shaded bands behind are poor, okay and good ranges. A bar that passes the tick beat the target.
+- Use it for: KPIs vs goals: revenue vs quota, uptime vs SLA, NPS vs target.
+- Skip it when: A single number with no target or range: use a stat card.
 - Add: `npx github:RandomKid24/befui add bullet-chart`
 - Import: `import { BulletChart } from '@/components/ui/bullet-chart'`
 - Also needs: charts
@@ -3075,6 +3091,10 @@ export default function BulletChartDemo() {
 ## Bump chart (`bump-chart`)
 Rank over time as smooth lines that swap places. Lines draw in one by one; hover a line or name to follow it.
 - Group: Data
+- What it shows: How rank changes over time. Not the values, only the order.
+- How to read it: Each line is one item. Numbers in the dots are ranks, with 1 at the top. A line moving up means the item climbed. Crossing lines swapped places.
+- Use it for: Leaderboards by month, search position, product popularity, league tables.
+- Skip it when: When the gap between ranks matters (first can be far ahead of second): use a line chart of the values.
 - Add: `npx github:RandomKid24/befui add bump-chart`
 - Import: `import { BumpChart } from '@/components/ui/bump-chart'`
 - Also needs: charts
@@ -3100,9 +3120,44 @@ export default function BumpChartDemo() {
 }
 ```
 
+## Butterfly chart (`butterfly-chart`)
+Two bar sets back to back around shared rows, like a population pyramid. Bars grow outward from the middle.
+- Group: Data
+- What it shows: Two sets of bars back to back around a shared list. Also called a population pyramid.
+- How to read it: The center column names each row. Bars to the left belong to the left group, bars to the right to the right group. Longer is more. Compare the two sides row by row.
+- Use it for: Population by age and gender, desktop vs mobile per page, hires and exits per team.
+- Skip it when: Groups that are not comparable, or a single group. Use a bar chart.
+- Add: `npx github:RandomKid24/befui add butterfly-chart`
+- Import: `import { ButterflyChart } from '@/components/ui/butterfly-chart'`
+- Also needs: charts
+
+Example:
+
+```tsx
+import { ButterflyChart } from '@/components/ui/butterfly-chart';
+
+export default function ButterflyChartDemo() {
+  return (
+    <ButterflyChart
+      className="w-[36rem] max-w-full"
+      leftLabel="Mobile"
+      rightLabel="Desktop"
+      rows={[
+        { label: 'Home', left: 5200, right: 3100 }, { label: 'Pricing', left: 3400, right: 4200 }, { label: 'Docs', left: 1800, right: 5600 },
+        { label: 'Blog', left: 4100, right: 2300 }, { label: 'Signup', left: 2600, right: 2900 }, { label: 'Settings', left: 700, right: 1900 },
+      ]}
+    />
+  );
+}
+```
+
 ## Candlestick chart (`candlestick-chart`)
 Open, high, low and close per period. Green closed up, red closed down. Candles grow from their midpoint in sequence; hover for the four numbers.
 - Group: Data
+- What it shows: Open, high, low and close for each period, used for prices.
+- How to read it: The thick body runs from the open to the close. Green means the close was higher than the open, red means lower. The thin line (the wick) reaches the highest and lowest value in the period.
+- Use it for: Share prices, currency rates, any value with a daily range.
+- Skip it when: Data with only one value per period: use a line chart.
 - Add: `npx github:RandomKid24/befui add candlestick-chart`
 - Import: `import { CandlestickChart } from '@/components/ui/candlestick-chart'`
 - Also needs: charts
@@ -3132,6 +3187,10 @@ export default function CandlestickChartDemo() {
 ## Charts (`charts`)
 Sparkline, bar chart and donut in plain SVG. No chart library.
 - Group: Data
+- What it shows: Three small charts: a sparkline (a tiny trend line), a bar chart, and a donut (share of a whole).
+- How to read it: Sparkline: only the shape matters, left is older, right is newer. Bars: taller means more. Donut: a bigger slice means a bigger share, and the slices add up to 100%.
+- Use it for: Sparkline inside a stat card, bars to compare a few categories, donut for a split like plan mix.
+- Skip it when: Donut with more than five or six slices, or when you need exact numbers: use a table or bar list instead.
 - Add: `npx github:RandomKid24/befui add charts`
 - Import: `import { useChartIn, Sparkline, BarChart, DonutChart } from '@/components/ui/charts'`
 
@@ -3164,6 +3223,10 @@ export default function ChartsDemo() {
 ## Chord chart (`chord-chart`)
 Flow between every pair of items around a circle. Arcs sweep in, then ribbons fade in; hover an item to keep only its ribbons.
 - Group: Data
+- What it shows: How much flows between every pair of items, drawn around a circle.
+- How to read it: Each arc on the ring is one item. A ribbon joining two arcs is the flow between them. A wider ribbon is more flow. Hover an item to keep only its ribbons.
+- Use it for: Migration between cities, messages between teams, trades between desks.
+- Skip it when: More than about 10 items (it turns into a tangle), or when direction matters a lot. A sankey shows direction better.
 - Add: `npx github:RandomKid24/befui add chord-chart`
 - Import: `import { ChordChart } from '@/components/ui/chord-chart'`
 - Also needs: charts
@@ -3320,6 +3383,10 @@ export default function DataTableDemo() {
 ## Dumbbell chart (`dumbbell-chart`)
 Change per item as two dots joined by a line: before and after, plan and actual. Green when good, red when bad.
 - Group: Data
+- What it shows: Change per item, shown as two dots joined by a line.
+- How to read it: The hollow dot is the earlier value, the filled dot the later one. A longer line means a bigger change. Green means a good change, red a bad one.
+- Use it for: Before and after, plan vs actual, this year vs last year across many items.
+- Skip it when: More than two moments in time (use lines), or a single item.
 - Add: `npx github:RandomKid24/befui add dumbbell-chart`
 - Import: `import { DumbbellChart } from '@/components/ui/dumbbell-chart'`
 - Also needs: charts
@@ -3431,6 +3498,10 @@ export default function FilterBarDemo() {
 ## Funnel chart (`funnel-chart`)
 Conversion funnel with a bar per stage and the step-to-step rate.
 - Group: Data
+- What it shows: How many people drop off at each step of a process.
+- How to read it: Each bar is a step, widest first. The gap between two bars is the drop-off. The percentage is how many made it from the step before.
+- Use it for: Signup flow, sales pipeline, checkout steps.
+- Skip it when: Steps that are not in order, or processes where people can skip steps.
 - Add: `npx github:RandomKid24/befui add funnel-chart`
 - Import: `import { FunnelChart } from '@/components/ui/funnel-chart'`
 
@@ -3447,6 +3518,10 @@ export default function FunnelChartDemo() {
 ## Gantt chart (`gantt`)
 Schedule view with a bar per task, progress fill, weekend shading and a today line.
 - Group: Data
+- What it shows: Tasks as bars on a calendar, so you see when each starts, ends and overlaps.
+- How to read it: Each row is a task. The bar runs from its start to its end date. The filled part is progress. The vertical line is today.
+- Use it for: Project plans, roadmaps, team schedules.
+- Skip it when: Tasks without dates, or very large plans (use a roadmap board).
 - Add: `npx github:RandomKid24/befui add gantt`
 - Import: `import { Gantt } from '@/components/ui/gantt'`
 
@@ -3474,6 +3549,10 @@ export default function GanttDemo() {
 ## Gauge (`gauge`)
 Half-circle meter with a needle that swings to the value.
 - Group: Data
+- What it shows: One number against a range, like a car speedometer.
+- How to read it: The needle and filled arc show where the value sits between the minimum and maximum. Colored zones tell you if that is good, so a needle in green is fine.
+- Use it for: A single health score, CPU load, quota used.
+- Skip it when: More than one measure, or precise values. Pair with the number printed in the middle.
 - Add: `npx github:RandomKid24/befui add gauge`
 - Import: `import { Gauge } from '@/components/ui/gauge'`
 
@@ -3495,9 +3574,34 @@ export default function GaugeDemo() {
 }
 ```
 
+## Half donut chart (`half-donut-chart`)
+A semicircle split into parts with a total under the arch. Half the height of a donut, so it fits dashboard cards.
+- Group: Data
+- What it shows: A semicircle split into parts, with a total or headline number under the arch.
+- How to read it: The full arch is the whole (or the maximum if you set one). Each colored arc is one part. An empty stretch at the end is the unused part.
+- Use it for: Budget used, storage by file type, seats by group, a dashboard card with little height.
+- Skip it when: Many parts, or values that need precise comparison.
+- Add: `npx github:RandomKid24/befui add half-donut-chart`
+- Import: `import { HalfDonutChart } from '@/components/ui/half-donut-chart'`
+- Also needs: charts
+
+Example:
+
+```tsx
+import { HalfDonutChart } from '@/components/ui/half-donut-chart';
+
+export default function HalfDonutChartDemo() {
+  return <HalfDonutChart max={200} format={(n) => `${n} GB`} data={[{ label: 'Documents', value: 62 }, { label: 'Photos', value: 48 }, { label: 'Backups', value: 31, color: 'text-warning' }]} />;
+}
+```
+
 ## Heatmap (`heatmap`)
 Contribution-style grid for daily activity. Cells pop in column by column.
 - Group: Data
+- What it shows: Activity per day over many weeks, like the GitHub contribution graph.
+- How to read it: Each square is a day. Darker means more activity. Each column is a week and each row is a weekday, so streaks look like dark lines.
+- Use it for: Check-ins, commits, support tickets per day, habit tracking.
+- Skip it when: Short spans of a few days, or when exact counts matter (hover shows them, but a table is clearer).
 - Add: `npx github:RandomKid24/befui add heatmap`
 - Import: `import { Heatmap } from '@/components/ui/heatmap'`
 
@@ -3516,6 +3620,32 @@ export default function HeatmapDemo() {
     return r < (weekend ? 0.6 : 0.2) ? 0 : Math.floor(r * 12);
   }), []);
   return <Heatmap values={values} unit="check-ins" />;
+}
+```
+
+## Histogram chart (`histogram-chart`)
+Counts how many values fall in each range from raw data, with a smooth curve over the bars. Bars rise in turn.
+- Group: Data
+- What it shows: How many values fall into each range.
+- How to read it: Each bar is a range of values. Taller means more values land there. The shape tells you the story: a hill in the middle is typical, a long tail means a few big values, two humps mean two groups.
+- Use it for: Order sizes, response times, ages, exam scores.
+- Skip it when: Categories (use a bar chart), or fewer than about 30 values.
+- Add: `npx github:RandomKid24/befui add histogram-chart`
+- Import: `import { HistogramChart } from '@/components/ui/histogram-chart'`
+- Also needs: area-chart, charts
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { HistogramChart } from '@/components/ui/histogram-chart';
+
+// Deterministic pseudo-random bell-ish values so the demo looks the same every time.
+const rnd = (i: number) => { const x = Math.sin(i * 12.9898) * 43758.5453; return x - Math.floor(x); };
+
+export default function HistogramChartDemo() {
+  const values = React.useMemo(() => Array.from({ length: 400 }, (_, i) => Math.round(2400 + (rnd(i) + rnd(i + 400) + rnd(i + 800) - 1.5) * 1900)), []);
+  return <HistogramChart className="w-[36rem] max-w-full" values={values} bins={14} format={(n) => `₹${Math.round(n)}`} />;
 }
 ```
 
@@ -3612,6 +3742,10 @@ export default function LeaderboardDemo() {
 ## Line chart (`line-chart`)
 Multi-series line or area chart in plain SVG with grid, axis labels, legend and a hover readout.
 - Group: Data
+- What it shows: How one or more numbers change over time.
+- How to read it: Left to right is time. Higher is more. A line going up is growth, down is decline. Hover to read exact values.
+- Use it for: Revenue by month, signups by week, anything where the trend matters more than any single point.
+- Skip it when: Comparing categories with no time order (use bars), or fewer than 4 points (a stat card says it better).
 - Add: `npx github:RandomKid24/befui add line-chart`
 - Import: `import { LineChart } from '@/components/ui/line-chart'`
 - Also needs: charts
@@ -3644,6 +3778,10 @@ export default function LineChartDemo() {
 ## Live chart (`live-chart`)
 Streaming line chart that slides left as new values arrive. You give it a function for the next value; pause it any time.
 - Group: Data
+- What it shows: A line that keeps moving as fresh numbers arrive, like a heart-rate monitor.
+- How to read it: The right edge is now; older values slide off to the left. The tag at the top right is the latest value.
+- Use it for: Active users right now, requests per second, CPU, queue length.
+- Skip it when: Historical analysis. It forgets old points; use a line or area chart for a full history.
 - Add: `npx github:RandomKid24/befui add live-chart`
 - Import: `import { LiveChart } from '@/components/ui/live-chart'`
 
@@ -3665,9 +3803,42 @@ export default function LiveChartDemo() {
 }
 ```
 
+## Lollipop chart (`lollipop-chart`)
+A bar chart as a thin stick with a dot on the end, sorted largest first. Lighter than bars when there are many items.
+- Group: Data
+- What it shows: A bar chart drawn with a thin stick and a dot. Same message, less ink.
+- How to read it: The further the dot from the left, the bigger the value. Sorted biggest first so the ranking reads from the top.
+- Use it for: Many items to rank: tickets per customer, bugs per module.
+- Skip it when: Only two or three items: a plain bar is fine.
+- Add: `npx github:RandomKid24/befui add lollipop-chart`
+- Import: `import { LollipopChart } from '@/components/ui/lollipop-chart'`
+- Also needs: charts
+
+Example:
+
+```tsx
+import { LollipopChart } from '@/components/ui/lollipop-chart';
+
+export default function LollipopChartDemo() {
+  return (
+    <LollipopChart
+      className="w-[32rem] max-w-full"
+      items={[
+        { label: 'Checkout', value: 38 }, { label: 'Search', value: 24 }, { label: 'Profile', value: 17 }, { label: 'Notifications', value: 29 },
+        { label: 'Billing', value: 12 }, { label: 'Onboarding', value: 8 }, { label: 'Reports', value: 21 },
+      ]}
+    />
+  );
+}
+```
+
 ## Matrix heatmap (`matrix-heatmap`)
 Rows by columns shaded by value: traffic by hour and weekday, cohort retention. Cells fade in as a wave; hover lights up the row and column.
 - Group: Data
+- What it shows: A grid where the color of each cell shows a value: rows by columns.
+- How to read it: Find a row and a column, read the cell where they meet. Darker or brighter means a bigger number. Look for bright clusters and dark gaps.
+- Use it for: Traffic by hour and weekday, cohort retention by month, errors by service and day.
+- Skip it when: When you need to compare exact values (colors are hard to compare closely), or hundreds of rows. Turn on showValues to print the numbers.
 - Add: `npx github:RandomKid24/befui add matrix-heatmap`
 - Import: `import { MatrixHeatmap } from '@/components/ui/matrix-heatmap'`
 - Also needs: charts
@@ -3745,6 +3916,35 @@ export default function OrgChartDemo() {
 }
 ```
 
+## Pareto chart (`pareto-chart`)
+Causes sorted by size as bars plus a running-total line with an 80% mark. Shows which few causes matter most.
+- Group: Data
+- What it shows: Causes sorted biggest to smallest as bars, plus a running-total line.
+- How to read it: Read the bars left to right: the biggest cause first. The line shows the running percent of the total. Where it crosses the dashed 80% line is how many causes make up most of the problem.
+- Use it for: Finding the few causes behind most defects, tickets or costs (the 80/20 rule).
+- Skip it when: Items that are not causes of one total, or fewer than five items.
+- Add: `npx github:RandomKid24/befui add pareto-chart`
+- Import: `import { ParetoChart } from '@/components/ui/pareto-chart'`
+- Also needs: area-chart, charts
+
+Example:
+
+```tsx
+import { ParetoChart } from '@/components/ui/pareto-chart';
+
+export default function ParetoChartDemo() {
+  return (
+    <ParetoChart
+      className="w-[36rem] max-w-full"
+      items={[
+        { label: 'Login', value: 142 }, { label: 'Billing', value: 96 }, { label: 'Slow', value: 61 }, { label: 'Export', value: 28 },
+        { label: 'Mobile', value: 17 }, { label: 'Search', value: 11 }, { label: 'Other', value: 9 },
+      ]}
+    />
+  );
+}
+```
+
 ## Permission matrix (`permission-matrix`)
 Roles by permissions grid of checkboxes with per-column toggle and locked roles.
 - Group: Data
@@ -3786,6 +3986,33 @@ export default function PermissionMatrixDemo() {
     viewer: ['view'],
   });
   return <PermissionMatrix className="w-full max-w-3xl" roles={roles} permissions={permissions} value={grants} onChange={setGrants} locked={['owner']} />;
+}
+```
+
+## Pie chart (`pie-chart`)
+Slices of one whole that sweep around on scroll. Hover a slice or legend row and it pulls out.
+- Group: Data
+- What it shows: One whole divided into slices.
+- How to read it: A bigger slice is a bigger share. The slices add up to 100%. Hover a slice to pull it out and see the value.
+- Use it for: Three to five parts of a whole: plan mix, traffic by source.
+- Skip it when: Many slices, similar-sized slices (hard to tell apart), or comparing across several pies. Use a bar chart.
+- Add: `npx github:RandomKid24/befui add pie-chart`
+- Import: `import { PieChart } from '@/components/ui/pie-chart'`
+- Also needs: charts
+
+Example:
+
+```tsx
+import { PieChart } from '@/components/ui/pie-chart';
+
+export default function PieChartDemo() {
+  return (
+    <PieChart
+      className="w-[32rem] max-w-full"
+      format={(n) => `₹${n}L`}
+      data={[{ label: 'Pro plan', value: 48 }, { label: 'Business', value: 31 }, { label: 'Starter', value: 14, color: 'text-warning' }, { label: 'Add-ons', value: 7, color: 'text-info' }]}
+    />
+  );
 }
 ```
 
@@ -3845,6 +4072,10 @@ export default function ProgressDemo() {
 ## Progress ring (`progress-ring`)
 Circular progress with an eased stroke animation.
 - Group: Data
+- What it shows: One percentage shown as a circle that fills up.
+- How to read it: A full circle is 100%. The number in the middle is the exact value.
+- Use it for: Profile completion, upload progress, a single KPI vs target.
+- Skip it when: Several values at once: use radial-bar-chart or a progress bar list.
 - Add: `npx github:RandomKid24/befui add progress-ring`
 - Import: `import { ProgressRing } from '@/components/ui/progress-ring'`
 
@@ -3868,23 +4099,29 @@ export default function ProgressRingDemo() {
 ```
 
 ## Radar chart (`radar-chart`)
-Spider chart for comparing several scores across the same axes. Hover a legend name to highlight a series.
+Spider chart for several scores on the same axes: a pentagon with five, a hexagon with six. Shapes grow from the center on scroll; hover a legend name to highlight a series.
 - Group: Data
+- What it shows: Several scores for one thing on the same scale, drawn as a polygon. With five axes it is a pentagon, with six a hexagon. Also called a spider or web chart.
+- How to read it: Each spoke is one skill or measure; the further the corner from the center, the higher the score. A big, even shape is well rounded; a lopsided shape has a weak spot. Compare shapes, not exact numbers.
+- Use it for: Skill profiles, team reviews, product vs competitor on 5 to 8 qualities, player stats.
+- Skip it when: Axes that are not on the same scale, more than 8 axes, or more than 3 shapes at once. Use bars when exact comparison matters.
 - Add: `npx github:RandomKid24/befui add radar-chart`
 - Import: `import { RadarChart } from '@/components/ui/radar-chart'`
+- Also needs: charts
 
 Example:
 
 ```tsx
 import { RadarChart } from '@/components/ui/radar-chart';
 
+/** Five axes make a pentagon; add or remove an axis and the shape follows. */
 export default function RadarChartDemo() {
   return (
     <RadarChart
-      axes={['Delivery', 'Quality', 'Communication', 'Ownership', 'Teamwork', 'Learning']}
+      axes={['Delivery', 'Quality', 'Communication', 'Ownership', 'Teamwork']}
       series={[
-        { name: 'Aarav', values: [88, 82, 70, 90, 76, 84] },
-        { name: 'Team average', values: [72, 74, 78, 68, 80, 70] },
+        { name: 'Aarav', values: [88, 82, 70, 90, 76] },
+        { name: 'Team average', values: [72, 74, 78, 68, 80] },
       ]}
     />
   );
@@ -3894,6 +4131,10 @@ export default function RadarChartDemo() {
 ## Radial bar chart (`radial-bar-chart`)
 Concentric rings, one per goal, that sweep in on scroll. Legend hover highlights a ring; the middle takes any content.
 - Group: Data
+- What it shows: Several progress rings nested inside each other, one ring per goal.
+- How to read it: A ring is full at the target (100%). A longer arc means closer to the goal. Outer rings are longer, so compare the percentages, not the arc length.
+- Use it for: Goals vs target on a dashboard: calls, revenue, tickets closed. Fitness-style activity rings.
+- Skip it when: Comparing raw values across rings, or more than five rings.
 - Add: `npx github:RandomKid24/befui add radial-bar-chart`
 - Import: `import { RadialBarChart } from '@/components/ui/radial-bar-chart'`
 - Also needs: charts
@@ -3915,9 +4156,36 @@ export default function RadialBarChartDemo() {
 }
 ```
 
+## Radial line chart (`radial-line-chart`)
+A line chart bent into a circle for things that repeat: 24 hours, 12 months. A smooth closed shape grows from the middle.
+- Group: Data
+- What it shows: A line chart bent into a circle so the end meets the start. Good for things that repeat.
+- How to read it: Each spoke is one label, like an hour or a month. Distance from the center is the value. A bulge shows a busy period. Move over the chart to read the nearest spoke.
+- Use it for: 24 hours, 12 months or 7 weekdays: traffic by hour, sales by month.
+- Skip it when: Data that does not repeat (the start and end join, which is misleading), or exact comparison. Use a line chart.
+- Add: `npx github:RandomKid24/befui add radial-line-chart`
+- Import: `import { RadialLineChart } from '@/components/ui/radial-line-chart'`
+- Also needs: charts
+
+Example:
+
+```tsx
+import { RadialLineChart } from '@/components/ui/radial-line-chart';
+
+export default function RadialLineChartDemo() {
+  const hours = Array.from({ length: 24 }, (_, h) => `${h}`);
+  const day = (peak: number, width: number, height: number) => hours.map((_, h) => { const d = Math.min(Math.abs(h - peak), 24 - Math.abs(h - peak)); return Math.round(6 + height * Math.exp(-(d * d) / (2 * width * width))); });
+  return <RadialLineChart labels={hours} format={(n) => `${n} req/s`} series={[{ name: 'Web', data: day(14, 3.2, 90) }, { name: 'Mobile', data: day(21, 2.4, 70), color: 'text-success' }]} />;
+}
+```
+
 ## Ridgeline chart (`ridgeline-chart`)
 One smooth curve per row, overlapping like mountain ridges on a shared scale. Ridges rise in turn; hover one to bring it forward.
 - Group: Data
+- What it shows: One curve per row, stacked so they overlap like mountain ridges. All rows share one scale.
+- How to read it: Each row is one group. A high peak is a busy moment. Look at where each ridge peaks to compare groups. Overlap is on purpose.
+- Use it for: Activity by hour for several teams, score distributions per class, seasonality per city.
+- Skip it when: Exact values, or more than about 8 rows. For one group use an area chart.
 - Add: `npx github:RandomKid24/befui add ridgeline-chart`
 - Import: `import { RidgelineChart } from '@/components/ui/ridgeline-chart'`
 - Also needs: area-chart, charts
@@ -3948,6 +4216,10 @@ export default function RidgelineChartDemo() {
 ## Rose chart (`rose-chart`)
 Polar area chart: equal-angle petals whose length is the value. Petals bloom from the center in turn; hover one to read it.
 - Group: Data
+- What it shows: Petals around a circle where the length of each petal is a value. Also called a polar area or Nightingale chart.
+- How to read it: Each petal is one category, in order around the circle. A longer petal is a bigger value. Length is scaled so area matches the value, so small differences look small.
+- Use it for: Seasonal data: sales by month, incidents by hour or weekday.
+- Skip it when: Comparing precise values: bars are easier to read. Not for data that has no cycle or order.
 - Add: `npx github:RandomKid24/befui add rose-chart`
 - Import: `import { RoseChart } from '@/components/ui/rose-chart'`
 - Also needs: charts
@@ -3967,6 +4239,10 @@ export default function RoseChartDemo() {
 ## Sankey chart (`sankey-chart`)
 Flow diagram where ribbon width is the amount: traffic to page to outcome, budget to team. Ribbons draw in; hover follows a flow.
 - Group: Data
+- What it shows: How a quantity flows and splits between stages. The thicker the ribbon, the more flows through it.
+- How to read it: Read left to right. A node is a stage; each ribbon is a path from one stage to the next, with width equal to the amount. Hover a node to follow where its amount goes.
+- Use it for: Traffic source to page to signup, budget to team to project, energy or money flows.
+- Skip it when: Cycles (flows that loop back), or very many nodes. Keep it to about 10 nodes.
 - Add: `npx github:RandomKid24/befui add sankey-chart`
 - Import: `import { SankeyChart } from '@/components/ui/sankey-chart'`
 - Also needs: charts
@@ -4029,6 +4305,10 @@ export default function SavedViewsDemo() {
 ## Scatter chart (`scatter-chart`)
 Scatter and bubble chart with axis labels, groups by color and a nearest-point hover. Points pop in one by one on scroll.
 - Group: Data
+- What it shows: Each dot is one item, placed by two numbers. Bubble size can add a third, color a fourth.
+- How to read it: Right means a bigger x value, higher means a bigger y. A cloud sloping up means the two numbers rise together. Dots far from the cloud are outliers. Bigger bubbles mean a bigger size value.
+- Use it for: Seats vs revenue per customer, price vs rating, spotting outliers and clusters.
+- Skip it when: Fewer than 10 points (use a table), or time series (use a line chart).
 - Add: `npx github:RandomKid24/befui add scatter-chart`
 - Import: `import { ScatterChart } from '@/components/ui/scatter-chart'`
 - Also needs: charts
@@ -4060,9 +4340,45 @@ export default function ScatterChartDemo() {
 }
 ```
 
+## Slope chart (`slope-chart`)
+One line per item between two moments. Steep means big change, crossing means swapped places. Green rose, red fell.
+- Group: Data
+- What it shows: Each item is one line between two moments in time.
+- How to read it: Left dots are the earlier value, right dots the later one. A steep line changed a lot, a flat line did not. Green went up, red went down. Crossing lines swapped places.
+- Use it for: Before vs after for several items, this year vs last year, survey wave 1 vs wave 2.
+- Skip it when: More than about 12 items, or more than two moments. Use a line chart.
+- Add: `npx github:RandomKid24/befui add slope-chart`
+- Import: `import { SlopeChart } from '@/components/ui/slope-chart'`
+- Also needs: charts
+
+Example:
+
+```tsx
+import { SlopeChart } from '@/components/ui/slope-chart';
+
+export default function SlopeChartDemo() {
+  return (
+    <SlopeChart
+      className="w-[34rem] max-w-full"
+      fromLabel="2025"
+      toLabel="2026"
+      format={(n) => `${n}%`}
+      rows={[
+        { label: 'Engineering', from: 62, to: 78 }, { label: 'Sales', from: 71, to: 69 }, { label: 'Support', from: 55, to: 74 },
+        { label: 'Marketing', from: 68, to: 81 }, { label: 'Finance', from: 80, to: 77 }, { label: 'People', from: 74, to: 74 },
+      ]}
+    />
+  );
+}
+```
+
 ## Stacked bar chart (`stacked-bar-chart`)
 Bars split into colored segments that grow in on scroll, with a hover breakdown and legend. Sessions by device, revenue by plan.
 - Group: Data
+- What it shows: Bars split into colored segments: each bar is a total, each segment is a part of it.
+- How to read it: Bar height is the total for that period. Segment height is that part. Compare bottom segments directly, they all start at the same line; upper ones are harder.
+- Use it for: Sessions by device per day, revenue by product per month.
+- Skip it when: More than four segments, or when the middle segments matter most: they have no shared baseline, so use grouped bars or small multiples.
 - Add: `npx github:RandomKid24/befui add stacked-bar-chart`
 - Import: `import { StackedBarChart } from '@/components/ui/stacked-bar-chart'`
 - Also needs: charts
@@ -4119,6 +4435,10 @@ export default function StatCardDemo() {
 ## Stream chart (`stream-chart`)
 Streamgraph: smooth stacked flows around a center line to show shifts in mix over time. Ripples in from the left; hover a flow to focus it.
 - Group: Data
+- What it shows: A smooth stacked area drawn around a center line, so shifts in mix stand out. Also called a streamgraph.
+- How to read it: Each colored flow is a topic. A flow getting thicker means it grew in share. Read the width of a flow, not its height. Hover a flow to isolate it.
+- Use it for: Support ticket topics over months, music genres by year, how the mix of anything shifts.
+- Skip it when: Reading exact values: flows have no common baseline. Use a stacked area or a table.
 - Add: `npx github:RandomKid24/befui add stream-chart`
 - Import: `import { StreamChart } from '@/components/ui/stream-chart'`
 - Also needs: area-chart, charts
@@ -4147,6 +4467,10 @@ export default function StreamChartDemo() {
 ## Sunburst chart (`sunburst-chart`)
 A hierarchy as concentric rings: each ring splits its parent. Rings sweep outward; hover a slice to light up its parents and children.
 - Group: Data
+- What it shows: A hierarchy drawn as rings. The center is the whole, and each ring out splits the one inside it.
+- How to read it: Angle (how far around) is the size. Each ring is one level deeper. A slice and its children sit directly on top of each other. Hover to highlight a slice with its parents and children.
+- Use it for: Spend by team then project, files by folder, categories and subcategories.
+- Skip it when: Deep or lopsided trees, and when comparing exact values. A treemap or table is easier.
 - Add: `npx github:RandomKid24/befui add sunburst-chart`
 - Import: `import { SunburstChart } from '@/components/ui/sunburst-chart'`
 - Also needs: charts
@@ -4224,6 +4548,10 @@ export default function TreeTableDemo() {
 ## Treemap (`treemap`)
 Tiles sized by value, packed to stay square. Budget by team, revenue by product. Spring in on scroll; hover lifts one tile and dims the rest.
 - Group: Data
+- What it shows: A whole split into rectangles, where area is the amount.
+- How to read it: A bigger rectangle is a bigger share. Rectangles are sorted biggest first from the top left. Hover for the exact value and percent.
+- Use it for: Budget by team, revenue by product, disk space by folder.
+- Skip it when: Comparing close values: area is hard to judge. Use bars. Also not for negative numbers.
 - Add: `npx github:RandomKid24/befui add treemap`
 - Import: `import { Treemap } from '@/components/ui/treemap'`
 - Also needs: charts
@@ -4256,6 +4584,10 @@ export default function TreemapDemo() {
 ## Uptime bar (`uptime-bar`)
 Status-page strip with one tick per day in green, amber or red, the uptime percentage and an incident note on hover.
 - Group: Data
+- What it shows: A status-page strip: one tick per day showing if a service was healthy.
+- How to read it: Green is up, amber is slow or partly down, red is down. The percentage is how much of the period was healthy. Hover a tick for the date and what happened.
+- Use it for: Service status pages, monitoring dashboards.
+- Skip it when: Short or irregular monitoring data. Use a line chart of response time.
 - Add: `npx github:RandomKid24/befui add uptime-bar`
 - Import: `import { UptimeBar } from '@/components/ui/uptime-bar'`
 - Also needs: charts
@@ -4316,6 +4648,10 @@ export default function VirtualListDemo() {
 ## Waffle chart (`waffle-chart`)
 A grid of 100 squares, each one percent of the whole. Squares pop in as a wave; hover a legend row to light up its squares.
 - Group: Data
+- What it shows: A grid of 100 squares, each one percent of the whole.
+- How to read it: Count the squares of one color to read its percent. Easier to feel than a pie: "46 out of 100".
+- Use it for: Survey answers, task status, budget split, progress toward a whole.
+- Skip it when: More than four or five categories, or values under 1%, which vanish.
 - Add: `npx github:RandomKid24/befui add waffle-chart`
 - Import: `import { WaffleChart } from '@/components/ui/waffle-chart'`
 - Also needs: charts
@@ -4338,6 +4674,10 @@ export default function WaffleChartDemo() {
 ## Waterfall chart (`waterfall-chart`)
 How a start number becomes an end number: green adds, red subtracts, blue totals. Bars drop in one after another with connector lines.
 - Group: Data
+- What it shows: How a starting number turns into an ending number through a series of ups and downs.
+- How to read it: Blue bars are totals. Green floats up from the previous level (an increase), red floats down (a decrease). Each step starts where the last one ended, joined by a thin line.
+- Use it for: Revenue to profit, cash flow, headcount changes, budget variance.
+- Skip it when: More than about 10 steps, or data with no meaningful running total.
 - Add: `npx github:RandomKid24/befui add waterfall-chart`
 - Import: `import { WaterfallChart } from '@/components/ui/waterfall-chart'`
 - Also needs: charts
