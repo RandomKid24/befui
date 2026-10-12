@@ -2,7 +2,7 @@
   {
     "version": "1.6.0",
     "date": "2026-10-12",
-    "title": "Dashboard, account and marketing pages, eight building blocks and 90 more icons",
+    "title": "Dashboard, account and marketing pages, animated charts, building blocks and 90 more icons",
     "entries": [
       {
         "kind": "added",
@@ -39,11 +39,30 @@
       },
       {
         "kind": "added",
+        "text": "Animated charts: stacked bar chart, radial bar chart and a live streaming chart. Sparkline, bar chart, donut and line chart now play an entrance (wipe, grow or sweep) when scrolled into view, and skip it for reduced motion.",
+        "slugs": [
+          "stacked-bar-chart",
+          "radial-bar-chart",
+          "live-chart",
+          "charts",
+          "line-chart"
+        ]
+      },
+      {
+        "kind": "added",
         "text": "About 90 new icons: arrows, finance, files, devices, status, layout, people and editor tools."
       },
       {
         "kind": "changed",
         "text": "AI docs: llms.txt now has a page-recipe section (which blocks and parts to combine for a dashboard, settings page, landing page and more) and a block index grouped by purpose."
+      },
+      {
+        "kind": "fixed",
+        "text": "Stat card: the delta line no longer wraps word by word and the sparkline no longer spills out of a narrow card; it drops below the number instead. Donut chart: the legend wraps under the ring in narrow cards.",
+        "slugs": [
+          "stat-card",
+          "charts"
+        ]
       }
     ]
   },

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
+import { useChartIn } from './charts';
 
 export interface LineSeries {
   name: string;
@@ -37,6 +38,7 @@ export function LineChart({
 }) {
   const id = React.useId();
   const [hover, setHover] = React.useState<number | null>(null);
+  const [ref, on] = useChartIn<SVGSVGElement>();
   const max = nice(Math.max(...series.flatMap((s) => s.data)));
   const n = labels.length;
   const x = (i: number) => pad.l + (n === 1 ? 0 : (i / (n - 1)) * (W - pad.l - pad.r));
@@ -52,7 +54,7 @@ export function LineChart({
 
   return (
     <div className={cn('relative w-full', className)}>
-      <svg viewBox={`0 0 ${W} ${H}`} className="h-auto w-full touch-pan-y overflow-visible" onPointerMove={move} onPointerLeave={() => setHover(null)} role="img" aria-label={series.map((s) => s.name).join(', ')}>
+      <svg ref={ref} viewBox={`0 0 ${W} ${H}`} className="h-auto w-full touch-pan-y overflow-visible" onPointerMove={move} onPointerLeave={() => setHover(null)} role="img" aria-label={series.map((s) => s.name).join(', ')}>
         {ticks.map((t) => (
           <g key={t}>
             <line x1={pad.l} x2={W - pad.r} y1={y(t)} y2={y(t)} className="stroke-border" strokeDasharray={t ? '3 4' : undefined} />
@@ -61,6 +63,7 @@ export function LineChart({
         ))}
         {labels.map((l, i) => (n <= 8 || i % Math.ceil(n / 8) === 0) && <text key={l + i} x={x(i)} y={H - 6} textAnchor="middle" className="fill-muted-foreground text-[10px]">{l}</text>)}
         {hover !== null && <line x1={x(hover)} x2={x(hover)} y1={pad.t} y2={H - pad.b} className="stroke-muted-foreground/40" />}
+        <g style={{ clipPath: on ? 'inset(-10% -10% -10% -10%)' : 'inset(-10% 100% -10% -10%)', transition: 'clip-path 1100ms cubic-bezier(0.22,1,0.36,1)' }}>
         {series.map((s, si) => {
           const color = s.color ?? palette[si % palette.length];
           return (
@@ -76,6 +79,7 @@ export function LineChart({
             </g>
           );
         })}
+        </g>
       </svg>
       {hover !== null && (
         <div className="pointer-events-none absolute top-2 z-10 min-w-28 rounded-lg border bg-popover px-2.5 py-2 text-xs shadow-lg" style={{ left: `${(x(hover) / W) * 100}%`, transform: `translateX(${hover > n / 2 ? '-105%' : '8%'})` }}>

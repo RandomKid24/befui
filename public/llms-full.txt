@@ -2929,7 +2929,7 @@ export default function BarListDemo() {
 Sparkline, bar chart and donut in plain SVG. No chart library.
 - Group: Data
 - Add: `npx github:RandomKid24/befui add charts`
-- Import: `import { Sparkline, BarChart, DonutChart } from '@/components/ui/charts'`
+- Import: `import { useChartIn, Sparkline, BarChart, DonutChart } from '@/components/ui/charts'`
 
 Example:
 
@@ -3321,6 +3321,7 @@ Multi-series line or area chart in plain SVG with grid, axis labels, legend and 
 - Group: Data
 - Add: `npx github:RandomKid24/befui add line-chart`
 - Import: `import { LineChart } from '@/components/ui/line-chart'`
+- Also needs: charts
 
 Example:
 
@@ -3342,6 +3343,30 @@ export default function LineChartDemo() {
           { name: 'Profit', data: [12, 17, 14, 24, 27, 25, 34], color: 'text-success' },
         ]}
       />
+    </div>
+  );
+}
+```
+
+## Live chart (`live-chart`)
+Streaming line chart that slides left as new values arrive. You give it a function for the next value; pause it any time.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add live-chart`
+- Import: `import { LiveChart } from '@/components/ui/live-chart'`
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { Button } from '@/components/ui/button';
+import { LiveChart } from '@/components/ui/live-chart';
+
+export default function LiveChartDemo() {
+  const [paused, setPaused] = React.useState(false);
+  return (
+    <div className="grid w-full max-w-lg gap-3">
+      <div className="flex items-center justify-between"><span className="text-sm font-medium">Active users</span><Button size="xs" variant="outline" onClick={() => setPaused(!paused)}>{paused ? 'Resume' : 'Pause'}</Button></div>
+      <LiveChart paused={paused} next={(p) => Math.max(10, Math.min(95, p + (Math.random() - 0.5) * 14))} />
     </div>
   );
 }
@@ -3551,6 +3576,30 @@ export default function RadarChartDemo() {
 }
 ```
 
+## Radial bar chart (`radial-bar-chart`)
+Concentric rings, one per goal, that sweep in on scroll. Legend hover highlights a ring; the middle takes any content.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add radial-bar-chart`
+- Import: `import { RadialBarChart } from '@/components/ui/radial-bar-chart'`
+- Also needs: charts
+
+Example:
+
+```tsx
+import { RadialBarChart } from '@/components/ui/radial-bar-chart';
+
+export default function RadialBarChartDemo() {
+  return (
+    <RadialBarChart
+      className="w-full max-w-sm"
+      data={[{ label: 'Revenue', value: 82 }, { label: 'New leads', value: 64 }, { label: 'Tickets closed', value: 91 }, { label: 'NPS', value: 48 }]}
+    >
+      <div className="grid"><span className="text-2xl font-semibold tabular-nums">71%</span><span className="text-xs text-muted-foreground">of target</span></div>
+    </RadialBarChart>
+  );
+}
+```
+
 ## Saved views (`saved-views`)
 Menu of saved table setups: pick one, save the current one under a name, delete.
 - Group: Data
@@ -3574,6 +3623,37 @@ export default function SavedViewsDemo() {
       onSelect={setActive}
       onSave={(name) => { const id = `v${Date.now()}`; setViews([...views, { id, name }]); setActive(id); }}
       onDelete={(id) => { setViews(views.filter((v) => v.id !== id)); if (active === id) setActive(undefined); }}
+    />
+  );
+}
+```
+
+## Stacked bar chart (`stacked-bar-chart`)
+Bars split into colored segments that grow in on scroll, with a hover breakdown and legend. Sessions by device, revenue by plan.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add stacked-bar-chart`
+- Import: `import { StackedBarChart } from '@/components/ui/stacked-bar-chart'`
+- Also needs: charts
+
+Example:
+
+```tsx
+import { StackedBarChart } from '@/components/ui/stacked-bar-chart';
+
+export default function StackedBarChartDemo() {
+  return (
+    <StackedBarChart
+      className="w-full max-w-lg"
+      keys={[{ key: 'mobile', label: 'Mobile' }, { key: 'desktop', label: 'Desktop', color: 'text-success' }, { key: 'tablet', label: 'Tablet', color: 'text-warning' }]}
+      data={[
+        { label: 'Mon', values: { mobile: 420, desktop: 310, tablet: 40 } },
+        { label: 'Tue', values: { mobile: 480, desktop: 350, tablet: 52 } },
+        { label: 'Wed', values: { mobile: 450, desktop: 380, tablet: 48 } },
+        { label: 'Thu', values: { mobile: 520, desktop: 340, tablet: 60 } },
+        { label: 'Fri', values: { mobile: 610, desktop: 290, tablet: 44 } },
+        { label: 'Sat', values: { mobile: 700, desktop: 150, tablet: 38 } },
+        { label: 'Sun', values: { mobile: 640, desktop: 130, tablet: 35 } },
+      ]}
     />
   );
 }

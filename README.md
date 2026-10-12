@@ -4,7 +4,7 @@
 
 **Interfaces people actually enjoy using.**
 
-150 copy-paste React components, 280 hand-drawn icons and 27 full-page blocks.<br/>
+153 copy-paste React components, 280 hand-drawn icons and 27 full-page blocks.<br/>
 Built on Radix, Tailwind 4 and CSS variables. You own every file.
 
 [![React 19](https://img.shields.io/badge/React-19-61dafb?logo=react&logoColor=white)](https://react.dev)
@@ -198,6 +198,17 @@ Some components (loader, bottom sheet, toast...) need keyframes from `index.css`
 </details>
 
 Browse them live with search at the docs site, or run `npx github:RandomKid24/befui list`.
+
+### New in 1.6.0: page blocks
+
+<img src="docs/images/block-analytics-dashboard.png" alt="Analytics dashboard block with animated charts" width="900"/>
+<img src="docs/images/block-ecommerce-dashboard.png" alt="Ecommerce dashboard block" width="900"/>
+<img src="docs/images/block-landing-page.png" alt="Landing page block" width="900"/>
+<img src="docs/images/block-checkout-page.png" alt="Checkout page block" width="900"/>
+<img src="docs/images/block-inbox.png" alt="Inbox block" width="900"/>
+<img src="docs/images/block-user-management.png" alt="User management block" width="900"/>
+
+More in `docs/images/block-*.png`: project overview, profile, billing, API keys, invoice, top-nav layout and 404.
 
 ### Blocks (27)
 

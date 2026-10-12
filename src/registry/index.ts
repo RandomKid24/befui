@@ -38,7 +38,7 @@ export function useSource(load: () => Promise<string>): string {
 }
 
 /** Slugs shown as "New". Trim this list when a release is no longer recent. */
-export const NEW_SLUGS = new Set(['theme-toggle', 'user-menu', 'description-list', 'bar-list', 'settings-layout', 'comparison-table', 'invoice', 'landing-sections', 'pivot-table', 'tree-table', 'file-uploader', 'onboarding-carousel', 'event-calendar']);
+export const NEW_SLUGS = new Set(['stacked-bar-chart', 'radial-bar-chart', 'live-chart', 'theme-toggle', 'user-menu', 'description-list', 'bar-list', 'settings-layout', 'comparison-table', 'invoice', 'landing-sections', 'pivot-table', 'tree-table', 'file-uploader', 'onboarding-carousel', 'event-calendar']);
 
 const m = (
   slug: string,
@@ -62,6 +62,9 @@ const metas: Meta[] = [
   m('signature-pad', 'Signature pad', 'Inputs', 'Draw-your-signature canvas for mouse, touch and pen. Sharp on retina screens, exports a PNG.', { requires: ['button'], keywords: ['sign', 'draw', 'canvas', 'contract', 'esign'] }),
   m('event-calendar', 'Event calendar', 'Time', 'Month view with events on their days, multi-day spans, +n more overflow, locale-aware names and RTL arrows.', { requires: ['button', 'calendar', 'icons'], wide: true, keywords: ['schedule', 'agenda', 'month', 'planner', 'holidays'] }),
   m('virtual-list', 'Virtual list', 'Data', 'Windowed list that renders only the visible rows. 100,000 items stay smooth.', { keywords: ['windowing', 'large list', 'performance', 'infinite', 'scroll'] }),
+  m('stacked-bar-chart', 'Stacked bar chart', 'Data', 'Bars split into colored segments that grow in on scroll, with a hover breakdown and legend. Sessions by device, revenue by plan.', { requires: ['charts'], keywords: ['chart', 'graph', 'segments', 'breakdown', 'animated', 'analytics'] }),
+  m('radial-bar-chart', 'Radial bar chart', 'Data', 'Concentric rings, one per goal, that sweep in on scroll. Legend hover highlights a ring; the middle takes any content.', { requires: ['charts'], keywords: ['chart', 'rings', 'goals', 'targets', 'activity', 'animated', 'okr'] }),
+  m('live-chart', 'Live chart', 'Data', 'Streaming line chart that slides left as new values arrive. You give it a function for the next value; pause it any time.', { keywords: ['chart', 'realtime', 'streaming', 'monitoring', 'animated', 'cpu', 'active users'] }),
   m('pivot-table', 'Pivot table', 'Data', 'Cross-tab of your rows: one field down the side, another across the top, sum, count, average, min or max in each cell, with totals and heat shading.', { wide: true, keywords: ['cross tab', 'aggregate', 'group by', 'summary', 'report', 'spreadsheet'] }),
   m('tree-table', 'Tree table', 'Data', 'Table whose rows have child rows. Expand and collapse branches by click or arrow keys.', { requires: ['icons'], wide: true, keywords: ['hierarchy', 'nested', 'expand', 'budget', 'treegrid'] }),
   m('file-uploader', 'File uploader', 'Inputs', 'Multi-file drop area with a progress bar per file, cancel, retry and a concurrency limit. You supply the upload function.', { requires: ['icons', 'progress'], keywords: ['upload', 'progress', 'dropzone', 'attachments', 'drag'] }),

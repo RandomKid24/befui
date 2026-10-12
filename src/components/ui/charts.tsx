@@ -3,6 +3,20 @@ import { cn } from '@/lib/utils';
 
 /** Dependency-free SVG charts. They read `currentColor`, so color them with a text-* class. */
 
+/** True once the element has scrolled into view (immediately for reduced motion). Charts use it to play their entrance. */
+export function useChartIn<T extends Element>() {
+  const ref = React.useRef<T>(null);
+  const [on, setOn] = React.useState(false);
+  React.useEffect(() => {
+    const el = ref.current;
+    if (!el || typeof IntersectionObserver === 'undefined' || matchMedia('(prefers-reduced-motion: reduce)').matches) return setOn(true);
+    const io = new IntersectionObserver(([e]) => e?.isIntersecting && (setOn(true), io.disconnect()), { threshold: 0.2 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return [ref, on] as const;
+}
+
 export function Sparkline({
   data,
   className,
@@ -13,6 +27,7 @@ export function Sparkline({
   fill?: boolean;
 }) {
   const id = React.useId();
+  const [ref, on] = useChartIn<HTMLSpanElement>();
   const w = 100;
   const h = 32;
   const min = Math.min(...data);
@@ -21,7 +36,8 @@ export function Sparkline({
   const pts = data.map((d, i) => [(i / (data.length - 1)) * w, h - 2 - ((d - min) / span) * (h - 4)] as const);
   const line = pts.map(([x, y], i) => `${i ? 'L' : 'M'}${x.toFixed(1)},${y.toFixed(1)}`).join(' ');
   return (
-    <svg viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="none" className={cn('size-full overflow-visible text-primary', className)}>
+    <span ref={ref} className="block size-full">
+    <svg viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="none" className={cn('size-full overflow-visible text-primary', className)} style={{ clipPath: on ? 'inset(-10% -10% -10% -10%)' : 'inset(-10% 100% -10% -10%)', transition: 'clip-path 900ms cubic-bezier(0.22,1,0.36,1)' }}>
       {fill && (
         <>
           <defs>
@@ -35,6 +51,7 @@ export function Sparkline({
       )}
       <path d={line} fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
     </svg>
+    </span>
   );
 }
 
@@ -49,8 +66,9 @@ export function BarChart({
 }) {
   const max = Math.max(...data.map((d) => d.value)) || 1;
   const [active, setActive] = React.useState<number | null>(null);
+  const [ref, on] = useChartIn<HTMLDivElement>();
   return (
-    <div className={cn('flex gap-2 text-primary', className)} style={{ height }}>
+    <div ref={ref} className={cn('flex gap-2 text-primary', className)} style={{ height }}>
       {data.map((d, i) => {
         const pct = (d.value / max) * 100;
         return (
@@ -69,7 +87,7 @@ export function BarChart({
               </span>
               <div
                 className={cn('absolute inset-x-0 bottom-0 rounded-t-md bg-current transition-opacity', active === null || active === i ? 'opacity-90' : 'opacity-30')}
-                style={{ height: `${pct}%`, minHeight: 2 }}
+                style={{ height: on ? `${pct}%` : 0, minHeight: on ? 2 : 0, transition: `height 700ms cubic-bezier(0.22,1,0.36,1) ${i * 60}ms, opacity 150ms` }}
               />
             </div>
             <span className="text-center text-[11px] text-muted-foreground">{d.label}</span>
@@ -96,11 +114,12 @@ export function DonutChart({
   className?: string;
 }) {
   const total = data.reduce((s, d) => s + d.value, 0) || 1;
+  const [ref, on] = useChartIn<HTMLDivElement>();
   const r = (size - thickness) / 2;
   const c = 2 * Math.PI * r;
   let offset = 0;
   return (
-    <div className={cn('flex items-center gap-6', className)}>
+    <div ref={ref} className={cn('flex flex-wrap items-center gap-x-6 gap-y-4', className)}>
       <div className="relative shrink-0" style={{ width: size, height: size }}>
         <svg width={size} height={size} className="-rotate-90">
           <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="var(--secondary)" strokeWidth={thickness} />
@@ -115,7 +134,8 @@ export function DonutChart({
                 fill="none"
                 stroke={d.color ?? palette[i % palette.length]}
                 strokeWidth={thickness}
-                strokeDasharray={`${Math.max(len - 2, 0)} ${c - Math.max(len - 2, 0)}`}
+                strokeDasharray={`${on ? Math.max(len - 2, 0) : 0} ${c - (on ? Math.max(len - 2, 0) : 0)}`}
+                style={{ transition: `stroke-dasharray 900ms cubic-bezier(0.22,1,0.36,1) ${i * 120}ms` }}
                 strokeDashoffset={-offset}
                 strokeLinecap="round"
               />
@@ -126,7 +146,7 @@ export function DonutChart({
         </svg>
         {centerLabel && <div className="absolute inset-0 grid place-items-center text-center">{centerLabel}</div>}
       </div>
-      <ul className="grid gap-2 text-[13px]">
+      <ul className="grid min-w-32 flex-1 gap-2 text-[13px]">
         {data.map((d, i) => (
           <li key={d.label} className="flex items-center gap-2">
             <span className="size-2 rounded-full" style={{ background: d.color ?? palette[i % palette.length] }} />

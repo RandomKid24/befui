@@ -28,11 +28,11 @@ export function StatCard({
         <span className="text-[13px] font-medium text-muted-foreground">{label}</span>
         {icon && <span className="text-muted-foreground [&_svg]:size-4">{icon}</span>}
       </div>
-      <div className="flex items-end justify-between gap-3">
-        <div className="grid gap-1">
-          <span className="text-2xl font-semibold leading-none tracking-tight tabular-nums">{value}</span>
+      <div className="flex flex-wrap items-end justify-between gap-x-3 gap-y-2">
+        <div className="grid shrink-0 gap-1">
+          <span className="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight tabular-nums">{value}</span>
           {delta !== undefined && (
-            <span className="flex items-center gap-1 text-xs text-muted-foreground">
+            <span className="flex items-center gap-1 whitespace-nowrap text-xs text-muted-foreground">
               <span className={cn('inline-flex items-center font-medium', up ? 'text-success' : 'text-destructive')}>
                 {up ? <ArrowUpRightIcon className="size-3.5" /> : <ArrowDownRightIcon className="size-3.5" />}
                 {Math.abs(delta)}%
@@ -41,7 +41,7 @@ export function StatCard({
             </span>
           )}
         </div>
-        {chart && <div className="h-10 w-24 shrink-0">{chart}</div>}
+        {chart && <div className="ml-auto h-10 w-20 shrink-0">{chart}</div>}
       </div>
     </Card>
   );

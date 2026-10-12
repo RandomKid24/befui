@@ -1,0 +1,19 @@
+import { StackedBarChart } from '@/components/ui/stacked-bar-chart';
+
+export default function StackedBarChartDemo() {
+  return (
+    <StackedBarChart
+      className="w-full max-w-lg"
+      keys={[{ key: 'mobile', label: 'Mobile' }, { key: 'desktop', label: 'Desktop', color: 'text-success' }, { key: 'tablet', label: 'Tablet', color: 'text-warning' }]}
+      data={[
+        { label: 'Mon', values: { mobile: 420, desktop: 310, tablet: 40 } },
+        { label: 'Tue', values: { mobile: 480, desktop: 350, tablet: 52 } },
+        { label: 'Wed', values: { mobile: 450, desktop: 380, tablet: 48 } },
+        { label: 'Thu', values: { mobile: 520, desktop: 340, tablet: 60 } },
+        { label: 'Fri', values: { mobile: 610, desktop: 290, tablet: 44 } },
+        { label: 'Sat', values: { mobile: 700, desktop: 150, tablet: 38 } },
+        { label: 'Sun', values: { mobile: 640, desktop: 130, tablet: 35 } },
+      ]}
+    />
+  );
+}
