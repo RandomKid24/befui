@@ -1,0 +1,10 @@
+import { WaffleChart } from '@/components/ui/waffle-chart';
+
+export default function WaffleChartDemo() {
+  return (
+    <WaffleChart
+      className="w-[34rem] max-w-full"
+      data={[{ label: 'Done', value: 46, color: 'text-success' }, { label: 'In progress', value: 27, color: 'text-primary' }, { label: 'Blocked', value: 9, color: 'text-warning' }, { label: 'To do', value: 18, color: 'text-muted-foreground/40' }]}
+    />
+  );
+}

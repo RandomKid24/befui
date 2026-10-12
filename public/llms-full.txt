@@ -21,7 +21,7 @@
 - Merge classes with `cn` from `@/lib/utils`. Edit copied files freely; `add <name> --force` overwrites local edits.
 
 ## Which component for what
-- Draw a chart: trend over time: line-chart or area-chart (stacked); compare categories: charts BarChart or stacked-bar-chart; share of whole: DonutChart or radial-bar-chart; correlation or outliers: scatter-chart; day-by-hour or cohort grid: matrix-heatmap; yearly activity: heatmap; tiny trend in a card: Sparkline; live feed: live-chart; stages: funnel-chart; scores on axes: radar-chart; parts of a budget: treemap; start-to-end bridge (profit): waterfall-chart; flow between stages: sankey-chart; mix shifting over time: stream-chart; price range per period: candlestick-chart. All animate in on scroll.
+- Draw a chart: trend over time: line-chart or area-chart (stacked); compare categories: charts BarChart or stacked-bar-chart; share of whole: DonutChart or radial-bar-chart; correlation or outliers: scatter-chart; day-by-hour or cohort grid: matrix-heatmap; yearly activity: heatmap; tiny trend in a card: Sparkline; live feed: live-chart; stages: funnel-chart; scores on axes: radar-chart; parts of a budget: treemap; start-to-end bridge (profit): waterfall-chart; flow between stages: sankey-chart; mix shifting over time: stream-chart; price range per period: candlestick-chart; rank changes: bump-chart; seasonal cycle: rose-chart; KPI vs target: bullet-chart; before vs after per item: dumbbell-chart; percent of 100 as squares: waffle-chart. All animate in on scroll.
 - Show tabular data: table (static), data-table (sort/filter/select/paginate), permission-matrix (roles by permissions), kanban (cards in columns), heatmap, charts, line-chart, radar-chart, funnel-chart, gantt (schedule), org-chart, saved-views (table presets), audit-log (who changed what), file-manager
 - Hint or explain on hover: tooltip (title, shortcut, arrow), InfoTip and TruncatedText (both exported by tooltip), popover for richer content
 - Pick a value: select, combobox, radio-group, segmented, chip, switch, checkbox, slider, calendar, date-picker, time-picker, color-picker
@@ -2960,6 +2960,61 @@ export default function BarListDemo() {
 }
 ```
 
+## Bullet chart (`bullet-chart`)
+A KPI against its target in one thin row, with shaded bands for poor, ok and good. The bar slides in on scroll.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add bullet-chart`
+- Import: `import { BulletChart } from '@/components/ui/bullet-chart'`
+- Also needs: charts
+
+Example:
+
+```tsx
+import { BulletChart } from '@/components/ui/bullet-chart';
+
+export default function BulletChartDemo() {
+  return (
+    <BulletChart
+      className="w-[34rem] max-w-full"
+      rows={[
+        { label: 'Revenue (₹L)', value: 72, target: 66, ranges: [40, 60, 90] },
+        { label: 'New customers', value: 118, target: 150, ranges: [80, 120, 180] },
+        { label: 'Uptime (%)', value: 99.94, target: 99.9, ranges: [99, 99.5, 100] },
+        { label: 'NPS', value: 41, target: 50, ranges: [20, 40, 70] },
+      ]}
+    />
+  );
+}
+```
+
+## Bump chart (`bump-chart`)
+Rank over time as smooth lines that swap places. Lines draw in one by one; hover a line or name to follow it.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add bump-chart`
+- Import: `import { BumpChart } from '@/components/ui/bump-chart'`
+- Also needs: charts
+
+Example:
+
+```tsx
+import { BumpChart } from '@/components/ui/bump-chart';
+
+export default function BumpChartDemo() {
+  return (
+    <BumpChart
+      className="w-[38rem] max-w-full"
+      labels={['Jun', 'Jul', 'Aug', 'Sep', 'Oct']}
+      series={[
+        { name: 'Pune', ranks: [1, 1, 2, 3, 2] },
+        { name: 'Mumbai', ranks: [2, 3, 1, 1, 1] },
+        { name: 'Delhi', ranks: [3, 2, 3, 2, 3] },
+        { name: 'Bengaluru', ranks: [4, 4, 4, 4, 4] },
+      ]}
+    />
+  );
+}
+```
+
 ## Candlestick chart (`candlestick-chart`)
 Open, high, low and close per period. Green closed up, red closed down. Candles grow from their midpoint in sequence; hover for the four numbers.
 - Group: Data
@@ -3144,6 +3199,37 @@ export default function DataTableDemo() {
         )}
       />
     </TooltipProvider>
+  );
+}
+```
+
+## Dumbbell chart (`dumbbell-chart`)
+Change per item as two dots joined by a line: before and after, plan and actual. Green when good, red when bad.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add dumbbell-chart`
+- Import: `import { DumbbellChart } from '@/components/ui/dumbbell-chart'`
+- Also needs: charts
+
+Example:
+
+```tsx
+import { DumbbellChart } from '@/components/ui/dumbbell-chart';
+
+export default function DumbbellChartDemo() {
+  return (
+    <DumbbellChart
+      className="w-[34rem] max-w-full"
+      fromLabel="2025"
+      toLabel="2026"
+      format={(n) => `${n}%`}
+      rows={[
+        { label: 'Engineering', from: 62, to: 78 },
+        { label: 'Sales', from: 71, to: 69 },
+        { label: 'Support', from: 55, to: 74 },
+        { label: 'Marketing', from: 68, to: 81 },
+        { label: 'Finance', from: 80, to: 77 },
+      ]}
+    />
   );
 }
 ```
@@ -3686,6 +3772,25 @@ export default function RadialBarChartDemo() {
 }
 ```
 
+## Rose chart (`rose-chart`)
+Polar area chart: equal-angle petals whose length is the value. Petals bloom from the center in turn; hover one to read it.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add rose-chart`
+- Import: `import { RoseChart } from '@/components/ui/rose-chart'`
+- Also needs: charts
+
+Example:
+
+```tsx
+import { RoseChart } from '@/components/ui/rose-chart';
+
+export default function RoseChartDemo() {
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const sales = [32, 28, 41, 55, 62, 48, 39, 44, 70, 83, 66, 91];
+  return <RoseChart data={months.map((label, i) => ({ label, value: sales[i]!, color: i % 3 === 0 ? 'text-primary' : i % 3 === 1 ? 'text-success' : 'text-info' }))} format={(n) => `₹${n}L`} />;
+}
+```
+
 ## Sankey chart (`sankey-chart`)
 Flow diagram where ribbon width is the amount: traffic to page to outcome, budget to team. Ribbons draw in; hover follows a flow.
 - Group: Data
@@ -3979,6 +4084,28 @@ export default function VirtualListDemo() {
         )}
       />
     </div>
+  );
+}
+```
+
+## Waffle chart (`waffle-chart`)
+A grid of 100 squares, each one percent of the whole. Squares pop in as a wave; hover a legend row to light up its squares.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add waffle-chart`
+- Import: `import { WaffleChart } from '@/components/ui/waffle-chart'`
+- Also needs: charts
+
+Example:
+
+```tsx
+import { WaffleChart } from '@/components/ui/waffle-chart';
+
+export default function WaffleChartDemo() {
+  return (
+    <WaffleChart
+      className="w-[34rem] max-w-full"
+      data={[{ label: 'Done', value: 46, color: 'text-success' }, { label: 'In progress', value: 27, color: 'text-primary' }, { label: 'Blocked', value: 9, color: 'text-warning' }, { label: 'To do', value: 18, color: 'text-muted-foreground/40' }]}
+    />
   );
 }
 ```
