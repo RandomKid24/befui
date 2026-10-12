@@ -21,6 +21,7 @@
 - Merge classes with `cn` from `@/lib/utils`. Edit copied files freely; `add <name> --force` overwrites local edits.
 
 ## Which component for what
+- Draw a chart: trend over time: line-chart or area-chart (stacked); compare categories: charts BarChart or stacked-bar-chart; share of whole: DonutChart or radial-bar-chart; correlation or outliers: scatter-chart; day-by-hour or cohort grid: matrix-heatmap; yearly activity: heatmap; tiny trend in a card: Sparkline; live feed: live-chart; stages: funnel-chart; scores on axes: radar-chart. All animate in on scroll.
 - Show tabular data: table (static), data-table (sort/filter/select/paginate), permission-matrix (roles by permissions), kanban (cards in columns), heatmap, charts, line-chart, radar-chart, funnel-chart, gantt (schedule), org-chart, saved-views (table presets), audit-log (who changed what), file-manager
 - Hint or explain on hover: tooltip (title, shortcut, arrow), InfoTip and TruncatedText (both exported by tooltip), popover for richer content
 - Pick a value: select, combobox, radio-group, segmented, chip, switch, checkbox, slider, calendar, date-picker, time-picker, color-picker
@@ -2872,6 +2873,40 @@ export default function VersionLogDemo() {
 }
 ```
 
+## Area chart (`area-chart`)
+Smooth gradient areas, stacked or overlapping, that wipe in on scroll. Hover for a readout across series.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add area-chart`
+- Import: `import { AreaChart } from '@/components/ui/area-chart'`
+- Also needs: charts
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { AreaChart } from '@/components/ui/area-chart';
+import { Segmented } from '@/components/ui/segmented';
+
+export default function AreaChartDemo() {
+  const [mode, setMode] = React.useState<'stacked' | 'overlap'>('stacked');
+  return (
+    <div className="grid w-full max-w-xl gap-4">
+      <Segmented value={mode} onValueChange={setMode} options={[{ value: 'stacked', label: 'Stacked' }, { value: 'overlap', label: 'Overlap' }]} className="justify-self-start" />
+      <AreaChart
+        stacked={mode === 'stacked'}
+        labels={['Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct']}
+        format={(n) => `${n}K`}
+        series={[
+          { name: 'Organic', data: [12, 14, 13, 18, 21, 24, 27] },
+          { name: 'Paid', data: [6, 8, 9, 10, 12, 11, 14] },
+          { name: 'Referral', data: [3, 3, 4, 5, 6, 8, 9] },
+        ]}
+      />
+    </div>
+  );
+}
+```
+
 ## Audit log (`audit-log`)
 Who changed what and when, with expandable before and after values.
 - Group: Data
@@ -3372,6 +3407,28 @@ export default function LiveChartDemo() {
 }
 ```
 
+## Matrix heatmap (`matrix-heatmap`)
+Rows by columns shaded by value: traffic by hour and weekday, cohort retention. Cells fade in as a wave; hover lights up the row and column.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add matrix-heatmap`
+- Import: `import { MatrixHeatmap } from '@/components/ui/matrix-heatmap'`
+- Also needs: charts
+
+Example:
+
+```tsx
+import { MatrixHeatmap } from '@/components/ui/matrix-heatmap';
+
+const rows = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+const cols = ['6a', '8a', '10a', '12p', '2p', '4p', '6p', '8p', '10p'];
+// Busy weekday mid-mornings and afternoons, quiet weekends.
+const values = rows.map((_, r) => cols.map((_, c) => Math.round((r > 4 ? 6 : 20) * (1 + Math.sin((c + 1) * 0.9) * 0.8) + ((r * 7 + c * 13) % 9))));
+
+export default function MatrixHeatmapDemo() {
+  return <MatrixHeatmap className="w-full max-w-xl" rows={rows} cols={cols} values={values} showValues format={(n) => String(Math.max(0, n))} />;
+}
+```
+
 ## Number ticker (`number-ticker`)
 Counts up to a value with easing once it scrolls into view.
 - Group: Data
@@ -3623,6 +3680,40 @@ export default function SavedViewsDemo() {
       onSelect={setActive}
       onSave={(name) => { const id = `v${Date.now()}`; setViews([...views, { id, name }]); setActive(id); }}
       onDelete={(id) => { setViews(views.filter((v) => v.id !== id)); if (active === id) setActive(undefined); }}
+    />
+  );
+}
+```
+
+## Scatter chart (`scatter-chart`)
+Scatter and bubble chart with axis labels, groups by color and a nearest-point hover. Points pop in one by one on scroll.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add scatter-chart`
+- Import: `import { ScatterChart } from '@/components/ui/scatter-chart'`
+- Also needs: charts
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { ScatterChart, type ScatterPoint } from '@/components/ui/scatter-chart';
+
+// Deterministic pseudo-random so the demo looks the same every time.
+const rnd = (i: number) => { const x = Math.sin(i * 12.9898) * 43758.5453; return x - Math.floor(x); };
+
+export default function ScatterChartDemo() {
+  const points = React.useMemo<ScatterPoint[]>(() => Array.from({ length: 48 }, (_, i) => {
+    const group = i % 3;
+    const x = 10 + rnd(i) * 70 + group * 8;
+    return { x: Math.round(x), y: Math.round(20 + x * (0.6 + group * 0.25) + rnd(i + 99) * 25), size: Math.round(20 + rnd(i + 7) * 180), group, label: `Account ${i + 1}` };
+  }), []);
+  return (
+    <ScatterChart
+      className="w-full max-w-xl"
+      xLabel="Seats"
+      yLabel="Monthly revenue (₹K)"
+      groups={[{ name: 'Starter' }, { name: 'Pro' }, { name: 'Business' }]}
+      points={points}
     />
   );
 }

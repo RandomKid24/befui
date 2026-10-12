@@ -38,7 +38,7 @@ export function useSource(load: () => Promise<string>): string {
 }
 
 /** Slugs shown as "New". Trim this list when a release is no longer recent. */
-export const NEW_SLUGS = new Set(['stacked-bar-chart', 'radial-bar-chart', 'live-chart', 'theme-toggle', 'user-menu', 'description-list', 'bar-list', 'settings-layout', 'comparison-table', 'invoice', 'landing-sections', 'pivot-table', 'tree-table', 'file-uploader', 'onboarding-carousel', 'event-calendar']);
+export const NEW_SLUGS = new Set(['area-chart', 'scatter-chart', 'matrix-heatmap', 'stacked-bar-chart', 'radial-bar-chart', 'live-chart', 'theme-toggle', 'user-menu', 'description-list', 'bar-list', 'settings-layout', 'comparison-table', 'invoice', 'landing-sections', 'pivot-table', 'tree-table', 'file-uploader', 'onboarding-carousel', 'event-calendar']);
 
 const m = (
   slug: string,
@@ -62,6 +62,9 @@ const metas: Meta[] = [
   m('signature-pad', 'Signature pad', 'Inputs', 'Draw-your-signature canvas for mouse, touch and pen. Sharp on retina screens, exports a PNG.', { requires: ['button'], keywords: ['sign', 'draw', 'canvas', 'contract', 'esign'] }),
   m('event-calendar', 'Event calendar', 'Time', 'Month view with events on their days, multi-day spans, +n more overflow, locale-aware names and RTL arrows.', { requires: ['button', 'calendar', 'icons'], wide: true, keywords: ['schedule', 'agenda', 'month', 'planner', 'holidays'] }),
   m('virtual-list', 'Virtual list', 'Data', 'Windowed list that renders only the visible rows. 100,000 items stay smooth.', { keywords: ['windowing', 'large list', 'performance', 'infinite', 'scroll'] }),
+  m('area-chart', 'Area chart', 'Data', 'Smooth gradient areas, stacked or overlapping, that wipe in on scroll. Hover for a readout across series.', { requires: ['charts'], keywords: ['chart', 'graph', 'stacked', 'trend', 'traffic', 'animated', 'time series'] }),
+  m('scatter-chart', 'Scatter chart', 'Data', 'Scatter and bubble chart with axis labels, groups by color and a nearest-point hover. Points pop in one by one on scroll.', { requires: ['charts'], keywords: ['chart', 'bubble', 'correlation', 'plot', 'animated', 'distribution', 'outliers'] }),
+  m('matrix-heatmap', 'Matrix heatmap', 'Data', 'Rows by columns shaded by value: traffic by hour and weekday, cohort retention. Cells fade in as a wave; hover lights up the row and column.', { requires: ['charts'], wide: true, keywords: ['chart', 'heat map', 'cohort', 'grid', 'retention', 'animated', 'hours', 'weekday'] }),
   m('stacked-bar-chart', 'Stacked bar chart', 'Data', 'Bars split into colored segments that grow in on scroll, with a hover breakdown and legend. Sessions by device, revenue by plan.', { requires: ['charts'], keywords: ['chart', 'graph', 'segments', 'breakdown', 'animated', 'analytics'] }),
   m('radial-bar-chart', 'Radial bar chart', 'Data', 'Concentric rings, one per goal, that sweep in on scroll. Legend hover highlights a ring; the middle takes any content.', { requires: ['charts'], keywords: ['chart', 'rings', 'goals', 'targets', 'activity', 'animated', 'okr'] }),
   m('live-chart', 'Live chart', 'Data', 'Streaming line chart that slides left as new values arrive. You give it a function for the next value; pause it any time.', { keywords: ['chart', 'realtime', 'streaming', 'monitoring', 'animated', 'cpu', 'active users'] }),
@@ -250,7 +253,7 @@ export interface Block {
 }
 
 const bMeta: Omit<Block, 'Demo' | 'loadSource' | 'path'>[] = [
-  { slug: 'analytics-dashboard', name: 'Analytics dashboard', module: 'Dashboard', description: 'Visitors, page views, session time and conversion KPIs, a traffic area chart, device donut, top pages bar list and weekday bars.', uses: ['stat-card', 'charts', 'line-chart', 'bar-list', 'card'] },
+  { slug: 'analytics-dashboard', name: 'Analytics dashboard', module: 'Dashboard', description: 'Visitors, page views, session time and conversion KPIs, a traffic area chart, device donut, top pages bar list and weekday bars.', uses: ['stat-card', 'charts', 'area-chart', 'stacked-bar-chart', 'radial-bar-chart', 'live-chart', 'bar-list', 'card'] },
   { slug: 'ecommerce-dashboard', name: 'Ecommerce dashboard', module: 'Commerce', description: 'Sales, orders, customers and to-ship KPIs, revenue chart, top products and a recent orders table with status badges.', uses: ['stat-card', 'line-chart', 'bar-list', 'table', 'badge', 'avatar', 'format'] },
   { slug: 'project-overview', name: 'Project overview', module: 'Dashboard', description: 'Project header with status and team, progress ring with phase bars, task list and a milestone timeline.', uses: ['card', 'progress', 'progress-ring', 'badge', 'avatar', 'timeline'] },
   { slug: 'user-management', name: 'User management', module: 'Account', description: 'Team members table with search, sort, role and status, row actions (suspend, remove) and an invite dialog with validation.', uses: ['data-table', 'dialog', 'dropdown-menu', 'select', 'avatar', 'badge', 'toast'] },

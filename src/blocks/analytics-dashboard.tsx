@@ -2,7 +2,7 @@ import { BarList } from '@/components/ui/bar-list';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { DonutChart, Sparkline } from '@/components/ui/charts';
 import { EyeIcon, ClockIcon, MousePointerClickIcon, UsersIcon } from '@/components/ui/icons';
-import { LineChart } from '@/components/ui/line-chart';
+import { AreaChart } from '@/components/ui/area-chart';
 import { LiveChart } from '@/components/ui/live-chart';
 import { RadialBarChart } from '@/components/ui/radial-bar-chart';
 import { StackedBarChart } from '@/components/ui/stacked-bar-chart';
@@ -19,9 +19,9 @@ export default function AnalyticsDashboard() {
       </div>
       <div className="grid gap-4 lg:grid-cols-3">
         <Card className="lg:col-span-2">
-          <CardHeader><CardTitle>Traffic, last 7 months</CardTitle></CardHeader>
+          <CardHeader><CardTitle>Visitors by source</CardTitle></CardHeader>
           <CardContent>
-            <LineChart area labels={['Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct']} format={(n) => `${n}K`} series={[{ name: 'Visitors', data: [22, 26, 25, 33, 37, 41, 48] }, { name: 'Signups', data: [3, 4, 4, 6, 7, 8, 9], color: 'text-success' }]} />
+            <AreaChart stacked labels={['Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct']} format={(n) => `${n}K`} series={[{ name: 'Organic', data: [12, 14, 13, 18, 21, 24, 27] }, { name: 'Paid', data: [6, 8, 9, 10, 12, 11, 14] }, { name: 'Referral', data: [3, 3, 4, 5, 6, 8, 9] }]} />
           </CardContent>
         </Card>
         <Card className="flex flex-col">

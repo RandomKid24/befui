@@ -101,6 +101,7 @@ const head = `# befui
 
 ## Which component for what
 ${[
+  ['Draw a chart', 'trend over time: line-chart or area-chart (stacked); compare categories: charts BarChart or stacked-bar-chart; share of whole: DonutChart or radial-bar-chart; correlation or outliers: scatter-chart; day-by-hour or cohort grid: matrix-heatmap; yearly activity: heatmap; tiny trend in a card: Sparkline; live feed: live-chart; stages: funnel-chart; scores on axes: radar-chart. All animate in on scroll.'],
   ['Show tabular data', 'table (static), data-table (sort/filter/select/paginate), permission-matrix (roles by permissions), kanban (cards in columns), heatmap, charts, line-chart, radar-chart, funnel-chart, gantt (schedule), org-chart, saved-views (table presets), audit-log (who changed what), file-manager'],
   ['Hint or explain on hover', 'tooltip (title, shortcut, arrow), InfoTip and TruncatedText (both exported by tooltip), popover for richer content'],
   ['Pick a value', 'select, combobox, radio-group, segmented, chip, switch, checkbox, slider, calendar, date-picker, time-picker, color-picker'],
