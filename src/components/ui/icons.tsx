@@ -352,6 +352,35 @@ export const ScissorsIcon = make('ScissorsIcon', [['circle', 6, 6, 3], ['circle'
 export const CropIcon = make('CropIcon', [p('M6 2v14a2 2 0 0 0 2 2h14M18 22V8a2 2 0 0 0-2-2H2')]);
 export const RulerIcon = make('RulerIcon', [p('M3 16L16 3l5 5L8 21zM7 12l2 2M10 9l2 2M13 6l2 2')]);
 
+export const StethoscopeIcon = make('StethoscopeIcon', [p('M6 3v5a4 4 0 0 0 8 0V3M5 3h2M13 3h2M10 12v3a5 5 0 0 0 10 0v-2'), ['circle', 20, 11, 2]]);
+export const SyringeIcon = make('SyringeIcon', [p('M8.5 15.5l7-7 4 4-7 7zM8.5 15.5L3 21M16.5 7.5L20 4M17 3l4 4')]);
+export const HeartPulseIcon = make('HeartPulseIcon', [p('M12 20s-8-4.8-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 9c0 6.2-8 11-8 11z'), p('M3 12h4l2-3 3 6 2-3h7')]);
+export const BrainIcon = make('BrainIcon', [p('M9.5 4a3 3 0 0 0-3 3v.5A3 3 0 0 0 4 10.5 3 3 0 0 0 5 13a3 3 0 0 0 1.5 5.5A3 3 0 0 0 12 19V5a3 3 0 0 0-2.5-1zM14.5 4a3 3 0 0 1 3 3v.5a3 3 0 0 1 2.5 3 3 3 0 0 1-1 2.5 3 3 0 0 1-1.5 5.5A3 3 0 0 1 12 19V5a3 3 0 0 1 2.5-1z')]);
+export const BandageIcon = make('BandageIcon', [p('M10.5 20.5a4.9 4.9 0 0 1-7-7l10-10a4.9 4.9 0 0 1 7 7z'), p('M9.5 12l2.5 2.5M12 9.5l2.5 2.5')]);
+export const DnaIcon = make('DnaIcon', [p('M7 3c0 4.5 10 4.5 10 9s-10 4.5-10 9'), p('M17 3c0 4.5-10 4.5-10 9s10 4.5 10 9'), p('M8.5 6.5h7M8.5 17.5h7')]);
+export const MicroscopeIcon = make('MicroscopeIcon', [p('M8 3l4 2-3.5 7.5-4-2z'), p('M5.5 16.5h8M11 8.5a7.5 7.5 0 0 1 5 12M4 21h14')]);
+export const AmbulanceIcon = make('AmbulanceIcon', [p('M3 15V7a1 1 0 0 1 1-1h10v9M14 9h4l3 3v3h-1.5M3 15h2M9 15h6'), ['circle', 7, 17, 2], ['circle', 17, 17, 2], p('M8.5 8v4M6.5 10h4')]);
+export const HospitalIcon = make('HospitalIcon', [p('M4 21V6l8-3 8 3v15M2 21h20M12 8v5M9.5 10.5h5M10 21v-4h4v4')]);
+export const ToothIcon = make('ToothIcon', [p('M7 3c-2 0-3.5 1.5-3.5 4 0 3 1.5 4 1.5 7 0 3 .5 7 2.5 7 2 0 1.5-5 4.5-5s2.5 5 4.5 5c2 0 2.5-4 2.5-7 0-3 1.5-4 1.5-7 0-2.5-1.5-4-3.5-4-2 0-3 1-5 1S9 3 7 3z')]);
+export const MedicalCrossIcon = make('MedicalCrossIcon', [p('M9 3h6v6h6v6h-6v6H9v-6H3V9h6z')]);
+export const BedIcon = make('BedIcon', [p('M3 20V5M3 15h18v5M21 15v-3a3 3 0 0 0-3-3h-7v6'), ['circle', 7, 11, 2]]);
+export const EuroIcon = make('EuroIcon', [p('M17.5 6.5a6.5 6.5 0 1 0 0 11M4 10h9M4 14h9')]);
+export const PoundIcon = make('PoundIcon', [p('M17 20H7c1.5-1.5 2-3 2-5.5V8a4 4 0 0 1 7.5-2M6 13h8')]);
+export const YenIcon = make('YenIcon', [p('M6 4l6 8 6-8M12 12v8M8 14.5h8M8 17.5h8')]);
+export const BitcoinIcon = make('BitcoinIcon', [p('M8 4v16M8 5h5.5a3 3 0 0 1 0 6H8M8 11h6a3 3 0 0 1 0 6H8M10.5 3v2M13.5 3v2M10.5 19v2M13.5 19v2')]);
+export const PiggyBankIcon = make('PiggyBankIcon', [p('M18.5 9c1.5.4 2.5 1.5 2.5 3.5V15h-2l-1 3h-3v-1.5h-5V18H7l-1-3c-1.8-.6-3-2-3-3.5C3 8.5 6.5 6 10.5 6H15c.6-1.2 1.6-2 3-2z'), ['circle', 16, 10.5, 0.5], p('M9 3.5h3')]);
+export const SafeIcon = make('SafeIcon', [['rect', 3, 4, 18, 16, 2], ['circle', 12, 12, 3.5], p('M12 8.5V7M12 17v-1.5M6 20v1.5M18 20v1.5')]);
+export const HandshakeIcon = make('HandshakeIcon', [['rect', 2, 7, 3, 9, 0.8], ['rect', 19, 7, 3, 9, 0.8], p('M5 9l4-2 2 1.5 2-1.5 4 2M5 15l3.5 3 2.5-1.5 2 1 2.5-1 3.5-2.5'), p('M9 13l2 2M11.5 12l2 2M14 11.5l1.5 1.5')]);
+export const InvoiceIcon = make('InvoiceIcon', [p('M14 3H6.5A1.5 1.5 0 0 0 5 4.5v15A1.5 1.5 0 0 0 6.5 21h11a1.5 1.5 0 0 0 1.5-1.5V8zM14 3v5h5'), p('M12 11v7M14 12.2c-.3-.5-1-.7-2-.7-1.2 0-2 .6-2 1.5S10.8 14 12 14s2 .6 2 1.5-.8 1.5-2 1.5c-1 0-1.7-.3-2-.8')]);
+export const ScatterChartIcon = make('ScatterChartIcon', [p('M3 3v18h18'), ['circle', 8, 14, 1], ['circle', 12, 9, 1], ['circle', 16, 15, 1], ['circle', 18, 8, 1]]);
+export const FunnelIcon = make('FunnelIcon', [p('M3 4h18l-7 8v6l-4 2v-8z')]);
+export const SigmaIcon = make('SigmaIcon', [p('M18 5H6l7 7-7 7h12')]);
+export const RadarChartIcon = make('RadarChartIcon', [p('M12 3l8.5 6.2-3.2 10H6.7L3.5 9.2z'), p('M12 12V3M12 12l8.5-2.8M12 12l-8.5-2.8M12 12l5.3 7M12 12l-5.3 7')]);
+export const CandlestickChartIcon = make('CandlestickChartIcon', [['rect', 5, 8, 4, 7, 0.5], p('M7 5v3M7 15v4'), ['rect', 15, 6, 4, 8, 0.5], p('M17 3v3M17 14v5')]);
+export const DonutChartIcon = make('DonutChartIcon', [['circle', 12, 12, 9], ['circle', 12, 12, 4], p('M12 3v5M20.5 8.9l-4.7 1.7')]);
+export const StackedBarIcon = make('StackedBarIcon', [['rect', 4, 4, 6, 16, 1], ['rect', 14, 9, 6, 11, 1], p('M4 12h6M14 15h6')]);
+export const HistogramIcon = make('HistogramIcon', [p('M4 20v-5h4v5M8 20V9h4v11M12 20V4h4v16M16 20v-8h4v8M3 20h18')]);
+
 export const icons = {
   PrinterIcon,
   CallIcon,
@@ -637,4 +666,32 @@ export const icons = {
   ScissorsIcon,
   CropIcon,
   RulerIcon,
+  StethoscopeIcon,
+  SyringeIcon,
+  HeartPulseIcon,
+  BrainIcon,
+  BandageIcon,
+  DnaIcon,
+  MicroscopeIcon,
+  AmbulanceIcon,
+  HospitalIcon,
+  ToothIcon,
+  MedicalCrossIcon,
+  BedIcon,
+  EuroIcon,
+  PoundIcon,
+  YenIcon,
+  BitcoinIcon,
+  PiggyBankIcon,
+  SafeIcon,
+  HandshakeIcon,
+  InvoiceIcon,
+  ScatterChartIcon,
+  FunnelIcon,
+  SigmaIcon,
+  RadarChartIcon,
+  CandlestickChartIcon,
+  DonutChartIcon,
+  StackedBarIcon,
+  HistogramIcon,
 };

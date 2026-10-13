@@ -4,7 +4,7 @@
 
 **Interfaces people actually enjoy using.**
 
-199 copy-paste React components, 281 hand-drawn icons and 27 full-page blocks.<br/>
+199 copy-paste React components, 309 hand-drawn icons and 27 full-page blocks.<br/>
 Built on Radix, Tailwind 4 and CSS variables. You own every file.
 
 [![React 19](https://img.shields.io/badge/React-19-61dafb?logo=react&logoColor=white)](https://react.dev)
@@ -26,7 +26,7 @@ Built on Radix, Tailwind 4 and CSS variables. You own every file.
 - **Accessible by default.** Radix handles focus, keyboard and ARIA for dialogs, menus, selects and tabs. The rest follow the same rules.
 - **One variable rebrands everything.** Change `--primary` once. Light and dark both follow.
 - **Global-ready.** Calendar and date pickers take a `locale`, and components use logical start/end spacing so they flip in right-to-left pages. Every docs preview has an RTL switch.
-- **Our own icon set.** 281 icons on one grid with an opt-in draw animation. No icon package.
+- **Our own icon set.** 309 icons on one grid with an opt-in draw animation. No icon package.
 - **Built for AI coding tools.** `befui init` writes rules into your `AGENTS.md`, and the whole library is described in an `llms.txt` catalog, so an agent reuses components instead of retyping them.
 
 ## Quick start
@@ -86,9 +86,9 @@ Every component page has a live preview, a Code tab, width and light/dark switch
 
 <img src="docs/images/sales-dashboard.png" alt="Sales dashboard block" width="900"/>
 
-### 281 icons, drawn by us
+### 309 icons, drawn by us
 
-<img src="docs/images/icons.png" alt="Icons page with 281 icons, size, color and animation controls" width="900"/>
+<img src="docs/images/icons.png" alt="Icons page with 309 icons, size, color and animation controls" width="900"/>
 
 ```tsx
 import { SearchIcon, ArrowRightIcon } from '@/components/ui/icons';
@@ -253,7 +253,7 @@ Full screens built from the components, with mock data you swap for your own API
 | `block:top-nav-layout` | Layout | App frame with a top navigation bar, theme toggle and user menu. |
 | `block:sign-in` | Auth | Login card with validation, loading button and an error alert. |
 
-### Icons (281)
+### Icons (309)
 
 Arrows, status, people, files, media, devices, commerce, charts, text formatting, maps and actions on a 24px grid, round strokes, one file. See them all on the Icons page of the site.
 
