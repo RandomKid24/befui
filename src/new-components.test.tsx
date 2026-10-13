@@ -7,6 +7,7 @@ import { ButtonGroup } from '@/components/ui/button-group';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from '@/components/ui/navigation-menu';
+import { Menubar, MenubarCheckboxItem, MenubarContent, MenubarItem, MenubarMenu, MenubarSeparator, MenubarShortcut, MenubarTrigger } from '@/components/ui/menubar';
 import { InputAddon, InputGroup, InputGroupInput } from '@/components/ui/input-group';
 
 /** axe over the whole body (portalled overlays live there). Page-landmark and contrast rules need a real page, so they are off. */
@@ -113,4 +114,33 @@ it('NavigationMenu opens a panel from its trigger, closes on Escape, and passes 
   expect((await scan()).violations).toEqual([]);
   fireEvent.keyDown(trigger, { key: 'Escape' });
   await waitFor(() => expect(screen.queryByRole('link', { name: 'Analytics' })).toBeNull());
+});
+
+it('Menubar opens with the keyboard, moves between menus, shows a checked item, and passes axe while open', async () => {
+  render(
+    <Menubar>
+      <MenubarMenu>
+        <MenubarTrigger>File</MenubarTrigger>
+        <MenubarContent>
+          <MenubarItem>New <MenubarShortcut>⌘N</MenubarShortcut></MenubarItem>
+          <MenubarSeparator />
+          <MenubarCheckboxItem checked>Autosave</MenubarCheckboxItem>
+        </MenubarContent>
+      </MenubarMenu>
+      <MenubarMenu>
+        <MenubarTrigger>Edit</MenubarTrigger>
+        <MenubarContent><MenubarItem>Undo</MenubarItem></MenubarContent>
+      </MenubarMenu>
+    </Menubar>,
+  );
+  const file = screen.getByRole('menuitem', { name: 'File' });
+  file.focus();
+  fireEvent.keyDown(file, { key: 'Enter' });
+  expect(await screen.findByRole('menuitem', { name: /New/ })).toBeInTheDocument();
+  expect(screen.getByRole('menuitemcheckbox', { name: 'Autosave' })).toHaveAttribute('aria-checked', 'true');
+  expect((await scan()).violations).toEqual([]);
+  fireEvent.keyDown(screen.getByRole('menuitem', { name: /New/ }), { key: 'ArrowRight' });
+  expect(await screen.findByRole('menuitem', { name: 'Undo' })).toBeInTheDocument();
+  fireEvent.keyDown(screen.getByRole('menuitem', { name: 'Undo' }), { key: 'Escape' });
+  await waitFor(() => expect(screen.queryByRole('menuitem', { name: 'Undo' })).toBeNull());
 });

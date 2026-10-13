@@ -258,6 +258,9 @@
   "mention-input": [
     "avatar"
   ],
+  "menubar": [
+    "icons"
+  ],
   "navbar": [
     "icons"
   ],
