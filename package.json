@@ -1,6 +1,6 @@
 {
   "name": "befui",
-  "version": "1.7.1",
+  "version": "1.7.2",
   "license": "MIT",
   "description": "Copy-paste React components (Radix, Tailwind 4, CSS variables) with a CLI, MCP server and llms.txt for AI tools.",
   "homepage": "https://github.com/RandomKid24/befui#readme",
