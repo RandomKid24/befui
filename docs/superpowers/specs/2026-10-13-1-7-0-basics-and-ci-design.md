@@ -59,7 +59,7 @@ Test setup, adding four devDependencies: `vitest` (3.x, matches Vite 6), `jsdom`
 Two test files:
 
 - **`src/examples.a11y.test.tsx`**: for every file in `src/examples`, render the default export inside `Suspense`, fail on any thrown error, and run axe. The `color-contrast` rule is off because jsdom has no layout. Slugs that fail axe today, or cannot render in jsdom even with the stubs, are recorded in `src/a11y-baseline.json` as slug to one-line reason. The test fails if a slug outside the baseline fails, and also fails if a baseline slug now passes, so the list can only shrink. `UPDATE_BASELINE=1 npm test` rewrites the file from the current results. A new component can never be added to the baseline.
-- **`src/new-components.test.tsx`**: the all-examples test only sees overlays in their closed state, so this file covers the open state of the seven new components: hover-card on pointer enter, menubar and navigation-menu opened, and tour stepping through Next, Back, Skip and a missing target. Each is also run through axe while open. It also holds a deterministic check that `QRCode value="hello" level="M"` yields a 21-module code (viewBox `0 0 29 29`).
+- **`src/new-components.test.tsx`**: the all-examples test only sees overlays in their closed state, so this file covers the open state of the seven new components: hover-card on pointer enter, menubar and navigation-menu opened, and tour stepping through Next, Back, Skip and a missing target. Each is also run through axe while open.
 
 Shared setup in `vitest.setup.ts` stubs what jsdom lacks: `matchMedia`, `ResizeObserver`, `IntersectionObserver`, `Element.prototype.scrollIntoView`, pointer-capture methods Radix calls, and `HTMLCanvasElement.prototype.getContext` (signature pad).
 
