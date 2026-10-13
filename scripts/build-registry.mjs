@@ -73,6 +73,8 @@ for (const [kind, dir, prefix] of [['ui', 'src/components/ui', ''], ['blocks', '
 // The docs site lists "copy these files" from real imports, not hand-kept metadata (they drifted: 29 components were missing icons).
 writeFileSync('src/registry/requires.json', JSON.stringify(Object.fromEntries(docs.filter((d) => d.kind === 'ui').map((d) => [d.name, d.requires]).sort(([a], [b]) => a.localeCompare(b))), null, 2) + '\n');
 writeFileSync(`${out}/index.json`, JSON.stringify(items));
+// Theme presets: read by `befui init --theme` and the docs Themes page.
+writeFileSync(`${out}/themes.json`, JSON.stringify(JSON.parse(readFileSync('src/registry/themes.json', 'utf8'))));
 writeFileSync(`${out}/init.json`, JSON.stringify({
   name: 'init',
   deps: ['clsx', 'tailwind-merge', 'class-variance-authority', 'tailwindcss', '@tailwindcss/vite'],

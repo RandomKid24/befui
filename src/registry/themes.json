@@ -1,0 +1,172 @@
+{
+  "blue": {
+    "label": "Blue",
+    "light": {
+      "primary": "#2563eb",
+      "primary-foreground": "#ffffff",
+      "accent": "#eff6ff",
+      "accent-foreground": "#1d4ed8",
+      "ring": "#3b82f6"
+    },
+    "dark": {
+      "primary": "#3b82f6",
+      "primary-foreground": "#0a0c10",
+      "accent": "#14213d",
+      "accent-foreground": "#93c5fd",
+      "ring": "#3b82f6"
+    }
+  },
+  "indigo": {
+    "label": "Indigo",
+    "light": {
+      "primary": "#4f46e5",
+      "primary-foreground": "#ffffff",
+      "accent": "#eef2ff",
+      "accent-foreground": "#4338ca",
+      "ring": "#6366f1"
+    },
+    "dark": {
+      "primary": "#818cf8",
+      "primary-foreground": "#0a0c10",
+      "accent": "#1a1d3d",
+      "accent-foreground": "#a5b4fc",
+      "ring": "#6366f1"
+    }
+  },
+  "violet": {
+    "label": "Violet",
+    "light": {
+      "primary": "#7c3aed",
+      "primary-foreground": "#ffffff",
+      "accent": "#f5f3ff",
+      "accent-foreground": "#6d28d9",
+      "ring": "#8b5cf6"
+    },
+    "dark": {
+      "primary": "#a78bfa",
+      "primary-foreground": "#0a0c10",
+      "accent": "#231a3d",
+      "accent-foreground": "#c4b5fd",
+      "ring": "#8b5cf6"
+    }
+  },
+  "rose": {
+    "label": "Rose",
+    "light": {
+      "primary": "#e11d48",
+      "primary-foreground": "#ffffff",
+      "accent": "#fff1f2",
+      "accent-foreground": "#be123c",
+      "ring": "#f43f5e"
+    },
+    "dark": {
+      "primary": "#f43f5e",
+      "primary-foreground": "#0a0c10",
+      "accent": "#3d1a22",
+      "accent-foreground": "#fda4af",
+      "ring": "#f43f5e"
+    }
+  },
+  "red": {
+    "label": "Red",
+    "light": {
+      "primary": "#dc2626",
+      "primary-foreground": "#ffffff",
+      "accent": "#fef2f2",
+      "accent-foreground": "#b91c1c",
+      "ring": "#ef4444"
+    },
+    "dark": {
+      "primary": "#ef4444",
+      "primary-foreground": "#0a0c10",
+      "accent": "#3d1a1a",
+      "accent-foreground": "#fca5a5",
+      "ring": "#ef4444"
+    }
+  },
+  "emerald": {
+    "label": "Emerald",
+    "light": {
+      "primary": "#047857",
+      "primary-foreground": "#ffffff",
+      "accent": "#ecfdf5",
+      "accent-foreground": "#047857",
+      "ring": "#10b981"
+    },
+    "dark": {
+      "primary": "#10b981",
+      "primary-foreground": "#0a0c10",
+      "accent": "#12332a",
+      "accent-foreground": "#6ee7b7",
+      "ring": "#10b981"
+    }
+  },
+  "teal": {
+    "label": "Teal",
+    "light": {
+      "primary": "#0f766e",
+      "primary-foreground": "#ffffff",
+      "accent": "#f0fdfa",
+      "accent-foreground": "#0f766e",
+      "ring": "#14b8a6"
+    },
+    "dark": {
+      "primary": "#14b8a6",
+      "primary-foreground": "#0a0c10",
+      "accent": "#0f3330",
+      "accent-foreground": "#5eead4",
+      "ring": "#14b8a6"
+    }
+  },
+  "amber": {
+    "label": "Amber",
+    "light": {
+      "primary": "#f59e0b",
+      "primary-foreground": "#1c1917",
+      "accent": "#fffbeb",
+      "accent-foreground": "#b45309",
+      "ring": "#f59e0b"
+    },
+    "dark": {
+      "primary": "#f59e0b",
+      "primary-foreground": "#0a0c10",
+      "accent": "#3d2a0f",
+      "accent-foreground": "#fcd34d",
+      "ring": "#f59e0b"
+    }
+  },
+  "orange": {
+    "label": "Orange",
+    "light": {
+      "primary": "#f97316",
+      "primary-foreground": "#1c1917",
+      "accent": "#fff7ed",
+      "accent-foreground": "#c2410c",
+      "ring": "#f97316"
+    },
+    "dark": {
+      "primary": "#f97316",
+      "primary-foreground": "#0a0c10",
+      "accent": "#3d2210",
+      "accent-foreground": "#fdba74",
+      "ring": "#f97316"
+    }
+  },
+  "slate": {
+    "label": "Slate",
+    "light": {
+      "primary": "#0f172a",
+      "primary-foreground": "#ffffff",
+      "accent": "#f1f5f9",
+      "accent-foreground": "#0f172a",
+      "ring": "#64748b"
+    },
+    "dark": {
+      "primary": "#e2e8f0",
+      "primary-foreground": "#0a0c10",
+      "accent": "#1e2533",
+      "accent-foreground": "#e2e8f0",
+      "ring": "#64748b"
+    }
+  }
+}
