@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { flushSync } from 'react-dom';
 import { Github } from 'lucide-react';
-import { BarChartIcon, BefMark, BellIcon, BlocksIcon, ChevronRightIcon, ClockIcon, EditIcon, ImageIcon, LayersIcon, ListIcon, BookIcon, CommandKeyIcon, ComponentsIcon, MenuIcon, MoonIcon, SearchIcon, SparkleIcon, SunIcon, ZapIcon } from '@/components/ui/icons';
+import { BarChartIcon, BefMark, BellIcon, BlocksIcon, ChevronRightIcon, ClockIcon, EditIcon, ImageIcon, LayersIcon, ListIcon, BookIcon, CommandKeyIcon, ComponentsIcon, MenuIcon, MoonIcon, PaletteIcon, SearchIcon, SparkleIcon, SunIcon, ZapIcon } from '@/components/ui/icons';
 import { Button } from '@/components/ui/button';
 import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
 import { Kbd } from '@/components/ui/kbd';
@@ -74,6 +74,7 @@ function SearchPalette({ open, setOpen }: { open: boolean; setOpen: (o: boolean)
           <CommandItem onSelect={() => pick('/components')}><ComponentsIcon /> All components</CommandItem>
           <CommandItem onSelect={() => pick('/blocks')}><BlocksIcon /> All blocks</CommandItem>
           <CommandItem onSelect={() => pick('/icons')}><SparkleIcon /> Icons</CommandItem>
+          <CommandItem onSelect={() => pick('/themes')}><PaletteIcon /> Themes</CommandItem>
           <CommandItem onSelect={() => pick('/ai')}><ZapIcon /> Use with AI</CommandItem>
           <CommandItem onSelect={() => pick('/web')}><LayersIcon /> Use without React</CommandItem>
           <CommandItem onSelect={() => pick('/changelog')}><ClockIcon /> Changelog</CommandItem>
@@ -185,7 +186,7 @@ export function SidebarNav({ path, onNavigate }: { path: string; onNavigate?: ()
       {to.startsWith('/components/') && NEW_SLUGS.has(to.slice(12)) && <span className="ml-2 rounded-full bg-primary/10 px-1.5 py-px align-middle text-[10px] font-semibold text-primary">New</span>}
     </Link>
   );
-  const top = [['/docs', 'Getting started', BookIcon], ['/components', 'All components', ComponentsIcon], ['/blocks', 'All blocks', BlocksIcon], ['/icons', 'Icons', SparkleIcon], ['/ai', 'Use with AI', ZapIcon], ['/web', 'Use without React', LayersIcon], ['/changelog', 'Changelog', ClockIcon]] as const;
+  const top = [['/docs', 'Getting started', BookIcon], ['/components', 'All components', ComponentsIcon], ['/blocks', 'All blocks', BlocksIcon], ['/icons', 'Icons', SparkleIcon], ['/themes', 'Themes', PaletteIcon], ['/ai', 'Use with AI', ZapIcon], ['/web', 'Use without React', LayersIcon], ['/changelog', 'Changelog', ClockIcon]] as const;
   const allOpen = groups.every((g) => open[g.title]);
   const visible = groups
     .map((g) => ({ ...g, shown: term ? g.items.filter((i) => `${i.label} ${i.extra}`.toLowerCase().includes(term)) : g.items }))

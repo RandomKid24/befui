@@ -2,6 +2,7 @@ import { Shell } from '@/site/layout';
 import { BlockPage, BlocksIndex, ComponentPage, ComponentsIndex, GettingStarted, NotFound } from '@/site/pages';
 import { Home } from '@/site/landing';
 import { IconsPage } from '@/site/icons-page';
+import { ThemesPage } from '@/site/themes-page';
 import { AiPage } from '@/site/ai-page';
 import { ChangelogPage } from '@/site/changelog-page';
 import { WebPage } from '@/site/web-page';
@@ -20,11 +21,12 @@ export default function App() {
   else if (section === 'web') page = <WebPage />;
   else if (section === 'changelog') page = <ChangelogPage />;
   else if (section === 'icons') page = <IconsPage />;
+  else if (section === 'themes') page = <ThemesPage />;
   else if (section === 'blocks') page = slug ? <BlockPage slug={slug} /> : <BlocksIndex />;
   else page = <NotFound />;
 
   return (
-    <Shell path={path} docs={!home && section !== 'icons' && section !== 'web'}>
+    <Shell path={path} docs={!home && section !== 'icons' && section !== 'themes' && section !== 'web'}>
       {page}
     </Shell>
   );
