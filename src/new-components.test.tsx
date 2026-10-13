@@ -5,6 +5,7 @@ import { expect, it, vi } from 'vitest';
 import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { InputAddon, InputGroup, InputGroupInput } from '@/components/ui/input-group';
 
 /** axe over the whole body (portalled overlays live there). Page-landmark and contrast rules need a real page, so they are off. */
@@ -65,4 +66,30 @@ it('HoverCard waits 200 ms to open and 100 ms to close by default', () => {
   } finally {
     vi.useRealTimers();
   }
+});
+
+it('ToggleGroup multiple presses several at once and passes axe', async () => {
+  const onValueChange = vi.fn();
+  const { container } = render(
+    <ToggleGroup type="multiple" aria-label="Format" value={['bold']} onValueChange={onValueChange}>
+      <ToggleGroupItem value="bold" aria-label="Bold">B</ToggleGroupItem>
+      <ToggleGroupItem value="italic" aria-label="Italic">I</ToggleGroupItem>
+    </ToggleGroup>,
+  );
+  expect(screen.getByRole('button', { name: 'Bold' })).toHaveAttribute('aria-pressed', 'true');
+  fireEvent.click(screen.getByRole('button', { name: 'Italic' }));
+  expect(onValueChange).toHaveBeenCalledWith(['bold', 'italic']);
+  expect((await scan(container)).violations).toEqual([]);
+});
+
+it('ToggleGroup multiple with an empty value has nothing pressed and reports the first press', () => {
+  const onValueChange = vi.fn();
+  render(
+    <ToggleGroup type="multiple" aria-label="Format" value={[]} onValueChange={onValueChange}>
+      <ToggleGroupItem value="bold" aria-label="Bold">B</ToggleGroupItem>
+    </ToggleGroup>,
+  );
+  expect(screen.getByRole('button', { name: 'Bold' })).toHaveAttribute('aria-pressed', 'false');
+  fireEvent.click(screen.getByRole('button', { name: 'Bold' }));
+  expect(onValueChange).toHaveBeenCalledWith(['bold']);
 });
