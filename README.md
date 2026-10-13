@@ -4,7 +4,7 @@
 
 **Interfaces people actually enjoy using.**
 
-192 copy-paste React components, 280 hand-drawn icons and 27 full-page blocks.<br/>
+192 copy-paste React components, 281 hand-drawn icons and 27 full-page blocks.<br/>
 Built on Radix, Tailwind 4 and CSS variables. You own every file.
 
 [![React 19](https://img.shields.io/badge/React-19-61dafb?logo=react&logoColor=white)](https://react.dev)
@@ -26,7 +26,7 @@ Built on Radix, Tailwind 4 and CSS variables. You own every file.
 - **Accessible by default.** Radix handles focus, keyboard and ARIA for dialogs, menus, selects and tabs. The rest follow the same rules.
 - **One variable rebrands everything.** Change `--primary` once. Light and dark both follow.
 - **Global-ready.** Calendar and date pickers take a `locale`, and components use logical start/end spacing so they flip in right-to-left pages. Every docs preview has an RTL switch.
-- **Our own icon set.** 189 icons on one grid with an opt-in draw animation. No icon package.
+- **Our own icon set.** 281 icons on one grid with an opt-in draw animation. No icon package.
 - **Built for AI coding tools.** `befui init` writes rules into your `AGENTS.md`, and the whole library is described in an `llms.txt` catalog, so an agent reuses components instead of retyping them.
 
 ## Quick start
@@ -86,9 +86,9 @@ Every component page has a live preview, a Code tab, width and light/dark switch
 
 <img src="docs/images/sales-dashboard.png" alt="Sales dashboard block" width="900"/>
 
-### 189 icons, drawn by us
+### 281 icons, drawn by us
 
-<img src="docs/images/icons.png" alt="Icons page with 189 icons, size, color and animation controls" width="900"/>
+<img src="docs/images/icons.png" alt="Icons page with 281 icons, size, color and animation controls" width="900"/>
 
 ```tsx
 import { SearchIcon, ArrowRightIcon } from '@/components/ui/icons';
@@ -139,63 +139,72 @@ Add a `## x.y.z` section to `CHANGELOG.md`, then `npm version minor` (checks the
 
 Some components (loader, bottom sheet, toast...) need keyframes from `index.css`. After adding components, run `npx github:RandomKid24/befui update` to append any your project is missing (`--check` only reports, handy in CI). `add` also prints a warning when something is missing.
 
-### Components (141)
+<!-- components:start -->
+### Components (192)
 
 <details>
-<summary><b>Layout</b> (3)</summary>
+<summary><b>Layout</b> (5)</summary>
 
-`sidebar` · `app-shell` · `split-pane`
+`app-shell` · `landing-sections` · `settings-layout` · `sidebar` · `split-pane`
 
 </details>
 
 <details>
-<summary><b>Inputs</b> (38)</summary>
+<summary><b>Navigation</b> (13)</summary>
 
-`button` · `input` · `label` · `checkbox` · `switch` · `select` · `combobox` · `calendar` · `date-picker` · `segmented` · `copy-button` · `otp-input` · `slider` · `dropzone` · `phone-input` · `file-uploader` · `signature-pad` · `radio-group` · `rating` · `tag-input` · `number-stepper` · `chip` · `toggle` · `search-input` · `password-input` · `color-picker` · `search-bar` · `currency-input` · `inline-edit` · `coupon-input` · `mention-input` · `fab` · `datetime-picker` · `image-upload` · `avatar-upload` · `schema-form` · `rich-text-editor` · `notification-preferences`
-
-</details>
-
-<details>
-<summary><b>Time</b> (7)</summary>
-
-`time-picker` · `analog-clock` · `world-clock` · `stopwatch` · `timer` · `relative-time` · `event-calendar`
+`bottom-nav` · `breadcrumb` · `dock` · `navbar` · `onboarding-carousel` · `order-tracker` · `pagination` · `scroll-progress` · `stepper` · `table-of-contents` · `tabs` · `tree-view` · `user-menu`
 
 </details>
 
 <details>
-<summary><b>Display</b> (38)</summary>
+<summary><b>Inputs</b> (39)</summary>
 
-`accordion` · `spotlight-card` · `border-beam` · `marquee` · `reveal` · `carousel` · `compare` · `tilt-card` · `shimmer-text` · `collapsible` · `typewriter` · `pricing-card` · `card` · `badge` · `avatar` · `table` · `separator` · `kbd` · `empty-state` · `timeline` · `changelog` · `testimonial-card` · `comment-thread` · `code-block` · `status-dot` · `activity-feed` · `product-card` · `order-summary` · `sortable-list` · `chat` · `profile-card` · `terminal` · `swipe-actions` · `approval-flow` · `onboarding-checklist` · `tag-manager` · `format` · `version-log`
+`avatar-upload` · `button` · `calendar` · `checkbox` · `chip` · `color-picker` · `combobox` · `copy-button` · `coupon-input` · `currency-input` · `date-picker` · `datetime-picker` · `dropzone` · `fab` · `file-uploader` · `image-upload` · `inline-edit` · `input` · `label` · `mention-input` · `notification-preferences` · `number-stepper` · `otp-input` · `password-input` · `phone-input` · `radio-group` · `rating` · `rich-text-editor` · `schema-form` · `search-bar` · `search-input` · `segmented` · `select` · `signature-pad` · `slider` · `switch` · `tag-input` · `theme-toggle` · `toggle`
 
 </details>
 
 <details>
-<summary><b>Data</b> (23)</summary>
+<summary><b>Display</b> (43)</summary>
 
-`number-ticker` · `virtual-list` · `pivot-table` · `tree-table` · `countdown` · `progress-ring` · `data-table` · `gauge` · `heatmap` · `stat-card` · `charts` · `progress` · `filter-bar` · `permission-matrix` · `kanban` · `line-chart` · `radar-chart` · `audit-log` · `file-manager` · `saved-views` · `funnel-chart` · `gantt` · `org-chart`
+`accordion` · `activity-feed` · `approval-flow` · `avatar` · `badge` · `border-beam` · `card` · `carousel` · `changelog` · `chat` · `code-block` · `collapsible` · `comment-thread` · `compare` · `credit-card` · `description-list` · `diff-viewer` · `empty-state` · `format` · `invoice` · `kbd` · `marquee` · `onboarding-checklist` · `order-summary` · `pricing-card` · `product-card` · `profile-card` · `rating-breakdown` · `reveal` · `separator` · `shimmer-text` · `sortable-list` · `spotlight-card` · `status-dot` · `swipe-actions` · `table` · `tag-manager` · `terminal` · `testimonial-card` · `tilt-card` · `timeline` · `typewriter` · `version-log`
+
+</details>
+
+<details>
+<summary><b>Data</b> (61)</summary>
+
+`area-chart` · `audit-log` · `bar-list` · `box-plot-chart` · `bullet-chart` · `bump-chart` · `butterfly-chart` · `candlestick-chart` · `charts` · `chord-chart` · `circle-pack-chart` · `comparison-table` · `countdown` · `data-table` · `dumbbell-chart` · `file-manager` · `filter-bar` · `forecast-chart` · `funnel-chart` · `gantt` · `gauge` · `half-donut-chart` · `heatmap` · `histogram-chart` · `kanban` · `leaderboard` · `line-chart` · `live-chart` · `lollipop-chart` · `marimekko-chart` · `matrix-heatmap` · `number-ticker` · `org-chart` · `pareto-chart` · `permission-matrix` · `pie-chart` · `pivot-table` · `progress` · `progress-ring` · `punch-card-chart` · `radar-chart` · `radial-bar-chart` · `radial-line-chart` · `ridgeline-chart` · `rose-chart` · `sankey-chart` · `saved-views` · `scatter-chart` · `slope-chart` · `stacked-bar-chart` · `stat-card` · `stream-chart` · `sunburst-chart` · `tree-table` · `treemap` · `uptime-bar` · `venn-chart` · `virtual-list` · `waffle-chart` · `waterfall-chart` · `word-cloud`
 
 </details>
 
 <details>
 <summary><b>Feedback</b> (11)</summary>
 
-`banner` · `confetti` · `alert` · `toast` · `skeleton` · `spinner` · `notification-center` · `cookie-consent` · `loader` · `error-state` · `pull-to-refresh`
+`alert` · `banner` · `confetti` · `cookie-consent` · `error-state` · `loader` · `notification-center` · `pull-to-refresh` · `skeleton` · `spinner` · `toast`
 
 </details>
 
 <details>
 <summary><b>Overlays</b> (10)</summary>
 
-`alert-dialog` · `dialog` · `dropdown-menu` · `popover` · `tooltip` · `command` · `context-menu` · `image-viewer` · `bottom-sheet` · `shortcuts-dialog`
+`alert-dialog` · `bottom-sheet` · `command` · `context-menu` · `dialog` · `dropdown-menu` · `image-viewer` · `popover` · `shortcuts-dialog` · `tooltip`
 
 </details>
 
 <details>
-<summary><b>Navigation</b> (11)</summary>
+<summary><b>Time</b> (9)</summary>
 
-`scroll-progress` · `tree-view` · `dock` · `tabs` · `breadcrumb` · `pagination` · `stepper` · `table-of-contents` · `navbar` · `bottom-nav` · `onboarding-carousel`
+`analog-clock` · `day-agenda` · `event-calendar` · `relative-time` · `stopwatch` · `time-picker` · `timer` · `week-strip` · `world-clock`
 
 </details>
+
+<details>
+<summary><b>Other</b> (1)</summary>
+
+`icons`
+
+</details>
+<!-- components:end -->
 
 Browse them live with search at the docs site, or run `npx github:RandomKid24/befui list`.
 
@@ -244,7 +253,7 @@ Full screens built from the components, with mock data you swap for your own API
 | `block:top-nav-layout` | Layout | App frame with a top navigation bar, theme toggle and user menu. |
 | `block:sign-in` | Auth | Login card with validation, loading button and an error alert. |
 
-### Icons (189)
+### Icons (281)
 
 Arrows, status, people, files, media, devices, commerce, charts, text formatting, maps and actions on a 24px grid, round strokes, one file. See them all on the Icons page of the site.
 

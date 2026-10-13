@@ -148,6 +148,17 @@ const iconSection = `## Icons (${iconNames.length})\nImport from \`@/components/
 const ORDER = ['Layout', 'Navigation', 'Inputs', 'Display', 'Data', 'Feedback', 'Overlays', 'Time'];
 const rank = (g) => (ORDER.includes(g) ? ORDER.indexOf(g) : ORDER.length);
 const byGroup = [...ui].sort((x, y) => rank(x.group) - rank(y.group) || x.name.localeCompare(y.name));
+// README: the component catalog and the headline counts come from the registry so they cannot drift (CI fails if they do).
+const catalog = ORDER.concat([...new Set(ui.map((d) => d.group))].filter((g) => !ORDER.includes(g)))
+  .map((g) => ({ g, list: byGroup.filter((d) => d.group === g) }))
+  .filter((x) => x.list.length)
+  .map((x) => `<details>\n<summary><b>${ORDER.includes(x.g) ? x.g : 'Other'}</b> (${x.list.length})</summary>\n\n${x.list.map((d) => `\`${d.name}\``).join(' · ')}\n\n</details>`)
+  .join('\n\n');
+const readmeOld = readFileSync('README.md', 'utf8');
+const readmeNew = readmeOld
+  .replace(/<!-- components:start -->[\s\S]*<!-- components:end -->/, () => `<!-- components:start -->\n### Components (${ui.length})\n\n${catalog}\n<!-- components:end -->`)
+  .replace(/\d+ copy-paste React components, \d+ hand-drawn icons and \d+ full-page blocks/, () => `${ui.length} copy-paste React components, ${iconNames.length} hand-drawn icons and ${bl.length} full-page blocks`);
+if (readmeNew !== readmeOld) writeFileSync('README.md', readmeNew);
 const importOf = (d) => d.exports.filter((e) => !/Variants$/.test(e));
 const line = (d) => `- \`${d.name}\`: ${d.description} Exports: ${importOf(d).slice(0, 8).join(', ')}${importOf(d).length > 8 ? ', ...' : ''}.${d.requires.length ? ` Needs: ${d.requires.join(', ')}.` : ''}`;
 const sections = ORDER.concat([...new Set(ui.map((d) => d.group))].filter((g) => !ORDER.includes(g)))
