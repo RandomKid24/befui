@@ -121,8 +121,8 @@
   "amber": {
     "label": "Amber",
     "light": {
-      "primary": "#f59e0b",
-      "primary-foreground": "#1c1917",
+      "primary": "#b45309",
+      "primary-foreground": "#ffffff",
       "accent": "#fffbeb",
       "accent-foreground": "#b45309",
       "ring": "#f59e0b"
@@ -138,8 +138,8 @@
   "orange": {
     "label": "Orange",
     "light": {
-      "primary": "#f97316",
-      "primary-foreground": "#1c1917",
+      "primary": "#c2410c",
+      "primary-foreground": "#ffffff",
       "accent": "#fff7ed",
       "accent-foreground": "#c2410c",
       "ring": "#f97316"

@@ -1,3 +1,5 @@
+'use client';
+
 import { BarList } from '@/components/ui/bar-list';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { DonutChart, Sparkline } from '@/components/ui/charts';

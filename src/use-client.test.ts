@@ -13,6 +13,7 @@ describe('needsClient', () => {
     ['cmdk', "import { Command } from 'cmdk';"],
     ['a browser global', "const m = window.matchMedia('(min-width: 1px)');"],
     ['context', 'const C = React.createContext(null);'],
+    ['a function passed as a prop (not allowed server to client)', 'export const A = () => <LineChart format={(n) => `${n}L`} />;'],
   ])('is true for %s', (_, source) => {
     expect(needsClient(source)).toBe(true);
   });

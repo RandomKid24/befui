@@ -95,6 +95,11 @@ function unifiedDiff(a, b, labelA, labelB) {
 /** A registry name: lower-case letters, digits and dashes, optionally prefixed block:. Anything else could point outside the folder. */
 const validName = (n) => /^(block:)?[a-z0-9-]+$/.test(n);
 
+function sourceFiles(root) {
+  if (!existsSync(root)) return [];
+  return readdirSync(root, { withFileTypes: true }).flatMap((e) => (e.name === 'node_modules' || e.name.startsWith('.') ? [] : e.isDirectory() ? sourceFiles(join(root, e.name)) : /\.(tsx?|jsx?)$/.test(e.name) ? [join(root, e.name)] : []));
+}
+
 function write(files) {
   const written = [];
   for (const f of files) {
@@ -307,14 +312,16 @@ if (has('version') || cmd === 'version') {
 } else if (cmd === 'remove' && names.length) {
   for (const n of names) if (!validName(n)) die(`"${n}" is not a component name. Run "befui list" to see names.`);
   const plan = [];
+  const removing = [];
   for (const n of names) {
     const item = await load(n);
+    removing.push(...item.files.map((f) => join(dir, f.path)));
     const own = item.files.map((f) => join(dir, f.path)).filter((p) => existsSync(p));
     if (!own.length) { console.log(`  ${n} is not installed, nothing to remove`); continue; }
-    // Which other local files import this component? Blocks are leaves, so only components can be depended on.
+    // Which other local files import it? Any source file under --dir counts (pages, libs, blocks), except files being removed now.
     const slug = n.replace(/^block:/, '');
-    const users = n.startsWith('block:') ? [] : ['components/ui', 'blocks'].flatMap((d) => (existsSync(join(dir, d)) ? readdirSync(join(dir, d)).filter((f) => f.endsWith('.tsx')).map((f) => join(dir, d, f)) : []))
-      .filter((p) => !own.includes(p) && new RegExp(`from ['"](@/components/ui/|\\./)${slug}['"]`).test(readFileSync(p, 'utf8')));
+    const re = new RegExp(`['"][^'"]*/${slug}(\\.tsx?)?['"]`);
+    const users = sourceFiles(dir).filter((f) => !removing.includes(f) && re.test(readFileSync(f, 'utf8')));
     if (users.length && !has('force')) die(`${n} is still used by: ${users.map((p) => p.replace(`${dir}/`, '')).join(', ')}. Remove those first, or pass --force.`);
     plan.push({ n, own });
   }

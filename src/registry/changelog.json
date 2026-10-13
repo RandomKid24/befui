@@ -1,5 +1,38 @@
 [
   {
+    "version": "1.9.1",
+    "date": "2026-10-14",
+    "title": "Next.js fixes for four dashboards, safer remove, readable amber and orange",
+    "entries": [
+      {
+        "kind": "fixed",
+        "text": "Next.js: blocks that pass a function to a chart (finance, analytics, ecommerce and sales dashboards) now start with 'use client'. The check now flags any component that passes a function as a prop.",
+        "slugs": [
+          "block:finance-dashboard",
+          "block:analytics-dashboard",
+          "block:ecommerce-dashboard",
+          "block:sales-dashboard"
+        ]
+      },
+      {
+        "kind": "fixed",
+        "text": "befui remove now looks at every source file under your folder (pages, libs, blocks), not just components, handles relative imports, and lets you remove two components that use each other in one command."
+      },
+      {
+        "kind": "fixed",
+        "text": "Themes: amber and orange use a deeper primary so links and active states are readable on white (4.5:1), and the test now checks primary text on the page background for every theme."
+      },
+      {
+        "kind": "fixed",
+        "text": "Chat app and calendar app no longer fail on plain http, where crypto.randomUUID does not exist.",
+        "slugs": [
+          "block:chat-app",
+          "block:calendar-app"
+        ]
+      }
+    ]
+  },
+  {
     "version": "1.9.0",
     "date": "2026-10-14",
     "title": "Ten new page blocks and befui diff and remove",

@@ -10,6 +10,7 @@ export function needsClient(source) {
     /\bcreateContext\b/.test(src) ||
     /from\s+['"](@radix-ui\/|cmdk)/.test(src) ||
     /\bon[A-Z]\w*\s*=/.test(src) || // JSX event handler props
+    /=\{\s*(\([^)]*\)|\w+)\s*=>/.test(src) || // any function passed as a prop: not allowed from a server component to a client one
     /\b(window|document|localStorage|sessionStorage|navigator)\./.test(src)
   );
 }

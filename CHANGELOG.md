@@ -3,6 +3,15 @@
 All notable changes to befui. Versions follow [semver](https://semver.org): new components are minor releases, breaking prop changes are major. The same list, with links to each component, is on the docs site under Changelog.
 (Generated from src/registry/changelog.json by `npm run registry:build`. Edit the JSON, not this file.)
 
+## 1.9.1 - 2026-10-14
+
+Next.js fixes for four dashboards, safer remove, readable amber and orange
+
+- **Fixed:** Next.js: blocks that pass a function to a chart (finance, analytics, ecommerce and sales dashboards) now start with 'use client'. The check now flags any component that passes a function as a prop. (Finance dashboard, Analytics dashboard, Ecommerce dashboard, Sales dashboard)
+- **Fixed:** befui remove now looks at every source file under your folder (pages, libs, blocks), not just components, handles relative imports, and lets you remove two components that use each other in one command.
+- **Fixed:** Themes: amber and orange use a deeper primary so links and active states are readable on white (4.5:1), and the test now checks primary text on the page background for every theme.
+- **Fixed:** Chat app and calendar app no longer fail on plain http, where crypto.randomUUID does not exist. (Chat app, Calendar app)
+
 ## 1.9.0 - 2026-10-14
 
 Ten new page blocks and befui diff and remove

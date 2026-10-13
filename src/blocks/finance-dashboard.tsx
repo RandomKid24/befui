@@ -1,3 +1,5 @@
+'use client';
+
 import { Badge } from '@/components/ui/badge';
 import { BarList } from '@/components/ui/bar-list';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';

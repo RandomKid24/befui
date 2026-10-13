@@ -84,4 +84,17 @@ describe('befui remove', () => {
     for (const bad of ['../../etc/passwd', 'Button', 'a/b', '..']) expect(p.cli('remove', bad).status, bad).not.toBe(0);
     expect(existsSync(p.file('components/ui/button.tsx'))).toBe(true);
   });
+
+  it('also refuses when a page outside components/ui imports it (absolute or relative), and removes two names that use each other', () => {
+    const p = project();
+    p.cli('add', 'button', 'input', 'input-group');
+    writeFileSync(p.file('App.tsx'), "import { Button } from '@/components/ui/button';\nexport default () => <Button />;\n");
+    const blocked = p.cli('remove', 'button');
+    expect(blocked.status).not.toBe(0);
+    expect(blocked.stderr + blocked.stdout).toContain('App.tsx');
+    writeFileSync(p.file('App.tsx'), "import { Input } from '../ui/input';\n");
+    expect(p.cli('remove', 'input').status).not.toBe(0);
+    writeFileSync(p.file('App.tsx'), 'export {};\n');
+    expect(p.cli('remove', 'input', 'input-group').status).toBe(0);
+  });
 });

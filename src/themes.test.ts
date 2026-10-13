@@ -37,6 +37,11 @@ describe('themes.json', () => {
     }
   });
 
+  it.each(NAMES)('%s primary is readable as text on the page background (links, active states)', (name) => {
+    expect(contrast(presets[name].light.primary, '#ffffff'), `${name} light`).toBeGreaterThanOrEqual(4.5);
+    expect(contrast(presets[name].dark.primary, '#0a0c10'), `${name} dark`).toBeGreaterThanOrEqual(4.5);
+  });
+
   it('blue is exactly what src/index.css ships', () => {
     const indexCss = readFileSync('src/index.css', 'utf8');
     const block = (selector: string) => {

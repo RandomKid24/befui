@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Field } from '@/components/ui/label';
 import { Segmented } from '@/components/ui/segmented';
 
+const uid = () => `${Date.now().toString(36)}${Math.random().toString(36).slice(2)}`; // crypto.randomUUID needs https
 const now = new Date();
 const on = (day: number, hour: number) => new Date(now.getFullYear(), now.getMonth(), day, hour);
 const seed: CalendarEvent[] = [
@@ -33,7 +34,7 @@ export default function CalendarApp() {
   function save() {
     if (!title.trim() || !date) return;
     const [y, m, d] = date.split('-').map(Number);
-    setEvents([...events, { id: crypto.randomUUID(), title: title.trim(), start: new Date(y, m - 1, d, 9), tone }]);
+    setEvents([...events, { id: uid(), title: title.trim(), start: new Date(y, m - 1, d, 9), tone }]);
     setOpen(false);
   }
 

@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Chat, type ChatMessage } from '@/components/ui/chat';
 import { cn } from '@/lib/utils';
 
+const uid = () => `${Date.now().toString(36)}${Math.random().toString(36).slice(2)}`; // crypto.randomUUID needs https
 const ME = 'You';
 const at = (h: number, m: number) => new Date(2026, 9, 12, h, m);
 
@@ -41,12 +42,12 @@ export default function ChatApp() {
   function send(text: string) {
     const id = activeId;
     const name = active.name;
-    add(id, { id: crypto.randomUUID(), from: ME, text, at: new Date() });
+    add(id, { id: uid(), from: ME, text, at: new Date() });
     clearTimeout(timer.current);
     setTyping(name);
     timer.current = setTimeout(() => {
       setTyping(null);
-      add(id, { id: crypto.randomUUID(), from: name, text: 'Got it, thanks.', at: new Date() });
+      add(id, { id: uid(), from: name, text: 'Got it, thanks.', at: new Date() });
     }, 1400);
   }
 
