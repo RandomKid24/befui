@@ -8,7 +8,7 @@ export const NavigationMenu = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Root>
 >(({ className, children, ...props }, ref) => (
-  <NavigationMenuPrimitive.Root ref={ref} className={cn('relative z-10 flex max-w-max flex-1 items-center justify-center', className)} {...props}>
+  <NavigationMenuPrimitive.Root ref={ref} className={cn('relative z-10 flex max-w-max flex-1 items-center justify-center self-center', className)} {...props}>
     {children}
     <div className="absolute start-0 top-full flex w-full justify-center">
       <NavigationMenuPrimitive.Viewport className="relative mt-2 h-[var(--radix-navigation-menu-viewport-height)] w-full origin-top overflow-hidden rounded-xl border bg-popover text-popover-foreground shadow-lg transition-[width,height] duration-200 md:w-[var(--radix-navigation-menu-viewport-width)]" />

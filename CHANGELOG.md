@@ -3,6 +3,14 @@
 All notable changes to befui. Versions follow [semver](https://semver.org): new components are minor releases, breaking prop changes are major. The same list, with links to each component, is on the docs site under Changelog.
 (Generated from src/registry/changelog.json by `npm run registry:build`. Edit the JSON, not this file.)
 
+## 1.7.0 - 2026-10-13
+
+Seven missing basics: hover card, button and input groups, toggle group, navigation menu, menubar and tour
+
+- **Added:** Menus and previews: hover card for a preview that opens on hover or focus, menubar for File, Edit, View style bars, and a navigation menu with mega-menu panels. (Hover card, Menubar, Navigation menu)
+- **Added:** Joined controls: button group and input group (text, icons or buttons attached to a field), and a toggle group that lets several buttons stay pressed for formatting toolbars. (Button group, Input group, Toggle group)
+- **Added:** Product tour: spotlight parts of the page one step at a time, with Back, Next, Skip, arrow keys, Escape and reduced-motion support. (Tour)
+
 ## 1.6.0 - 2026-10-12
 
 34 animated charts with how-to-read guides, 13 page blocks, 16 building parts and 90 more icons

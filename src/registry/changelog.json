@@ -1,5 +1,37 @@
 [
   {
+    "version": "1.7.0",
+    "date": "2026-10-13",
+    "title": "Seven missing basics: hover card, button and input groups, toggle group, navigation menu, menubar and tour",
+    "entries": [
+      {
+        "kind": "added",
+        "text": "Menus and previews: hover card for a preview that opens on hover or focus, menubar for File, Edit, View style bars, and a navigation menu with mega-menu panels.",
+        "slugs": [
+          "hover-card",
+          "menubar",
+          "navigation-menu"
+        ]
+      },
+      {
+        "kind": "added",
+        "text": "Joined controls: button group and input group (text, icons or buttons attached to a field), and a toggle group that lets several buttons stay pressed for formatting toolbars.",
+        "slugs": [
+          "button-group",
+          "input-group",
+          "toggle-group"
+        ]
+      },
+      {
+        "kind": "added",
+        "text": "Product tour: spotlight parts of the page one step at a time, with Back, Next, Skip, arrow keys, Escape and reduced-motion support.",
+        "slugs": [
+          "tour"
+        ]
+      }
+    ]
+  },
+  {
     "version": "1.6.0",
     "date": "2026-10-12",
     "title": "34 animated charts with how-to-read guides, 13 page blocks, 16 building parts and 90 more icons",
