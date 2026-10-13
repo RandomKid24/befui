@@ -13,6 +13,10 @@ const BATCHES: Record<string, string[]> = {
     'Euro', 'Pound', 'Yen', 'Bitcoin', 'PiggyBank', 'Safe', 'Handshake', 'Invoice',
     'ScatterChart', 'Funnel', 'Sigma', 'RadarChart', 'CandlestickChart', 'DonutChart', 'StackedBar', 'Histogram',
   ].map((n) => `${n}Icon`),
+  'weather, transport': [
+    'CloudRain', 'CloudSnow', 'CloudLightning', 'CloudSun', 'CloudFog', 'Wind', 'Sunrise', 'Sunset', 'Umbrella', 'Snowflake',
+    'Bus', 'Train', 'Bike', 'Ship', 'Plane', 'Fuel', 'Parking', 'Anchor', 'Scooter', 'Road',
+  ].map((n) => `${n}Icon`),
 };
 
 it('every exported *Icon is in the icons map', () => {

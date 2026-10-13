@@ -381,6 +381,27 @@ export const DonutChartIcon = make('DonutChartIcon', [['circle', 12, 12, 9], ['c
 export const StackedBarIcon = make('StackedBarIcon', [['rect', 4, 4, 6, 16, 1], ['rect', 14, 9, 6, 11, 1], p('M4 12h6M14 15h6')]);
 export const HistogramIcon = make('HistogramIcon', [p('M4 20v-5h4v5M8 20V9h4v11M12 20V4h4v16M16 20v-8h4v8M3 20h18')]);
 
+export const CloudRainIcon = make('CloudRainIcon', [p('M8.25 14a3.4 3.4 0 0 1-.45-6.72A4.5 4.5 0 0 1 16.5 7.6a3 3 0 0 1-.4 6.4z'), p('M8 17l-1 3M12 17l-1 3M16 17l-1 3')]);
+export const CloudSnowIcon = make('CloudSnowIcon', [p('M8.25 14a3.4 3.4 0 0 1-.45-6.72A4.5 4.5 0 0 1 16.5 7.6a3 3 0 0 1-.4 6.4z'), p('M8 17h.01M8 20.5h.01M12 18.5h.01M12 22h.01M16 17h.01M16 20.5h.01')]);
+export const CloudLightningIcon = make('CloudLightningIcon', [p('M8.25 14a3.4 3.4 0 0 1-.45-6.72A4.5 4.5 0 0 1 16.5 7.6a3 3 0 0 1-.4 6.4z'), p('M13 14l-3 4h4l-3 4')]);
+export const CloudSunIcon = make('CloudSunIcon', [p('M10.25 19a3.4 3.4 0 0 1-.45-6.72A4.5 4.5 0 0 1 18.5 12.6a3 3 0 0 1-.4 6.4z'), ['circle', 8, 8, 2.5], p('M8 2.5V4M2.5 8H4M4 4l1 1M12 4l-1 1')]);
+export const CloudFogIcon = make('CloudFogIcon', [p('M8.25 14a3.4 3.4 0 0 1-.45-6.72A4.5 4.5 0 0 1 16.5 7.6a3 3 0 0 1-.4 6.4z'), p('M4 17h16M7 20.5h10')]);
+export const WindIcon = make('WindIcon', [p('M3 8h11a3 3 0 1 0-3-3M3 12h16a3 3 0 1 1-3 3M3 16h7a2.5 2.5 0 1 1-2.5 2.5')]);
+export const SunriseIcon = make('SunriseIcon', [p('M3 20h18M7 20a5 5 0 0 1 10 0M12 4v6M9.5 6.5L12 4l2.5 2.5M5.2 13.2l1.4 1.4M18.8 13.2l-1.4 1.4')]);
+export const SunsetIcon = make('SunsetIcon', [p('M3 20h18M7 20a5 5 0 0 1 10 0M12 4v6M9.5 7.5L12 10l2.5-2.5M5.2 13.2l1.4 1.4M18.8 13.2l-1.4 1.4')]);
+export const UmbrellaIcon = make('UmbrellaIcon', [p('M3 12a9 9 0 0 1 18 0zM12 12v6a2 2 0 0 0 4 0M12 3V2')]);
+export const SnowflakeIcon = make('SnowflakeIcon', [p('M12 2v20M3.3 7l17.4 10M3.3 17l17.4-10M9.5 4.5L12 7l2.5-2.5M9.5 19.5L12 17l2.5 2.5')]);
+export const BusIcon = make('BusIcon', [['rect', 4, 3, 16, 16, 2], p('M7 6.5h10V11H7zM6 19v2M18 19v2'), ['circle', 8, 15, 0.9], ['circle', 16, 15, 0.9]]);
+export const TrainIcon = make('TrainIcon', [['rect', 5, 3, 14, 15, 3], p('M5 11h14M8 18l-2 3M16 18l2 3M9 6.5h6'), ['circle', 9, 14.5, 1], ['circle', 15, 14.5, 1]]);
+export const BikeIcon = make('BikeIcon', [['circle', 6, 16, 3.5], ['circle', 18, 16, 3.5], p('M6 16l3.5-7h5.5l3 7M9.5 9L8 6.5h3M15 9l1.2-3h2.3M9.5 9l3 7')]);
+export const ShipIcon = make('ShipIcon', [p('M2.5 15h19l-2.5 5H5zM6 15v-4h12v4M10 11V7h4v4M12 7V4')]);
+export const PlaneIcon = make('PlaneIcon', [p('M12 2c1 0 1.5 1.5 1.5 3v5l8 5v2l-8-2.5V19l2.5 2v1.5L12 21.5 8 22.5V21l2.5-2v-4.5l-8 2.5v-2l8-5V5c0-1.5.5-3 1.5-3z')]);
+export const FuelIcon = make('FuelIcon', [['rect', 4, 3, 10, 18, 1.5], p('M4 21h10M7 7h4v4H7zM14 8h2a2 2 0 0 1 2 2v7a1.5 1.5 0 0 0 3 0V9l-3-3')]);
+export const ParkingIcon = make('ParkingIcon', [['rect', 3, 3, 18, 18, 3], p('M9 17V7h3.5a3 3 0 0 1 0 6H9')]);
+export const AnchorIcon = make('AnchorIcon', [['circle', 12, 5, 2], p('M12 7v14M8 11h8M4 14a8 8 0 0 0 16 0M4 14h3M20 14h-3')]);
+export const ScooterIcon = make('ScooterIcon', [['circle', 5, 18.5, 2], ['circle', 19, 18.5, 2], p('M7 18.5h10M17 18.5L15 5h3M15 5h-3')]);
+export const RoadIcon = make('RoadIcon', [p('M8 3L3 21M16 3l5 18M12 4v3M12 10v4M12 17v3')]);
+
 export const icons = {
   PrinterIcon,
   CallIcon,
@@ -694,4 +715,24 @@ export const icons = {
   DonutChartIcon,
   StackedBarIcon,
   HistogramIcon,
+  CloudRainIcon,
+  CloudSnowIcon,
+  CloudLightningIcon,
+  CloudSunIcon,
+  CloudFogIcon,
+  WindIcon,
+  SunriseIcon,
+  SunsetIcon,
+  UmbrellaIcon,
+  SnowflakeIcon,
+  BusIcon,
+  TrainIcon,
+  BikeIcon,
+  ShipIcon,
+  PlaneIcon,
+  FuelIcon,
+  ParkingIcon,
+  AnchorIcon,
+  ScooterIcon,
+  RoadIcon,
 };
