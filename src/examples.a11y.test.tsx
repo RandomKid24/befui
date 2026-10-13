@@ -20,6 +20,7 @@ async function check(load: () => Promise<{ default: ComponentType }>): Promise<s
     const { default: Demo } = await load();
     const { container } = render(<Suspense fallback={null}><Demo /></Suspense>);
     await act(async () => {});
+    if (container.childNodes.length === 0) return 'render: example rendered nothing';
     const { violations } = await axe(container, { rules: { 'color-contrast': { enabled: false } } });
     return violations.length ? `axe: ${[...new Set(violations.map((v) => v.id))].join(', ')}` : null;
   } catch (error) {
@@ -34,8 +35,13 @@ describe('examples', () => {
       if (reason) failing[slug] = reason;
       return;
     }
-    if (slug in known) expect(reason, `${slug} now passes, remove it from src/a11y-baseline.json`).not.toBeNull();
+    if (slug in known) expect(reason, `${slug}: baseline says "${known[slug]}" but got ${reason === null ? 'a pass' : `"${reason}"`}. If it improved, run UPDATE_BASELINE=1 npm test`).toBe(known[slug]);
     else expect(reason).toBeNull();
+  });
+
+  it.skipIf(update)('baseline never holds a component added in 1.7.0', () => {
+    const added = ['button-group', 'input-group', 'hover-card', 'toggle-group', 'navigation-menu', 'menubar', 'tour'];
+    expect(Object.keys(known).filter((slug) => added.includes(slug))).toEqual([]);
   });
 
   it.skipIf(update)('baseline lists only real examples', () => {

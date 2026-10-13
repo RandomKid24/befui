@@ -39,3 +39,8 @@ HTMLCanvasElement.prototype.getContext = (() => noopContext) as unknown as HTMLC
 
 URL.createObjectURL = () => 'blob:jsdom';
 URL.revokeObjectURL = () => {};
+
+// jsdom has no layout, so every element reports "not rendered". Say it is rendered; tests override this for hidden elements.
+Element.prototype.getClientRects = function (this: Element) {
+  return [this.getBoundingClientRect()] as unknown as DOMRectList;
+};

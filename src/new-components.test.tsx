@@ -252,3 +252,40 @@ it('Tour passes axe while open', async () => {
   expect(dialog()).toBeInTheDocument();
   expect((await scan()).violations).toEqual([]);
 });
+
+it('Tour ignores a target given as an invalid selector instead of crashing', () => {
+  render(<TourPage steps={[{ target: '#1abc', title: 'Bad' }, threeSteps[0]]} open onOpenChange={() => {}} />);
+  expect(within(dialog()).getByText('One')).toBeInTheDocument();
+  expect(within(dialog()).getByText('1 of 1')).toBeInTheDocument();
+});
+
+it('Tour puts initial focus on Next, keeps focus in the card while stepping, and announces step changes', async () => {
+  render(<TourPage steps={threeSteps} open onOpenChange={() => {}} />);
+  await waitFor(() => expect(screen.getByRole('button', { name: 'Next' })).toHaveFocus());
+  press('Next');
+  press('Back');
+  await waitFor(() => expect(screen.getByRole('button', { name: 'Next' })).toHaveFocus());
+  expect(dialog().querySelector('[aria-live="polite"]')).not.toBeNull();
+});
+
+it('Tour draws its spotlight in a portal on document.body', () => {
+  const { container } = render(<TourPage steps={threeSteps} open onOpenChange={() => {}} />);
+  const spotlight = document.querySelector('[data-tour-spotlight]');
+  expect(spotlight).not.toBeNull();
+  expect(container.contains(spotlight)).toBe(false);
+  expect(spotlight!.parentElement).toBe(document.body);
+});
+
+it('Tour skips a target that is on the page but not rendered', () => {
+  const rects = vi.spyOn(Element.prototype, 'getClientRects').mockImplementation(function (this: Element) {
+    return (this.getAttribute('data-tour') === 'b' ? [] : [this.getBoundingClientRect()]) as unknown as DOMRectList;
+  });
+  try {
+    render(<TourPage steps={threeSteps} open onOpenChange={() => {}} />);
+    expect(within(dialog()).getByText('1 of 2')).toBeInTheDocument();
+    press('Next');
+    expect(within(dialog()).getByText('Three')).toBeInTheDocument();
+  } finally {
+    rects.mockRestore();
+  }
+});
