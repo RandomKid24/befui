@@ -8,6 +8,7 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/h
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from '@/components/ui/navigation-menu';
 import { Menubar, MenubarCheckboxItem, MenubarContent, MenubarItem, MenubarMenu, MenubarSeparator, MenubarShortcut, MenubarTrigger } from '@/components/ui/menubar';
+import { Tour, type TourProps, type TourStep } from '@/components/ui/tour';
 import { InputAddon, InputGroup, InputGroupInput } from '@/components/ui/input-group';
 
 /** axe over the whole body (portalled overlays live there). Page-landmark and contrast rules need a real page, so they are off. */
@@ -143,4 +144,111 @@ it('Menubar opens with the keyboard, moves between menus, shows a checked item, 
   expect(await screen.findByRole('menuitem', { name: 'Undo' })).toBeInTheDocument();
   fireEvent.keyDown(screen.getByRole('menuitem', { name: 'Undo' }), { key: 'Escape' });
   await waitFor(() => expect(screen.queryByRole('menuitem', { name: 'Undo' })).toBeNull());
+});
+
+const at = (id: string) => `[data-tour="${id}"]`;
+const threeSteps: TourStep[] = [
+  { target: at('a'), title: 'One' },
+  { target: at('b'), title: 'Two' },
+  { target: at('c'), title: 'Three' },
+];
+function TourPage({ ids = ['a', 'b', 'c'], ...tour }: { ids?: string[] } & TourProps) {
+  return (
+    <>
+      <button type="button">Outside</button>
+      {ids.map((id) => <button type="button" key={id} data-tour={id}>Target {id}</button>)}
+      <Tour {...tour} />
+    </>
+  );
+}
+const dialog = () => screen.getByRole('dialog');
+const press = (name: string) => fireEvent.click(screen.getByRole('button', { name }));
+
+it('Tour steps forward and back with a counter, and Done finishes once', () => {
+  const onFinish = vi.fn();
+  const onOpenChange = vi.fn();
+  render(<TourPage steps={threeSteps} open onOpenChange={onOpenChange} onFinish={onFinish} />);
+  expect(within(dialog()).getByText('One')).toBeInTheDocument();
+  expect(within(dialog()).getByText('1 of 3')).toBeInTheDocument();
+  expect(screen.queryByRole('button', { name: 'Back' })).toBeNull();
+  press('Next');
+  expect(within(dialog()).getByText('Two')).toBeInTheDocument();
+  expect(within(dialog()).getByText('2 of 3')).toBeInTheDocument();
+  press('Back');
+  expect(within(dialog()).getByText('One')).toBeInTheDocument();
+  press('Next');
+  press('Next');
+  expect(within(dialog()).getByText('Three')).toBeInTheDocument();
+  expect(screen.queryByRole('button', { name: 'Next' })).toBeNull();
+  press('Done');
+  expect(onFinish).toHaveBeenCalledTimes(1);
+  expect(onOpenChange).toHaveBeenCalledWith(false);
+});
+
+it('Tour Skip and Escape close without finishing, and ArrowRight advances', () => {
+  const onFinish = vi.fn();
+  const onOpenChange = vi.fn();
+  render(<TourPage steps={threeSteps} open onOpenChange={onOpenChange} onFinish={onFinish} />);
+  fireEvent.keyDown(document, { key: 'ArrowRight' });
+  expect(within(dialog()).getByText('Two')).toBeInTheDocument();
+  fireEvent.keyDown(document, { key: 'ArrowLeft' });
+  expect(within(dialog()).getByText('One')).toBeInTheDocument();
+  press('Skip');
+  expect(onOpenChange).toHaveBeenLastCalledWith(false);
+  fireEvent.keyDown(dialog(), { key: 'Escape' });
+  expect(onOpenChange).toHaveBeenCalledTimes(2);
+  expect(onFinish).not.toHaveBeenCalled();
+});
+
+it('Tour skips steps whose target is missing and numbers only the steps it can show', () => {
+  render(<TourPage ids={['a', 'c']} steps={threeSteps} open onOpenChange={() => {}} />);
+  expect(within(dialog()).getByText('1 of 2')).toBeInTheDocument();
+  press('Next');
+  expect(within(dialog()).getByText('Three')).toBeInTheDocument();
+  expect(within(dialog()).getByText('2 of 2')).toBeInTheDocument();
+});
+
+it('Tour renders nothing for empty steps, all-missing targets, or a target removed mid-tour', () => {
+  const onFinish = vi.fn();
+  const base = { open: true, onOpenChange: () => {}, onFinish };
+  const { rerender } = render(<TourPage steps={[]} {...base} />);
+  expect(screen.queryByRole('dialog')).toBeNull();
+  rerender(<TourPage ids={[]} steps={threeSteps} {...base} />);
+  expect(screen.queryByRole('dialog')).toBeNull();
+  rerender(<TourPage ids={['a']} steps={[threeSteps[0]]} {...base} />);
+  expect(within(dialog()).getByText('One')).toBeInTheDocument();
+  rerender(<TourPage ids={[]} steps={[threeSteps[0]]} {...base} />);
+  expect(screen.queryByRole('dialog')).toBeNull();
+  expect(onFinish).not.toHaveBeenCalled();
+});
+
+it('Tour moves focus into the card and gives it back on close', async () => {
+  const props = { steps: threeSteps, onOpenChange: () => {} };
+  const { rerender } = render(<TourPage {...props} open={false} />);
+  const outside = screen.getByRole('button', { name: 'Outside' });
+  outside.focus();
+  rerender(<TourPage {...props} open />);
+  await waitFor(() => expect(dialog().contains(document.activeElement)).toBe(true));
+  rerender(<TourPage {...props} open={false} />);
+  await waitFor(() => expect(outside).toHaveFocus());
+});
+
+it.each([[true, 'auto'], [false, 'smooth']])('Tour scrolls its target with reduced motion = %s using behavior %s', (reduce, behavior) => {
+  const scrollIntoView = vi.spyOn(Element.prototype, 'scrollIntoView');
+  const matchMedia = vi.spyOn(window, 'matchMedia').mockImplementation(
+    (query) => ({ matches: reduce && query.includes('reduce'), media: query, addEventListener() {}, removeEventListener() {} }) as unknown as MediaQueryList,
+  );
+  try {
+    render(<TourPage steps={threeSteps} open onOpenChange={() => {}} />);
+    expect(scrollIntoView).toHaveBeenCalledWith(expect.objectContaining({ behavior }));
+  } finally {
+    scrollIntoView.mockRestore();
+    matchMedia.mockRestore();
+  }
+});
+
+it('Tour passes axe while open', async () => {
+  render(<TourPage steps={threeSteps} open onOpenChange={() => {}} />);
+  expect(dialog()).toBeInTheDocument();
+  expect((await scan()).violations).toEqual([]);
 });

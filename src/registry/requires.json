@@ -480,6 +480,10 @@
     "icons",
     "kbd"
   ],
+  "tour": [
+    "button",
+    "popover"
+  ],
   "tree-table": [
     "icons"
   ],
