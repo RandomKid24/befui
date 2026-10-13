@@ -40,7 +40,7 @@ Behavior notes per component:
 - **button-group**: `role="group"`; children keep their own variants; inner corners squared and inner borders collapsed with a negative logical margin.
 - **input-group**: one border and one focus-within ring around the whole row. `InputAddon` takes text, an icon or a button and has a `side` of `start` or `end`. `InputGroupInput` is a plain borderless `<input>`, so the file has no dependency on `input.tsx`.
 - **toggle-group**: `type="multiple"` is the reason it exists, for formatting toolbars. `segmented` stays the single-select control and is unchanged.
-- **navigation-menu**: desktop mega-menu with the Radix shared viewport. Small screens are the `navbar`'s job and are out of scope. Needs enter and leave keyframes in `src/index.css`, following the existing reduced-motion pattern. `befui update` already appends missing keyframes for users.
+- **navigation-menu**: desktop mega-menu with the Radix shared viewport. Small screens are the `navbar`'s job and are out of scope. Content enters with the existing `animate-pop`, so there are no new keyframes and `befui update` has nothing new to append.
 - **menubar**: item styling copied from `dropdown-menu.tsx` so the two look identical.
 - **tour**: props `steps` (`{ target: string | RefObject<HTMLElement>; title; body; side? }[]`), `open`, `onOpenChange`, `onFinish`. It dims the page with a cut-out around the target, anchors a card with `PopoverAnchor`, and shows "2 of 5", Back, Next, Skip and a final Done. Escape closes. Arrow keys step. Focus moves into the card and returns to where it was on close. The target scrolls into view and the cut-out re-measures on resize and scroll. A step whose target is not in the DOM is skipped. This is the only component with real new logic, so it gets the most test coverage.
 - **qr-code**: props `value`, `size` (default 160), `level` (L, M, Q or H; default M), `fg` (default `currentColor`), `bg` (default transparent), `label`. Renders one SVG `<path>` for the dark modules with a 4-module quiet zone, so it stays sharp at any size. Empty `value` renders nothing. Sets `role="img"` with the label.
@@ -53,14 +53,14 @@ Each component gets a demo in `src/examples/<slug>.tsx` that shows its main use,
 
 1. `npm ci`
 2. `npm run build` (registry build, `tsc --noEmit`, `vite build`)
-3. `git diff --exit-code -- public src/registry CHANGELOG.md README.md`: fails if the committed generated files are stale after the build.
+3. `test -z "$(git status --porcelain -- public src/registry CHANGELOG.md README.md)"`: fails if the committed generated files are stale after the build, including generated files that were never committed.
 4. `npm test`
 
 Test setup, adding four devDependencies: `vitest` (3.x, matches Vite 6), `jsdom`, `@testing-library/react`, `vitest-axe`. `"test": "vitest run"` in `package.json`. Tests import from `vitest` explicitly, with no globals, and assert `expect(results.violations).toEqual([])` rather than using axe's custom matcher, so no type augmentation is needed.
 
 Two test files:
 
-- **`src/examples.a11y.test.tsx`**: for every file in `src/examples`, render the default export inside `Suspense`, fail on any thrown error, and run axe. The `color-contrast` rule is off because jsdom has no layout. Slugs that fail axe today are recorded in `src/a11y-baseline.json`. The test fails if a new slug violates a rule, and also fails if a baseline slug now passes, so the list can only shrink. A new component can never be added to the baseline.
+- **`src/examples.a11y.test.tsx`**: for every file in `src/examples`, render the default export inside `Suspense`, fail on any thrown error, and run axe. The `color-contrast` rule is off because jsdom has no layout. Slugs that fail axe today, or cannot render in jsdom even with the stubs, are recorded in `src/a11y-baseline.json` as slug to one-line reason. The test fails if a slug outside the baseline fails, and also fails if a baseline slug now passes, so the list can only shrink. `UPDATE_BASELINE=1 npm test` rewrites the file from the current results. A new component can never be added to the baseline.
 - **`src/new-components.test.tsx`**: the all-examples test only sees overlays in their closed state, so this file covers the open state of the eight new components: hover-card on pointer enter, menubar and navigation-menu opened, and tour stepping through Next, Back, Skip and a missing target. Each is also run through axe while open. It also holds a deterministic check that `QRCode value="hello" level="M"` yields a 21-module code (viewBox `0 0 29 29`).
 
 Shared setup in `vitest.setup.ts` stubs what jsdom lacks: `matchMedia`, `ResizeObserver`, `IntersectionObserver`, `Element.prototype.scrollIntoView`, pointer-capture methods Radix calls, and `HTMLCanvasElement.prototype.getContext` (signature pad).
