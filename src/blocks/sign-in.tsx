@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { MailIcon } from '@/components/ui/icons';
 import { Button } from '@/components/ui/button';
+import { GithubIcon, GoogleIcon } from '@/components/ui/brand-icons';
 import { Card } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
@@ -32,6 +33,11 @@ export default function SignIn() {
           <h2 className="text-lg font-semibold tracking-tight">Sign in to Acme</h2>
           <p className="text-[13px] text-muted-foreground">Use your work account.</p>
         </div>
+        <div className="mb-4 grid gap-2">
+          <Button type="button" variant="outline" className="w-full"><GoogleIcon /> Continue with Google</Button>
+          <Button type="button" variant="outline" className="w-full"><GithubIcon /> Continue with GitHub</Button>
+        </div>
+        <div className="mb-4 flex items-center gap-3 text-xs text-muted-foreground"><span className="h-px flex-1 bg-border" />or<span className="h-px flex-1 bg-border" /></div>
         <form onSubmit={submit} className="grid gap-4">
           {error && <Alert variant="danger" title={error} />}
           <Field label="Email" htmlFor="si-email">

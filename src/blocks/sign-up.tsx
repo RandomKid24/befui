@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { CheckCircleIcon, MailIcon, UserIcon } from '@/components/ui/icons';
 import { Button } from '@/components/ui/button';
+import { GithubIcon, GoogleIcon } from '@/components/ui/brand-icons';
 import { Card } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
@@ -50,6 +51,11 @@ export default function SignUp() {
           <h2 className="text-lg font-semibold tracking-tight">Create your Acme account</h2>
           <p className="text-[13px] text-muted-foreground">Free for 14 days. No card needed.</p>
         </div>
+        <div className="mb-4 grid gap-2">
+          <Button type="button" variant="outline" className="w-full"><GoogleIcon /> Continue with Google</Button>
+          <Button type="button" variant="outline" className="w-full"><GithubIcon /> Continue with GitHub</Button>
+        </div>
+        <div className="mb-4 flex items-center gap-3 text-xs text-muted-foreground"><span className="h-px flex-1 bg-border" />or<span className="h-px flex-1 bg-border" /></div>
         <form onSubmit={submit} noValidate className="grid gap-4">
           <Field label="Full name" htmlFor="su-name" error={errors.name}>
             <Input id="su-name" name="name" leftIcon={<UserIcon />} placeholder="Aditi Rao" autoComplete="name" aria-invalid={!!errors.name} />

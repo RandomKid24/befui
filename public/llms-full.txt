@@ -2106,6 +2106,39 @@ export default function BorderBeamDemo() {
 }
 ```
 
+## Brand icons (`brand-icons`)
+Logos of popular services as single-colour SVGs that follow the text colour, for sign-in buttons and integration lists.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add brand-icons`
+- Import: `import { GoogleIcon, GithubIcon, GitlabIcon, AppleIcon, XBrandIcon, FacebookIcon, InstagramIcon, YoutubeIcon, TiktokIcon, RedditIcon, TwitchIcon, DiscordIcon, WhatsappIcon, TelegramIcon, SpotifyIcon, FigmaIcon, NotionIcon, DropboxIcon, GoogleDriveIcon, ZoomIcon, AtlassianIcon, JiraIcon, TrelloIcon, ShopifyIcon, StripeIcon, PaypalIcon, VisaIcon, MastercardIcon, MicrosoftIcon, LinkedinIcon, brandColors, brandIcons } from '@/components/ui/brand-icons'`
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { brandColors, brandIcons } from '@/components/ui/brand-icons';
+import { Toggle } from '@/components/ui/toggle';
+
+const slug = (name: string) => name.replace(/Icon$/, '').replace(/Brand$/, '');
+
+export default function BrandIconsDemo() {
+  const [colour, setColour] = React.useState(false);
+  return (
+    <div className="grid w-full max-w-2xl gap-5">
+      <Toggle variant="outline" pressed={colour} onPressedChange={setColour} className="justify-self-start">Brand colours</Toggle>
+      <ul className="grid grid-cols-3 gap-3 sm:grid-cols-5">
+        {Object.entries(brandIcons).map(([name, Icon]) => (
+          <li key={name} className="grid justify-items-center gap-2 rounded-lg border p-3 text-xs text-muted-foreground">
+            <Icon className="size-7 text-foreground" style={colour ? { color: brandColors[slug(name).toLowerCase()] } : undefined} />
+            {slug(name)}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+```
+
 ## Card (`card`)
 Bordered surface with header, content and footer parts.
 - Group: Display
