@@ -16,7 +16,7 @@ const DEFAULT_FROM = 'https://raw.githubusercontent.com/RandomKid24/befui/main/p
 const argv = process.argv.slice(2);
 const flag = (n, d) => { const i = argv.indexOf(`--${n}`); return i < 0 ? d : argv[i + 1]; };
 const has = (n) => argv.includes(`--${n}`);
-const valueFlags = new Set(['--dir', '--from', '--css']);
+const valueFlags = new Set(['--dir', '--from', '--css', '--theme']);
 const pos = argv.filter((a, i) => !a.startsWith('--') && !valueFlags.has(argv[i - 1]));
 const [cmd, ...names] = pos;
 
@@ -38,6 +38,24 @@ async function load(name) {
   } catch (e) {
     die(`Could not load "${name}" from ${from} (${e.message}). Run "befui list" to see names.`);
   }
+}
+
+/** Rewrites the five theme tokens inside the `:root, .light {` and `.dark {` blocks. Returns { css } or { error }; never writes. */
+function themeCss(css, preset) {
+  let out = css;
+  for (const [mode, selector] of [['light', ':root, .light {'], ['dark', '.dark {']]) {
+    const start = out.indexOf(selector);
+    if (start < 0) return { error: `no "${selector}" block` };
+    const end = out.indexOf('}', start);
+    let block = out.slice(start, end);
+    for (const [token, value] of Object.entries(preset[mode])) {
+      const re = new RegExp(`(--${token}:\\s*)#[0-9a-fA-F]{3,8}`);
+      if (!re.test(block)) return { error: `no --${token} in the "${selector}" block` };
+      block = block.replace(re, `$1${value}`);
+    }
+    out = out.slice(0, start) + block + out.slice(end);
+  }
+  return { css: out };
 }
 
 function write(files) {
@@ -215,8 +233,22 @@ if (has('version') || cmd === 'version') {
 } else if (cmd === 'update') {
   await update();
 } else if (cmd === 'init') {
+  const themeName = flag('theme');
+  if (has('theme') && (!themeName || themeName.startsWith('--'))) die('Usage: befui init --theme <name>  (see the Themes page for names)');
   const init = await load('init');
+  let themed;
+  if (has('theme')) {
+    // Check everything before writing anything, so a bad name or an unusual index.css leaves the project untouched.
+    const themes = await load('themes');
+    if (!themes[themeName]) die(`Unknown theme "${themeName}". Choose one of: ${Object.keys(themes).join(', ')}.`);
+    const target = join(dir, 'index.css');
+    const base = existsSync(target) && !has('force') ? readFileSync(target, 'utf8') : init.files.find((f) => f.path === 'index.css').content;
+    const result = themeCss(base, themes[themeName]);
+    if (result.error) die(`Could not apply the theme to ${target}: ${result.error}. Run init --force to start from befui's index.css.`);
+    themed = { target, css: result.css };
+  }
   write(init.files);
+  if (themed) { writeFileSync(themed.target, themed.css); ok(`Theme "${themeName}" applied to ${themed.target}.`); }
   install(new Set(init.deps));
   ok('Theme and helpers added.');
   await writeAgentRules();
@@ -244,5 +276,5 @@ if (has('version') || cmd === 'version') {
   await warnAnimations([...seen.values()]);
   ok(`Done. ${seen.size} file${seen.size > 1 ? 's' : ''} added.`);
 } else {
-  console.log('Usage: befui <add|init|update|list|mcp> [names] [--dir src] [--from url-or-folder] [--force] [--no-install]');
+  console.log('Usage: befui <add|init|update|list|mcp> [names] [--dir src] [--from url-or-folder] [--force] [--no-install] [--theme name (init)]');
 }
