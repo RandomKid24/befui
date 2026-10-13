@@ -377,17 +377,20 @@ Want the circular reveal the docs site uses? It is a few lines around `document.
 
 | Command | What it does |
 |---|---|
-| `befui init` | Adds `index.css`, `lib/utils.ts`, installs shared packages and writes the AI rules to `AGENTS.md` |
+| `befui init` | Adds `index.css`, `lib/utils.ts`, installs shared packages and writes the AI rules to `AGENTS.md`. `--theme rose` also sets the colours (see the Themes page) |
 | `befui add <name...>` | Copies components, plus the components and npm packages they need |
 | `befui mcp` | Runs an MCP server so Claude Code, Cursor etc. can list, read and add components (`init` registers it in `.mcp.json`) |
 | `befui add all` | Copies every component |
 | `befui add block:<name>` | Copies a block (and what it uses) |
 | `befui list` | Lists everything available |
+| `befui diff <name...>` | Shows how your copy of a component differs from the latest (`-` is yours, `+` is the latest) |
+| `befui remove <name...>` | Deletes a component's files. Refuses while another file imports it, unless `--force`. Packages it needed stay installed |
 
 | Flag | Meaning |
 |---|---|
 | `--dir <path>` | Target folder. Default `src` (or `.` if there is none) |
-| `--force` | Overwrite files that already exist |
+| `--force` | Overwrite files that already exist (for `remove`: remove even if other files import it) |
+| `--theme <name>` | With `init`: write a ready palette (blue, indigo, violet, rose, red, emerald, teal, amber, orange, slate) into `index.css` |
 | `--no-install` | Print the npm packages instead of installing them |
 | `--from <folder or url>` | Read the registry from somewhere else. Also `BEFUI_URL` |
 

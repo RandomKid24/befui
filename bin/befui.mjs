@@ -5,9 +5,11 @@
 // befui init             add the theme CSS and cn() helper
 // befui update           add animations (keyframes) that newer components need to your index.css; --check only reports
 // befui list             show everything available
+// befui diff <name...>   show how your copy of a component differs from the latest
+// befui remove <name...> delete a component's files (refuses while other files import it, unless --force)
 // befui mcp              run the MCP server (AI tools fetch exact component source)
 // Flags: --dir <src>  --from <url-or-folder>  --css <file>  --force  --no-install  --check
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readdirSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { spawnSync } from 'node:child_process';
 
@@ -57,6 +59,41 @@ function themeCss(css, preset) {
   }
   return { css: out };
 }
+
+/** Unified diff of two texts (line based, 3 lines of context). Empty when they match once CRLF is normalised. */
+function unifiedDiff(a, b, labelA, labelB) {
+  const x = a.replace(/\r\n/g, '\n').split('\n');
+  const y = b.replace(/\r\n/g, '\n').split('\n');
+  if (x.join('\n') === y.join('\n')) return '';
+  const n = x.length;
+  const m = y.length;
+  const lcs = Array.from({ length: n + 1 }, () => new Uint32Array(m + 1));
+  for (let i = n - 1; i >= 0; i--) for (let j = m - 1; j >= 0; j--) lcs[i][j] = x[i] === y[j] ? lcs[i + 1][j + 1] + 1 : Math.max(lcs[i + 1][j], lcs[i][j + 1]);
+  const ops = [];
+  for (let i = 0, j = 0; i < n || j < m; ) {
+    if (i < n && j < m && x[i] === y[j]) { ops.push([' ', x[i]]); i++; j++; }
+    else if (i < n && (j === m || lcs[i + 1][j] >= lcs[i][j + 1])) ops.push(['-', x[i++]]);
+    else ops.push(['+', y[j++]]);
+  }
+  const keep = ops.map(([t], k) => t !== ' ' || ops.slice(Math.max(0, k - 3), k + 4).some(([u]) => u !== ' '));
+  const out = [`--- ${labelA}`, `+++ ${labelB}`];
+  for (let k = 0; k < ops.length; ) {
+    if (!keep[k]) { k++; continue; }
+    let end = k;
+    while (end < ops.length && keep[end]) end++;
+    const hunk = ops.slice(k, end);
+    const before = ops.slice(0, k);
+    const aStart = before.filter(([t]) => t !== '+').length + 1;
+    const bStart = before.filter(([t]) => t !== '-').length + 1;
+    out.push(`@@ -${aStart},${hunk.filter(([t]) => t !== '+').length} +${bStart},${hunk.filter(([t]) => t !== '-').length} @@`);
+    for (const [t, line] of hunk) out.push(t + line);
+    k = end;
+  }
+  return out.join('\n');
+}
+
+/** A registry name: lower-case letters, digits and dashes, optionally prefixed block:. Anything else could point outside the folder. */
+const validName = (n) => /^(block:)?[a-z0-9-]+$/.test(n);
 
 function write(files) {
   const written = [];
@@ -254,6 +291,34 @@ if (has('version') || cmd === 'version') {
   await writeAgentRules();
   writeMcpConfig();
   console.log('  Remaining: import "./index.css" in your entry file and add the "@" alias to src (tsconfig paths + vite resolve.alias).');
+} else if (cmd === 'diff' && names.length) {
+  for (const n of names) if (!validName(n)) die(`"${n}" is not a component name. Run "befui list" to see names.`);
+  for (const n of names) {
+    const item = await load(n);
+    let changed = false;
+    for (const f of item.files) {
+      const dest = join(dir, f.path);
+      if (!existsSync(dest)) { console.log(`  ${n} is not installed (${dest} is missing)`); changed = true; continue; }
+      const diff = unifiedDiff(readFileSync(dest, 'utf8'), f.content, `yours ${f.path}`, `latest ${f.path}`);
+      if (diff) { console.log(diff); changed = true; }
+    }
+    if (!changed) ok(`${n} is up to date`);
+  }
+} else if (cmd === 'remove' && names.length) {
+  for (const n of names) if (!validName(n)) die(`"${n}" is not a component name. Run "befui list" to see names.`);
+  const plan = [];
+  for (const n of names) {
+    const item = await load(n);
+    const own = item.files.map((f) => join(dir, f.path)).filter((p) => existsSync(p));
+    if (!own.length) { console.log(`  ${n} is not installed, nothing to remove`); continue; }
+    // Which other local files import this component? Blocks are leaves, so only components can be depended on.
+    const slug = n.replace(/^block:/, '');
+    const users = n.startsWith('block:') ? [] : ['components/ui', 'blocks'].flatMap((d) => (existsSync(join(dir, d)) ? readdirSync(join(dir, d)).filter((f) => f.endsWith('.tsx')).map((f) => join(dir, d, f)) : []))
+      .filter((p) => !own.includes(p) && new RegExp(`from ['"](@/components/ui/|\\./)${slug}['"]`).test(readFileSync(p, 'utf8')));
+    if (users.length && !has('force')) die(`${n} is still used by: ${users.map((p) => p.replace(`${dir}/`, '')).join(', ')}. Remove those first, or pass --force.`);
+    plan.push({ n, own });
+  }
+  for (const { n, own } of plan) { for (const p of own) unlinkSync(p); ok(`${n} removed (${own.length} file${own.length > 1 ? 's' : ''}). Packages it needed are left alone.`); }
 } else if (cmd === 'add' && names.length) {
   const seen = new Map();
   const visit = async (n) => {
@@ -276,5 +341,5 @@ if (has('version') || cmd === 'version') {
   await warnAnimations([...seen.values()]);
   ok(`Done. ${seen.size} file${seen.size > 1 ? 's' : ''} added.`);
 } else {
-  console.log('Usage: befui <add|init|update|list|mcp> [names] [--dir src] [--from url-or-folder] [--force] [--no-install] [--theme name (init)]');
+  console.log('Usage: befui <add|diff|remove|init|update|list|mcp> [names] [--dir src] [--from url-or-folder] [--force] [--no-install] [--theme name (init)]');
 }
