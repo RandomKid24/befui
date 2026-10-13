@@ -1,0 +1,20 @@
+{
+  "accordion": "axe: landmark-unique",
+  "calendar": "axe: aria-required-children",
+  "day-agenda": "axe: aria-prohibited-attr",
+  "file-manager": "axe: aria-allowed-attr",
+  "gauge": "axe: label",
+  "mention-input": "axe: aria-allowed-role",
+  "onboarding-checklist": "axe: aria-progressbar-name",
+  "progress": "axe: aria-progressbar-name",
+  "progress-ring": "axe: aria-progressbar-name",
+  "reveal": "axe: aria-prohibited-attr",
+  "select": "axe: button-name",
+  "settings-layout": "axe: label",
+  "slider": "axe: label",
+  "table": "axe: aria-progressbar-name",
+  "tag-input": "axe: label",
+  "tooltip": "axe: button-name",
+  "typewriter": "axe: aria-prohibited-attr",
+  "version-log": "axe: landmark-unique"
+}
