@@ -300,12 +300,16 @@ SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, Chev
 - `block:leave-approvals`: Manager inbox with tabs, balance bars and approve or reject toasts. Uses: avatar, badge, button, card, empty-state, icons, progress, tabs, toast.
 - `block:leave-request-form`: Date range, approver combobox, multi-select notify list, working-day count and field validation. Uses: alert, button, calendar, card, combobox, date-picker, input, label, select, toast.
 - `block:not-found-page`: Full-page 404 with search and two ways out. Reuse for 403 and 500. Uses: button, error-state, icons, search-input.
+- `block:notifications-page`: Full-page inbox with All and Unread tabs, mark as read and mark all read. Uses: avatar, button, card, empty-state, icons, tabs.
+- `block:onboarding-wizard`: Four-step setup (profile, team, preferences, done) with a stepper, validation and values kept when you go back. Uses: button, card, icons, input, label, segmented, stepper, switch.
+- `block:otp-verify`: Six-digit code entry with a resend countdown, an error state and a success screen. Uses: button, card, icons, otp-input.
 - `block:pricing-page`: Headline, monthly or yearly switch, three plan cards with a highlighted one, and an FAQ. Uses: accordion, pricing-card, reveal, segmented, toast.
 - `block:profile-page`: Cover and avatar header with actions, then About (details list) and Activity (timeline) tabs. Uses: avatar, badge, button, card, description-list, icons, tabs, timeline.
 - `block:project-overview`: Project header with status and team, progress ring with phase bars, task list and a milestone timeline. Uses: avatar, badge, button, card, icons, progress, progress-ring, timeline.
 - `block:reports-table`: Searchable, filterable, sortable reports table with row action menus and a details drawer. Uses: badge, button, charts, data-table, dialog, dropdown-menu, filter-bar, icons, toast.
 - `block:reset-password`: Four steps: ask for email, check your inbox with a resend timer, choose a new password, done. Uses: button, card, icons, input, label, password-input.
 - `block:sales-dashboard`: KPI cards, revenue line chart against target, pipeline funnel and a top deals table. Uses: avatar, badge, card, charts, format, funnel-chart, line-chart, stat-card, table.
+- `block:server-error-page`: A 500 page with a retry that loads, a status link and a short incident timeline. Uses: button, card, error-state, icons, timeline.
 - `block:settings-page`: Profile form with photo and phone number, notification switches and language and time zone, in tabs. Uses: avatar, button, card, input, label, phone-input, select, switch, tabs, toast.
 - `block:sign-in`: Login card with validation, loading button and an error alert. Uses: alert, brand-icons, button, card, checkbox, icons, input, label.
 - `block:sign-up`: Registration card with name, email, password strength meter, terms checkbox, validation and a check-your-inbox confirmation. Uses: brand-icons, button, card, checkbox, icons, input, label, password-input.

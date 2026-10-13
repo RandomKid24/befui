@@ -298,7 +298,7 @@ export const categories: Category[] = ['Layout', 'Inputs', 'Time', 'Display', 'D
 export interface Block {
   slug: string;
   name: string;
-  module: 'HRMS' | 'Marketing' | 'Auth' | 'Layout' | 'Reports' | 'Account' | 'Dashboard' | 'Commerce' | 'Landing';
+  module: 'HRMS' | 'Marketing' | 'Auth' | 'Layout' | 'Reports' | 'Account' | 'Dashboard' | 'Commerce' | 'Landing' | 'Messaging' | 'Productivity';
   description: string;
   uses: string[];
   Demo: ComponentType;
@@ -334,6 +334,10 @@ const bMeta: Omit<Block, 'Demo' | 'loadSource' | 'path'>[] = [
   { slug: 'sign-up', name: 'Sign up', module: 'Auth', description: 'Registration card with name, email, password strength meter, terms checkbox, validation and a check-your-inbox confirmation.', uses: ['card', 'input', 'label', 'password-input', 'checkbox', 'button', 'brand-icons'] },
   { slug: 'reset-password', name: 'Reset password', module: 'Auth', description: 'Four steps: ask for email, check your inbox with a resend timer, choose a new password, done.', uses: ['card', 'input', 'label', 'password-input', 'button'] },
   { slug: 'sign-in', name: 'Sign in', module: 'Auth', description: 'Login card with validation, loading button and an error alert.', uses: ['card', 'input', 'label', 'checkbox', 'alert', 'button', 'brand-icons'] },
+  { slug: 'otp-verify', name: 'OTP verify', module: 'Auth', description: 'Six-digit code entry with a resend countdown, an error state and a success screen.', uses: ['card', 'otp-input', 'button'] },
+  { slug: 'onboarding-wizard', name: 'Onboarding wizard', module: 'Account', description: 'Four-step setup (profile, team, preferences, done) with a stepper, validation and values kept when you go back.', uses: ['card', 'stepper', 'label', 'input', 'segmented', 'switch', 'button'] },
+  { slug: 'notifications-page', name: 'Notifications page', module: 'Account', description: 'Full-page inbox with All and Unread tabs, mark as read and mark all read.', uses: ['card', 'tabs', 'avatar', 'empty-state', 'button'] },
+  { slug: 'server-error-page', name: 'Server error page', module: 'Layout', description: 'A 500 page with a retry that loads, a status link and a short incident timeline.', uses: ['card', 'error-state', 'timeline', 'button'] },
 ];
 
 const bMod = import.meta.glob('/src/blocks/*.tsx') as Loader<{ default: ComponentType }>;
