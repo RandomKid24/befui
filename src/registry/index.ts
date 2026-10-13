@@ -341,6 +341,9 @@ const bMeta: Omit<Block, 'Demo' | 'loadSource' | 'path'>[] = [
   { slug: 'team-page', name: 'Team page', module: 'Marketing', description: 'Heading, a grid of team members with roles and short bios, and a hiring call to action.', uses: ['avatar', 'card', 'button'] },
   { slug: 'contact-page', name: 'Contact page', module: 'Marketing', description: 'Contact form with validation and a confirmation, beside an FAQ accordion.', uses: ['card', 'label', 'input', 'accordion', 'button'] },
   { slug: 'finance-dashboard', name: 'Finance dashboard', module: 'Dashboard', description: 'Balance, income, spending and savings rate, a cash-flow chart, spending by category and recent transactions.', uses: ['stat-card', 'charts', 'line-chart', 'bar-list', 'table', 'badge', 'format', 'card'] },
+  { slug: 'kanban-board-page', name: 'Kanban board page', module: 'Dashboard', description: 'Full-page board with search, a priority filter, column totals and a dialog for each task. Drag a card or move it with Alt and the arrow keys.', uses: ['kanban', 'avatar', 'badge', 'dialog', 'segmented', 'input', 'icons'] },
+  { slug: 'chat-app', name: 'Chat app', module: 'Messaging', description: 'Conversation list with unread badges beside a thread with a composer and a typing indicator.', uses: ['chat', 'avatar', 'badge'] },
+  { slug: 'calendar-app', name: 'Calendar app', module: 'Productivity', description: 'Month and week calendar where you click a day or press New event to add an event in a dialog.', uses: ['event-calendar', 'dialog', 'label', 'input', 'segmented', 'button'] },
 ];
 
 const bMod = import.meta.glob('/src/blocks/*.tsx') as Loader<{ default: ComponentType }>;

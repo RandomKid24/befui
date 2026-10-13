@@ -288,7 +288,9 @@ SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, Chev
 - `block:analytics-dashboard`: Visitors, page views, session time and conversion KPIs, a traffic area chart, device donut, top pages bar list and weekday bars. Uses: area-chart, bar-list, card, charts, icons, live-chart, radial-bar-chart, stacked-bar-chart, stat-card.
 - `block:api-keys-page`: Create, reveal, copy and revoke keys, with a masked secret and an empty state. Uses: badge, button, card, copy-button, empty-state, icons, input, toast.
 - `block:billing-page`: Current plan with seat and storage usage bars, payment method card and an invoice history table. Uses: badge, button, card, icons, progress, table, toast.
+- `block:calendar-app`: Month and week calendar where you click a day or press New event to add an event in a dialog. Uses: button, dialog, event-calendar, icons, input, label, segmented.
 - `block:campaign-performance`: Channel KPIs, weekly leads chart and a campaign budget table. Uses: badge, card, charts, icons, progress, stat-card, table.
+- `block:chat-app`: Conversation list with unread badges beside a thread with a composer and a typing indicator. Uses: avatar, badge, chat.
 - `block:checkout-page`: Delivery address form with validation, shipping options, coupon code and a live order summary. Uses: button, card, coupon-input, input, label, order-summary, radio-group, toast.
 - `block:contact-page`: Contact form with validation and a confirmation, beside an FAQ accordion. Uses: accordion, button, card, icons, input, label.
 - `block:ecommerce-dashboard`: Sales, orders, customers and to-ship KPIs, revenue chart, top products and a recent orders table with status badges. Uses: avatar, badge, bar-list, card, charts, format, icons, line-chart, stat-card, table.
@@ -297,6 +299,7 @@ SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, Chev
 - `block:hrms-overview`: Headcount, attendance, department split and activity feed. Uses: avatar, card, charts, icons, stat-card, timeline.
 - `block:inbox`: Two-pane mail view: searchable list with unread dots, message reader with reply, archive and delete. Single pane on mobile. Uses: avatar, button, empty-state, icons, search-input.
 - `block:invoice-page`: A full invoice with print, download and send actions. Uses: button, icons, invoice, toast.
+- `block:kanban-board-page`: Full-page board with search, a priority filter, column totals and a dialog for each task. Drag a card or move it with Alt and the arrow keys. Uses: avatar, badge, dialog, icons, input, kanban, segmented.
 - `block:landing-page`: Whole marketing page: navbar, hero, logos, feature grid, stats, FAQ, call to action and footer. Uses: button, icons, landing-sections, navbar.
 - `block:lead-pipeline`: Drag-and-drop board with column totals and a keyboard-friendly move button. Uses: avatar, badge, button, card, icons, toast.
 - `block:leave-approvals`: Manager inbox with tabs, balance bars and approve or reject toasts. Uses: avatar, badge, button, card, empty-state, icons, progress, tabs, toast.

@@ -1,8 +1,11 @@
 // Behaviour of the page blocks that have logic. Axe over every block lives in examples.a11y.test.tsx.
 import { act, fireEvent, render, screen, within } from '@testing-library/react';
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
+import CalendarApp from '@/blocks/calendar-app';
+import ChatApp from '@/blocks/chat-app';
 import ContactPage from '@/blocks/contact-page';
 import FinanceDashboard from '@/blocks/finance-dashboard';
+import KanbanBoardPage from '@/blocks/kanban-board-page';
 import NotificationsPage from '@/blocks/notifications-page';
 import OnboardingWizard from '@/blocks/onboarding-wizard';
 import OtpVerify from '@/blocks/otp-verify';
@@ -118,4 +121,56 @@ it('FinanceDashboard shows the balance and at least five transactions', () => {
   expect(screen.getByText('Balance')).toBeInTheDocument();
   const rows = within(screen.getByRole('table', { name: 'Recent transactions' })).getAllByRole('row');
   expect(rows.length).toBeGreaterThanOrEqual(6); // header + five
+});
+
+it('KanbanBoardPage moves a card with Alt+Arrow, updates the column totals, and filters by priority', () => {
+  render(<KanbanBoardPage />);
+  const total = (name: string) => Number(screen.getByRole('region', { name }).querySelector('header .tabular-nums')?.textContent);
+  const backlog = total('Backlog');
+  const doing = total('In progress');
+  const card = screen.getByRole('region', { name: 'Backlog' }).querySelector('[data-card]')!;
+  fireEvent.keyDown(card, { key: 'ArrowRight', altKey: true });
+  expect(total('Backlog')).toBe(backlog - 1);
+  expect(total('In progress')).toBe(doing + 1);
+
+  const before = document.querySelectorAll('[data-card]').length;
+  fireEvent.click(screen.getByRole('radio', { name: 'High' }));
+  const shown = [...document.querySelectorAll('[data-card]')];
+  expect(shown.length).toBeGreaterThan(0);
+  expect(shown.length).toBeLessThan(before);
+  for (const c of shown) expect(c).toHaveTextContent('High');
+});
+
+it('KanbanBoardPage opens a task in a dialog', () => {
+  render(<KanbanBoardPage />);
+  const title = document.querySelector('[data-card] button')!.textContent!;
+  fireEvent.click(document.querySelector('[data-card] button')!);
+  expect(within(screen.getByRole('dialog')).getByRole('heading', { name: title })).toBeInTheDocument();
+});
+
+it('ChatApp switches threads, sends a message, and will not send an empty one', () => {
+  render(<ChatApp />);
+  expect(screen.getByRole('heading', { level: 3, name: 'Diya Nair' })).toBeInTheDocument();
+  expect(screen.getByRole('button', { name: 'Send' })).toBeDisabled();
+  press(/Rohan Shah/);
+  expect(screen.getByRole('heading', { level: 3, name: 'Rohan Shah' })).toBeInTheDocument();
+  fireEvent.change(screen.getByLabelText('Message'), { target: { value: 'See you at 4' } });
+  press('Send');
+  expect(within(screen.getByRole('log')).getByText('See you at 4')).toBeInTheDocument();
+  expect(within(screen.getByRole('list', { name: 'Conversations' })).getByText('See you at 4')).toBeInTheDocument(); // the list preview follows
+  expect(screen.getByLabelText('Message')).toHaveValue('');
+});
+
+it('CalendarApp switches views, opens the event dialog from a day, and saves an event onto the calendar', () => {
+  render(<CalendarApp />);
+  expect(screen.getByRole('button', { name: 'Previous month' })).toBeInTheDocument();
+  press('week');
+  expect(screen.getByRole('button', { name: 'Previous week' })).toBeInTheDocument();
+  press('month');
+  fireEvent.click(screen.getAllByText('15')[0]);
+  const dialog = screen.getByRole('dialog', { name: 'New event' });
+  fireEvent.change(within(dialog).getByLabelText('Title'), { target: { value: 'Team lunch' } });
+  fireEvent.click(within(dialog).getByRole('button', { name: 'Save event' }));
+  expect(screen.queryByRole('dialog')).toBeNull();
+  expect(screen.getByRole('button', { name: 'Team lunch' })).toBeInTheDocument();
 });
