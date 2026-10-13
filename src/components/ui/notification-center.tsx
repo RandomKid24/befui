@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { BellIcon, CheckIcon } from './icons';
 import { Button } from './button';

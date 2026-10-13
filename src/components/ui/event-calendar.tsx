@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from './icons';
 import { addDays, isSameDay, startOfDay } from './calendar';

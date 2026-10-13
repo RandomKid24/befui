@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { EyeIcon, EyeOffIcon } from './icons';
 import { Input } from './input';

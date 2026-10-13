@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { Avatar } from './avatar';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from './dropdown-menu';

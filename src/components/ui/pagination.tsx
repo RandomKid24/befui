@@ -1,3 +1,5 @@
+'use client';
+
 import { ChevronLeftIcon, ChevronRightIcon } from './icons';
 import { cn } from '@/lib/utils';
 

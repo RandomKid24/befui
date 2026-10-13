@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { DownloadIcon, MoreIcon, PlusIcon, SearchIcon } from '@/components/ui/icons';
 import { Avatar } from '@/components/ui/avatar';

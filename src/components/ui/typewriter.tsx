@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 
 /** Types each phrase, holds, deletes it and moves on. Pass one phrase for a one-off type-in. Static text for reduced motion. */

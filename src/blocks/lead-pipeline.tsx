@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { IndianRupeeIcon, PlusIcon } from '@/components/ui/icons';
 import { Avatar } from '@/components/ui/avatar';

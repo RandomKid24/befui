@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { CheckIcon, SortIcon } from './icons';
 import { cn } from '@/lib/utils';

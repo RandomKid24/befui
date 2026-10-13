@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { PlusIcon } from './icons';
 import { cn } from '@/lib/utils';

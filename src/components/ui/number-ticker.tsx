@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 
 /** Counts from 0 (or the previous value) to `value` with an ease-out curve. Starts when scrolled into view. */

@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { Calendar, startOfDay } from './calendar';
 import { CalendarIcon } from './icons';

@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { CheckCircleIcon, AlertCircleIcon, InfoIcon, XIcon } from './icons';
 import { cn } from '@/lib/utils';

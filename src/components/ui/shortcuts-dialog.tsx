@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from './dialog';
 import { Kbd } from './kbd';

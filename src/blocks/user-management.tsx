@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { UserInfo } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';

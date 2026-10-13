@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { AlertCircleIcon, CheckCircleIcon, FileIcon, RefreshIcon, UploadIcon, XIcon } from './icons';
 import { Progress } from './progress';

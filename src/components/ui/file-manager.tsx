@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { ChevronRightIcon, FileIcon, FolderIcon, ImageIcon, ListIcon, ComponentsIcon } from './icons';
 import { cn } from '@/lib/utils';

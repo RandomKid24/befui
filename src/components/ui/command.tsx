@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { Command as Cmdk } from 'cmdk';
 import * as DialogPrimitive from '@radix-ui/react-dialog';

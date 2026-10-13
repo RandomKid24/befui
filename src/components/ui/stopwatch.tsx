@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { PauseIcon, PlayIcon, RefreshIcon } from './icons';
 import { Button } from './button';

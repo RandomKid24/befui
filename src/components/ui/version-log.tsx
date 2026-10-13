@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { Badge } from './badge';
 import { ChevronDownIcon } from './icons';

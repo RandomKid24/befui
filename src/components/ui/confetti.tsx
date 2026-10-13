@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 
 const COLORS = ['var(--primary)', 'var(--success)', 'var(--warning)', 'var(--destructive)', 'var(--info)'];

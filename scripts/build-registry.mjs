@@ -1,6 +1,13 @@
 // Builds public/r/*.json: one self-contained file per component and block, plus index.json.
 // The CLI (bin/befui.mjs) reads these. Dependencies come from each file's real imports.
 import { mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import { hasDirective, needsClient } from './use-client.mjs';
+
+// Next.js App Router: a component with state, context, Radix, handlers or browser globals must say 'use client'.
+const lacking = ['src/components/ui', 'src/blocks'].flatMap((dir) =>
+  readdirSync(dir).filter((f) => f.endsWith('.tsx')).map((f) => `${dir}/${f}`).filter((path) => { const src = readFileSync(path, 'utf8'); return needsClient(src) && !hasDirective(src); }),
+);
+if (lacking.length) throw new Error(`Missing 'use client' in: ${lacking.join(', ')}. Run node scripts/add-use-client.mjs`);
 
 const out = 'public/r';
 rmSync(out, { recursive: true, force: true });

@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { PricingCard } from '@/components/ui/pricing-card';
 import { Segmented } from '@/components/ui/segmented';

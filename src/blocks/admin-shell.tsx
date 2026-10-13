@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { BellIcon, BarChartIcon, CalendarIcon, SortIcon, IndianRupeeIcon, LayoutDashboardIcon, LogOutIcon, MegaphoneIcon, SearchIcon, SettingsIcon, TargetIcon, UserCircleIcon, UsersIcon, WalletIcon } from '@/components/ui/icons';
 import { AppContent, AppShell, PageHeader, Topbar } from '@/components/ui/app-shell';

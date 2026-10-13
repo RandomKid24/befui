@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { CheckIcon, XIcon } from '@/components/ui/icons';
 import { Avatar } from '@/components/ui/avatar';

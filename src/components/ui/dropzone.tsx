@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { FileIcon, UploadIcon, XIcon } from './icons';
 import { cn } from '@/lib/utils';

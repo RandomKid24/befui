@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { BefMark, BellIcon, SettingsIcon, UserCircleIcon } from '@/components/ui/icons';
 import { Button } from '@/components/ui/button';

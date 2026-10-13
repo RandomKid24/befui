@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { CheckIcon, ChevronDownIcon } from './icons';
 import { Progress } from './progress';

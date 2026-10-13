@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from '@/components/ui/button';
 import { DownloadIcon, PrinterIcon, SendIcon } from '@/components/ui/icons';
 import { Invoice } from '@/components/ui/invoice';

@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { ClockIcon } from './icons';
 import { cn } from '@/lib/utils';
