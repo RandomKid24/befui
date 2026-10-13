@@ -1,10 +1,13 @@
 // Behaviour of the page blocks that have logic. Axe over every block lives in examples.a11y.test.tsx.
 import { act, fireEvent, render, screen, within } from '@testing-library/react';
 import { afterEach, beforeEach, expect, it, vi } from 'vitest';
+import ContactPage from '@/blocks/contact-page';
+import FinanceDashboard from '@/blocks/finance-dashboard';
 import NotificationsPage from '@/blocks/notifications-page';
 import OnboardingWizard from '@/blocks/onboarding-wizard';
 import OtpVerify from '@/blocks/otp-verify';
 import ServerErrorPage from '@/blocks/server-error-page';
+import TeamPage from '@/blocks/team-page';
 
 beforeEach(() => { vi.useFakeTimers(); });
 afterEach(() => { vi.useRealTimers(); });
@@ -81,4 +84,38 @@ it('ServerErrorPage shows a 500, a retry that loads then reports, and the incide
   expect(screen.getByRole('button', { name: 'Try again' })).toBeEnabled();
   expect(screen.getByText(/still not working/i)).toBeInTheDocument();
   for (const stage of ['Investigating', 'Identified', 'Monitoring']) expect(screen.getByText(stage)).toBeInTheDocument();
+});
+
+it('ContactPage reports empty fields, confirms a valid message, and expands an FAQ answer', () => {
+  render(<ContactPage />);
+  press('Send message');
+  expect(screen.getByText(/enter your name/i)).toBeInTheDocument();
+  expect(screen.getByText(/enter a valid email/i)).toBeInTheDocument();
+  expect(screen.queryByText(/message sent/i)).toBeNull();
+  fireEvent.change(screen.getByLabelText('Name'), { target: { value: 'Ada' } });
+  fireEvent.change(screen.getByLabelText('Email'), { target: { value: 'ada@example.com' } });
+  fireEvent.change(screen.getByLabelText('Message'), { target: { value: 'Hello there' } });
+  press('Send message');
+  tick(1200);
+  expect(screen.getByText(/message sent/i)).toBeInTheDocument();
+  const [first] = screen.getAllByRole('button', { expanded: false }).filter((b) => b.hasAttribute('aria-controls'));
+  fireEvent.click(first);
+  expect(first).toHaveAttribute('aria-expanded', 'true');
+});
+
+it('TeamPage shows at least six members, each with a name and a role', () => {
+  render(<TeamPage />);
+  const members = within(screen.getByRole('list', { name: 'Team members' })).getAllByRole('listitem');
+  expect(members.length).toBeGreaterThanOrEqual(6);
+  for (const member of members) {
+    expect(within(member).getByRole('heading')).toBeInTheDocument();
+    expect(member.querySelector('p')?.textContent).toMatch(/\S/);
+  }
+});
+
+it('FinanceDashboard shows the balance and at least five transactions', () => {
+  render(<FinanceDashboard />);
+  expect(screen.getByText('Balance')).toBeInTheDocument();
+  const rows = within(screen.getByRole('table', { name: 'Recent transactions' })).getAllByRole('row');
+  expect(rows.length).toBeGreaterThanOrEqual(6); // header + five
 });

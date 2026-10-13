@@ -290,8 +290,10 @@ SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, Chev
 - `block:billing-page`: Current plan with seat and storage usage bars, payment method card and an invoice history table. Uses: badge, button, card, icons, progress, table, toast.
 - `block:campaign-performance`: Channel KPIs, weekly leads chart and a campaign budget table. Uses: badge, card, charts, icons, progress, stat-card, table.
 - `block:checkout-page`: Delivery address form with validation, shipping options, coupon code and a live order summary. Uses: button, card, coupon-input, input, label, order-summary, radio-group, toast.
+- `block:contact-page`: Contact form with validation and a confirmation, beside an FAQ accordion. Uses: accordion, button, card, icons, input, label.
 - `block:ecommerce-dashboard`: Sales, orders, customers and to-ship KPIs, revenue chart, top products and a recent orders table with status badges. Uses: avatar, badge, bar-list, card, charts, format, icons, line-chart, stat-card, table.
 - `block:employee-directory`: Searchable table with status filter, row selection, actions and pagination. Uses: avatar, badge, button, card, checkbox, dropdown-menu, icons, input, pagination, segmented, table.
+- `block:finance-dashboard`: Balance, income, spending and savings rate, a cash-flow chart, spending by category and recent transactions. Uses: badge, bar-list, card, charts, format, icons, line-chart, stat-card, table.
 - `block:hrms-overview`: Headcount, attendance, department split and activity feed. Uses: avatar, card, charts, icons, stat-card, timeline.
 - `block:inbox`: Two-pane mail view: searchable list with unread dots, message reader with reply, archive and delete. Single pane on mobile. Uses: avatar, button, empty-state, icons, search-input.
 - `block:invoice-page`: A full invoice with print, download and send actions. Uses: button, icons, invoice, toast.
@@ -313,5 +315,6 @@ SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, Chev
 - `block:settings-page`: Profile form with photo and phone number, notification switches and language and time zone, in tabs. Uses: avatar, button, card, input, label, phone-input, select, switch, tabs, toast.
 - `block:sign-in`: Login card with validation, loading button and an error alert. Uses: alert, brand-icons, button, card, checkbox, icons, input, label.
 - `block:sign-up`: Registration card with name, email, password strength meter, terms checkbox, validation and a check-your-inbox confirmation. Uses: brand-icons, button, card, checkbox, icons, input, label, password-input.
+- `block:team-page`: Heading, a grid of team members with roles and short bios, and a hiring call to action. Uses: avatar, button, card, icons.
 - `block:top-nav-layout`: App frame with a top navigation bar instead of a sidebar, with notifications, theme toggle and user menu. Uses: button, card, icons, navbar, stat-card, theme-toggle, toast, user-menu.
 - `block:user-management`: Team members table with search, sort, role and status, row actions (suspend, remove) and an invite dialog with validation. Uses: avatar, badge, button, data-table, dialog, dropdown-menu, icons, input, label, select, toast.

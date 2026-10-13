@@ -338,6 +338,9 @@ const bMeta: Omit<Block, 'Demo' | 'loadSource' | 'path'>[] = [
   { slug: 'onboarding-wizard', name: 'Onboarding wizard', module: 'Account', description: 'Four-step setup (profile, team, preferences, done) with a stepper, validation and values kept when you go back.', uses: ['card', 'stepper', 'label', 'input', 'segmented', 'switch', 'button'] },
   { slug: 'notifications-page', name: 'Notifications page', module: 'Account', description: 'Full-page inbox with All and Unread tabs, mark as read and mark all read.', uses: ['card', 'tabs', 'avatar', 'empty-state', 'button'] },
   { slug: 'server-error-page', name: 'Server error page', module: 'Layout', description: 'A 500 page with a retry that loads, a status link and a short incident timeline.', uses: ['card', 'error-state', 'timeline', 'button'] },
+  { slug: 'team-page', name: 'Team page', module: 'Marketing', description: 'Heading, a grid of team members with roles and short bios, and a hiring call to action.', uses: ['avatar', 'card', 'button'] },
+  { slug: 'contact-page', name: 'Contact page', module: 'Marketing', description: 'Contact form with validation and a confirmation, beside an FAQ accordion.', uses: ['card', 'label', 'input', 'accordion', 'button'] },
+  { slug: 'finance-dashboard', name: 'Finance dashboard', module: 'Dashboard', description: 'Balance, income, spending and savings rate, a cash-flow chart, spending by category and recent transactions.', uses: ['stat-card', 'charts', 'line-chart', 'bar-list', 'table', 'badge', 'format', 'card'] },
 ];
 
 const bMod = import.meta.glob('/src/blocks/*.tsx') as Loader<{ default: ComponentType }>;
