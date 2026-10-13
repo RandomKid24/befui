@@ -63,10 +63,10 @@ export function Preview({
           />
         </div>
       </div>
-      <TabsContent value="preview" className="mt-3">
+      <TabsContent value="preview" className="mt-3 animate-pop">
         <div
           className={cn(
-            'mx-auto rounded-xl border bg-background text-foreground transition-[max-width] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
+            'mx-auto rounded-xl border bg-background text-foreground transition-[max-width,background-color,border-color,color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
             theme === 'dark' && 'dark',
             theme === 'light' && 'light',
             !bleed && 'flex min-h-56 items-center justify-center bg-[radial-gradient(var(--border)_1px,transparent_1px)] [background-size:16px_16px] p-6 sm:p-10',
@@ -82,8 +82,8 @@ export function Preview({
           </DirectionProvider>
         </div>
       </TabsContent>
-      {playground && <TabsContent value="playground" className="mt-3">{playground}</TabsContent>}
-      <TabsContent value="code" className="mt-3">
+      {playground && <TabsContent value="playground" className="mt-3 animate-pop">{playground}</TabsContent>}
+      <TabsContent value="code" className="mt-3 animate-pop">
         <CodeBlock code={code} title={title} maxHeight={480} />
       </TabsContent>
     </Tabs>
