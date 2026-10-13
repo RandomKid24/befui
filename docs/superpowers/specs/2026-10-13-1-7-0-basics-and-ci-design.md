@@ -17,11 +17,11 @@ Audience: the author's own projects, and other developers who install via the CL
 
 ## Scope
 
-### 1. Eight new components
+### 1. Seven new components (qr-code was dropped by the user before execution)
 
 Candidates I rejected because they already exist or the platform does it: `multi-select` and `autocomplete` (combobox), `drawer` and `sheet` (dialog), `textarea` (input), `field` (label), date range (date-picker), `sparkline` (charts), `resizable` (split-pane), `aspect-ratio` (Tailwind `aspect-video`), `masonry` (CSS `columns`), `scroll-area` (`scrollbar-width: thin`).
 
-All eight follow the existing conventions: one file, `cn` for class merging, `cva` for variants, logical start/end spacing so they flip in RTL, motion disabled under `prefers-reduced-motion`, a typed props interface with a one-line doc comment.
+All seven follow the existing conventions: one file, `cn` for class merging, `cva` for variants, logical start/end spacing so they flip in RTL, motion disabled under `prefers-reduced-motion`, a typed props interface with a one-line doc comment.
 
 | Slug | Category | Exports | Packages |
 |---|---|---|---|
@@ -32,7 +32,6 @@ All eight follow the existing conventions: one file, `cn` for class merging, `cv
 | `navigation-menu` | Navigation | `NavigationMenu`, `NavigationMenuList`, `NavigationMenuItem`, `NavigationMenuTrigger`, `NavigationMenuContent`, `NavigationMenuLink` | `@radix-ui/react-navigation-menu` (new) |
 | `menubar` | Navigation | `Menubar`, `MenubarMenu`, `MenubarTrigger`, `MenubarContent`, `MenubarItem`, `MenubarCheckboxItem`, `MenubarSeparator`, `MenubarShortcut` | `@radix-ui/react-menubar` (new) |
 | `tour` | Overlays | `Tour` | `@radix-ui/react-popover` (already installed) |
-| `qr-code` | Display | `QRCode` | `qrcode-generator` (new; MIT, no dependencies; the plan's first step confirms license and size with `npm view`) |
 
 Behavior notes per component:
 
@@ -43,7 +42,6 @@ Behavior notes per component:
 - **navigation-menu**: desktop mega-menu with the Radix shared viewport. Small screens are the `navbar`'s job and are out of scope. Content enters with the existing `animate-pop`, so there are no new keyframes and `befui update` has nothing new to append.
 - **menubar**: item styling copied from `dropdown-menu.tsx` so the two look identical.
 - **tour**: props `steps` (`{ target: string | RefObject<HTMLElement>; title; body; side? }[]`), `open`, `onOpenChange`, `onFinish`. It dims the page with a cut-out around the target, anchors a card with `PopoverAnchor`, and shows "2 of 5", Back, Next, Skip and a final Done. Escape closes. Arrow keys step. Focus moves into the card and returns to where it was on close. The target scrolls into view and the cut-out re-measures on resize and scroll. A step whose target is not in the DOM is skipped. This is the only component with real new logic, so it gets the most test coverage.
-- **qr-code**: props `value`, `size` (default 160), `level` (L, M, Q or H; default M), `fg` (default `currentColor`), `bg` (default transparent), `label`. Renders one SVG `<path>` for the dark modules with a 4-module quiet zone, so it stays sharp at any size. Empty `value` renders nothing. Sets `role="img"` with the label.
 
 Each component gets a demo in `src/examples/<slug>.tsx` that shows its main use, a registry `m(...)` line with description and search keywords, and an entry in `NEW_SLUGS` so the docs site marks it New.
 
@@ -61,22 +59,21 @@ Test setup, adding four devDependencies: `vitest` (3.x, matches Vite 6), `jsdom`
 Two test files:
 
 - **`src/examples.a11y.test.tsx`**: for every file in `src/examples`, render the default export inside `Suspense`, fail on any thrown error, and run axe. The `color-contrast` rule is off because jsdom has no layout. Slugs that fail axe today, or cannot render in jsdom even with the stubs, are recorded in `src/a11y-baseline.json` as slug to one-line reason. The test fails if a slug outside the baseline fails, and also fails if a baseline slug now passes, so the list can only shrink. `UPDATE_BASELINE=1 npm test` rewrites the file from the current results. A new component can never be added to the baseline.
-- **`src/new-components.test.tsx`**: the all-examples test only sees overlays in their closed state, so this file covers the open state of the eight new components: hover-card on pointer enter, menubar and navigation-menu opened, and tour stepping through Next, Back, Skip and a missing target. Each is also run through axe while open. It also holds a deterministic check that `QRCode value="hello" level="M"` yields a 21-module code (viewBox `0 0 29 29`).
+- **`src/new-components.test.tsx`**: the all-examples test only sees overlays in their closed state, so this file covers the open state of the seven new components: hover-card on pointer enter, menubar and navigation-menu opened, and tour stepping through Next, Back, Skip and a missing target. Each is also run through axe while open. It also holds a deterministic check that `QRCode value="hello" level="M"` yields a 21-module code (viewBox `0 0 29 29`).
 
 Shared setup in `vitest.setup.ts` stubs what jsdom lacks: `matchMedia`, `ResizeObserver`, `IntersectionObserver`, `Element.prototype.scrollIntoView`, pointer-capture methods Radix calls, and `HTMLCanvasElement.prototype.getContext` (signature pad).
 
 Known limits, stated so they are not mistaken for coverage:
 
 - Contrast and layout are not checked.
-- Overlay contents of the existing 192 components are not scanned in the open state. Only the eight new components get that.
+- Overlay contents of the existing 192 components are not scanned in the open state. Only the seven new components get that.
 - Blocks are not scanned directly. They are built from the components that are.
-- A QR code passing the structure test is not proof it scans; verify manually with a phone before release.
 
 ### 3. README and release
 
 - Replace the hand-kept catalog in the README ("Components (141)" and the category lists) with a block between `<!-- components:start -->` and `<!-- components:end -->` markers, written by `scripts/build-registry.mjs` from the registry. The headline component count is generated the same way. Step 3 of the CI job then catches drift.
 - Count the real icon exports and make every mention agree (the README currently says both 280 and 189).
-- Add a 1.7.0 entry to `src/registry/changelog.json` with "Added" notes for the eight components (the CI gate is not user-facing, so it is not listed), then `npm version minor` per the README's Releasing section. Per the repo's working agreement, commit and push to `main` after build, typecheck and tests pass.
+- Add a 1.7.0 entry to `src/registry/changelog.json` with "Added" notes for the seven components (the CI gate is not user-facing, so it is not listed), then `npm version minor` per the README's Releasing section. Per the repo's working agreement, commit and push to `main` after build, typecheck and tests pass.
 
 ## Out of scope
 
@@ -85,7 +82,7 @@ Publishing to npm, tests or fixes for existing components beyond baselining thei
 ## Success criteria
 
 - `npm run build` and `npm test` pass locally and in the CI workflow.
-- All eight components have a working docs-site page, a Code tab, a generated `public/r/<slug>.json` and a Storybook story.
+- All seven components have a working docs-site page, a Code tab, a generated `public/r/<slug>.json` and a Storybook story.
 - `src/a11y-baseline.json` exists, contains no new component, and the all-examples test passes against it.
 - A deliberate accessibility regression (for example removing an `aria-label` from a new component's demo) makes `npm test` fail.
 - README counts match the registry and CI fails if they drift.
