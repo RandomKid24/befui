@@ -343,6 +343,7 @@ export default function App() {
 - **Some components need a provider or a root element.** `Toaster` goes once near the app root. `TooltipProvider` wraps anything that uses `Tooltip`. Each component page says so.
 - **Compose them.** Blocks are just components arranged into a screen. Copy one with `add block:leave-approvals` and read how it is built.
 - **Edit freely.** The files are in your repo. Change a padding, add a prop, delete what you do not use.
+- **Right-to-left.** Spacing uses start and end, so layouts flip on their own. Arrow keys inside Radix menus, tabs and toggle groups need the direction too: wrap your app in `DirectionProvider` from `@radix-ui/react-direction`, or pass `dir` to the component.
 
 To pull the latest version of a component later:
 

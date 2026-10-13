@@ -29,14 +29,13 @@ const resolve = (target: TourStep['target']): HTMLElement | null => {
   }
 };
 
-const typing = (e: KeyboardEvent) => (e.target as HTMLElement | null)?.closest?.('input, textarea, select, [contenteditable]') != null;
-
 /** Spotlights parts of the real page one step at a time, with a card anchored to each. Arrow keys step, Escape closes. */
 export function Tour({ steps, open, onOpenChange, onFinish }: TourProps) {
   const [index, setIndex] = React.useState(0);
   const [rect, setRect] = React.useState<DOMRect | null>(null);
   const titleId = React.useId();
   const primary = React.useRef<HTMLButtonElement>(null);
+  const card = React.useRef<HTMLDivElement>(null);
 
   // Targets are looked up after every commit, not during render: when the Tour renders in the same pass as its targets, they are not in the DOM yet.
   // setVisible keeps the old array when nothing changed, so this does not loop.
@@ -81,15 +80,20 @@ export function Tour({ steps, open, onOpenChange, onFinish }: TourProps) {
       window.removeEventListener('resize', measure);
       window.removeEventListener('scroll', measure, true);
       observer.disconnect();
+      setRect(null); // never reuse the last run's position for the first frame of the next
     };
   }, [el]);
 
   React.useEffect(() => {
     if (!active) return;
     const onKey = (e: KeyboardEvent) => {
-      if (typing(e)) return;
-      if (e.key === 'ArrowRight') setIndex(() => Math.min(i + 1, visible.length - 1));
-      if (e.key === 'ArrowLeft') setIndex(() => Math.max(i - 1, 0));
+      // Alt+Left is the browser's Back. Arrow keys inside other widgets (tabs, sliders, menus) belong to them, so only act from the card or an unfocused page.
+      if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
+      const target = e.target as Node | null;
+      if (target !== document && target !== document.body && !card.current?.contains(target)) return;
+      const rtl = (card.current?.closest('[dir]')?.getAttribute('dir') ?? getComputedStyle(document.documentElement).direction) === 'rtl';
+      if (e.key === (rtl ? 'ArrowLeft' : 'ArrowRight')) setIndex(() => Math.min(i + 1, visible.length - 1));
+      else if (e.key === (rtl ? 'ArrowRight' : 'ArrowLeft')) setIndex(() => Math.max(i - 1, 0));
     };
     document.addEventListener('keydown', onKey);
     return () => document.removeEventListener('keydown', onKey);
@@ -100,18 +104,19 @@ export function Tour({ steps, open, onOpenChange, onFinish }: TourProps) {
   return (
     <>
       {/* Portalled so a transformed ancestor cannot turn position:fixed into position relative to itself. */}
-      {createPortal(
-        <div
-          aria-hidden
-          data-tour-spotlight
-          className="pointer-events-none fixed z-40 rounded-lg shadow-[0_0_0_9999px_rgb(0_0_0/0.5)] transition-[top,left,width,height] duration-200"
-          style={rect ? { top: rect.top - 6, left: rect.left - 6, width: rect.width + 12, height: rect.height + 12 } : undefined}
-        />,
-        document.body,
-      )}
+      {rect &&
+        createPortal(
+          <div
+            aria-hidden
+            data-tour-spotlight
+            className="pointer-events-none fixed z-40 rounded-lg shadow-[0_0_0_9999px_rgb(0_0_0/0.5)]"
+            style={{ top: rect.top - 6, left: rect.left - 6, width: rect.width + 12, height: rect.height + 12 }}
+          />,
+          document.body,
+        )}
       <Popover open onOpenChange={onOpenChange}>
         <PopoverAnchor virtualRef={{ current: el }} />
-        <PopoverContent side={step.side ?? 'bottom'} aria-labelledby={titleId}
+        <PopoverContent ref={card} side={step.side ?? 'bottom'} aria-labelledby={titleId}
           onInteractOutside={(e) => e.preventDefault()}
           onOpenAutoFocus={(e) => {
             e.preventDefault();

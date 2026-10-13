@@ -3,6 +3,14 @@
 All notable changes to befui. Versions follow [semver](https://semver.org): new components are minor releases, breaking prop changes are major. The same list, with links to each component, is on the docs site under Changelog.
 (Generated from src/registry/changelog.json by `npm run registry:build`. Edit the JSON, not this file.)
 
+## 1.7.2 - 2026-10-13
+
+Tour keyboard and spotlight fixes, input group disabled styling
+
+- **Fixed:** Tour: arrow keys no longer fire with Alt, Ctrl, Cmd or Shift held, or while focus is in another widget on the page, and they swap in right-to-left pages. The spotlight no longer trails the target while the page scrolls, and never dims the whole page before it is positioned. (Tour)
+- **Fixed:** Input group: a disabled button inside an addon no longer dims the whole field; only a disabled input does. (Input group)
+- **Changed:** Hover card: the docs now say what to keep out of it (links, buttons, anything essential), because the card cannot be reached with the keyboard. (Hover card)
+
 ## 1.7.1 - 2026-10-13
 
 Accessibility fixes: all 18 examples that failed the automated check now pass

@@ -6,7 +6,7 @@ export function InputGroup({ className, ...props }: React.HTMLAttributes<HTMLDiv
   return (
     <div
       className={cn(
-        'flex h-9 w-full items-stretch overflow-hidden rounded-md border border-input bg-background text-sm shadow-[0_1px_1px_rgb(0_0_0/0.02)] transition-[border,box-shadow] hover:border-muted-foreground/40 focus-within:border-ring focus-within:ring-3 focus-within:ring-ring/15 has-[:disabled]:opacity-50',
+        'flex h-9 w-full items-stretch overflow-hidden rounded-md border border-input bg-background text-sm shadow-[0_1px_1px_rgb(0_0_0/0.02)] transition-[border,box-shadow] hover:border-muted-foreground/40 focus-within:border-ring focus-within:ring-3 focus-within:ring-ring/15 has-[input:disabled]:opacity-50',
         className,
       )}
       {...props}

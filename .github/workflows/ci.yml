@@ -2,15 +2,24 @@ name: CI
 on:
   push: { branches: [main] }
   pull_request:
+permissions:
+  contents: read
 jobs:
   check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        with: { node-version: 22, cache: npm }
+        # check-latest: jsdom 30 needs a recent 22.x, not whichever 22 the runner image happens to cache.
+        with: { node-version: 22, check-latest: true, cache: npm }
       - run: npm ci
       - run: npm run build
       - name: Generated files are committed
-        run: test -z "$(git status --porcelain -- public src/registry CHANGELOG.md README.md)"
+        run: |
+          changed="$(git status --porcelain -- public src/registry CHANGELOG.md README.md)"
+          if [ -n "$changed" ]; then
+            echo "These generated files are stale. Run npm run registry:build and commit them:"
+            echo "$changed"
+            exit 1
+          fi
       - run: npm test

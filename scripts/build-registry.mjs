@@ -156,9 +156,20 @@ const catalog = ORDER.concat([...new Set(ui.map((d) => d.group))].filter((g) => 
   .map((x) => `<details>\n<summary><b>${ORDER.includes(x.g) ? x.g : 'Other'}</b> (${x.list.length})</summary>\n\n${x.list.map((d) => `\`${d.name}\``).join(' · ')}\n\n</details>`)
   .join('\n\n');
 const readmeOld = readFileSync('README.md', 'utf8');
-const readmeNew = readmeOld
-  .replace(/<!-- components:start -->[\s\S]*<!-- components:end -->/, () => `<!-- components:start -->\n### Components (${ui.length})\n\n${catalog}\n<!-- components:end -->`)
-  .replace(/\d+ copy-paste React components, \d+ hand-drawn icons and \d+ full-page blocks/, () => `${ui.length} copy-paste React components, ${iconNames.length} hand-drawn icons and ${bl.length} full-page blocks`);
+const icons = iconNames.length;
+let readmeNew = readmeOld;
+for (const [pattern, text] of [
+  [/<!-- components:start -->[\s\S]*<!-- components:end -->/, `<!-- components:start -->\n### Components (${ui.length})\n\n${catalog}\n<!-- components:end -->`],
+  [/\d+ copy-paste React components, \d+ hand-drawn icons and \d+ full-page blocks/, `${ui.length} copy-paste React components, ${icons} hand-drawn icons and ${bl.length} full-page blocks`],
+  [/\d+ icons on one grid/, `${icons} icons on one grid`],
+  [/### \d+ icons, drawn by us/, `### ${icons} icons, drawn by us`],
+  [/Icons page with \d+ icons/, `Icons page with ${icons} icons`],
+  [/### Icons \(\d+\)/, `### Icons (${icons})`],
+]) {
+  // A silent no-op here would let the README drift again, so a reworded line is an error, not a skip.
+  if (!pattern.test(readmeNew)) throw new Error(`README.md has no text matching ${pattern}. Restore it, or update the pattern in scripts/build-registry.mjs.`);
+  readmeNew = readmeNew.replace(pattern, () => text);
+}
 if (readmeNew !== readmeOld) writeFileSync('README.md', readmeNew);
 const importOf = (d) => d.exports.filter((e) => !/Variants$/.test(e));
 const line = (d) => `- \`${d.name}\`: ${d.description} Exports: ${importOf(d).slice(0, 8).join(', ')}${importOf(d).length > 8 ? ', ...' : ''}.${d.requires.length ? ` Needs: ${d.requires.join(', ')}.` : ''}`;

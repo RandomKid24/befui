@@ -2,7 +2,11 @@ import * as React from 'react';
 import * as HoverCardPrimitive from '@radix-ui/react-hover-card';
 import { cn } from '@/lib/utils';
 
-/** Preview card that opens on hover or keyboard focus. Opens after 200 ms and closes after 100 ms unless you pass other delays. */
+/**
+ * Preview card that opens on hover or keyboard focus. Opens after 200 ms and closes after 100 ms unless you pass other delays.
+ * The card itself cannot be reached with the keyboard or announced reliably by screen readers, so keep links, buttons and
+ * anything essential out of it: the trigger must already carry the same information or action.
+ */
 export function HoverCard({ openDelay = 200, closeDelay = 100, ...props }: HoverCardPrimitive.HoverCardProps) {
   return <HoverCardPrimitive.Root openDelay={openDelay} closeDelay={closeDelay} {...props} />;
 }

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { DirectionProvider } from '@radix-ui/react-direction';
 import { MonitorIcon, MoonIcon, PhoneIcon, SunIcon, TabletIcon } from '@/components/ui/icons';
 import { Segmented } from '@/components/ui/segmented';
 import { Tooltip } from '@/components/ui/tooltip';
@@ -75,7 +76,10 @@ export function Preview({
           style={{ maxWidth: widths[width] }}
           dir={rtl ? 'rtl' : undefined}
         >
-          <div className={cn(bleed ? 'mx-auto w-full max-w-6xl' : 'max-w-full')}>{children}</div>
+          {/* dir on the wrapper flips CSS; Radix components (menus, tabs, toggle groups) read their arrow-key direction from this provider instead. */}
+          <DirectionProvider dir={rtl ? 'rtl' : 'ltr'}>
+            <div className={cn(bleed ? 'mx-auto w-full max-w-6xl' : 'max-w-full')}>{children}</div>
+          </DirectionProvider>
         </div>
       </TabsContent>
       {playground && <TabsContent value="playground" className="mt-3">{playground}</TabsContent>}

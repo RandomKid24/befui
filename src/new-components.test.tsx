@@ -289,3 +289,31 @@ it('Tour skips a target that is on the page but not rendered', () => {
     rects.mockRestore();
   }
 });
+
+it('Tour ignores arrow keys with a modifier and when focus is on the page outside the card', () => {
+  render(<TourPage steps={threeSteps} open onOpenChange={() => {}} />);
+  fireEvent.keyDown(document, { key: 'ArrowRight', altKey: true });
+  expect(within(dialog()).getByText('One')).toBeInTheDocument();
+  fireEvent.keyDown(screen.getByRole('button', { name: 'Outside' }), { key: 'ArrowRight' });
+  expect(within(dialog()).getByText('One')).toBeInTheDocument();
+});
+
+it('Tour flips the arrow keys on a right-to-left page', () => {
+  document.documentElement.dir = 'rtl';
+  try {
+    render(<TourPage steps={threeSteps} open onOpenChange={() => {}} />);
+    fireEvent.keyDown(document, { key: 'ArrowLeft' });
+    expect(within(dialog()).getByText('Two')).toBeInTheDocument();
+    fireEvent.keyDown(document, { key: 'ArrowRight' });
+    expect(within(dialog()).getByText('One')).toBeInTheDocument();
+  } finally {
+    document.documentElement.removeAttribute('dir');
+  }
+});
+
+it('InputGroup dims only when its input is disabled, not when an addon button is', () => {
+  const { container } = render(<InputGroup><InputGroupInput aria-label="Site" /><InputAddon side="end"><button type="button" disabled>Go</button></InputAddon></InputGroup>);
+  const classes = (container.firstChild as HTMLElement).className;
+  expect(classes).toContain('has-[input:disabled]:opacity-50');
+  expect(classes).not.toContain('has-[:disabled]');
+});

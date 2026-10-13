@@ -1,5 +1,33 @@
 [
   {
+    "version": "1.7.2",
+    "date": "2026-10-13",
+    "title": "Tour keyboard and spotlight fixes, input group disabled styling",
+    "entries": [
+      {
+        "kind": "fixed",
+        "text": "Tour: arrow keys no longer fire with Alt, Ctrl, Cmd or Shift held, or while focus is in another widget on the page, and they swap in right-to-left pages. The spotlight no longer trails the target while the page scrolls, and never dims the whole page before it is positioned.",
+        "slugs": [
+          "tour"
+        ]
+      },
+      {
+        "kind": "fixed",
+        "text": "Input group: a disabled button inside an addon no longer dims the whole field; only a disabled input does.",
+        "slugs": [
+          "input-group"
+        ]
+      },
+      {
+        "kind": "changed",
+        "text": "Hover card: the docs now say what to keep out of it (links, buttons, anything essential), because the card cannot be reached with the keyboard.",
+        "slugs": [
+          "hover-card"
+        ]
+      }
+    ]
+  },
+  {
     "version": "1.7.1",
     "date": "2026-10-13",
     "title": "Accessibility fixes: all 18 examples that failed the automated check now pass",
