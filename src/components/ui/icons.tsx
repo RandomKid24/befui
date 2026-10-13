@@ -402,6 +402,68 @@ export const AnchorIcon = make('AnchorIcon', [['circle', 12, 5, 2], p('M12 7v14M
 export const ScooterIcon = make('ScooterIcon', [['circle', 5, 18.5, 2], ['circle', 19, 18.5, 2], p('M7 18.5h10M17 18.5L15 5h3M15 5h-3')]);
 export const RoadIcon = make('RoadIcon', [p('M8 3L3 21M16 3l5 18M12 4v3M12 10v4M12 17v3')]);
 
+export const KeyboardIcon = make('KeyboardIcon', [['rect', 2, 6, 20, 12, 2], p('M6 10h.01M10 10h.01M14 10h.01M18 10h.01M6 14h.01M18 14h.01M9 14h6')]);
+export const SignalBarsIcon = make('SignalBarsIcon', [p('M4 20v-3M9 20v-7M14 20v-11M19 20V4')]);
+export const BatteryChargingIcon = make('BatteryChargingIcon', [['rect', 2, 7, 17, 10, 2], p('M22 11v2M10 8.5l-2 3.5h4l-2 3.5')]);
+export const CastIcon = make('CastIcon', [p('M3 8V6a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1h-6M3 12a9 9 0 0 1 9 9M3 16a5 5 0 0 1 5 5M3 20h.01')]);
+export const FingerprintIcon = make('FingerprintIcon', [p('M12 4a8 8 0 0 0-8 8M12 4a8 8 0 0 1 8 8v2M8 20c.5-2 1-4 1-8a3 3 0 0 1 6 0c0 3 .5 6 2 8M12 12c0 4-.5 6-1.5 9M7 14c0-1 .2-2 .4-3')]);
+
+export const ArrowLeftRightIcon = make('ArrowLeftRightIcon', [p('M3 8h18M17 4l4 4-4 4M21 16H3M7 12l-4 4 4 4')]);
+export const ArrowUpDownIcon = make('ArrowUpDownIcon', [p('M8 3v18M4 7l4-4 4 4M16 21V3M12 17l4 4 4-4')]);
+export const ChevronsUpIcon = make('ChevronsUpIcon', [p('M7 11l5-5 5 5M7 18l5-5 5 5')]);
+export const ChevronsDownIcon = make('ChevronsDownIcon', [p('M7 6l5 5 5-5M7 13l5 5 5-5')]);
+export const CornerUpLeftIcon = make('CornerUpLeftIcon', [p('M9 14L4 9l5-5M20 20v-7a4 4 0 0 0-4-4H4')]);
+export const CornerUpRightIcon = make('CornerUpRightIcon', [p('M15 14l5-5-5-5M4 20v-7a4 4 0 0 1 4-4h12')]);
+export const CornerDownLeftIcon = make('CornerDownLeftIcon', [p('M9 10l-5 5 5 5M20 4v7a4 4 0 0 1-4 4H4')]);
+export const ArrowDownToLineIcon = make('ArrowDownToLineIcon', [p('M12 3v13M7 11l5 5 5-5M5 21h14')]);
+export const ArrowUpFromLineIcon = make('ArrowUpFromLineIcon', [p('M12 21V8M7 13l5-5 5 5M5 3h14')]);
+export const PanelLeftCloseIcon = make('PanelLeftCloseIcon', [['rect', 3, 3, 18, 18, 2], p('M9 3v18M16 9l-3 3 3 3')]);
+export const PanelLeftOpenIcon = make('PanelLeftOpenIcon', [['rect', 3, 3, 18, 18, 2], p('M9 3v18M13 9l3 3-3 3')]);
+export const ExpandIcon = make('ExpandIcon', [p('M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7')]);
+export const ShrinkIcon = make('ShrinkIcon', [p('M4 14h6v6M20 10h-6V4M14 10l7-7M3 21l7-7')]);
+export const FullscreenIcon = make('FullscreenIcon', [p('M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2'), ['rect', 8, 8, 8, 8, 1]]);
+export const SidebarRightIcon = make('SidebarRightIcon', [['rect', 3, 3, 18, 18, 2], p('M15 3v18')]);
+export const LayoutTemplateIcon = make('LayoutTemplateIcon', [['rect', 3, 3, 18, 7, 1], ['rect', 3, 14, 8, 7, 1], ['rect', 15, 14, 6, 7, 1]]);
+export const AlignJustifyIcon = make('AlignJustifyIcon', [p('M4 6h16M4 10h16M4 14h16M4 18h16')]);
+export const ListOrderedIcon = make('ListOrderedIcon', [p('M10 6h11M10 12h11M10 18h11M4 6h1v4M4 10h2M6 18H4c0-1 2-2 2-3s-1-1.5-2-1')]);
+export const Heading1Icon = make('Heading1Icon', [p('M4 5v14M12 5v14M4 12h8M17 9l3-2v12')]);
+export const Heading2Icon = make('Heading2Icon', [p('M4 5v14M12 5v14M4 12h8M16 10a2 2 0 1 1 3.4 1.4L16 17h4.5')]);
+export const Heading3Icon = make('Heading3Icon', [p('M4 5v14M12 5v14M4 12h8M15.5 9.2a2.25 2.25 0 0 1 4.5 0c0 1.5-1.5 2.4-2.25 2.4.75 0 2.25.9 2.25 2.4a2.25 2.25 0 0 1-4.5 0')]);
+export const IndentIcon = make('IndentIcon', [p('M3 6h18M11 12h10M11 18h10M3 9l3 3-3 3')]);
+export const OutdentIcon = make('OutdentIcon', [p('M3 6h18M11 12h10M11 18h10M6 9l-3 3 3 3')]);
+export const HighlighterIcon = make('HighlighterIcon', [p('M13 4l7 7-7.5 7.5L5.5 11zM5.5 11L4 17l5-1.5M4 21h8')]);
+export const PilcrowIcon = make('PilcrowIcon', [p('M13 4v16M17 4v16M19 4H9.5a4.5 4.5 0 0 0 0 9H13')]);
+export const FileImageIcon = make('FileImageIcon', [p('M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M19 18l-3.5-3.5L9 20'), ['circle', 10, 12.5, 1.3]]);
+export const FileVideoIcon = make('FileVideoIcon', [p('M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M10 12.5l4 2.5-4 2.5z')]);
+export const FileAudioIcon = make('FileAudioIcon', [p('M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M10 18v-6l4-1v6'), ['circle', 9, 18, 1.2], ['circle', 13, 17, 1.2]]);
+export const FileXIcon = make('FileXIcon', [p('M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M9.5 12.5l5 5M14.5 12.5l-5 5')]);
+export const FileDownIcon = make('FileDownIcon', [p('M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M12 12v6M9.5 15.5L12 18l2.5-2.5')]);
+export const FileUpIcon = make('FileUpIcon', [p('M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M12 18v-6M9.5 14.5L12 12l2.5 2.5')]);
+export const FileArchiveIcon = make('FileArchiveIcon', [p('M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M10 12h2M12 14h2M10 16h2M12 18h2')]);
+export const FileJsonIcon = make('FileJsonIcon', [p('M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M10 13c-1 0-1 .5-1 1.5s-.5 1.5-1 1.5c.5 0 1 .5 1 1.5S9 19 10 19M14 13c1 0 1 .5 1 1.5s.5 1.5 1 1.5c-.5 0-1 .5-1 1.5S15 19 14 19')]);
+export const BracesIcon = make('BracesIcon', [p('M8 3H7a2 2 0 0 0-2 2v4a2 2 0 0 1-2 2 2 2 0 0 1 2 2v4a2 2 0 0 0 2 2h1M16 3h1a2 2 0 0 1 2 2v4a2 2 0 0 0 2 2 2 2 0 0 0-2 2v4a2 2 0 0 1-2 2h-1')]);
+export const BracketsIcon = make('BracketsIcon', [p('M8 3H5v18h3M16 3h3v18h-3')]);
+export const WebhookIcon = make('WebhookIcon', [['circle', 12, 6, 2], ['circle', 6.5, 17, 2], ['circle', 17.5, 17, 2], p('M12 8v3l-4.5 4.5M12 11l4.5 4.5M8.5 17h7')]);
+export const PuzzleIcon = make('PuzzleIcon', [p('M9.5 4a2 2 0 1 1 4 0V6H18a1 1 0 0 1 1 1v3.5h-1.5a2 2 0 1 0 0 4H19V19a1 1 0 0 1-1 1h-3.5v-1.5a2 2 0 1 0-4 0V20H7a1 1 0 0 1-1-1v-3.5H4.5a2 2 0 1 1 0-4H6V7a1 1 0 0 1 1-1h2.5z')]);
+export const GitCommitIcon = make('GitCommitIcon', [['circle', 12, 12, 3.5], p('M3 12h5.5M15.5 12H21')]);
+export const GitPullRequestIcon = make('GitPullRequestIcon', [['circle', 6, 6, 2.5], ['circle', 6, 18, 2.5], ['circle', 18, 18, 2.5], p('M6 8.5v7M18 15.5V10a4 4 0 0 0-4-4h-2M14.5 3.5L12 6l2.5 2.5')]);
+export const GitForkIcon = make('GitForkIcon', [['circle', 6, 5, 2.5], ['circle', 18, 5, 2.5], ['circle', 12, 19, 2.5], p('M6 7.5V9a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V7.5M12 12v4.5')]);
+export const BinaryIcon = make('BinaryIcon', [p('M6 5l2-1v6'), ['rect', 14, 4, 4, 6, 2], ['rect', 6, 14, 4, 6, 2], p('M16 15l2-1v6')]);
+export const UnlinkIcon = make('UnlinkIcon', [p('M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1'), p('M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1'), p('M3 3l18 18')]);
+export const PinOffIcon = make('PinOffIcon', [p('M9 4h6M10 4v5.5L7 14h8M12 14v8M3 3l18 18')]);
+export const ThumbsDownIcon = make('ThumbsDownIcon', [p('M7 13v-9H4v9zM7 13l4 7a2 2 0 0 0 2.5-2.4L13 14h5.5a2 2 0 0 0 2-2.4l-1.3-6A2 2 0 0 0 17.3 4H7')]);
+export const GripVerticalIcon = make('GripVerticalIcon', [p('M9 5h.01M9 12h.01M9 19h.01M15 5h.01M15 12h.01M15 19h.01')]);
+export const GripHorizontalIcon = make('GripHorizontalIcon', [p('M5 9h.01M12 9h.01M19 9h.01M5 15h.01M12 15h.01M19 15h.01')]);
+export const ToggleRightIcon = make('ToggleRightIcon', [['rect', 2, 7, 20, 10, 5], ['circle', 16.5, 12, 2.5]]);
+export const CrosshairIcon = make('CrosshairIcon', [['circle', 12, 12, 9], p('M12 3v4M12 17v4M3 12h4M17 12h4')]);
+export const DotIcon = make('DotIcon', [['circle', 12, 12, 0.5]]);
+export const EqualIcon = make('EqualIcon', [p('M5 9h14M5 15h14')]);
+export const UserCogIcon = make('UserCogIcon', [['circle', 10, 8, 4], p('M3 21v-1a6 6 0 0 1 9-5.2M18 13.5v1.3M18 21.2v1.3M13.5 18h1.3M21.2 18h1.3'), ['circle', 18, 18, 2.2]]);
+export const CalendarPlusIcon = make('CalendarPlusIcon', [['rect', 4, 5, 16, 16, 2], p('M4 10h16M8 3v4M16 3v4M12 13v5M9.5 15.5h5')]);
+export const CalendarDaysIcon = make('CalendarDaysIcon', [['rect', 4, 5, 16, 16, 2], p('M4 10h16M8 3v4M16 3v4M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01')]);
+export const CalendarXIcon = make('CalendarXIcon', [['rect', 4, 5, 16, 16, 2], p('M4 10h16M8 3v4M16 3v4M10 13.5l4 4M14 13.5l-4 4')]);
+export const ReplyAllIcon = make('ReplyAllIcon', [p('M7 17L2 12l5-5M12 17l-5-5 5-5M22 18v-2a4 4 0 0 0-4-4H8')]);
+
 export const icons = {
   PrinterIcon,
   CallIcon,
@@ -735,4 +797,64 @@ export const icons = {
   AnchorIcon,
   ScooterIcon,
   RoadIcon,
+  KeyboardIcon,
+  SignalBarsIcon,
+  BatteryChargingIcon,
+  CastIcon,
+  FingerprintIcon,
+  ArrowLeftRightIcon,
+  ArrowUpDownIcon,
+  ChevronsUpIcon,
+  ChevronsDownIcon,
+  CornerUpLeftIcon,
+  CornerUpRightIcon,
+  CornerDownLeftIcon,
+  ArrowDownToLineIcon,
+  ArrowUpFromLineIcon,
+  PanelLeftCloseIcon,
+  PanelLeftOpenIcon,
+  ExpandIcon,
+  ShrinkIcon,
+  FullscreenIcon,
+  SidebarRightIcon,
+  LayoutTemplateIcon,
+  AlignJustifyIcon,
+  ListOrderedIcon,
+  Heading1Icon,
+  Heading2Icon,
+  Heading3Icon,
+  IndentIcon,
+  OutdentIcon,
+  HighlighterIcon,
+  PilcrowIcon,
+  FileImageIcon,
+  FileVideoIcon,
+  FileAudioIcon,
+  FileXIcon,
+  FileDownIcon,
+  FileUpIcon,
+  FileArchiveIcon,
+  FileJsonIcon,
+  BracesIcon,
+  BracketsIcon,
+  WebhookIcon,
+  PuzzleIcon,
+  GitCommitIcon,
+  GitPullRequestIcon,
+  GitForkIcon,
+  BinaryIcon,
+  UnlinkIcon,
+  PinOffIcon,
+  ThumbsDownIcon,
+  GripVerticalIcon,
+  GripHorizontalIcon,
+  ToggleRightIcon,
+  CrosshairIcon,
+  DotIcon,
+  EqualIcon,
+  UserCogIcon,
+  CalendarPlusIcon,
+  CalendarDaysIcon,
+  CalendarXIcon,
+  ReplyAllIcon,
 };

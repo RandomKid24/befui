@@ -29,7 +29,7 @@ Components that use hooks, context, Radix, event handlers or browser globals bre
 
 ## B. Icons
 
-**B1. Stroke icons, 82 new** (363 in total), authored in the existing style (24px grid, round caps, shapes from `['path'|'circle'|'rect', …]`). Many icons first listed here already exist (Pill, Thermometer, Rocket, Gauge, Table, Wifi, Landmark and others), so the implementation plan carries the final non-colliding list: health 12, finance 8, charts 8, weather 10, transport 10, devices and objects 34. Each icon is rendered on the docs Icons page and checked by eye at the default size and enlarged before release.
+**B1. Stroke icons, 108 new** (389 in total), authored in the existing style (24px grid, round caps, shapes from `['path'|'circle'|'rect', …]`). Many icons first listed here already exist (Pill, Thermometer, Rocket, Gauge, Table, Wifi, Landmark and others), so the implementation plan carries the final non-colliding list: health 12, finance 8, charts 8, weather 10, transport 10, and 60 UI and frontend essentials (arrows and corners, panel and layout controls, text-editor tools, file types, developer icons, drag handles and toggles, calendar variants, a few devices that appear in UIs), chosen by the user over everyday objects. Each icon is rendered on the docs Icons page and checked by eye at the default size and enlarged before release.
 
 **B2. Brand icons**, a new file `src/components/ui/brand-icons.tsx` (registry slug `brand-icons`, category Display), separate from the stroke set because logos are filled shapes.
 
@@ -83,7 +83,7 @@ Each is `src/blocks/<slug>.tsx` with a default export, built from existing compo
 ## Success criteria
 
 - A Next.js App Router page can import any copied component without adding `'use client'`; the build and tests fail if a new component needs the directive and lacks it.
-- The Icons page shows 363 stroke icons; `brand-icons` has a docs page and sign-in/sign-up offer Google and GitHub.
+- The Icons page shows 389 stroke icons; `brand-icons` has a docs page and sign-in/sign-up offer Google and GitHub.
 - `befui init --theme rose` produces a working rose-themed `index.css`; every preset passes the contrast test.
 - Ten new blocks render, pass axe, and appear in `llms.txt`; README counts are regenerated.
 - `befui diff button` and `befui remove button` behave as specified, with tests.

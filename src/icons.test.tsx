@@ -17,6 +17,16 @@ const BATCHES: Record<string, string[]> = {
     'CloudRain', 'CloudSnow', 'CloudLightning', 'CloudSun', 'CloudFog', 'Wind', 'Sunrise', 'Sunset', 'Umbrella', 'Snowflake',
     'Bus', 'Train', 'Bike', 'Ship', 'Plane', 'Fuel', 'Parking', 'Anchor', 'Scooter', 'Road',
   ].map((n) => `${n}Icon`),
+  'ui and frontend essentials': [
+    'ArrowLeftRight', 'ArrowUpDown', 'ChevronsUp', 'ChevronsDown', 'CornerUpLeft', 'CornerUpRight', 'CornerDownLeft', 'ArrowDownToLine', 'ArrowUpFromLine',
+    'PanelLeftClose', 'PanelLeftOpen', 'Expand', 'Shrink', 'Fullscreen', 'SidebarRight', 'LayoutTemplate',
+    'AlignJustify', 'ListOrdered', 'Heading1', 'Heading2', 'Heading3', 'Indent', 'Outdent', 'Highlighter', 'Pilcrow',
+    'FileImage', 'FileVideo', 'FileAudio', 'FileX', 'FileDown', 'FileUp', 'FileArchive', 'FileJson',
+    'Braces', 'Brackets', 'Webhook', 'Puzzle', 'GitCommit', 'GitPullRequest', 'GitFork', 'Binary',
+    'Unlink', 'PinOff', 'ThumbsDown', 'GripVertical', 'GripHorizontal', 'ToggleRight', 'Crosshair', 'Dot', 'Equal',
+    'UserCog', 'CalendarPlus', 'CalendarDays', 'CalendarX', 'ReplyAll',
+    'Keyboard', 'Cast', 'SignalBars', 'BatteryCharging', 'Fingerprint',
+  ].map((n) => `${n}Icon`),
 };
 
 it('every exported *Icon is in the icons map', () => {

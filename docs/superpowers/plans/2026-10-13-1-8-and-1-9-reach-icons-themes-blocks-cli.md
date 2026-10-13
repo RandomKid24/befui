@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Ship Next.js support, 82 new stroke icons, brand icons, ten theme presets, ten new blocks and CLI `diff`/`remove` as releases 1.8.0 and 1.9.0.
+**Goal:** Ship Next.js support, 108 new stroke icons, brand icons, ten theme presets, ten new blocks and CLI `diff`/`remove` as releases 1.8.0 and 1.9.0.
 
 **Architecture:** Each sub-project is independent and ends in a green `npm run build && npm test`. Shared guard rails: a `use-client` rules module used by the build and a test, a `themes.json` that feeds the CLI, a docs page and a contrast test, and the existing axe scan extended to blocks.
 
@@ -128,16 +128,18 @@ git push origin main
 
 ---
 
-### Task 4: Icon batch 3 (devices and objects: 34 icons)
+### Task 4: Icon batch 3 (UI and frontend essentials: 60 icons)
+
+The user redirected this batch from everyday objects to icons that frontend UIs actually use.
 
 **Files:** Modify `src/icons.test.tsx`, `src/components/ui/icons.tsx`.
 
-**Interfaces:** Names: `Keyboard, Mouse, Usb, Watch, Gamepad, Tv, Speaker, Radio, Barcode, Router, Webcam, Projector, SignalBars, BatteryCharging, Cast, Fingerprint, Lamp, Fan, Door, Pen, Pencil, Eraser, Brush, PaintBucket, Stamp, Hammer, Wrench, Magnet, Glasses, Backpack, Luggage, Utensils, Wine, Shirt`, each `<Name>Icon`.
+**Interfaces:** Names (none exist today), each `<Name>Icon`: Arrows `ArrowLeftRight, ArrowUpDown, ChevronsUp, ChevronsDown, CornerUpLeft, CornerUpRight, CornerDownLeft, ArrowDownToLine, ArrowUpFromLine`. Layout `PanelLeftClose, PanelLeftOpen, Expand, Shrink, Fullscreen, SidebarRight, LayoutTemplate`. Text editor `AlignJustify, ListOrdered, Heading1, Heading2, Heading3, Indent, Outdent, Highlighter, Pilcrow`. Files `FileImage, FileVideo, FileAudio, FileX, FileDown, FileUp, FileArchive, FileJson`. Developer `Braces, Brackets, Webhook, Puzzle, GitCommit, GitPullRequest, GitFork, Binary`. Actions `Unlink, PinOff, ThumbsDown, GripVertical, GripHorizontal, ToggleRight, Crosshair, Dot, Equal`. People and calendar `UserCog, CalendarPlus, CalendarDays, CalendarX, ReplyAll`. Devices that appear in UIs `Keyboard, Cast, SignalBars, BatteryCharging, Fingerprint`.
 
-- [ ] **Step 1:** Add `'devices and objects': [34 names]` to `BATCHES`; run, expect FAIL.
-- [ ] **Step 2:** Draw and register the 34 icons.
-- [ ] **Step 3:** Tests pass; visual check on `#/icons`; README icon counts regenerate (`npm run registry:build`, expect 363).
-- [ ] **Step 4:** Commit and push: `git add src public README.md && git commit -m "feat: 34 device and object icons" && git push origin main`.
+- [ ] **Step 1:** Add the batch `'ui and frontend essentials'` to `BATCHES`; run, expect FAIL.
+- [ ] **Step 2:** Draw and register the 60 icons (`ThumbsDown` is `ThumbsUp` flipped vertically).
+- [ ] **Step 3:** Tests pass; visual check; `npm run registry:build` (README icon count 389).
+- [ ] **Step 4:** Commit and push: `git add src public README.md && git commit -m "feat: 55 UI and frontend icons" && git push origin main`.
 
 ---
 
@@ -261,7 +263,7 @@ Imports `themes` from `@/registry/themes.json`; a `contrast(hexA, hexB)` helper 
 
 **Files:** Modify `src/registry/changelog.json`.
 
-- [ ] **Step 1:** Add a `1.8.0` entry dated today titled "Next.js support, 82 more icons, brand logos and ten themes" with `added`/`changed` notes in the house style: Next.js (`changed`, slug-less), the icon batches (`added`, slug `icons`), brand icons (`added`, slug `brand-icons`), themes (`added`, slug-less), sign-in/sign-up social buttons (`changed`, slugs `block:sign-in`, `block:sign-up`).
+- [ ] **Step 1:** Add a `1.8.0` entry dated today titled "Next.js support, 108 more icons, brand logos and ten themes" with `added`/`changed` notes in the house style: Next.js (`changed`, slug-less), the icon batches (`added`, slug `icons`), brand icons (`added`, slug `brand-icons`), themes (`added`, slug-less), sign-in/sign-up social buttons (`changed`, slugs `block:sign-in`, `block:sign-up`).
 - [ ] **Step 2:** `npm run registry:build && npm run typecheck && npm test && npm run build`. Expected: all pass; the generated-files check `test -z "$(git status --porcelain -- public src/registry CHANGELOG.md README.md)"` is clean after committing.
 - [ ] **Step 3:** `git add -A src public CHANGELOG.md README.md && git commit -m "docs: 1.8.0 changelog" && npm version minor && git push origin main --follow-tags`; confirm CI is green with `gh run list --branch main --limit 1`.
 
