@@ -1,5 +1,55 @@
 [
   {
+    "version": "1.9.0",
+    "date": "2026-10-14",
+    "title": "Ten new page blocks and befui diff and remove",
+    "entries": [
+      {
+        "kind": "added",
+        "text": "Account and system pages: OTP verify (six-digit code with a resend countdown), onboarding wizard (four steps with validation), notifications page (All and Unread tabs) and a server error page (500 with a retry and an incident timeline).",
+        "slugs": [
+          "block:otp-verify",
+          "block:onboarding-wizard",
+          "block:notifications-page",
+          "block:server-error-page"
+        ]
+      },
+      {
+        "kind": "added",
+        "text": "Marketing and finance pages: a team page, a contact page (form with validation beside an FAQ) and a finance dashboard (balances, cash flow, spending by category, transactions).",
+        "slugs": [
+          "block:team-page",
+          "block:contact-page",
+          "block:finance-dashboard"
+        ]
+      },
+      {
+        "kind": "added",
+        "text": "App pages: a kanban board page (search, priority filter, task dialog, Alt and arrow keys to move cards), a chat app and a calendar app (add events in a dialog).",
+        "slugs": [
+          "block:kanban-board-page",
+          "block:chat-app",
+          "block:calendar-app"
+        ]
+      },
+      {
+        "kind": "added",
+        "text": "CLI: befui diff <name> shows how your copy of a component differs from the latest, and befui remove <name> deletes a component's files. Remove refuses while other files import it, unless you pass --force."
+      },
+      {
+        "kind": "fixed",
+        "text": "Blocks are now checked for accessibility in the test suite. That found and fixed unnamed progress bars in billing, campaign performance, leave approvals and project overview, and an empty table header in employee directory.",
+        "slugs": [
+          "block:billing-page",
+          "block:campaign-performance",
+          "block:leave-approvals",
+          "block:project-overview",
+          "block:employee-directory"
+        ]
+      }
+    ]
+  },
+  {
     "version": "1.8.0",
     "date": "2026-10-13",
     "title": "Next.js support, 108 more icons, brand logos and ten themes",

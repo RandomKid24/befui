@@ -3,6 +3,16 @@
 All notable changes to befui. Versions follow [semver](https://semver.org): new components are minor releases, breaking prop changes are major. The same list, with links to each component, is on the docs site under Changelog.
 (Generated from src/registry/changelog.json by `npm run registry:build`. Edit the JSON, not this file.)
 
+## 1.9.0 - 2026-10-14
+
+Ten new page blocks and befui diff and remove
+
+- **Added:** Account and system pages: OTP verify (six-digit code with a resend countdown), onboarding wizard (four steps with validation), notifications page (All and Unread tabs) and a server error page (500 with a retry and an incident timeline). (OTP verify, Onboarding wizard, Notifications page, Server error page)
+- **Added:** Marketing and finance pages: a team page, a contact page (form with validation beside an FAQ) and a finance dashboard (balances, cash flow, spending by category, transactions). (Team page, Contact page, Finance dashboard)
+- **Added:** App pages: a kanban board page (search, priority filter, task dialog, Alt and arrow keys to move cards), a chat app and a calendar app (add events in a dialog). (Kanban board page, Chat app, Calendar app)
+- **Added:** CLI: befui diff <name> shows how your copy of a component differs from the latest, and befui remove <name> deletes a component's files. Remove refuses while other files import it, unless you pass --force.
+- **Fixed:** Blocks are now checked for accessibility in the test suite. That found and fixed unnamed progress bars in billing, campaign performance, leave approvals and project overview, and an empty table header in employee directory. (Billing page, Campaign performance, Leave approvals, Project overview, Employee directory)
+
 ## 1.8.0 - 2026-10-13
 
 Next.js support, 108 more icons, brand logos and ten themes

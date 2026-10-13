@@ -219,39 +219,51 @@ Browse them live with search at the docs site, or run `npx github:RandomKid24/be
 
 More in `docs/images/block-*.png`: project overview, profile, billing, API keys, invoice, top-nav layout and 404.
 
-### Blocks (27)
+<!-- blocks:start -->
+### Blocks (37)
 
 Full screens built from the components, with mock data you swap for your own API.
 
 | Block | Module | What it is |
 |---|---|---|
 | `block:admin-shell` | Layout | Full app frame: grouped sidebar with nested links, topbar with search, alerts and user menu, and a dashboard page. |
-| `block:hrms-overview` | HRMS | Headcount, attendance, department split and activity feed. |
+| `block:analytics-dashboard` | Dashboard | Visitors, page views, session time and conversion KPIs, a traffic area chart, device donut, top pages bar list and weekday bars. |
+| `block:api-keys-page` | Account | Create, reveal, copy and revoke keys, with a masked secret and an empty state. |
+| `block:billing-page` | Account | Current plan with seat and storage usage bars, payment method card and an invoice history table. |
+| `block:calendar-app` | Productivity | Month and week calendar where you click a day or press New event to add an event in a dialog. |
+| `block:campaign-performance` | Marketing | Channel KPIs, weekly leads chart and a campaign budget table. |
+| `block:chat-app` | Messaging | Conversation list with unread badges beside a thread with a composer and a typing indicator. |
+| `block:checkout-page` | Commerce | Delivery address form with validation, shipping options, coupon code and a live order summary. |
+| `block:contact-page` | Marketing | Contact form with validation and a confirmation, beside an FAQ accordion. |
+| `block:ecommerce-dashboard` | Commerce | Sales, orders, customers and to-ship KPIs, revenue chart, top products and a recent orders table with status badges. |
 | `block:employee-directory` | HRMS | Searchable table with status filter, row selection, actions and pagination. |
-| `block:reports-table` | Reports | Searchable, filterable, sortable reports table with row action menus and a details drawer. |
-| `block:sales-dashboard` | Marketing | KPI cards, revenue line chart against target, pipeline funnel and a top deals table. |
+| `block:finance-dashboard` | Dashboard | Balance, income, spending and savings rate, a cash-flow chart, spending by category and recent transactions. |
+| `block:hrms-overview` | HRMS | Headcount, attendance, department split and activity feed. |
+| `block:inbox` | Layout | Two-pane mail view: searchable list with unread dots, message reader with reply, archive and delete. Single pane on mobile. |
+| `block:invoice-page` | Commerce | A full invoice with print, download and send actions. |
+| `block:kanban-board-page` | Dashboard | Full-page board with search, a priority filter, column totals and a dialog for each task. Drag a card or move it with Alt and the arrow keys. |
+| `block:landing-page` | Landing | Whole marketing page: navbar, hero, logos, feature grid, stats, FAQ, call to action and footer. |
+| `block:lead-pipeline` | Marketing | Drag-and-drop board with column totals and a keyboard-friendly move button. |
 | `block:leave-approvals` | HRMS | Manager inbox with tabs, balance bars and approve or reject toasts. |
 | `block:leave-request-form` | HRMS | Date range, approver combobox, multi-select notify list, working-day count and field validation. |
-| `block:campaign-performance` | Marketing | Channel KPIs, weekly leads chart and a campaign budget table. |
-| `block:lead-pipeline` | Marketing | Drag-and-drop board with column totals and a keyboard-friendly move button. |
+| `block:not-found-page` | Layout | Full-page 404 with search and two ways out. Reuse for 403 and 500. |
+| `block:notifications-page` | Account | Full-page inbox with All and Unread tabs, mark as read and mark all read. |
+| `block:onboarding-wizard` | Account | Four-step setup (profile, team, preferences, done) with a stepper, validation and values kept when you go back. |
+| `block:otp-verify` | Auth | Six-digit code entry with a resend countdown, an error state and a success screen. |
 | `block:pricing-page` | Marketing | Headline, monthly or yearly switch, three plan cards with a highlighted one, and an FAQ. |
-| `block:settings-page` | Account | Profile form with photo and phone number, notification switches and language and time zone, in tabs. |
-| `block:sign-up` | Auth | Registration card with name, email, password strength meter, terms checkbox, validation and a check-your-inbox confirmation. |
+| `block:profile-page` | Account | Cover and avatar header with actions, then About (details list) and Activity (timeline) tabs. |
+| `block:project-overview` | Dashboard | Project header with status and team, progress ring with phase bars, task list and a milestone timeline. |
+| `block:reports-table` | Reports | Searchable, filterable, sortable reports table with row action menus and a details drawer. |
 | `block:reset-password` | Auth | Four steps: ask for email, check your inbox with a resend timer, choose a new password, done. |
-| `block:analytics-dashboard` | Dashboard | Visitors, page views, session time and conversion KPIs, a traffic area chart, device donut, top pages bar list and weekday bars. |
-| `block:ecommerce-dashboard` | Commerce | Sales, orders, customers and to-ship KPIs, revenue chart, top products and a recent orders table. |
-| `block:project-overview` | Dashboard | Project header, progress ring with phase bars, task list and a milestone timeline. |
-| `block:user-management` | Account | Team table with search, sort, role and status, row actions and an invite dialog. |
-| `block:profile-page` | Account | Cover and avatar header, About and Activity tabs. |
-| `block:billing-page` | Account | Plan with usage bars, payment method and invoice history. |
-| `block:api-keys-page` | Account | Create, reveal, copy and revoke keys. |
-| `block:invoice-page` | Commerce | A full invoice with print, download and send. |
-| `block:checkout-page` | Commerce | Address form, shipping options, coupon and live order summary. |
-| `block:landing-page` | Landing | Navbar, hero, logos, features, stats, FAQ, CTA and footer. |
-| `block:not-found-page` | Layout | Full-page 404 with search. |
-| `block:inbox` | Layout | Two-pane mail view with search, unread dots and reader. |
-| `block:top-nav-layout` | Layout | App frame with a top navigation bar, theme toggle and user menu. |
+| `block:sales-dashboard` | Marketing | KPI cards, revenue line chart against target, pipeline funnel and a top deals table. |
+| `block:server-error-page` | Layout | A 500 page with a retry that loads, a status link and a short incident timeline. |
+| `block:settings-page` | Account | Profile form with photo and phone number, notification switches and language and time zone, in tabs. |
 | `block:sign-in` | Auth | Login card with validation, loading button and an error alert. |
+| `block:sign-up` | Auth | Registration card with name, email, password strength meter, terms checkbox, validation and a check-your-inbox confirmation. |
+| `block:team-page` | Marketing | Heading, a grid of team members with roles and short bios, and a hiring call to action. |
+| `block:top-nav-layout` | Layout | App frame with a top navigation bar instead of a sidebar, with notifications, theme toggle and user menu. |
+| `block:user-management` | Account | Team members table with search, sort, role and status, row actions (suspend, remove) and an invite dialog with validation. |
+<!-- blocks:end -->
 
 ### Icons (389)
 

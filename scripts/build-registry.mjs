@@ -169,6 +169,7 @@ const icons = iconNames.length;
 let readmeNew = readmeOld;
 for (const [pattern, text] of [
   [/<!-- components:start -->[\s\S]*<!-- components:end -->/, `<!-- components:start -->\n### Components (${ui.length})\n\n${catalog}\n<!-- components:end -->`],
+  [/<!-- blocks:start -->[\s\S]*<!-- blocks:end -->/, `<!-- blocks:start -->\n### Blocks (${bl.length})\n\nFull screens built from the components, with mock data you swap for your own API.\n\n| Block | Module | What it is |\n|---|---|---|\n${bl.map((d) => `| \`${d.name}\` | ${d.group} | ${d.description.replace(/\|/g, '\\|')} |`).join('\n')}\n<!-- blocks:end -->`],
   [/\d+ copy-paste React components, \d+ hand-drawn icons and \d+ full-page blocks/, `${ui.length} copy-paste React components, ${icons} hand-drawn icons and ${bl.length} full-page blocks`],
   [/\d+ icons on one grid/, `${icons} icons on one grid`],
   [/### \d+ icons, drawn by us/, `### ${icons} icons, drawn by us`],
