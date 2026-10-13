@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
+import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from '@/components/ui/navigation-menu';
 import { InputAddon, InputGroup, InputGroupInput } from '@/components/ui/input-group';
 
 /** axe over the whole body (portalled overlays live there). Page-landmark and contrast rules need a real page, so they are off. */
@@ -92,4 +93,24 @@ it('ToggleGroup multiple with an empty value has nothing pressed and reports the
   expect(screen.getByRole('button', { name: 'Bold' })).toHaveAttribute('aria-pressed', 'false');
   fireEvent.click(screen.getByRole('button', { name: 'Bold' }));
   expect(onValueChange).toHaveBeenCalledWith(['bold']);
+});
+
+it('NavigationMenu opens a panel from its trigger, closes on Escape, and passes axe while open', async () => {
+  render(
+    <NavigationMenu>
+      <NavigationMenuList>
+        <NavigationMenuItem>
+          <NavigationMenuTrigger>Products</NavigationMenuTrigger>
+          <NavigationMenuContent><NavigationMenuLink href="/analytics">Analytics</NavigationMenuLink></NavigationMenuContent>
+        </NavigationMenuItem>
+      </NavigationMenuList>
+    </NavigationMenu>,
+  );
+  const trigger = screen.getByRole('button', { name: 'Products' });
+  fireEvent.click(trigger);
+  expect(await screen.findByRole('link', { name: 'Analytics' })).toBeInTheDocument();
+  expect(trigger).toHaveAttribute('aria-expanded', 'true');
+  expect((await scan()).violations).toEqual([]);
+  fireEvent.keyDown(trigger, { key: 'Escape' });
+  await waitFor(() => expect(screen.queryByRole('link', { name: 'Analytics' })).toBeNull());
 });

@@ -4,7 +4,7 @@
 
 **Interfaces people actually enjoy using.**
 
-196 copy-paste React components, 281 hand-drawn icons and 27 full-page blocks.<br/>
+197 copy-paste React components, 281 hand-drawn icons and 27 full-page blocks.<br/>
 Built on Radix, Tailwind 4 and CSS variables. You own every file.
 
 [![React 19](https://img.shields.io/badge/React-19-61dafb?logo=react&logoColor=white)](https://react.dev)
@@ -140,7 +140,7 @@ Add a `## x.y.z` section to `CHANGELOG.md`, then `npm version minor` (checks the
 Some components (loader, bottom sheet, toast...) need keyframes from `index.css`. After adding components, run `npx github:RandomKid24/befui update` to append any your project is missing (`--check` only reports, handy in CI). `add` also prints a warning when something is missing.
 
 <!-- components:start -->
-### Components (196)
+### Components (197)
 
 <details>
 <summary><b>Layout</b> (5)</summary>
@@ -150,9 +150,9 @@ Some components (loader, bottom sheet, toast...) need keyframes from `index.css`
 </details>
 
 <details>
-<summary><b>Navigation</b> (13)</summary>
+<summary><b>Navigation</b> (14)</summary>
 
-`bottom-nav` · `breadcrumb` · `dock` · `navbar` · `onboarding-carousel` · `order-tracker` · `pagination` · `scroll-progress` · `stepper` · `table-of-contents` · `tabs` · `tree-view` · `user-menu`
+`bottom-nav` · `breadcrumb` · `dock` · `navbar` · `navigation-menu` · `onboarding-carousel` · `order-tracker` · `pagination` · `scroll-progress` · `stepper` · `table-of-contents` · `tabs` · `tree-view` · `user-menu`
 
 </details>
 
