@@ -1,5 +1,43 @@
 [
   {
+    "version": "1.8.0",
+    "date": "2026-10-13",
+    "title": "Next.js support, 108 more icons, brand logos and ten themes",
+    "entries": [
+      {
+        "kind": "changed",
+        "text": "Next.js: components that use state, Radix or browser APIs now start with 'use client', so they work in the App Router with nothing to configure. Purely presentational ones (cards, badges, tables, icons) stay server components, and a build check stops a new component shipping without the directive."
+      },
+      {
+        "kind": "added",
+        "text": "Icons: 108 new ones, 389 in total. Arrows and corners, panel and layout controls, text-editor tools, file types, developer icons, drag handles and calendar variants, plus health, finance, chart, weather and transport sets."
+      },
+      {
+        "kind": "added",
+        "text": "Brand icons: 30 logos (Google, GitHub, Apple, X, Stripe, Visa and more) as single-colour SVGs that follow the text colour, with official colours in brandColors. Check each provider's rules before using one in an official sign-in button.",
+        "slugs": [
+          "brand-icons"
+        ]
+      },
+      {
+        "kind": "added",
+        "text": "Themes: ten ready palettes (blue, indigo, violet, rose, red, emerald, teal, amber, orange, slate) for light and dark, all passing WCAG AA, on a new Themes page that recolours the docs live. befui init --theme rose writes one into your index.css."
+      },
+      {
+        "kind": "changed",
+        "text": "Sign in and sign up now offer Continue with Google and GitHub buttons above an or divider.",
+        "slugs": [
+          "block:sign-in",
+          "block:sign-up"
+        ]
+      },
+      {
+        "kind": "fixed",
+        "text": "Default dark theme: primary button text is now near-black instead of white, raising its contrast from 3.7 to 5.3 (WCAG AA). To keep the old look, set --primary-foreground back to #ffffff in .dark."
+      }
+    ]
+  },
+  {
     "version": "1.7.2",
     "date": "2026-10-13",
     "title": "Tour keyboard and spotlight fixes, input group disabled styling",

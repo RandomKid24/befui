@@ -3,6 +3,17 @@
 All notable changes to befui. Versions follow [semver](https://semver.org): new components are minor releases, breaking prop changes are major. The same list, with links to each component, is on the docs site under Changelog.
 (Generated from src/registry/changelog.json by `npm run registry:build`. Edit the JSON, not this file.)
 
+## 1.8.0 - 2026-10-13
+
+Next.js support, 108 more icons, brand logos and ten themes
+
+- **Changed:** Next.js: components that use state, Radix or browser APIs now start with 'use client', so they work in the App Router with nothing to configure. Purely presentational ones (cards, badges, tables, icons) stay server components, and a build check stops a new component shipping without the directive.
+- **Added:** Icons: 108 new ones, 389 in total. Arrows and corners, panel and layout controls, text-editor tools, file types, developer icons, drag handles and calendar variants, plus health, finance, chart, weather and transport sets.
+- **Added:** Brand icons: 30 logos (Google, GitHub, Apple, X, Stripe, Visa and more) as single-colour SVGs that follow the text colour, with official colours in brandColors. Check each provider's rules before using one in an official sign-in button. (Brand icons)
+- **Added:** Themes: ten ready palettes (blue, indigo, violet, rose, red, emerald, teal, amber, orange, slate) for light and dark, all passing WCAG AA, on a new Themes page that recolours the docs live. befui init --theme rose writes one into your index.css.
+- **Changed:** Sign in and sign up now offer Continue with Google and GitHub buttons above an or divider. (Sign in, Sign up)
+- **Fixed:** Default dark theme: primary button text is now near-black instead of white, raising its contrast from 3.7 to 5.3 (WCAG AA). To keep the old look, set --primary-foreground back to #ffffff in .dark.
+
 ## 1.7.2 - 2026-10-13
 
 Tour keyboard and spotlight fixes, input group disabled styling
