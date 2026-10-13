@@ -10,18 +10,25 @@ import baseline from './a11y-baseline.json';
 
 const known: Record<string, string> = baseline;
 const update = Boolean(process.env.UPDATE_BASELINE);
-const loaders = import.meta.glob('/src/examples/*.tsx') as Record<string, () => Promise<{ default: ComponentType }>>;
-const slugs = Object.keys(loaders).map((path) => path.slice('/src/examples/'.length, -'.tsx'.length)).sort();
+type Loader = () => Promise<{ default: ComponentType }>;
+const name = (path: string, dir: string) => path.slice(dir.length, -'.tsx'.length);
+// Examples are keyed by slug, blocks as `block:<slug>`.
+const loaders: Record<string, Loader> = {
+  ...Object.fromEntries(Object.entries(import.meta.glob('/src/examples/*.tsx') as Record<string, Loader>).map(([path, load]) => [name(path, '/src/examples/'), load])),
+  ...Object.fromEntries(Object.entries(import.meta.glob('/src/blocks/*.tsx') as Record<string, Loader>).map(([path, load]) => [`block:${name(path, '/src/blocks/')}`, load])),
+};
+const slugs = Object.keys(loaders).sort();
 const failing: Record<string, string> = {};
 
 /** null when the example renders and axe finds nothing, else a one-line reason. */
-async function check(load: () => Promise<{ default: ComponentType }>): Promise<string | null> {
+async function check(load: () => Promise<{ default: ComponentType }>, block = false): Promise<string | null> {
   try {
     const { default: Demo } = await load();
     const { container } = render(<Suspense fallback={null}><Demo /></Suspense>);
     await act(async () => {});
     if (container.childNodes.length === 0) return 'render: example rendered nothing';
-    const { violations } = await axe(container, { rules: { 'color-contrast': { enabled: false } } });
+    // heading-order needs the whole page: a block sits under its page's own heading, so it is not judged in isolation.
+    const { violations } = await axe(container, { rules: { 'color-contrast': { enabled: false }, 'heading-order': { enabled: !block } } });
     return violations.length ? `axe: ${[...new Set(violations.map((v) => v.id))].join(', ')}` : null;
   } catch (error) {
     return `render: ${String((error as Error).message).split('\n')[0].slice(0, 120)}`;
@@ -30,7 +37,7 @@ async function check(load: () => Promise<{ default: ComponentType }>): Promise<s
 
 describe('examples', () => {
   it.each(slugs)('%s', async (slug) => {
-    const reason = await check(loaders[`/src/examples/${slug}.tsx`]);
+    const reason = await check(loaders[slug], slug.startsWith('block:'));
     if (update) {
       if (reason) failing[slug] = reason;
       return;
@@ -39,12 +46,15 @@ describe('examples', () => {
     else expect(reason).toBeNull();
   });
 
-  it.skipIf(update)('baseline never holds a component added in 1.7.0', () => {
-    const added = ['button-group', 'input-group', 'hover-card', 'toggle-group', 'navigation-menu', 'menubar', 'tour'];
+  it.skipIf(update)('baseline never holds a component or block added since 1.7.0', () => {
+    const added = [
+      'button-group', 'input-group', 'hover-card', 'toggle-group', 'navigation-menu', 'menubar', 'tour', 'brand-icons',
+      ...['otp-verify', 'onboarding-wizard', 'notifications-page', 'server-error-page', 'team-page', 'contact-page', 'kanban-board-page', 'chat-app', 'calendar-app', 'finance-dashboard'].map((b) => `block:${b}`),
+    ];
     expect(Object.keys(known).filter((slug) => added.includes(slug))).toEqual([]);
   });
 
-  it.skipIf(update)('baseline lists only real examples', () => {
+  it.skipIf(update)('baseline lists only real examples and blocks', () => {
     expect(Object.keys(known).filter((slug) => !slugs.includes(slug))).toEqual([]);
   });
 

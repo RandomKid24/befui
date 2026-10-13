@@ -86,7 +86,7 @@ export default function EmployeeDirectory() {
               <TableHead className="hidden md:table-cell">Team</TableHead>
               <TableHead>Status</TableHead>
               <TableHead className="hidden lg:table-cell">Joined</TableHead>
-              <TableHead className="w-10" />
+              <TableHead className="w-10"><span className="sr-only">Actions</span></TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

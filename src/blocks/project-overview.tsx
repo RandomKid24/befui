@@ -32,11 +32,11 @@ export default function ProjectOverview() {
         <Card>
           <CardHeader><CardTitle>Progress</CardTitle></CardHeader>
           <CardContent className="flex items-center gap-5">
-            <ProgressRing value={62} />
+            <ProgressRing value={62} aria-label="Project progress" />
             <div className="grid flex-1 gap-3 text-[13px]">
-              <div className="grid gap-1"><span className="flex justify-between"><span>Design</span><span className="text-muted-foreground">100%</span></span><Progress value={100} tone="success" /></div>
-              <div className="grid gap-1"><span className="flex justify-between"><span>Build</span><span className="text-muted-foreground">55%</span></span><Progress value={55} /></div>
-              <div className="grid gap-1"><span className="flex justify-between"><span>Launch</span><span className="text-muted-foreground">10%</span></span><Progress value={10} tone="warning" /></div>
+              <div className="grid gap-1"><span className="flex justify-between"><span>Design</span><span className="text-muted-foreground">100%</span></span><Progress value={100} tone="success" aria-label="Design progress" /></div>
+              <div className="grid gap-1"><span className="flex justify-between"><span>Build</span><span className="text-muted-foreground">55%</span></span><Progress value={55} aria-label="Build progress" /></div>
+              <div className="grid gap-1"><span className="flex justify-between"><span>Launch</span><span className="text-muted-foreground">10%</span></span><Progress value={10} tone="warning" aria-label="Launch progress" /></div>
             </div>
           </CardContent>
         </Card>

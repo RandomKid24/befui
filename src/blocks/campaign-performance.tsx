@@ -66,7 +66,7 @@ export default function CampaignPerformance() {
                   <TableCell className="tabular-nums">{c.leads}</TableCell>
                   <TableCell className="hidden md:table-cell">
                     <div className="flex items-center gap-2">
-                      <Progress value={c.budget} className="w-20" tone={c.budget > 90 ? 'danger' : 'primary'} />
+                      <Progress value={c.budget} aria-label={`${c.name} budget used`} className="w-20" tone={c.budget > 90 ? 'danger' : 'primary'} />
                       <span className="text-xs tabular-nums text-muted-foreground">{c.budget}%</span>
                     </div>
                   </TableCell>

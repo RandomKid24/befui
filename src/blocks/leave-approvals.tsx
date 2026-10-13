@@ -44,7 +44,7 @@ export default function LeaveApprovals() {
             <div className="min-w-40 flex-1">
               <p className="text-[13px]">{r.reason}</p>
               <div className="mt-2 flex items-center gap-2">
-                <Progress value={(r.days / r.balance) * 100} className="max-w-24" tone={r.days > r.balance * 0.6 ? 'warning' : 'primary'} />
+                <Progress value={(r.days / r.balance) * 100} aria-label={`${r.name} leave used`} className="max-w-24" tone={r.days > r.balance * 0.6 ? 'warning' : 'primary'} />
                 <span className="text-[11px] text-muted-foreground">{r.days} of {r.balance} days left</span>
               </div>
             </div>

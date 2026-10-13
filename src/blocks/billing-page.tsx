@@ -24,8 +24,8 @@ export default function BillingPage() {
             <Badge variant="success" dot>Active</Badge>
           </CardHeader>
           <CardContent className="grid gap-4">
-            <div className="grid gap-1.5"><div className="flex justify-between text-[13px]"><span>Seats</span><span className="text-muted-foreground">12 of 15 used</span></div><Progress value={80} /></div>
-            <div className="grid gap-1.5"><div className="flex justify-between text-[13px]"><span>Storage</span><span className="text-muted-foreground">186 of 200 GB</span></div><Progress value={93} tone="warning" /></div>
+            <div className="grid gap-1.5"><div className="flex justify-between text-[13px]"><span>Seats</span><span className="text-muted-foreground">12 of 15 used</span></div><Progress value={80} aria-label="Seats used" /></div>
+            <div className="grid gap-1.5"><div className="flex justify-between text-[13px]"><span>Storage</span><span className="text-muted-foreground">186 of 200 GB</span></div><Progress value={93} tone="warning" aria-label="Storage used" /></div>
             <div className="flex gap-2"><Button size="sm">Change plan</Button><Button size="sm" variant="outline" onClick={() => toast.success('Add-on request sent')}>Add storage</Button></div>
           </CardContent>
         </Card>
