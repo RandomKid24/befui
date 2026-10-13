@@ -8,11 +8,14 @@ export function TagInput({
   onValueChange,
   placeholder = 'Add a tag',
   className,
+  'aria-label': ariaLabel,
 }: {
   value: string[];
   onValueChange: (v: string[]) => void;
   placeholder?: string;
   className?: string;
+  /** Name of the text field. Defaults to the placeholder, which disappears once there are tags. */
+  'aria-label'?: string;
 }) {
   const [text, setText] = React.useState('');
   const commit = () => {
@@ -32,6 +35,7 @@ export function TagInput({
       ))}
       <input
         value={text}
+        aria-label={ariaLabel ?? placeholder}
         placeholder={value.length ? '' : placeholder}
         onChange={(e) => setText(e.target.value)}
         onBlur={commit}

@@ -1,5 +1,54 @@
 [
   {
+    "version": "1.7.1",
+    "date": "2026-10-13",
+    "title": "Accessibility fixes: all 18 examples that failed the automated check now pass",
+    "entries": [
+      {
+        "kind": "fixed",
+        "text": "Field: the label is now tied to its control automatically, so clicking the label focuses the input and screen readers announce it. Before, you had to set htmlFor and id yourself.",
+        "slugs": [
+          "label"
+        ]
+      },
+      {
+        "kind": "fixed",
+        "text": "Structure: the calendar is a real grid of rows and cells (same look, same keys), the file manager is a named listbox of options, the mention input is a text box that points at the active suggestion (a textarea cannot be a combobox), and accordion panels are named after their heading.",
+        "slugs": [
+          "calendar",
+          "file-manager",
+          "mention-input",
+          "accordion"
+        ]
+      },
+      {
+        "kind": "fixed",
+        "text": "Names: progress bar and progress ring take an aria-label, the tag input keeps a name once tags replace its placeholder, the onboarding checklist names its bar, version log groups include the release number, the day agenda now-line has a role, and the typewriter and text reveal read their full text to screen readers.",
+        "slugs": [
+          "progress",
+          "progress-ring",
+          "tag-input",
+          "onboarding-checklist",
+          "version-log",
+          "day-agenda",
+          "typewriter",
+          "reveal"
+        ]
+      },
+      {
+        "kind": "changed",
+        "text": "Examples: sliders, the select, the tooltip icon buttons and the table progress bars now carry labels, so they show the right way to build them.",
+        "slugs": [
+          "slider",
+          "gauge",
+          "select",
+          "tooltip",
+          "table"
+        ]
+      }
+    ]
+  },
+  {
     "version": "1.7.0",
     "date": "2026-10-13",
     "title": "Seven missing basics: hover card, button and input groups, toggle group, navigation menu, menubar and tour",

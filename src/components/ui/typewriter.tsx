@@ -43,7 +43,8 @@ export function Typewriter({
     return () => clearTimeout(t);
   }, [phrases, speed, hold, loop, reduce]);
   return (
-    <span className={className} aria-label={phrases.join('. ')}>
+    <span className={className}>
+      <span className="sr-only">{phrases.join('. ')}</span>
       <span aria-hidden>{text}</span>
       <span aria-hidden className="ml-0.5 inline-block h-[1em] w-0.5 translate-y-[0.15em] animate-pulse bg-current" />
     </span>

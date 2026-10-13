@@ -41,7 +41,7 @@ export default function TableDemo() {
               <TableCell className="whitespace-nowrap font-medium">{r.client}</TableCell>
               <TableCell><span className="flex items-center gap-2 whitespace-nowrap text-muted-foreground"><Avatar name={r.owner} size="sm" />{r.owner}</span></TableCell>
               <TableCell className="whitespace-nowrap text-muted-foreground">{r.due}</TableCell>
-              <TableCell><Progress value={r.paid} className="h-1.5" /></TableCell>
+              <TableCell><Progress value={r.paid} aria-label={`${r.client} paid`} className="h-1.5" /></TableCell>
               <TableCell className="text-right tabular-nums">{usd(r.amount)}</TableCell>
               <TableCell><Badge variant={tone[r.status as keyof typeof tone]} dot>{r.status}</Badge></TableCell>
             </TableRow>

@@ -7,7 +7,7 @@ export default function GaugeDemo() {
   return (
     <div className="grid justify-items-center gap-4">
       <Gauge value={v} label="Team engagement" />
-      <Slider className="w-56" value={v} onValueChange={setV} showValue={false} />
+      <Slider aria-label="Gauge value" className="w-56" value={v} onValueChange={setV} showValue={false} />
     </div>
   );
 }

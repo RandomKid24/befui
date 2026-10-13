@@ -3,6 +3,15 @@
 All notable changes to befui. Versions follow [semver](https://semver.org): new components are minor releases, breaking prop changes are major. The same list, with links to each component, is on the docs site under Changelog.
 (Generated from src/registry/changelog.json by `npm run registry:build`. Edit the JSON, not this file.)
 
+## 1.7.1 - 2026-10-13
+
+Accessibility fixes: all 18 examples that failed the automated check now pass
+
+- **Fixed:** Field: the label is now tied to its control automatically, so clicking the label focuses the input and screen readers announce it. Before, you had to set htmlFor and id yourself. (Label and Field)
+- **Fixed:** Structure: the calendar is a real grid of rows and cells (same look, same keys), the file manager is a named listbox of options, the mention input is a text box that points at the active suggestion (a textarea cannot be a combobox), and accordion panels are named after their heading. (Calendar, File manager, Mention input, Accordion)
+- **Fixed:** Names: progress bar and progress ring take an aria-label, the tag input keeps a name once tags replace its placeholder, the onboarding checklist names its bar, version log groups include the release number, the day agenda now-line has a role, and the typewriter and text reveal read their full text to screen readers. (Progress, Progress ring, Tag input, Onboarding checklist, Version log, Day agenda, Typewriter, Reveal)
+- **Changed:** Examples: sliders, the select, the tooltip icon buttons and the table progress bars now carry labels, so they show the right way to build them. (Slider, Gauge, Select, Tooltip, Table)
+
 ## 1.7.0 - 2026-10-13
 
 Seven missing basics: hover card, button and input groups, toggle group, navigation menu, menubar and tour

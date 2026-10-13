@@ -25,7 +25,7 @@ export function OnboardingChecklist({ title = 'Get started', items, onToggle, cl
           <p className="text-sm font-semibold">{pct === 100 ? 'All set' : title}</p>
           <p className="text-xs text-muted-foreground">{done} of {items.length} done</p>
         </div>
-        <span className="w-24"><Progress value={pct} tone={pct === 100 ? 'success' : undefined} /></span>
+        <span className="w-24"><Progress value={pct} tone={pct === 100 ? 'success' : undefined} aria-label={`${title} progress`} /></span>
         <ChevronDownIcon className={cn('text-muted-foreground transition-transform', open && 'rotate-180')} />
       </button>
       {open && (

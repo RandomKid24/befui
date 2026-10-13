@@ -37,7 +37,8 @@ export function Reveal({
 export function TextReveal({ text, className, step = 60 }: { text: string; className?: string; step?: number }) {
   const [ref, seen] = useInView<HTMLParagraphElement>();
   return (
-    <p ref={ref} className={className} aria-label={text}>
+    <p ref={ref} className={className}>
+      <span className="sr-only">{text}</span>
       {text.split(' ').map((w, i) => (
         <span
           key={i}

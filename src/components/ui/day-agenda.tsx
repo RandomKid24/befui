@@ -70,7 +70,7 @@ export function DayAgenda({ events, startHour = 8, endHour = 19, hourHeight = 56
           );
         })}
         {now && mins(now) >= startHour * 60 && mins(now) <= endHour * 60 && (
-          <div className="pointer-events-none absolute inset-x-0 z-10 flex items-center" style={{ top: top(mins(now)) }} aria-label={`Now, ${now}`}>
+          <div className="pointer-events-none absolute inset-x-0 z-10 flex items-center" style={{ top: top(mins(now)) }} role="img" aria-label={`Now, ${now}`}>
             <span className="-ml-1 size-2 rounded-full bg-destructive" />
             <span className="h-px flex-1 bg-destructive" />
           </div>

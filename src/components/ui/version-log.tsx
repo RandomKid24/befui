@@ -78,7 +78,7 @@ function Release({ r, latest, open, onToggle, kind, active, id }: { r: VersionRe
               if (!group.length) return null;
               const before = shown.filter((e) => kinds.indexOf(e.kind) < kinds.indexOf(k)).length;
               return (
-                <section key={k} aria-label={k} className="grid gap-3">
+                <section key={k} aria-label={`${r.version} ${k}`} className="grid gap-3">
                   <h4 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                     <span className={cn('size-2 rounded-full', dot[k])} /> {k}
                     <span className="rounded-full bg-secondary px-1.5 py-px text-[10px] tabular-nums normal-case tracking-normal">{group.length}</span>

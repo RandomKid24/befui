@@ -28,6 +28,7 @@ export function MentionInput({
   className?: string;
 }) {
   const ref = React.useRef<HTMLTextAreaElement>(null);
+  const listId = React.useId();
   const [caret, setCaret] = React.useState(0);
   const [active, setActive] = React.useState(0);
   const [dismissed, setDismissed] = React.useState(false);
@@ -53,9 +54,9 @@ export function MentionInput({
         value={value}
         rows={rows}
         placeholder={placeholder}
-        role="combobox"
-        aria-expanded={open}
         aria-autocomplete="list"
+        aria-controls={open ? listId : undefined}
+        aria-activedescendant={open ? `${listId}-${active}` : undefined}
         onChange={(e) => { onChange(e.target.value); setCaret(e.target.selectionStart); setActive(0); setDismissed(false); }}
         onSelect={(e) => setCaret(e.currentTarget.selectionStart)}
         onKeyDown={(e) => {
@@ -68,10 +69,11 @@ export function MentionInput({
         className="w-full resize-none rounded-md border bg-background px-3 py-2 text-sm outline-none transition-[border,box-shadow] placeholder:text-muted-foreground/70 focus-visible:border-ring focus-visible:ring-4 focus-visible:ring-ring/15"
       />
       {open && (
-        <ul role="listbox" className="absolute left-0 top-full z-20 mt-1 w-64 overflow-hidden rounded-lg border bg-popover p-1 shadow-lg animate-pop">
+        <ul role="listbox" id={listId} aria-label="Mention suggestions" className="absolute left-0 top-full z-20 mt-1 w-64 overflow-hidden rounded-lg border bg-popover p-1 shadow-lg animate-pop">
           {list.map((p, i) => (
             <li
               key={p.id}
+              id={`${listId}-${i}`}
               role="option"
               aria-selected={i === active}
               onMouseDown={(e) => { e.preventDefault(); pick(p); }}

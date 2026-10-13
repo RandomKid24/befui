@@ -1721,7 +1721,7 @@ export default function SelectDemo() {
   return (
     <div className="w-64">
       <Select defaultValue="eng">
-        <SelectTrigger>
+        <SelectTrigger aria-label="Department">
           <SelectValue placeholder="Department" />
         </SelectTrigger>
         <SelectContent>
@@ -1780,7 +1780,7 @@ export default function SliderDemo() {
   return (
     <div className="w-72">
       <div className="mb-1 flex justify-between text-sm"><span className="font-medium">Monthly budget</span><span className="tabular-nums text-muted-foreground">₹{v}k</span></div>
-      <Slider value={v} onValueChange={setV} min={10} max={100} step={5} format={(n) => `₹${n}k`} />
+      <Slider aria-label="Budget" value={v} onValueChange={setV} min={10} max={100} step={5} format={(n) => `₹${n}k`} />
     </div>
   );
 }
@@ -3009,7 +3009,7 @@ export default function TableDemo() {
               <TableCell className="whitespace-nowrap font-medium">{r.client}</TableCell>
               <TableCell><span className="flex items-center gap-2 whitespace-nowrap text-muted-foreground"><Avatar name={r.owner} size="sm" />{r.owner}</span></TableCell>
               <TableCell className="whitespace-nowrap text-muted-foreground">{r.due}</TableCell>
-              <TableCell><Progress value={r.paid} className="h-1.5" /></TableCell>
+              <TableCell><Progress value={r.paid} aria-label={`${r.client} paid`} className="h-1.5" /></TableCell>
               <TableCell className="text-right tabular-nums">{usd(r.amount)}</TableCell>
               <TableCell><Badge variant={tone[r.status as keyof typeof tone]} dot>{r.status}</Badge></TableCell>
             </TableRow>
@@ -3919,7 +3919,7 @@ export default function GaugeDemo() {
   return (
     <div className="grid justify-items-center gap-4">
       <Gauge value={v} label="Team engagement" />
-      <Slider className="w-56" value={v} onValueChange={setV} showValue={false} />
+      <Slider aria-label="Gauge value" className="w-56" value={v} onValueChange={setV} showValue={false} />
     </div>
   );
 }
@@ -4444,10 +4444,10 @@ import { Progress } from '@/components/ui/progress';
 export default function ProgressDemo() {
   return (
     <div className="grid w-full max-w-sm gap-4">
-      <Progress value={64} />
-      <Progress value={88} tone="success" />
-      <Progress value={42} tone="warning" />
-      <Progress value={15} tone="danger" />
+      <Progress value={64} aria-label="Upload progress" />
+      <Progress value={88} tone="success" aria-label="Tasks completed" />
+      <Progress value={42} tone="warning" aria-label="Storage used" />
+      <Progress value={15} tone="danger" aria-label="Battery left" />
     </div>
   );
 }
@@ -4474,8 +4474,8 @@ export default function ProgressRingDemo() {
   React.useEffect(() => { const t = setTimeout(() => setV(72), 100); return () => clearTimeout(t); }, []);
   return (
     <div className="flex items-center gap-8">
-      <ProgressRing value={v} />
-      <ProgressRing value={v / 2} size={72} stroke={6} className="text-success" />
+      <ProgressRing value={v} aria-label="Upload progress" />
+      <ProgressRing value={v / 2} aria-label="Setup progress" size={72} stroke={6} className="text-success" />
       <button className="text-sm text-primary hover:underline" onClick={() => setV((x) => (x === 72 ? 30 : 72))}>Animate</button>
     </div>
   );
@@ -5885,10 +5885,10 @@ export default function TooltipDemo() {
     <TooltipProvider>
       <div className="grid justify-items-center gap-5">
         <div className="flex gap-2">
-          <Tooltip content="Edit"><Button variant="outline" size="icon"><EditIcon /></Button></Tooltip>
-          <Tooltip content="Share" side="bottom" arrow><Button variant="outline" size="icon"><Share2Icon /></Button></Tooltip>
-          <Tooltip content="Notifications" side="right"><Button variant="outline" size="icon"><BellIcon /></Button></Tooltip>
-          <Tooltip content="Save changes" shortcut={['⌘', 'S']}><Button variant="outline" size="icon"><SaveIcon /></Button></Tooltip>
+          <Tooltip content="Edit"><Button variant="outline" size="icon" aria-label="Edit"><EditIcon /></Button></Tooltip>
+          <Tooltip content="Share" side="bottom" arrow><Button variant="outline" size="icon" aria-label="Share"><Share2Icon /></Button></Tooltip>
+          <Tooltip content="Notifications" side="right"><Button variant="outline" size="icon" aria-label="Notifications"><BellIcon /></Button></Tooltip>
+          <Tooltip content="Save changes" shortcut={['⌘', 'S']}><Button variant="outline" size="icon" aria-label="Save changes"><SaveIcon /></Button></Tooltip>
         </div>
         <div className="flex items-center gap-1.5 text-sm font-medium">
           Net 30 terms

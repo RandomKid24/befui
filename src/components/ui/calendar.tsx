@@ -114,41 +114,45 @@ export function Calendar(props: CalendarProps) {
           <span key={i} className="grid h-8 w-9 place-items-center text-[11px] font-medium text-muted-foreground">{w}</span>
         ))}
       </div>
-      <div ref={gridRef} role="grid" onKeyDown={onKeyDown} onMouseLeave={() => setHover(undefined)} className="grid grid-cols-7">
-        {days.map((d) => {
-          const outside = d.getMonth() !== month.getMonth();
-          const isOff = disabled?.(d);
-          const isStart = range ? isSameDay(d, range.from) : isSameDay(d, single);
-          const isEnd = !!range && isSameDay(d, end);
-          const inRange = !!range?.from && !!end && d > range.from && d < end;
-          const selected = isStart || isEnd;
-          return (
-            <div key={key(d)} className={cn('relative', inRange && 'bg-accent', isStart && end && !isSameDay(range?.from, end) && 'rounded-s-md bg-accent', isEnd && !isSameDay(range?.from, end) && 'rounded-e-md bg-accent')}>
-              <button
-                type="button"
-                data-day={key(d)}
-                tabIndex={isSameDay(d, tabbable) ? 0 : -1}
-                disabled={isOff}
-                aria-label={dayFmt.format(d)}
-                aria-pressed={selected}
-                aria-current={isSameDay(d, today) ? 'date' : undefined}
-                onClick={() => pick(d)}
-                onMouseEnter={() => setHover(d)}
-                className={cn(
-                  'grid size-9 place-items-center rounded-md text-[13px] tabular-nums outline-none transition-colors focus-visible:ring-2 focus-visible:ring-ring/50',
-                  !selected && 'hover:bg-secondary',
-                  outside && !selected && !inRange && 'text-muted-foreground/40',
-                  inRange && 'text-accent-foreground hover:bg-primary/10',
-                  isSameDay(d, today) && !selected && 'font-semibold text-primary',
-                  selected && 'bg-primary font-medium text-primary-foreground shadow-sm hover:bg-primary',
-                  isOff && 'pointer-events-none opacity-30',
-                )}
-              >
-                {dateNum.format(d.getDate())}
-              </button>
-            </div>
-          );
-        })}
+      <div ref={gridRef} role="grid" onKeyDown={onKeyDown} onMouseLeave={() => setHover(undefined)}>
+        {Array.from({ length: days.length / 7 }, (_, w) => (
+          <div key={w} role="row" className="grid grid-cols-7">
+            {days.slice(w * 7, w * 7 + 7).map((d) => {
+              const outside = d.getMonth() !== month.getMonth();
+              const isOff = disabled?.(d);
+              const isStart = range ? isSameDay(d, range.from) : isSameDay(d, single);
+              const isEnd = !!range && isSameDay(d, end);
+              const inRange = !!range?.from && !!end && d > range.from && d < end;
+              const selected = isStart || isEnd;
+              return (
+                <div key={key(d)} role="gridcell" className={cn('relative', inRange && 'bg-accent', isStart && end && !isSameDay(range?.from, end) && 'rounded-s-md bg-accent', isEnd && !isSameDay(range?.from, end) && 'rounded-e-md bg-accent')}>
+                  <button
+                    type="button"
+                    data-day={key(d)}
+                    tabIndex={isSameDay(d, tabbable) ? 0 : -1}
+                    disabled={isOff}
+                    aria-label={dayFmt.format(d)}
+                    aria-pressed={selected}
+                    aria-current={isSameDay(d, today) ? 'date' : undefined}
+                    onClick={() => pick(d)}
+                    onMouseEnter={() => setHover(d)}
+                    className={cn(
+                      'grid size-9 place-items-center rounded-md text-[13px] tabular-nums outline-none transition-colors focus-visible:ring-2 focus-visible:ring-ring/50',
+                      !selected && 'hover:bg-secondary',
+                      outside && !selected && !inRange && 'text-muted-foreground/40',
+                      inRange && 'text-accent-foreground hover:bg-primary/10',
+                      isSameDay(d, today) && !selected && 'font-semibold text-primary',
+                      selected && 'bg-primary font-medium text-primary-foreground shadow-sm hover:bg-primary',
+                      isOff && 'pointer-events-none opacity-30',
+                    )}
+                  >
+                    {dateNum.format(d.getDate())}
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        ))}
       </div>
     </div>
   );

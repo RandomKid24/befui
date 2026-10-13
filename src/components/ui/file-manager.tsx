@@ -54,10 +54,11 @@ export function FileManager({
       </div>
       {sorted.length === 0 && <p className="py-12 text-center text-[13px] text-muted-foreground">This folder is empty.</p>}
       {view === 'list' ? (
-        <ul>
+        <ul role="listbox" aria-label="Files and folders">
           {sorted.map((it) => (
             <li
               key={it.id}
+              role="option"
               tabIndex={0}
               aria-selected={sel === it.id}
               onClick={() => setSel(it.id)}
@@ -73,10 +74,11 @@ export function FileManager({
           ))}
         </ul>
       ) : (
-        <ul className="grid grid-cols-3 gap-2 p-3 sm:grid-cols-4">
+        <ul role="listbox" aria-label="Files and folders" className="grid grid-cols-3 gap-2 p-3 sm:grid-cols-4">
           {sorted.map((it) => (
             <li
               key={it.id}
+              role="option"
               tabIndex={0}
               aria-selected={sel === it.id}
               onClick={() => setSel(it.id)}

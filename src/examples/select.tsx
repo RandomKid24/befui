@@ -4,7 +4,7 @@ export default function SelectDemo() {
   return (
     <div className="w-64">
       <Select defaultValue="eng">
-        <SelectTrigger>
+        <SelectTrigger aria-label="Department">
           <SelectValue placeholder="Department" />
         </SelectTrigger>
         <SelectContent>

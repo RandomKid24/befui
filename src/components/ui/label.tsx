@@ -35,14 +35,19 @@ export function Field({
   className?: string;
   children: React.ReactNode;
 }) {
+  // Without an explicit htmlFor the control gets a generated id, so the label is always tied to it.
+  const autoId = React.useId();
+  const child = React.isValidElement<{ id?: string }>(children) ? children : null;
+  const controlId = htmlFor ?? child?.props.id ?? autoId;
+  const control = child && !htmlFor && child.props.id === undefined ? React.cloneElement(child, { id: controlId }) : children;
   return (
     <div className={cn('grid gap-1.5', className)}>
       {label && (
-        <Label htmlFor={htmlFor} required={required}>
+        <Label htmlFor={controlId} required={required}>
           {label}
         </Label>
       )}
-      {children}
+      {control}
       {error ? (
         <p className="text-xs text-destructive">{error}</p>
       ) : (
