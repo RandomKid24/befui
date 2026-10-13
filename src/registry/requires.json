@@ -62,6 +62,7 @@
   "button": [
     "icons"
   ],
+  "button-group": [],
   "calendar": [
     "icons"
   ],
@@ -223,6 +224,7 @@
     "icons"
   ],
   "input": [],
+  "input-group": [],
   "invoice": [
     "badge"
   ],

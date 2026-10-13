@@ -698,6 +698,36 @@ export default function ButtonDemo() {
 }
 ```
 
+## Button group (`button-group`)
+Buttons joined into one row or column with shared borders and rounded outer corners.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add button-group`
+- Import: `import { ButtonGroup } from '@/components/ui/button-group'`
+
+Example:
+
+```tsx
+import { Button } from '@/components/ui/button';
+import { ButtonGroup } from '@/components/ui/button-group';
+import { MinusIcon, PlusIcon } from '@/components/ui/icons';
+
+export default function ButtonGroupDemo() {
+  return (
+    <div className="flex flex-wrap items-start gap-8">
+      <ButtonGroup aria-label="Range">
+        <Button variant="outline">Day</Button>
+        <Button variant="outline">Week</Button>
+        <Button variant="outline">Month</Button>
+      </ButtonGroup>
+      <ButtonGroup orientation="vertical" aria-label="Zoom">
+        <Button variant="outline" size="icon" aria-label="Zoom in"><PlusIcon /></Button>
+        <Button variant="outline" size="icon" aria-label="Zoom out"><MinusIcon /></Button>
+      </ButtonGroup>
+    </div>
+  );
+}
+```
+
 ## Calendar (`calendar`)
 Month grid for one day or a range. Arrow keys, Page Up/Down, Home and End work.
 - Group: Inputs
@@ -1142,6 +1172,42 @@ export default function InputDemo() {
         <Textarea id="notes" placeholder="Anything the approver should know" />
       </Field>
       <Input disabled placeholder="Disabled" />
+    </div>
+  );
+}
+```
+
+## Input group (`input-group`)
+One field with text, icons or buttons attached at the start or end, like https:// or .com.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add input-group`
+- Import: `import { InputGroup, InputGroupInput, InputAddon } from '@/components/ui/input-group'`
+
+Example:
+
+```tsx
+import { Button } from '@/components/ui/button';
+import { SearchIcon } from '@/components/ui/icons';
+import { InputAddon, InputGroup, InputGroupInput } from '@/components/ui/input-group';
+
+export default function InputGroupDemo() {
+  return (
+    <div className="flex w-full max-w-sm flex-col gap-4">
+      <InputGroup>
+        <InputAddon>https://</InputAddon>
+        <InputGroupInput aria-label="Site name" placeholder="befui" />
+        <InputAddon side="end">.com</InputAddon>
+      </InputGroup>
+      <InputGroup>
+        <InputAddon>$</InputAddon>
+        <InputGroupInput aria-label="Amount" type="number" placeholder="0.00" />
+        <InputAddon side="end">USD</InputAddon>
+      </InputGroup>
+      <InputGroup>
+        <InputAddon className="border-e-0 bg-transparent pe-0"><SearchIcon /></InputAddon>
+        <InputGroupInput aria-label="Search" placeholder="Search components" />
+        <InputAddon side="end" className="border-s-0 bg-transparent px-1.5"><Button size="xs">Go</Button></InputAddon>
+      </InputGroup>
     </div>
   );
 }

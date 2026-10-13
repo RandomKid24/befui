@@ -45,7 +45,7 @@ export function useSource(load: () => Promise<string>): string {
 }
 
 /** Slugs shown as "New". Trim this list when a release is no longer recent. */
-export const NEW_SLUGS = new Set(['circle-pack-chart', 'marimekko-chart', 'punch-card-chart', 'forecast-chart', 'venn-chart', 'word-cloud', 'week-strip', 'order-tracker', 'diff-viewer', 'day-agenda', 'pie-chart', 'half-donut-chart', 'radial-line-chart', 'histogram-chart', 'pareto-chart', 'slope-chart', 'butterfly-chart', 'lollipop-chart', 'sunburst-chart', 'ridgeline-chart', 'box-plot-chart', 'chord-chart', 'uptime-bar', 'leaderboard', 'rating-breakdown', 'credit-card', 'bump-chart', 'rose-chart', 'bullet-chart', 'dumbbell-chart', 'waffle-chart', 'treemap', 'waterfall-chart', 'sankey-chart', 'stream-chart', 'candlestick-chart', 'area-chart', 'scatter-chart', 'matrix-heatmap', 'stacked-bar-chart', 'radial-bar-chart', 'live-chart', 'theme-toggle', 'user-menu', 'description-list', 'bar-list', 'settings-layout', 'comparison-table', 'invoice', 'landing-sections', 'pivot-table', 'tree-table', 'file-uploader', 'onboarding-carousel', 'event-calendar']);
+export const NEW_SLUGS = new Set(['button-group', 'input-group', 'circle-pack-chart', 'marimekko-chart', 'punch-card-chart', 'forecast-chart', 'venn-chart', 'word-cloud', 'week-strip', 'order-tracker', 'diff-viewer', 'day-agenda', 'pie-chart', 'half-donut-chart', 'radial-line-chart', 'histogram-chart', 'pareto-chart', 'slope-chart', 'butterfly-chart', 'lollipop-chart', 'sunburst-chart', 'ridgeline-chart', 'box-plot-chart', 'chord-chart', 'uptime-bar', 'leaderboard', 'rating-breakdown', 'credit-card', 'bump-chart', 'rose-chart', 'bullet-chart', 'dumbbell-chart', 'waffle-chart', 'treemap', 'waterfall-chart', 'sankey-chart', 'stream-chart', 'candlestick-chart', 'area-chart', 'scatter-chart', 'matrix-heatmap', 'stacked-bar-chart', 'radial-bar-chart', 'live-chart', 'theme-toggle', 'user-menu', 'description-list', 'bar-list', 'settings-layout', 'comparison-table', 'invoice', 'landing-sections', 'pivot-table', 'tree-table', 'file-uploader', 'onboarding-carousel', 'event-calendar']);
 
 const m = (
   slug: string,
@@ -153,6 +153,8 @@ const metas: Meta[] = [
   m('tree-view', 'Tree view', 'Navigation', 'Nested expandable list with animated open and close.', { deps: [], keywords: ['files', 'folders', 'hierarchy', 'org chart', 'nested'] }),
 
   m('toggle', 'Toggle', 'Inputs', 'Two-state button for favourite, bold or mute. Announces its state to screen readers.', { requires: [], keywords: ['pressed', 'favourite', 'like', 'bold', 'button'] }),
+  m('button-group', 'Button group', 'Inputs', 'Buttons joined into one row or column with shared borders and rounded outer corners.', { keywords: ['joined', 'split button', 'toolbar', 'segmented'] }),
+  m('input-group', 'Input group', 'Inputs', 'One field with text, icons or buttons attached at the start or end, like https:// or .com.', { keywords: ['addon', 'prefix', 'suffix', 'url', 'currency'] }),
   m('search-input', 'Search input', 'Inputs', 'Search field with a clear button, Escape to clear and a slash shortcut to focus.', { requires: ['icons'], keywords: ['filter', 'find', 'query', 'shortcut'] }),
   m('password-input', 'Password input', 'Inputs', 'Show and hide toggle with an optional strength meter.', { requires: ['icons', 'input'], keywords: ['secret', 'login', 'sign up', 'strength'] }),
   m('color-picker', 'Color picker', 'Inputs', 'Swatches, hex field and the native picker. Always returns a six-digit hex.', { requires: ['icons'], keywords: ['hex', 'swatch', 'theme', 'brand'] }),
