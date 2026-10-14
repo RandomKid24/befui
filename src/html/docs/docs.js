@@ -3,6 +3,9 @@ const $ = (s) => document.querySelector(s);
 const ORDER = ['Inputs', 'Display', 'Feedback', 'Overlays', 'Navigation', 'Data', 'Layout', 'Time'];
 let data, byCat, flat, query = '', width = 'full', view = 'react', cleanup, token = 0, previews;
 
+// Started as soon as the page opens, so the first React preview does not wait for the download.
+const loadPreviews = () => previews ??= (document.head.append(Object.assign(document.createElement('link'), { rel: 'stylesheet', href: 'previews/previews.css' })), import('./previews/previews.js'));
+
 const esc = (s) => s.replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c]);
 const copy = async (text, btn) => {
   try { await navigator.clipboard.writeText(text); } catch { const t = document.createElement('textarea'); t.value = text; document.body.append(t); t.select(); document.execCommand('copy'); t.remove(); }
@@ -46,7 +49,7 @@ function nav() {
 const mark = () => document.querySelectorAll('#nav a').forEach((a) => a.classList.toggle('on', a.dataset.s === location.hash.slice(2)));
 
 function home() {
-  const start = '<link rel="stylesheet" href="befui.css">\n<script src="befui.js" defer></script>\n\n<bef-button variant="soft">Hello</bef-button>';
+  const start = '<link rel="stylesheet" href="befui.css">\n<script type="module" src="befui.js"></script>\n\n<bef-button variant="soft">Hello</bef-button>';
   const grid = ORDER.filter((cat) => byCat[cat]).map((cat) => {
     const items = byCat[cat].filter(match);
     return items.length ? `<h2>${cat} <span style="font-weight:400">(${items.length})</span></h2><div class="tiles">${items.map((c) => `<a href="#/${c.slug}"><b>${esc(c.name)}</b><span>${esc(c.description)}</span></a>`).join('')}</div>` : '';
@@ -91,14 +94,10 @@ function component(c) {
       return;
     }
     try {
-      if (!previews) {
-        document.head.append(Object.assign(document.createElement('link'), { rel: 'stylesheet', href: 'previews/previews.css' }));
-        previews = import('./previews/previews.js');
-      }
       const host = document.createElement('div'); // React gets its own node, so unmounting it later never clears what the HTML view puts in the stage
       host.style.display = 'contents';
       stage.append(host);
-      const unmount = await (await previews).mount(c.slug, host);
+      const unmount = await (await loadPreviews()).mount(c.slug, host);
       if (my === token) cleanup = unmount; else unmount();
     } catch (e) { stage.innerHTML = '<span class="note">Could not load the React preview. Showing the HTML one instead.</span>'; view = 'html'; }
   };
@@ -156,6 +155,7 @@ fetch('demos.json').then((r) => r.json()).then((d) => {
   for (const c of d.list) (byCat[c.category] ??= []).push(c);
   flat = ORDER.flatMap((cat) => byCat[cat] ?? []);
   nav(); page();
+  loadPreviews();
 });
 
 // Dev check: __check() opens every example and lists the ones that error, stay empty or never upgrade.

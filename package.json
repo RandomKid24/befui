@@ -27,7 +27,7 @@
   "scripts": {
     "dev": "vite",
     "build": "npm run registry:build && tsc --noEmit && vite build && npm run build:html",
-    "build:html": "vite build -c vite.html.config.ts && vite build -c vite.html.config.ts --mode previews && node scripts/build-html-docs.mjs && mkdir -p cdn && cp dist/html/befui.js dist/html/befui.css cdn/ && mkdir -p dist/web && rm -rf dist/web/html && cp -R dist/html dist/web/html",
+    "build:html": "node scripts/html-manifest.mjs && vite build -c vite.html.config.ts && node scripts/html-minify.mjs && vite build -c vite.html.config.ts --mode previews && node scripts/build-html-docs.mjs && rm -rf cdn && mkdir -p cdn && cp -R dist/html/befui.js dist/html/befui.css dist/html/chunks cdn/ && mkdir -p dist/web && rm -rf dist/web/html && cp -R dist/html dist/web/html",
     "preview": "vite preview",
     "demo:html": "npm run build:html && vite preview --outDir dist/html --port 4173 --open",
     "typecheck": "tsc --noEmit",

@@ -36,7 +36,7 @@ ${scoped}`;
   },
 });
 
-// Two builds: default = the all-components bundle, dist/html/befui.js + befui.css (custom elements, React inside).
+// Two builds: default = the HTML bundle, dist/html/befui.js (a small ES module) + chunks/ (one per component file, loaded when its tag first appears) + befui.css.
 // --mode previews = the React examples the docs page shows next to the HTML ones, dist/html/previews/ (ES modules, one chunk per example).
 export default defineConfig(({ mode }) => {
   const previews = mode === 'previews';
@@ -47,6 +47,6 @@ export default defineConfig(({ mode }) => {
     define: { 'process.env.NODE_ENV': '"production"' },
     build: previews
       ? { outDir: 'dist/html/previews', emptyOutDir: true, cssCodeSplit: false, lib: { entry: 'src/html/previews.tsx', formats: ['es'], fileName: () => 'previews.js', cssFileName: 'previews' } }
-      : { outDir: 'dist/html', emptyOutDir: true, cssCodeSplit: false, lib: { entry: 'src/html/entry.ts', formats: ['iife'], name: 'befuiHtml', fileName: () => 'befui.js', cssFileName: 'befui' } },
+      : { outDir: 'dist/html', emptyOutDir: true, cssCodeSplit: false, lib: { entry: 'src/html/entry.ts', formats: ['es'], fileName: () => 'befui.js', cssFileName: 'befui' }, rollupOptions: { output: { chunkFileNames: 'chunks/[name].js' } } },
   };
 });

@@ -1,9 +1,15 @@
+import { waitFor } from '@testing-library/dom';
 import { describe, expect, it } from 'vitest';
 import './entry';
 
+// Components download their code the first time their tag shows up, so wait until the tags have been replaced by real markup.
 const mount = async (html: string) => {
   document.body.innerHTML = html;
-  await new Promise((r) => setTimeout(r, 20));
+  await waitFor(() => {
+    const hosts = [...document.body.querySelectorAll('[data-bef]')];
+    expect(hosts.length).toBeGreaterThan(0);
+    for (const h of hosts) { expect(h.firstElementChild).not.toBeNull(); expect([...h.querySelectorAll('*')].some((e) => e.localName.startsWith('bef-'))).toBe(false); }
+  }, { timeout: 5000 });
   return document.body;
 };
 
@@ -32,5 +38,14 @@ describe('slots and html in json props', () => {
   it('turns tag strings inside :json props into content', async () => {
     const b = await mount(`<bef-bottom-nav value="a" :items='[{"id":"a","label":"Home","icon":"<bef-home-icon></bef-home-icon>"}]'></bef-bottom-nav>`);
     expect(b.querySelector('svg')).not.toBeNull();
+  });
+});
+
+describe('manifest', () => {
+  it('is up to date with src/components/ui (run: node scripts/html-manifest.mjs)', async () => {
+    // @ts-expect-error plain .mjs script, no types
+    const { manifestSource } = await import('../../scripts/html-manifest.mjs');
+    const { readFileSync } = await import('node:fs');
+    expect(readFileSync('src/html/manifest.ts', 'utf8')).toBe(manifestSource());
   });
 });
