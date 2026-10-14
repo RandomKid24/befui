@@ -126,11 +126,11 @@ Time picker, analog clock, world clock, stopwatch, countdown timer and live rela
 
 ### Use from plain HTML or htmx
 
-Try it: `npm run demo:html` opens an HTML docs site with all 199 components, one page each (the React demo as the preview, a live HTML version one click away, plus the HTML and CSS code). No React in your app. `npm run build:html` writes `dist/html/befui.js` and `befui.css`; every component is a `<bef-*>` tag (`DataTable` is `<bef-data-table>`, `DialogTrigger` is `<bef-dialog-trigger>`).
+Try it: `npm run demo:html` opens an HTML docs site with all 199 components, one page each (the React demo as the preview, a live HTML version one click away, plus the HTML and CSS code). No React in your app. The built files are committed in [`cdn/`](cdn), so any page can load them from jsDelivr (above). For production pin a commit or tag instead of `@main` (jsDelivr caches `@main` for up to 12 hours), or copy the two files into your project. `npm run build:html` rebuilds them. Every component is a `<bef-*>` tag (`DataTable` is `<bef-data-table>`, `DialogTrigger` is `<bef-dialog-trigger>`).
 
 ```html
-<link rel="stylesheet" href="/befui.css">
-<script src="/befui.js" defer></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/RandomKid24/befui@main/cdn/befui.css">
+<script src="https://cdn.jsdelivr.net/gh/RandomKid24/befui@main/cdn/befui.js" defer></script>
 
 <bef-button variant="soft" shape="pill">Save changes</bef-button>
 <bef-progress :value="40"></bef-progress>
