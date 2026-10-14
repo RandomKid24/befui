@@ -64,7 +64,11 @@ for (const [kind, dir, prefix] of [['ui', 'src/components/ui', ''], ['blocks', '
     let example = '';
     try { example = readFileSync(`src/examples/${slug}.tsx`, 'utf8'); } catch { /* blocks have no separate example */ }
     if (slug === 'icons') example = `import { SearchIcon, ArrowRightIcon } from '@/components/ui/icons';\n\n<SearchIcon />                 // 16px, follows text color, static\n<SearchIcon className="size-6" />\n<ArrowRightIcon draw />        // opt-in: redraws on hover\n<SearchIcon weight={2.5} />     // heavier stroke\n\n// All ${exportsList.filter((e) => /^[A-Z]/.test(e) && e !== 'icons').length} icons: ${exportsList.filter((e) => /^[A-Z]/.test(e)).join(', ')}`;
-    writeFileSync(`${out}/${prefix.replace(':', '-')}${slug}.json`, JSON.stringify({ ...entry, exports: exportsList, example: example.trim() }));
+    let htmlExample = '';
+    try { htmlExample = readFileSync(`src/html/demos/${slug}.html`, 'utf8').trim(); } catch { /* blocks and the odd component have none */ }
+    const tag = (n) => `bef-${n.replace(/([a-z0-9])([A-Z])/g, '$1-$2').replace(/([A-Z])([A-Z][a-z])/g, '$1-$2').toLowerCase()}`;
+    const tags = htmlExample ? exportsList.filter((e) => /^[A-Z]/.test(e)).map(tag) : [];
+    writeFileSync(`${out}/${prefix.replace(':', '-')}${slug}.json`, JSON.stringify({ ...entry, exports: exportsList, example: example.trim(), ...(htmlExample && { htmlExample, tags }) }));
     docs.push({ ...entry, kind, exports: exportsList, example });
     items.push({ name: entry.name, title: entry.title, group: entry.group, description: entry.description });
   }
@@ -97,7 +101,7 @@ const head = `# befui
 - Add: \`npx github:RandomKid24/befui add <name> [name...]\` or \`add all\`; blocks are \`block:<name>\`. It also installs npm packages and any befui files a component imports. (There is no \`befui\` package on npm: \`npx befui\` will fail, always use the \`github:\` form.)
 - CLI blocked or GitHub unreachable? Do not retype components and never swap in another icon package. Fetch the JSON for the component (${RAW}/r/<name>.json, or the same \`/r/<name>.json\` path on the docs site), write every \`files[].content\` to \`src/<path>\`, do the same for every name in its \`requires\` (\`icons\` is the common one: r/icons.json, it holds every icon), \`npm i\` its \`deps\`, and merge \`r/init.json\` (cn helper, theme CSS) once.
 - Exact source of any component as JSON (files, npm deps, requires, example): ${RAW}/r/<name>.json (blocks: block-<name>.json). Every name below works in that URL.
-- MCP: \`npx github:RandomKid24/befui mcp\` gives tools list_components, get_component, add_components
+- MCP: \`npx github:RandomKid24/befui mcp\` gives tools list_components, get_component (format "html" for plain HTML/htmx), get_html_rules, add_components
 - Icons: our own set in \`@/components/ui/icons\`, e.g. \`import { SearchIcon } from '@/components/ui/icons'\`; no icon package needed
 - Theme: CSS variables in index.css (--primary, --ring, --accent...). Dark mode = \`dark\` class on <html>. Use tokens (\`bg-primary\`, \`text-muted-foreground\`, \`border\`), never hard-coded colors.
 - Full catalog with a working example per component: ${RAW}/llms-full.txt
@@ -223,5 +227,6 @@ const htmlRules = `# befui for HTML and htmx
 const demoDir = 'src/html/demos';
 const htmlExamples = existsSync(demoDir) ? ui.filter((d) => existsSync(`${demoDir}/${d.name}.html`)).map((d) => `## ${d.title} (${d.name})\n${d.description}\n\`\`\`html\n${readFileSync(`${demoDir}/${d.name}.html`, 'utf8').trim()}\n\`\`\`\n`).join('\n') : '';
 writeFileSync('public/llms-html.txt', htmlRules + '\n' + htmlExamples);
+writeFileSync(`${out}/html.md`, htmlRules.replace(/\n# Examples\n$/, ''));
 writeFileSync(`${out}/agents.md`, readFileSync('scripts/agents-snippet.md', 'utf8'));
 console.log(`registry: ${items.length} items, llms.txt for ${ui.length} components`);

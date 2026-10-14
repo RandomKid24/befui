@@ -4,7 +4,7 @@ This project uses [befui](https://github.com/RandomKid24/befui): copy-paste Reac
 
 Rules:
 - Before building any UI, check whether a befui component already exists. Full catalog with usage examples: https://raw.githubusercontent.com/RandomKid24/befui/main/public/llms-full.txt (short index: `llms.txt` in the same folder).
-- If a `befui` MCP server is connected (registered in `.mcp.json` by `init`), use its `list_components`, `get_component` (exact source, import and example) and `add_components` tools instead of guessing.
+- If a `befui` MCP server is connected (registered in `.mcp.json` by `init`), use its `list_components`, `get_component` (exact source, import and example; `format: "html"` gives `<bef-*>` tags and an HTML example), `get_html_rules` and `add_components` tools instead of guessing.
 - Add a missing component with the CLI, never by retyping its code: `npx github:RandomKid24/befui add <name>` (several names allowed, `all` for everything). It also installs the npm packages and any befui components it depends on. There is no `befui` package on npm, so `npx befui` fails: use the `github:` form.
 - If the CLI or GitHub is blocked, fetch `https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/<name>.json` (or the same `/r/<name>.json` path on the docs site) and write each `files[].content` to `src/<path>`. Do the same for every name in `requires` (almost always `icons`) and `npm i` its `deps`. Never replace a befui icon with lucide or another icon package: components import from `./icons`, so copy that file too.
 - Icons come from `@/components/ui/icons` (e.g. `import { SearchIcon } from '@/components/ui/icons'`). Do not add another icon package.

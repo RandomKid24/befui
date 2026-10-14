@@ -218,11 +218,24 @@ async function mcp() {
       run: async ({ query }) => text((await index()).filter((i) => !query || `${i.name} ${i.group} ${i.description}`.toLowerCase().includes(query.toLowerCase())).map((i) => `${i.name} (${i.group}): ${i.description}`).join('\n')),
     },
     get_component: {
-      description: 'Get the exact source, usage example, npm packages and import path of one befui component (blocks are "block:<name>").',
-      schema: { type: 'object', properties: { name: { type: 'string' } }, required: ['name'] },
-      run: async ({ name }) => {
+      description: 'Get the exact source, usage example, npm packages and import path of one befui component (blocks are "block:<name>"). Pass format "html" for plain HTML/htmx projects: returns the <bef-*> tags and an HTML example instead of React.',
+      schema: { type: 'object', properties: { name: { type: 'string' }, format: { type: 'string', enum: ['react', 'html'], description: 'react (default) or html' } }, required: ['name'] },
+      run: async ({ name, format }) => {
         const c = await load(name);
+        if (format === 'html') {
+          if (!c.htmlExample) return { ...text(`"${name}" has no HTML example (blocks are React only). Use format "react".`), isError: true };
+          return text(`# ${c.title} (${c.name}), HTML\n${c.description}\n\nTags: ${c.tags.map((t) => `<${t}>`).join(' ')}\n\nExample:\n\n\`\`\`html\n${c.htmlExample}\n\`\`\`\n\nProps are attributes in kebab-case; :name="json" for non-strings; function props need element.props. Call get_html_rules for the full rules.`);
+        }
         return text(`# ${c.title} (${c.name})\n${c.description}\n\nImport: import { ${(c.exports ?? []).join(', ')} } from '@/${c.name.startsWith('block:') ? `blocks/${c.name.slice(6)}` : `components/ui/${c.name}`}'\nAlso needs: ${c.requires.join(', ') || 'none'}\nnpm packages: ${c.deps.join(', ') || 'none'}\n\n## Example\n${c.example || '(none)'}\n\n## Source (${c.files[0].path})\n${c.files[0].content}`);
+      },
+    },
+    get_html_rules: {
+      description: 'How to use befui in plain HTML or htmx (no React): the <bef-*> tag rules, props as attributes, :json, slots, events, htmx. Read once before writing HTML.',
+      schema: { type: 'object', properties: {} },
+      run: async () => {
+        try {
+          return text(/^https?:/.test(from) ? await (await fetch(`${from}/html.md`)).text() : readFileSync(join(from, 'html.md'), 'utf8'));
+        } catch (e) { return { ...text(`Could not load the HTML rules: ${e.message}`), isError: true }; }
       },
     },
     add_components: {

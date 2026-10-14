@@ -444,7 +444,7 @@ Until the package is published to npm, run it as `npx github:RandomKid24/befui .
 The library is set up so a coding agent (Claude Code, Cursor, Copilot) uses it correctly without hand-holding.
 
 1. Run `npx github:RandomKid24/befui init`. It writes a marked block into `AGENTS.md` telling agents to reuse befui components, add missing ones with the CLI and use the theme tokens. Re-running refreshes only that block.
-2. `init` also registers the **MCP server** in `.mcp.json` (restart your AI tool). Agents then get `list_components`, `get_component` (exact source, import, example) and `add_components` (use `all` for the whole library). Without `init`: `claude mcp add befui -- npx -y github:RandomKid24/befui mcp`.
+2. `init` also registers the **MCP server** in `.mcp.json` (restart your AI tool). Agents then get `list_components`, `get_component` (exact source, import, example; `format: "html"` for the `<bef-*>` tags and an HTML example), `get_html_rules` and `add_components` (use `all` for the whole library). Without `init`: `claude mcp add befui -- npx -y github:RandomKid24/befui mcp`.
 3. **Claude Code** reads `CLAUDE.md`, so add the line `@AGENTS.md` to it. Cursor and Copilot read `AGENTS.md` directly.
 4. Just ask: *"Build a leave-approvals page with befui. Check llms-full.txt first."*
 
