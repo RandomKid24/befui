@@ -518,8 +518,6 @@ Style rules we keep: use theme tokens (`bg-primary`, `text-muted-foreground`), n
 
 **How do I update a component?** `add <name> --force`, then re-apply any edits you made. Check `git diff` first.
 
-**Where did the old experiments go?** `legacy/` holds the earlier motion demos. It is not part of the build.
-
 ## License
 
 MIT. See [LICENSE](LICENSE).

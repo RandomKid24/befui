@@ -26,7 +26,7 @@ export default function App() {
   else page = <NotFound />;
 
   return (
-    <Shell path={path} docs={!home && section !== 'icons' && section !== 'themes' && section !== 'html'}>
+    <Shell path={path} docs={!home && section !== 'icons' && section !== 'themes'}>
       {page}
     </Shell>
   );
