@@ -7,6 +7,8 @@
 // befui list             show everything available
 // befui diff <name...>   show how your copy of a component differs from the latest
 // befui remove <name...> delete a component's files (refuses while other files import it, unless --force)
+// befui add button --flutter   copy the Flutter widget (and its theme, core and icon files) into lib/befui of your app
+// befui init --flutter    add the Flutter theme and AI rules
 // befui mcp              run the MCP server (AI tools fetch exact component source)
 // Flags: --dir <src>  --from <url-or-folder>  --css <file>  --force  --no-install  --check
 import { existsSync, mkdirSync, readdirSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs';
@@ -184,13 +186,14 @@ async function warnAnimations(items) {
 }
 
 /** Adds (or refreshes) a marked befui section in AGENTS.md so AI coding agents know how to use the library. */
-async function writeAgentRules() {
+async function writeAgentRules(source = 'agents.md', tag = 'befui') {
   try {
-    const text = /^https?:/.test(from) ? await (await fetch(`${from}/agents.md`)).text() : readFileSync(join(from, 'agents.md'), 'utf8');
-    const block = `<!-- befui:start -->\n${text.trim()}\n<!-- befui:end -->\n`;
+    const text = /^https?:/.test(from) ? await (await fetch(`${from}/${source}`)).text() : readFileSync(join(from, source), 'utf8');
+    const re = new RegExp(`<!-- ${tag}:start -->[\\s\\S]*<!-- ${tag}:end -->\\n?`);
+    const block = `<!-- ${tag}:start -->\n${text.trim()}\n<!-- ${tag}:end -->\n`;
     const file = 'AGENTS.md';
     const old = existsSync(file) ? readFileSync(file, 'utf8') : '';
-    const next = /<!-- befui:start -->[\s\S]*<!-- befui:end -->\n?/.test(old) ? old.replace(/<!-- befui:start -->[\s\S]*<!-- befui:end -->\n?/, block) : `${old}${old && !old.endsWith('\n\n') ? '\n' : ''}${block}`;
+    const next = re.test(old) ? old.replace(re, block) : `${old}${old && !old.endsWith('\n\n') ? (old.endsWith('\n') ? '\n' : '\n\n') : ''}${block}`;
     writeFileSync(file, next);
     ok('AI rules written to AGENTS.md (Claude Code reads CLAUDE.md: add "@AGENTS.md" to it).');
   } catch {
@@ -271,6 +274,36 @@ async function mcp() {
   });
 }
 
+
+// ---- Flutter (Android and iOS) ----
+const flutterDir = flag('dir', 'lib');
+/** Loads a Flutter widget (or the shared flutter-theme / flutter-core / flutter-icons files) from the registry. */
+async function loadFlutter(name) {
+  const item = await load(name);
+  if (name.startsWith('flutter-')) return item;
+  if (!item.flutter) die(`"${name}" has no Flutter version yet. Run "befui list --flutter" to see what is available.`);
+  return { name: item.name, title: item.title, requires: item.flutter.requires, files: item.flutter.files };
+}
+function writeFlutter(files) {
+  const written = [];
+  for (const f of files) {
+    const dest = join(flutterDir, f.path);
+    if (existsSync(dest) && !has('force')) { console.log(`  skip ${dest} (exists, use --force)`); continue; }
+    mkdirSync(dirname(dest), { recursive: true });
+    writeFileSync(dest, f.content);
+    written.push(dest);
+  }
+  return written;
+}
+function needPubspec() {
+  if (!existsSync('pubspec.yaml') && !has('dir')) die('No pubspec.yaml here. Run this in your Flutter project folder (or pass --dir <lib folder>).');
+}
+const THEME_HINT = `  Wire the theme once in your MaterialApp:
+    theme: BefTheme.data(),
+    darkTheme: BefTheme.data(brightness: Brightness.dark),
+    themeMode: ThemeMode.system,
+  (import 'befui/theme.dart'; pick a palette with BefTheme.data(palette: BefPalette.rose))`;
+
 if (has('version') || cmd === 'version') {
   console.log(VERSION);
 } else if (cmd === 'mcp') {
@@ -281,12 +314,18 @@ if (has('version') || cmd === 'version') {
 } else if (cmd === 'list') {
   const idx = await (async () => /^https?:/.test(from) ? (await fetch(`${from}/index.json`)).json() : JSON.parse(readFileSync(join(from, 'index.json'), 'utf8')))();
   let g = '';
-  for (const i of idx.sort((a, b) => a.group.localeCompare(b.group))) {
+  for (const i of idx.filter((x) => !has('flutter') || x.flutter).sort((a, b) => a.group.localeCompare(b.group))) {
     if (i.group !== g) console.log(`\n\x1b[1m${(g = i.group)}\x1b[0m`);
     console.log(`  ${i.name.padEnd(22)} ${i.description}`);
   }
 } else if (cmd === 'update') {
   await update();
+} else if (cmd === 'init' && has('flutter')) {
+  needPubspec();
+  for (const n of ['flutter-theme', 'flutter-core']) { const w = writeFlutter((await loadFlutter(n)).files); if (w.length) ok(`${n.slice(8)} → ${w[0]}`); }
+  await writeAgentRules('agents-flutter.md', 'befui-flutter');
+  writeMcpConfig();
+  console.log(THEME_HINT);
 } else if (cmd === 'init') {
   const themeName = flag('theme');
   if (has('theme') && (!themeName || themeName.startsWith('--'))) die('Usage: befui init --theme <name>  (see the Themes page for names)');
@@ -339,6 +378,25 @@ if (has('version') || cmd === 'version') {
     plan.push({ n, own });
   }
   for (const { n, own } of plan) { for (const p of own) unlinkSync(p); ok(`${n} removed (${own.length} file${own.length > 1 ? 's' : ''}). Packages it needed are left alone.`); }
+} else if (cmd === 'add' && names.length && has('flutter')) {
+  needPubspec();
+  const seen = new Map();
+  const visit = async (n) => {
+    if (seen.has(n)) return;
+    const item = await loadFlutter(n);
+    seen.set(n, item);
+    for (const r of item.requires) await visit(r);
+  };
+  let wanted = names;
+  if (names.includes('all')) {
+    const idx = /^https?:/.test(from) ? await (await fetch(`${from}/index.json`)).json() : JSON.parse(readFileSync(join(from, 'index.json'), 'utf8'));
+    wanted = idx.filter((i) => i.flutter).map((i) => i.name);
+  }
+  for (const n of wanted) await visit(n);
+  const first = !existsSync(join(flutterDir, 'befui/theme.dart'));
+  for (const item of seen.values()) { const w = writeFlutter(item.files); if (w.length) ok(`${item.name.replace(/^flutter-/, '')} → ${w[0]}`); }
+  ok(`Done. ${seen.size} file${seen.size > 1 ? 's' : ''} added.`);
+  if (first) console.log(THEME_HINT);
 } else if (cmd === 'add' && names.length) {
   const seen = new Map();
   const visit = async (n) => {
@@ -361,5 +419,5 @@ if (has('version') || cmd === 'version') {
   await warnAnimations([...seen.values()]);
   ok(`Done. ${seen.size} file${seen.size > 1 ? 's' : ''} added.`);
 } else {
-  console.log('Usage: befui <add|diff|remove|init|update|list|mcp> [names] [--dir src] [--from url-or-folder] [--force] [--no-install] [--theme name (init)]');
+  console.log('Usage: befui <add|diff|remove|init|update|list|mcp> [names] [--flutter] [--dir src] [--from url-or-folder] [--force] [--no-install] [--theme name (init)]');
 }

@@ -1,0 +1,126 @@
+# befui for Flutter
+
+> The befui components as Flutter widgets for Android and iOS: the same design as the React ones (same colour tokens, radii, sizes, dark mode and ten palettes). Copy-paste: the CLI puts one Dart file per widget in your app and from then on it is yours. No package to depend on, no Tailwind, no React.
+
+## Setup
+- `npx github:RandomKid24/befui add button --flutter` copies `lib/befui/button.dart` plus the shared files it needs (`theme.dart`, `core.dart`, `icons.dart`). Several names are allowed. Run it in the folder with your `pubspec.yaml`.
+- Wire the theme once, in your `MaterialApp`: `theme: BefTheme.data()`, `darkTheme: BefTheme.data(brightness: Brightness.dark)`, `themeMode: ThemeMode.system`. Pick a palette with `BefTheme.data(palette: BefPalette.rose)` (blue, indigo, violet, rose, red, emerald, teal, amber, orange, slate).
+- Browse every widget with its example: https://raw.githubusercontent.com/RandomKid24/befui/main/public/llms-flutter.txt (this file) or the Flutter section on each component page of the docs site.
+
+## Rules
+- Widgets are named `Bef<Name>` (BefButton, BefBadge) and their props mirror the React ones: `variant`, `size`, `shape` are enums (`BefButtonVariant.soft`), `loading`, `onPressed`.
+- Colours come from the theme, never hard-coded: `context.bef.primary`, `context.bef.mutedForeground`, `context.bef.border` (same names as the CSS variables, camelCased). Text: `BefText.style(context, size: 14, weight: FontWeight.w500)`. Radii: `BefRadius.md`.
+- Icons are our own set, painted without any package: `BefIcon(BefIcons.search, size: 16)`. Do not add an icon package.
+- The font is Inter. Add it with google_fonts or as an asset and pass `fontFamily` to `BefTheme.data`; without it the platform font is used and everything still works.
+- Edit the copied files freely, they belong to your app. To get the latest version of one: `add <name> --flutter --force` (overwrites your edits).
+- Need a widget that has no Flutter version yet? Say so rather than rebuilding it from Material defaults: the design would drift from the React and web versions.
+
+## Widgets
+
+### Badge (`badge`)
+Status pill with semantic colors and an optional dot.
+- Add: `npx github:RandomKid24/befui add badge --flutter`
+- Import: `import 'befui/badge.dart';` (classes: BefBadge)
+- Also copies: theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/badge.dart';
+
+Widget example(BuildContext context) {
+  return const Wrap(
+    spacing: 8,
+    runSpacing: 8,
+    children: [
+      BefBadge(label: 'Default'),
+      BefBadge(label: 'Outline', variant: BefBadgeVariant.outline),
+      BefBadge(label: 'Primary', variant: BefBadgeVariant.primary),
+      BefBadge(label: 'Active', variant: BefBadgeVariant.success, dot: true),
+      BefBadge(label: 'Pending', variant: BefBadgeVariant.warning, dot: true),
+      BefBadge(label: 'Failed', variant: BefBadgeVariant.danger, dot: true),
+      BefBadge(label: 'Info', variant: BefBadgeVariant.info),
+    ],
+  );
+}
+```
+
+### Button (`button`)
+Thirteen variants from plain to glow, shine and 3D press, pill shape, five sizes, loading state, and asChild for links.
+- Add: `npx github:RandomKid24/befui add button --flutter`
+- Import: `import 'befui/button.dart';` (classes: BefButton)
+- Also copies: core.dart, icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/button.dart';
+import 'befui/icons.dart';
+
+/// Every variant, size and state.
+Widget example(BuildContext context) {
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Wrap(
+        spacing: 12,
+        runSpacing: 12,
+        children: [
+          BefButton(
+            label: 'Export',
+            leading: const BefIcon(BefIcons.download),
+            onPressed: () {},
+          ),
+          for (final v in BefButtonVariant.values.skip(1))
+            BefButton(
+              label: v.name[0].toUpperCase() + v.name.substring(1),
+              variant: v,
+              onPressed: () {},
+            ),
+        ],
+      ),
+      const SizedBox(height: 20),
+      Wrap(
+        spacing: 12,
+        runSpacing: 12,
+        crossAxisAlignment: WrapCrossAlignment.center,
+        children: [
+          BefButton(
+            label: 'Extra small',
+            size: BefButtonSize.xs,
+            onPressed: () {},
+          ),
+          BefButton(label: 'Small', size: BefButtonSize.sm, onPressed: () {}),
+          BefButton(label: 'Medium', onPressed: () {}),
+          BefButton(label: 'Large', size: BefButtonSize.lg, onPressed: () {}),
+          BefButton(
+            size: BefButtonSize.icon,
+            variant: BefButtonVariant.outline,
+            child: const BefIcon(BefIcons.plus),
+            onPressed: () {},
+          ),
+          BefButton(
+            label: 'Pill',
+            shape: BefButtonShape.pill,
+            variant: BefButtonVariant.soft,
+            onPressed: () {},
+          ),
+          BefButton(label: 'Saving', loading: true, onPressed: () {}),
+          const BefButton(label: 'Disabled'),
+        ],
+      ),
+    ],
+  );
+}
+```
+
+### Spinner (`spinner`)
+Tiny CSS spinner that inherits text color.
+- Add: `npx github:RandomKid24/befui add spinner --flutter`
+- Import: `import 'befui/spinner.dart';` (classes: BefSpinner)
+- Also copies: core.dart

@@ -11,6 +11,7 @@
 - Icons: our own set in `@/components/ui/icons`, e.g. `import { SearchIcon } from '@/components/ui/icons'`; no icon package needed
 - Theme: CSS variables in index.css (--primary, --ring, --accent...). Dark mode = `dark` class on <html>. Use tokens (`bg-primary`, `text-muted-foreground`, `border`), never hard-coded colors.
 - Full catalog with a working example per component: https://raw.githubusercontent.com/RandomKid24/befui/main/public/llms-full.txt
+- Building a mobile app in Flutter (Android and iOS)? The same components exist as Flutter widgets, copy-paste with `npx github:RandomKid24/befui add <name> --flutter`. Rules and an example for every widget: https://raw.githubusercontent.com/RandomKid24/befui/main/public/llms-flutter.txt
 - Not using React (plain HTML, htmx, Django, Rails, PHP)? Every component is also a custom element, `<bef-button>`, `<bef-dialog>`... Rules and an HTML example for every component: https://raw.githubusercontent.com/RandomKid24/befui/main/public/llms-html.txt
 
 ## Rules that save a debugging round

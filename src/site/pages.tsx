@@ -24,6 +24,7 @@ import { Preview } from './preview';
 import { Playground, hasPlayground } from './playground';
 import { Gallery, hasGallery } from './gallery';
 import { HtmlSection } from './html-docs';
+import { FlutterSection } from './flutter-docs';
 
 const h1 = 'text-3xl font-semibold tracking-tight sm:text-4xl';
 const h2 = 'mt-12 mb-4 scroll-mt-20 text-xl font-semibold tracking-tight';
@@ -318,6 +319,8 @@ export function ComponentPage({ slug }: { slug: string }) {
       {c.guide && <GuidePanel guide={c.guide} />}
 
       <HtmlSection slug={slug} wide={c.wide} h2={h2} />
+
+      <FlutterSection slug={slug} h2={h2} />
 
       <h2 className={h2}>Install</h2>
       <p className="mb-3 text-[13px] text-muted-foreground">With the CLI. It installs packages and adds any components this one needs:</p>

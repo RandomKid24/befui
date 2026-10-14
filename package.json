@@ -37,7 +37,10 @@
     "registry:build": "node scripts/build-registry.mjs",
     "prepublishOnly": "npm run build",
     "version": "node scripts/changelog-check.mjs",
-    "test": "vitest run"
+    "test": "vitest run",
+    "flutter:gen": "node scripts/gen-flutter-theme.mjs && node scripts/gen-flutter-icons.mjs && node scripts/gen-flutter-gallery.mjs && cd flutter && dart format lib >/dev/null",
+    "flutter:previews": "cd flutter && BEFUI_PREVIEWS=1 flutter test test/previews_test.dart",
+    "flutter:test": "cd flutter && flutter analyze && flutter test test/smoke_test.dart"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.10",

@@ -74,6 +74,34 @@ for (const [kind, dir, prefix] of [['ui', 'src/components/ui', ''], ['blocks', '
   }
 }
 
+// Flutter: the widgets in flutter/lib/befui are added to the same registry. flutter-theme / flutter-core / flutter-icons are the shared files; each component's JSON gets a `flutter` object.
+const FL = 'flutter/lib/befui';
+const SHARED = { theme: 'Theme and colours', core: 'Core helpers', icons: 'Icons' };
+const flutterItems = [];
+if (existsSync(FL)) {
+  const dartRequires = (src, self) => [...src.matchAll(/^import '([\w]+)\.dart';/gm)].map((m) => m[1]).filter((n) => n !== self).map((n) => (SHARED[n] ? `flutter-${n}` : n.replace(/_/g, '-')));
+  for (const f of readdirSync(FL).filter((x) => x.endsWith('.dart')).sort()) {
+    const base = f.replace(/\.dart$/, '');
+    const content = readFileSync(`${FL}/${f}`, 'utf8');
+    const requires = [...new Set(dartRequires(content, base))].sort();
+    if (SHARED[base]) {
+      writeFileSync(`${out}/flutter-${base}.json`, JSON.stringify({ name: `flutter-${base}`, title: SHARED[base], requires, files: [{ path: `befui/${f}`, content }] }));
+      continue;
+    }
+    const slug = base.replace(/_/g, '-');
+    const file = `${out}/${slug}.json`;
+    if (!existsSync(file)) { console.warn(`flutter: no React component named ${slug}, skipped`); continue; }
+    let example = '';
+    try { example = readFileSync(`flutter/lib/examples/${base}.dart`, 'utf8').trim().replace(/'\.\.\/befui\//g, "'befui/"); } catch { /* no example yet */ } // the gallery lives one folder away from befui/; in an app the path is whatever suits the file
+    const j = JSON.parse(readFileSync(file, 'utf8'));
+    const classes = [...content.matchAll(/^(?:abstract |final )?class (Bef\w+)/gm)].map((m) => m[1]);
+    j.flutter = { files: [{ path: `befui/${f}`, content }], requires, classes, example };
+    writeFileSync(file, JSON.stringify(j));
+    flutterItems.push({ slug, title: j.title, group: j.group, description: j.description, ...j.flutter });
+  }
+  for (const it of items) if (flutterItems.some((x) => x.slug === it.name)) it.flutter = true;
+}
+
 // The docs site lists "copy these files" from real imports, not hand-kept metadata (they drifted: 29 components were missing icons).
 writeFileSync('src/registry/requires.json', JSON.stringify(Object.fromEntries(docs.filter((d) => d.kind === 'ui').map((d) => [d.name, d.requires]).sort(([a], [b]) => a.localeCompare(b))), null, 2) + '\n');
 writeFileSync(`${out}/index.json`, JSON.stringify(items));
@@ -105,6 +133,7 @@ const head = `# befui
 - Icons: our own set in \`@/components/ui/icons\`, e.g. \`import { SearchIcon } from '@/components/ui/icons'\`; no icon package needed
 - Theme: CSS variables in index.css (--primary, --ring, --accent...). Dark mode = \`dark\` class on <html>. Use tokens (\`bg-primary\`, \`text-muted-foreground\`, \`border\`), never hard-coded colors.
 - Full catalog with a working example per component: ${RAW}/llms-full.txt
+- Building a mobile app in Flutter (Android and iOS)? The same components exist as Flutter widgets, copy-paste with \`npx github:RandomKid24/befui add <name> --flutter\`. Rules and an example for every widget: ${RAW}/llms-flutter.txt
 - Not using React (plain HTML, htmx, Django, Rails, PHP)? Every component is also a custom element, \`<bef-button>\`, \`<bef-dialog>\`... Rules and an HTML example for every component: ${RAW}/llms-html.txt
 
 ## Rules that save a debugging round
@@ -230,5 +259,38 @@ const demoDir = 'src/html/demos';
 const htmlExamples = existsSync(demoDir) ? ui.filter((d) => existsSync(`${demoDir}/${d.name}.html`)).map((d) => `## ${d.title} (${d.name})\n${d.description}\n\`\`\`html\n${readFileSync(`${demoDir}/${d.name}.html`, 'utf8').trim()}\n\`\`\`\n`).join('\n') : '';
 writeFileSync('public/llms-html.txt', htmlRules + '\n' + htmlExamples);
 writeFileSync(`${out}/html.md`, htmlRules.replace(/\n# Examples\n$/, ''));
+// Flutter (Android and iOS): rules plus every widget's example, for AI tools and for people.
+const flutterRules = `# befui for Flutter
+
+> The befui components as Flutter widgets for Android and iOS: the same design as the React ones (same colour tokens, radii, sizes, dark mode and ten palettes). Copy-paste: the CLI puts one Dart file per widget in your app and from then on it is yours. No package to depend on, no Tailwind, no React.
+
+## Setup
+- \`npx github:RandomKid24/befui add button --flutter\` copies \`lib/befui/button.dart\` plus the shared files it needs (\`theme.dart\`, \`core.dart\`, \`icons.dart\`). Several names are allowed. Run it in the folder with your \`pubspec.yaml\`.
+- Wire the theme once, in your \`MaterialApp\`: \`theme: BefTheme.data()\`, \`darkTheme: BefTheme.data(brightness: Brightness.dark)\`, \`themeMode: ThemeMode.system\`. Pick a palette with \`BefTheme.data(palette: BefPalette.rose)\` (blue, indigo, violet, rose, red, emerald, teal, amber, orange, slate).
+- Browse every widget with its example: ${RAW}/llms-flutter.txt (this file) or the Flutter section on each component page of the docs site.
+
+## Rules
+- Widgets are named \`Bef<Name>\` (BefButton, BefBadge) and their props mirror the React ones: \`variant\`, \`size\`, \`shape\` are enums (\`BefButtonVariant.soft\`), \`loading\`, \`onPressed\`.
+- Colours come from the theme, never hard-coded: \`context.bef.primary\`, \`context.bef.mutedForeground\`, \`context.bef.border\` (same names as the CSS variables, camelCased). Text: \`BefText.style(context, size: 14, weight: FontWeight.w500)\`. Radii: \`BefRadius.md\`.
+- Icons are our own set, painted without any package: \`BefIcon(BefIcons.search, size: 16)\`. Do not add an icon package.
+- The font is Inter. Add it with google_fonts or as an asset and pass \`fontFamily\` to \`BefTheme.data\`; without it the platform font is used and everything still works.
+- Edit the copied files freely, they belong to your app. To get the latest version of one: \`add <name> --flutter --force\` (overwrites your edits).
+- Need a widget that has no Flutter version yet? Say so rather than rebuilding it from Material defaults: the design would drift from the React and web versions.
+
+## Widgets
+`;
+const flutterBody = flutterItems.map((w) => `### ${w.title} (\`${w.slug}\`)\n${w.description}\n- Add: \`npx github:RandomKid24/befui add ${w.slug} --flutter\`\n- Import: \`import 'befui/${w.slug.replace(/-/g, '_')}.dart';\` (classes: ${w.classes.join(', ')})\n${w.requires.length ? `- Also copies: ${w.requires.map((r) => (r.startsWith('flutter-') ? r.slice(8) + '.dart' : r.replace(/-/g, '_') + '.dart')).join(', ')}\n` : ''}${w.example ? `\nExample:\n\n\`\`\`dart\n${w.example}\n\`\`\`\n` : ''}`).join('\n');
+writeFileSync('public/llms-flutter.txt', flutterRules + '\n' + flutterBody);
+writeFileSync(`${out}/agents-flutter.md`, `## UI components (befui for Flutter)
+
+This app uses [befui](https://github.com/RandomKid24/befui) for Flutter: copy-paste widgets (one Dart file each, in \`lib/befui/\`) with the same design as the befui React components.
+
+Rules:
+- Before building any UI, check whether a befui widget exists: ${RAW}/llms-flutter.txt (every widget with a working example). Browse them on the docs site too, in the Flutter section of each component page.
+- Add a widget with the CLI, never by retyping it: \`npx github:RandomKid24/befui add <name> --flutter\` (run in the folder with pubspec.yaml). It also copies the shared \`theme.dart\`, \`core.dart\` and \`icons.dart\` when needed.
+- Theme once in MaterialApp: \`theme: BefTheme.data()\`, \`darkTheme: BefTheme.data(brightness: Brightness.dark)\`. Read colours with \`context.bef.primary\` (never hard-code colours), text with \`BefText.style(context, size: 14)\`, icons with \`BefIcon(BefIcons.search)\`.
+- If a befui MCP server is connected, use \`get_component\` with \`format: "flutter"\` and \`get_flutter_rules\` instead of guessing.
+- Edit the copied files freely; they belong to this app. \`add <name> --flutter --force\` overwrites local edits.
+`);
 writeFileSync(`${out}/agents.md`, readFileSync('scripts/agents-snippet.md', 'utf8'));
 console.log(`registry: ${items.length} items, llms.txt for ${ui.length} components`);
