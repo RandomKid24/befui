@@ -24,6 +24,9 @@ enum BefButtonSize { xs, sm, md, lg, icon, iconSm }
 
 enum BefButtonShape { rounded, pill }
 
+/// Where a button sits in a [BefButtonGroup]: the outer corners stay round, the joins are square and share one border.
+enum BefButtonJoin { none, start, middle, end }
+
 /// A button with the thirteen variants of the React one. Give it a [label] or any [child]; [leading] and [trailing] are icons or small widgets.
 class BefButton extends StatelessWidget {
   const BefButton({
@@ -36,6 +39,7 @@ class BefButton extends StatelessWidget {
     this.variant = BefButtonVariant.primary,
     this.size = BefButtonSize.md,
     this.shape = BefButtonShape.rounded,
+    this.join = BefButtonJoin.none,
     this.loading = false,
     this.expand = false,
     this.semanticLabel,
@@ -49,6 +53,7 @@ class BefButton extends StatelessWidget {
   final BefButtonVariant variant;
   final BefButtonSize size;
   final BefButtonShape shape;
+  final BefButtonJoin join;
   final bool loading;
 
   /// Fill the available width.
@@ -68,7 +73,16 @@ class BefButton extends StatelessWidget {
       BefButtonSize.iconSm => (32.0, 0.0, 14.0),
     };
     final isIcon = size == BefButtonSize.icon || size == BefButtonSize.iconSm;
-    final radius = BorderRadius.circular(shape == BefButtonShape.pill ? BefRadius.full : BefRadius.md);
+    final r = Radius.circular(shape == BefButtonShape.pill ? BefRadius.full : BefRadius.md);
+    final radius = switch (join) {
+      BefButtonJoin.none => BorderRadius.all(r),
+      BefButtonJoin.start => BorderRadius.horizontal(left: r),
+      BefButtonJoin.middle => BorderRadius.zero,
+      BefButtonJoin.end => BorderRadius.horizontal(right: r),
+    };
+    final joined =
+        join == BefButtonJoin.middle ||
+        join == BefButtonJoin.end; // the neighbour's right border is the shared line
 
     return BefPressable(
       enabled: enabled,
@@ -127,7 +141,7 @@ class BefButton extends StatelessWidget {
                   ? null
                   : Border(
                       top: look.border!,
-                      left: look.border!,
+                      left: joined ? BorderSide.none : look.border!,
                       right: look.border!,
                       bottom: look.borderBottom ?? look.border!,
                     ),

@@ -53,13 +53,16 @@ ${defs.join('\n')}
 
 /// An icon at [size] logical pixels (default 16, like the React components). Colour defaults to the surrounding [IconTheme], so it follows buttons and text.
 class BefIcon extends StatelessWidget {
-  const BefIcon(this.icon, {super.key, this.size, this.color, this.weight = 1.75, this.semanticLabel});
+  const BefIcon(this.icon, {super.key, this.size, this.color, this.weight = 1.75, this.fill, this.semanticLabel});
   final BefIconData icon;
   final double? size;
   final Color? color;
 
   /// Stroke width on the 24px grid.
   final double weight;
+
+  /// Fills the shapes with this colour as well (a solid star for ratings).
+  final Color? fill;
   final String? semanticLabel;
 
   @override
@@ -71,16 +74,17 @@ class BefIcon extends StatelessWidget {
       label: semanticLabel,
       image: semanticLabel != null,
       excludeSemantics: semanticLabel == null,
-      child: SizedBox(width: s, height: s, child: CustomPaint(painter: _IconPainter(icon, c, weight))),
+      child: SizedBox(width: s, height: s, child: CustomPaint(painter: _IconPainter(icon, c, weight, fill))),
     );
   }
 }
 
 class _IconPainter extends CustomPainter {
-  _IconPainter(this.icon, this.color, this.weight);
+  _IconPainter(this.icon, this.color, this.weight, this.fill);
   final BefIconData icon;
   final Color color;
   final double weight;
+  final Color? fill;
 
   static final _paths = <String, Path>{};
 
@@ -95,21 +99,27 @@ class _IconPainter extends CustomPainter {
       ..strokeWidth = weight
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round;
+    final solid = fill == null ? null : (Paint()..color = fill!);
     for (final s in icon.shapes) {
       switch (s.kind) {
         case 0:
-          canvas.drawPath(_paths.putIfAbsent(s.d!, () => parseSvgPath(s.d!)), paint);
+          final p = _paths.putIfAbsent(s.d!, () => parseSvgPath(s.d!));
+          if (solid != null) canvas.drawPath(p, solid);
+          canvas.drawPath(p, paint);
         case 1:
+          if (solid != null) canvas.drawCircle(Offset(s.x, s.y), s.r, solid);
           canvas.drawCircle(Offset(s.x, s.y), s.r, paint);
         default:
-          canvas.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(s.x, s.y, s.w, s.h), Radius.circular(s.r)), paint);
+          final r = RRect.fromRectAndRadius(Rect.fromLTWH(s.x, s.y, s.w, s.h), Radius.circular(s.r));
+          if (solid != null) canvas.drawRRect(r, solid);
+          canvas.drawRRect(r, paint);
       }
     }
     canvas.restore();
   }
 
   @override
-  bool shouldRepaint(_IconPainter old) => old.icon != icon || old.color != color || old.weight != weight;
+  bool shouldRepaint(_IconPainter old) => old.icon != icon || old.color != color || old.weight != weight || old.fill != fill;
 }
 
 /// Parses the SVG path data the icons use: M L H V C S Q T A Z, absolute and relative.

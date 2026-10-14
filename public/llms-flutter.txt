@@ -17,6 +17,43 @@
 
 ## Widgets
 
+### Accordion (`accordion`)
+Collapsible sections with a smooth height animation. Single or multiple open.
+- Add: `npx github:RandomKid24/befui add accordion --flutter`
+- Import: `import 'befui/accordion.dart';` (classes: BefAccordionItem, BefAccordion)
+- Also copies: core.dart, icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/accordion.dart';
+
+Widget example(BuildContext context) {
+  return const BefAccordion(
+    initiallyOpen: ['a'],
+    items: [
+      BefAccordionItem(
+        id: 'a',
+        title: 'How are leave balances calculated?',
+        content: Text('Accrual runs on the first of every month, pro-rated for new joiners.'),
+      ),
+      BefAccordionItem(
+        id: 'b',
+        title: 'Can managers delegate approvals?',
+        content: Text('Yes. Set a delegate for any date range from the approvals page.'),
+      ),
+      BefAccordionItem(
+        id: 'c',
+        title: 'Where is payroll data stored?',
+        content: Text('Encrypted at rest, in the region you pick at signup.'),
+      ),
+    ],
+  );
+}
+```
+
 ### Alert (`alert`)
 Inline message in info, success, warning and danger.
 - Add: `npx github:RandomKid24/befui add alert --flutter`
@@ -215,6 +252,66 @@ Widget example(BuildContext context) {
 }
 ```
 
+### Bottom navigation (`bottom-nav`)
+Mobile tab bar with icons, labels, an active pill and count badges.
+- Add: `npx github:RandomKid24/befui add bottom-nav --flutter`
+- Import: `import 'befui/bottom_nav.dart';` (classes: BefNavItem, BefBottomNav)
+- Also copies: core.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/bottom_nav.dart';
+import 'befui/icons.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) {
+  return StatefulBuilder(
+    builder: (context, set) {
+      final c = context.bef;
+      return Center(
+        child: Container(
+          width: 288,
+          height: 256,
+          clipBehavior: Clip.antiAlias,
+          decoration: BoxDecoration(
+            color: c.background,
+            borderRadius: BorderRadius.circular(28),
+            border: Border.all(color: c.foreground.withValues(alpha: 0.8), width: 4),
+          ),
+          child: Column(
+            children: [
+              Expanded(
+                child: Center(
+                  child: Text(
+                    _tab[0].toUpperCase() + _tab.substring(1),
+                    style: BefText.style(context, weight: FontWeight.w500, color: c.mutedForeground),
+                  ),
+                ),
+              ),
+              BefBottomNav(
+                value: _tab,
+                onChanged: (v) => set(() => _tab = v),
+                items: const [
+                  BefNavItem(id: 'home', label: 'Home', icon: BefIcon(BefIcons.home)),
+                  BefNavItem(id: 'search', label: 'Search', icon: BefIcon(BefIcons.search)),
+                  BefNavItem(id: 'alerts', label: 'Alerts', icon: BefIcon(BefIcons.bell), badge: 3),
+                  BefNavItem(id: 'profile', label: 'Profile', icon: BefIcon(BefIcons.user)),
+                ],
+              ),
+            ],
+          ),
+        ),
+      );
+    },
+  );
+}
+
+String _tab = 'home';
+```
+
 ### Button (`button`)
 Thirteen variants from plain to glow, shine and 3D press, pill shape, five sizes, loading state, and asChild for links.
 - Add: `npx github:RandomKid24/befui add button --flutter`
@@ -270,6 +367,31 @@ Widget example(BuildContext context) {
           const BefButton(label: 'Disabled'),
         ],
       ),
+    ],
+  );
+}
+```
+
+### Button group (`button-group`)
+Buttons joined into one row or column with shared borders and rounded outer corners.
+- Add: `npx github:RandomKid24/befui add button-group --flutter`
+- Import: `import 'befui/button_group.dart';` (classes: BefButtonGroup)
+- Also copies: button.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/button.dart';
+import 'befui/button_group.dart';
+
+Widget example(BuildContext context) {
+  return BefButtonGroup(
+    children: [
+      BefButton(label: 'Day', variant: BefButtonVariant.outline, onPressed: () {}),
+      BefButton(label: 'Week', variant: BefButtonVariant.outline, onPressed: () {}),
+      BefButton(label: 'Month', variant: BefButtonVariant.outline, onPressed: () {}),
     ],
   );
 }
@@ -495,6 +617,80 @@ Widget example(BuildContext context) {
 List<String> _v = ['Engineering'];
 ```
 
+### Collapsible (`collapsible`)
+One section that opens with a smooth height animation.
+- Add: `npx github:RandomKid24/befui add collapsible --flutter`
+- Import: `import 'befui/collapsible.dart';` (classes: BefCollapsible)
+- Also copies: core.dart, icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/collapsible.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) {
+  final c = context.bef;
+  return Container(
+    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+    decoration: BoxDecoration(
+      color: c.card,
+      borderRadius: BorderRadius.circular(BefRadius.xl),
+      border: Border.all(color: c.border),
+    ),
+    child: const BefCollapsible(
+      title: 'Show advanced options',
+      initiallyOpen: true,
+      child: Text(
+        'Delegate approvals, set a carry-over cap and choose who is notified when a request is rejected.',
+      ),
+    ),
+  );
+}
+```
+
+### Description list (`description-list`)
+Label and value pairs for a details panel, in one to three columns, optionally with dividers.
+- Add: `npx github:RandomKid24/befui add description-list --flutter`
+- Import: `import 'befui/description_list.dart';` (classes: BefDescriptionItem, BefDescriptionList)
+- Also copies: theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/badge.dart';
+import 'befui/description_list.dart';
+
+Widget example(BuildContext context) {
+  return const BefDescriptionList(
+    bordered: true,
+    items: [
+      BefDescriptionItem(label: 'Customer', value: 'Northwind Traders'),
+      BefDescriptionItem(
+        label: 'Status',
+        value: Align(
+          alignment: Alignment.centerLeft,
+          child: BefBadge(label: 'Active', variant: BefBadgeVariant.success, dot: true),
+        ),
+      ),
+      BefDescriptionItem(label: 'Plan', value: 'Business, yearly'),
+      BefDescriptionItem(label: 'Renews on', value: '14 Jan 2027'),
+      BefDescriptionItem(label: 'Billing email', value: 'accounts@northwind.in'),
+      BefDescriptionItem(label: 'GSTIN', value: '29ABCDE1234F1Z5'),
+      BefDescriptionItem(
+        label: 'Notes',
+        value: 'Wants invoices sent to two people, reminder 7 days before renewal.',
+        wide: true,
+      ),
+    ],
+  );
+}
+```
+
 ### Empty state (`empty-state`)
 Dashed placeholder with icon, text and an action.
 - Add: `npx github:RandomKid24/befui add empty-state --flutter`
@@ -566,6 +762,62 @@ Widget example(BuildContext context) {
         ],
       ),
     ],
+  );
+}
+```
+
+### Floating action button (`fab`)
+Round primary action, extended with a label, or a speed dial that fans out actions.
+- Add: `npx github:RandomKid24/befui add fab --flutter`
+- Import: `import 'befui/fab.dart';` (classes: BefFabAction, BefFab)
+- Also copies: core.dart, icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/fab.dart';
+import 'befui/icons.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) {
+  final c = context.bef;
+  return Container(
+    height: 288,
+    clipBehavior: Clip.antiAlias,
+    decoration: BoxDecoration(
+      color: c.muted.withValues(alpha: 0.4),
+      borderRadius: BorderRadius.circular(BefRadius.xl),
+      border: Border.all(color: c.border),
+    ),
+    child: Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: Text(
+            'Tap the button for a speed dial. The second button is the extended form.',
+            style: BefText.style(context, size: 12, color: c.mutedForeground),
+          ),
+        ),
+        Positioned(
+          right: 16,
+          bottom: 16,
+          child: BefFab(
+            actions: [
+              BefFabAction(label: 'New employee', icon: const BefIcon(BefIcons.users), onPressed: () {}),
+              BefFabAction(label: 'New document', icon: const BefIcon(BefIcons.file), onPressed: () {}),
+              BefFabAction(label: 'Quick note', icon: const BefIcon(BefIcons.edit), onPressed: () {}),
+            ],
+          ),
+        ),
+        Positioned(
+          left: 16,
+          bottom: 16,
+          child: BefFab(label: 'Compose', icon: const BefIcon(BefIcons.plus), onPressed: () {}),
+        ),
+      ],
+    ),
   );
 }
 ```
@@ -683,6 +935,117 @@ Widget example(BuildContext context) {
 }
 ```
 
+### Number stepper (`number-stepper`)
+Number field with plus and minus buttons and arrow keys.
+- Add: `npx github:RandomKid24/befui add number-stepper --flutter`
+- Import: `import 'befui/number_stepper.dart';` (classes: BefNumberStepper)
+- Also copies: core.dart, icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/number_stepper.dart';
+
+Widget example(BuildContext context) {
+  return StatefulBuilder(
+    builder: (context, set) =>
+        BefNumberStepper(value: _v, min: 1, max: 10, onChanged: (v) => set(() => _v = v)),
+  );
+}
+
+int _v = 2;
+```
+
+### OTP input (`otp-input`)
+Code boxes with paste, backspace, arrow keys, autofill and a shake on error.
+- Add: `npx github:RandomKid24/befui add otp-input --flutter`
+- Import: `import 'befui/otp_input.dart';` (classes: BefOtpInput)
+- Also copies: theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/otp_input.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) {
+  return StatefulBuilder(
+    builder: (context, set) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          BefOtpInput(
+            value: _v,
+            invalid: _bad,
+            onChanged: (x) => set(() {
+              _v = x;
+              _bad = false;
+            }),
+            onComplete: (x) {
+              if (x != '123456') {
+                set(() => _bad = true);
+                Future.delayed(const Duration(milliseconds: 500), () => set(() => _v = ''));
+              }
+            },
+          ),
+          const SizedBox(height: 12),
+          Text(
+            'Try 123456, or paste any code.',
+            style: BefText.style(context, size: 12, color: context.bef.mutedForeground),
+          ),
+        ],
+      );
+    },
+  );
+}
+
+String _v = '';
+bool _bad = false;
+```
+
+### Pagination (`pagination`)
+Page buttons with ellipsis for long ranges.
+- Add: `npx github:RandomKid24/befui add pagination --flutter`
+- Import: `import 'befui/pagination.dart';` (classes: BefPagination)
+- Also copies: core.dart, icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/pagination.dart';
+
+Widget example(BuildContext context) {
+  return StatefulBuilder(
+    builder: (context, set) =>
+        BefPagination(page: _page, pageCount: 12, onPageChanged: (p) => set(() => _page = p)),
+  );
+}
+
+int _page = 5;
+```
+
+### Password input (`password-input`)
+Show and hide toggle with an optional strength meter.
+- Add: `npx github:RandomKid24/befui add password-input --flutter`
+- Import: `import 'befui/password_input.dart';` (classes: BefPasswordInput)
+- Also copies: core.dart, icons.dart, theme.dart, input.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/password_input.dart';
+
+Widget example(BuildContext context) => const BefPasswordInput(meter: true, placeholder: 'Choose a password');
+```
+
 ### Progress (`progress`)
 Thin progress bar with four tones.
 - Add: `npx github:RandomKid24/befui add progress --flutter`
@@ -791,6 +1154,60 @@ Widget example(BuildContext context) {
 }
 
 String _plan = 'growth';
+```
+
+### Rating (`rating`)
+Star rating with hover preview. Read-only when no handler is given.
+- Add: `npx github:RandomKid24/befui add rating --flutter`
+- Import: `import 'befui/rating.dart';` (classes: BefRating)
+- Also copies: core.dart, icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/rating.dart';
+
+Widget example(BuildContext context) {
+  return StatefulBuilder(
+    builder: (context, set) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          BefRating(value: _v, onChanged: (v) => set(() => _v = v)),
+          const SizedBox(height: 12),
+          const BefRating(value: 4, size: 16),
+        ],
+      );
+    },
+  );
+}
+
+int _v = 3;
+```
+
+### Search input (`search-input`)
+Search field with a clear button, Escape to clear and a slash shortcut to focus.
+- Add: `npx github:RandomKid24/befui add search-input --flutter`
+- Import: `import 'befui/search_input.dart';` (classes: BefSearchInput)
+- Also copies: core.dart, icons.dart, theme.dart, input.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/search_input.dart';
+
+Widget example(BuildContext context) {
+  return StatefulBuilder(
+    builder: (context, set) =>
+        BefSearchInput(value: _v, placeholder: 'Search people', onChanged: (v) => set(() => _v = v)),
+  );
+}
+
+String _v = '';
 ```
 
 ### Segmented control (`segmented`)
@@ -1087,6 +1504,61 @@ Widget example(BuildContext context) {
 }
 ```
 
+### Stepper (`stepper`)
+Horizontal steps for multi-step forms and onboarding.
+- Add: `npx github:RandomKid24/befui add stepper --flutter`
+- Import: `import 'befui/stepper.dart';` (classes: BefStep, BefStepper)
+- Also copies: icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/button.dart';
+import 'befui/stepper.dart';
+
+const _steps = [
+  BefStep(title: 'Details', description: 'Basics'),
+  BefStep(title: 'Role', description: 'Team & level'),
+  BefStep(title: 'Documents'),
+  BefStep(title: 'Review'),
+];
+
+Widget example(BuildContext context) {
+  return StatefulBuilder(
+    builder: (context, set) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          BefStepper(steps: _steps, current: _current),
+          const SizedBox(height: 24),
+          Row(
+            children: [
+              BefButton(
+                label: 'Back',
+                size: BefButtonSize.sm,
+                variant: BefButtonVariant.outline,
+                onPressed: _current == 0 ? null : () => set(() => _current--),
+              ),
+              const SizedBox(width: 8),
+              BefButton(
+                label: 'Next',
+                size: BefButtonSize.sm,
+                onPressed: _current == _steps.length ? null : () => set(() => _current++),
+              ),
+            ],
+          ),
+        ],
+      );
+    },
+  );
+}
+
+int _current = 1;
+```
+
 ### Switch (`switch`)
 On/off toggle for settings that apply immediately.
 - Add: `npx github:RandomKid24/befui add switch --flutter`
@@ -1119,4 +1591,241 @@ Widget example(BuildContext context) {
 }
 
 bool _a = true, _b = false;
+```
+
+### Table (`table`)
+Dense table parts with hover rows, a selected state, footer and caption.
+- Add: `npx github:RandomKid24/befui add table --flutter`
+- Import: `import 'befui/table.dart';` (classes: BefTableColumn, BefTable)
+- Also copies: theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/badge.dart';
+import 'befui/card.dart';
+import 'befui/progress.dart';
+import 'befui/table.dart';
+import 'befui/theme.dart';
+
+const _rows = [
+  ('INV-204', 'Northwind Traders', 'Aarav Mehta', '12 Oct', 100, 4200, 'Paid'),
+  ('INV-205', 'Globex Corp', 'Diya Rao', '18 Oct', 40, 1150, 'Due'),
+  ('INV-206', 'Initech', 'Rohan Das', '02 Oct', 0, 8900, 'Overdue'),
+  ('INV-207', 'Umbrella Labs', 'Isha Nair', '24 Oct', 100, 3275, 'Paid'),
+  ('INV-208', 'Stark Industries', 'Kabir Shah', '28 Oct', 65, 12400, 'Due'),
+];
+
+String _usd(int n) => '\$${n.toString().replaceAllMapped(RegExp(r'\B(?=(\d{3})+(?!\d))'), (_) => ',')}';
+
+Widget example(BuildContext context) {
+  final c = context.bef;
+  BefBadgeVariant tone(String s) => switch (s) {
+    'Paid' => BefBadgeVariant.success,
+    'Due' => BefBadgeVariant.warning,
+    _ => BefBadgeVariant.danger,
+  };
+  return ClipRRect(
+    borderRadius: BorderRadius.circular(BefRadius.xl),
+    child: BefCard(
+      child: BefTable(
+        columns: const [
+          BefTableColumn('Invoice'),
+          BefTableColumn('Client'),
+          BefTableColumn('Owner'),
+          BefTableColumn('Due'),
+          BefTableColumn('Collected', width: 128),
+          BefTableColumn('Amount', alignRight: true),
+          BefTableColumn('Status'),
+        ],
+        rows: [
+          for (final r in _rows)
+            [
+              Text(r.$1, style: BefText.style(context, size: 13, weight: FontWeight.w500, mono: true)),
+              r.$2,
+              r.$3,
+              Text(r.$4, style: BefText.style(context, size: 13, color: c.mutedForeground)),
+              BefProgress(
+                value: r.$5.toDouble(),
+                tone: r.$5 == 100 ? BefProgressTone.success : BefProgressTone.primary,
+              ),
+              _usd(r.$6),
+              BefBadge(label: r.$7, variant: tone(r.$7), dot: true),
+            ],
+        ],
+      ),
+    ),
+  );
+}
+```
+
+### Tabs (`tabs`)
+Underline or pill tabs on Radix Tabs.
+- Add: `npx github:RandomKid24/befui add tabs --flutter`
+- Import: `import 'befui/tabs.dart';` (classes: BefTab, BefTabs)
+- Also copies: core.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/tabs.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) {
+  final muted = BefText.style(context, size: 13, color: context.bef.mutedForeground);
+  Widget text(String t) => Text(t, style: muted);
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    children: [
+      BefTabs(
+        tabs: [
+          BefTab(label: 'Overview', child: text('Underline tabs, good for page sections.')),
+          BefTab(label: 'Leave', child: text('Leave balance and history.')),
+          BefTab(label: 'Documents', child: text('Contracts and ID proofs.')),
+        ],
+      ),
+      const SizedBox(height: 32),
+      BefTabs(
+        variant: BefTabsVariant.pill,
+        tabs: [
+          BefTab(label: 'Weekly', child: text('Pill tabs, good for toggling a view.')),
+          BefTab(label: 'Monthly', child: text('Monthly view.')),
+          BefTab(label: 'Yearly', child: text('Yearly view.')),
+        ],
+      ),
+    ],
+  );
+}
+```
+
+### Tag input (`tag-input`)
+Type and press Enter to add chips. Backspace removes the last.
+- Add: `npx github:RandomKid24/befui add tag-input --flutter`
+- Import: `import 'befui/tag_input.dart';` (classes: BefTagInput)
+- Also copies: core.dart, icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/tag_input.dart';
+
+Widget example(BuildContext context) {
+  return StatefulBuilder(
+    builder: (context, set) =>
+        BefTagInput(value: _v, placeholder: 'Add skills, press Enter', onChanged: (v) => set(() => _v = v)),
+  );
+}
+
+List<String> _v = ['Design', 'Remote'];
+```
+
+### Timeline (`timeline`)
+Vertical activity feed with tone-colored markers.
+- Add: `npx github:RandomKid24/befui add timeline --flutter`
+- Import: `import 'befui/timeline.dart';` (classes: BefTimelineItem, BefTimeline)
+- Also copies: theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/icons.dart';
+import 'befui/timeline.dart';
+
+Widget example(BuildContext context) {
+  return const BefTimeline(
+    items: [
+      BefTimelineItem(
+        title: 'Offer accepted',
+        description: 'Signed digitally by the candidate.',
+        time: '2h ago',
+        tone: BefTimelineTone.success,
+        icon: BefIcon(BefIcons.check),
+      ),
+      BefTimelineItem(
+        title: 'Documents uploaded',
+        time: 'Yesterday',
+        tone: BefTimelineTone.info,
+        icon: BefIcon(BefIcons.file),
+      ),
+      BefTimelineItem(
+        title: 'Background check failed',
+        description: 'Address could not be verified.',
+        time: 'Mon',
+        tone: BefTimelineTone.danger,
+        icon: BefIcon(BefIcons.x),
+      ),
+      BefTimelineItem(title: 'Application received', time: 'Last week', icon: BefIcon(BefIcons.userPlus)),
+    ],
+  );
+}
+```
+
+### Toggle (`toggle`)
+Two-state button for favourite, bold or mute. Announces its state to screen readers.
+- Add: `npx github:RandomKid24/befui add toggle --flutter`
+- Import: `import 'befui/toggle.dart';` (classes: BefToggle)
+- Also copies: core.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/icons.dart';
+import 'befui/theme.dart';
+import 'befui/toggle.dart';
+
+Widget example(BuildContext context) {
+  return StatefulBuilder(
+    builder: (context, set) {
+      final c = context.bef;
+      return Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          BefToggle(
+            pressed: _a,
+            onChanged: (v) => set(() => _a = v),
+            size: BefToggleSize.icon,
+            semanticLabel: 'Favourite',
+            child: BefIcon(BefIcons.heart, fill: _a ? c.accentForeground : null),
+          ),
+          const SizedBox(width: 8),
+          BefToggle(
+            variant: BefToggleVariant.outline,
+            pressed: _b,
+            onChanged: (v) => set(() => _b = v),
+            size: BefToggleSize.icon,
+            semanticLabel: 'Star',
+            child: BefIcon(BefIcons.star, fill: _b ? c.accentForeground : null),
+          ),
+          const SizedBox(width: 8),
+          BefToggle(
+            variant: BefToggleVariant.outline,
+            pressed: _c,
+            onChanged: (v) => set(() => _c = v),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                BefIcon(BefIcons.bookmark, fill: _c ? c.accentForeground : null),
+                const SizedBox(width: 8),
+                const Text('Save'),
+              ],
+            ),
+          ),
+        ],
+      );
+    },
+  );
+}
+
+bool _a = true, _b = false, _c = false;
 ```
