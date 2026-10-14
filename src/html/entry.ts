@@ -89,6 +89,13 @@ function toReact(node: Node, host: Element): React.ReactNode {
   return React.createElement(registry.get(el.localName) ?? el.localName, { ...readProps(el, host), ...slots }, ...kids);
 }
 
+function wrapFns(v: unknown, host: Element): unknown {
+  if (typeof v === 'function') return (...a: unknown[]) => { const r = v(...a); return typeof r === 'string' && HTML.test(r) ? htmlNode(r, host) : r; };
+  if (Array.isArray(v)) return v.map((x) => wrapFns(x, host));
+  if (v && Object.getPrototypeOf(v) === Object.prototype) return Object.fromEntries(Object.entries(v).map(([k, x]) => [k, wrapFns(x, host)]));
+  return v;
+}
+
 const insideBef = (el: Element) => {
   for (let p = el.parentElement; p; p = p.parentElement) if (p.localName.startsWith('bef-')) return true;
   return false;
@@ -102,7 +109,8 @@ class BefElement extends HTMLElement {
   private watcher = new MutationObserver(() => this.render());
 
   // Non-JSON props (functions, JSX): el.props = { columns: [...], onRowClick: fn }
-  set props(v: Record<string, unknown>) { this.extra = v; if (this.root) this.render(); }
+  // Functions that return an HTML string (render, renderCard, bulkActions...) get that string turned into content, like :json props.
+  set props(v: Record<string, unknown>) { this.extra = wrapFns(v, this) as Record<string, unknown>; if (this.root) this.render(); }
 
   connectedCallback() {
     if (insideBef(this)) return;

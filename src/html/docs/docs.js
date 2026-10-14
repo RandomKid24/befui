@@ -95,7 +95,10 @@ function component(c) {
         document.head.append(Object.assign(document.createElement('link'), { rel: 'stylesheet', href: 'previews/previews.css' }));
         previews = import('./previews/previews.js');
       }
-      const unmount = await (await previews).mount(c.slug, stage);
+      const host = document.createElement('div'); // React gets its own node, so unmounting it later never clears what the HTML view puts in the stage
+      host.style.display = 'contents';
+      stage.append(host);
+      const unmount = await (await previews).mount(c.slug, host);
       if (my === token) cleanup = unmount; else unmount();
     } catch (e) { stage.innerHTML = '<span class="note">Could not load the React preview. Showing the HTML one instead.</span>'; view = 'html'; }
   };
@@ -172,4 +175,21 @@ window.__check = async (slugs, v = 'html') => {
   }
   console.error = ce; removeEventListener('error', note);
   return bad;
+};
+
+// Dev check: __compare() renders each example both ways and lists the ones whose text or height differ a lot.
+window.__compare = async (slugs) => {
+  const out = [];
+  const grab = async (s, v, wait) => {
+    view = v; location.hash = '#/' + s; await new Promise((r) => setTimeout(r, wait));
+    const st = $('#stage');
+    return { words: new Set(st.innerText.toLowerCase().split(/\W+/).filter((w) => w.length > 2)), h: st.getBoundingClientRect().height };
+  };
+  for (const s of slugs || Object.keys(data.demo)) {
+    const r = await grab(s, 'react', 900), h = await grab(s, 'html', 450);
+    const inter = [...r.words].filter((w) => h.words.has(w)).length, union = new Set([...r.words, ...h.words]).size || 1;
+    const jac = inter / union, ratio = h.h / (r.h || 1);
+    if (jac < 0.6 || ratio > 1.5 || ratio < 0.67) out.push(`${s} words=${jac.toFixed(2)} react=${r.words.size} html=${h.words.size} height=${Math.round(r.h)}/${Math.round(h.h)}`);
+  }
+  return out;
 };

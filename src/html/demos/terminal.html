@@ -1,1 +1,4 @@
-<bef-terminal class="w-full max-w-xl" title="bash" :lines='[{"text":"npm install befui","kind":"input"},"added 1 package in 2s",{"text":"Done","kind":"success"}]'></bef-terminal>
+<div style="display:grid;width:100%;max-width:36rem;justify-items:center;gap:12px">
+  <bef-terminal id="term" animate title="~/projects/hrms" :lines='["npx github:RandomKid24/befui init",{"text":"Wrote src/index.css and src/lib/utils.ts","kind":"muted"},"npx github:RandomKid24/befui add data-table kanban",{"text":"Installed 2 components and 1 dependency","kind":"output"},{"text":"Done in 2.1s","kind":"success"}]' style="width:100%"></bef-terminal>
+  <bef-button size="xs" variant="outline" onclick="const t = document.getElementById('term'); t.setAttribute('animate', ''); t.replaceWith(t.cloneNode(true))">Replay</bef-button>
+</div>

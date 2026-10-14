@@ -385,7 +385,7 @@ Nested comments with inline reply boxes, three levels deep.
 ## Image compare (compare)
 Before and after slider. Drag or use arrow keys.
 ```html
-<div style="width:420px;max-width:100%"><bef-compare before="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='240'%3E%3Crect width='420' height='240' fill='%23cbd5e1'/%3E%3Ctext x='20' y='130' font-size='28' fill='%23475569'%3EBefore%3C/text%3E%3C/svg%3E" after="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='240'%3E%3Crect width='420' height='240' fill='%232563eb'/%3E%3Ctext x='250' y='130' font-size='28' fill='white'%3EAfter%3C/text%3E%3C/svg%3E"></bef-compare></div>
+<div style="width:32rem;max-width:100%"><bef-compare before="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='240'%3E%3Crect width='420' height='240' fill='%23cbd5e1'/%3E%3Ctext x='20' y='130' font-size='28' fill='%23475569'%3EBefore%3C/text%3E%3C/svg%3E" after="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='240'%3E%3Crect width='420' height='240' fill='%232563eb'/%3E%3Ctext x='250' y='130' font-size='28' fill='white'%3EAfter%3C/text%3E%3C/svg%3E"></bef-compare></div>
 ```
 
 ## Comparison table (comparison-table)
@@ -462,18 +462,28 @@ Money field that groups digits as you type (1,25,000) and hands you a plain numb
 ## Data table (data-table)
 Sortable columns, a search box and pagination, with optional row selection and bulk actions, column visibility menu, sticky header, toolbar slot, row action menus and clickable rows. You pass rows and column definitions.
 ```html
-<bef-data-table id="dt" class="w-full" selectable column-menu :page-size="4"></bef-data-table>
+<bef-data-table id="dt" class="w-full" selectable column-menu :page-size="6" filter-placeholder="Filter people"></bef-data-table>
 <script>
-  const rows = [
-    { id: '1', name: 'Aarav Mehta', team: 'Engineering', salary: 1850000 }, { id: '2', name: 'Diya Rao', team: 'Design', salary: 1420000 },
-    { id: '3', name: 'Rohan Das', team: 'Sales', salary: 960000 }, { id: '4', name: 'Isha Nair', team: 'People Ops', salary: 1100000 },
-    { id: '5', name: 'Kabir Shah', team: 'Engineering', salary: 2250000 }, { id: '6', name: 'Meera Iyer', team: 'Finance', salary: 1380000 }];
+  const people = [
+    ['Aarav Mehta', 'Engineering', 'Pune', '2021-03-15', 1850000, 'Active'], ['Diya Rao', 'Design', 'Bengaluru', '2022-07-01', 1420000, 'On leave'],
+    ['Rohan Das', 'Sales', 'Mumbai', '2023-01-09', 960000, 'Active'], ['Isha Nair', 'People Ops', 'Kochi', '2020-11-23', 1100000, 'Active'],
+    ['Kabir Shah', 'Engineering', 'Ahmedabad', '2019-05-06', 2250000, 'Notice'], ['Meera Iyer', 'Finance', 'Chennai', '2022-02-14', 1380000, 'Active'],
+    ['Vikram Joshi', 'Sales', 'Nashik', '2023-08-21', 880000, 'Active'], ['Ananya Kulkarni', 'Engineering', 'Pune', '2024-01-08', 1620000, 'Active'],
+  ].map(([name, team, city, joined, salary, status], i) => ({ id: String(i + 1), name, email: name.toLowerCase().replace(' ', '.') + '@acme.in', team, city, joined, salary, status }));
+  const tone = { Active: 'success', 'On leave': 'warning', Notice: 'danger' };
+  const date = (d) => new Date(d).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
   document.getElementById('dt').props = {
-    rows, rowKey: (r) => r.id,
+    rows: people, rowKey: (p) => p.id,
+    // render functions can return HTML strings with bef-* tags
     columns: [
-      { key: 'name', header: 'Name', sortable: true, value: (r) => r.name },
-      { key: 'team', header: 'Team', sortable: true, value: (r) => r.team },
-      { key: 'salary', header: 'Salary', sortable: true, align: 'right', value: (r) => r.salary, render: (r) => '₹' + (r.salary / 100000).toFixed(1) + 'L' }],
+      { key: 'name', header: 'Name', sortable: true, value: (p) => p.name, render: (p) => `<span class="flex items-center gap-2 whitespace-nowrap"><bef-avatar name="${p.name}" size="sm"></bef-avatar>${p.name}</span>` },
+      { key: 'email', header: 'Email', value: (p) => p.email, render: (p) => `<span class="text-muted-foreground">${p.email}</span>` },
+      { key: 'team', header: 'Team', sortable: true, value: (p) => p.team },
+      { key: 'joined', header: 'Joined', sortable: true, value: (p) => p.joined, render: (p) => `<span class="whitespace-nowrap text-muted-foreground">${date(p.joined)}</span>` },
+      { key: 'salary', header: 'Salary', sortable: true, align: 'right', value: (p) => p.salary, render: (p) => '₹' + (p.salary / 100000).toFixed(1) + 'L' },
+      { key: 'status', header: 'Status', value: (p) => p.status, render: (p) => `<bef-badge variant="${tone[p.status]}" dot>${p.status}</bef-badge>` },
+    ],
+    bulkActions: (rows, clear) => `<bef-button size="xs" variant="outline">Export ${rows.length}</bef-button><bef-button size="xs" variant="ghost">Clear</bef-button>`,
   };
 </script>
 ```
@@ -613,13 +623,22 @@ Round primary action, extended with a label, or a speed dial that fans out actio
 ## File manager (file-manager)
 Folder browser with breadcrumb, list and grid views, selection and double-click or Enter to open.
 ```html
-<bef-file-manager id="fm" class="w-full max-w-2xl"></bef-file-manager>
+<bef-file-manager id="fm" class="max-w-xl"></bef-file-manager>
 <script>
+  const tree = {
+    '': [{ id: 'hr', name: 'HR', type: 'folder', modified: '07 Oct' }, { id: 'fin', name: 'Finance', type: 'folder', modified: '05 Oct' }, { id: 'brand', name: 'Brand assets', type: 'folder', modified: '28 Sep' }, { id: 'readme', name: 'Welcome.pdf', type: 'file', size: 482000, modified: '01 Sep' }],
+    hr: [{ id: 'policy', name: 'Leave policy 2026.pdf', type: 'file', size: 910000, modified: '06 Oct' }, { id: 'offer', name: 'Offer letter template.docx', type: 'file', size: 64000, modified: '02 Oct' }, { id: 'org', name: 'Org chart.png', type: 'image', size: 1840000, modified: '30 Sep' }],
+    fin: [{ id: 'p', name: 'Payroll September.xlsx', type: 'file', size: 233000, modified: '05 Oct' }, { id: 'inv', name: 'Invoices', type: 'folder', modified: '03 Oct' }],
+    brand: [{ id: 'logo', name: 'Logo.png', type: 'image', size: 54000, modified: '12 Sep' }, { id: 'guide', name: 'Brand guide.pdf', type: 'file', size: 5200000, modified: '12 Sep' }],
+    inv: [{ id: 'i1', name: 'INV-204.pdf', type: 'file', size: 88000, modified: '03 Oct' }],
+  };
   const fm = document.getElementById('fm');
-  const all = { 0: [{ id: 'a', name: 'Contracts', type: 'folder', modified: '12 Oct' }, { id: 'b', name: 'logo.png', type: 'image', size: 48200, modified: '10 Oct' }, { id: 'c', name: 'handbook.pdf', type: 'file', size: 1480000, modified: '2 Oct' }],
-    1: [{ id: 'd', name: 'nda.pdf', type: 'file', size: 92000, modified: '1 Oct' }] };
-  let path = ['Files'];
-  const draw = () => fm.props = { path, items: all[path.length - 1] ?? [], onNavigate: (depth) => { path = path.slice(0, depth + 1); draw(); }, onOpen: (it) => { if (it.type === 'folder') { path = [...path, it.name]; draw(); } } };
+  let trail = [];
+  const draw = () => fm.props = {
+    path: ['Files', ...trail.map((t) => t.name)], items: tree[trail.length ? trail[trail.length - 1].id : ''] ?? [],
+    onNavigate: (d) => { trail = trail.slice(0, d); draw(); },
+    onOpen: (it) => { if (it.type === 'folder') { trail = [...trail, { id: it.id, name: it.name }]; draw(); } },
+  };
   draw();
 </script>
 ```
@@ -714,15 +733,22 @@ Thumbnail grid with remove buttons, a cover label and a drop tile. Limits count,
 ## Image viewer (image-viewer)
 Lightbox with arrows, click to zoom and keyboard control.
 ```html
-<div id="iv-row" style="display:flex;gap:8px"></div>
+<div style="display:grid;grid-template-columns:repeat(4,6rem);gap:8px" id="iv-row"></div>
 <bef-image-viewer id="iv"></bef-image-viewer>
 <script>
-  const svg = (c, t) => 'data:image/svg+xml,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400"><rect width="640" height="400" fill="${c}"/><text x="320" y="215" font-size="48" fill="white" text-anchor="middle" font-family="sans-serif">${t}</text></svg>`);
-  const images = [{ src: svg('#2563eb', 'One'), alt: 'One' }, { src: svg('#059669', 'Two'), alt: 'Two' }, { src: svg('#d97706', 'Three'), alt: 'Three' }];
+  const art = (bg, fg, label) => 'data:image/svg+xml;utf8,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect width="1200" height="800" fill="${bg}"/><circle cx="820" cy="300" r="190" fill="${fg}" opacity=".85"/><rect x="180" y="420" width="520" height="220" rx="24" fill="${fg}" opacity=".55"/><text x="60" y="110" font-family="sans-serif" font-size="56" fill="${fg}">${label}</text></svg>`);
+  const images = [
+    { src: art('#e0e7ff', '#4338ca', 'Office floor plan'), alt: 'Office floor plan' }, { src: art('#fce7f3', '#be185d', 'Brand moodboard'), alt: 'Brand moodboard' },
+    { src: art('#dcfce7', '#15803d', 'Event photos'), alt: 'Event photos' }, { src: art('#fef3c7', '#b45309', 'Product shots'), alt: 'Product shots' }];
   const iv = document.getElementById('iv');
   const show = (index) => iv.props = { images, index, onIndexChange: show };
   show(null);
-  images.forEach((im, i) => { const b = document.createElement('button'); b.innerHTML = `<img src="${im.src}" alt="${im.alt}" style="width:96px;border-radius:8px">`; b.onclick = () => show(i); document.getElementById('iv-row').append(b); });
+  images.forEach((im, i) => {
+    const b = document.createElement('button'); b.type = 'button';
+    b.style.cssText = 'aspect-ratio:1;width:6rem;overflow:hidden;border-radius:8px;border:1px solid var(--border);padding:0;cursor:pointer';
+    b.innerHTML = `<img src="${im.src}" alt="${im.alt}" style="width:100%;height:100%;object-fit:cover">`;
+    b.onclick = () => show(i); document.getElementById('iv-row').append(b);
+  });
 </script>
 ```
 
@@ -768,10 +794,23 @@ Columns of draggable cards. Drag with the mouse or move a focused card with Alt 
 ```html
 <bef-kanban id="kb" class="w-full"></bef-kanban>
 <script>
-  const cols = [{ id: 'todo', title: 'To do' }, { id: 'doing', title: 'In progress', tone: 'info' }, { id: 'done', title: 'Done', tone: 'success' }];
-  const board = { todo: [{ id: 'a', t: 'Write offer letter' }, { id: 'b', t: 'Book interviews' }], doing: [{ id: 'c', t: 'Payroll run' }], done: [{ id: 'd', t: 'Audit' }] };
+  const columns = [{ id: 'todo', title: 'To do', tone: 'default' }, { id: 'doing', title: 'In progress', tone: 'info' }, { id: 'review', title: 'In review', tone: 'warning' }, { id: 'done', title: 'Done', tone: 'success' }];
+  const tagTone = { Bug: 'danger', Feature: 'info', Chore: 'default', Design: 'warning' };
+  const board = {
+    todo: [{ id: 't1', title: 'Onboarding checklist for new hires', tag: 'Feature', owner: 'Isha Nair', due: '14 Oct' }, { id: 't2', title: 'Fix payslip PDF margins', tag: 'Bug', owner: 'Rohan Das', due: '12 Oct' }, { id: 't3', title: 'Archive 2023 attendance logs', tag: 'Chore', owner: 'Meera Iyer', due: '30 Oct' }],
+    doing: [{ id: 't4', title: 'Leave balance widget', tag: 'Feature', owner: 'Aarav Mehta', due: '16 Oct' }, { id: 't5', title: 'Refresh login screen', tag: 'Design', owner: 'Diya Rao', due: '15 Oct' }],
+    review: [{ id: 't6', title: 'Holiday calendar import', tag: 'Feature', owner: 'Kabir Shah', due: '11 Oct' }],
+    done: [{ id: 't7', title: 'Dark mode for dashboards', tag: 'Design', owner: 'Diya Rao', due: '03 Oct' }, { id: 't8', title: 'Duplicate employee IDs', tag: 'Bug', owner: 'Vikram Joshi', due: '05 Oct' }],
+  };
   const kb = document.getElementById('kb');
-  const draw = (value) => kb.props = { columns: cols, value, onChange: draw, renderCard: (i) => i.t };
+  // renderCard can return an HTML string: bef-* tags become the real components
+  const renderCard = (t) => `<div class="grid gap-2">
+    <p class="font-medium leading-snug">${t.title}</p>
+    <div class="flex items-center justify-between gap-2">
+      <bef-badge variant="${tagTone[t.tag]}">${t.tag}</bef-badge>
+      <span class="flex items-center gap-1.5 text-xs text-muted-foreground">${t.due}<bef-avatar name="${t.owner}" size="xs"></bef-avatar></span>
+    </div></div>`;
+  const draw = (value) => kb.props = { columns, value, onChange: draw, renderCard };
   draw(board);
 </script>
 ```
@@ -912,10 +951,10 @@ Desktop top-bar menu whose items open mega-menu panels, with keyboard and focus 
 ## Notification center (notification-center)
 Bell with an unread count and a popover list. Click marks read, Mark all read clears it.
 ```html
-<bef-notification-center emit="change" class="w-full max-w-md" :notices='[
-  {"id":"1","title":"Leave approved","body":"Your leave for 20 Oct is approved.","time":"2m ago"},
-  {"id":"2","title":"Payslip ready","time":"1h ago"},
-  {"id":"3","title":"New comment","body":"Diya replied to you.","time":"Yesterday","read":true}]'></bef-notification-center>
+<bef-notification-center emit="change" :notices='[
+  {"id":"1","title":"Priya requested 2 days leave","body":"Nov 4 to Nov 5, needs your approval","time":"2m"},
+  {"id":"2","title":"Payroll for October is ready","body":"Review and release before the 28th","time":"1h"},
+  {"id":"3","title":"New hire: Arjun joins Monday","time":"3h","read":true}]'></bef-notification-center>
 ```
 
 ## Notification preferences (notification-preferences)
@@ -1003,7 +1042,7 @@ Causes sorted by size as bars plus a running-total line with an 80% mark. Shows 
 ## Password input (password-input)
 Show and hide toggle with an optional strength meter.
 ```html
-<bef-password-input meter placeholder="Choose a password" style="width:320px"></bef-password-input>
+<bef-password-input meter placeholder="Choose a password" style="width:18rem"></bef-password-input>
 ```
 
 ## Permission matrix (permission-matrix)
@@ -1074,7 +1113,12 @@ Circular progress with an eased stroke animation.
 ## Progress (progress)
 Thin progress bar with four tones.
 ```html
-<div style="width:320px;display:grid;gap:12px"><bef-progress :value="40" aria-label="Upload"></bef-progress><bef-progress :value="75" tone="success" aria-label="Done"></bef-progress><bef-progress :value="90" tone="danger" aria-label="Disk"></bef-progress></div>
+<div style="display:grid;width:20rem;max-width:100%;gap:16px">
+  <bef-progress :value="64" aria-label="Upload progress"></bef-progress>
+  <bef-progress :value="88" tone="success" aria-label="Tasks completed"></bef-progress>
+  <bef-progress :value="42" tone="warning" aria-label="Storage used"></bef-progress>
+  <bef-progress :value="15" tone="danger" aria-label="Battery left"></bef-progress>
+</div>
 ```
 
 ## Pull to refresh (pull-to-refresh)
@@ -1123,8 +1167,10 @@ Review summary: big average, stars and a bar per star level. Rows can act as fil
 ## Rating (rating)
 Star rating with hover preview. Read-only when no handler is given.
 ```html
-<bef-rating emit="value-change" :value="3"></bef-rating>
-<bef-rating :value="4"></bef-rating>
+<div style="display:grid;justify-items:center;gap:12px">
+  <bef-rating emit="value-change" :value="3"></bef-rating>
+  <bef-rating :value="4" class="[&_svg]:size-4"></bef-rating>
+</div>
 ```
 
 ## Relative time (relative-time)
@@ -1293,7 +1339,10 @@ Draw-your-signature canvas for mouse, touch and pen. Sharp on retina screens, ex
 ## Skeleton (skeleton)
 Shimmering placeholder for content that is loading.
 ```html
-<div style="width:280px;display:grid;gap:10px"><bef-skeleton style="height:20px;width:60%"></bef-skeleton><bef-skeleton style="height:14px"></bef-skeleton><bef-skeleton style="height:14px;width:80%"></bef-skeleton></div>
+<div style="display:flex;align-items:center;gap:12px">
+  <bef-skeleton class="size-10 rounded-full"></bef-skeleton>
+  <div style="display:grid;gap:8px"><bef-skeleton class="h-3 w-40"></bef-skeleton><bef-skeleton class="h-3 w-24"></bef-skeleton></div>
+</div>
 ```
 
 ## Slider (slider)
@@ -1311,18 +1360,30 @@ One line per item between two moments. Steep means big change, crossing means sw
 ## Sortable list (sortable-list)
 Reorder rows by dragging, or with arrow keys on the grip. Controlled, no drag library.
 ```html
-<bef-sortable-list id="sl2" style="width:300px"></bef-sortable-list>
+<div class="grid w-full max-w-md gap-2" style="width:100%;max-width:28rem;display:grid;gap:8px">
+  <bef-sortable-list id="sl2"></bef-sortable-list>
+  <p style="padding:0 4px;font-size:12px;color:var(--muted-foreground);margin:0">Drag a row, or Tab to a grip and press the up and down arrows.</p>
+</div>
 <script>
   const sl2 = document.getElementById('sl2');
-  const draw = (items) => sl2.props = { items, onChange: draw, renderItem: (i) => i.name };
-  draw([{ id: '1', name: 'Design review' }, { id: '2', name: 'Sprint planning' }, { id: '3', name: 'Retro' }]);
+  const draw = (items) => sl2.props = {
+    items, onChange: draw,
+    renderItem: (s, i) => `<div class="flex items-center gap-2"><span class="w-4 text-xs tabular-nums text-muted-foreground">${i + 1}</span>
+      <div class="min-w-0 flex-1"><p class="truncate font-medium">${s.title}</p><p class="text-xs text-muted-foreground">${s.owner}</p></div><bef-badge>${s.tag}</bef-badge></div>`,
+  };
+  draw([
+    { id: 'a', title: 'Collect documents', owner: 'Isha Nair', tag: 'HR' }, { id: 'b', title: 'Create email and accounts', owner: 'Rohan Das', tag: 'IT' },
+    { id: 'c', title: 'Assign a buddy', owner: 'Aarav Mehta', tag: 'Team' }, { id: 'd', title: 'Schedule day-one orientation', owner: 'Meera Iyer', tag: 'HR' },
+    { id: 'e', title: 'Order laptop', owner: 'Vikram Joshi', tag: 'IT' }]);
 </script>
 ```
 
 ## Spinner (spinner)
 Tiny CSS spinner that inherits text color.
 ```html
-<bef-spinner></bef-spinner>
+<div style="display:flex;align-items:center;gap:20px;color:var(--primary)">
+  <bef-spinner class="size-3"></bef-spinner><bef-spinner></bef-spinner><bef-spinner class="size-6 border-[3px]"></bef-spinner>
+</div>
 ```
 
 ## Split pane (split-pane)
@@ -1441,7 +1502,10 @@ Create, rename, recolor and delete labels, with usage counts.
 ## Terminal (terminal)
 Dark terminal window with prompt lines and output. Optional typing animation.
 ```html
-<bef-terminal class="w-full max-w-xl" title="bash" :lines='[{"text":"npm install befui","kind":"input"},"added 1 package in 2s",{"text":"Done","kind":"success"}]'></bef-terminal>
+<div style="display:grid;width:100%;max-width:36rem;justify-items:center;gap:12px">
+  <bef-terminal id="term" animate title="~/projects/hrms" :lines='["npx github:RandomKid24/befui init",{"text":"Wrote src/index.css and src/lib/utils.ts","kind":"muted"},"npx github:RandomKid24/befui add data-table kanban",{"text":"Installed 2 components and 1 dependency","kind":"output"},{"text":"Done in 2.1s","kind":"success"}]' style="width:100%"></bef-terminal>
+  <bef-button size="xs" variant="outline" onclick="const t = document.getElementById('term'); t.setAttribute('animate', ''); t.replaceWith(t.cloneNode(true))">Replay</bef-button>
+</div>
 ```
 
 ## Testimonial card (testimonial-card)
@@ -1493,11 +1557,18 @@ Call toast.success() from anywhere. No provider needed.
 ## Toggle group (toggle-group)
 A row of toggles where one or several can be pressed, for formatting toolbars.
 ```html
-<bef-toggle-group type="single" default-value="left" variant="outline">
-  <bef-toggle-group-item value="left" aria-label="Left"><bef-align-left-icon></bef-align-left-icon></bef-toggle-group-item>
-  <bef-toggle-group-item value="center" aria-label="Center"><bef-align-center-icon></bef-align-center-icon></bef-toggle-group-item>
-  <bef-toggle-group-item value="right" aria-label="Right"><bef-align-right-icon></bef-align-right-icon></bef-toggle-group-item>
-</bef-toggle-group>
+<div style="display:flex;flex-wrap:wrap;align-items:center;gap:24px">
+  <bef-toggle-group type="multiple" variant="outline" size="icon" :default-value='["bold"]' aria-label="Text formatting">
+    <bef-toggle-group-item value="bold" aria-label="Bold"><bef-bold-icon></bef-bold-icon></bef-toggle-group-item>
+    <bef-toggle-group-item value="italic" aria-label="Italic"><bef-italic-icon></bef-italic-icon></bef-toggle-group-item>
+    <bef-toggle-group-item value="underline" aria-label="Underline"><bef-underline-icon></bef-underline-icon></bef-toggle-group-item>
+  </bef-toggle-group>
+  <bef-toggle-group type="single" size="icon" default-value="left" aria-label="Alignment">
+    <bef-toggle-group-item value="left" aria-label="Align left"><bef-align-left-icon></bef-align-left-icon></bef-toggle-group-item>
+    <bef-toggle-group-item value="center" aria-label="Align center"><bef-align-center-icon></bef-align-center-icon></bef-toggle-group-item>
+    <bef-toggle-group-item value="right" aria-label="Align right"><bef-align-right-icon></bef-align-right-icon></bef-toggle-group-item>
+  </bef-toggle-group>
+</div>
 ```
 
 ## Toggle (toggle)
@@ -1528,11 +1599,22 @@ Spotlight a part of the page and step through it with a card, for product walkth
 ## Tree table (tree-table)
 Table whose rows have child rows. Expand and collapse branches by click or arrow keys.
 ```html
-<bef-tree-table class="w-full max-w-2xl" default-expanded="all" id="tt"></bef-tree-table>
+<bef-tree-table id="tt" class="w-full" :default-expanded='["eng"]'></bef-tree-table>
 <script>
+  const lakh = (n) => '₹' + (n / 100000).toFixed(1) + 'L';
   document.getElementById('tt').props = {
-    columns: [{ key: 'name', header: 'Name' }, { key: 'size', header: 'Size', align: 'end' }],
-    rows: [{ id: '1', name: 'src', size: '—', children: [{ id: '2', name: 'index.ts', size: '2 KB' }, { id: '3', name: 'app.tsx', size: '8 KB' }] }, { id: '4', name: 'package.json', size: '1 KB' }],
+    rows: [
+      { id: 'eng', name: 'Engineering', owner: 'Aarav Mehta', budget: 9000000, spent: 6400000, children: [
+        { id: 'eng-web', name: 'Web platform', owner: 'Ananya K.', budget: 4000000, spent: 3100000, children: [
+          { id: 'eng-web-fe', name: 'Frontend', owner: 'Ananya K.', budget: 2200000, spent: 1800000 }, { id: 'eng-web-be', name: 'Backend', owner: 'Kabir Shah', budget: 1800000, spent: 1300000 }] },
+        { id: 'eng-mobile', name: 'Mobile', owner: 'Rohan Das', budget: 3000000, spent: 2100000 }, { id: 'eng-infra', name: 'Infrastructure', owner: 'Kabir Shah', budget: 2000000, spent: 1200000 }] },
+      { id: 'sales', name: 'Sales', owner: 'Vikram Joshi', budget: 5000000, spent: 5300000, children: [
+        { id: 'sales-in', name: 'India', owner: 'Vikram Joshi', budget: 3000000, spent: 3400000 }, { id: 'sales-me', name: 'Middle East', owner: 'Isha Nair', budget: 2000000, spent: 1900000 }] },
+      { id: 'ops', name: 'People Ops', owner: 'Isha Nair', budget: 1500000, spent: 900000 }],
+    columns: [
+      { key: 'name', header: 'Department' }, { key: 'owner', header: 'Owner' },
+      { key: 'budget', header: 'Budget', align: 'end', render: (r) => lakh(r.budget) }, { key: 'spent', header: 'Spent', align: 'end', render: (r) => lakh(r.spent) },
+      { key: 'status', header: 'Status', render: (r) => r.spent > r.budget ? '<bef-badge variant="danger">Over</bef-badge>' : '<bef-badge variant="success">On track</bef-badge>' }],
   };
 </script>
 ```
@@ -1585,8 +1667,17 @@ Animated version history: the rail draws and dots pop as releases scroll in, ent
 ## Virtual list (virtual-list)
 Windowed list that renders only the visible rows. 100,000 items stay smooth.
 ```html
-<bef-virtual-list id="vl" style="width:320px;border:1px solid var(--border);border-radius:12px"></bef-virtual-list>
-<script>document.getElementById('vl').props = { items: Array.from({ length: 5000 }, (_, i) => 'Row ' + (i + 1)), rowHeight: 36, height: 280, renderRow: (t) => t };</script>
+<div style="width:100%;max-width:32rem">
+  <p style="margin:0 0 8px;font-size:12px;color:var(--muted-foreground)">100,000 rows, about 20 in the DOM at a time.</p>
+  <bef-virtual-list id="vl" :row-height="44" aria-label="Employees"></bef-virtual-list>
+</div>
+<script>
+  const depts = ['Design', 'Sales', 'Finance', 'Ops'];
+  document.getElementById('vl').props = {
+    items: Array.from({ length: 100000 }, (_, i) => ({ id: i + 1, name: 'Employee ' + (i + 1), dept: depts[i % 4] })), getKey: (r) => r.id,
+    renderRow: (r) => `<div class="flex h-full items-center justify-between border-b px-4 text-sm"><span><span class="me-3 tabular-nums text-muted-foreground">#${r.id}</span>${r.name}</span><span class="text-muted-foreground">${r.dept}</span></div>`,
+  };
+</script>
 ```
 
 ## Waffle chart (waffle-chart)
