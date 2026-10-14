@@ -1,1 +1,6 @@
-<bef-rose-chart :size="260" :data='[{"label":"N","value":30},{"label":"E","value":55},{"label":"S","value":20},{"label":"W","value":40}]'></bef-rose-chart>
+<bef-rose-chart :data='[{"label":"Jan","value":32,"color":"text-primary"},{"label":"Feb","value":28,"color":"text-success"},{"label":"Mar","value":41,"color":"text-info"},{"label":"Apr","value":55,"color":"text-primary"},{"label":"May","value":62,"color":"text-success"},{"label":"Jun","value":48,"color":"text-info"},{"label":"Jul","value":39,"color":"text-primary"},{"label":"Aug","value":44,"color":"text-success"},{"label":"Sep","value":70,"color":"text-info"},{"label":"Oct","value":83,"color":"text-primary"},{"label":"Nov","value":66,"color":"text-success"},{"label":"Dec","value":91,"color":"text-info"}]' id="g1"></bef-rose-chart>
+<script type="module">
+document.getElementById("g1").props = {
+  format: (n) => `₹${n}L`,
+};
+</script>

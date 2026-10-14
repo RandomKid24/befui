@@ -1,1 +1,6 @@
-<bef-matrix-heatmap class="w-full max-w-md" show-values :rows='["Mon","Tue","Wed"]' :cols='["9am","12pm","3pm","6pm"]' :values='[[2,5,8,3],[4,9,6,2],[1,3,7,5]]'></bef-matrix-heatmap>
+<bef-matrix-heatmap class="w-full max-w-xl" :rows='["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]' :cols='["6a","8a","10a","12p","2p","4p","6p","8p","10p"]' :values="[[33,40,35,16,11,10,26,34,41],[40,38,33,14,9,8,24,41,39],[38,36,31,21,7,15,22,39,37],[36,43,29,19,5,13,20,37,44],[34,41,27,17,12,11,27,35,42],[18,14,15,6,7,3,11,10,15],[16,12,13,4,5,10,9,17,13]]" show-values id="g1"></bef-matrix-heatmap>
+<script type="module">
+document.getElementById("g1").props = {
+  format: (n) => String(Math.max(0, n)),
+};
+</script>

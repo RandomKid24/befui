@@ -1,0 +1,9 @@
+<bef-schema-form id="sf" style="width:480px" submit-label="Create account"></bef-schema-form>
+<script>
+  document.getElementById('sf').props = {
+    onSubmit: (v) => alert(JSON.stringify(v)),
+    steps: [
+      { title: 'About you', fields: [{ name: 'name', label: 'Full name', required: true, half: true }, { name: 'email', label: 'Email', type: 'email', required: true, half: true }] },
+      { title: 'Team', fields: [{ name: 'size', label: 'Team size', type: 'select', options: [{ value: '1-10', label: '1-10' }, { value: '11-50', label: '11-50' }] }, { name: 'tos', label: 'I agree to the terms', type: 'checkbox' }] }],
+  };
+</script>

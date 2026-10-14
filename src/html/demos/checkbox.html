@@ -1,3 +1,18 @@
-<label style="display:flex;gap:8px;align-items:center;font-size:14px"><bef-checkbox id="c1" default-checked></bef-checkbox> Email me updates</label>
-<label style="display:flex;gap:8px;align-items:center;font-size:14px"><bef-checkbox id="c2"></bef-checkbox> Accept terms</label>
-<label style="display:flex;gap:8px;align-items:center;font-size:14px"><bef-checkbox disabled></bef-checkbox> Disabled</label>
+<div class="grid gap-3">
+  <div class="flex items-center gap-2.5">
+    <bef-checkbox id="all" checked="indeterminate" emit="checked-change"></bef-checkbox>
+    <bef-label for="all" class="font-semibold">Notify me by</bef-label>
+  </div>
+  <div class="ml-6 flex items-center gap-2.5">
+    <bef-checkbox id="email" checked emit="checked-change"></bef-checkbox>
+    <bef-label for="email" class="font-normal capitalize">email</bef-label>
+  </div>
+  <div class="ml-6 flex items-center gap-2.5">
+    <bef-checkbox id="sms" :checked="false" emit="checked-change"></bef-checkbox>
+    <bef-label for="sms" class="font-normal capitalize">sms</bef-label>
+  </div>
+  <div class="ml-6 flex items-center gap-2.5">
+    <bef-checkbox id="push" :checked="false" emit="checked-change"></bef-checkbox>
+    <bef-label for="push" class="font-normal capitalize">push</bef-label>
+  </div>
+</div>

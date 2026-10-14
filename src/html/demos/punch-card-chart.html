@@ -1,1 +1,6 @@
-<bef-punch-card-chart class="w-full max-w-xl" :rows='["Mon","Tue","Wed"]' :cols='["9","12","15","18"]' :values='[[3,8,5,2],[6,9,4,1],[2,5,9,7]]'></bef-punch-card-chart>
+<bef-punch-card-chart class="w-[34rem] max-w-full" :rows='["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]' :cols='["6a","8a","10a","12p","2p","4p","6p","8p","10p"]' :values="[[28,35,23,13,1,8,18,28,35],[33,33,28,11,0,6,16,33,33],[31,31,26,9,4,4,21,31,31],[29,36,24,14,2,2,19,29,36],[34,34,22,12,0,7,17,34,34],[8,6,8,1,3,1,1,8,5],[6,11,6,0,1,0,6,6,10]]" id="g1"></bef-punch-card-chart>
+<script type="module">
+document.getElementById("g1").props = {
+  format: (n) => `${n} commits`,
+};
+</script>

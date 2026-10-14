@@ -1,7 +1,1 @@
-<bef-chat id="chat" me="Aarav" style="width:360px;height:380px" placeholder="Write a message"></bef-chat>
-<script>
-  const chat = document.getElementById('chat');
-  const msgs = [{ id: '1', from: 'Diya', text: 'Did the offer go out?', at: new Date() }];
-  const draw = () => chat.props = { messages: msgs, onSend: (text) => { msgs.push({ id: String(msgs.length + 1), from: 'Aarav', text, at: new Date() }); draw(); } };
-  draw();
-</script>
+<bef-chat me="You" :messages='[{"id":"1","from":"Diya Rao","text":"Hey! Did the offer letter go out to Kabir?","at":1791973692513},{"id":"2","from":"Diya Rao","text":"He is asking about the joining date.","at":1791973752513},{"id":"3","from":"You","text":"Sent it this morning. Joining is 3 Nov.","at":1791973992513},{"id":"4","from":"Diya Rao","text":"Perfect, I will update the onboarding board.","at":1791974052513}]'></bef-chat>

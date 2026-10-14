@@ -1,1 +1,7 @@
-<bef-stepper class="w-full max-w-xl" :current="1" :steps='[{"title":"Account","description":"Create login"},{"title":"Team","description":"Invite people"},{"title":"Done"}]'></bef-stepper>
+<div class="grid w-full max-w-xl gap-6">
+  <bef-stepper :steps='[{"title":"Details","description":"Basics"},{"title":"Role","description":"Team & level"},{"title":"Documents"},{"title":"Review"}]' :current="1"></bef-stepper>
+  <div class="flex gap-2">
+    <bef-button size="sm" variant="outline" :disabled="false">Back</bef-button>
+    <bef-button size="sm" :disabled="false">Next</bef-button>
+  </div>
+</div>

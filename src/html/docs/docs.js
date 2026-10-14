@@ -90,7 +90,7 @@ function component(c) {
     stage.classList.toggle('pv', view === 'react');
     if (view === 'html') {
       stage.innerHTML = demo;
-      stage.querySelectorAll('script').forEach((old) => { const s = document.createElement('script'); s.textContent = '{\n' + old.textContent + '\n}'; /* block scope: demos can reuse names */ old.replaceWith(s); });
+      stage.querySelectorAll('script').forEach((old) => { const s = document.createElement('script'); if (old.type) s.type = old.type; s.textContent = old.type === 'module' ? old.textContent : '{\n' + old.textContent + '\n}'; /* module scripts have their own scope; classic ones get a block */ old.replaceWith(s); });
       return;
     }
     try {
@@ -192,4 +192,34 @@ window.__compare = async (slugs) => {
     if (jac < 0.6 || ratio > 1.5 || ratio < 0.67) out.push(`${s} words=${jac.toFixed(2)} react=${r.words.size} html=${h.words.size} height=${Math.round(r.h)}/${Math.round(h.h)}`);
   }
   return out;
+};
+
+// Dev check: __parity() renders each example as the React demo and as HTML, strips what is allowed to differ (tag wrappers, ids) and lists the pairs whose markup is not identical.
+window.__parity = async (slugs, detail = false) => {
+  const norm = (root) => {
+    const c = root.cloneNode(true);
+    c.querySelectorAll('script').forEach((n) => n.remove());
+    for (const el of [...c.querySelectorAll('*')].reverse()) if (el.localName.startsWith('bef-')) el.replaceWith(...el.childNodes);
+    for (const el of c.querySelectorAll('*')) for (const a of [...el.attributes]) if (/^(id|data-bef|for|aria-controls|aria-labelledby|aria-describedby)$/.test(a.name) || /^data-(radix|state)/.test(a.name) && false) el.removeAttribute(a.name);
+    return c.innerHTML.replace(/\s+/g, ' ').replace(/ ?(radix-[^" ]*)/g, '').replace(/> </g, '><').trim();
+  };
+  const settle = async (v) => {
+    await new Promise((r) => setTimeout(r, 250)); // the hash change renders the page asynchronously
+    const st = $('#stage');
+    for (let i = 0; i < 40; i++) {
+      await new Promise((r) => setTimeout(r, 100));
+      if (v === 'html' ? !st.querySelector('bef-button, bef-input') || ![...st.querySelectorAll('*')].some((e) => e.localName.startsWith('bef-') && !e.closest('[data-bef]')) : st.querySelector(':scope > div > *')) { await new Promise((r) => setTimeout(r, 300)); return st; }
+    }
+    return st;
+  };
+  const bad = {};
+  for (const s of slugs || Object.keys(data.demo)) {
+    const out = {};
+    for (const v of ['react', 'html']) { view = v; location.hash = '#/' + s; out[v] = norm(await settle(v)); }
+    if (out.react !== out.html) {
+      let i = 0; while (i < out.react.length && out.react[i] === out.html[i]) i++;
+      bad[s] = detail ? { at: i, react: out.react.slice(Math.max(0, i - 80), i + 160), html: out.html.slice(Math.max(0, i - 80), i + 160), lens: [out.react.length, out.html.length] } : `at ${i}, ${out.react.length} vs ${out.html.length}`;
+    }
+  }
+  return bad;
 };

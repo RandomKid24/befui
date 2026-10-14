@@ -4,7 +4,7 @@
 
 ```html
 <link rel="stylesheet" href="/befui.css">
-<script src="/befui.js" defer></script>
+<script type="module" src="/befui.js"></script>
 <bef-button variant="soft">Save</bef-button>
 ```
 

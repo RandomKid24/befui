@@ -1,2 +1,16 @@
-<bef-calendar id="cal"></bef-calendar>
-<script>document.getElementById('cal').props = { selected: new Date(), onSelect: (d) => console.log('picked', d) };</script>
+<div class="flex flex-wrap items-start justify-center gap-6">
+  <div class="rounded-xl border bg-card p-3">
+    <bef-calendar ~selected="2026-10-14T10:42:12.476Z"></bef-calendar>
+  </div>
+  <div class="rounded-xl border bg-card p-3">
+    <bef-calendar mode="range" :week-starts-on="1" id="g1"></bef-calendar>
+  </div>
+</div>
+<script type="module">
+const { h: __h, T, Fragment: __Fragment } = befui;
+const addDays = T.addDays;
+
+document.getElementById("g1").props = {
+  disabled: (d) => d < T.addDays(today, -1),
+};
+</script>

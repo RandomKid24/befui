@@ -1,5 +1,30 @@
 <bef-tooltip-provider>
-  <bef-tooltip content="Save your work" title="Save" :shortcut='["⌘","S"]'><bef-button variant="outline">Hover me</bef-button></bef-tooltip>
-  <bef-tooltip content="Light card style" variant="light" arrow side="bottom"><bef-button variant="outline">Light</bef-button></bef-tooltip>
-  <bef-info-tip content="Extra help text"></bef-info-tip>
+  <div class="grid justify-items-center gap-5">
+    <div class="flex gap-2">
+      <bef-tooltip content="Edit">
+        <bef-button variant="outline" size="icon" aria-label="Edit">
+          <bef-edit-icon></bef-edit-icon>
+        </bef-button>
+      </bef-tooltip>
+      <bef-tooltip content="Share" side="bottom" arrow>
+        <bef-button variant="outline" size="icon" aria-label="Share">
+          <bef-share2-icon></bef-share2-icon>
+        </bef-button>
+      </bef-tooltip>
+      <bef-tooltip content="Notifications" side="right">
+        <bef-button variant="outline" size="icon" aria-label="Notifications">
+          <bef-bell-icon></bef-bell-icon>
+        </bef-button>
+      </bef-tooltip>
+      <bef-tooltip content="Save changes" :shortcut='["⌘","S"]'>
+        <bef-button variant="outline" size="icon" aria-label="Save changes">
+          <bef-save-icon></bef-save-icon>
+        </bef-button>
+      </bef-tooltip>
+    </div>
+    <div class="flex items-center gap-1.5 text-sm font-medium">Net 30 terms<bef-info-tip title="Payment terms" content="Invoice is due 30 days after it is issued. Late fees start on day 31."></bef-info-tip></div>
+    <div class="w-44 rounded-md border px-3 py-2 text-sm">
+      <bef-truncated-text>Quarterly vendor reconciliation report, final draft</bef-truncated-text>
+    </div>
+  </div>
 </bef-tooltip-provider>

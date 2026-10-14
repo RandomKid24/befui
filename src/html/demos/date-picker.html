@@ -1,7 +1,19 @@
-<bef-date-picker emit="change" clearable style="width:240px"></bef-date-picker>
-<bef-date-range-picker id="drp" presets style="width:300px"></bef-date-range-picker>
-<script>
-  const drp = document.getElementById('drp');
-  const setRange = (value) => drp.props = { value, onChange: setRange };
-  setRange(undefined);
+<div class="grid w-full max-w-sm gap-4">
+  <bef-field label="Joining date" for="join" hint="Clear it with the x.">
+    <bef-date-picker id="join" clearable emit="change"></bef-date-picker>
+  </bef-field>
+  <bef-field label="Leave dates" for="leave" hint="Past dates are disabled.">
+    <bef-date-range-picker id="leave" clearable emit="change"></bef-date-range-picker>
+  </bef-field>
+  <bef-field label="Report period" for="period" hint="Quick ranges on the left.">
+    <bef-date-range-picker id="period" presets clearable emit="change"></bef-date-range-picker>
+  </bef-field>
+</div>
+<script type="module">
+const { h: __h, T, Fragment: __Fragment } = befui;
+const addDays = T.addDays;
+
+document.getElementById("leave").props = {
+  disabledDays: (d) => d < T.addDays(today, 0),
+};
 </script>

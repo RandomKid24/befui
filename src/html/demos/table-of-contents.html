@@ -1,1 +1,21 @@
-<bef-table-of-contents style="width:220px" :items='[{"id":"intro","label":"Introduction"},{"id":"setup","label":"Setup"},{"id":"install","label":"Install","level":2},{"id":"usage","label":"Usage"}]'></bef-table-of-contents>
+<div class="grid w-full max-w-md gap-6 sm:grid-cols-[1fr_10rem]">
+  <div class="text-[13px] text-muted-foreground">
+    <section id="toc-Overview" class="py-3">
+      <h4 class="font-semibold text-foreground">Overview</h4>
+      <p>Scroll the page and the list highlights the section in view.</p>
+    </section>
+    <section id="toc-Install" class="py-3">
+      <h4 class="font-semibold text-foreground">Install</h4>
+      <p>Scroll the page and the list highlights the section in view.</p>
+    </section>
+    <section id="toc-Usage" class="py-3">
+      <h4 class="font-semibold text-foreground">Usage</h4>
+      <p>Scroll the page and the list highlights the section in view.</p>
+    </section>
+    <section id="toc-Props" class="py-3">
+      <h4 class="font-semibold text-foreground">Props</h4>
+      <p>Scroll the page and the list highlights the section in view.</p>
+    </section>
+  </div>
+  <bef-table-of-contents :items='[{"id":"toc-Overview","label":"Overview"},{"id":"toc-Install","label":"Install"},{"id":"toc-Usage","label":"Usage"},{"id":"toc-Props","label":"Props","level":2}]'></bef-table-of-contents>
+</div>

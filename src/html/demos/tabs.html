@@ -1,4 +1,22 @@
-<bef-tabs default-value="account" style="width:420px">
-  <bef-tabs-list><bef-tabs-trigger value="account">Account</bef-tabs-trigger><bef-tabs-trigger value="password">Password</bef-tabs-trigger><bef-tabs-trigger value="team">Team</bef-tabs-trigger></bef-tabs-list>
-  <bef-tabs-content value="account">Account settings.</bef-tabs-content><bef-tabs-content value="password">Change your password.</bef-tabs-content><bef-tabs-content value="team">Manage your team.</bef-tabs-content>
-</bef-tabs>
+<div class="grid w-full max-w-lg gap-8">
+  <bef-tabs default-value="overview">
+    <bef-tabs-list>
+      <bef-tabs-trigger value="overview">Overview</bef-tabs-trigger>
+      <bef-tabs-trigger value="leave">Leave</bef-tabs-trigger>
+      <bef-tabs-trigger value="docs">Documents</bef-tabs-trigger>
+    </bef-tabs-list>
+    <bef-tabs-content value="overview" class="text-[13px] text-muted-foreground">Underline tabs, good for page sections.</bef-tabs-content>
+    <bef-tabs-content value="leave" class="text-[13px] text-muted-foreground">Leave balance and history.</bef-tabs-content>
+    <bef-tabs-content value="docs" class="text-[13px] text-muted-foreground">Contracts and ID proofs.</bef-tabs-content>
+  </bef-tabs>
+  <bef-tabs default-value="a">
+    <bef-tabs-list variant="pill">
+      <bef-tabs-trigger value="a">Weekly</bef-tabs-trigger>
+      <bef-tabs-trigger value="b">Monthly</bef-tabs-trigger>
+      <bef-tabs-trigger value="c">Yearly</bef-tabs-trigger>
+    </bef-tabs-list>
+    <bef-tabs-content value="a" class="text-[13px] text-muted-foreground">Pill tabs, good for toggling a view.</bef-tabs-content>
+    <bef-tabs-content value="b" class="text-[13px] text-muted-foreground">Monthly view.</bef-tabs-content>
+    <bef-tabs-content value="c" class="text-[13px] text-muted-foreground">Yearly view.</bef-tabs-content>
+  </bef-tabs>
+</div>

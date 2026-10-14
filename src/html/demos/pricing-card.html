@@ -1,2 +1,7 @@
-<bef-pricing-card name="Starter" :price="199" description="For small teams" :features='["Up to 10 people","Leave and attendance","Email support"]'></bef-pricing-card>
-<bef-pricing-card name="Growth" :price="499" highlighted description="For growing companies" :features='["Unlimited people","Payroll","Priority support"]' cta="Start trial"></bef-pricing-card>
+<div class="grid justify-items-center gap-6">
+  <bef-segmented value="monthly" :options='[{"value":"monthly","label":"Monthly"},{"value":"yearly","label":"Yearly, save 20%"}]' emit="value-change"></bef-segmented>
+  <div class="flex flex-wrap items-stretch justify-center gap-4">
+    <bef-pricing-card name="Starter" description="For teams up to 25." :price="299" :features='["Leave and attendance","Employee directory","Email support"]'></bef-pricing-card>
+    <bef-pricing-card highlighted name="Growth" description="Payroll included." :price="499" :features='["Everything in Starter","Payroll and payslips","Approvals workflow","Priority support"]'></bef-pricing-card>
+  </div>
+</div>

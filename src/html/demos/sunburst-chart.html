@@ -1,1 +1,6 @@
-<bef-sunburst-chart :size="300" :data='[{"label":"Eng","children":[{"label":"Web","value":30},{"label":"Mobile","value":20}]},{"label":"Sales","children":[{"label":"India","value":25},{"label":"US","value":15}]}]'></bef-sunburst-chart>
+<bef-sunburst-chart :data='[{"label":"Engineering","children":[{"label":"Web","children":[{"label":"Frontend","value":2200000},{"label":"Backend","value":1800000}]},{"label":"Mobile","value":3000000},{"label":"Infra","value":2000000}]},{"label":"Sales","children":[{"label":"India","value":3000000},{"label":"Middle East","value":2000000}]},{"label":"People","children":[{"label":"Hiring","value":900000},{"label":"Benefits","value":600000}]},{"label":"Marketing","children":[{"label":"Paid","value":1500000},{"label":"Content","value":900000}]}]' id="g1"></bef-sunburst-chart>
+<script type="module">
+document.getElementById("g1").props = {
+  format: (n) => `₹${(n / 1e5).toFixed(1)}L`,
+};
+</script>

@@ -1,2 +1,13 @@
-<bef-date-time-picker id="dtp" style="width:280px"></bef-date-time-picker>
-<script>const dtp = document.getElementById('dtp'); const setDt = (value) => dtp.props = { value, onChange: setDt }; setDt(undefined);</script>
+<div class="w-full max-w-xs">
+  <bef-field label="Interview slot" for="slot" hint="Pick a day, then set the time.">
+    <bef-date-time-picker id="slot" emit="change"></bef-date-time-picker>
+  </bef-field>
+</div>
+<script type="module">
+const { h: __h, T, Fragment: __Fragment } = befui;
+const addDays = T.addDays;
+
+document.getElementById("slot").props = {
+  disabledDays: (d) => d < T.addDays(today, 0),
+};
+</script>

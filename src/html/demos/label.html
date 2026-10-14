@@ -1,5 +1,9 @@
-<div style="display:grid;gap:14px;width:320px">
-  <bef-field label="Email" hint="We never share it." html-for="em"><bef-input id="em" placeholder="you@example.com"></bef-input></bef-field>
-  <bef-field label="Password" error="Must be at least 8 characters" required html-for="pw"><bef-input id="pw" type="password" aria-invalid="true"></bef-input></bef-field>
-  <bef-label>Standalone label</bef-label>
+<div class="grid w-full max-w-sm gap-5">
+  <div class="grid gap-1.5">
+    <bef-label for="a" required>Label on its own</bef-label>
+    <bef-input id="a"></bef-input>
+  </div>
+  <bef-field label="Field wraps label, control and message" for="b" hint="Shown under the control.">
+    <bef-input id="b"></bef-input>
+  </bef-field>
 </div>

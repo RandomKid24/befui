@@ -1,1 +1,6 @@
-<bef-pie-chart :size="220" :data='[{"label":"Rent","value":42},{"label":"Payroll","value":31},{"label":"Software","value":15},{"label":"Other","value":12}]'></bef-pie-chart>
+<bef-pie-chart class="w-[32rem] max-w-full" :data='[{"label":"Pro plan","value":48},{"label":"Business","value":31},{"label":"Starter","value":14,"color":"text-warning"},{"label":"Add-ons","value":7,"color":"text-info"}]' id="g1"></bef-pie-chart>
+<script type="module">
+document.getElementById("g1").props = {
+  format: (n) => `₹${n}L`,
+};
+</script>

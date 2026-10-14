@@ -1,2 +1,14 @@
-<span style="font-size:32px;font-weight:700"><bef-number-ticker :value="12480" prefix="₹" :duration="1500"></bef-number-ticker></span>
-<span style="font-size:32px;font-weight:700"><bef-number-ticker :value="98.6" :decimals="1" suffix="%"></bef-number-ticker></span>
+<div class="grid grid-cols-3 gap-10 text-center">
+  <div>
+    <bef-number-ticker :value="14820" prefix class="text-4xl font-semibold tracking-tight"></bef-number-ticker>
+    <p class="mt-1 text-sm text-muted-foreground">Employees onboarded</p>
+  </div>
+  <div>
+    <bef-number-ticker :value="98.6" suffix="%" :decimals="1" class="text-4xl font-semibold tracking-tight"></bef-number-ticker>
+    <p class="mt-1 text-sm text-muted-foreground">Payroll accuracy</p>
+  </div>
+  <div>
+    <bef-number-ticker :value="4.2" prefix="₹" suffix="Cr" :decimals="1" class="text-4xl font-semibold tracking-tight"></bef-number-ticker>
+    <p class="mt-1 text-sm text-muted-foreground">Revenue</p>
+  </div>
+</div>

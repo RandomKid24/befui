@@ -1,3 +1,14 @@
-<label style="display:flex;gap:8px;align-items:center;font-size:14px"><bef-switch default-checked></bef-switch> Notifications</label>
-<label style="display:flex;gap:8px;align-items:center;font-size:14px"><bef-switch></bef-switch> Dark mode</label>
-<label style="display:flex;gap:8px;align-items:center;font-size:14px"><bef-switch disabled></bef-switch> Disabled</label>
+<div class="grid gap-3">
+  <div class="flex items-center gap-3">
+    <bef-switch id="s1" default-checked></bef-switch>
+    <bef-label for="s1">Auto-approve short leaves</bef-label>
+  </div>
+  <div class="flex items-center gap-3">
+    <bef-switch id="s2"></bef-switch>
+    <bef-label for="s2">Weekly digest</bef-label>
+  </div>
+  <div class="flex items-center gap-3">
+    <bef-switch id="s3" disabled></bef-switch>
+    <bef-label for="s3">Disabled</bef-label>
+  </div>
+</div>

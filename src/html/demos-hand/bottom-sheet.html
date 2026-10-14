@@ -1,0 +1,9 @@
+<bef-button id="bs-open" variant="outline">Open sheet</bef-button>
+<bef-bottom-sheet id="bs" emit="open-change" title="Share" description="Pick how to share this page.">
+  <div style="display:grid;gap:8px;padding:8px 0"><bef-button variant="secondary">Copy link</bef-button><bef-button variant="secondary">Email</bef-button></div>
+</bef-bottom-sheet>
+<script>
+  const bs = document.getElementById('bs');
+  document.getElementById('bs-open').addEventListener('click', () => bs.setAttribute('open', 'true'));
+  bs.addEventListener('bef:open-change', (e) => e.detail ? bs.setAttribute('open', 'true') : bs.removeAttribute('open'));
+</script>

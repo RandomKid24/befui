@@ -1,3 +1,22 @@
-<bef-relative-time ~date="2026-10-14T08:00:00"></bef-relative-time> ·
-<bef-relative-time id="rt2"></bef-relative-time>
-<script>document.getElementById('rt2').props = { date: new Date(Date.now() - 5 * 60000) };</script>
+<ul class="w-72 divide-y rounded-xl border bg-card text-sm">
+  <li class="flex justify-between px-4 py-2.5">
+    <span>Leave approved</span>
+    <bef-relative-time :date="1791974507924" class="text-muted-foreground"></bef-relative-time>
+  </li>
+  <li class="flex justify-between px-4 py-2.5">
+    <span>Payslip generated</span>
+    <bef-relative-time :date="1791973692924" class="text-muted-foreground"></bef-relative-time>
+  </li>
+  <li class="flex justify-between px-4 py-2.5">
+    <span>Review submitted</span>
+    <bef-relative-time :date="1791956532924" class="text-muted-foreground"></bef-relative-time>
+  </li>
+  <li class="flex justify-between px-4 py-2.5">
+    <span>Joined the team</span>
+    <bef-relative-time :date="1791715332924" class="text-muted-foreground"></bef-relative-time>
+  </li>
+  <li class="flex justify-between px-4 py-2.5">
+    <span>Offer expires</span>
+    <bef-relative-time :date="1792147332924" class="text-muted-foreground"></bef-relative-time>
+  </li>
+</ul>

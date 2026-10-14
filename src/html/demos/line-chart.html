@@ -1,1 +1,8 @@
-<bef-line-chart class="w-full max-w-xl" area :labels='["Jan","Feb","Mar","Apr","May","Jun"]' :series='[{"name":"Signups","data":[120,180,150,240,300,360]},{"name":"Churn","data":[20,24,18,30,26,22]}]'></bef-line-chart>
+<div class="grid w-full max-w-2xl gap-8">
+  <bef-line-chart area :labels='["Apr","May","Jun","Jul","Aug","Sep","Oct"]' :series='[{"name":"Revenue","data":[42,48,45,58,63,61,72]},{"name":"Payroll","data":[30,31,31,34,36,36,38],"color":"text-warning"},{"name":"Profit","data":[12,17,14,24,27,25,34],"color":"text-success"}]' id="g1"></bef-line-chart>
+</div>
+<script type="module">
+document.getElementById("g1").props = {
+  format: (n) => `₹${n}L`,
+};
+</script>

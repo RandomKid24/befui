@@ -1,3 +1,8 @@
-<bef-settings-layout id="sl" class="w-full max-w-3xl" value="profile" emit="change" :items='[{"id":"profile","label":"Profile"},{"id":"billing","label":"Billing"},{"id":"team","label":"Team"}]'>
-  <bef-settings-section title="Profile" description="How you appear to others."><bef-input default-value="Aarav Mehta"></bef-input></bef-settings-section>
+<bef-settings-layout class="w-full" value="profile" :items='[{"id":"profile","label":"Profile","icon":"<bef-user-icon></bef-user-icon>"},{"id":"notifications","label":"Notifications","icon":"<bef-bell-icon></bef-bell-icon>"},{"id":"security","label":"Security","icon":"<bef-lock-icon></bef-lock-icon>"}]' emit="change">
+  <bef-settings-section title="Personal info" description="Shown to teammates.">
+    <bef-field label="Full name"><bef-input default-value="Aarav Mehta"></bef-input></bef-field>
+    <bef-field label="Email">
+      <bef-input type="email" default-value="aarav@acme.co"></bef-input>
+    </bef-field>
+  </bef-settings-section>
 </bef-settings-layout>

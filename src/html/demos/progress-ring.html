@@ -1,2 +1,5 @@
-<bef-progress-ring :value="72" aria-label="Completion"><span style="font-weight:600">72%</span></bef-progress-ring>
-<bef-progress-ring :value="35" :size="64" :stroke="6" aria-label="Small"></bef-progress-ring>
+<div class="flex items-center gap-8">
+  <bef-progress-ring :value="0" aria-label="Upload progress"></bef-progress-ring>
+  <bef-progress-ring :value="0" aria-label="Setup progress" :size="72" :stroke="6" class="text-success"></bef-progress-ring>
+  <button class="text-sm text-primary hover:underline">Animate</button>
+</div>

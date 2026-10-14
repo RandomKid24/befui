@@ -1,1 +1,6 @@
-<bef-half-donut-chart :max="100" :data='[{"label":"Won","value":54},{"label":"Open","value":28},{"label":"Lost","value":10}]' center="<div style=\"font-weight:600\">92 deals</div>"></bef-half-donut-chart>
+<bef-half-donut-chart :max="200" :data='[{"label":"Documents","value":62},{"label":"Photos","value":48},{"label":"Backups","value":31,"color":"text-warning"}]' id="g1"></bef-half-donut-chart>
+<script type="module">
+document.getElementById("g1").props = {
+  format: (n) => `${n} GB`,
+};
+</script>

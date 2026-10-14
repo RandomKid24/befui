@@ -103,21 +103,59 @@ function convert(el: Node, host: Element) {
 }
 
 function toReact(node: Node, host: Element): React.ReactNode {
-  if (node.nodeType === Node.TEXT_NODE) return node.textContent;
+  if (node.nodeType === Node.TEXT_NODE) return /^\s*$/.test(node.textContent ?? '') && node.textContent!.includes('\n') ? null : node.textContent; // indentation between tags is formatting, not content
   if (node.nodeType !== Node.ELEMENT_NODE) return null;
   const el = node as Element;
   const { kids, slots } = convert(el, host);
   const type = loaded.get(el.localName) ?? el.localName;
   if (type === el.localName && isTag(type)) missing.add(type);
-  return React.createElement(type, { ...readProps(el, host), ...slots }, ...kids);
+  // el.props = {...} also works on a nested tag: it was stored on the element before we got here
+  const own = (el as unknown as { extra?: Record<string, unknown> }).extra;
+  return React.createElement(type, { ...readProps(el, host), ...slots, ...own }, ...kids);
 }
 
+/** What befui.h returns: markup that is already escaped. */
+class Html { constructor(readonly html: string) {} toString() { return this.html; } }
+const esc = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const kebab = (n: string) => n.replace(/([a-z0-9])([A-Z])/g, '$1-$2').replace(/([A-Z])([A-Z][a-z])/g, '$1-$2').toLowerCase();
+const Fragment = Symbol('Fragment');
+function hAttrs(props: Record<string, unknown> | null) {
+  let out = '';
+  for (const [k, v] of Object.entries(props ?? {})) {
+    if (k === 'children' || k === 'key' || k === 'ref' || v === undefined || v === null) continue;
+    if (typeof v === 'function') { if (/^on[A-Z]\w*Change$|^onChange$/.test(k)) out += ` emit="${kebab(k.slice(2))}"`; continue; }
+    const name = k === 'className' ? 'class' : k === 'htmlFor' ? 'for' : /^(data|aria|hx)-/.test(k) ? k : kebab(k);
+    if (k === 'style' && typeof v === 'object') out += ` style="${esc(Object.entries(v as object).map(([p, x]) => `${kebab(p)}:${x}`).join(';'))}"`;
+    else if (v === true) out += ` ${name}`;
+    else if (typeof v === 'string' && !HTML.test(v)) out += ` ${name}="${esc(v)}"`;
+    else if (v instanceof Date) out += ` ~${name}="${v.toISOString()}"`;
+    else out += ` :${name}='${JSON.stringify(v instanceof Html ? v.html : v, (_, x) => (x instanceof Html ? x.html : x)).replace(/'/g, '&#39;')}'`;
+  }
+  return out;
+}
+const hKids = (kids: unknown[]): string => kids.flat(Infinity).map((c) => (c === null || c === undefined || c === false || c === true ? '' : c instanceof Html ? c.html : esc(String(c)))).join('');
+/** JSX-style builder that returns markup: h('bef-badge', { variant: 'success' }, 'Active'). Used by render functions in el.props. */
+const h = (type: string | symbol, props: Record<string, unknown> | null, ...kids: unknown[]) => {
+  const inner = hKids(props && 'children' in props && !kids.length ? [props.children] : kids);
+  return new Html(type === Fragment ? inner : `<${String(type)}${hAttrs(props)}>${inner}</${String(type)}>`);
+};
+/** T.Badge -> 'bef-badge', so converted React code can keep writing <Badge>: h(T.Badge, ...) */
+const T = new Proxy({}, { get: (_, name: string) => `bef-${kebab(name)}` });
+
 function wrapFns(v: unknown, host: Element): unknown {
-  if (typeof v === 'function') return (...a: unknown[]) => { const r = v(...a); return typeof r === 'string' && HTML.test(r) ? htmlNode(r, host) : r; };
+  if (typeof v === 'function') return (...a: unknown[]) => {
+    const r = v(...a);
+    const html = r instanceof Html ? r.html : typeof r === 'string' && HTML.test(r) ? r : null;
+    return html ? htmlNode(html, host) : r;
+  };
+  if (v instanceof Html) return htmlNode(v.html, host);
+  if (typeof v === 'string' && HTML.test(v)) return htmlNode(v, host);
   if (Array.isArray(v)) return v.map((x) => wrapFns(x, host));
   if (v && Object.getPrototypeOf(v) === Object.prototype) return Object.fromEntries(Object.entries(v).map(([k, x]) => [k, wrapFns(x, host)]));
   return v;
 }
+
+const ready = () => new Promise<void>((r) => (document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', () => r(), { once: true }) : setTimeout(r)));
 
 const insideBef = (el: Element) => {
   for (let p = el.parentElement; p; p = p.parentElement) if (p.localName.startsWith('bef-')) return true;
@@ -129,7 +167,7 @@ class BefElement extends HTMLElement {
   private starting = false;
   private kids?: React.ReactNode[];
   private slots: Record<string, unknown> = {};
-  private extra: Record<string, unknown> = {};
+  extra: Record<string, unknown> = {};
   private watcher = new MutationObserver(() => this.render());
 
   // Non-JSON props (functions, JSX): el.props = { columns: [...], onRowClick: fn }
@@ -137,11 +175,14 @@ class BefElement extends HTMLElement {
   set props(v: Record<string, unknown>) { this.extra = wrapFns(v, this) as Record<string, unknown>; if (this.root) this.render(); }
 
   connectedCallback() {
+    // el.props = {...} run before this element was upgraded (inline script above the module) is a plain property on the instance: move it to the setter
+    if (Object.prototype.hasOwnProperty.call(this, 'props')) { const early = (this as unknown as { props: Record<string, unknown> }).props; delete (this as unknown as { props?: unknown }).props; this.props = early; }
     if (insideBef(this)) return;
     this.setAttribute('data-bef', '');
     queueMicrotask(async () => {
       if (!this.isConnected || this.root || this.starting) return;
       this.starting = true;
+      await ready(); // inline scripts that set el.props run before we read the tags
       await load(tagsIn(this));
       this.starting = false;
       if (!this.isConnected || this.root) return;
@@ -180,4 +221,4 @@ for (const tag of Object.keys(manifest)) {
 
 // befui.toast.success('Saved') etc. load the toast code on first use (put a <bef-toaster> on the page to show them)
 const toastCall = (k: string) => (...a: unknown[]) => import('@/components/ui/toast').then((m) => (m.toast as unknown as Record<string, (...x: unknown[]) => unknown>)[k]!(...a));
-(window as unknown as { befui: unknown }).befui = { load, toast: Object.fromEntries(['success', 'error', 'info', 'dismiss'].map((k) => [k, toastCall(k)])) };
+(window as unknown as { befui: unknown }).befui = { load, h, T, Fragment, toast: Object.fromEntries(['success', 'error', 'info', 'dismiss'].map((k) => [k, toastCall(k)])) };

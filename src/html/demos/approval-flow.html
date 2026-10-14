@@ -1,4 +1,4 @@
-<bef-approval-flow class="w-full max-w-md" :steps='[
-  {"id":"1","approver":"Aarav Mehta","role":"Manager","status":"approved","comment":"Looks good","at":"12 Oct"},
-  {"id":"2","approver":"Isha Nair","role":"HR","status":"pending"},
-  {"id":"3","approver":"Meera Iyer","role":"Finance","status":"waiting"}]'></bef-approval-flow>
+<div class="w-full max-w-md rounded-xl border bg-card p-5">
+  <p class="mb-4 text-sm font-semibold">Laptop purchase · ₹1,45,000</p>
+  <bef-approval-flow :steps='[{"id":"1","approver":"Rohan Das","role":"Team lead","status":"approved","comment":"Looks fine, within the team budget.","at":"07 Oct"},{"id":"2","approver":"Meera Iyer","role":"Finance","status":"pending"},{"id":"3","approver":"Aarav Mehta","role":"CTO","status":"waiting"}]'></bef-approval-flow>
+</div>

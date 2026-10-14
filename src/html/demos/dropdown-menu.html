@@ -1,11 +1,14 @@
 <bef-dropdown-menu>
-  <bef-dropdown-menu-trigger as-child><bef-button variant="outline">Account <bef-chevron-down-icon></bef-chevron-down-icon></bef-button></bef-dropdown-menu-trigger>
-  <bef-dropdown-menu-content>
-    <bef-dropdown-menu-label>My account</bef-dropdown-menu-label>
-    <bef-dropdown-menu-item><bef-user-icon></bef-user-icon> Profile <bef-dropdown-menu-shortcut>⇧P</bef-dropdown-menu-shortcut></bef-dropdown-menu-item>
-    <bef-dropdown-menu-item><bef-settings-icon></bef-settings-icon> Settings</bef-dropdown-menu-item>
+  <bef-dropdown-menu-trigger as-child>
+    <bef-button variant="outline">Account <bef-more-icon></bef-more-icon></bef-button>
+  </bef-dropdown-menu-trigger>
+  <bef-dropdown-menu-content class="w-56" align="start">
+    <bef-dropdown-menu-label>aarav@company.com</bef-dropdown-menu-label>
+    <bef-dropdown-menu-item><bef-user-icon></bef-user-icon> Profile <bef-dropdown-menu-shortcut>P</bef-dropdown-menu-shortcut></bef-dropdown-menu-item>
+    <bef-dropdown-menu-item><bef-credit-card-icon></bef-credit-card-icon> Billing</bef-dropdown-menu-item>
+    <bef-dropdown-menu-item><bef-settings-icon></bef-settings-icon> Settings <bef-dropdown-menu-shortcut>,</bef-dropdown-menu-shortcut></bef-dropdown-menu-item>
     <bef-dropdown-menu-separator></bef-dropdown-menu-separator>
-    <bef-dropdown-menu-checkbox-item checked>Show sidebar</bef-dropdown-menu-checkbox-item>
+    <bef-dropdown-menu-checkbox-item checked emit="checked-change">Compact rows</bef-dropdown-menu-checkbox-item>
     <bef-dropdown-menu-separator></bef-dropdown-menu-separator>
     <bef-dropdown-menu-item destructive><bef-log-out-icon></bef-log-out-icon> Sign out</bef-dropdown-menu-item>
   </bef-dropdown-menu-content>

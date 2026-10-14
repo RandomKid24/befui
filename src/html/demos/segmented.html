@@ -1,1 +1,4 @@
-<bef-segmented emit="value-change" value="week" :options='[{"value":"day","label":"Day"},{"value":"week","label":"Week"},{"value":"month","label":"Month"}]'></bef-segmented>
+<div class="grid gap-4">
+  <bef-segmented value="30d" :options='[{"value":"7d","label":"7 days"},{"value":"30d","label":"30 days"},{"value":"90d","label":"90 days"}]' emit="value-change"></bef-segmented>
+  <bef-segmented value="list" :options='[{"value":"list","label":"<bef-list-icon></bef-list-icon> List"},{"value":"grid","label":"<bef-layout-grid-icon></bef-layout-grid-icon> Grid"}]' emit="value-change"></bef-segmented>
+</div>

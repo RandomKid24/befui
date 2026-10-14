@@ -1,2 +1,9 @@
-<bef-credit-card number="4111 1111 1111 1111" name="Aarav Mehta" expiry="08/28" cvv="123"></bef-credit-card>
-<bef-credit-card number="5500 0000 0000 0004" name="Diya Rao" expiry="01/29" theme="contrast" mask></bef-credit-card>
+<div class="grid justify-items-center gap-5">
+  <bef-credit-card number="4111 1111 1111 1111" name="Aarav Mehta" expiry="08/28" cvv :flipped="false"></bef-credit-card>
+  <div class="grid w-80 max-w-full grid-cols-2 gap-2">
+    <bef-input class="col-span-2" aria-label="Card number" input-mode="numeric" :max-length="19" value="4111 1111 1111 1111" emit="change"></bef-input>
+    <bef-input class="col-span-2" aria-label="Name" value="Aarav Mehta" emit="change"></bef-input>
+    <bef-input aria-label="Expiry" placeholder="MM/YY" :max-length="5" value="08/28" emit="change"></bef-input>
+    <bef-input aria-label="CVV" placeholder="CVV" input-mode="numeric" :max-length="4" value="" emit="change"></bef-input>
+  </div>
+</div>

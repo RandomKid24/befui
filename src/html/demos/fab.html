@@ -1,2 +1,29 @@
-<div style="position:relative;width:240px;height:220px;border:1px dashed var(--border);border-radius:12px"><bef-fab label="Create" :actions='[
-  {"label":"New task","icon":"<bef-check-square-icon></bef-check-square-icon>"},{"label":"New note","icon":"<bef-sticky-note-icon></bef-sticky-note-icon>"}]'><bef-plus-icon slot="icon"></bef-plus-icon></bef-fab></div>
+<div class="relative h-72 w-full max-w-sm overflow-hidden rounded-xl border bg-muted/40">
+  <p class="p-4 text-xs text-muted-foreground">Click the button for a speed dial. The second button is the extended form.</p>
+  <bef-fab class="absolute bottom-4 right-4" id="g1"></bef-fab>
+  <bef-fab class="absolute bottom-4 left-4" :icon='"<bef-plus-icon></bef-plus-icon>"' label="Compose"></bef-fab>
+</div>
+<script type="module">
+const { h: __h, T, Fragment: __Fragment } = befui;
+const toast = T.toast;
+
+document.getElementById("g1").props = {
+  actions: [
+    {
+      label: "New employee",
+      icon: "<bef-users-icon></bef-users-icon>",
+      onClick: () => T.toast.info("New employee"),
+    },
+    {
+      label: "New document",
+      icon: "<bef-file-icon></bef-file-icon>",
+      onClick: () => T.toast.info("New document"),
+    },
+    {
+      label: "Quick note",
+      icon: "<bef-edit-icon></bef-edit-icon>",
+      onClick: () => T.toast.info("Quick note"),
+    },
+  ],
+};
+</script>

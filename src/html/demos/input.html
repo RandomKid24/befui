@@ -1,7 +1,16 @@
-<div style="display:grid;gap:10px;width:320px">
-  <bef-input placeholder="Plain input"></bef-input>
-  <bef-input placeholder="Search" aria-label="Search"><bef-search-icon slot="left-icon"></bef-search-icon></bef-input>
-  <bef-input placeholder="Disabled" disabled></bef-input>
-  <bef-input placeholder="Invalid" aria-invalid="true"></bef-input>
-  <bef-textarea placeholder="Textarea" rows="3"></bef-textarea>
+<div class="grid w-full max-w-sm gap-4">
+  <bef-field label="Full name" for="name" required hint="As it appears on the offer letter.">
+    <bef-input id="name" placeholder="Aarav Mehta"></bef-input>
+  </bef-field>
+  <bef-field label="Work email" for="email">
+    <bef-input id="email" type="email" :left-icon='"<bef-mail-icon></bef-mail-icon>"' placeholder="you@company.com"></bef-input>
+  </bef-field>
+  <bef-field label="Employee ID" for="eid" error="This ID is already taken.">
+    <bef-input id="eid" default-value="EMP-0042" aria-invalid=""></bef-input>
+  </bef-field>
+  <bef-input :left-icon='"<bef-search-icon></bef-search-icon>"' :right-slot='"<bef-kbd>/</bef-kbd>"' placeholder="Search..."></bef-input>
+  <bef-field label="Notes" for="notes">
+    <bef-textarea id="notes" placeholder="Anything the approver should know"></bef-textarea>
+  </bef-field>
+  <bef-input disabled placeholder="Disabled"></bef-input>
 </div>

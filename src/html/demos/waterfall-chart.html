@@ -1,1 +1,6 @@
-<bef-waterfall-chart class="w-full max-w-xl" :height="240" :steps='[{"label":"Start","value":100,"total":true},{"label":"Sales","value":60},{"label":"Refunds","value":-20},{"label":"Costs","value":-35},{"label":"End","value":105,"total":true}]'></bef-waterfall-chart>
+<bef-waterfall-chart class="w-[36rem] max-w-full" :steps='[{"label":"Revenue","value":120,"total":true},{"label":"COGS","value":-42},{"label":"Gross","value":78,"total":true},{"label":"Payroll","value":-31},{"label":"Marketing","value":-12},{"label":"Grants","value":6},{"label":"Tax","value":-9},{"label":"Profit","value":32,"total":true}]' id="g1"></bef-waterfall-chart>
+<script type="module">
+document.getElementById("g1").props = {
+  format: (n) => `₹${n}L`,
+};
+</script>

@@ -1,11 +1,46 @@
-<div style="min-height:300px;width:100%;display:flex;justify-content:center">
-<bef-navigation-menu><bef-navigation-menu-list>
-  <bef-navigation-menu-item><bef-navigation-menu-trigger>Products</bef-navigation-menu-trigger><bef-navigation-menu-content>
-    <ul style="display:grid;gap:4px;width:320px;margin:0;padding:0;list-style:none">
-      <li><bef-navigation-menu-link href="#analytics"><span style="display:block;font-weight:500">Analytics</span><span style="display:block;font-size:13px;color:var(--muted-foreground)">Traffic, funnels and reports.</span></bef-navigation-menu-link></li>
-      <li><bef-navigation-menu-link href="#automations"><span style="display:block;font-weight:500">Automations</span><span style="display:block;font-size:13px;color:var(--muted-foreground)">Run steps when something changes.</span></bef-navigation-menu-link></li>
-    </ul></bef-navigation-menu-content></bef-navigation-menu-item>
-  <bef-navigation-menu-item><bef-navigation-menu-trigger>Resources</bef-navigation-menu-trigger><bef-navigation-menu-content>
-    <ul style="display:grid;gap:4px;width:240px;margin:0;padding:0;list-style:none"><li><bef-navigation-menu-link href="#docs">Documentation</bef-navigation-menu-link></li><li><bef-navigation-menu-link href="#guides">Guides</bef-navigation-menu-link></li></ul>
-  </bef-navigation-menu-content></bef-navigation-menu-item>
-</bef-navigation-menu-list></bef-navigation-menu></div>
+<div class="min-h-72 w-full">
+  <div class="flex justify-center">
+    <bef-navigation-menu>
+      <bef-navigation-menu-list>
+        <bef-navigation-menu-item>
+          <bef-navigation-menu-trigger>Products</bef-navigation-menu-trigger>
+          <bef-navigation-menu-content>
+            <ul class="grid w-80 gap-1">
+              <li>
+                <bef-navigation-menu-link href="#analytics">
+                  <span class="block font-medium">Analytics</span>
+                  <span class="block text-[13px] text-muted-foreground">Traffic, funnels and reports in one place.</span>
+                </bef-navigation-menu-link>
+              </li>
+              <li>
+                <bef-navigation-menu-link href="#automations">
+                  <span class="block font-medium">Automations</span>
+                  <span class="block text-[13px] text-muted-foreground">Run steps when something changes.</span>
+                </bef-navigation-menu-link>
+              </li>
+              <li>
+                <bef-navigation-menu-link href="#integrations">
+                  <span class="block font-medium">Integrations</span>
+                  <span class="block text-[13px] text-muted-foreground">Connect the tools your team already uses.</span>
+                </bef-navigation-menu-link>
+              </li>
+            </ul>
+          </bef-navigation-menu-content>
+        </bef-navigation-menu-item>
+        <bef-navigation-menu-item>
+          <bef-navigation-menu-trigger>Resources</bef-navigation-menu-trigger>
+          <bef-navigation-menu-content>
+            <ul class="grid w-64 gap-1">
+              <li><bef-navigation-menu-link href="#docs">Documentation</bef-navigation-menu-link></li>
+              <li><bef-navigation-menu-link href="#guides">Guides</bef-navigation-menu-link></li>
+              <li><bef-navigation-menu-link href="#changelog">Changelog</bef-navigation-menu-link></li>
+            </ul>
+          </bef-navigation-menu-content>
+        </bef-navigation-menu-item>
+        <bef-navigation-menu-item>
+          <bef-navigation-menu-link href="#pricing" class="group inline-flex h-9 items-center justify-center gap-1 rounded-md px-3 text-sm font-medium text-muted-foreground outline-none transition-colors hover:bg-secondary hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50 data-[state=open]:bg-secondary data-[state=open]:text-foreground">Pricing</bef-navigation-menu-link>
+        </bef-navigation-menu-item>
+      </bef-navigation-menu-list>
+    </bef-navigation-menu>
+  </div>
+</div>

@@ -1,2 +1,10 @@
-<bef-pull-to-refresh id="ptr" style="width:280px;height:220px;border:1px solid var(--border);border-radius:12px;overflow:auto"><div style="padding:16px;font-size:14px">Pull down (touch) to refresh.<br>On desktop, drag with touch emulation.</div></bef-pull-to-refresh>
-<script>document.getElementById('ptr').props = { onRefresh: () => new Promise((r) => setTimeout(r, 800)) };</script>
+<div class="w-full max-w-xs">
+  <bef-pull-to-refresh class="h-64 rounded-xl border bg-card">
+    <ul class="divide-y">
+      <li class="px-4 py-3 text-[13px]">Aarav punched in</li>
+      <li class="px-4 py-3 text-[13px]">Diya applied for leave</li>
+      <li class="px-4 py-3 text-[13px]">Payroll draft created</li>
+    </ul>
+  </bef-pull-to-refresh>
+  <p class="mt-2 px-1 text-xs text-muted-foreground">Drag down from the top (touch or mouse).</p>
+</div>

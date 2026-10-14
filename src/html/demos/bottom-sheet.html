@@ -1,9 +1,17 @@
-<bef-button id="bs-open" variant="outline">Open sheet</bef-button>
-<bef-bottom-sheet id="bs" emit="open-change" title="Share" description="Pick how to share this page.">
-  <div style="display:grid;gap:8px;padding:8px 0"><bef-button variant="secondary">Copy link</bef-button><bef-button variant="secondary">Email</bef-button></div>
+<bef-button variant="outline">Apply for leave</bef-button>
+<bef-bottom-sheet :open="false" title="Apply for" description="Drag the handle down to dismiss." emit="open-change">
+  <ul class="grid gap-1 pb-2">
+    <li>
+      <button type="button" class="w-full rounded-lg px-3 py-3 text-left text-sm font-medium outline-none hover:bg-secondary focus-visible:bg-secondary">Casual leave</button>
+    </li>
+    <li>
+      <button type="button" class="w-full rounded-lg px-3 py-3 text-left text-sm font-medium outline-none hover:bg-secondary focus-visible:bg-secondary">Sick leave</button>
+    </li>
+    <li>
+      <button type="button" class="w-full rounded-lg px-3 py-3 text-left text-sm font-medium outline-none hover:bg-secondary focus-visible:bg-secondary">Earned leave</button>
+    </li>
+    <li>
+      <button type="button" class="w-full rounded-lg px-3 py-3 text-left text-sm font-medium outline-none hover:bg-secondary focus-visible:bg-secondary">Work from home</button>
+    </li>
+  </ul>
 </bef-bottom-sheet>
-<script>
-  const bs = document.getElementById('bs');
-  document.getElementById('bs-open').addEventListener('click', () => bs.setAttribute('open', 'true'));
-  bs.addEventListener('bef:open-change', (e) => e.detail ? bs.setAttribute('open', 'true') : bs.removeAttribute('open'));
-</script>

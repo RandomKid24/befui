@@ -1,24 +1,65 @@
-<bef-data-table id="dt" class="w-full" selectable column-menu :page-size="6" filter-placeholder="Filter people"></bef-data-table>
-<script>
-  const people = [
-    ['Aarav Mehta', 'Engineering', 'Pune', '2021-03-15', 1850000, 'Active'], ['Diya Rao', 'Design', 'Bengaluru', '2022-07-01', 1420000, 'On leave'],
-    ['Rohan Das', 'Sales', 'Mumbai', '2023-01-09', 960000, 'Active'], ['Isha Nair', 'People Ops', 'Kochi', '2020-11-23', 1100000, 'Active'],
-    ['Kabir Shah', 'Engineering', 'Ahmedabad', '2019-05-06', 2250000, 'Notice'], ['Meera Iyer', 'Finance', 'Chennai', '2022-02-14', 1380000, 'Active'],
-    ['Vikram Joshi', 'Sales', 'Nashik', '2023-08-21', 880000, 'Active'], ['Ananya Kulkarni', 'Engineering', 'Pune', '2024-01-08', 1620000, 'Active'],
-  ].map(([name, team, city, joined, salary, status], i) => ({ id: String(i + 1), name, email: name.toLowerCase().replace(' ', '.') + '@acme.in', team, city, joined, salary, status }));
-  const tone = { Active: 'success', 'On leave': 'warning', Notice: 'danger' };
-  const date = (d) => new Date(d).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
-  document.getElementById('dt').props = {
-    rows: people, rowKey: (p) => p.id,
-    // render functions can return HTML strings with bef-* tags
-    columns: [
-      { key: 'name', header: 'Name', sortable: true, value: (p) => p.name, render: (p) => `<span class="flex items-center gap-2 whitespace-nowrap"><bef-avatar name="${p.name}" size="sm"></bef-avatar>${p.name}</span>` },
-      { key: 'email', header: 'Email', value: (p) => p.email, render: (p) => `<span class="text-muted-foreground">${p.email}</span>` },
-      { key: 'team', header: 'Team', sortable: true, value: (p) => p.team },
-      { key: 'joined', header: 'Joined', sortable: true, value: (p) => p.joined, render: (p) => `<span class="whitespace-nowrap text-muted-foreground">${date(p.joined)}</span>` },
-      { key: 'salary', header: 'Salary', sortable: true, align: 'right', value: (p) => p.salary, render: (p) => '₹' + (p.salary / 100000).toFixed(1) + 'L' },
-      { key: 'status', header: 'Status', value: (p) => p.status, render: (p) => `<bef-badge variant="${tone[p.status]}" dot>${p.status}</bef-badge>` },
-    ],
-    bulkActions: (rows, clear) => `<bef-button size="xs" variant="outline">Export ${rows.length}</bef-button><bef-button size="xs" variant="ghost">Clear</bef-button>`,
-  };
+<bef-tooltip-provider>
+  <bef-data-table class="w-full" :rows='[{"id":"1","name":"Aarav Mehta","email":"aarav.mehta@acme.in","team":"Engineering","city":"Pune","joined":"2021-03-15","salary":1850000,"status":"Active"},{"id":"2","name":"Diya Rao","email":"diya.rao@acme.in","team":"Design","city":"Bengaluru","joined":"2022-07-01","salary":1420000,"status":"On leave"},{"id":"3","name":"Rohan Das","email":"rohan.das@acme.in","team":"Sales","city":"Mumbai","joined":"2023-01-09","salary":960000,"status":"Active"},{"id":"4","name":"Isha Nair","email":"isha.nair@acme.in","team":"People Ops","city":"Kochi","joined":"2020-11-23","salary":1100000,"status":"Active"},{"id":"5","name":"Kabir Shah","email":"kabir.shah@acme.in","team":"Engineering","city":"Ahmedabad","joined":"2019-05-06","salary":2250000,"status":"Notice"},{"id":"6","name":"Meera Iyer","email":"meera.iyer@acme.in","team":"Finance","city":"Chennai","joined":"2022-02-14","salary":1380000,"status":"Active"},{"id":"7","name":"Vikram Joshi","email":"vikram.joshi@acme.in","team":"Sales","city":"Nashik","joined":"2023-08-21","salary":880000,"status":"Active"},{"id":"8","name":"Ananya Kulkarni","email":"ananya.kulkarni@acme.in","team":"Engineering","city":"Pune","joined":"2024-01-08","salary":1620000,"status":"Active"},{"id":"9","name":"Siddharth Verma","email":"siddharth.verma@acme.in","team":"Support","city":"Delhi","joined":"2021-09-30","salary":720000,"status":"On leave"},{"id":"10","name":"Tara Menon","email":"tara.menon@acme.in","team":"Design","city":"Bengaluru","joined":"2023-04-17","salary":1290000,"status":"Active"},{"id":"11","name":"Nikhil Patil","email":"nikhil.patil@acme.in","team":"Finance","city":"Nagpur","joined":"2020-06-02","salary":1540000,"status":"Active"},{"id":"12","name":"Pooja Desai","email":"pooja.desai@acme.in","team":"People Ops","city":"Surat","joined":"2024-05-13","salary":940000,"status":"Notice"},{"id":"13","name":"Arjun Reddy","email":"arjun.reddy@acme.in","team":"Engineering","city":"Hyderabad","joined":"2022-10-10","salary":1980000,"status":"Active"},{"id":"14","name":"Kavya Bhat","email":"kavya.bhat@acme.in","team":"Support","city":"Mysuru","joined":"2023-12-04","salary":690000,"status":"Active"}]' :page-size="6" filter-placeholder="Filter people" selectable column-menu id="g1"></bef-data-table>
+</bef-tooltip-provider>
+<script type="module">
+const { h: __h, T, Fragment: __Fragment } = befui;
+const Avatar = T.Avatar;
+const Badge = T.Badge;
+const Button = T.Button;
+const TruncatedText = T.TruncatedText;
+
+const tone = { Active: 'success', 'On leave': 'warning', Notice: 'danger' };
+const date = (d) => new Date(d).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+const columns = [
+    { key: 'name', header: 'Name', sortable: true, value: (p) => p.name, render: (p) => __h("span", { className: "flex items-center gap-2 whitespace-nowrap" },
+            __h(Avatar, { name: p.name, size: "sm" }),
+            p.name) },
+    { key: 'email', header: 'Email', value: (p) => p.email, render: (p) => __h(TruncatedText, { className: "w-36 text-muted-foreground" }, p.email) },
+    { key: 'team', header: 'Team', sortable: true, value: (p) => p.team },
+    { key: 'joined', header: 'Joined', sortable: true, value: (p) => p.joined, render: (p) => __h("span", { className: "whitespace-nowrap text-muted-foreground" }, date(p.joined)) },
+    { key: 'salary', header: 'Salary', sortable: true, align: 'right', value: (p) => p.salary, render: (p) => `₹${(p.salary / 100000).toFixed(1)}L` },
+    { key: 'status', header: 'Status', value: (p) => p.status, render: (p) => __h(Badge, { variant: tone[p.status], dot: true }, p.status) },
+];
+
+document.getElementById("g1").props = {
+  columns: [
+    {
+      key: "name",
+      header: "Name",
+      sortable: true,
+      value: (p) => p.name,
+      render: (p) => __h("span", { className: "flex items-center gap-2 whitespace-nowrap" }, __h(T.Avatar, { name: p.name, size: "sm" }), p.name),
+    },
+    {
+      key: "email",
+      header: "Email",
+      value: (p) => p.email,
+      render: (p) => __h(T.TruncatedText, { className: "w-36 text-muted-foreground" }, p.email),
+    },
+    { key: "team", header: "Team", sortable: true, value: (p) => p.team },
+    {
+      key: "joined",
+      header: "Joined",
+      sortable: true,
+      value: (p) => p.joined,
+      render: (p) => __h("span", { className: "whitespace-nowrap text-muted-foreground" }, date(p.joined)),
+    },
+    {
+      key: "salary",
+      header: "Salary",
+      sortable: true,
+      align: "right",
+      value: (p) => p.salary,
+      render: (p) => `₹${(p.salary / 1e5).toFixed(1)}L`,
+    },
+    {
+      key: "status",
+      header: "Status",
+      value: (p) => p.status,
+      render: (p) => __h(T.Badge, { variant: tone[p.status], dot: true }, p.status),
+    },
+  ],
+  rowKey: (p) => p.id,
+  bulkActions: (rows, clear) => __h(__Fragment, null, __h(T.Button, { size: "xs", variant: "outline", onClick: clear }, "Export ", rows.length), __h(T.Button, { size: "xs", variant: "ghost", onClick: clear }, "Clear")),
+};
 </script>

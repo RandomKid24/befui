@@ -1,15 +1,65 @@
-<div style="width:100%;height:360px;border:1px solid var(--border);border-radius:12px;overflow:hidden;display:flex">
 <bef-sidebar-provider>
-  <bef-sidebar>
-    <bef-sidebar-header><strong style="padding:8px">Acme</strong></bef-sidebar-header>
-    <bef-sidebar-content>
-      <bef-sidebar-group label="Main">
-        <bef-sidebar-item label="Dashboard" active><bef-layout-dashboard-icon slot="icon"></bef-layout-dashboard-icon></bef-sidebar-item>
-        <bef-sidebar-item label="People" :badge="4"><bef-users-icon slot="icon"></bef-users-icon></bef-sidebar-item>
-        <bef-sidebar-item label="Payroll" :items='[{"label":"Runs","href":"#"},{"label":"Payslips","href":"#"}]'><bef-wallet-icon slot="icon"></bef-wallet-icon></bef-sidebar-item>
-      </bef-sidebar-group>
-    </bef-sidebar-content>
-    <bef-sidebar-footer><span style="padding:8px;font-size:13px">v1.0</span></bef-sidebar-footer>
-  </bef-sidebar>
-  <div style="padding:16px;font-size:14px"><bef-sidebar-trigger></bef-sidebar-trigger> Main content</div>
-</bef-sidebar-provider></div>
+  <div class="flex h-[440px] w-full overflow-hidden rounded-xl border bg-background text-left">
+    <bef-sidebar>
+      <bef-sidebar-header>
+        <span class="grid size-7 shrink-0 place-items-center rounded-md bg-primary text-xs font-bold text-primary-foreground">A</span>
+        <span class="truncate text-sm font-semibold">Acme HR</span>
+      </bef-sidebar-header>
+      <bef-sidebar-content>
+        <bef-sidebar-group label="Overview">
+          <bef-sidebar-item :icon='"<bef-layout-dashboard-icon></bef-layout-dashboard-icon>"' label="Dashboard" active></bef-sidebar-item>
+          <bef-sidebar-item :icon='"<bef-inbox-icon></bef-inbox-icon>"' label="Inbox" badge="3" :active="false"></bef-sidebar-item>
+        </bef-sidebar-group>
+        <bef-sidebar-group label="People">
+          <bef-sidebar-item :icon='"<bef-users-icon></bef-users-icon>"' label="Employees" :active="false"></bef-sidebar-item>
+          <bef-sidebar-item :icon='"<bef-calendar-icon></bef-calendar-icon>"' label="Leave" :active="false" id="g1"></bef-sidebar-item>
+        </bef-sidebar-group>
+        <bef-sidebar-group label="Marketing">
+          <bef-sidebar-item :icon='"<bef-megaphone-icon></bef-megaphone-icon>"' label="Campaigns" :active="false"></bef-sidebar-item>
+          <bef-sidebar-item :icon='"<bef-bar-chart-icon></bef-bar-chart-icon>"' label="Reports" :active="false"></bef-sidebar-item>
+        </bef-sidebar-group>
+      </bef-sidebar-content>
+      <bef-sidebar-footer>
+        <bef-sidebar-item :icon='"<bef-settings-icon></bef-settings-icon>"' label="Settings" :active="false"></bef-sidebar-item>
+      </bef-sidebar-footer>
+    </bef-sidebar>
+    <div class="flex min-w-0 flex-1 flex-col">
+      <div class="flex h-14 items-center gap-3 border-b px-4">
+        <bef-sidebar-trigger></bef-sidebar-trigger>
+        <span class="text-sm font-medium">Dashboard</span>
+        <bef-avatar name="Aarav Mehta" size="xs" class="ml-auto"></bef-avatar>
+      </div>
+      <p class="p-5 text-[13px] text-muted-foreground">Use the toggle to collapse the rail. Hover an icon to see its label. Below 1024px wide the sidebar becomes a slide-over.</p>
+    </div>
+  </div>
+</bef-sidebar-provider>
+<script type="module">
+document.getElementById("g1").props = {
+  items: [
+    {
+      label: "Requests",
+      active: false,
+      onClick: () => {
+        setPage("Leave");
+        setSub(l);
+      },
+    },
+    {
+      label: "Balances",
+      active: false,
+      onClick: () => {
+        setPage("Leave");
+        setSub(l);
+      },
+    },
+    {
+      label: "Calendar",
+      active: false,
+      onClick: () => {
+        setPage("Leave");
+        setSub(l);
+      },
+    },
+  ],
+};
+</script>

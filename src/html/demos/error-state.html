@@ -1,3 +1,9 @@
-<bef-error-state class="w-full max-w-md" code="404" title="Page not found" description="The page you are after moved or never existed.">
-  <bef-button variant="outline">Go home</bef-button>
-</bef-error-state>
+<div class="grid w-full gap-2 sm:grid-cols-2">
+  <bef-error-state :code="404" title="Page not found" description="The page you are looking for was moved or never existed.">
+    <bef-button variant="outline">Go back</bef-button>
+    <bef-button>Home</bef-button>
+  </bef-error-state>
+  <bef-error-state title="We could not load payroll" description="The server did not respond. Your data is safe. Try again in a moment.">
+    <bef-button variant="outline"><bef-refresh-icon></bef-refresh-icon> Try again</bef-button>
+  </bef-error-state>
+</div>

@@ -1,8 +1,2 @@
-<bef-button id="ad-open" variant="outline">Delete project</bef-button>
-<bef-alert-dialog id="ad" emit="open-change" title="Delete this project?" description="This cannot be undone." confirm-label="Delete" destructive></bef-alert-dialog>
-<script>
-  const ad = document.getElementById('ad');
-  document.getElementById('ad-open').addEventListener('click', () => ad.setAttribute('open', 'true'));
-  ad.addEventListener('bef:open-change', (e) => e.detail ? ad.setAttribute('open', 'true') : ad.removeAttribute('open'));
-  ad.props = { onConfirm: () => ad.removeAttribute('open') };
-</script>
+<bef-button variant="destructive"><bef-trash-icon></bef-trash-icon> Delete employee</bef-button>
+<bef-alert-dialog :open="false" destructive title="Delete this employee?" description="Their records are removed from payroll and cannot be recovered." confirm-label="Delete" emit="open-change"></bef-alert-dialog>

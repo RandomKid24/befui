@@ -1,0 +1,2 @@
+<bef-pull-to-refresh id="ptr" style="width:280px;height:220px;border:1px solid var(--border);border-radius:12px;overflow:auto"><div style="padding:16px;font-size:14px">Pull down (touch) to refresh.<br>On desktop, drag with touch emulation.</div></bef-pull-to-refresh>
+<script>document.getElementById('ptr').props = { onRefresh: () => new Promise((r) => setTimeout(r, 800)) };</script>

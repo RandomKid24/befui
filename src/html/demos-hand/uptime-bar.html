@@ -1,0 +1,2 @@
+<bef-uptime-bar id="ub" name="API" class="w-full max-w-xl"></bef-uptime-bar>
+<script>document.getElementById('ub').props = { days: Array.from({ length: 60 }, (_, i) => ({ date: '2026-08-' + String((i % 28) + 1).padStart(2, '0'), status: i === 12 ? 'down' : i === 40 ? 'degraded' : 'up' })) };</script>

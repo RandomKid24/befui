@@ -1,4 +1,12 @@
 <bef-popover>
-  <bef-popover-trigger as-child><bef-button variant="outline">Open popover</bef-button></bef-popover-trigger>
-  <bef-popover-content><div style="display:grid;gap:8px;font-size:14px"><strong>Dimensions</strong><span>Set the size of the layer.</span><bef-input placeholder="Width" default-value="100%"></bef-input></div></bef-popover-content>
+  <bef-popover-trigger as-child>
+    <bef-button variant="outline">Quick add</bef-button>
+  </bef-popover-trigger>
+  <bef-popover-content class="grid gap-3">
+    <p class="text-sm font-semibold">New lead</p>
+    <bef-field label="Company" for="co">
+      <bef-input id="co" placeholder="Acme Pvt Ltd"></bef-input>
+    </bef-field>
+    <bef-button size="sm">Add lead</bef-button>
+  </bef-popover-content>
 </bef-popover>

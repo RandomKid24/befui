@@ -1,1 +1,4 @@
-<bef-navbar class="w-full" brand="Acme" :links='[{"label":"Product","href":"#","active":true},{"label":"Pricing","href":"#"},{"label":"Docs","href":"#"}]'><bef-button slot="actions" size="sm">Sign in</bef-button></bef-navbar>
+<div class="w-full overflow-hidden rounded-xl border bg-card">
+  <bef-navbar class="static" :brand='"<span class=\"grid size-6 place-items-center rounded-md bg-primary text-xs text-primary-foreground\">B</span>Beforth"' :links='[{"label":"Products","href":"#products","active":true},{"label":"Solutions","href":"#solutions"},{"label":"Pricing","href":"#pricing"},{"label":"Docs","href":"#docs"}]' :actions='"<bef-button variant=\"ghost\" size=\"sm\">Sign in</bef-button><bef-button size=\"sm\">Get started</bef-button>"'></bef-navbar>
+  <div class="grid h-24 place-items-center text-xs text-muted-foreground">Narrow the window to see the menu button.</div>
+</div>

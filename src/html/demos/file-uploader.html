@@ -1,4 +1,24 @@
-<bef-file-uploader id="fu" style="width:420px" accept="image/*,.pdf"></bef-file-uploader>
-<script>
-  document.getElementById('fu').props = { upload: (file, onProgress, signal) => new Promise((resolve) => { let p = 0; const t = setInterval(() => { p += 20; onProgress(p); if (p >= 100) { clearInterval(t); resolve(); } }, 200); }) };
+<bef-file-uploader class="w-full max-w-md" id="g1"></bef-file-uploader>
+<script type="module">
+document.getElementById("g1").props = {
+  upload: (file, onProgress, signal) => new Promise((resolve, reject) => {
+  let p = 0;
+  const id = setInterval(() => {
+    p += 8 + Math.random() * 12;
+    if (file.name.toLowerCase().includes("fail") && p > 55) {
+      clearInterval(id);
+      return reject(new Error("Server rejected the file."));
+    };
+    onProgress(Math.min(p, 100));
+    if (p >= 100) {
+      clearInterval(id);
+      resolve();
+    }
+  }, 250);
+  signal.addEventListener("abort", () => {
+    clearInterval(id);
+    reject(new DOMException("Aborted", "AbortError"));
+  });
+}),
+};
 </script>

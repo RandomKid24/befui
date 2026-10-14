@@ -1,1 +1,5 @@
-<bef-phone-input emit="value-change" style="width:300px" default-country="IN"></bef-phone-input>
+<div class="w-full max-w-sm">
+  <bef-field label="Mobile number" for="phone" hint="We only use this for sign-in codes.">
+    <bef-phone-input id="phone" :invalid="false" emit="value-change"></bef-phone-input>
+  </bef-field>
+</div>

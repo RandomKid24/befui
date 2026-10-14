@@ -1,2 +1,9 @@
-<bef-toggle emit="pressed-change" :pressed="false" aria-label="Bold"><bef-bold-icon></bef-bold-icon></bef-toggle>
-<bef-toggle emit="pressed-change" :pressed="true" variant="outline" aria-label="Italic"><bef-italic-icon></bef-italic-icon></bef-toggle>
+<div class="flex items-center gap-2">
+  <bef-toggle pressed size="icon" aria-label="Favourite" emit="pressed-change">
+    <bef-heart-icon class="fill-current"></bef-heart-icon>
+  </bef-toggle>
+  <bef-toggle variant="outline" :pressed="false" size="icon" aria-label="Star" emit="pressed-change">
+    <bef-star-icon></bef-star-icon>
+  </bef-toggle>
+  <bef-toggle variant="outline" :pressed="false" emit="pressed-change"><bef-bookmark-icon></bef-bookmark-icon> Save</bef-toggle>
+</div>

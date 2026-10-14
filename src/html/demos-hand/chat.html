@@ -1,0 +1,7 @@
+<bef-chat id="chat" me="Aarav" style="width:360px;height:380px" placeholder="Write a message"></bef-chat>
+<script>
+  const chat = document.getElementById('chat');
+  const msgs = [{ id: '1', from: 'Diya', text: 'Did the offer go out?', at: new Date() }];
+  const draw = () => chat.props = { messages: msgs, onSend: (text) => { msgs.push({ id: String(msgs.length + 1), from: 'Aarav', text, at: new Date() }); draw(); } };
+  draw();
+</script>

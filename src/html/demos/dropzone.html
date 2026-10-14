@@ -1,2 +1,1 @@
-<bef-dropzone id="dz" style="width:380px" accept="image/*" hint="Drop images here or click to browse"></bef-dropzone>
-<script>const dz = document.getElementById('dz'); const setFiles = (files) => dz.props = { files, onFilesChange: setFiles }; setFiles([]);</script>
+<bef-dropzone class="w-full max-w-md" :files="[]" emit="files-change"></bef-dropzone>

@@ -1,8 +1,129 @@
-<bef-table style="width:100%;max-width:520px">
-  <bef-table-caption>Team</bef-table-caption>
-  <bef-table-header><bef-table-row><bef-table-head>Name</bef-table-head><bef-table-head>Team</bef-table-head><bef-table-head>Status</bef-table-head></bef-table-row></bef-table-header>
-  <bef-table-body>
-    <bef-table-row><bef-table-cell>Aarav Mehta</bef-table-cell><bef-table-cell>Engineering</bef-table-cell><bef-table-cell><bef-badge variant="success" dot>Active</bef-badge></bef-table-cell></bef-table-row>
-    <bef-table-row><bef-table-cell>Diya Rao</bef-table-cell><bef-table-cell>Design</bef-table-cell><bef-table-cell><bef-badge variant="warning" dot>On leave</bef-badge></bef-table-cell></bef-table-row>
-  </bef-table-body>
-</bef-table>
+<bef-card class="w-full max-w-3xl overflow-hidden">
+  <bef-table>
+    <bef-table-header>
+      <bef-table-row class="hover:bg-transparent">
+        <bef-table-head>Invoice</bef-table-head>
+        <bef-table-head>Client</bef-table-head>
+        <bef-table-head>Owner</bef-table-head>
+        <bef-table-head>Due</bef-table-head>
+        <bef-table-head class="w-32">Collected</bef-table-head>
+        <bef-table-head class="text-right">Amount</bef-table-head>
+        <bef-table-head>Status</bef-table-head>
+      </bef-table-row>
+    </bef-table-header>
+    <bef-table-body>
+      <bef-table-row>
+        <bef-table-cell class="whitespace-nowrap font-mono text-xs">INV-204</bef-table-cell>
+        <bef-table-cell class="whitespace-nowrap font-medium">Northwind Traders</bef-table-cell>
+        <bef-table-cell>
+          <span class="flex items-center gap-2 whitespace-nowrap text-muted-foreground"><bef-avatar name="Aarav Mehta" size="sm"></bef-avatar>Aarav Mehta</span>
+        </bef-table-cell>
+        <bef-table-cell class="whitespace-nowrap text-muted-foreground">12 Oct</bef-table-cell>
+        <bef-table-cell>
+          <bef-progress :value="100" aria-label="Northwind Traders paid" class="h-1.5"></bef-progress>
+        </bef-table-cell>
+        <bef-table-cell class="text-right tabular-nums">$4,200</bef-table-cell>
+        <bef-table-cell><bef-badge variant="success" dot>Paid</bef-badge></bef-table-cell>
+      </bef-table-row>
+      <bef-table-row>
+        <bef-table-cell class="whitespace-nowrap font-mono text-xs">INV-205</bef-table-cell>
+        <bef-table-cell class="whitespace-nowrap font-medium">Globex Corp</bef-table-cell>
+        <bef-table-cell>
+          <span class="flex items-center gap-2 whitespace-nowrap text-muted-foreground"><bef-avatar name="Diya Rao" size="sm"></bef-avatar>Diya Rao</span>
+        </bef-table-cell>
+        <bef-table-cell class="whitespace-nowrap text-muted-foreground">18 Oct</bef-table-cell>
+        <bef-table-cell>
+          <bef-progress :value="40" aria-label="Globex Corp paid" class="h-1.5"></bef-progress>
+        </bef-table-cell>
+        <bef-table-cell class="text-right tabular-nums">$1,150</bef-table-cell>
+        <bef-table-cell><bef-badge variant="warning" dot>Due</bef-badge></bef-table-cell>
+      </bef-table-row>
+      <bef-table-row>
+        <bef-table-cell class="whitespace-nowrap font-mono text-xs">INV-206</bef-table-cell>
+        <bef-table-cell class="whitespace-nowrap font-medium">Initech</bef-table-cell>
+        <bef-table-cell>
+          <span class="flex items-center gap-2 whitespace-nowrap text-muted-foreground"><bef-avatar name="Rohan Das" size="sm"></bef-avatar>Rohan Das</span>
+        </bef-table-cell>
+        <bef-table-cell class="whitespace-nowrap text-muted-foreground">02 Oct</bef-table-cell>
+        <bef-table-cell>
+          <bef-progress :value="0" aria-label="Initech paid" class="h-1.5"></bef-progress>
+        </bef-table-cell>
+        <bef-table-cell class="text-right tabular-nums">$8,900</bef-table-cell>
+        <bef-table-cell><bef-badge variant="danger" dot>Overdue</bef-badge></bef-table-cell>
+      </bef-table-row>
+      <bef-table-row>
+        <bef-table-cell class="whitespace-nowrap font-mono text-xs">INV-207</bef-table-cell>
+        <bef-table-cell class="whitespace-nowrap font-medium">Umbrella Labs</bef-table-cell>
+        <bef-table-cell>
+          <span class="flex items-center gap-2 whitespace-nowrap text-muted-foreground"><bef-avatar name="Isha Nair" size="sm"></bef-avatar>Isha Nair</span>
+        </bef-table-cell>
+        <bef-table-cell class="whitespace-nowrap text-muted-foreground">24 Oct</bef-table-cell>
+        <bef-table-cell>
+          <bef-progress :value="100" aria-label="Umbrella Labs paid" class="h-1.5"></bef-progress>
+        </bef-table-cell>
+        <bef-table-cell class="text-right tabular-nums">$3,275</bef-table-cell>
+        <bef-table-cell><bef-badge variant="success" dot>Paid</bef-badge></bef-table-cell>
+      </bef-table-row>
+      <bef-table-row>
+        <bef-table-cell class="whitespace-nowrap font-mono text-xs">INV-208</bef-table-cell>
+        <bef-table-cell class="whitespace-nowrap font-medium">Stark Industries</bef-table-cell>
+        <bef-table-cell>
+          <span class="flex items-center gap-2 whitespace-nowrap text-muted-foreground"><bef-avatar name="Kabir Shah" size="sm"></bef-avatar>Kabir Shah</span>
+        </bef-table-cell>
+        <bef-table-cell class="whitespace-nowrap text-muted-foreground">28 Oct</bef-table-cell>
+        <bef-table-cell>
+          <bef-progress :value="65" aria-label="Stark Industries paid" class="h-1.5"></bef-progress>
+        </bef-table-cell>
+        <bef-table-cell class="text-right tabular-nums">$12,400</bef-table-cell>
+        <bef-table-cell><bef-badge variant="warning" dot>Due</bef-badge></bef-table-cell>
+      </bef-table-row>
+      <bef-table-row>
+        <bef-table-cell class="whitespace-nowrap font-mono text-xs">INV-209</bef-table-cell>
+        <bef-table-cell class="whitespace-nowrap font-medium">Wayne Enterprises</bef-table-cell>
+        <bef-table-cell>
+          <span class="flex items-center gap-2 whitespace-nowrap text-muted-foreground"><bef-avatar name="Meera Iyer" size="sm"></bef-avatar>Meera Iyer</span>
+        </bef-table-cell>
+        <bef-table-cell class="whitespace-nowrap text-muted-foreground">29 Sep</bef-table-cell>
+        <bef-table-cell>
+          <bef-progress :value="0" aria-label="Wayne Enterprises paid" class="h-1.5"></bef-progress>
+        </bef-table-cell>
+        <bef-table-cell class="text-right tabular-nums">$6,050</bef-table-cell>
+        <bef-table-cell><bef-badge variant="danger" dot>Overdue</bef-badge></bef-table-cell>
+      </bef-table-row>
+      <bef-table-row>
+        <bef-table-cell class="whitespace-nowrap font-mono text-xs">INV-210</bef-table-cell>
+        <bef-table-cell class="whitespace-nowrap font-medium">Hooli</bef-table-cell>
+        <bef-table-cell>
+          <span class="flex items-center gap-2 whitespace-nowrap text-muted-foreground"><bef-avatar name="Vikram Joshi" size="sm"></bef-avatar>Vikram Joshi</span>
+        </bef-table-cell>
+        <bef-table-cell class="whitespace-nowrap text-muted-foreground">05 Nov</bef-table-cell>
+        <bef-table-cell>
+          <bef-progress :value="100" aria-label="Hooli paid" class="h-1.5"></bef-progress>
+        </bef-table-cell>
+        <bef-table-cell class="text-right tabular-nums">$2,380</bef-table-cell>
+        <bef-table-cell><bef-badge variant="success" dot>Paid</bef-badge></bef-table-cell>
+      </bef-table-row>
+      <bef-table-row>
+        <bef-table-cell class="whitespace-nowrap font-mono text-xs">INV-211</bef-table-cell>
+        <bef-table-cell class="whitespace-nowrap font-medium">Soylent Co</bef-table-cell>
+        <bef-table-cell>
+          <span class="flex items-center gap-2 whitespace-nowrap text-muted-foreground"><bef-avatar name="Aarav Mehta" size="sm"></bef-avatar>Aarav Mehta</span>
+        </bef-table-cell>
+        <bef-table-cell class="whitespace-nowrap text-muted-foreground">09 Nov</bef-table-cell>
+        <bef-table-cell>
+          <bef-progress :value="15" aria-label="Soylent Co paid" class="h-1.5"></bef-progress>
+        </bef-table-cell>
+        <bef-table-cell class="text-right tabular-nums">$5,120</bef-table-cell>
+        <bef-table-cell><bef-badge variant="warning" dot>Due</bef-badge></bef-table-cell>
+      </bef-table-row>
+    </bef-table-body>
+    <bef-table-footer>
+      <bef-table-row class="hover:bg-transparent">
+        <bef-table-cell :col-span="5">Total · $24,332 outstanding</bef-table-cell>
+        <bef-table-cell class="text-right tabular-nums">$43,475</bef-table-cell>
+        <bef-table-cell></bef-table-cell>
+      </bef-table-row>
+    </bef-table-footer>
+    <bef-table-caption>October billing run, 8 invoices</bef-table-caption>
+  </bef-table>
+</bef-card>

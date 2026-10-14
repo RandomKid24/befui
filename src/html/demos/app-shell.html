@@ -1,9 +1,14 @@
-<div style="width:100%;height:340px;border:1px solid var(--border);border-radius:12px;overflow:hidden">
-  <bef-app-shell>
-    <div slot="sidebar" style="padding:16px;width:180px;font-size:14px">Sidebar<br><br>Dashboard<br>People<br>Payroll</div>
-    <bef-topbar>Topbar</bef-topbar>
+<div class="h-[420px] overflow-hidden rounded-xl border text-left">
+  <bef-app-shell class="h-full" :sidebar='"<bef-sidebar><bef-sidebar-header><span class=\"text-sm font-semibold\">My app</span></bef-sidebar-header><bef-sidebar-content><bef-sidebar-item :icon=\"&quot;<bef-home-icon></bef-home-icon>&quot;\" label=\"Home\" active=\"\"></bef-sidebar-item><bef-sidebar-item :icon=\"&quot;<bef-users-icon></bef-users-icon>&quot;\" label=\"Team\"></bef-sidebar-item><bef-sidebar-item :icon=\"&quot;<bef-settings-icon></bef-settings-icon>&quot;\" label=\"Settings\"></bef-sidebar-item></bef-sidebar-content></bef-sidebar>"'>
+    <bef-topbar>
+      <button class="ml-2 hidden h-8 w-56 items-center gap-2 rounded-md border bg-muted/60 px-2.5 text-[13px] text-muted-foreground sm:flex"><bef-search-icon class="size-3.5"></bef-search-icon> Search <bef-kbd class="ml-auto">/</bef-kbd></button>
+      <bef-button variant="ghost" size="icon-sm" class="ml-auto" aria-label="Notifications">
+        <bef-bell-icon></bef-bell-icon>
+      </bef-button>
+    </bef-topbar>
     <bef-app-content>
-      <bef-page-header title="People" description="Everyone in your company"><bef-button slot="actions" size="sm">Invite</bef-button></bef-page-header>
+      <bef-page-header title="Home" description="Content scrolls here, the sidebar and topbar stay put." :actions='"<bef-button size=\"sm\">New</bef-button>"'></bef-page-header>
+      <bef-card class="p-5 text-[13px] text-muted-foreground">Your page goes here.</bef-card>
     </bef-app-content>
   </bef-app-shell>
 </div>

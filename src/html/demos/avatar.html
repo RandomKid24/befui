@@ -1,4 +1,23 @@
-<bef-avatar name="Aarav Mehta" size="md" status="online"></bef-avatar>
-<bef-avatar name="Diya Rao" size="lg" shape="square" status="away"></bef-avatar>
-<bef-avatar-group :names='["Aarav Mehta","Diya Rao","Rohan Das","Isha Nair","Kabir Shah","Meera Iyer"]' :max="4"></bef-avatar-group>
-<bef-user-info name="Isha Nair" subtitle="People Ops" status="busy" size="md"></bef-user-info>
+<div class="grid justify-items-start gap-6">
+  <div class="flex items-end gap-3">
+    <bef-avatar name="Aarav Mehta" size="xs"></bef-avatar>
+    <bef-avatar name="Diya Rao" size="sm"></bef-avatar>
+    <bef-avatar name="Kabir Shah" size="md"></bef-avatar>
+    <bef-avatar name="Meera Iyer" size="lg"></bef-avatar>
+    <bef-avatar name="Rohan Das" size="xl"></bef-avatar>
+  </div>
+  <div class="flex items-center gap-4">
+    <bef-avatar name="Aarav Mehta" size="md" status="online"></bef-avatar>
+    <bef-avatar name="Diya Rao" size="md" status="away"></bef-avatar>
+    <bef-avatar name="Kabir Shah" size="md" status="busy"></bef-avatar>
+    <bef-avatar name="Meera Iyer" size="md" status="offline"></bef-avatar>
+    <bef-avatar name="Acme Labs" size="md" shape="square"></bef-avatar>
+    <bef-avatar name="Globex" size="md" shape="square" status="online"></bef-avatar>
+  </div>
+  <bef-avatar-group :names='["Aarav Mehta","Diya Rao","Kabir Shah","Meera Iyer","Rohan Das","Isha Nair","Vikram Joshi"]' :max="4"></bef-avatar-group>
+  <bef-avatar-group :names='["Aarav Mehta","Diya Rao","Kabir Shah","Meera Iyer","Rohan Das","Isha Nair","Vikram Joshi"]' :max="3" size="md" shape="square"></bef-avatar-group>
+  <div class="grid gap-3">
+    <bef-user-info name="Aarav Mehta" subtitle="Senior engineer · Pune" status="online" size="md"></bef-user-info>
+    <bef-user-info name="Diya Rao" subtitle="diya.rao@acme.in"></bef-user-info>
+  </div>
+</div>

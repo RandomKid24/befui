@@ -1,1 +1,6 @@
-<bef-slope-chart class="w-full max-w-md" from-label="2025" to-label="2026" :rows='[{"label":"Eng","from":62,"to":78},{"label":"Design","from":55,"to":70},{"label":"Sales","from":58,"to":44}]'></bef-slope-chart>
+<bef-slope-chart class="w-[34rem] max-w-full" from-label="2025" to-label="2026" :rows='[{"label":"Engineering","from":62,"to":78},{"label":"Sales","from":71,"to":69},{"label":"Support","from":55,"to":74},{"label":"Marketing","from":68,"to":81},{"label":"Finance","from":80,"to":77},{"label":"People","from":74,"to":74}]' id="g1"></bef-slope-chart>
+<script type="module">
+document.getElementById("g1").props = {
+  format: (n) => `${n}%`,
+};
+</script>

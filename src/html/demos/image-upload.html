@@ -1,2 +1,1 @@
-<bef-image-upload id="iu" style="width:420px"></bef-image-upload>
-<script>const iu = document.getElementById('iu'); const setImgs = (files) => iu.props = { files, onFilesChange: setImgs }; setImgs([]);</script>
+<bef-image-upload class="w-full max-w-md" :files="[]" :max="6" emit="files-change"></bef-image-upload>

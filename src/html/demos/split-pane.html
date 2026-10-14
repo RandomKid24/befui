@@ -1,3 +1,19 @@
-<bef-split-pane style="width:460px;height:200px;border:1px solid var(--border);border-radius:12px;overflow:hidden" :default-size="40">
-  <div style="padding:16px;font-size:14px">Left pane</div><div style="padding:16px;font-size:14px">Right pane. Drag the handle.</div>
+<bef-split-pane class="h-72 w-full max-w-2xl" :default-size="34" :min="20" :max="70">
+  <ul class="p-2">
+    <li class="rounded-md px-2.5 py-1.5 text-[13px] text-muted-foreground">invoice-template.tsx</li>
+    <li class="rounded-md px-2.5 py-1.5 text-[13px] bg-accent font-medium">payroll-run.tsx</li>
+    <li class="rounded-md px-2.5 py-1.5 text-[13px] text-muted-foreground">leave-policy.md</li>
+    <li class="rounded-md px-2.5 py-1.5 text-[13px] text-muted-foreground">org-chart.json</li>
+    <li class="rounded-md px-2.5 py-1.5 text-[13px] text-muted-foreground">holidays-2026.csv</li>
+  </ul>
+  <div class="grid gap-3 p-5 text-[13px]">
+    <div class="flex items-center gap-2">
+      <h3 class="text-sm font-semibold">payroll-run.tsx</h3>
+      <bef-badge variant="success" dot>Saved</bef-badge>
+    </div>
+    <p class="text-muted-foreground">Drag the divider, or focus it and use the arrow keys. Shift moves in bigger steps; Home and End jump to the limits.</p>
+    <pre class="rounded-lg bg-muted p-3 font-mono text-xs">export function runPayroll(month: string) {
+  return employees.map(pay);
+}</pre>
+  </div>
 </bef-split-pane>

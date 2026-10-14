@@ -1,1 +1,6 @@
-<bef-leaderboard class="w-full max-w-md" :items='[{"name":"Aarav Mehta","value":482,"delta":12,"subtitle":"Sales"},{"name":"Diya Rao","value":431,"delta":-4,"subtitle":"Sales"},{"name":"Rohan Das","value":390,"delta":8},{"name":"Isha Nair","value":344,"delta":0}]'></bef-leaderboard>
+<bef-leaderboard class="w-[30rem] max-w-full" :items='[{"name":"Rohan Das","subtitle":"Enterprise","value":2450000,"delta":2},{"name":"Diya Rao","subtitle":"Mid-market","value":3120000,"delta":-1},{"name":"Isha Nair","subtitle":"Enterprise","value":2980000,"delta":1},{"name":"Kabir Shah","subtitle":"SMB","value":1620000,"delta":0},{"name":"Ananya Kulkarni","subtitle":"SMB","value":1240000,"delta":-2}]' id="g1"></bef-leaderboard>
+<script type="module">
+document.getElementById("g1").props = {
+  format: (n) => `₹${(n / 1e5).toFixed(1)}L`,
+};
+</script>

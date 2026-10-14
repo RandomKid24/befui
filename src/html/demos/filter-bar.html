@@ -1,1 +1,1 @@
-<bef-filter-bar emit="change" :value="{}" :fields='[{"key":"team","label":"Team","options":["Engineering","Design","Sales"]},{"key":"status","label":"Status","options":["Active","On leave","Notice"]}]'></bef-filter-bar>
+<bef-filter-bar :value='{"status":"Active"}' :fields='[{"key":"status","label":"Status","options":["Active","On leave","Exited"]},{"key":"dept","label":"Department","options":["Engineering","Sales","People","Finance"]},{"key":"type","label":"Type","options":["Full-time","Contract","Intern"]}]' emit="change"></bef-filter-bar>

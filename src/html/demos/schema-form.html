@@ -1,9 +1,90 @@
-<bef-schema-form id="sf" style="width:480px" submit-label="Create account"></bef-schema-form>
-<script>
-  document.getElementById('sf').props = {
-    onSubmit: (v) => alert(JSON.stringify(v)),
-    steps: [
-      { title: 'About you', fields: [{ name: 'name', label: 'Full name', required: true, half: true }, { name: 'email', label: 'Email', type: 'email', required: true, half: true }] },
-      { title: 'Team', fields: [{ name: 'size', label: 'Team size', type: 'select', options: [{ value: '1-10', label: '1-10' }, { value: '11-50', label: '11-50' }] }, { name: 'tos', label: 'I agree to the terms', type: 'checkbox' }] }],
-  };
+<bef-schema-form submit-label="Create employee" id="g1"></bef-schema-form>
+<script type="module">
+const steps = [
+    {
+        title: 'Personal',
+        description: 'Basic details for the employee record.',
+        fields: [
+            { name: 'first', label: 'First name', required: true, half: true },
+            { name: 'last', label: 'Last name', required: true, half: true },
+            { name: 'email', label: 'Work email', type: 'email', required: true, placeholder: 'name@company.com' },
+            { name: 'phone', label: 'Phone', type: 'tel', half: true, validate: (v) => (v && !/^\d{10}$/.test(String(v)) ? 'Use 10 digits.' : undefined) },
+            { name: 'dob', label: 'Date of birth', type: 'date', half: true },
+        ],
+    },
+    {
+        title: 'Job',
+        description: 'Where they sit and what they do.',
+        fields: [
+            { name: 'dept', label: 'Department', type: 'select', required: true, half: true, options: [{ value: 'eng', label: 'Engineering' }, { value: 'design', label: 'Design' }, { value: 'sales', label: 'Sales' }] },
+            { name: 'salary', label: 'Annual salary (₹)', type: 'number', half: true },
+            { name: 'notes', label: 'Notes for HR', type: 'textarea', hint: 'Visible to the People team only.' },
+        ],
+    },
+    { title: 'Confirm', fields: [{ name: 'ok', label: 'I confirm these details are correct', type: 'checkbox', required: true }] },
+];
+
+document.getElementById("g1").props = {
+  steps: [
+    {
+      title: "Personal",
+      description: "Basic details for the employee record.",
+      fields: [
+        { name: "first", label: "First name", required: true, half: true },
+        { name: "last", label: "Last name", required: true, half: true },
+        {
+          name: "email",
+          label: "Work email",
+          type: "email",
+          required: true,
+          placeholder: "name@company.com",
+        },
+        {
+          name: "phone",
+          label: "Phone",
+          type: "tel",
+          half: true,
+          validate: (v) => v && !/^\d{10}$/.test(String(v)) ? "Use 10 digits." : void 0,
+        },
+        { name: "dob", label: "Date of birth", type: "date", half: true },
+      ],
+    },
+    {
+      title: "Job",
+      description: "Where they sit and what they do.",
+      fields: [
+        {
+          name: "dept",
+          label: "Department",
+          type: "select",
+          required: true,
+          half: true,
+          options: [
+            { value: "eng", label: "Engineering" },
+            { value: "design", label: "Design" },
+            { value: "sales", label: "Sales" },
+          ],
+        },
+        { name: "salary", label: "Annual salary (₹)", type: "number", half: true },
+        {
+          name: "notes",
+          label: "Notes for HR",
+          type: "textarea",
+          hint: "Visible to the People team only.",
+        },
+      ],
+    },
+    {
+      title: "Confirm",
+      fields: [
+        {
+          name: "ok",
+          label: "I confirm these details are correct",
+          type: "checkbox",
+          required: true,
+        },
+      ],
+    },
+  ],
+};
 </script>

@@ -1,1 +1,15 @@
-<bef-button-group><bef-button variant="outline">Left</bef-button><bef-button variant="outline">Middle</bef-button><bef-button variant="outline">Right</bef-button></bef-button-group>
+<div class="flex flex-wrap items-start gap-8">
+  <bef-button-group aria-label="Range">
+    <bef-button variant="outline">Day</bef-button>
+    <bef-button variant="outline">Week</bef-button>
+    <bef-button variant="outline">Month</bef-button>
+  </bef-button-group>
+  <bef-button-group orientation="vertical" aria-label="Zoom">
+    <bef-button variant="outline" size="icon" aria-label="Zoom in">
+      <bef-plus-icon></bef-plus-icon>
+    </bef-button>
+    <bef-button variant="outline" size="icon" aria-label="Zoom out">
+      <bef-minus-icon></bef-minus-icon>
+    </bef-button>
+  </bef-button-group>
+</div>

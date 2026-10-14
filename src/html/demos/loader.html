@@ -1,3 +1,43 @@
-<bef-loader variant="ring"></bef-loader><bef-loader variant="dots"></bef-loader><bef-loader variant="bars"></bef-loader><bef-loader variant="pulse"></bef-loader><bef-loader variant="orbit"></bef-loader><bef-loader variant="dual"></bef-loader>
-<div style="width:260px"><bef-bar-loader></bef-bar-loader></div>
-<bef-loading-overlay loading label="Loading"><div style="width:240px;height:100px;border:1px solid var(--border);border-radius:12px;display:grid;place-items:center">Content underneath</div></bef-loading-overlay>
+<div class="grid w-full max-w-lg gap-6">
+  <div class="grid grid-cols-3 gap-3 sm:grid-cols-6">
+    <div class="grid justify-items-center gap-2 rounded-lg border py-4">
+      <bef-loader variant="ring"></bef-loader>
+      <span class="text-[11px] text-muted-foreground">ring</span>
+    </div>
+    <div class="grid justify-items-center gap-2 rounded-lg border py-4">
+      <bef-loader variant="dots"></bef-loader>
+      <span class="text-[11px] text-muted-foreground">dots</span>
+    </div>
+    <div class="grid justify-items-center gap-2 rounded-lg border py-4">
+      <bef-loader variant="bars"></bef-loader>
+      <span class="text-[11px] text-muted-foreground">bars</span>
+    </div>
+    <div class="grid justify-items-center gap-2 rounded-lg border py-4">
+      <bef-loader variant="pulse"></bef-loader>
+      <span class="text-[11px] text-muted-foreground">pulse</span>
+    </div>
+    <div class="grid justify-items-center gap-2 rounded-lg border py-4">
+      <bef-loader variant="orbit"></bef-loader>
+      <span class="text-[11px] text-muted-foreground">orbit</span>
+    </div>
+    <div class="grid justify-items-center gap-2 rounded-lg border py-4">
+      <bef-loader variant="dual"></bef-loader>
+      <span class="text-[11px] text-muted-foreground">dual</span>
+    </div>
+  </div>
+  <div class="grid gap-3">
+    <bef-bar-loader></bef-bar-loader>
+    <bef-bar-loader :value="64"></bef-bar-loader>
+  </div>
+  <bef-button size="sm" variant="outline" class="justify-self-start">Stop loading</bef-button>
+  <bef-loading-overlay loading label="Fetching report" variant="orbit">
+    <bef-card>
+      <bef-card-header><bef-card-title>Monthly revenue</bef-card-title></bef-card-header>
+      <bef-card-content class="grid gap-2">
+        <bef-skeleton class="h-6 w-1/3"></bef-skeleton>
+        <bef-skeleton class="h-4 w-full"></bef-skeleton>
+        <bef-skeleton class="h-4 w-4/5"></bef-skeleton>
+      </bef-card-content>
+    </bef-card>
+  </bef-loading-overlay>
+</div>

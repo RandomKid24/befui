@@ -1,1 +1,12 @@
-<bef-slider emit="value-change" :value="40" :min="0" :max="100" style="width:280px"></bef-slider>
+<div class="w-72">
+  <div class="mb-1 flex justify-between text-sm">
+    <span class="font-medium">Monthly budget</span>
+    <span class="tabular-nums text-muted-foreground">₹40k</span>
+  </div>
+  <bef-slider aria-label="Budget" :value="40" :min="10" :max="100" :step="5" emit="value-change" id="g1"></bef-slider>
+</div>
+<script type="module">
+document.getElementById("g1").props = {
+  format: (n) => `₹${n}k`,
+};
+</script>

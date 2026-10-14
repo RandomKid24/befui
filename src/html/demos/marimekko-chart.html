@@ -1,2 +1,6 @@
-<bef-marimekko-chart class="w-full max-w-xl" :keys='[{"key":"a","label":"Basic"},{"key":"b","label":"Pro"},{"key":"c","label":"Team"}]' :columns='[
-  {"label":"India","values":{"a":40,"b":30,"c":10}},{"label":"US","values":{"a":20,"b":50,"c":40}},{"label":"UK","values":{"a":10,"b":20,"c":15}}]'></bef-marimekko-chart>
+<bef-marimekko-chart class="w-[36rem] max-w-full" :keys='[{"key":"pro","label":"Pro"},{"key":"biz","label":"Business","color":"text-success"},{"key":"starter","label":"Starter","color":"text-warning"}]' :columns='[{"label":"North","values":{"pro":40,"biz":30,"starter":10}},{"label":"West","values":{"pro":55,"biz":50,"starter":20}},{"label":"South","values":{"pro":30,"biz":20,"starter":25}},{"label":"East","values":{"pro":10,"biz":8,"starter":12}}]' id="g1"></bef-marimekko-chart>
+<script type="module">
+document.getElementById("g1").props = {
+  format: (n) => `₹${n}L`,
+};
+</script>

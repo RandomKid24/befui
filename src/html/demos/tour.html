@@ -1,3 +1,9 @@
-<div style="display:flex;gap:12px;align-items:center"><bef-button id="tour-a">Step one target</bef-button><bef-button id="tour-b" variant="outline">Step two target</bef-button><bef-button id="tour-go" variant="secondary">Start tour</bef-button></div>
-<bef-tour id="tour" emit="open-change" :steps='[{"target":"#tour-a","title":"First","body":"This is the first thing."},{"target":"#tour-b","title":"Second","body":"And this is the second.","side":"bottom"}]'></bef-tour>
-<script>document.getElementById('tour-go').addEventListener('click', () => document.getElementById('tour').setAttribute(':open', 'true'));</script>
+<div class="w-full max-w-md space-y-4">
+  <div class="flex items-center gap-2">
+    <div class="flex-1"><bef-input aria-label="Search" placeholder="Search"></bef-input></div>
+    <bef-button variant="outline">New project</bef-button>
+  </div>
+  <div class="rounded-lg border p-4 text-sm text-muted-foreground">Ada commented on Roadmap · 2 minutes ago</div>
+  <bef-button variant="soft">Take the tour</bef-button>
+  <bef-tour :steps='[{"target":{"current":null},"title":"Search everything","body":"Find people, files and settings from one box."},{"target":{"current":null},"title":"Create something","body":"Start a project, invite a teammate or upload a file."},{"target":{"current":null},"title":"Stay in the loop","body":"Everything your team does shows up here.","side":"top"}]' :open="false" emit="open-change"></bef-tour>
+</div>

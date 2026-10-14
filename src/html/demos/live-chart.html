@@ -1,2 +1,12 @@
-<bef-live-chart id="lc" class="w-full max-w-xl" :interval-ms="500" :height="120"></bef-live-chart>
-<script>document.getElementById('lc').props = { next: (p) => Math.max(5, Math.min(95, (p || 50) + (Math.random() - 0.5) * 14)) };</script>
+<div class="grid w-full max-w-lg gap-3">
+  <div class="flex items-center justify-between">
+    <span class="text-sm font-medium">Active users</span>
+    <bef-button size="xs" variant="outline">Pause</bef-button>
+  </div>
+  <bef-live-chart :paused="false" id="g1"></bef-live-chart>
+</div>
+<script type="module">
+document.getElementById("g1").props = {
+  next: (p) => Math.max(10, Math.min(95, p + (Math.random() - 0.5) * 14)),
+};
+</script>

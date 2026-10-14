@@ -1,5 +1,21 @@
-<bef-input-group style="width:320px">
-  <bef-input-addon>https://</bef-input-addon>
-  <bef-input-group-input placeholder="example.com"></bef-input-group-input>
-  <bef-input-addon side="end">.com</bef-input-addon>
-</bef-input-group>
+<div class="flex w-full max-w-sm flex-col gap-4">
+  <bef-input-group>
+    <bef-input-addon>https://</bef-input-addon>
+    <bef-input-group-input aria-label="Site name" placeholder="befui"></bef-input-group-input>
+    <bef-input-addon side="end">.com</bef-input-addon>
+  </bef-input-group>
+  <bef-input-group>
+    <bef-input-addon>$</bef-input-addon>
+    <bef-input-group-input aria-label="Amount" type="number" placeholder="0.00"></bef-input-group-input>
+    <bef-input-addon side="end">USD</bef-input-addon>
+  </bef-input-group>
+  <bef-input-group>
+    <bef-input-addon class="border-e-0 bg-transparent pe-0">
+      <bef-search-icon></bef-search-icon>
+    </bef-input-addon>
+    <bef-input-group-input aria-label="Search" placeholder="Search components"></bef-input-group-input>
+    <bef-input-addon side="end" class="border-s-0 bg-transparent px-1.5">
+      <bef-button size="xs">Go</bef-button>
+    </bef-input-addon>
+  </bef-input-group>
+</div>

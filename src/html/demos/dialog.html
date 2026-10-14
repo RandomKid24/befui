@@ -1,12 +1,34 @@
-<bef-dialog>
-  <bef-dialog-trigger as-child><bef-button variant="outline">Open dialog</bef-button></bef-dialog-trigger>
-  <bef-dialog-content>
-    <bef-dialog-header><bef-dialog-title>Reject leave request</bef-dialog-title><bef-dialog-description>The employee gets an email with your reason.</bef-dialog-description></bef-dialog-header>
-    <bef-input placeholder="Team is short staffed that week"></bef-input>
-    <bef-dialog-footer><bef-dialog-close as-child><bef-button variant="ghost">Cancel</bef-button></bef-dialog-close><bef-button variant="destructive">Reject</bef-button></bef-dialog-footer>
-  </bef-dialog-content>
-</bef-dialog>
-<bef-sheet>
-  <bef-sheet-trigger as-child><bef-button variant="outline">Open sheet</bef-button></bef-sheet-trigger>
-  <bef-sheet-content><bef-sheet-header><bef-sheet-title>Edit profile</bef-sheet-title><bef-sheet-description>Slides in from the edge.</bef-sheet-description></bef-sheet-header><bef-input default-value="Aarav Mehta"></bef-input></bef-sheet-content>
-</bef-sheet>
+<div class="flex flex-wrap gap-3">
+  <bef-dialog>
+    <bef-dialog-trigger as-child>
+      <bef-button variant="outline">Open dialog</bef-button>
+    </bef-dialog-trigger>
+    <bef-dialog-content>
+      <bef-dialog-header>
+        <bef-dialog-title>Reject leave request</bef-dialog-title>
+        <bef-dialog-description>The employee gets an email with your reason.</bef-dialog-description>
+      </bef-dialog-header>
+      <bef-field label="Reason" for="reason">
+        <bef-input id="reason" placeholder="Team is short staffed that week"></bef-input>
+      </bef-field>
+      <bef-dialog-footer>
+        <bef-dialog-close as-child><bef-button variant="ghost">Cancel</bef-button></bef-dialog-close>
+        <bef-button variant="destructive">Reject</bef-button>
+      </bef-dialog-footer>
+    </bef-dialog-content>
+  </bef-dialog>
+  <bef-sheet>
+    <bef-sheet-trigger as-child>
+      <bef-button variant="outline">Open sheet</bef-button>
+    </bef-sheet-trigger>
+    <bef-sheet-content>
+      <bef-sheet-header>
+        <bef-sheet-title>Edit profile</bef-sheet-title>
+        <bef-sheet-description>Slides in from the edge. Use for long forms.</bef-sheet-description>
+      </bef-sheet-header>
+      <bef-field label="Display name" for="dn">
+        <bef-input id="dn" default-value="Aarav Mehta"></bef-input>
+      </bef-field>
+    </bef-sheet-content>
+  </bef-sheet>
+</div>
