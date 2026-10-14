@@ -124,7 +124,34 @@ Time picker, analog clock, world clock, stopwatch, countdown timer and live rela
 
 ## What is inside
 
-### Theming notes
+### Use from plain HTML or htmx
+
+No React in your app. `npm run build:html` writes `dist/html/befui.js` and `befui.css`; every component is a `<bef-*>` tag (`DataTable` is `<bef-data-table>`, `DialogTrigger` is `<bef-dialog-trigger>`).
+
+```html
+<link rel="stylesheet" href="/befui.css">
+<script src="/befui.js" defer></script>
+
+<bef-button variant="soft" shape="pill">Save changes</bef-button>
+<bef-progress :value="40"></bef-progress>
+
+<bef-dialog emit="open-change">
+  <bef-dialog-trigger as-child><bef-button variant="outline">Open</bef-button></bef-dialog-trigger>
+  <bef-dialog-content>
+    <bef-dialog-title>Hello</bef-dialog-title>
+  </bef-dialog-content>
+</bef-dialog>
+<script>document.addEventListener('bef:open-change', (e) => console.log(e.detail));</script>
+```
+
+- Attributes are props in kebab-case (`default-value`). Strings are the default; use `:` for JSON (`:value="40"`, `:items='[...]'`) and a bare attribute for `true`.
+- Callbacks: `emit="value-change"` fires a bubbling `bef:value-change` event with the value in `detail`, so htmx can listen with `hx-trigger="bef:value-change"`.
+- Functions and JSX (table `columns`, render props): set them from script, `el.props = { columns }`.
+- Works for elements added later (htmx swaps, `innerHTML`) and `hx-*` attributes inside get processed. Radix selects and checkboxes submit with the surrounding `<form>`.
+- The CSS has no page-wide reset. Dark mode is the same `.dark` class on `<html>`.
+- The bundle is ~230 KB gzipped (React is inside). For a tiny, dependency-free set (`bf-select`, `bf-date-picker`, `bf-dialog`, `bf-toast`) see [web/](web/README.md).
+
+## Theming notes
 
 Everything follows the CSS variables in `index.css` (`--primary`, `--ring`, `--accent`...) and the `dark` class on `<html>`. A few pieces use fixed colors on purpose:
 - `terminal` is always dark, like a real terminal, in both themes.
