@@ -1,0 +1,107 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --default-transition-duration: .15s;
+  --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  --font-weight-semibold: 600;
+  --foreground: #0f172a;
+  --primary: #2563eb;
+  --secondary: #f1f5f9;
+  --text-lg: 1.125rem;
+  --text-lg--line-height: calc(1.75 / 1.125);
+}
+
+.dark {
+  --foreground: #e6e9ef;
+  --primary: #3b82f6;
+  --secondary: #171b23;
+}
+
+/* Utility rules */
+.absolute {
+  position: absolute;
+}
+.relative {
+  position: relative;
+}
+.inline-grid {
+  display: inline-grid;
+}
+.-rotate-90 {
+  rotate: -90deg;
+}
+.place-items-center {
+  place-items: center;
+}
+.stroke-secondary {
+  stroke: var(--secondary);
+}
+.text-lg {
+  font-size: var(--text-lg);
+  line-height: var(--tw-leading,var(--text-lg--line-height));
+}
+.font-semibold {
+  --tw-font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-semibold);
+}
+.text-foreground,
+.text-foreground\/90 {
+  color: var(--foreground);
+}
+.text-primary {
+  color: var(--primary);
+}
+.tabular-nums {
+  --tw-numeric-spacing: tabular-nums;
+  font-variant-numeric: var(--tw-ordinal,) var(--tw-slashed-zero,) var(--tw-numeric-figure,) var(--tw-numeric-spacing,) var(--tw-numeric-fraction,);
+}
+.transition-\[stroke-dashoffset\] {
+  transition-property: stroke-dashoffset;
+  transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
+  transition-duration: var(--tw-duration,var(--default-transition-duration));
+}
+.duration-1000 {
+  --tw-duration: 1s;
+  transition-duration: 1s;
+}
+.ease-\[cubic-bezier\(0\.22\,
+1\,
+0\.36\,
+1\)\] {
+  --tw-ease: cubic-bezier(.22,1,.36,1);
+  transition-timing-function: cubic-bezier(.22,1,.36,1);
+}
+
+@property --tw-leading {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ordinal {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-slashed-zero {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-figure {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-spacing {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-fraction {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-duration {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ease {
+  syntax: "*";
+  inherits: false;
+}

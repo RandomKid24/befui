@@ -1,0 +1,62 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --default-transition-duration: .15s;
+  --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+}
+
+/* Utility rules */
+.sr-only {
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border-width: 0;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  position: absolute;
+  overflow: hidden;
+}
+.inline-block {
+  display: inline-block;
+}
+.transition-\[opacity\,
+transform\,
+filter\] {
+  transition-property: opacity,transform,filter;
+  transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
+  transition-duration: var(--tw-duration,var(--default-transition-duration));
+}
+.transition-\[opacity\,
+transform\] {
+  transition-property: opacity,transform;
+  transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
+  transition-duration: var(--tw-duration,var(--default-transition-duration));
+}
+.duration-700 {
+  --tw-duration: .7s;
+  transition-duration: .7s;
+}
+.ease-\[cubic-bezier\(0\.22\,
+1\,
+0\.36\,
+1\)\] {
+  --tw-ease: cubic-bezier(.22,1,.36,1);
+  transition-timing-function: cubic-bezier(.22,1,.36,1);
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .motion-reduce\:transition-none {
+    transition-property: none;
+  }
+}
+
+@property --tw-duration {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ease {
+  syntax: "*";
+  inherits: false;
+}

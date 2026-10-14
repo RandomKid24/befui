@@ -1,0 +1,46 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --animate-spin: spin 1s linear infinite;
+  --spacing: .25rem;
+}
+
+/* Utility rules */
+.inline-block {
+  display: inline-block;
+}
+.size-4 {
+  width: calc(var(--spacing) * 4);
+  height: calc(var(--spacing) * 4);
+}
+.animate-spin {
+  animation: var(--animate-spin);
+}
+.rounded-full {
+  border-radius: 3.40282e38px;
+}
+.border-2 {
+  border-style: var(--tw-border-style);
+  border-width: 2px;
+}
+.border-current,
+.border-current\/20 {
+  border-color: currentColor;
+}
+.border-t-transparent {
+  border-top-color: #0000;
+}
+
+/* Animations */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}

@@ -1,0 +1,171 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --background: #fff;
+  --default-transition-duration: .15s;
+  --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  --input: #e2e8f0;
+  --muted-foreground: #64748b;
+  --primary: #2563eb;
+  --primary-foreground: #fff;
+  --ring: #3b82f6;
+  --spacing: .25rem;
+}
+
+.dark {
+  --background: #0a0c10;
+  --input: #272d3a;
+  --muted-foreground: #8b94a5;
+  --primary: #3b82f6;
+  --primary-foreground: #0a0c10;
+}
+
+/* Utility rules */
+.grid {
+  display: grid;
+}
+.size-3 {
+  width: calc(var(--spacing) * 3);
+  height: calc(var(--spacing) * 3);
+}
+.size-4 {
+  width: calc(var(--spacing) * 4);
+  height: calc(var(--spacing) * 4);
+}
+.shrink-0 {
+  flex-shrink: 0;
+}
+.place-items-center {
+  place-items: center;
+}
+.rounded-\[5px\] {
+  border-radius: 5px;
+}
+.border {
+  border-style: var(--tw-border-style);
+  border-width: 1px;
+}
+.border-input {
+  border-color: var(--input);
+}
+.bg-background,
+.bg-background\/15 {
+  background-color: var(--background);
+}
+.text-primary-foreground,
+.text-primary-foreground\/70 {
+  color: var(--primary-foreground);
+}
+.transition-colors {
+  transition-property: color,background-color,border-color,outline-color,text-decoration-color,fill,stroke,--tw-gradient-from,--tw-gradient-via,--tw-gradient-to;
+  transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
+  transition-duration: var(--tw-duration,var(--default-transition-duration));
+}
+.outline-none {
+  --tw-outline-style: none;
+  outline-style: none;
+}
+.peer-checked\:border-primary:is(:where(.peer):checked~*) {
+  border-color: var(--primary);
+}
+.peer-disabled\:opacity-50:is(:where(.peer):disabled~*) {
+  opacity: .5;
+}
+
+@media (hover:hover) {
+  .hover\:border-muted-foreground\/60:hover {
+    border-color: var(--muted-foreground);
+  }
+}
+
+@media (hover:hover) {
+  @supports (color:color-mix(in lab,red,red)) {
+    .hover\:border-muted-foreground\/60:hover {
+      border-color: color-mix(in oklab,var(--muted-foreground) 60%,transparent);
+    }
+  }
+}
+
+.focus-visible\:ring-3:focus-visible {
+  --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--tw-ring-color,currentcolor);
+  box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
+}
+.focus-visible\:ring-ring\/25:focus-visible {
+  --tw-ring-color: var(--ring);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .focus-visible\:ring-ring\/25:focus-visible {
+    --tw-ring-color: color-mix(in oklab, var(--ring) 25%, transparent);
+  }
+}
+
+.disabled\:opacity-50:disabled,
+.has-\[\:disabled\]\:opacity-50:has(:disabled) {
+  opacity: .5;
+}
+.data-\[state\=checked\]\:border-primary[data-state=checked] {
+  border-color: var(--primary);
+}
+.data-\[state\=checked\]\:bg-primary[data-state=checked] {
+  background-color: var(--primary);
+}
+.data-\[state\=indeterminate\]\:border-primary[data-state=indeterminate] {
+  border-color: var(--primary);
+}
+.data-\[state\=indeterminate\]\:bg-primary[data-state=indeterminate] {
+  background-color: var(--primary);
+}
+
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
+@property --tw-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-inset-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-ring-color {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ring-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-inset-ring-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-ring-inset {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ring-offset-width {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-ring-offset-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-duration {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ease {
+  syntax: "*";
+  inherits: false;
+}

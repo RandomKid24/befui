@@ -1,0 +1,335 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --color-black: #000;
+  --container-xl: 36rem;
+  --font-weight-medium: 500;
+  --muted-foreground: #64748b;
+  --popover: #fff;
+  --popover-foreground: #0f172a;
+  --radius: .5rem;
+  --secondary: #f1f5f9;
+  --spacing: .25rem;
+  --text-sm: .875rem;
+  --text-sm--line-height: calc(1.25 / .875);
+  --tracking-wider: .05em;
+}
+
+.dark {
+  --muted-foreground: #8b94a5;
+  --popover: #0f1218;
+  --popover-foreground: #e6e9ef;
+  --secondary: #171b23;
+}
+
+/* Utility rules */
+.sr-only {
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border-width: 0;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  position: absolute;
+  overflow: hidden;
+}
+.fixed {
+  position: fixed;
+}
+.inset-0 {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.top-\[18\%\] {
+  top: 18%;
+}
+.left-1\/2 {
+  left: 50%;
+}
+.z-50 {
+  z-index: 50;
+}
+.flex {
+  display: flex;
+}
+.size-4 {
+  width: calc(var(--spacing) * 4);
+  height: calc(var(--spacing) * 4);
+}
+.h-12 {
+  height: calc(var(--spacing) * 12);
+}
+.max-h-80 {
+  max-height: calc(var(--spacing) * 80);
+}
+.w-\[calc\(100\%-2rem\)\] {
+  width: calc(100% - 2rem);
+}
+.w-full {
+  width: 100%;
+}
+.max-w-xl {
+  max-width: var(--container-xl);
+}
+.flex-1 {
+  flex: 1;
+}
+.shrink-0 {
+  flex-shrink: 0;
+}
+.-translate-x-1\/2 {
+  --tw-translate-x: -50% ;
+  translate: var(--tw-translate-x) var(--tw-translate-y);
+}
+.animate-in {
+  animation: .15s ease-out fade-in;
+}
+.animate-pop {
+  animation: .15s ease-out pop;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+.flex-col {
+  flex-direction: column;
+}
+.items-center {
+  align-items: center;
+}
+.gap-2\.5 {
+  gap: calc(var(--spacing) * 2.5);
+}
+.overflow-hidden {
+  overflow: hidden;
+}
+.overflow-y-auto {
+  overflow-y: auto;
+}
+.rounded-md {
+  border-radius: var(--radius);
+}
+.rounded-xl {
+  border-radius: calc(var(--radius) + 6px);
+}
+.border {
+  border-style: var(--tw-border-style);
+  border-width: 1px;
+}
+.border-b {
+  border-bottom-style: var(--tw-border-style);
+  border-bottom-width: 1px;
+}
+.bg-black\/40 {
+  background-color: #0006;
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .bg-black\/40 {
+    background-color: color-mix(in oklab,var(--color-black) 40%,transparent);
+  }
+}
+
+.bg-popover {
+  background-color: var(--popover);
+}
+.bg-transparent {
+  background-color: #0000;
+}
+.p-2 {
+  padding: calc(var(--spacing) * 2);
+}
+.px-2 {
+  padding-inline: calc(var(--spacing) * 2);
+}
+.px-4 {
+  padding-inline: calc(var(--spacing) * 4);
+}
+.py-2 {
+  padding-block: calc(var(--spacing) * 2);
+}
+.py-10 {
+  padding-block: calc(var(--spacing) * 10);
+}
+.text-center {
+  text-align: center;
+}
+.text-sm {
+  font-size: var(--text-sm);
+  line-height: var(--tw-leading,var(--text-sm--line-height));
+}
+.text-\[13px\] {
+  font-size: 13px;
+}
+.text-muted-foreground,
+.text-muted-foreground\/30 {
+  color: var(--muted-foreground);
+}
+.text-popover-foreground {
+  color: var(--popover-foreground);
+}
+.shadow-2xl {
+  --tw-shadow: 0 25px 50px -12px var(--tw-shadow-color,#00000040);
+  box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
+}
+.backdrop-blur-\[2px\] {
+  --tw-backdrop-blur: blur(2px);
+  -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
+  backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
+}
+.outline-none {
+  --tw-outline-style: none;
+  outline-style: none;
+}
+.placeholder\:text-muted-foreground\/70::placeholder {
+  color: var(--muted-foreground);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .placeholder\:text-muted-foreground\/70::placeholder {
+    color: color-mix(in oklab,var(--muted-foreground) 70%,transparent);
+  }
+}
+
+.data-\[selected\=true\]\:bg-secondary[data-selected=true] {
+  background-color: var(--secondary);
+}
+.\[\&_\[cmdk-group-heading\]\]\:px-2 [cmdk-group-heading] {
+  padding-inline: calc(var(--spacing) * 2);
+}
+.\[\&_\[cmdk-group-heading\]\]\:py-1\.5 [cmdk-group-heading] {
+  padding-block: calc(var(--spacing) * 1.5);
+}
+.\[\&_\[cmdk-group-heading\]\]\:text-\[11px\] [cmdk-group-heading] {
+  font-size: 11px;
+}
+.\[\&_\[cmdk-group-heading\]\]\:font-medium [cmdk-group-heading] {
+  --tw-font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-medium);
+}
+.\[\&_\[cmdk-group-heading\]\]\:tracking-wider [cmdk-group-heading] {
+  --tw-tracking: var(--tracking-wider);
+  letter-spacing: var(--tracking-wider);
+}
+.\[\&_\[cmdk-group-heading\]\]\:text-muted-foreground [cmdk-group-heading] {
+  color: var(--muted-foreground);
+}
+.\[\&_\[cmdk-group-heading\]\]\:uppercase [cmdk-group-heading] {
+  text-transform: uppercase;
+}
+.\[\&_svg\]\:size-4 svg {
+  width: calc(var(--spacing) * 4);
+  height: calc(var(--spacing) * 4);
+}
+.\[\&_svg\]\:text-muted-foreground svg {
+  color: var(--muted-foreground);
+}
+
+/* Animations */
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pop {
+  0% {
+    opacity: 0;
+    transform: scale(.97)translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@property --tw-translate-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-translate-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
+@property --tw-leading {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-shadow-color {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-inset-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-ring-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-inset-ring-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-ring-offset-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-backdrop-blur {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-brightness {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-contrast {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-grayscale {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-hue-rotate {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-invert {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-opacity {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-saturate {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-sepia {
+  syntax: "*";
+  inherits: false;
+}

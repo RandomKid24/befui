@@ -1,0 +1,128 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --default-transition-duration: .15s;
+  --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  --font-weight-medium: 500;
+  --muted-foreground: #64748b;
+  --primary: #2563eb;
+  --radius: .5rem;
+  --spacing: .25rem;
+}
+
+.dark {
+  --muted-foreground: #8b94a5;
+  --primary: #3b82f6;
+}
+
+/* Utility rules */
+.absolute {
+  position: absolute;
+}
+.relative {
+  position: relative;
+}
+.inset-y-0 {
+  inset-block: 0;
+}
+.left-0 {
+  left: 0;
+}
+.flex {
+  display: flex;
+}
+.grid {
+  display: grid;
+}
+.items-center {
+  align-items: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.gap-1\.5 {
+  gap: calc(var(--spacing) * 1.5);
+}
+.gap-3 {
+  gap: calc(var(--spacing) * 3);
+}
+.truncate {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.rounded-md {
+  border-radius: var(--radius);
+}
+.bg-primary\/10 {
+  background-color: var(--primary);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .bg-primary\/10 {
+    background-color: color-mix(in oklab,var(--primary) 10%,transparent);
+  }
+}
+
+.px-2\.5 {
+  padding-inline: calc(var(--spacing) * 2.5);
+}
+.py-1\.5 {
+  padding-block: calc(var(--spacing) * 1.5);
+}
+.text-\[13px\] {
+  font-size: 13px;
+}
+.font-medium {
+  --tw-font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-medium);
+}
+.text-muted-foreground,
+.text-muted-foreground\/30 {
+  color: var(--muted-foreground);
+}
+.tabular-nums {
+  --tw-numeric-spacing: tabular-nums;
+  font-variant-numeric: var(--tw-ordinal,) var(--tw-slashed-zero,) var(--tw-numeric-figure,) var(--tw-numeric-spacing,) var(--tw-numeric-fraction,);
+}
+.transition-colors {
+  transition-property: color,background-color,border-color,outline-color,text-decoration-color,fill,stroke,--tw-gradient-from,--tw-gradient-via,--tw-gradient-to;
+  transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
+  transition-duration: var(--tw-duration,var(--default-transition-duration));
+}
+
+@media (hover:hover) {
+  .hover\:text-primary:hover {
+    color: var(--primary);
+  }
+}
+
+@property --tw-ordinal {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-slashed-zero {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-figure {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-spacing {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-fraction {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-duration {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ease {
+  syntax: "*";
+  inherits: false;
+}

@@ -1,0 +1,82 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --container-xl: 36rem;
+  --font-weight-medium: 500;
+  --muted-foreground: #64748b;
+  --spacing: .25rem;
+  --tracking-wider: .05em;
+}
+
+.dark {
+  --muted-foreground: #8b94a5;
+}
+
+/* Utility rules */
+.flex {
+  display: flex;
+}
+.grid {
+  display: grid;
+}
+.max-h-\[85vh\] {
+  max-height: 85vh;
+}
+.max-w-xl {
+  max-width: var(--container-xl);
+}
+.content-start {
+  align-content: flex-start;
+}
+.items-center {
+  align-items: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.gap-1 {
+  gap: var(--spacing);
+}
+.gap-1\.5 {
+  gap: calc(var(--spacing) * 1.5);
+}
+.gap-2 {
+  gap: calc(var(--spacing) * 2);
+}
+.gap-3 {
+  gap: calc(var(--spacing) * 3);
+}
+.gap-5 {
+  gap: calc(var(--spacing) * 5);
+}
+.overflow-y-auto {
+  overflow-y: auto;
+}
+.text-\[11px\] {
+  font-size: 11px;
+}
+.text-\[13px\] {
+  font-size: 13px;
+}
+.font-medium {
+  --tw-font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-medium);
+}
+.tracking-wider {
+  --tw-tracking: var(--tracking-wider);
+  letter-spacing: var(--tracking-wider);
+}
+.text-muted-foreground,
+.text-muted-foreground\/30 {
+  color: var(--muted-foreground);
+}
+.uppercase {
+  text-transform: uppercase;
+}
+
+@media (min-width:40rem) {
+  .sm\:grid-cols-2 {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+  }
+}

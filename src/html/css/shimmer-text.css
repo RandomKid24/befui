@@ -1,0 +1,43 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --foreground: #0f172a;
+  --muted-foreground: #64748b;
+}
+
+.dark {
+  --foreground: #e6e9ef;
+  --muted-foreground: #8b94a5;
+}
+
+/* Utility rules */
+.animate-shimmer {
+  animation: 1.6s linear infinite shimmer;
+}
+.bg-\[linear-gradient\(110deg\,
+var\(--muted-foreground\)_40\%\,
+var\(--foreground\)_50\%\,
+var\(--muted-foreground\)_60\%\)\] {
+  background-image: linear-gradient(110deg,var(--muted-foreground) 40%,var(--foreground) 50%,var(--muted-foreground) 60%);
+}
+.bg-\[length\:200\%_100\%\] {
+  background-size: 200% 100%;
+}
+.bg-clip-text {
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.text-transparent {
+  color: #0000;
+}
+
+/* Animations */
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}

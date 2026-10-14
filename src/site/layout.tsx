@@ -76,7 +76,6 @@ function SearchPalette({ open, setOpen }: { open: boolean; setOpen: (o: boolean)
           <CommandItem onSelect={() => pick('/icons')}><SparkleIcon /> Icons</CommandItem>
           <CommandItem onSelect={() => pick('/themes')}><PaletteIcon /> Themes</CommandItem>
           <CommandItem onSelect={() => pick('/ai')}><ZapIcon /> Use with AI</CommandItem>
-          <CommandItem onSelect={() => pick('/web')}><LayersIcon /> Use without React</CommandItem>
           <CommandItem onSelect={() => pick('/html')}><CodeIcon /> Use from HTML and htmx</CommandItem>
           <CommandItem onSelect={() => pick('/changelog')}><ClockIcon /> Changelog</CommandItem>
         </CommandGroup>
@@ -187,7 +186,7 @@ export function SidebarNav({ path, onNavigate }: { path: string; onNavigate?: ()
       {to.startsWith('/components/') && NEW_SLUGS.has(to.slice(12)) && <span className="ml-2 rounded-full bg-primary/10 px-1.5 py-px align-middle text-[10px] font-semibold text-primary">New</span>}
     </Link>
   );
-  const top = [['/docs', 'Getting started', BookIcon], ['/components', 'All components', ComponentsIcon], ['/blocks', 'All blocks', BlocksIcon], ['/icons', 'Icons', SparkleIcon], ['/themes', 'Themes', PaletteIcon], ['/ai', 'Use with AI', ZapIcon], ['/web', 'Use without React', LayersIcon], ['/html', 'HTML and htmx', CodeIcon], ['/changelog', 'Changelog', ClockIcon]] as const;
+  const top = [['/docs', 'Getting started', BookIcon], ['/components', 'All components', ComponentsIcon], ['/blocks', 'All blocks', BlocksIcon], ['/icons', 'Icons', SparkleIcon], ['/themes', 'Themes', PaletteIcon], ['/ai', 'Use with AI', ZapIcon], ['/html', 'HTML and htmx', CodeIcon], ['/changelog', 'Changelog', ClockIcon]] as const;
   const allOpen = groups.every((g) => open[g.title]);
   const visible = groups
     .map((g) => ({ ...g, shown: term ? g.items.filter((i) => `${i.label} ${i.extra}`.toLowerCase().includes(term)) : g.items }))
@@ -320,7 +319,6 @@ export function Shell({ path, docs, children }: { path: string; docs: boolean; c
             {navLink('/blocks', 'Blocks', '/blocks')}
             {navLink('/icons', 'Icons', '/icons')}
             {navLink('/ai', 'AI', '/ai')}
-            {navLink('/web', 'Web', '/web')}
             {navLink('/html', 'HTML', '/html')}
             {navLink('/changelog', 'Changelog', '/changelog')}
           </nav>
@@ -355,7 +353,7 @@ export function Shell({ path, docs, children }: { path: string; docs: boolean; c
           <SheetTitle className="sr-only">Navigation</SheetTitle>
           <Logo />
           <nav className={cn('mt-4 grid gap-1 md:hidden', docs && 'border-b pb-4')}>
-            {[['/docs', 'Docs'], ['/components', 'Components'], ['/blocks', 'Blocks'], ['/icons', 'Icons'], ['/ai', 'Use with AI'], ['/web', 'Use without React'], ['/html', 'HTML and htmx'], ['/changelog', 'Changelog']].map(([to, label]) => (
+            {[['/docs', 'Docs'], ['/components', 'Components'], ['/blocks', 'Blocks'], ['/icons', 'Icons'], ['/ai', 'Use with AI'], ['/html', 'HTML and htmx'], ['/changelog', 'Changelog']].map(([to, label]) => (
               <Link key={to} to={to} onClick={() => setMenuOpen(false)} className="rounded-md px-2.5 py-2 text-sm font-medium hover:bg-secondary">{label}</Link>
             ))}
           </nav>

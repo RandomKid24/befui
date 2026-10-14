@@ -1,0 +1,81 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --border: #e2e8f0;
+  --card: #fff;
+  --foreground: #0f172a;
+  --muted-foreground: #64748b;
+  --primary: #2563eb;
+}
+
+.dark {
+  --border: #1f2430;
+  --card: #0f1218;
+  --foreground: #e6e9ef;
+  --muted-foreground: #8b94a5;
+  --primary: #3b82f6;
+}
+
+/* Utility rules */
+.transform {
+  transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
+}
+.fill-card {
+  fill: var(--card);
+}
+.fill-primary {
+  fill: var(--primary);
+}
+.stroke-border {
+  stroke: var(--border);
+}
+.stroke-foreground,
+.stroke-foreground\/70 {
+  stroke: var(--foreground);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .stroke-foreground\/70 {
+    stroke: color-mix(in oklab,var(--foreground) 70%,transparent);
+  }
+}
+
+.stroke-muted-foreground\/50 {
+  stroke: var(--muted-foreground);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .stroke-muted-foreground\/50 {
+    stroke: color-mix(in oklab,var(--muted-foreground) 50%,transparent);
+  }
+}
+
+.stroke-primary {
+  stroke: var(--primary);
+}
+.text-foreground,
+.text-foreground\/90 {
+  color: var(--foreground);
+}
+
+@property --tw-rotate-x {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-rotate-y {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-rotate-z {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-skew-x {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-skew-y {
+  syntax: "*";
+  inherits: false;
+}

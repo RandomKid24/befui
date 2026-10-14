@@ -26,11 +26,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run registry:build && tsc --noEmit && vite build && npm run build:html",
+    "build": "npm run build:html && npm run registry:build && tsc --noEmit && vite build",
     "html:demos": "vite-node -c vite.gen.config.ts scripts/gen-html-demos.tsx",
-    "build:html": "node scripts/html-manifest.mjs && vite build -c vite.html.config.ts && node scripts/html-minify.mjs && vite build -c vite.html.config.ts --mode previews && node scripts/html-flatten.mjs && node scripts/build-html-docs.mjs && rm -rf cdn && mkdir -p cdn && cp -R dist/html/befui.js dist/html/befui.css dist/html/chunks cdn/ && mkdir -p dist/web && rm -rf dist/web/html && cp -R dist/html dist/web/html",
+    "build:html": "node scripts/html-manifest.mjs && vite build -c vite.html.config.ts && node scripts/html-minify.mjs && node scripts/html-flatten.mjs && node scripts/html-css-build.mjs && rm -rf cdn && mkdir -p cdn && cp -R dist/html/befui.js dist/html/befui.css dist/html/chunks cdn/",
     "preview": "vite preview",
-    "demo:html": "npm run build:html && vite preview --outDir dist/html --port 4173 --open",
     "typecheck": "tsc --noEmit",
     "stories:gen": "node scripts/gen-stories.mjs",
     "storybook": "npm run stories:gen && storybook dev -p 6006",

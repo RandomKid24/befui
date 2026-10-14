@@ -1,0 +1,131 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --border: #e2e8f0;
+  --default-transition-duration: .15s;
+  --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  --foreground: #0f172a;
+  --muted-foreground: #64748b;
+  --primary: #2563eb;
+  --spacing: .25rem;
+}
+
+.dark {
+  --border: #1f2430;
+  --foreground: #e6e9ef;
+  --muted-foreground: #8b94a5;
+  --primary: #3b82f6;
+}
+
+/* Utility rules */
+.flex {
+  display: flex;
+}
+.grid {
+  display: grid;
+}
+.aspect-square {
+  aspect-ratio: 1;
+}
+.min-h-6 {
+  min-height: calc(var(--spacing) * 6);
+}
+.transform {
+  transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
+}
+.place-items-center {
+  place-items: center;
+}
+.items-center {
+  align-items: center;
+}
+.gap-2 {
+  gap: calc(var(--spacing) * 2);
+}
+.gap-y-1 {
+  row-gap: var(--spacing);
+}
+.rounded-full {
+  border-radius: 3.40282e38px;
+}
+.border-t {
+  border-top-style: var(--tw-border-style);
+  border-top-width: 1px;
+}
+.border-border,
+.border-border\/40 {
+  border-color: var(--border);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .border-border\/40 {
+    border-color: color-mix(in oklab,var(--border) 40%,transparent);
+  }
+}
+
+.bg-current {
+  background-color: currentColor;
+}
+.pr-3 {
+  padding-right: calc(var(--spacing) * 3);
+}
+.text-center {
+  text-align: center;
+}
+.text-\[10px\] {
+  font-size: 10px;
+}
+.text-\[11px\] {
+  font-size: 11px;
+}
+.text-foreground,
+.text-foreground\/90 {
+  color: var(--foreground);
+}
+.text-muted-foreground,
+.text-muted-foreground\/30 {
+  color: var(--muted-foreground);
+}
+.text-primary {
+  color: var(--primary);
+}
+.transition-colors {
+  transition-property: color,background-color,border-color,outline-color,text-decoration-color,fill,stroke,--tw-gradient-from,--tw-gradient-via,--tw-gradient-to;
+  transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
+  transition-duration: var(--tw-duration,var(--default-transition-duration));
+}
+
+@property --tw-rotate-x {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-rotate-y {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-rotate-z {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-skew-x {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-skew-y {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
+@property --tw-duration {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ease {
+  syntax: "*";
+  inherits: false;
+}

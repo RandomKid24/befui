@@ -1,0 +1,161 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --foreground: #0f172a;
+  --muted: #f8fafc;
+  --muted-foreground: #64748b;
+  --radius: .5rem;
+  --secondary: #f1f5f9;
+  --spacing: .25rem;
+  --success: #059669;
+  --text-xs: .75rem;
+  --text-xs--line-height: calc(1 / .75);
+}
+
+.dark {
+  --foreground: #e6e9ef;
+  --muted: #11141b;
+  --muted-foreground: #8b94a5;
+  --secondary: #171b23;
+  --success: #10b981;
+}
+
+/* Utility rules */
+.mr-4 {
+  margin-right: calc(var(--spacing) * 4);
+}
+.block {
+  display: block;
+}
+.flex {
+  display: flex;
+}
+.inline-block {
+  display: inline-block;
+}
+.inline-flex {
+  display: inline-flex;
+}
+.size-3\.5 {
+  width: calc(var(--spacing) * 3.5);
+  height: calc(var(--spacing) * 3.5);
+}
+.h-9 {
+  height: calc(var(--spacing) * 9);
+}
+.w-5 {
+  width: calc(var(--spacing) * 5);
+}
+.items-center {
+  align-items: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.gap-1\.5 {
+  gap: calc(var(--spacing) * 1.5);
+}
+.overflow-auto {
+  overflow: auto;
+}
+.overflow-hidden {
+  overflow: hidden;
+}
+.rounded {
+  border-radius: .25rem;
+}
+.rounded-lg {
+  border-radius: calc(var(--radius) + 2px);
+}
+.border {
+  border-style: var(--tw-border-style);
+  border-width: 1px;
+}
+.border-b {
+  border-bottom-style: var(--tw-border-style);
+  border-bottom-width: 1px;
+}
+.bg-muted {
+  background-color: var(--muted);
+}
+.bg-muted\/50 {
+  background-color: var(--muted);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .bg-muted\/50 {
+    background-color: color-mix(in oklab,var(--muted) 50%,transparent);
+  }
+}
+
+.p-3 {
+  padding: calc(var(--spacing) * 3);
+}
+.px-1\.5 {
+  padding-inline: calc(var(--spacing) * 1.5);
+}
+.px-3 {
+  padding-inline: calc(var(--spacing) * 3);
+}
+.py-1 {
+  padding-block: var(--spacing);
+}
+.text-right {
+  text-align: right;
+}
+.font-mono {
+  font-family: JetBrains Mono,ui-monospace,monospace;
+}
+.text-xs {
+  font-size: var(--text-xs);
+  line-height: var(--tw-leading,var(--text-xs--line-height));
+}
+.text-\[12\.5px\] {
+  font-size: 12.5px;
+}
+.leading-6 {
+  --tw-leading: calc(var(--spacing) * 6);
+  line-height: calc(var(--spacing) * 6);
+}
+.text-muted-foreground,
+.text-muted-foreground\/30 {
+  color: var(--muted-foreground);
+}
+.text-muted-foreground\/50 {
+  color: var(--muted-foreground);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .text-muted-foreground\/50 {
+    color: color-mix(in oklab,var(--muted-foreground) 50%,transparent);
+  }
+}
+
+.text-success {
+  color: var(--success);
+}
+.select-none {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+@media (hover:hover) {
+  .hover\:bg-secondary:hover,
+  .hover\:bg-secondary\/40:hover {
+    background-color: var(--secondary);
+  }
+  .hover\:text-foreground:hover {
+    color: var(--foreground);
+  }
+}
+
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
+@property --tw-leading {
+  syntax: "*";
+  inherits: false;
+}

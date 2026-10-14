@@ -1,0 +1,106 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --background: #fff;
+  --destructive: #e11d48;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --foreground: #0f172a;
+  --info: #2563eb;
+  --muted-foreground: #64748b;
+  --primary: #2563eb;
+  --success: #059669;
+  --warning: #d97706;
+}
+
+.dark {
+  --background: #0a0c10;
+  --destructive: #f43f5e;
+  --foreground: #e6e9ef;
+  --info: #60a5fa;
+  --muted-foreground: #8b94a5;
+  --primary: #3b82f6;
+  --success: #10b981;
+  --warning: #f59e0b;
+}
+
+/* Utility rules */
+.h-auto {
+  height: auto;
+}
+.w-full {
+  width: 100%;
+}
+.transform {
+  transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+.overflow-visible {
+  overflow: visible;
+}
+.fill-background {
+  fill: var(--background);
+}
+.fill-foreground {
+  fill: var(--foreground);
+}
+.fill-muted-foreground,
+.fill-muted-foreground\/40 {
+  fill: var(--muted-foreground);
+}
+.stroke-background {
+  stroke: var(--background);
+}
+.text-\[10px\] {
+  font-size: 10px;
+}
+.text-\[11px\] {
+  font-size: 11px;
+}
+.font-medium {
+  --tw-font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-medium);
+}
+.font-semibold {
+  --tw-font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-semibold);
+}
+.text-destructive {
+  color: var(--destructive);
+}
+.text-info {
+  color: var(--info);
+}
+.text-primary {
+  color: var(--primary);
+}
+.text-success {
+  color: var(--success);
+}
+.text-warning {
+  color: var(--warning);
+}
+
+@property --tw-rotate-x {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-rotate-y {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-rotate-z {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-skew-x {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-skew-y {
+  syntax: "*";
+  inherits: false;
+}

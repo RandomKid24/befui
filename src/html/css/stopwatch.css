@@ -1,0 +1,165 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --font-weight-semibold: 600;
+  --muted-foreground: #64748b;
+  --radius: .5rem;
+  --spacing: .25rem;
+  --text-4xl: 2.25rem;
+  --text-4xl--line-height: calc(2.5 / 2.25);
+  --text-sm: .875rem;
+  --text-sm--line-height: calc(1.25 / .875);
+  --text-xs: .75rem;
+  --text-xs--line-height: calc(1 / .75);
+  --tracking-tight: -.025em;
+}
+
+.dark {
+  --muted-foreground: #8b94a5;
+}
+
+/* Utility rules */
+.ml-2 {
+  margin-left: calc(var(--spacing) * 2);
+}
+.flex {
+  display: flex;
+}
+.grid {
+  display: grid;
+}
+.max-h-32 {
+  max-height: calc(var(--spacing) * 32);
+}
+.w-64 {
+  width: calc(var(--spacing) * 64);
+}
+.animate-pop {
+  animation: .15s ease-out pop;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.justify-center {
+  justify-content: center;
+}
+.gap-2 {
+  gap: calc(var(--spacing) * 2);
+}
+.gap-4 {
+  gap: calc(var(--spacing) * 4);
+}
+:where(.divide-y>:not(:last-child)) {
+  --tw-divide-y-reverse: 0;
+  border-bottom-style: var(--tw-border-style);
+  border-top-style: var(--tw-border-style);
+  border-top-width: calc(1px * var(--tw-divide-y-reverse));
+  border-bottom-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
+}
+.overflow-auto {
+  overflow: auto;
+}
+.rounded-lg {
+  border-radius: calc(var(--radius) + 2px);
+}
+.border {
+  border-style: var(--tw-border-style);
+  border-width: 1px;
+}
+.px-3 {
+  padding-inline: calc(var(--spacing) * 3);
+}
+.py-1\.5 {
+  padding-block: calc(var(--spacing) * 1.5);
+}
+.text-center {
+  text-align: center;
+}
+.font-mono {
+  font-family: JetBrains Mono,ui-monospace,monospace;
+}
+.text-4xl {
+  font-size: var(--text-4xl);
+  line-height: var(--tw-leading,var(--text-4xl--line-height));
+}
+.text-sm {
+  font-size: var(--text-sm);
+  line-height: var(--tw-leading,var(--text-sm--line-height));
+}
+.text-xs {
+  font-size: var(--text-xs);
+  line-height: var(--tw-leading,var(--text-xs--line-height));
+}
+.font-semibold {
+  --tw-font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-semibold);
+}
+.tracking-tight {
+  --tw-tracking: var(--tracking-tight);
+  letter-spacing: var(--tracking-tight);
+}
+.text-muted-foreground,
+.text-muted-foreground\/30 {
+  color: var(--muted-foreground);
+}
+.tabular-nums {
+  --tw-numeric-spacing: tabular-nums;
+  font-variant-numeric: var(--tw-ordinal,) var(--tw-slashed-zero,) var(--tw-numeric-figure,) var(--tw-numeric-spacing,) var(--tw-numeric-fraction,);
+}
+.outline {
+  outline-style: var(--tw-outline-style);
+  outline-width: 1px;
+}
+
+/* Animations */
+@keyframes pop {
+  0% {
+    opacity: 0;
+    transform: scale(.97)translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
+@property --tw-divide-y-reverse {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-leading {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ordinal {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-slashed-zero {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-figure {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-spacing {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-fraction {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-outline-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}

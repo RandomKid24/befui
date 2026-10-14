@@ -1,0 +1,250 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --background: #fff;
+  --border: #e2e8f0;
+  --default-transition-duration: .15s;
+  --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  --destructive: #e11d48;
+  --font-weight-medium: 500;
+  --foreground: #0f172a;
+  --muted-foreground: #64748b;
+  --radius: .5rem;
+  --spacing: .25rem;
+  --success: #059669;
+  --text-xs: .75rem;
+  --text-xs--line-height: calc(1 / .75);
+}
+
+.dark {
+  --background: #0a0c10;
+  --border: #1f2430;
+  --destructive: #f43f5e;
+  --foreground: #e6e9ef;
+  --muted-foreground: #8b94a5;
+  --success: #10b981;
+}
+
+/* Utility rules */
+.absolute {
+  position: absolute;
+}
+.relative {
+  position: relative;
+}
+.inset-x-0 {
+  inset-inline: 0;
+}
+.-top-5 {
+  top: calc(var(--spacing) * -5);
+}
+.top-1\/2 {
+  top: 50%;
+}
+.left-1\/2 {
+  left: 50%;
+}
+.mb-1 {
+  margin-bottom: var(--spacing);
+}
+.flex {
+  display: flex;
+}
+.grid {
+  display: grid;
+}
+.size-2 {
+  width: calc(var(--spacing) * 2);
+  height: calc(var(--spacing) * 2);
+}
+.size-3 {
+  width: calc(var(--spacing) * 3);
+  height: calc(var(--spacing) * 3);
+}
+.size-3\.5 {
+  width: calc(var(--spacing) * 3.5);
+  height: calc(var(--spacing) * 3.5);
+}
+.h-5 {
+  height: calc(var(--spacing) * 5);
+}
+.h-\[3px\] {
+  height: 3px;
+}
+.h-px {
+  height: 1px;
+}
+.-translate-x-1\/2 {
+  --tw-translate-x: -50% ;
+  translate: var(--tw-translate-x) var(--tw-translate-y);
+}
+.-translate-y-1\/2 {
+  --tw-translate-y: -50% ;
+  translate: var(--tw-translate-x) var(--tw-translate-y);
+}
+.grid-cols-\[7rem_1fr\] {
+  grid-template-columns: 7rem 1fr;
+}
+.items-center {
+  align-items: center;
+}
+.justify-end {
+  justify-content: flex-end;
+}
+.gap-1 {
+  gap: var(--spacing);
+}
+.gap-1\.5 {
+  gap: calc(var(--spacing) * 1.5);
+}
+.gap-3 {
+  gap: calc(var(--spacing) * 3);
+}
+.gap-4 {
+  gap: calc(var(--spacing) * 4);
+}
+.truncate {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.rounded-full {
+  border-radius: 3.40282e38px;
+}
+.rounded-md {
+  border-radius: var(--radius);
+}
+.border-2 {
+  border-style: var(--tw-border-style);
+  border-width: 2px;
+}
+.border-muted-foreground {
+  border-color: var(--muted-foreground);
+}
+.bg-background,
+.bg-background\/15 {
+  background-color: var(--background);
+}
+.bg-border {
+  background-color: var(--border);
+}
+.bg-destructive,
+.bg-destructive\/5 {
+  background-color: var(--destructive);
+}
+.bg-destructive\/60 {
+  background-color: var(--destructive);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .bg-destructive\/60 {
+    background-color: color-mix(in oklab,var(--destructive) 60%,transparent);
+  }
+}
+
+.bg-foreground,
+.bg-foreground\/55 {
+  background-color: var(--foreground);
+}
+.bg-success,
+.bg-success\/5 {
+  background-color: var(--success);
+}
+.bg-success\/60 {
+  background-color: var(--success);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .bg-success\/60 {
+    background-color: color-mix(in oklab,var(--success) 60%,transparent);
+  }
+}
+
+.px-1 {
+  padding-inline: var(--spacing);
+}
+.py-1\.5 {
+  padding-block: calc(var(--spacing) * 1.5);
+}
+.text-xs {
+  font-size: var(--text-xs);
+  line-height: var(--tw-leading,var(--text-xs--line-height));
+}
+.text-\[11px\] {
+  font-size: 11px;
+}
+.text-\[13px\] {
+  font-size: 13px;
+}
+.font-medium {
+  --tw-font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-medium);
+}
+.whitespace-nowrap {
+  white-space: nowrap;
+}
+.text-muted-foreground,
+.text-muted-foreground\/30 {
+  color: var(--muted-foreground);
+}
+.tabular-nums {
+  --tw-numeric-spacing: tabular-nums;
+  font-variant-numeric: var(--tw-ordinal,) var(--tw-slashed-zero,) var(--tw-numeric-figure,) var(--tw-numeric-spacing,) var(--tw-numeric-fraction,);
+}
+.opacity-40 {
+  opacity: .4;
+}
+.transition-opacity {
+  transition-property: opacity;
+  transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
+  transition-duration: var(--tw-duration,var(--default-transition-duration));
+}
+
+@property --tw-translate-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-translate-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
+@property --tw-leading {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ordinal {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-slashed-zero {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-figure {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-spacing {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-fraction {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-duration {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ease {
+  syntax: "*";
+  inherits: false;
+}

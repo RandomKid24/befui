@@ -1,0 +1,153 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --background: #fff;
+  --primary: #2563eb;
+  --radius: .5rem;
+  --spacing: .25rem;
+}
+
+.dark {
+  --background: #0a0c10;
+  --primary: #3b82f6;
+}
+
+/* Utility rules */
+.size-4 {
+  width: calc(var(--spacing) * 4);
+  height: calc(var(--spacing) * 4);
+}
+.shrink-0 {
+  flex-shrink: 0;
+}
+.group-focus-within\:text-primary:is(:where(.group):focus-within *) {
+  color: var(--primary);
+}
+.group-focus-within\:opacity-100:is(:where(.group):focus-within *) {
+  opacity: 1;
+}
+
+@media (hover:hover) {
+  .group-hover\:scale-105:is(:where(.group):hover *) {
+    --tw-scale-x: 105%;
+    --tw-scale-y: 105%;
+    --tw-scale-z: 105%;
+    scale: var(--tw-scale-x) var(--tw-scale-y);
+  }
+  .group-hover\:bg-primary:is(:where(.group):hover *) {
+    background-color: var(--primary);
+  }
+  .group-hover\:opacity-100:is(:where(.group):hover *) {
+    opacity: 1;
+  }
+  .group-hover\:\[animation-play-state\:paused\]:is(:where(.group):hover *) {
+    animation-play-state: paused;
+  }
+}
+
+.group-focus-visible\:bg-primary:is(:where(.group):focus-visible *) {
+  background-color: var(--primary);
+}
+.group-focus-visible\:opacity-100:is(:where(.group):focus-visible *) {
+  opacity: 1;
+}
+.group-data-\[state\=open\]\:rotate-180:is(:where(.group)[data-state=open] *) {
+  rotate: 180deg;
+}
+.group-data-\[variant\=pill\]\:rounded-md:is(:where(.group)[data-variant=pill] *) {
+  border-radius: var(--radius);
+}
+.group-data-\[variant\=pill\]\:px-3:is(:where(.group)[data-variant=pill] *) {
+  padding-inline: calc(var(--spacing) * 3);
+}
+.group-data-\[variant\=pill\]\:py-1:is(:where(.group)[data-variant=pill] *) {
+  padding-block: var(--spacing);
+}
+.group-data-\[variant\=underline\]\:-mb-px:is(:where(.group)[data-variant=underline] *) {
+  margin-bottom: -1px;
+}
+.group-data-\[variant\=underline\]\:border-b-2:is(:where(.group)[data-variant=underline] *) {
+  border-bottom-style: var(--tw-border-style);
+  border-bottom-width: 2px;
+}
+.group-data-\[variant\=underline\]\:border-transparent:is(:where(.group)[data-variant=underline] *) {
+  border-color: #0000;
+}
+.group-data-\[variant\=underline\]\:pb-2\.5:is(:where(.group)[data-variant=underline] *) {
+  padding-bottom: calc(var(--spacing) * 2.5);
+}
+.group-data-\[variant\=pill\]\:data-\[state\=active\]\:bg-background:is(:where(.group)[data-variant=pill] *)[data-state=active] {
+  background-color: var(--background);
+}
+.group-data-\[variant\=pill\]\:data-\[state\=active\]\:shadow-sm:is(:where(.group)[data-variant=pill] *)[data-state=active] {
+  --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color,#0000001a), 0 1px 2px -1px var(--tw-shadow-color,#0000001a);
+  box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
+}
+.group-data-\[variant\=underline\]\:data-\[state\=active\]\:border-primary:is(:where(.group)[data-variant=underline] *)[data-state=active] {
+  border-color: var(--primary);
+}
+.icon-draw * {
+  stroke-dasharray: 1 1;
+  stroke-dashoffset: 0;
+}
+.icon-draw:hover *,
+.group:hover .icon-draw * {
+  animation: icon-draw var(--icon-ms,.9s) cubic-bezier(.45,0,.2,1) backwards;
+  animation-delay: calc(var(--i,0) * .14s);
+}
+
+/* Animations */
+@keyframes icon-draw {
+  0% {
+    stroke-dashoffset: 1px;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@property --tw-scale-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+@property --tw-scale-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
+@property --tw-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-shadow-color {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-inset-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-ring-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-inset-ring-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-ring-offset-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}

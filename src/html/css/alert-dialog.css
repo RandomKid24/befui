@@ -1,0 +1,42 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --container-sm: 24rem;
+  --spacing: .25rem;
+}
+
+/* Utility rules */
+.mb-1 {
+  margin-bottom: var(--spacing);
+}
+.grid {
+  display: grid;
+}
+.size-5 {
+  width: calc(var(--spacing) * 5);
+  height: calc(var(--spacing) * 5);
+}
+.size-10 {
+  width: calc(var(--spacing) * 10);
+  height: calc(var(--spacing) * 10);
+}
+.max-w-sm {
+  max-width: var(--container-sm);
+}
+.place-items-center {
+  place-items: center;
+}
+.rounded-full {
+  border-radius: 3.40282e38px;
+}
+.outline {
+  outline-style: var(--tw-outline-style);
+  outline-width: 1px;
+}
+
+@property --tw-outline-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}

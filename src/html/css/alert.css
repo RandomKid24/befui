@@ -1,0 +1,177 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --destructive: #e11d48;
+  --font-weight-medium: 500;
+  --info: #2563eb;
+  --muted-foreground: #64748b;
+  --radius: .5rem;
+  --spacing: .25rem;
+  --success: #059669;
+  --warning: #d97706;
+}
+
+.dark {
+  --destructive: #f43f5e;
+  --info: #60a5fa;
+  --muted-foreground: #8b94a5;
+  --success: #10b981;
+  --warning: #f59e0b;
+}
+
+/* Utility rules */
+.relative {
+  position: relative;
+}
+.mt-0\.5 {
+  margin-top: calc(var(--spacing) * .5);
+}
+.flex {
+  display: flex;
+}
+.grid {
+  display: grid;
+}
+.size-4 {
+  width: calc(var(--spacing) * 4);
+  height: calc(var(--spacing) * 4);
+}
+.shrink-0 {
+  flex-shrink: 0;
+}
+.gap-0\.5 {
+  gap: calc(var(--spacing) * .5);
+}
+.gap-3 {
+  gap: calc(var(--spacing) * 3);
+}
+.rounded-lg {
+  border-radius: calc(var(--radius) + 2px);
+}
+.border {
+  border-style: var(--tw-border-style);
+  border-width: 1px;
+}
+.border-destructive,
+.border-destructive\/20 {
+  border-color: var(--destructive);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .border-destructive\/20 {
+    border-color: color-mix(in oklab,var(--destructive) 20%,transparent);
+  }
+}
+
+.border-info\/20 {
+  border-color: var(--info);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .border-info\/20 {
+    border-color: color-mix(in oklab,var(--info) 20%,transparent);
+  }
+}
+
+.border-success,
+.border-success\/20 {
+  border-color: var(--success);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .border-success\/20 {
+    border-color: color-mix(in oklab,var(--success) 20%,transparent);
+  }
+}
+
+.border-warning\/25 {
+  border-color: var(--warning);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .border-warning\/25 {
+    border-color: color-mix(in oklab,var(--warning) 25%,transparent);
+  }
+}
+
+.bg-destructive,
+.bg-destructive\/5 {
+  background-color: var(--destructive);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .bg-destructive\/5 {
+    background-color: color-mix(in oklab,var(--destructive) 5%,transparent);
+  }
+}
+
+.bg-info,
+.bg-info\/5 {
+  background-color: var(--info);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .bg-info\/5 {
+    background-color: color-mix(in oklab,var(--info) 5%,transparent);
+  }
+}
+
+.bg-success,
+.bg-success\/5 {
+  background-color: var(--success);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .bg-success\/5 {
+    background-color: color-mix(in oklab,var(--success) 5%,transparent);
+  }
+}
+
+.bg-warning,
+.bg-warning\/5 {
+  background-color: var(--warning);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .bg-warning\/5 {
+    background-color: color-mix(in oklab,var(--warning) 5%,transparent);
+  }
+}
+
+.p-3\.5 {
+  padding: calc(var(--spacing) * 3.5);
+}
+.text-\[13px\] {
+  font-size: 13px;
+}
+.leading-5 {
+  --tw-leading: calc(var(--spacing) * 5);
+  line-height: calc(var(--spacing) * 5);
+}
+.font-medium {
+  --tw-font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-medium);
+}
+.text-muted-foreground,
+.text-muted-foreground\/30 {
+  color: var(--muted-foreground);
+}
+.\[\&\>svg\]\:text-destructive>svg {
+  color: var(--destructive);
+}
+.\[\&\>svg\]\:text-info>svg {
+  color: var(--info);
+}
+.\[\&\>svg\]\:text-success>svg {
+  color: var(--success);
+}
+.\[\&\>svg\]\:text-warning>svg {
+  color: var(--warning);
+}
+
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}

@@ -3,7 +3,7 @@
 import fs from 'node:fs';
 import postcss from 'postcss';
 
-for (const file of ['dist/html/befui.css', 'dist/html/previews/previews.css']) {
+for (const file of ['dist/html/befui.css']) {
   const root = postcss.parse(fs.readFileSync(file, 'utf8'));
   root.walkAtRules('layer', (at) => { if (at.nodes) at.replaceWith(at.nodes); else at.remove(); });
   fs.writeFileSync(file, root.toString());

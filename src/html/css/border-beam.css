@@ -1,0 +1,67 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --card: #fff;
+  --radius: .5rem;
+}
+
+.dark {
+  --card: #0f1218;
+}
+
+/* Utility rules */
+.pointer-events-none {
+  pointer-events: none;
+}
+.absolute {
+  position: absolute;
+}
+.relative {
+  position: relative;
+}
+.inset-0 {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.h-full {
+  height: 100%;
+}
+.animate-beam {
+  animation: 4s linear infinite beam;
+}
+.rounded-\[inherit\] {
+  border-radius: inherit;
+}
+.rounded-xl {
+  border-radius: calc(var(--radius) + 6px);
+}
+.border {
+  border-style: var(--tw-border-style);
+  border-width: 1px;
+}
+.bg-card,
+.bg-card\/80 {
+  background-color: var(--card);
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .motion-reduce\:hidden {
+    display: none;
+  }
+}
+
+/* Animations */
+@keyframes beam {
+  to {
+    --beam-angle: 360deg;
+  }
+}
+
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}

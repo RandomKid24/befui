@@ -1,0 +1,102 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --container-xl: 36rem;
+  --destructive: #e11d48;
+  --font-weight-semibold: 600;
+  --muted-foreground: #64748b;
+  --spacing: .25rem;
+  --text-base: 1rem;
+  --text-base--line-height: 1.5 ;
+  --text-sm: .875rem;
+  --text-sm--line-height: calc(1.25 / .875);
+  --text-xs: .75rem;
+  --text-xs--line-height: calc(1 / .75);
+}
+
+.dark {
+  --destructive: #f43f5e;
+  --muted-foreground: #8b94a5;
+}
+
+/* Utility rules */
+.flex {
+  display: flex;
+}
+.grid {
+  display: grid;
+}
+.w-full {
+  width: 100%;
+}
+.max-w-xl {
+  max-width: var(--container-xl);
+}
+.items-center {
+  align-items: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.gap-1 {
+  gap: var(--spacing);
+}
+.gap-2 {
+  gap: calc(var(--spacing) * 2);
+}
+.gap-4 {
+  gap: calc(var(--spacing) * 4);
+}
+.gap-6 {
+  gap: calc(var(--spacing) * 6);
+}
+.text-base {
+  font-size: var(--text-base);
+  line-height: var(--tw-leading,var(--text-base--line-height));
+}
+.text-sm {
+  font-size: var(--text-sm);
+  line-height: var(--tw-leading,var(--text-sm--line-height));
+}
+.text-xs {
+  font-size: var(--text-xs);
+  line-height: var(--tw-leading,var(--text-xs--line-height));
+}
+.text-\[13px\] {
+  font-size: 13px;
+}
+.font-semibold {
+  --tw-font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-semibold);
+}
+.text-destructive {
+  color: var(--destructive);
+}
+.text-muted-foreground,
+.text-muted-foreground\/30 {
+  color: var(--muted-foreground);
+}
+.outline {
+  outline-style: var(--tw-outline-style);
+  outline-width: 1px;
+}
+
+@media (min-width:40rem) {
+  .sm\:col-span-2 {
+    grid-column: span 2/span 2;
+  }
+  .sm\:grid-cols-2 {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+  }
+}
+
+@property --tw-leading {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-outline-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}

@@ -1,0 +1,151 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --accent: #eff6ff;
+  --default-transition-duration: .15s;
+  --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  --font-weight-medium: 500;
+  --muted: #f8fafc;
+  --muted-foreground: #64748b;
+  --spacing: .25rem;
+  --text-xs: .75rem;
+  --text-xs--line-height: calc(1 / .75);
+  --tracking-wider: .05em;
+}
+
+.dark {
+  --accent: #14213d;
+  --muted: #11141b;
+  --muted-foreground: #8b94a5;
+}
+
+/* Utility rules */
+.relative {
+  position: relative;
+}
+.mt-3 {
+  margin-top: calc(var(--spacing) * 3);
+}
+.h-9 {
+  height: calc(var(--spacing) * 9);
+}
+.w-full {
+  width: 100%;
+}
+.caption-bottom {
+  caption-side: bottom;
+}
+.overflow-x-auto {
+  overflow-x: auto;
+}
+.border-t {
+  border-top-style: var(--tw-border-style);
+  border-top-width: 1px;
+}
+.border-b {
+  border-bottom-style: var(--tw-border-style);
+  border-bottom-width: 1px;
+}
+.bg-muted\/50 {
+  background-color: var(--muted);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .bg-muted\/50 {
+    background-color: color-mix(in oklab,var(--muted) 50%,transparent);
+  }
+}
+
+.px-4 {
+  padding-inline: calc(var(--spacing) * 4);
+}
+.py-3 {
+  padding-block: calc(var(--spacing) * 3);
+}
+.text-left {
+  text-align: left;
+}
+.align-middle {
+  vertical-align: middle;
+}
+.text-xs {
+  font-size: var(--text-xs);
+  line-height: var(--tw-leading,var(--text-xs--line-height));
+}
+.text-\[11px\] {
+  font-size: 11px;
+}
+.text-\[13px\] {
+  font-size: 13px;
+}
+.font-medium {
+  --tw-font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-medium);
+}
+.tracking-wider {
+  --tw-tracking: var(--tracking-wider);
+  letter-spacing: var(--tracking-wider);
+}
+.whitespace-nowrap {
+  white-space: nowrap;
+}
+.text-muted-foreground,
+.text-muted-foreground\/30 {
+  color: var(--muted-foreground);
+}
+.uppercase {
+  text-transform: uppercase;
+}
+.transition-colors {
+  transition-property: color,background-color,border-color,outline-color,text-decoration-color,fill,stroke,--tw-gradient-from,--tw-gradient-via,--tw-gradient-to;
+  transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
+  transition-duration: var(--tw-duration,var(--default-transition-duration));
+}
+
+@media (hover:hover) {
+  .hover\:bg-muted\/70:hover {
+    background-color: var(--muted);
+  }
+}
+
+@media (hover:hover) {
+  @supports (color:color-mix(in lab,red,red)) {
+    .hover\:bg-muted\/70:hover {
+      background-color: color-mix(in oklab,var(--muted) 70%,transparent);
+    }
+  }
+}
+
+.data-\[state\=selected\]\:bg-accent[data-state=selected] {
+  background-color: var(--accent);
+}
+.\[\&_td\]\:py-2 td {
+  padding-block: calc(var(--spacing) * 2);
+}
+.\[\&_tr\]\:border-b tr {
+  border-bottom-style: var(--tw-border-style);
+  border-bottom-width: 1px;
+}
+.\[\&_tr\:last-child\]\:border-0 tr:last-child {
+  border-style: var(--tw-border-style);
+  border-width: 0;
+}
+
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
+@property --tw-leading {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-duration {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ease {
+  syntax: "*";
+  inherits: false;
+}

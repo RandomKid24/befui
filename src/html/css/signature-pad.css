@@ -1,0 +1,117 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --background: #fff;
+  --foreground: #0f172a;
+  --muted-foreground: #64748b;
+  --radius: .5rem;
+  --spacing: .25rem;
+  --text-sm: .875rem;
+  --text-sm--line-height: calc(1.25 / .875);
+}
+
+.dark {
+  --background: #0a0c10;
+  --foreground: #e6e9ef;
+  --muted-foreground: #8b94a5;
+}
+
+/* Utility rules */
+.pointer-events-none {
+  pointer-events: none;
+}
+.absolute {
+  position: absolute;
+}
+.relative {
+  position: relative;
+}
+.inset-0 {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.inset-x-6 {
+  inset-inline: calc(var(--spacing) * 6);
+}
+.bottom-8 {
+  bottom: calc(var(--spacing) * 8);
+}
+.block {
+  display: block;
+}
+.flex {
+  display: flex;
+}
+.grid {
+  display: grid;
+}
+.w-full {
+  width: 100%;
+}
+.cursor-crosshair {
+  cursor: crosshair;
+}
+.touch-none {
+  touch-action: none;
+}
+.place-items-center {
+  place-items: center;
+}
+.justify-end {
+  justify-content: flex-end;
+}
+.gap-2 {
+  gap: calc(var(--spacing) * 2);
+}
+.overflow-hidden {
+  overflow: hidden;
+}
+.rounded-lg {
+  border-radius: calc(var(--radius) + 2px);
+}
+.border {
+  border-style: var(--tw-border-style);
+  border-width: 1px;
+}
+.border-b {
+  border-bottom-style: var(--tw-border-style);
+  border-bottom-width: 1px;
+}
+.border-dashed {
+  --tw-border-style: dashed;
+  border-style: dashed;
+}
+.bg-background,
+.bg-background\/15 {
+  background-color: var(--background);
+}
+.text-sm {
+  font-size: var(--text-sm);
+  line-height: var(--tw-leading,var(--text-sm--line-height));
+}
+.text-foreground,
+.text-foreground\/90 {
+  color: var(--foreground);
+}
+.text-muted-foreground\/60 {
+  color: var(--muted-foreground);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .text-muted-foreground\/60 {
+    color: color-mix(in oklab,var(--muted-foreground) 60%,transparent);
+  }
+}
+
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
+@property --tw-leading {
+  syntax: "*";
+  inherits: false;
+}

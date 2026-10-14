@@ -1,0 +1,123 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --default-transition-duration: .15s;
+  --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  --font-weight-medium: 500;
+  --primary: #2563eb;
+  --primary-foreground: #fff;
+  --spacing: .25rem;
+}
+
+.dark {
+  --primary: #3b82f6;
+  --primary-foreground: #0a0c10;
+}
+
+/* Utility rules */
+.absolute {
+  position: absolute;
+}
+.relative {
+  position: relative;
+}
+.right-3 {
+  right: calc(var(--spacing) * 3);
+}
+.flex {
+  display: flex;
+}
+.grid {
+  display: grid;
+}
+.size-3\.5 {
+  width: calc(var(--spacing) * 3.5);
+  height: calc(var(--spacing) * 3.5);
+}
+.grid-rows-\[0fr\] {
+  grid-template-rows: 0fr;
+}
+.grid-rows-\[1fr\] {
+  grid-template-rows: 1fr;
+}
+.items-center {
+  align-items: center;
+}
+.justify-center {
+  justify-content: center;
+}
+.gap-3 {
+  gap: calc(var(--spacing) * 3);
+}
+.overflow-hidden {
+  overflow: hidden;
+}
+.rounded {
+  border-radius: .25rem;
+}
+.bg-primary {
+  background-color: var(--primary);
+}
+.p-1 {
+  padding: var(--spacing);
+}
+.px-10 {
+  padding-inline: calc(var(--spacing) * 10);
+}
+.py-2 {
+  padding-block: calc(var(--spacing) * 2);
+}
+.text-center {
+  text-align: center;
+}
+.text-\[13px\] {
+  font-size: 13px;
+}
+.font-medium {
+  --tw-font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-medium);
+}
+.text-primary-foreground,
+.text-primary-foreground\/70 {
+  color: var(--primary-foreground);
+}
+.opacity-0 {
+  opacity: 0;
+}
+.opacity-100 {
+  opacity: 1;
+}
+.transition-\[grid-template-rows\,
+opacity\] {
+  transition-property: grid-template-rows,opacity;
+  transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
+  transition-duration: var(--tw-duration,var(--default-transition-duration));
+}
+.duration-300 {
+  --tw-duration: .3s;
+  transition-duration: .3s;
+}
+
+@media (hover:hover) {
+  .hover\:bg-primary-foreground\/20:hover {
+    background-color: var(--primary-foreground);
+  }
+}
+
+@media (hover:hover) {
+  @supports (color:color-mix(in lab,red,red)) {
+    .hover\:bg-primary-foreground\/20:hover {
+      background-color: color-mix(in oklab,var(--primary-foreground) 20%,transparent);
+    }
+  }
+}
+
+@property --tw-duration {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ease {
+  syntax: "*";
+  inherits: false;
+}

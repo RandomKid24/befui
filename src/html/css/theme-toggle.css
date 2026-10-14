@@ -1,0 +1,90 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --color-amber-300: oklch(87.9% .169 91.605);
+  --color-blue-300: oklch(80.9% .105 251.813);
+  --color-cyan-300: oklch(86.5% .127 207.078);
+  --color-emerald-300: oklch(84.5% .143 164.978);
+  --color-orange-300: oklch(83.7% .128 66.29);
+  --color-rose-300: oklch(81% .117 11.638);
+  --color-violet-300: oklch(81.1% .111 293.571);
+}
+
+/* Utility rules */
+.dark\:text-amber-300:where(.dark,
+.dark *) {
+  color: var(--color-amber-300);
+}
+.dark\:text-blue-300:where(.dark,
+.dark *) {
+  color: var(--color-blue-300);
+}
+.dark\:text-cyan-300:where(.dark,
+.dark *) {
+  color: var(--color-cyan-300);
+}
+.dark\:text-emerald-300:where(.dark,
+.dark *) {
+  color: var(--color-emerald-300);
+}
+.dark\:text-orange-300:where(.dark,
+.dark *) {
+  color: var(--color-orange-300);
+}
+.dark\:text-rose-300:where(.dark,
+.dark *) {
+  color: var(--color-rose-300);
+}
+.dark\:text-violet-300:where(.dark,
+.dark *) {
+  color: var(--color-violet-300);
+}
+:root,
+.light {
+  --background: #fff;
+  --foreground: #0f172a;
+  --card: #fff;
+  --card-foreground: #0f172a;
+  --popover: #fff;
+  --popover-foreground: #0f172a;
+  --primary: #2563eb;
+  --primary-foreground: #fff;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #0f172a;
+  --muted: #f8fafc;
+  --muted-foreground: #64748b;
+  --accent: #eff6ff;
+  --accent-foreground: #1d4ed8;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #3b82f6;
+  --destructive: #e11d48;
+  --success: #059669;
+  --warning: #d97706;
+  --info: #2563eb;
+  --radius: .5rem;
+}
+.dark {
+  --background: #0a0c10;
+  --foreground: #e6e9ef;
+  --card: #0f1218;
+  --card-foreground: #e6e9ef;
+  --popover: #0f1218;
+  --popover-foreground: #e6e9ef;
+  --primary: #3b82f6;
+  --primary-foreground: #0a0c10;
+  --secondary: #171b23;
+  --secondary-foreground: #e6e9ef;
+  --muted: #11141b;
+  --muted-foreground: #8b94a5;
+  --accent: #14213d;
+  --accent-foreground: #93c5fd;
+  --border: #1f2430;
+  --input: #272d3a;
+  --ring: #3b82f6;
+  --destructive: #f43f5e;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --info: #60a5fa;
+}

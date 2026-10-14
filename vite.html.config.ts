@@ -27,7 +27,7 @@ const scoped = `@layer base {
 @media (prefers-reduced-motion: reduce) { ${S}, ${S} *, ${S} *::before, ${S} *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }`;
 
 // Same CSS as src/index.css, but theme + utilities only: no Tailwind preflight, so it does not reset the host page.
-const noPreflight = (examples: boolean) => ({
+const noPreflight = () => ({
   name: 'no-preflight',
   enforce: 'pre' as const,
   transform(_: string, id: string) {
@@ -42,22 +42,16 @@ const noPreflight = (examples: boolean) => ({
 @import 'tailwindcss/theme.css' layer(theme);
 @import 'tailwindcss/utilities.css' layer(utilities) source('../components');
 @source '../html/demos';
-${examples ? "@source '../examples';\n" : ''}${theme}
+${theme}
 ${scoped}`;
   },
 });
 
-// Two builds: default = the HTML bundle, dist/html/befui.js (a small ES module) + chunks/ (one per component file, loaded when its tag first appears) + befui.css.
-// --mode previews = the React examples the docs page shows next to the HTML ones, dist/html/previews/ (ES modules, one chunk per example).
-export default defineConfig(({ mode }) => {
-  const previews = mode === 'previews';
-  return {
-    plugins: [noPreflight(previews), react(), tailwindcss()],
-    resolve: { alias: { '@': path.resolve(__dirname, 'src') } },
-    publicDir: false,
-    define: { 'process.env.NODE_ENV': '"production"' },
-    build: previews
-      ? { outDir: 'dist/html/previews', emptyOutDir: true, cssCodeSplit: false, lib: { entry: 'src/html/previews.tsx', formats: ['es'], fileName: () => 'previews.js', cssFileName: 'previews' } }
-      : { outDir: 'dist/html', emptyOutDir: true, cssCodeSplit: false, lib: { entry: 'src/html/entry.ts', formats: ['es'], fileName: () => 'befui.js', cssFileName: 'befui' }, rollupOptions: { output: { chunkFileNames: 'chunks/[name].js' } } },
-  };
+// Builds the standalone bundle: dist/html/befui.js (a small ES module) + chunks/ (one per component file, loaded when its tag first appears) + befui.css.
+export default defineConfig({
+  plugins: [noPreflight(), react(), tailwindcss()],
+  resolve: { alias: { '@': path.resolve(__dirname, 'src') } },
+  publicDir: false,
+  define: { 'process.env.NODE_ENV': '"production"' },
+  build: { outDir: 'dist/html', emptyOutDir: true, cssCodeSplit: false, lib: { entry: 'src/html/bundle.ts', formats: ['es'], fileName: () => 'befui.js', cssFileName: 'befui' }, rollupOptions: { output: { chunkFileNames: 'chunks/[name].js' } } },
 });

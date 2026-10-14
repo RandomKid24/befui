@@ -1,0 +1,158 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --default-transition-duration: .15s;
+  --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  --muted-foreground: #64748b;
+  --primary: #2563eb;
+  --secondary: #f1f5f9;
+  --spacing: .25rem;
+}
+
+.dark {
+  --muted-foreground: #8b94a5;
+  --primary: #3b82f6;
+  --secondary: #171b23;
+}
+
+/* Utility rules */
+.flex {
+  display: flex;
+}
+.grid {
+  display: grid;
+}
+.inline-grid {
+  display: inline-grid;
+}
+.size-2\.5 {
+  width: calc(var(--spacing) * 2.5);
+  height: calc(var(--spacing) * 2.5);
+}
+.size-3 {
+  width: calc(var(--spacing) * 3);
+  height: calc(var(--spacing) * 3);
+}
+.animate-pop {
+  animation: .15s ease-out pop;
+}
+.grid-flow-col {
+  grid-auto-flow: column;
+}
+.grid-rows-7 {
+  grid-template-rows: repeat(7,minmax(0,1fr));
+}
+.items-center {
+  align-items: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.gap-1 {
+  gap: var(--spacing);
+}
+.gap-2 {
+  gap: calc(var(--spacing) * 2);
+}
+.gap-\[3px\] {
+  gap: 3px;
+}
+.rounded-\[2px\] {
+  border-radius: 2px;
+}
+.rounded-\[3px\] {
+  border-radius: 3px;
+}
+.bg-primary {
+  background-color: var(--primary);
+}
+.bg-primary\/25 {
+  background-color: var(--primary);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .bg-primary\/25 {
+    background-color: color-mix(in oklab,var(--primary) 25%,transparent);
+  }
+}
+
+.bg-primary\/50 {
+  background-color: var(--primary);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .bg-primary\/50 {
+    background-color: color-mix(in oklab,var(--primary) 50%,transparent);
+  }
+}
+
+.bg-primary\/75 {
+  background-color: var(--primary);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .bg-primary\/75 {
+    background-color: color-mix(in oklab,var(--primary) 75%,transparent);
+  }
+}
+
+.bg-secondary {
+  background-color: var(--secondary);
+}
+.text-\[11px\] {
+  font-size: 11px;
+}
+.text-muted-foreground,
+.text-muted-foreground\/30 {
+  color: var(--muted-foreground);
+}
+.transition-transform {
+  transition-property: transform,translate,scale,rotate;
+  transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
+  transition-duration: var(--tw-duration,var(--default-transition-duration));
+}
+.duration-150 {
+  --tw-duration: .15s;
+  transition-duration: .15s;
+}
+
+@media (hover:hover) {
+  .hover\:scale-150:hover {
+    --tw-scale-x: 150%;
+    --tw-scale-y: 150%;
+    --tw-scale-z: 150%;
+    scale: var(--tw-scale-x) var(--tw-scale-y);
+  }
+}
+
+/* Animations */
+@keyframes pop {
+  0% {
+    opacity: 0;
+    transform: scale(.97)translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@property --tw-scale-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+@property --tw-scale-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+@property --tw-duration {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ease {
+  syntax: "*";
+  inherits: false;
+}

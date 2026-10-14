@@ -1,0 +1,381 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --accent: #eff6ff;
+  --background: #fff;
+  --default-transition-duration: .15s;
+  --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  --destructive: #e11d48;
+  --font-weight-medium: 500;
+  --foreground: #0f172a;
+  --muted: #f8fafc;
+  --muted-foreground: #64748b;
+  --primary: #2563eb;
+  --radius: .5rem;
+  --ring: #3b82f6;
+  --spacing: .25rem;
+  --text-xs: .75rem;
+  --text-xs--line-height: calc(1 / .75);
+}
+
+.dark {
+  --accent: #14213d;
+  --background: #0a0c10;
+  --destructive: #f43f5e;
+  --foreground: #e6e9ef;
+  --muted: #11141b;
+  --muted-foreground: #8b94a5;
+  --primary: #3b82f6;
+}
+
+/* Utility rules */
+.absolute {
+  position: absolute;
+}
+.relative {
+  position: relative;
+}
+.top-1\.5 {
+  top: calc(var(--spacing) * 1.5);
+}
+.right-1\.5 {
+  right: calc(var(--spacing) * 1.5);
+}
+.bottom-1\.5 {
+  bottom: calc(var(--spacing) * 1.5);
+}
+.left-1\.5 {
+  left: calc(var(--spacing) * 1.5);
+}
+.grid {
+  display: grid;
+}
+.aspect-square {
+  aspect-ratio: 1;
+}
+.size-3\.5 {
+  width: calc(var(--spacing) * 3.5);
+  height: calc(var(--spacing) * 3.5);
+}
+.size-5 {
+  width: calc(var(--spacing) * 5);
+  height: calc(var(--spacing) * 5);
+}
+.size-6 {
+  width: calc(var(--spacing) * 6);
+  height: calc(var(--spacing) * 6);
+}
+.size-full {
+  width: 100%;
+  height: 100%;
+}
+.grid-cols-3 {
+  grid-template-columns: repeat(3,minmax(0,1fr));
+}
+.place-items-center {
+  place-items: center;
+}
+.gap-1 {
+  gap: var(--spacing);
+}
+.gap-2 {
+  gap: calc(var(--spacing) * 2);
+}
+.gap-2\.5 {
+  gap: calc(var(--spacing) * 2.5);
+}
+.overflow-hidden {
+  overflow: hidden;
+}
+.rounded {
+  border-radius: .25rem;
+}
+.rounded-full {
+  border-radius: 3.40282e38px;
+}
+.rounded-lg {
+  border-radius: calc(var(--radius) + 2px);
+}
+.border {
+  border-style: var(--tw-border-style);
+  border-width: 1px;
+}
+.border-dashed {
+  --tw-border-style: dashed;
+  border-style: dashed;
+}
+.border-primary,
+.border-primary\/30 {
+  border-color: var(--primary);
+}
+.bg-accent,
+.bg-accent\/60 {
+  background-color: var(--accent);
+}
+.bg-foreground\/80 {
+  background-color: var(--foreground);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .bg-foreground\/80 {
+    background-color: color-mix(in oklab,var(--foreground) 80%,transparent);
+  }
+}
+
+.bg-muted {
+  background-color: var(--muted);
+}
+.object-cover {
+  object-fit: cover;
+}
+.px-1\.5 {
+  padding-inline: calc(var(--spacing) * 1.5);
+}
+.py-0\.5 {
+  padding-block: calc(var(--spacing) * .5);
+}
+.text-xs {
+  font-size: var(--text-xs);
+  line-height: var(--tw-leading,var(--text-xs--line-height));
+}
+.text-\[10px\] {
+  font-size: 10px;
+}
+.font-medium {
+  --tw-font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-medium);
+}
+.text-background {
+  color: var(--background);
+}
+.text-destructive {
+  color: var(--destructive);
+}
+.text-muted-foreground,
+.text-muted-foreground\/30 {
+  color: var(--muted-foreground);
+}
+.opacity-0 {
+  opacity: 0;
+}
+.transition-colors {
+  transition-property: color,background-color,border-color,outline-color,text-decoration-color,fill,stroke,--tw-gradient-from,--tw-gradient-via,--tw-gradient-to;
+  transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
+  transition-duration: var(--tw-duration,var(--default-transition-duration));
+}
+.transition-opacity {
+  transition-property: opacity;
+  transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
+  transition-duration: var(--tw-duration,var(--default-transition-duration));
+}
+.outline-none {
+  --tw-outline-style: none;
+  outline-style: none;
+}
+.group-focus-within\:text-primary:is(:where(.group):focus-within *) {
+  color: var(--primary);
+}
+.group-focus-within\:opacity-100:is(:where(.group):focus-within *) {
+  opacity: 1;
+}
+
+@media (hover:hover) {
+  .group-hover\:scale-105:is(:where(.group):hover *) {
+    --tw-scale-x: 105%;
+    --tw-scale-y: 105%;
+    --tw-scale-z: 105%;
+    scale: var(--tw-scale-x) var(--tw-scale-y);
+  }
+  .group-hover\:bg-primary:is(:where(.group):hover *) {
+    background-color: var(--primary);
+  }
+  .group-hover\:opacity-100:is(:where(.group):hover *) {
+    opacity: 1;
+  }
+  .group-hover\:\[animation-play-state\:paused\]:is(:where(.group):hover *) {
+    animation-play-state: paused;
+  }
+}
+
+.group-focus-visible\:bg-primary:is(:where(.group):focus-visible *) {
+  background-color: var(--primary);
+}
+.group-focus-visible\:opacity-100:is(:where(.group):focus-visible *) {
+  opacity: 1;
+}
+.group-data-\[state\=open\]\:rotate-180:is(:where(.group)[data-state=open] *) {
+  rotate: 180deg;
+}
+.group-data-\[variant\=pill\]\:rounded-md:is(:where(.group)[data-variant=pill] *) {
+  border-radius: var(--radius);
+}
+.group-data-\[variant\=pill\]\:px-3:is(:where(.group)[data-variant=pill] *) {
+  padding-inline: calc(var(--spacing) * 3);
+}
+.group-data-\[variant\=pill\]\:py-1:is(:where(.group)[data-variant=pill] *) {
+  padding-block: var(--spacing);
+}
+.group-data-\[variant\=underline\]\:-mb-px:is(:where(.group)[data-variant=underline] *) {
+  margin-bottom: -1px;
+}
+.group-data-\[variant\=underline\]\:border-b-2:is(:where(.group)[data-variant=underline] *) {
+  border-bottom-style: var(--tw-border-style);
+  border-bottom-width: 2px;
+}
+.group-data-\[variant\=underline\]\:border-transparent:is(:where(.group)[data-variant=underline] *) {
+  border-color: #0000;
+}
+.group-data-\[variant\=underline\]\:pb-2\.5:is(:where(.group)[data-variant=underline] *) {
+  padding-bottom: calc(var(--spacing) * 2.5);
+}
+
+@media (hover:hover) {
+  .hover\:border-primary:hover,
+  .hover\:border-primary\/50:hover {
+    border-color: var(--primary);
+  }
+}
+
+@media (hover:hover) {
+  @supports (color:color-mix(in lab,red,red)) {
+    .hover\:border-primary\/50:hover {
+      border-color: color-mix(in oklab,var(--primary) 50%,transparent);
+    }
+  }
+}
+
+@media (hover:hover) {
+  .hover\:bg-accent:hover,
+  .hover\:bg-accent\/50:hover {
+    background-color: var(--accent);
+  }
+}
+
+@media (hover:hover) {
+  @supports (color:color-mix(in lab,red,red)) {
+    .hover\:bg-accent\/50:hover {
+      background-color: color-mix(in oklab,var(--accent) 50%,transparent);
+    }
+  }
+}
+
+.focus-visible\:opacity-100:focus-visible {
+  opacity: 1;
+}
+.focus-visible\:ring-2:focus-visible {
+  --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color,currentcolor);
+  box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
+}
+.focus-visible\:ring-ring\/40:focus-visible {
+  --tw-ring-color: var(--ring);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .focus-visible\:ring-ring\/40:focus-visible {
+    --tw-ring-color: color-mix(in oklab, var(--ring) 40%, transparent);
+  }
+}
+
+.group-data-\[variant\=pill\]\:data-\[state\=active\]\:bg-background:is(:where(.group)[data-variant=pill] *)[data-state=active] {
+  background-color: var(--background);
+}
+.group-data-\[variant\=pill\]\:data-\[state\=active\]\:shadow-sm:is(:where(.group)[data-variant=pill] *)[data-state=active] {
+  --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color,#0000001a), 0 1px 2px -1px var(--tw-shadow-color,#0000001a);
+  box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
+}
+.group-data-\[variant\=underline\]\:data-\[state\=active\]\:border-primary:is(:where(.group)[data-variant=underline] *)[data-state=active] {
+  border-color: var(--primary);
+}
+
+@media (min-width:40rem) {
+  .sm\:grid-cols-4 {
+    grid-template-columns: repeat(4,minmax(0,1fr));
+  }
+}
+
+.icon-draw:hover *,
+.group:hover .icon-draw * {
+  animation: icon-draw var(--icon-ms,.9s) cubic-bezier(.45,0,.2,1) backwards;
+  animation-delay: calc(var(--i,0) * .14s);
+}
+
+/* Animations */
+@keyframes icon-draw {
+  0% {
+    stroke-dashoffset: 1px;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@property --tw-scale-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+@property --tw-scale-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
+@property --tw-leading {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-shadow-color {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-inset-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-ring-color {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ring-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-inset-ring-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-ring-inset {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ring-offset-width {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-ring-offset-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-duration {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ease {
+  syntax: "*";
+  inherits: false;
+}

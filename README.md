@@ -126,7 +126,7 @@ Time picker, analog clock, world clock, stopwatch, countdown timer and live rela
 
 ### Use from plain HTML or htmx
 
-Try it: `npm run demo:html` opens an HTML docs site with all 199 components, one page each (the React demo as the preview, a live HTML version one click away, plus the HTML and CSS code). No React in your app. The built files are committed in [`cdn/`](cdn), so any page can load them from jsDelivr (above). For production pin a commit or tag instead of `@main` (jsDelivr caches `@main` for up to 12 hours), or copy the two files into your project. `npm run build:html` rebuilds them. Every component is a `<bef-*>` tag (`DataTable` is `<bef-data-table>`, `DialogTrigger` is `<bef-dialog-trigger>`).
+Every component page on the docs site has a **Use from HTML** section with the live tags, the HTML and the CSS that component uses (run `npm run dev` to browse it). No React in your app. The built files are committed in [`cdn/`](cdn), so any page can load them from jsDelivr (above). For production pin a commit or tag instead of `@main` (jsDelivr caches `@main` for up to 12 hours), or copy the two files into your project. `npm run build:html` rebuilds them. Every component is a `<bef-*>` tag (`DataTable` is `<bef-data-table>`, `DialogTrigger` is `<bef-dialog-trigger>`).
 
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/RandomKid24/befui@main/cdn/befui.css">
@@ -154,7 +154,7 @@ Try it: `npm run demo:html` opens an HTML docs site with all 199 components, one
 - `style` works on the outer tag; extra Tailwind classes you invent are not in the CSS, so use inline style for layout.
 - Works for elements added later (htmx swaps, `innerHTML`) and `hx-*` attributes inside get processed. Radix selects and checkboxes submit with the surrounding `<form>`.
 - The CSS does not restyle your page: no `body`, `html` or element rules, and the reset only applies inside `<bef-*>` tags and their popups. The tags are `display: contents`, and component classes are not in a `@layer`, so they win over your own element selectors (`button { }`, `h2 { }`, `nav { }`). Components use Inter and JetBrains Mono like the React site; `befui.css` loads them from Google Fonts (delete the first `@import` line to self-host or opt out). Dark mode is the same `.dark` class on `<html>`.
-- Size (printed by `npm run build:html`): components load on demand. A page with a button and a dialog downloads about **120 KB gzipped** of JavaScript, mostly React; each extra component adds only its own code, a few KB. All 199 together are about 330 KB gzipped. `befui.css` is 117 KB, **18 KB gzipped**. Use `<script type="module">` and serve with gzip or brotli. For a tiny, dependency-free set (`bf-select`, `bf-date-picker`, `bf-dialog`, `bf-toast`) see [web/](web/README.md).
+- Size (`npm run build:html` rebuilds the bundle in `cdn/`): components load on demand. A page with a button and a dialog downloads about **120 KB gzipped** of JavaScript, mostly React; each extra component adds only its own code, a few KB. All 199 together are about 330 KB gzipped. `befui.css` is 117 KB, **18 KB gzipped**. Use `<script type="module">` and serve with gzip or brotli.
 
 ## Theming notes
 
@@ -490,9 +490,11 @@ src/
   blocks/            full-page blocks
   registry/index.ts  the list of components and blocks (docs, search, CLI and stories read it)
   site/              the docs site itself, built from the components above
+  html/              the <bef-*> build: runtime (entry.ts), generated examples (demos/), hand-written behaviour (glue/), per-component CSS (css/)
   stories/           generated Storybook stories (do not edit)
 public/r/            registry JSON the CLI downloads
 public/llms*.txt     catalog for AI tools
+cdn/                 the built HTML bundle (befui.js, chunks/, befui.css), served from jsDelivr
 bin/befui.mjs        the CLI
 scripts/             registry, stories and AI-rules generators
 ```

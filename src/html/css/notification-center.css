@@ -1,0 +1,211 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --color-white: #fff;
+  --destructive: #e11d48;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --muted: #f8fafc;
+  --muted-foreground: #64748b;
+  --primary: #2563eb;
+  --spacing: .25rem;
+  --text-sm: .875rem;
+  --text-sm--line-height: calc(1.25 / .875);
+  --text-xs: .75rem;
+  --text-xs--line-height: calc(1 / .75);
+}
+
+.dark {
+  --destructive: #f43f5e;
+  --muted: #11141b;
+  --muted-foreground: #8b94a5;
+  --primary: #3b82f6;
+}
+
+/* Utility rules */
+.absolute {
+  position: absolute;
+}
+.relative {
+  position: relative;
+}
+.top-1 {
+  top: var(--spacing);
+}
+.right-1 {
+  right: var(--spacing);
+}
+.mt-1\.5 {
+  margin-top: calc(var(--spacing) * 1.5);
+}
+.block {
+  display: block;
+}
+.flex {
+  display: flex;
+}
+.grid {
+  display: grid;
+}
+.size-2 {
+  width: calc(var(--spacing) * 2);
+  height: calc(var(--spacing) * 2);
+}
+.size-3\.5 {
+  width: calc(var(--spacing) * 3.5);
+  height: calc(var(--spacing) * 3.5);
+}
+.max-h-80 {
+  max-height: calc(var(--spacing) * 80);
+}
+.w-80 {
+  width: calc(var(--spacing) * 80);
+}
+.w-full {
+  width: 100%;
+}
+.min-w-0 {
+  min-width: 0;
+}
+.min-w-4 {
+  min-width: calc(var(--spacing) * 4);
+}
+.flex-1 {
+  flex: 1;
+}
+.shrink-0 {
+  flex-shrink: 0;
+}
+.place-items-center {
+  place-items: center;
+}
+.items-center {
+  align-items: center;
+}
+.items-start {
+  align-items: flex-start;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.gap-1 {
+  gap: var(--spacing);
+}
+.gap-2\.5 {
+  gap: calc(var(--spacing) * 2.5);
+}
+.truncate {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.overflow-auto {
+  overflow: auto;
+}
+.rounded-full {
+  border-radius: 3.40282e38px;
+}
+.border-b {
+  border-bottom-style: var(--tw-border-style);
+  border-bottom-width: 1px;
+}
+.bg-destructive,
+.bg-destructive\/5 {
+  background-color: var(--destructive);
+}
+.bg-primary {
+  background-color: var(--primary);
+}
+.bg-transparent {
+  background-color: #0000;
+}
+.p-0 {
+  padding: 0;
+}
+.px-1 {
+  padding-inline: var(--spacing);
+}
+.px-3 {
+  padding-inline: calc(var(--spacing) * 3);
+}
+.py-2\.5 {
+  padding-block: calc(var(--spacing) * 2.5);
+}
+.py-10 {
+  padding-block: calc(var(--spacing) * 10);
+}
+.text-center {
+  text-align: center;
+}
+.text-left {
+  text-align: left;
+}
+.text-sm {
+  font-size: var(--text-sm);
+  line-height: var(--tw-leading,var(--text-sm--line-height));
+}
+.text-xs {
+  font-size: var(--text-xs);
+  line-height: var(--tw-leading,var(--text-xs--line-height));
+}
+.text-\[10px\] {
+  font-size: 10px;
+}
+.text-\[11px\] {
+  font-size: 11px;
+}
+.text-\[13px\] {
+  font-size: 13px;
+}
+.leading-4 {
+  --tw-leading: calc(var(--spacing) * 4);
+  line-height: calc(var(--spacing) * 4);
+}
+.font-medium {
+  --tw-font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-medium);
+}
+.font-semibold {
+  --tw-font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-semibold);
+}
+.text-muted-foreground,
+.text-muted-foreground\/30 {
+  color: var(--muted-foreground);
+}
+.text-white {
+  color: var(--color-white);
+}
+.outline-none {
+  --tw-outline-style: none;
+  outline-style: none;
+}
+.last\:border-0:last-child {
+  border-style: var(--tw-border-style);
+  border-width: 0;
+}
+
+@media (hover:hover) {
+  .hover\:bg-muted:hover {
+    background-color: var(--muted);
+  }
+}
+
+.focus-visible\:bg-muted:focus-visible,
+.focus-visible\:bg-muted\/50:focus-visible {
+  background-color: var(--muted);
+}
+.disabled\:opacity-40:disabled {
+  opacity: .4;
+}
+
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
+@property --tw-leading {
+  syntax: "*";
+  inherits: false;
+}

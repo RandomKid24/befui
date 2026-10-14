@@ -1,24 +1,43 @@
-import * as React from 'react';
+import { Link } from './router';
+import { CodeBlock } from './code';
 
-// Shows the HTML/htmx docs (dist/html, built by `npm run build:html`) inside the site shell. Delete this file, its route in App.tsx and the /html nav links to remove the tab.
-export function HtmlPage({ slug }: { slug?: string }) {
-  const frame = React.useRef<HTMLIFrameElement>(null);
-  const isDark = () => document.documentElement.classList.contains('dark');
-  const first = React.useRef({ dark: isDark(), slug });
+const START = `<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/RandomKid24/befui@main/cdn/befui.css">
+<script type="module" src="https://cdn.jsdelivr.net/gh/RandomKid24/befui@main/cdn/befui.js"></script>
 
-  React.useEffect(() => {
-    const el = document.documentElement;
-    const send = () => frame.current?.contentWindow?.postMessage({ befuiTheme: isDark() ? 'dark' : 'light' }, '*');
-    const ob = new MutationObserver(send);
-    ob.observe(el, { attributes: true, attributeFilter: ['class'] });
-    // The docs tell us which component is open, so the address bar stays shareable without reloading the frame.
-    const onMsg = (e: MessageEvent) => {
-      if (e.source === frame.current?.contentWindow && typeof e.data?.befuiSlug === 'string') history.replaceState(null, '', `#/html${e.data.befuiSlug ? `/${e.data.befuiSlug}` : ''}`);
-    };
-    window.addEventListener('message', onMsg);
-    return () => { ob.disconnect(); window.removeEventListener('message', onMsg); };
-  }, []);
+<bef-button variant="soft">Hello</bef-button>`;
 
-  const { dark, slug: s } = first.current;
-  return <iframe ref={frame} title="Use from HTML and htmx" src={`/html/index.html?embed&theme=${dark ? 'dark' : 'light'}#/${s ?? ''}`} className="block h-[calc(100vh-3.5rem)] w-full border-0" />;
+const RULES: [string, string][] = [
+  ['Props are attributes', 'variant="soft", default-value="x". A bare attribute is true.'],
+  ['JSON with a colon', ':value="40", :items=\'[...]\'. A tag inside a JSON string becomes content.'],
+  ['Slots', 'slot="action" on a child passes it as that prop.'],
+  ['Events', 'emit="value-change" fires bef:value-change. Controlled values update themselves.'],
+  ['Dates', '~selected="now", ~to="2026-12-31", ~at="now-14m".'],
+  ['Functions in script', 'el.props = { columns, onSubmit } from a <script type="module">.'],
+];
+
+/** The /html page: how the <bef-*> build works. Each component page has its own HTML and CSS section. */
+export function HtmlPage() {
+  return (
+    <article className="max-w-3xl">
+      <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">Use from HTML and htmx</h1>
+      <p className="mt-3 max-w-2xl text-muted-foreground">
+        Every component is also a custom element, <code className="rounded bg-secondary px-1 py-0.5 font-mono text-xs">&lt;bef-button&gt;</code>, <code className="rounded bg-secondary px-1 py-0.5 font-mono text-xs">&lt;bef-dialog&gt;</code>, <code className="rounded bg-secondary px-1 py-0.5 font-mono text-xs">&lt;bef-data-table&gt;</code>.
+        One stylesheet and one script, no React in your app. It works with htmx, Django, Rails, PHP and static pages. Components load on demand, so a page with a button and a dialog downloads about 120 KB gzipped.
+      </p>
+      <h2 className="mb-4 mt-10 text-xl font-semibold tracking-tight">Quick start</h2>
+      <CodeBlock html title="index.html" code={START} />
+      <h2 className="mb-4 mt-10 text-xl font-semibold tracking-tight">How props map</h2>
+      <div className="grid gap-3 sm:grid-cols-2">
+        {RULES.map(([title, text]) => (
+          <div key={title} className="rounded-xl border bg-card p-4">
+            <h3 className="text-[13px] font-semibold">{title}</h3>
+            <p className="mt-1 text-[13px] text-muted-foreground">{text}</p>
+          </div>
+        ))}
+      </div>
+      <p className="mt-8 text-sm text-muted-foreground">
+        Every <Link to="/components" className="font-medium text-primary hover:underline">component page</Link> has a Use from HTML section with the live tags, the HTML and the CSS it uses. The examples there are generated from the React ones, so they render the same markup.
+      </p>
+    </article>
+  );
 }

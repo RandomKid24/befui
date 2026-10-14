@@ -1,0 +1,280 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --border: #e2e8f0;
+  --default-transition-duration: .15s;
+  --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  --destructive: #e11d48;
+  --ease-out: cubic-bezier(0, 0, .2, 1);
+  --font-weight-medium: 500;
+  --muted-foreground: #64748b;
+  --popover: #fff;
+  --popover-foreground: #0f172a;
+  --primary: #2563eb;
+  --radius: .5rem;
+  --spacing: .25rem;
+  --success: #059669;
+}
+
+.dark {
+  --border: #1f2430;
+  --destructive: #f43f5e;
+  --muted-foreground: #8b94a5;
+  --popover: #0f1218;
+  --popover-foreground: #e6e9ef;
+  --primary: #3b82f6;
+  --success: #10b981;
+}
+
+/* Utility rules */
+.absolute {
+  position: absolute;
+}
+.relative {
+  position: relative;
+}
+.inset-x-0 {
+  inset-inline: 0;
+}
+.-top-6 {
+  top: calc(var(--spacing) * -6);
+}
+.top-full {
+  top: 100%;
+}
+.right-0 {
+  right: 0;
+}
+.mt-1\.5 {
+  margin-top: calc(var(--spacing) * 1.5);
+}
+.flex {
+  display: flex;
+}
+.grid {
+  display: grid;
+}
+.h-px {
+  height: 1px;
+}
+.w-\[64\%\] {
+  width: 64%;
+}
+.-translate-y-1\/2 {
+  --tw-translate-y: -50% ;
+  translate: var(--tw-translate-x) var(--tw-translate-y);
+}
+.transform {
+  transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
+}
+.grid-cols-\[3\.25rem_minmax\(0\,
+1fr\)\] {
+  grid-template-columns: 3.25rem minmax(0,1fr);
+}
+.justify-center {
+  justify-content: center;
+}
+.gap-x-2 {
+  column-gap: calc(var(--spacing) * 2);
+}
+.truncate {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.rounded-\[5px\] {
+  border-radius: 5px;
+}
+.rounded-md {
+  border-radius: var(--radius);
+}
+.border {
+  border-style: var(--tw-border-style);
+  border-width: 1px;
+}
+.border-t {
+  border-top-style: var(--tw-border-style);
+  border-top-width: 1px;
+}
+.border-dashed {
+  --tw-border-style: dashed;
+  border-style: dashed;
+}
+.border-border,
+.border-border\/40 {
+  border-color: var(--border);
+}
+.bg-destructive,
+.bg-destructive\/5 {
+  background-color: var(--destructive);
+}
+.bg-muted-foreground\/50 {
+  background-color: var(--muted-foreground);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .bg-muted-foreground\/50 {
+    background-color: color-mix(in oklab,var(--muted-foreground) 50%,transparent);
+  }
+}
+
+.bg-popover {
+  background-color: var(--popover);
+}
+.bg-primary {
+  background-color: var(--primary);
+}
+.bg-success,
+.bg-success\/5 {
+  background-color: var(--success);
+}
+.px-1\.5 {
+  padding-inline: calc(var(--spacing) * 1.5);
+}
+.py-0\.5 {
+  padding-block: calc(var(--spacing) * .5);
+}
+.pb-7 {
+  padding-bottom: calc(var(--spacing) * 7);
+}
+.text-center {
+  text-align: center;
+}
+.text-\[10px\] {
+  font-size: 10px;
+}
+.text-\[11px\] {
+  font-size: 11px;
+}
+.font-medium {
+  --tw-font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-medium);
+}
+.whitespace-nowrap {
+  white-space: nowrap;
+}
+.text-muted-foreground,
+.text-muted-foreground\/30 {
+  color: var(--muted-foreground);
+}
+.text-popover-foreground {
+  color: var(--popover-foreground);
+}
+.text-primary {
+  color: var(--primary);
+}
+.tabular-nums {
+  --tw-numeric-spacing: tabular-nums;
+  font-variant-numeric: var(--tw-ordinal,) var(--tw-slashed-zero,) var(--tw-numeric-figure,) var(--tw-numeric-spacing,) var(--tw-numeric-fraction,);
+}
+.shadow {
+  --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color,#0000001a), 0 1px 2px -1px var(--tw-shadow-color,#0000001a);
+  box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
+}
+.transition-\[width\] {
+  transition-property: width;
+  transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
+  transition-duration: var(--tw-duration,var(--default-transition-duration));
+}
+.duration-500 {
+  --tw-duration: .5s;
+  transition-duration: .5s;
+}
+.ease-out {
+  --tw-ease: var(--ease-out);
+  transition-timing-function: var(--ease-out);
+}
+
+@property --tw-translate-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-translate-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-rotate-x {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-rotate-y {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-rotate-z {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-skew-x {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-skew-y {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
+@property --tw-ordinal {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-slashed-zero {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-figure {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-spacing {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-fraction {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-shadow-color {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-inset-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-ring-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-inset-ring-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-ring-offset-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-duration {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ease {
+  syntax: "*";
+  inherits: false;
+}

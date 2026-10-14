@@ -1,0 +1,315 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --background: #fff;
+  --default-transition-duration: .15s;
+  --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  --font-weight-medium: 500;
+  --foreground: #0f172a;
+  --primary: #2563eb;
+  --radius: .5rem;
+  --ring: #3b82f6;
+  --secondary: #f1f5f9;
+  --spacing: .25rem;
+}
+
+.dark {
+  --background: #0a0c10;
+  --foreground: #e6e9ef;
+  --primary: #3b82f6;
+  --secondary: #171b23;
+}
+
+/* Utility rules */
+.pointer-events-none {
+  pointer-events: none;
+}
+.absolute {
+  position: absolute;
+}
+.relative {
+  position: relative;
+}
+.top-0 {
+  top: 0;
+}
+.h-4 {
+  height: calc(var(--spacing) * 4);
+}
+.w-full {
+  width: 100%;
+}
+.-translate-x-1\/2 {
+  --tw-translate-x: -50% ;
+  translate: var(--tw-translate-x) var(--tw-translate-y);
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+.appearance-none {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+.rounded-md {
+  border-radius: var(--radius);
+}
+.bg-foreground,
+.bg-foreground\/55 {
+  background-color: var(--foreground);
+}
+.bg-transparent {
+  background-color: #0000;
+}
+.px-1\.5 {
+  padding-inline: calc(var(--spacing) * 1.5);
+}
+.py-0\.5 {
+  padding-block: calc(var(--spacing) * .5);
+}
+.pt-7 {
+  padding-top: calc(var(--spacing) * 7);
+}
+.text-\[11px\] {
+  font-size: 11px;
+}
+.font-medium {
+  --tw-font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-medium);
+}
+.text-background {
+  color: var(--background);
+}
+.tabular-nums {
+  --tw-numeric-spacing: tabular-nums;
+  font-variant-numeric: var(--tw-ordinal,) var(--tw-slashed-zero,) var(--tw-numeric-figure,) var(--tw-numeric-spacing,) var(--tw-numeric-fraction,);
+}
+.opacity-0 {
+  opacity: 0;
+}
+.transition-opacity {
+  transition-property: opacity;
+  transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
+  transition-duration: var(--tw-duration,var(--default-transition-duration));
+}
+.outline-none {
+  --tw-outline-style: none;
+  outline-style: none;
+}
+.group-focus-within\:text-primary:is(:where(.group):focus-within *) {
+  color: var(--primary);
+}
+.group-focus-within\:opacity-100:is(:where(.group):focus-within *) {
+  opacity: 1;
+}
+
+@media (hover:hover) {
+  .group-hover\:scale-105:is(:where(.group):hover *) {
+    --tw-scale-x: 105%;
+    --tw-scale-y: 105%;
+    --tw-scale-z: 105%;
+    scale: var(--tw-scale-x) var(--tw-scale-y);
+  }
+  .group-hover\:bg-primary:is(:where(.group):hover *) {
+    background-color: var(--primary);
+  }
+  .group-hover\:opacity-100:is(:where(.group):hover *) {
+    opacity: 1;
+  }
+  .group-hover\:\[animation-play-state\:paused\]:is(:where(.group):hover *) {
+    animation-play-state: paused;
+  }
+}
+
+.group-focus-visible\:bg-primary:is(:where(.group):focus-visible *) {
+  background-color: var(--primary);
+}
+.group-focus-visible\:opacity-100:is(:where(.group):focus-visible *) {
+  opacity: 1;
+}
+.group-data-\[state\=open\]\:rotate-180:is(:where(.group)[data-state=open] *) {
+  rotate: 180deg;
+}
+.group-data-\[variant\=pill\]\:rounded-md:is(:where(.group)[data-variant=pill] *) {
+  border-radius: var(--radius);
+}
+.group-data-\[variant\=pill\]\:px-3:is(:where(.group)[data-variant=pill] *) {
+  padding-inline: calc(var(--spacing) * 3);
+}
+.group-data-\[variant\=pill\]\:py-1:is(:where(.group)[data-variant=pill] *) {
+  padding-block: var(--spacing);
+}
+.group-data-\[variant\=underline\]\:-mb-px:is(:where(.group)[data-variant=underline] *) {
+  margin-bottom: -1px;
+}
+.group-data-\[variant\=underline\]\:border-b-2:is(:where(.group)[data-variant=underline] *) {
+  border-bottom-style: var(--tw-border-style);
+  border-bottom-width: 2px;
+}
+.group-data-\[variant\=underline\]\:border-transparent:is(:where(.group)[data-variant=underline] *) {
+  border-color: #0000;
+}
+.group-data-\[variant\=underline\]\:pb-2\.5:is(:where(.group)[data-variant=underline] *) {
+  padding-bottom: calc(var(--spacing) * 2.5);
+}
+.group-data-\[variant\=pill\]\:data-\[state\=active\]\:bg-background:is(:where(.group)[data-variant=pill] *)[data-state=active] {
+  background-color: var(--background);
+}
+.group-data-\[variant\=pill\]\:data-\[state\=active\]\:shadow-sm:is(:where(.group)[data-variant=pill] *)[data-state=active] {
+  --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color,#0000001a), 0 1px 2px -1px var(--tw-shadow-color,#0000001a);
+  box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
+}
+.group-data-\[variant\=underline\]\:data-\[state\=active\]\:border-primary:is(:where(.group)[data-variant=underline] *)[data-state=active] {
+  border-color: var(--primary);
+}
+.ui-slider::-webkit-slider-runnable-track {
+  background: linear-gradient(90deg,var(--primary) var(--fill),var(--secondary) var(--fill));
+  border-radius: 9999px;
+  height: 6px;
+}
+.ui-slider::-moz-range-track {
+  background: var(--secondary);
+  border-radius: 9999px;
+  height: 6px;
+}
+.ui-slider::-moz-range-progress {
+  background: var(--primary);
+  border-radius: 9999px;
+  height: 6px;
+}
+.ui-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: var(--background);
+  border: 2px solid var(--primary);
+  border-radius: 9999px;
+  width: 16px;
+  height: 16px;
+  margin-top: -5px;
+  transition: transform .15s,box-shadow .15s;
+  box-shadow: 0 1px 3px #0003;
+}
+.ui-slider::-moz-range-thumb {
+  background: var(--background);
+  border: 2px solid var(--primary);
+  border-radius: 9999px;
+  width: 12px;
+  height: 12px;
+  transition: transform .15s;
+}
+.ui-slider:hover::-webkit-slider-thumb {
+  transform: scale(1.15);
+}
+.ui-slider:active::-webkit-slider-thumb {
+  transform: scale(1.3);
+}
+.ui-slider:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 4px var(--ring);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .ui-slider:focus-visible::-webkit-slider-thumb {
+    box-shadow: 0 0 0 4px color-mix(in srgb,var(--ring) 25%,transparent);
+  }
+}
+
+.icon-draw:hover *,
+.group:hover .icon-draw * {
+  animation: icon-draw var(--icon-ms,.9s) cubic-bezier(.45,0,.2,1) backwards;
+  animation-delay: calc(var(--i,0) * .14s);
+}
+
+/* Animations */
+@keyframes icon-draw {
+  0% {
+    stroke-dashoffset: 1px;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@property --tw-translate-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-translate-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-scale-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+@property --tw-scale-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
+@property --tw-ordinal {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-slashed-zero {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-figure {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-spacing {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-fraction {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-shadow-color {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-inset-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-ring-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-inset-ring-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-ring-offset-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-duration {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ease {
+  syntax: "*";
+  inherits: false;
+}

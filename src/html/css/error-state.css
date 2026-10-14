@@ -1,0 +1,153 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --container-md: 28rem;
+  --destructive: #e11d48;
+  --font-weight-semibold: 600;
+  --muted-foreground: #64748b;
+  --spacing: .25rem;
+  --text-6xl: 3.75rem;
+  --text-6xl--line-height: 1;
+  --text-lg: 1.125rem;
+  --text-lg--line-height: calc(1.75 / 1.125);
+  --tracking-tight: -.025em;
+}
+
+.dark {
+  --destructive: #f43f5e;
+  --muted-foreground: #8b94a5;
+}
+
+/* Utility rules */
+.mx-auto {
+  margin-inline: auto;
+}
+.mt-2 {
+  margin-top: calc(var(--spacing) * 2);
+}
+.flex {
+  display: flex;
+}
+.grid {
+  display: grid;
+}
+.size-12 {
+  width: calc(var(--spacing) * 12);
+  height: calc(var(--spacing) * 12);
+}
+.max-w-md {
+  max-width: var(--container-md);
+}
+.flex-col {
+  flex-direction: column;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.place-items-center {
+  place-items: center;
+}
+.items-center {
+  align-items: center;
+}
+.justify-center {
+  justify-content: center;
+}
+.gap-2 {
+  gap: calc(var(--spacing) * 2);
+}
+.gap-3 {
+  gap: calc(var(--spacing) * 3);
+}
+.rounded-full {
+  border-radius: 3.40282e38px;
+}
+.bg-destructive\/10 {
+  background-color: var(--destructive);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .bg-destructive\/10 {
+    background-color: color-mix(in oklab,var(--destructive) 10%,transparent);
+  }
+}
+
+.px-6 {
+  padding-inline: calc(var(--spacing) * 6);
+}
+.py-14 {
+  padding-block: calc(var(--spacing) * 14);
+}
+.text-center {
+  text-align: center;
+}
+.text-6xl {
+  font-size: var(--text-6xl);
+  line-height: var(--tw-leading,var(--text-6xl--line-height));
+}
+.text-lg {
+  font-size: var(--text-lg);
+  line-height: var(--tw-leading,var(--text-lg--line-height));
+}
+.text-\[13px\] {
+  font-size: 13px;
+}
+.font-semibold {
+  --tw-font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-semibold);
+}
+.tracking-tight {
+  --tw-tracking: var(--tracking-tight);
+  letter-spacing: var(--tracking-tight);
+}
+.text-destructive {
+  color: var(--destructive);
+}
+.text-muted-foreground,
+.text-muted-foreground\/30 {
+  color: var(--muted-foreground);
+}
+.text-muted-foreground\/40 {
+  color: var(--muted-foreground);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .text-muted-foreground\/40 {
+    color: color-mix(in oklab,var(--muted-foreground) 40%,transparent);
+  }
+}
+
+.tabular-nums {
+  --tw-numeric-spacing: tabular-nums;
+  font-variant-numeric: var(--tw-ordinal,) var(--tw-slashed-zero,) var(--tw-numeric-figure,) var(--tw-numeric-spacing,) var(--tw-numeric-fraction,);
+}
+.\[\&_svg\]\:size-6 svg {
+  width: calc(var(--spacing) * 6);
+  height: calc(var(--spacing) * 6);
+}
+
+@property --tw-leading {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ordinal {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-slashed-zero {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-figure {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-spacing {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-fraction {
+  syntax: "*";
+  inherits: false;
+}

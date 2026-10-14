@@ -1,1 +1,1 @@
-import"./chunks/entry.js";
+import"./chunks/bundle.js";

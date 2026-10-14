@@ -1,0 +1,15 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --spacing: .25rem;
+}
+
+/* Utility rules */
+.size-4 {
+  width: calc(var(--spacing) * 4);
+  height: calc(var(--spacing) * 4);
+}
+.shrink-0 {
+  flex-shrink: 0;
+}

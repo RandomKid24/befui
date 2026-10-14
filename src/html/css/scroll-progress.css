@@ -1,0 +1,55 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --primary: #2563eb;
+  --spacing: .25rem;
+}
+
+.dark {
+  --primary: #3b82f6;
+}
+
+/* Utility rules */
+.fixed {
+  position: fixed;
+}
+.sticky {
+  position: sticky;
+}
+.inset-x-0 {
+  inset-inline: 0;
+}
+.top-0 {
+  top: 0;
+}
+.z-50 {
+  z-index: 50;
+}
+.h-0\.5 {
+  height: calc(var(--spacing) * .5);
+}
+.h-full {
+  height: 100%;
+}
+.origin-left {
+  transform-origin: 0;
+}
+.scale-x-0 {
+  --tw-scale-x: 0%;
+  scale: var(--tw-scale-x) var(--tw-scale-y);
+}
+.bg-primary {
+  background-color: var(--primary);
+}
+
+@property --tw-scale-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+@property --tw-scale-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}

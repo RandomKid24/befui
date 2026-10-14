@@ -1,0 +1,164 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --background: #fff;
+  --border: #e2e8f0;
+  --font-weight-medium: 500;
+  --leading-snug: 1.375;
+  --muted: #f8fafc;
+  --muted-foreground: #64748b;
+  --radius: .5rem;
+  --spacing: .25rem;
+  --tracking-wider: .05em;
+}
+
+.dark {
+  --background: #0a0c10;
+  --border: #1f2430;
+  --muted: #11141b;
+  --muted-foreground: #8b94a5;
+}
+
+/* Utility rules */
+.absolute {
+  position: absolute;
+}
+.relative {
+  position: relative;
+}
+.top-10 {
+  top: calc(var(--spacing) * 10);
+}
+.-right-1 {
+  right: calc(var(--spacing) * -1);
+}
+.-bottom-1 {
+  bottom: calc(var(--spacing) * -1);
+}
+.bottom-0 {
+  bottom: 0;
+}
+.left-4 {
+  left: calc(var(--spacing) * 4);
+}
+.mt-1\.5 {
+  margin-top: calc(var(--spacing) * 1.5);
+}
+.mb-3 {
+  margin-bottom: calc(var(--spacing) * 3);
+}
+.ml-2 {
+  margin-left: calc(var(--spacing) * 2);
+}
+.flex {
+  display: flex;
+}
+.grid {
+  display: grid;
+}
+.size-4 {
+  width: calc(var(--spacing) * 4);
+  height: calc(var(--spacing) * 4);
+}
+.w-px {
+  width: 1px;
+}
+.min-w-0 {
+  min-width: 0;
+}
+.flex-1 {
+  flex: 1;
+}
+.shrink-0 {
+  flex-shrink: 0;
+}
+.place-items-center {
+  place-items: center;
+}
+.gap-3 {
+  gap: calc(var(--spacing) * 3);
+}
+.gap-5 {
+  gap: calc(var(--spacing) * 5);
+}
+.rounded-full {
+  border-radius: 3.40282e38px;
+}
+.rounded-lg {
+  border-radius: calc(var(--radius) + 2px);
+}
+.border {
+  border-style: var(--tw-border-style);
+  border-width: 1px;
+}
+.bg-background,
+.bg-background\/15 {
+  background-color: var(--background);
+}
+.bg-border {
+  background-color: var(--border);
+}
+.bg-muted\/40 {
+  background-color: var(--muted);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .bg-muted\/40 {
+    background-color: color-mix(in oklab,var(--muted) 40%,transparent);
+  }
+}
+
+.px-3 {
+  padding-inline: calc(var(--spacing) * 3);
+}
+.py-2 {
+  padding-block: calc(var(--spacing) * 2);
+}
+.pt-1 {
+  padding-top: var(--spacing);
+}
+.pb-4 {
+  padding-bottom: calc(var(--spacing) * 4);
+}
+.text-\[11px\] {
+  font-size: 11px;
+}
+.text-\[13px\] {
+  font-size: 13px;
+}
+.leading-snug {
+  --tw-leading: var(--leading-snug);
+  line-height: var(--leading-snug);
+}
+.font-medium {
+  --tw-font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-medium);
+}
+.tracking-wider {
+  --tw-tracking: var(--tracking-wider);
+  letter-spacing: var(--tracking-wider);
+}
+.whitespace-nowrap {
+  white-space: nowrap;
+}
+.text-muted-foreground,
+.text-muted-foreground\/30 {
+  color: var(--muted-foreground);
+}
+.uppercase {
+  text-transform: uppercase;
+}
+.last\:pb-0:last-child {
+  padding-bottom: 0;
+}
+.\[\&_svg\]\:size-2\.5 svg {
+  width: calc(var(--spacing) * 2.5);
+  height: calc(var(--spacing) * 2.5);
+}
+
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}

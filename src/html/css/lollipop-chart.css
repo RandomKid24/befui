@@ -1,0 +1,207 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --default-transition-duration: .15s;
+  --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  --font-weight-medium: 500;
+  --primary: #2563eb;
+  --radius: .5rem;
+  --spacing: .25rem;
+  --text-xs: .75rem;
+  --text-xs--line-height: calc(1 / .75);
+}
+
+.dark {
+  --primary: #3b82f6;
+}
+
+/* Utility rules */
+.absolute {
+  position: absolute;
+}
+.relative {
+  position: relative;
+}
+.top-1\/2 {
+  top: 50%;
+}
+.left-0 {
+  left: 0;
+}
+.grid {
+  display: grid;
+}
+.size-3\.5 {
+  width: calc(var(--spacing) * 3.5);
+  height: calc(var(--spacing) * 3.5);
+}
+.h-4 {
+  height: calc(var(--spacing) * 4);
+}
+.h-\[2px\] {
+  height: 2px;
+}
+.-translate-y-1\/2 {
+  --tw-translate-y: -50% ;
+  translate: var(--tw-translate-x) var(--tw-translate-y);
+}
+.scale-125 {
+  --tw-scale-x: 125%;
+  --tw-scale-y: 125%;
+  --tw-scale-z: 125%;
+  scale: var(--tw-scale-x) var(--tw-scale-y);
+}
+.transform {
+  transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
+}
+.grid-cols-\[8rem_1fr_3\.5rem\] {
+  grid-template-columns: 8rem 1fr 3.5rem;
+}
+.items-center {
+  align-items: center;
+}
+.gap-0\.5 {
+  gap: calc(var(--spacing) * .5);
+}
+.gap-3 {
+  gap: calc(var(--spacing) * 3);
+}
+.truncate {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.rounded-full {
+  border-radius: 3.40282e38px;
+}
+.rounded-md {
+  border-radius: var(--radius);
+}
+.bg-primary {
+  background-color: var(--primary);
+}
+.bg-primary\/50 {
+  background-color: var(--primary);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .bg-primary\/50 {
+    background-color: color-mix(in oklab,var(--primary) 50%,transparent);
+  }
+}
+
+.px-1 {
+  padding-inline: var(--spacing);
+}
+.py-1\.5 {
+  padding-block: calc(var(--spacing) * 1.5);
+}
+.text-right {
+  text-align: right;
+}
+.text-xs {
+  font-size: var(--text-xs);
+  line-height: var(--tw-leading,var(--text-xs--line-height));
+}
+.text-\[13px\] {
+  font-size: 13px;
+}
+.font-medium {
+  --tw-font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-medium);
+}
+.tabular-nums {
+  --tw-numeric-spacing: tabular-nums;
+  font-variant-numeric: var(--tw-ordinal,) var(--tw-slashed-zero,) var(--tw-numeric-figure,) var(--tw-numeric-spacing,) var(--tw-numeric-fraction,);
+}
+.opacity-40 {
+  opacity: .4;
+}
+.transition-opacity {
+  transition-property: opacity;
+  transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
+  transition-duration: var(--tw-duration,var(--default-transition-duration));
+}
+.transition-transform {
+  transition-property: transform,translate,scale,rotate;
+  transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
+  transition-duration: var(--tw-duration,var(--default-transition-duration));
+}
+.duration-200 {
+  --tw-duration: .2s;
+  transition-duration: .2s;
+}
+
+@property --tw-translate-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-translate-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-scale-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+@property --tw-scale-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+@property --tw-rotate-x {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-rotate-y {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-rotate-z {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-skew-x {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-skew-y {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-leading {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ordinal {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-slashed-zero {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-figure {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-spacing {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-fraction {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-duration {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ease {
+  syntax: "*";
+  inherits: false;
+}

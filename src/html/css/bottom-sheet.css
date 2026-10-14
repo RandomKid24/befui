@@ -1,0 +1,286 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --color-black: #000;
+  --container-lg: 32rem;
+  --font-weight-semibold: 600;
+  --muted-foreground: #64748b;
+  --popover: #fff;
+  --radius-2xl: 1rem;
+  --spacing: .25rem;
+  --text-base: 1rem;
+  --text-base--line-height: 1.5 ;
+}
+
+.dark {
+  --muted-foreground: #8b94a5;
+  --popover: #0f1218;
+}
+
+/* Utility rules */
+.fixed {
+  position: fixed;
+}
+.inset-0 {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.inset-x-0 {
+  inset-inline: 0;
+}
+.bottom-0 {
+  bottom: 0;
+}
+.z-50 {
+  z-index: 50;
+}
+.mx-auto {
+  margin-inline: auto;
+}
+.flex {
+  display: flex;
+}
+.grid {
+  display: grid;
+}
+.h-1\.5 {
+  height: calc(var(--spacing) * 1.5);
+}
+.max-h-\[85vh\] {
+  max-height: 85vh;
+}
+.w-10 {
+  width: calc(var(--spacing) * 10);
+}
+.w-full {
+  width: 100%;
+}
+.max-w-lg {
+  max-width: var(--container-lg);
+}
+.transform {
+  transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
+}
+.animate-in {
+  animation: .15s ease-out fade-in;
+}
+.animate-slide-up {
+  animation: .28s cubic-bezier(.22,1,.36,1) slide-up;
+}
+.cursor-grab {
+  cursor: grab;
+}
+.touch-none {
+  touch-action: none;
+}
+.flex-col {
+  flex-direction: column;
+}
+.place-items-center {
+  place-items: center;
+}
+.gap-1 {
+  gap: var(--spacing);
+}
+.overflow-y-auto {
+  overflow-y: auto;
+}
+.rounded-full {
+  border-radius: 3.40282e38px;
+}
+.rounded-t-2xl {
+  border-top-left-radius: var(--radius-2xl);
+  border-top-right-radius: var(--radius-2xl);
+}
+.border {
+  border-style: var(--tw-border-style);
+  border-width: 1px;
+}
+.border-b-0 {
+  border-bottom-style: var(--tw-border-style);
+  border-bottom-width: 0;
+}
+.bg-black\/40 {
+  background-color: #0006;
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .bg-black\/40 {
+    background-color: color-mix(in oklab,var(--color-black) 40%,transparent);
+  }
+}
+
+.bg-muted-foreground\/30 {
+  background-color: var(--muted-foreground);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .bg-muted-foreground\/30 {
+    background-color: color-mix(in oklab,var(--muted-foreground) 30%,transparent);
+  }
+}
+
+.bg-popover {
+  background-color: var(--popover);
+}
+.px-5 {
+  padding-inline: calc(var(--spacing) * 5);
+}
+.py-3 {
+  padding-block: calc(var(--spacing) * 3);
+}
+.pb-3 {
+  padding-bottom: calc(var(--spacing) * 3);
+}
+.pb-\[max\(1rem\,
+env\(safe-area-inset-bottom\)\)\] {
+  padding-bottom: max(1rem,env(safe-area-inset-bottom));
+}
+.text-base {
+  font-size: var(--text-base);
+  line-height: var(--tw-leading,var(--text-base--line-height));
+}
+.text-\[13px\] {
+  font-size: 13px;
+}
+.font-semibold {
+  --tw-font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-semibold);
+}
+.text-muted-foreground,
+.text-muted-foreground\/30 {
+  color: var(--muted-foreground);
+}
+.shadow-xl {
+  --tw-shadow: 0 20px 25px -5px var(--tw-shadow-color,#0000001a), 0 8px 10px -6px var(--tw-shadow-color,#0000001a);
+  box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
+}
+.backdrop-blur-\[2px\] {
+  --tw-backdrop-blur: blur(2px);
+  -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
+  backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
+}
+.outline-none {
+  --tw-outline-style: none;
+  outline-style: none;
+}
+.active\:cursor-grabbing:active {
+  cursor: grabbing;
+}
+
+/* Animations */
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  0% {
+    transform: translateY(100%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@property --tw-rotate-x {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-rotate-y {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-rotate-z {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-skew-x {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-skew-y {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
+@property --tw-leading {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-shadow-color {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-inset-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-ring-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-inset-ring-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-ring-offset-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-backdrop-blur {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-brightness {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-contrast {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-grayscale {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-hue-rotate {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-invert {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-opacity {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-saturate {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-sepia {
+  syntax: "*";
+  inherits: false;
+}
