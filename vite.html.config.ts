@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 
 // Tailwind's preflight, but only inside bef-* roots (marked data-bef) and Radix portals (menus, dialogs), so the host page keeps its own styles.
-const S = ':where([data-bef], [data-radix-popper-content-wrapper], [data-radix-portal], [role=dialog], [role=alertdialog])';
+const S = ':where([data-bef], .pv, [data-radix-popper-content-wrapper], [data-radix-portal], [role=dialog], [role=alertdialog])';
 const scoped = `@layer base {
   [data-bef] { display: contents; }
   [data-bef][style] { display: block; }
@@ -21,7 +21,7 @@ const scoped = `@layer base {
 }`;
 
 // Same CSS as src/index.css, but theme + utilities only: no Tailwind preflight, so it does not reset the host page.
-const noPreflight = () => ({
+const noPreflight = (examples: boolean) => ({
   name: 'no-preflight',
   enforce: 'pre' as const,
   transform(_: string, id: string) {
@@ -30,21 +30,22 @@ const noPreflight = () => ({
     return `@layer theme, base, components, utilities;
 @import 'tailwindcss/theme.css' layer(theme);
 @import 'tailwindcss/utilities.css' layer(utilities) source('../components');
-${theme}
+${examples ? "@source '../examples';\n" : ''}${theme}
 ${scoped}`;
   },
 });
 
-// Builds the all-components HTML bundle: dist/html/befui.js + befui.css (custom elements, React inside).
-export default defineConfig({
-  plugins: [noPreflight(), react(), tailwindcss()],
-  resolve: { alias: { '@': path.resolve(__dirname, 'src') } },
-  publicDir: false,
-  define: { 'process.env.NODE_ENV': '"production"' },
-  build: {
-    outDir: 'dist/html',
-    emptyOutDir: true,
-    cssCodeSplit: false,
-    lib: { entry: 'src/html/entry.ts', formats: ['iife'], name: 'befuiHtml', fileName: () => 'befui.js', cssFileName: 'befui' },
-  },
+// Two builds: default = the all-components bundle, dist/html/befui.js + befui.css (custom elements, React inside).
+// --mode previews = the React examples the docs page shows next to the HTML ones, dist/html/previews/ (ES modules, one chunk per example).
+export default defineConfig(({ mode }) => {
+  const previews = mode === 'previews';
+  return {
+    plugins: [noPreflight(previews), react(), tailwindcss()],
+    resolve: { alias: { '@': path.resolve(__dirname, 'src') } },
+    publicDir: false,
+    define: { 'process.env.NODE_ENV': '"production"' },
+    build: previews
+      ? { outDir: 'dist/html/previews', emptyOutDir: true, cssCodeSplit: false, lib: { entry: 'src/html/previews.tsx', formats: ['es'], fileName: () => 'previews.js', cssFileName: 'previews' } }
+      : { outDir: 'dist/html', emptyOutDir: true, cssCodeSplit: false, lib: { entry: 'src/html/entry.ts', formats: ['iife'], name: 'befuiHtml', fileName: () => 'befui.js', cssFileName: 'befui' } },
+  };
 });

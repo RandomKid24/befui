@@ -73,3 +73,5 @@ body.embed header { top: 0; }
   #widths { display: none; }
 }
 .size { font-size: 12.5px; color: var(--muted-foreground); }
+#views { margin-right: 8px; }
+.bar .seg + .seg { margin-left: 0; }

@@ -1,7 +1,7 @@
 // Docs for the HTML build. Plain JS on purpose: this is how an app without React would use befui.
 const $ = (s) => document.querySelector(s);
 const ORDER = ['Inputs', 'Display', 'Feedback', 'Overlays', 'Navigation', 'Data', 'Layout', 'Time'];
-let data, byCat, flat, query = '', width = 'full';
+let data, byCat, flat, query = '', width = 'full', view = 'react', cleanup, token = 0, previews;
 
 const esc = (s) => s.replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c]);
 const copy = async (text, btn) => {
@@ -73,7 +73,7 @@ function component(c) {
   const usesScript = /<script/.test(demo);
   $('#page').innerHTML = `<div class="crumb"><a href="#/">Components</a> / ${c.category}</div>
     <h1>${esc(c.name)}</h1><p class="lead">${esc(c.description)}</p>
-    <div class="bar"><span class="seg" id="widths">${[['full', 'Full'], ['768', 'Tablet'], ['375', 'Mobile']].map(([w, l]) => `<button data-w="${w}" class="${w === width ? 'on' : ''}">${l}</button>`).join('')}</span></div>
+    <div class="bar"><span class="seg" id="views"><button data-v="react" class="${view === 'react' ? 'on' : ''}">React demo</button><button data-v="html" class="${view === 'html' ? 'on' : ''}">HTML, live</button></span><span class="seg" id="widths">${[['full', 'Full'], ['768', 'Tablet'], ['375', 'Mobile']].map(([w, l]) => `<button data-w="${w}" class="${w === width ? 'on' : ''}">${l}</button>`).join('')}</span></div>
     <div class="frame" id="frame" style="width:${width === 'full' ? '100%' : width + 'px'}"><div class="stage${c.wide ? ' wide' : ''}" id="stage"></div></div>
     <div class="bar" style="margin-top:34px"><span class="seg" id="tabs"><button data-tab="html" class="on">HTML</button>${c.css ? '<button data-tab="css">CSS</button>' : ''}</span><span class="size" id="size"></span></div>
     <div class="code"><button class="plain copy" id="cp">Copy</button><pre id="code">${highlight(demo)}</pre></div>
@@ -81,8 +81,30 @@ function component(c) {
     <h2>Tags in this component</h2><div class="chips">${c.tags.map((t) => `<code data-t="${t}" title="Copy tag">&lt;${t}&gt;</code>`).join('') || '<span class="empty">none</span>'}</div>
     <div class="pager">${prev ? `<a href="#/${prev.slug}"><small>Previous</small>${esc(prev.name)}</a>` : '<span></span>'}${next ? `<a class="next" href="#/${next.slug}"><small>Next</small>${esc(next.name)}</a>` : ''}</div>`;
   const stage = $('#stage');
-  stage.innerHTML = demo;
-  stage.querySelectorAll('script').forEach((old) => { const s = document.createElement('script'); s.textContent = '{\n' + old.textContent + '\n}'; /* block scope: demos can reuse names */ old.replaceWith(s); });
+  const show = async () => {
+    const my = ++token;
+    cleanup?.(); cleanup = null; stage.innerHTML = '';
+    stage.classList.toggle('pv', view === 'react');
+    if (view === 'html') {
+      stage.innerHTML = demo;
+      stage.querySelectorAll('script').forEach((old) => { const s = document.createElement('script'); s.textContent = '{\n' + old.textContent + '\n}'; /* block scope: demos can reuse names */ old.replaceWith(s); });
+      return;
+    }
+    try {
+      if (!previews) {
+        document.head.append(Object.assign(document.createElement('link'), { rel: 'stylesheet', href: 'previews/previews.css' }));
+        previews = import('./previews/previews.js');
+      }
+      const unmount = await (await previews).mount(c.slug, stage);
+      if (my === token) cleanup = unmount; else unmount();
+    } catch (e) { stage.innerHTML = '<span class="note">Could not load the React preview. Showing the HTML one instead.</span>'; view = 'html'; }
+  };
+  show();
+  $('#views').onclick = (e) => {
+    const v = e.target.dataset?.v; if (!v || v === view) return;
+    view = v; document.querySelectorAll('#views button').forEach((b) => b.classList.toggle('on', b.dataset.v === v));
+    show();
+  };
   let shown = demo;
   const tab = async (name) => {
     document.querySelectorAll('#tabs button').forEach((b) => b.classList.toggle('on', b.dataset.tab === name));
@@ -105,6 +127,7 @@ function component(c) {
 function page() {
   const c = data.list.find((x) => x.slug === location.hash.slice(2));
   document.body.classList.remove('menu');
+  cleanup?.(); cleanup = null; token++;
   mark();
   if (c) component(c); else home();
   document.title = (c ? c.name + ' · ' : '') + 'befui for HTML and htmx';
@@ -133,16 +156,17 @@ fetch('demos.json').then((r) => r.json()).then((d) => {
 });
 
 // Dev check: __check() opens every example and lists the ones that error, stay empty or never upgrade.
-window.__check = async (slugs) => {
+window.__check = async (slugs, v = 'html') => {
+  view = v;
   const bad = [], errs = [];
   const note = (e) => errs.push(e.message || String(e.reason));
   addEventListener('error', note); addEventListener('unhandledrejection', note);
   const ce = console.error; console.error = (...a) => errs.push('console: ' + String(a[0]).slice(0, 160));
   for (const s of slugs || Object.keys(data.demo)) {
     errs.length = 0; location.hash = '#/' + s;
-    await new Promise((r) => setTimeout(r, 450));
+    await new Promise((r) => setTimeout(r, v === 'html' ? 450 : 700));
     const st = $('#stage');
-    const un = [...st.querySelectorAll('*')].filter((e) => e.localName.startsWith('bef-') && !e.closest('[data-bef]')).length;
+    const un = v === 'html' ? [...st.querySelectorAll('*')].filter((e) => e.localName.startsWith('bef-') && !e.closest('[data-bef]')).length : 0;
     const h = Math.round(st.getBoundingClientRect().height);
     if (errs.length || un || h < 70) bad.push(`${s} errs=${[...new Set(errs)].join('|')} unupgraded=${un} h=${h}`);
   }

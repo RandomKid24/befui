@@ -126,7 +126,7 @@ Time picker, analog clock, world clock, stopwatch, countdown timer and live rela
 
 ### Use from plain HTML or htmx
 
-Try it: `npm run demo:html` opens an HTML docs site with all 199 components, one page each. No React in your app. `npm run build:html` writes `dist/html/befui.js` and `befui.css`; every component is a `<bef-*>` tag (`DataTable` is `<bef-data-table>`, `DialogTrigger` is `<bef-dialog-trigger>`).
+Try it: `npm run demo:html` opens an HTML docs site with all 199 components, one page each (the React demo as the preview, a live HTML version one click away, plus the HTML and CSS code). No React in your app. `npm run build:html` writes `dist/html/befui.js` and `befui.css`; every component is a `<bef-*>` tag (`DataTable` is `<bef-data-table>`, `DialogTrigger` is `<bef-dialog-trigger>`).
 
 ```html
 <link rel="stylesheet" href="/befui.css">
@@ -153,7 +153,7 @@ Try it: `npm run demo:html` opens an HTML docs site with all 199 components, one
 - `style` works on the outer tag; extra Tailwind classes you invent are not in the CSS, so use inline style for layout.
 - Works for elements added later (htmx swaps, `innerHTML`) and `hx-*` attributes inside get processed. Radix selects and checkboxes submit with the surrounding `<form>`.
 - The CSS has no page-wide reset: a scoped one applies only inside `<bef-*>` tags and popups, and the tags are `display: contents`, so your own elements are untouched. Dark mode is the same `.dark` class on `<html>`.
-- The bundle is ~320 KB gzipped (React is inside). For a tiny, dependency-free set (`bf-select`, `bf-date-picker`, `bf-dialog`, `bf-toast`) see [web/](web/README.md).
+- Size (checked on every `npm run build:html`, which prints it): `befui.js` is 1.0 MB, **317 KB gzipped**, because React and all 199 components are inside; `befui.css` is 117 KB, **18 KB gzipped**. Serve both with gzip or brotli. You pay this once, not per component. For a tiny, dependency-free set (`bf-select`, `bf-date-picker`, `bf-dialog`, `bf-toast`) see [web/](web/README.md).
 
 ## Theming notes
 
