@@ -11,12 +11,13 @@
 </head>
 <body>
 <header>
+  <button id="menu" type="button" aria-label="Menu">Menu</button>
   <a href="#/" class="brand">befui <span>for HTML + htmx</span></a>
-  <input id="q" type="search" placeholder="Search components" autocomplete="off">
+  <label class="search"><input id="q" type="search" placeholder="Search components" autocomplete="off"><kbd>/</kbd></label>
   <button id="theme" type="button">Dark</button>
 </header>
 <div class="shell">
-  <nav id="nav"></nav>
+  <nav id="nav" aria-label="Components"></nav>
   <main id="page"></main>
 </div>
 </body>
