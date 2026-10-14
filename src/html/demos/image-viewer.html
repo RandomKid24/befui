@@ -1,0 +1,10 @@
+<div id="iv-row" style="display:flex;gap:8px"></div>
+<bef-image-viewer id="iv"></bef-image-viewer>
+<script>
+  const svg = (c, t) => 'data:image/svg+xml,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400"><rect width="640" height="400" fill="${c}"/><text x="320" y="215" font-size="48" fill="white" text-anchor="middle" font-family="sans-serif">${t}</text></svg>`);
+  const images = [{ src: svg('#2563eb', 'One'), alt: 'One' }, { src: svg('#059669', 'Two'), alt: 'Two' }, { src: svg('#d97706', 'Three'), alt: 'Three' }];
+  const iv = document.getElementById('iv');
+  const show = (index) => iv.props = { images, index, onIndexChange: show };
+  show(null);
+  images.forEach((im, i) => { const b = document.createElement('button'); b.innerHTML = `<img src="${im.src}" alt="${im.alt}" style="width:96px;border-radius:8px">`; b.onclick = () => show(i); document.getElementById('iv-row').append(b); });
+</script>

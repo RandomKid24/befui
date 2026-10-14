@@ -1,0 +1,7 @@
+<bef-tree-table class="w-full max-w-2xl" default-expanded="all" id="tt"></bef-tree-table>
+<script>
+  document.getElementById('tt').props = {
+    columns: [{ key: 'name', header: 'Name' }, { key: 'size', header: 'Size', align: 'end' }],
+    rows: [{ id: '1', name: 'src', size: '—', children: [{ id: '2', name: 'index.ts', size: '2 KB' }, { id: '3', name: 'app.tsx', size: '8 KB' }] }, { id: '4', name: 'package.json', size: '1 KB' }],
+  };
+</script>

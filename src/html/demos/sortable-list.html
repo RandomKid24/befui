@@ -1,0 +1,6 @@
+<bef-sortable-list id="sl2" style="width:300px"></bef-sortable-list>
+<script>
+  const sl2 = document.getElementById('sl2');
+  const draw = (items) => sl2.props = { items, onChange: draw, renderItem: (i) => i.name };
+  draw([{ id: '1', name: 'Design review' }, { id: '2', name: 'Sprint planning' }, { id: '3', name: 'Retro' }]);
+</script>

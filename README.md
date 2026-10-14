@@ -126,7 +126,7 @@ Time picker, analog clock, world clock, stopwatch, countdown timer and live rela
 
 ### Use from plain HTML or htmx
 
-Try it: `npm run demo:html` opens a demo page. No React in your app. `npm run build:html` writes `dist/html/befui.js` and `befui.css`; every component is a `<bef-*>` tag (`DataTable` is `<bef-data-table>`, `DialogTrigger` is `<bef-dialog-trigger>`).
+Try it: `npm run demo:html` opens an HTML docs site with all 199 components, one page each. No React in your app. `npm run build:html` writes `dist/html/befui.js` and `befui.css`; every component is a `<bef-*>` tag (`DataTable` is `<bef-data-table>`, `DialogTrigger` is `<bef-dialog-trigger>`).
 
 ```html
 <link rel="stylesheet" href="/befui.css">
@@ -146,7 +146,11 @@ Try it: `npm run demo:html` opens a demo page. No React in your app. `npm run bu
 
 - Attributes are props in kebab-case (`default-value`). Strings are the default; use `:` for JSON (`:value="40"`, `:items='[...]'`) and a bare attribute for `true`.
 - Callbacks: `emit="value-change"` fires a bubbling `bef:value-change` event with the value in `detail`, so htmx can listen with `hx-trigger="bef:value-change"`.
-- Functions and JSX (table `columns`, render props): set them from script, `el.props = { columns }`.
+- Components in props: put a tag in a JSON string (`:items='[{"icon":"<bef-home-icon></bef-home-icon>"}]'`), or use `slot="icon"` on a child for a single prop.
+- Dates: `~to="2026-12-31T09:00"`, or `"~2026-12-31"` inside JSON.
+- Controlled components (`value`, `open`, `checked`, `page`...) update themselves: `emit="value-change"` writes the new value back to the tag.
+- Functions (table `columns`, render props, `onSubmit`): set them from script, `el.props = { columns }`.
+- `style` works on the outer tag; extra Tailwind classes you invent are not in the CSS, so use inline style for layout.
 - Works for elements added later (htmx swaps, `innerHTML`) and `hx-*` attributes inside get processed. Radix selects and checkboxes submit with the surrounding `<form>`.
 - The CSS has no page-wide reset: a scoped one applies only inside `<bef-*>` tags and popups, and the tags are `display: contents`, so your own elements are untouched. Dark mode is the same `.dark` class on `<html>`.
 - The bundle is ~230 KB gzipped (React is inside). For a tiny, dependency-free set (`bf-select`, `bf-date-picker`, `bf-dialog`, `bf-toast`) see [web/](web/README.md).

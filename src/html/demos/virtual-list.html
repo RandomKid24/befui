@@ -1,0 +1,2 @@
+<bef-virtual-list id="vl" style="width:320px;border:1px solid var(--border);border-radius:12px"></bef-virtual-list>
+<script>document.getElementById('vl').props = { items: Array.from({ length: 5000 }, (_, i) => 'Row ' + (i + 1)), rowHeight: 36, height: 280, renderRow: (t) => t };</script>

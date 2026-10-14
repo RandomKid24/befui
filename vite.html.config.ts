@@ -8,6 +8,7 @@ import tailwindcss from '@tailwindcss/vite';
 const S = ':where([data-bef], [data-radix-popper-content-wrapper], [data-radix-portal], [role=dialog], [role=alertdialog])';
 const scoped = `@layer base {
   [data-bef] { display: contents; }
+  [data-bef][style] { display: block; }
   ${S} :where(*, ::before, ::after) { box-sizing: border-box; border: 0 solid; border-color: var(--border); margin: 0; padding: 0; }
   ${S} :where(button, input, select, textarea, optgroup) { font: inherit; letter-spacing: inherit; color: inherit; background: transparent; border-radius: 0; opacity: 1; }
   ${S} :where(h1, h2, h3, h4, h5, h6) { font-size: inherit; font-weight: inherit; }

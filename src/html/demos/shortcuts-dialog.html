@@ -1,0 +1,3 @@
+<bef-button id="sd-open" variant="outline">Show shortcuts (or press ?)</bef-button>
+<bef-shortcuts-dialog id="sd" emit="open-change" :groups='[{"title":"General","items":[{"keys":["⌘","K"],"label":"Command palette"},{"keys":["?"],"label":"Show shortcuts"}]},{"title":"Editing","items":[{"keys":["⌘","S"],"label":"Save"}]}]'></bef-shortcuts-dialog>
+<script>document.getElementById('sd-open').addEventListener('click', () => document.getElementById('sd').setAttribute(':open', 'true'));</script>

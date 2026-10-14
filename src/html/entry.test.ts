@@ -21,3 +21,16 @@ describe('html custom elements', () => {
     expect(b.querySelector('[role=progressbar]')).toHaveAttribute('aria-valuenow', '40');
   });
 });
+
+describe('slots and html in json props', () => {
+  it('slot="x" becomes prop x', async () => {
+    const b = await mount('<bef-banner><bef-button slot="action">Undo</bef-button>Saved</bef-banner>');
+    expect(b.textContent).toContain('Saved');
+    expect(b.textContent).toContain('Undo');
+  });
+
+  it('turns tag strings inside :json props into content', async () => {
+    const b = await mount(`<bef-bottom-nav value="a" :items='[{"id":"a","label":"Home","icon":"<bef-home-icon></bef-home-icon>"}]'></bef-bottom-nav>`);
+    expect(b.querySelector('svg')).not.toBeNull();
+  });
+});

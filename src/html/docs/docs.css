@@ -1,0 +1,23 @@
+* { box-sizing: border-box; }
+body { margin: 0; font-family: system-ui, sans-serif; background: var(--background); color: var(--foreground); }
+header { position: sticky; top: 0; z-index: 20; display: flex; gap: 12px; align-items: center; padding: 10px 16px; border-bottom: 1px solid var(--border); background: var(--background); }
+.brand { font-weight: 700; color: inherit; text-decoration: none; }
+.brand span { font-weight: 400; color: var(--muted-foreground); }
+#q { flex: 1; max-width: 320px; padding: 7px 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--background); color: inherit; font: inherit; }
+#theme { padding: 7px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--background); color: inherit; font: inherit; cursor: pointer; margin-left: auto; }
+.shell { display: grid; grid-template-columns: 240px 1fr; }
+nav { position: sticky; top: 53px; height: calc(100vh - 53px); overflow: auto; padding: 12px; border-right: 1px solid var(--border); font-size: 14px; }
+nav h3 { margin: 14px 8px 4px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted-foreground); }
+nav a { display: block; padding: 5px 8px; border-radius: 6px; color: inherit; text-decoration: none; }
+nav a:hover { background: var(--secondary); }
+nav a.on { background: var(--accent); color: var(--accent-foreground); font-weight: 600; }
+main { padding: 28px 32px 80px; min-width: 0; max-width: 980px; }
+main h1 { margin: 0 0 6px; }
+main p.d { margin: 0 0 20px; color: var(--muted-foreground); max-width: 70ch; }
+.stage { padding: 32px 20px; border: 1px solid var(--border); border-radius: 12px; background-image: radial-gradient(var(--border) 1px, transparent 1px); background-size: 16px 16px; display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start; justify-content: center; overflow: auto; }
+.stage.wide { display: block; }
+h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted-foreground); margin: 26px 0 8px; }
+pre { margin: 0; padding: 14px; border: 1px solid var(--border); border-radius: 10px; background: var(--muted); overflow: auto; font-size: 12.5px; line-height: 1.55; max-height: 420px; }
+.tags code { display: inline-block; margin: 0 6px 6px 0; padding: 2px 8px; border-radius: 6px; background: var(--secondary); font-size: 12px; }
+.note { padding: 12px 14px; border: 1px dashed var(--border); border-radius: 10px; color: var(--muted-foreground); font-size: 14px; }
+@media (max-width: 760px) { .shell { grid-template-columns: 1fr; } nav { position: static; height: auto; max-height: 220px; border-right: 0; border-bottom: 1px solid var(--border); } main { padding: 20px 16px 60px; } }

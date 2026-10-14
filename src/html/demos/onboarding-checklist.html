@@ -1,0 +1,7 @@
+<bef-onboarding-checklist id="ocl" style="width:380px"></bef-onboarding-checklist>
+<script>
+  const ocl = document.getElementById('ocl');
+  let items = [{ id: '1', title: 'Create your account', done: true }, { id: '2', title: 'Invite your team', description: 'Add at least 2 people', done: false }, { id: '3', title: 'Run a test payroll', done: false }];
+  const draw = () => ocl.props = { items, onToggle: (id, done) => { items = items.map((i) => i.id === id ? { ...i, done } : i); draw(); } };
+  draw();
+</script>

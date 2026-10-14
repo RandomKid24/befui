@@ -1,0 +1,8 @@
+<bef-kanban id="kb" class="w-full"></bef-kanban>
+<script>
+  const cols = [{ id: 'todo', title: 'To do' }, { id: 'doing', title: 'In progress', tone: 'info' }, { id: 'done', title: 'Done', tone: 'success' }];
+  const board = { todo: [{ id: 'a', t: 'Write offer letter' }, { id: 'b', t: 'Book interviews' }], doing: [{ id: 'c', t: 'Payroll run' }], done: [{ id: 'd', t: 'Audit' }] };
+  const kb = document.getElementById('kb');
+  const draw = (value) => kb.props = { columns: cols, value, onChange: draw, renderCard: (i) => i.t };
+  draw(board);
+</script>

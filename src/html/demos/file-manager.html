@@ -1,0 +1,9 @@
+<bef-file-manager id="fm" class="w-full max-w-2xl"></bef-file-manager>
+<script>
+  const fm = document.getElementById('fm');
+  const all = { 0: [{ id: 'a', name: 'Contracts', type: 'folder', modified: '12 Oct' }, { id: 'b', name: 'logo.png', type: 'image', size: 48200, modified: '10 Oct' }, { id: 'c', name: 'handbook.pdf', type: 'file', size: 1480000, modified: '2 Oct' }],
+    1: [{ id: 'd', name: 'nda.pdf', type: 'file', size: 92000, modified: '1 Oct' }] };
+  let path = ['Files'];
+  const draw = () => fm.props = { path, items: all[path.length - 1] ?? [], onNavigate: (depth) => { path = path.slice(0, depth + 1); draw(); }, onOpen: (it) => { if (it.type === 'folder') { path = [...path, it.name]; draw(); } } };
+  draw();
+</script>

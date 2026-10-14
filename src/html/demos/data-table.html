@@ -1,0 +1,14 @@
+<bef-data-table id="dt" class="w-full" selectable column-menu :page-size="4"></bef-data-table>
+<script>
+  const rows = [
+    { id: '1', name: 'Aarav Mehta', team: 'Engineering', salary: 1850000 }, { id: '2', name: 'Diya Rao', team: 'Design', salary: 1420000 },
+    { id: '3', name: 'Rohan Das', team: 'Sales', salary: 960000 }, { id: '4', name: 'Isha Nair', team: 'People Ops', salary: 1100000 },
+    { id: '5', name: 'Kabir Shah', team: 'Engineering', salary: 2250000 }, { id: '6', name: 'Meera Iyer', team: 'Finance', salary: 1380000 }];
+  document.getElementById('dt').props = {
+    rows, rowKey: (r) => r.id,
+    columns: [
+      { key: 'name', header: 'Name', sortable: true, value: (r) => r.name },
+      { key: 'team', header: 'Team', sortable: true, value: (r) => r.team },
+      { key: 'salary', header: 'Salary', sortable: true, align: 'right', value: (r) => r.salary, render: (r) => '₹' + (r.salary / 100000).toFixed(1) + 'L' }],
+  };
+</script>
