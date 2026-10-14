@@ -152,7 +152,7 @@ Try it: `npm run demo:html` opens an HTML docs site with all 199 components, one
 - Functions (table `columns`, render props, `onSubmit`): set them from script, `el.props = { columns }`.
 - `style` works on the outer tag; extra Tailwind classes you invent are not in the CSS, so use inline style for layout.
 - Works for elements added later (htmx swaps, `innerHTML`) and `hx-*` attributes inside get processed. Radix selects and checkboxes submit with the surrounding `<form>`.
-- The CSS has no page-wide reset: a scoped one applies only inside `<bef-*>` tags and popups, and the tags are `display: contents`, so your own elements are untouched. Dark mode is the same `.dark` class on `<html>`.
+- The CSS does not restyle your page: no `body`, `html` or element rules, and the reset only applies inside `<bef-*>` tags and their popups. The tags are `display: contents`, and component classes are not in a `@layer`, so they win over your own element selectors (`button { }`, `h2 { }`, `nav { }`). Components use Inter and JetBrains Mono like the React site; `befui.css` loads them from Google Fonts (delete the first `@import` line to self-host or opt out). Dark mode is the same `.dark` class on `<html>`.
 - Size (printed by `npm run build:html`): components load on demand. A page with a button and a dialog downloads about **120 KB gzipped** of JavaScript, mostly React; each extra component adds only its own code, a few KB. All 199 together are about 330 KB gzipped. `befui.css` is 117 KB, **18 KB gzipped**. Use `<script type="module">` and serve with gzip or brotli. For a tiny, dependency-free set (`bf-select`, `bf-date-picker`, `bf-dialog`, `bf-toast`) see [web/](web/README.md).
 
 ## Theming notes
