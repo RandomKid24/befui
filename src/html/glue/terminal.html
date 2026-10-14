@@ -1,0 +1,8 @@
+<script type="module">
+  // Replay: draw a fresh copy so the typing animation starts again
+  const button = document.querySelector('bef-button');
+  button.addEventListener('click', () => {
+    const old = document.querySelector('bef-terminal');
+    old.replaceWith(old.cloneNode(true));
+  });
+</script>

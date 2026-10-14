@@ -1,0 +1,93 @@
+{
+ "alert-dialog": [
+  "dropped onClick (uses setOpen)"
+ ],
+ "approval-flow": [
+  "dropped onDecide (uses setSteps)"
+ ],
+ "bottom-sheet": [
+  "dropped onClick (uses setOpen)"
+ ],
+ "chat": [
+  "dropped onSend (uses setMessages, setTyping)"
+ ],
+ "command": [
+  "dropped onClick (uses setOpen)",
+  "dropped onSelect (uses setOpen)",
+  "dropped onSelect (uses setOpen)",
+  "dropped onSelect (uses setOpen)"
+ ],
+ "comment-thread": [
+  "dropped onReply (uses setComments)"
+ ],
+ "coupon-input": [
+  "dropped onApply (uses setApplied)",
+  "dropped onRemove (uses setApplied)"
+ ],
+ "credit-card": [
+  "dropped onFocus (uses setBack)",
+  "dropped onFocus (uses setBack)",
+  "dropped onFocus (uses setBack)",
+  "dropped onFocus (uses setBack)"
+ ],
+ "file-manager": [
+  "dropped onNavigate (uses setTrail, trail)",
+  "dropped onOpen (uses setTrail, trail)"
+ ],
+ "live-chart": [
+  "dropped onClick (uses setPaused, paused)"
+ ],
+ "loader": [
+  "dropped onClick (uses setLoading)"
+ ],
+ "onboarding-checklist": [
+  "dropped onToggle (uses setItems)"
+ ],
+ "order-summary": [
+  "dropped onApply (uses setCode)",
+  "dropped onRemove (uses setCode)"
+ ],
+ "otp-input": [
+  "dropped onComplete (uses setBad, setV)"
+ ],
+ "product-card": [
+  "dropped onAdd (uses p)",
+  "dropped onAdd (uses p)",
+  "dropped onAdd (uses p)"
+ ],
+ "pull-to-refresh": [
+  "dropped onRefresh (uses setItems)"
+ ],
+ "saved-views": [
+  "dropped onSelect (uses native, code)",
+  "dropped onSave (uses setViews, views, setActive)",
+  "dropped onDelete (uses setViews, views, active, setActive)"
+ ],
+ "shortcuts-dialog": [
+  "dropped onClick (uses setOpen)"
+ ],
+ "sidebar": [
+  "dropped onClick (uses setPage, p)",
+  "dropped onClick (uses setPage, p)",
+  "dropped onClick (uses setPage, p)",
+  "MANUAL items uses setPage, setSub, l",
+  "dropped onClick (uses setPage, p)",
+  "dropped onClick (uses setPage, p)",
+  "dropped onClick (uses setPage, p)"
+ ],
+ "stepper": [
+  "dropped onClick (uses setCurrent)",
+  "dropped onClick (uses setCurrent)"
+ ],
+ "swipe-actions": [
+  "MANUAL actions uses m",
+  "MANUAL actions uses m",
+  "MANUAL actions uses m"
+ ],
+ "terminal": [
+  "dropped onClick (uses setRun, run)"
+ ],
+ "tour": [
+  "dropped onClick (uses setOpen)"
+ ]
+}

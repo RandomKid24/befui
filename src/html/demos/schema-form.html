@@ -86,5 +86,9 @@ document.getElementById("g1").props = {
       ],
     },
   ],
+  onSubmit: async (v) => {
+    await new Promise((r) => setTimeout(r, 700));
+    befui.toast.success("Employee created", `${v.first} ${v.last}`);
+  },
 };
 </script>

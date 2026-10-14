@@ -5,12 +5,14 @@ import fs from 'node:fs';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { finish, notes } from './gen/tag';
 import { format, tidyAttrs } from './gen/format';
+import { buildManifest } from './html-manifest.mjs';
 import { buildScript } from './gen/script';
 
 // JSX in the examples compiles to __h(...) / __Fragment (see vite.gen.config.ts)
 (globalThis as unknown as Record<string, unknown>).__h = React.createElement;
 (globalThis as unknown as Record<string, unknown>).__Fragment = React.Fragment;
 
+const manifest = buildManifest() as Record<string, [string, string]>;
 const slugs = process.argv.slice(2).length ? process.argv.slice(2) : fs.readdirSync('src/examples').map((f) => f.replace(/\.tsx$/, '')).sort();
 fs.mkdirSync('src/html/demos', { recursive: true });
 const report: Record<string, string[]> = {};
@@ -19,17 +21,24 @@ for (const slug of slugs) {
   try {
     const mod = await import(`/src/examples/${slug}.tsx`);
     const Demo = mod.default as React.ComponentType;
-    const markup = tidyAttrs(finish(renderToStaticMarkup(<Demo />)));
-    let html = format(markup);
-    const flags = [...notes.dropped].map((d) => `dropped ${d}`);
+    let markup = tidyAttrs(finish(renderToStaticMarkup(<Demo />)));
+    const flags = [] as string[];
+    let script = '';
     if (notes.scripts.length) {
-      html += '\n' + buildScript(slug, notes.scripts) + '\n';
+      const built = await buildScript(slug, notes.scripts, manifest);
+      flags.push(...built.flags);
+      script = built.html;
+      // ids were only added for tags that need script; drop the ones that ended up unused
+      markup = markup.replace(/ id="(g\d+)"/g, (all, id) => (built.usedIds.has(id) ? all : ''));
     }
+    const glueFile = `src/html/glue/${slug}.html`;
+    const glue = fs.existsSync(glueFile) ? '\n' + fs.readFileSync(glueFile, 'utf8').trim() : '';
+    const html = format(markup) + (script ? '\n' + script : '') + glue;
     fs.writeFileSync(`src/html/demos/${slug}.html`, html.replace(/\n+$/, '') + '\n');
     if (flags.length) report[slug] = flags;
   } catch (e) {
     report[slug] = [`ERROR ${(e as Error).message.slice(0, 120)}`];
   }
 }
-fs.writeFileSync('src/html/demos/_report.json', JSON.stringify(report, null, 1));
+fs.writeFileSync('scripts/gen/report.json', JSON.stringify(report, null, 1));
 console.log(`generated ${slugs.length}, ${Object.keys(report).length} need attention`);

@@ -1,0 +1,11 @@
+<script type="module">
+  const sheet = document.querySelector('bef-bottom-sheet');
+  document.querySelector('bef-button').addEventListener('click', () => sheet.setAttribute(':open', 'true'));
+  // the options are drawn outside the tag (in the sheet), so listen on the page
+  befui.on(sheet, 'click', (e) => {
+    const option = e.target.closest('[role=dialog] li > button');
+    if (!option) return;
+    sheet.setAttribute(':open', 'false');
+    befui.toast.success('Selected', option.textContent);
+  });
+</script>

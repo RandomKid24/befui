@@ -1,2 +1,11 @@
 <bef-button variant="destructive"><bef-trash-icon></bef-trash-icon> Delete employee</bef-button>
-<bef-alert-dialog :open="false" destructive title="Delete this employee?" description="Their records are removed from payroll and cannot be recovered." confirm-label="Delete" emit="open-change"></bef-alert-dialog>
+<bef-alert-dialog :open="false" destructive title="Delete this employee?" description="Their records are removed from payroll and cannot be recovered." confirm-label="Delete" emit="open-change" id="g2"></bef-alert-dialog>
+<script type="module">
+document.getElementById("g2").props = {
+  onConfirm: () => befui.toast.success("Employee deleted"),
+};
+</script>
+<script type="module">
+  const dialog = document.querySelector('bef-alert-dialog');
+  document.querySelector('bef-button').addEventListener('click', () => dialog.setAttribute(':open', 'true'));
+</script>

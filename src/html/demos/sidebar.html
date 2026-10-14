@@ -12,7 +12,7 @@
         </bef-sidebar-group>
         <bef-sidebar-group label="People">
           <bef-sidebar-item :icon='"<bef-users-icon></bef-users-icon>"' label="Employees" :active="false"></bef-sidebar-item>
-          <bef-sidebar-item :icon='"<bef-calendar-icon></bef-calendar-icon>"' label="Leave" :active="false" id="g1"></bef-sidebar-item>
+          <bef-sidebar-item :icon='"<bef-calendar-icon></bef-calendar-icon>"' label="Leave" :active="false"></bef-sidebar-item>
         </bef-sidebar-group>
         <bef-sidebar-group label="Marketing">
           <bef-sidebar-item :icon='"<bef-megaphone-icon></bef-megaphone-icon>"' label="Campaigns" :active="false"></bef-sidebar-item>
@@ -34,32 +34,21 @@
   </div>
 </bef-sidebar-provider>
 <script type="module">
-document.getElementById("g1").props = {
-  items: [
-    {
-      label: "Requests",
-      active: false,
-      onClick: () => {
-        setPage("Leave");
-        setSub(l);
-      },
-    },
-    {
-      label: "Balances",
-      active: false,
-      onClick: () => {
-        setPage("Leave");
-        setSub(l);
-      },
-    },
-    {
-      label: "Calendar",
-      active: false,
-      onClick: () => {
-        setPage("Leave");
-        setSub(l);
-      },
-    },
-  ],
-};
+  const items = [...document.querySelectorAll('bef-sidebar-item')];
+  const title = document.querySelector('bef-sidebar-provider span.text-sm.font-medium'); // the page name next to the toggle
+  let page = 'Dashboard', sub = 'Requests';
+  const draw = () => {
+    items.forEach((item) => {
+      const label = item.getAttribute('label');
+      item.setAttribute(':active', String(label === page));
+      item.props = {
+        onClick: () => { page = label; draw(); },
+        ...(label === 'Leave' && {
+          items: ['Requests', 'Balances', 'Calendar'].map((l) => ({ label: l, active: page === 'Leave' && sub === l, onClick: () => { page = 'Leave'; sub = l; draw(); } })),
+        }),
+      };
+    });
+    title.textContent = page === 'Leave' ? `Leave / ${sub}` : page;
+  };
+  draw();
 </script>

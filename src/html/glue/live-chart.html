@@ -1,0 +1,9 @@
+<script type="module">
+  const chart = document.querySelector('bef-live-chart');
+  const button = document.querySelector('bef-button');
+  button.addEventListener('click', () => {
+    const paused = chart.getAttribute(':paused') !== 'true';
+    chart.setAttribute(':paused', String(paused));
+    button.textContent = paused ? 'Resume' : 'Pause';
+  });
+</script>

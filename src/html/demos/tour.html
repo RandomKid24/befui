@@ -7,3 +7,15 @@
   <bef-button variant="soft">Take the tour</bef-button>
   <bef-tour :steps='[{"target":{"current":null},"title":"Search everything","body":"Find people, files and settings from one box."},{"target":{"current":null},"title":"Create something","body":"Start a project, invite a teammate or upload a file."},{"target":{"current":null},"title":"Stay in the loop","body":"Everything your team does shows up here.","side":"top"}]' :open="false" emit="open-change"></bef-tour>
 </div>
+<script type="module">
+  // the tour points at elements by CSS selector
+  const [search, create, activity] = [document.querySelector('bef-input').parentElement, document.querySelector('bef-button'), document.querySelector('.rounded-lg.border')];
+  search.id = 'tour-search'; create.id = 'tour-create'; activity.id = 'tour-activity';
+  const tour = document.querySelector('bef-tour');
+  tour.setAttribute(':steps', JSON.stringify([
+    { target: '#tour-search', title: 'Search everything', body: 'Find people, files and settings from one box.' },
+    { target: '#tour-create', title: 'Create something', body: 'Start a project, invite a teammate or upload a file.' },
+    { target: '#tour-activity', title: 'Stay in the loop', body: 'Everything your team does shows up here.', side: 'top' },
+  ]));
+  document.querySelectorAll('bef-button')[1].addEventListener('click', () => tour.setAttribute(':open', 'true'));
+</script>

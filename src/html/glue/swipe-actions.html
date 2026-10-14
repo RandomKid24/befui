@@ -1,0 +1,12 @@
+<script type="module">
+  const mails = ['Offer letter for Kabir', 'September payroll is ready', 'Laptop request'];
+  document.querySelectorAll('bef-swipe-actions').forEach((row, i) => {
+    row.props = {
+      actions: [
+        { label: 'Star', icon: '<bef-star-icon></bef-star-icon>', tone: 'warning', onClick: () => befui.toast.info('Starred', mails[i]) },
+        { label: 'Archive', icon: '<bef-archive-icon></bef-archive-icon>', tone: 'primary', onClick: () => befui.toast.success('Archived', mails[i]) },
+        { label: 'Delete', icon: '<bef-trash-icon></bef-trash-icon>', tone: 'danger', onClick: () => befui.toast.error('Deleted', mails[i]) },
+      ],
+    };
+  });
+</script>

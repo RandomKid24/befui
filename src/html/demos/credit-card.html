@@ -1,5 +1,5 @@
 <div class="grid justify-items-center gap-5">
-  <bef-credit-card number="4111 1111 1111 1111" name="Aarav Mehta" expiry="08/28" cvv :flipped="false"></bef-credit-card>
+  <bef-credit-card number="4111 1111 1111 1111" name="Aarav Mehta" expiry="08/28" cvv="" :flipped="false" emit="flip"></bef-credit-card>
   <div class="grid w-80 max-w-full grid-cols-2 gap-2">
     <bef-input class="col-span-2" aria-label="Card number" input-mode="numeric" :max-length="19" value="4111 1111 1111 1111" emit="change"></bef-input>
     <bef-input class="col-span-2" aria-label="Name" value="Aarav Mehta" emit="change"></bef-input>
@@ -7,3 +7,12 @@
     <bef-input aria-label="CVV" placeholder="CVV" input-mode="numeric" :max-length="4" value="" emit="change"></bef-input>
   </div>
 </div>
+<script type="module">
+  const card = document.querySelector('bef-credit-card');
+  const inputs = [...document.querySelectorAll('bef-input')];
+  ['number', 'name', 'expiry', 'cvv'].forEach((field, i) => {
+    inputs[i].addEventListener('bef:change', (e) => card.setAttribute(field, e.detail));
+    // focusing the CVV flips the card over, any other field turns it back
+    inputs[i].addEventListener('focusin', () => card.setAttribute(':flipped', String(field === 'cvv')));
+  });
+</script>

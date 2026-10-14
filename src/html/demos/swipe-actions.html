@@ -1,5 +1,5 @@
 <div class="grid w-full max-w-sm gap-2">
-  <bef-swipe-actions id="g1">
+  <bef-swipe-actions>
     <div class="flex items-center gap-3 p-3">
       <bef-avatar name="Diya Rao"></bef-avatar>
       <div class="min-w-0">
@@ -8,7 +8,7 @@
       </div>
     </div>
   </bef-swipe-actions>
-  <bef-swipe-actions id="g2">
+  <bef-swipe-actions>
     <div class="flex items-center gap-3 p-3">
       <bef-avatar name="Finance"></bef-avatar>
       <div class="min-w-0">
@@ -17,7 +17,7 @@
       </div>
     </div>
   </bef-swipe-actions>
-  <bef-swipe-actions id="g3">
+  <bef-swipe-actions>
     <div class="flex items-center gap-3 p-3">
       <bef-avatar name="Rohan Das"></bef-avatar>
       <div class="min-w-0">
@@ -29,73 +29,14 @@
   <p class="px-1 text-xs text-muted-foreground">Swipe or drag a row left. Keyboard: focus a row, press Left.</p>
 </div>
 <script type="module">
-const { h: __h, T, Fragment: __Fragment } = befui;
-const toast = T.toast;
-
-document.getElementById("g1").props = {
-  actions: [
-    {
-      label: "Star",
-      icon: "<bef-star-icon></bef-star-icon>",
-      tone: "warning",
-      onClick: () => T.toast.info("Starred", m.subject),
-    },
-    {
-      label: "Archive",
-      icon: "<bef-archive-icon></bef-archive-icon>",
-      tone: "primary",
-      onClick: () => T.toast.success("Archived", m.subject),
-    },
-    {
-      label: "Delete",
-      icon: "<bef-trash-icon></bef-trash-icon>",
-      tone: "danger",
-      onClick: () => T.toast.error("Deleted", m.subject),
-    },
-  ],
-};
-document.getElementById("g2").props = {
-  actions: [
-    {
-      label: "Star",
-      icon: "<bef-star-icon></bef-star-icon>",
-      tone: "warning",
-      onClick: () => T.toast.info("Starred", m.subject),
-    },
-    {
-      label: "Archive",
-      icon: "<bef-archive-icon></bef-archive-icon>",
-      tone: "primary",
-      onClick: () => T.toast.success("Archived", m.subject),
-    },
-    {
-      label: "Delete",
-      icon: "<bef-trash-icon></bef-trash-icon>",
-      tone: "danger",
-      onClick: () => T.toast.error("Deleted", m.subject),
-    },
-  ],
-};
-document.getElementById("g3").props = {
-  actions: [
-    {
-      label: "Star",
-      icon: "<bef-star-icon></bef-star-icon>",
-      tone: "warning",
-      onClick: () => T.toast.info("Starred", m.subject),
-    },
-    {
-      label: "Archive",
-      icon: "<bef-archive-icon></bef-archive-icon>",
-      tone: "primary",
-      onClick: () => T.toast.success("Archived", m.subject),
-    },
-    {
-      label: "Delete",
-      icon: "<bef-trash-icon></bef-trash-icon>",
-      tone: "danger",
-      onClick: () => T.toast.error("Deleted", m.subject),
-    },
-  ],
-};
+  const mails = ['Offer letter for Kabir', 'September payroll is ready', 'Laptop request'];
+  document.querySelectorAll('bef-swipe-actions').forEach((row, i) => {
+    row.props = {
+      actions: [
+        { label: 'Star', icon: '<bef-star-icon></bef-star-icon>', tone: 'warning', onClick: () => befui.toast.info('Starred', mails[i]) },
+        { label: 'Archive', icon: '<bef-archive-icon></bef-archive-icon>', tone: 'primary', onClick: () => befui.toast.success('Archived', mails[i]) },
+        { label: 'Delete', icon: '<bef-trash-icon></bef-trash-icon>', tone: 'danger', onClick: () => befui.toast.error('Deleted', mails[i]) },
+      ],
+    };
+  });
 </script>

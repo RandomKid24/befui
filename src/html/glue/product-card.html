@@ -1,0 +1,6 @@
+<script type="module">
+  const names = ['Wireless keyboard', 'Noise-cancelling headphones', 'Standing desk mat'];
+  document.querySelectorAll('bef-product-card').forEach((card, i) => {
+    card.props = { onAdd: () => befui.toast.success('Added to cart', names[i]) };
+  });
+</script>

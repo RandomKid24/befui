@@ -3,10 +3,19 @@
     <span class="text-sm font-medium">Active users</span>
     <bef-button size="xs" variant="outline">Pause</bef-button>
   </div>
-  <bef-live-chart :paused="false" id="g1"></bef-live-chart>
+  <bef-live-chart :paused="false" id="g2"></bef-live-chart>
 </div>
 <script type="module">
-document.getElementById("g1").props = {
+document.getElementById("g2").props = {
   next: (p) => Math.max(10, Math.min(95, p + (Math.random() - 0.5) * 14)),
 };
+</script>
+<script type="module">
+  const chart = document.querySelector('bef-live-chart');
+  const button = document.querySelector('bef-button');
+  button.addEventListener('click', () => {
+    const paused = chart.getAttribute(':paused') !== 'true';
+    chart.setAttribute(':paused', String(paused));
+    button.textContent = paused ? 'Resume' : 'Pause';
+  });
 </script>

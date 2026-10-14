@@ -1,5 +1,16 @@
 <div class="flex flex-wrap gap-2">
-  <bef-button variant="outline">Success</bef-button>
-  <bef-button variant="outline">Error</bef-button>
-  <bef-button variant="outline">Info</bef-button>
+  <bef-button variant="outline" id="g1">Success</bef-button>
+  <bef-button variant="outline" id="g2">Error</bef-button>
+  <bef-button variant="outline" id="g3">Info</bef-button>
 </div>
+<script type="module">
+document.getElementById("g1").props = {
+  onClick: () => befui.toast.success("Saved", "Your changes are live."),
+};
+document.getElementById("g2").props = {
+  onClick: () => befui.toast.error("Could not save", "Check your connection."),
+};
+document.getElementById("g3").props = {
+  onClick: () => befui.toast.info("Heads up"),
+};
+</script>

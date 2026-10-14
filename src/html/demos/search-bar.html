@@ -1,1 +1,6 @@
-<bef-search-bar class="w-full max-w-sm" :items='[{"id":"0","label":"Employee directory","hint":"HRMS"},{"id":"1","label":"Leave approvals","hint":"HRMS"},{"id":"2","label":"Payroll run","hint":"HRMS"},{"id":"3","label":"Attendance report","hint":"HRMS"},{"id":"4","label":"Org chart","hint":"Page"},{"id":"5","label":"Recruitment pipeline","hint":"Page"},{"id":"6","label":"Performance reviews","hint":"Page"}]' :recent='[{"id":"0","label":"Employee directory","hint":"HRMS"},{"id":"1","label":"Leave approvals","hint":"HRMS"},{"id":"2","label":"Payroll run","hint":"HRMS"}]' placeholder="Search pages"></bef-search-bar>
+<bef-search-bar class="w-full max-w-sm" :items='[{"id":"0","label":"Employee directory","hint":"HRMS"},{"id":"1","label":"Leave approvals","hint":"HRMS"},{"id":"2","label":"Payroll run","hint":"HRMS"},{"id":"3","label":"Attendance report","hint":"HRMS"},{"id":"4","label":"Org chart","hint":"Page"},{"id":"5","label":"Recruitment pipeline","hint":"Page"},{"id":"6","label":"Performance reviews","hint":"Page"}]' :recent='[{"id":"0","label":"Employee directory","hint":"HRMS"},{"id":"1","label":"Leave approvals","hint":"HRMS"},{"id":"2","label":"Payroll run","hint":"HRMS"}]' placeholder="Search pages" id="g1"></bef-search-bar>
+<script type="module">
+document.getElementById("g1").props = {
+  onSelect: (i) => befui.toast.info(`Open ${i.label}`),
+};
+</script>

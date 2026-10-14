@@ -8,7 +8,11 @@ const mount = async (html: string) => {
   await waitFor(() => {
     const hosts = [...document.body.querySelectorAll('[data-bef]')];
     expect(hosts.length).toBeGreaterThan(0);
-    for (const h of hosts) { expect(h.firstElementChild).not.toBeNull(); expect([...h.querySelectorAll('*')].some((e) => e.localName.startsWith('bef-'))).toBe(false); }
+    for (const h of hosts) {
+      const view = h.querySelector(':scope > [data-bef-view]');
+      expect(view?.firstElementChild).not.toBeNull();
+      expect([...view!.querySelectorAll('*')].some((e) => e.localName.startsWith('bef-'))).toBe(false); // the hidden [data-bef-source] still holds the original tags
+    }
   }, { timeout: 5000 });
   return document.body;
 };

@@ -1,5 +1,0 @@
-<bef-coupon-input id="coupon" style="width:320px" hint="Try SAVE10"></bef-coupon-input>
-<script>
-  const cp = document.getElementById('coupon');
-  cp.props = { onApply: (code) => { const ok = code.toUpperCase() === 'SAVE10'; if (ok) cp.setAttribute('applied', code.toUpperCase()); return ok; }, onRemove: () => cp.removeAttribute('applied') };
-</script>

@@ -1,1 +1,6 @@
-<bef-onboarding-carousel :slides='[{"title":"Apply for leave in seconds","description":"Pick your dates, choose an approver and send. No emails, no spreadsheets.","visual":"<bef-calendar-icon></bef-calendar-icon>"},{"title":"Know where your team is","description":"See who is in, out or on leave today, right from the home screen.","visual":"<bef-users-icon></bef-users-icon>"},{"title":"Never miss an approval","description":"Get a nudge when something needs your attention, and none when it does not.","visual":"<bef-bell-icon></bef-bell-icon>"}]'></bef-onboarding-carousel>
+<bef-onboarding-carousel :slides='[{"title":"Apply for leave in seconds","description":"Pick your dates, choose an approver and send. No emails, no spreadsheets.","visual":"<bef-calendar-icon></bef-calendar-icon>"},{"title":"Know where your team is","description":"See who is in, out or on leave today, right from the home screen.","visual":"<bef-users-icon></bef-users-icon>"},{"title":"Never miss an approval","description":"Get a nudge when something needs your attention, and none when it does not.","visual":"<bef-bell-icon></bef-bell-icon>"}]' id="g1"></bef-onboarding-carousel>
+<script type="module">
+document.getElementById("g1").props = {
+  onFinish: () => befui.toast.success("Welcome aboard"),
+};
+</script>

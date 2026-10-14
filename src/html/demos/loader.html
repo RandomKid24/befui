@@ -41,3 +41,12 @@
     </bef-card>
   </bef-loading-overlay>
 </div>
+<script type="module">
+  const overlay = document.querySelector('bef-loading-overlay');
+  const button = [...document.querySelectorAll('bef-button')].pop();
+  button.addEventListener('click', () => {
+    const loading = overlay.getAttribute(':loading') !== 'true';
+    overlay.setAttribute(':loading', String(loading));
+    button.textContent = loading ? 'Stop loading' : 'Reload report';
+  });
+</script>

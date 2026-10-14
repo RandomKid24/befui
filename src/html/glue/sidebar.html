@@ -1,0 +1,19 @@
+<script type="module">
+  const items = [...document.querySelectorAll('bef-sidebar-item')];
+  const title = document.querySelector('bef-sidebar-provider span.text-sm.font-medium'); // the page name next to the toggle
+  let page = 'Dashboard', sub = 'Requests';
+  const draw = () => {
+    items.forEach((item) => {
+      const label = item.getAttribute('label');
+      item.setAttribute(':active', String(label === page));
+      item.props = {
+        onClick: () => { page = label; draw(); },
+        ...(label === 'Leave' && {
+          items: ['Requests', 'Balances', 'Calendar'].map((l) => ({ label: l, active: page === 'Leave' && sub === l, onClick: () => { page = 'Leave'; sub = l; draw(); } })),
+        }),
+      };
+    });
+    title.textContent = page === 'Leave' ? `Leave / ${sub}` : page;
+  };
+  draw();
+</script>

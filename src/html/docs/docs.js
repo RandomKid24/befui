@@ -198,7 +198,8 @@ window.__compare = async (slugs) => {
 window.__parity = async (slugs, detail = false) => {
   const norm = (root) => {
     const c = root.cloneNode(true);
-    c.querySelectorAll('script').forEach((n) => n.remove());
+    c.querySelectorAll('script, [data-bef-source]').forEach((n) => n.remove());
+    c.querySelectorAll('[data-bef-view]').forEach((n) => n.replaceWith(...n.childNodes));
     for (const el of [...c.querySelectorAll('*')].reverse()) if (el.localName.startsWith('bef-')) el.replaceWith(...el.childNodes);
     for (const el of c.querySelectorAll('*')) for (const a of [...el.attributes]) if (/^(id|data-bef|for|aria-controls|aria-labelledby|aria-describedby)$/.test(a.name) || /^data-(radix|state)/.test(a.name) && false) el.removeAttribute(a.name);
     return c.innerHTML.replace(/\s+/g, ' ').replace(/ ?(radix-[^" ]*)/g, '').replace(/> </g, '><').trim();

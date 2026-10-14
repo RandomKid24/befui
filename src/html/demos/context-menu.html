@@ -9,8 +9,8 @@
   </bef-context-menu-trigger>
   <bef-context-menu-content class="w-56">
     <bef-context-menu-label>Q3-budget.xlsx</bef-context-menu-label>
-    <bef-context-menu-item><bef-edit-icon></bef-edit-icon> Rename <bef-context-menu-shortcut>F2</bef-context-menu-shortcut></bef-context-menu-item>
-    <bef-context-menu-item><bef-copy-icon></bef-copy-icon> Duplicate <bef-context-menu-shortcut>⌘D</bef-context-menu-shortcut></bef-context-menu-item>
+    <bef-context-menu-item id="g1"><bef-edit-icon></bef-edit-icon> Rename <bef-context-menu-shortcut>F2</bef-context-menu-shortcut></bef-context-menu-item>
+    <bef-context-menu-item id="g2"><bef-copy-icon></bef-copy-icon> Duplicate <bef-context-menu-shortcut>⌘D</bef-context-menu-shortcut></bef-context-menu-item>
     <bef-context-menu-sub>
       <bef-context-menu-sub-trigger><bef-folder-input-icon></bef-folder-input-icon> Move to</bef-context-menu-sub-trigger>
       <bef-context-menu-sub-content class="w-44">
@@ -21,9 +21,20 @@
     </bef-context-menu-sub>
     <bef-context-menu-checkbox-item :checked="false" emit="checked-change">Starred</bef-context-menu-checkbox-item>
     <bef-context-menu-separator></bef-context-menu-separator>
-    <bef-context-menu-item><bef-link-icon></bef-link-icon> Copy link</bef-context-menu-item>
+    <bef-context-menu-item id="g3"><bef-link-icon></bef-link-icon> Copy link</bef-context-menu-item>
     <bef-context-menu-item><bef-download-icon></bef-download-icon> Download</bef-context-menu-item>
     <bef-context-menu-separator></bef-context-menu-separator>
     <bef-context-menu-item destructive><bef-trash-icon></bef-trash-icon> Delete <bef-context-menu-shortcut>⌫</bef-context-menu-shortcut></bef-context-menu-item>
   </bef-context-menu-content>
 </bef-context-menu>
+<script type="module">
+document.getElementById("g1").props = {
+  onSelect: () => befui.toast.info("Renaming"),
+};
+document.getElementById("g2").props = {
+  onSelect: () => befui.toast.success("Copied"),
+};
+document.getElementById("g3").props = {
+  onSelect: () => befui.toast.success("Link copied"),
+};
+</script>

@@ -1,0 +1,9 @@
+<script type="module">
+  const card = document.querySelector('bef-credit-card');
+  const inputs = [...document.querySelectorAll('bef-input')];
+  ['number', 'name', 'expiry', 'cvv'].forEach((field, i) => {
+    inputs[i].addEventListener('bef:change', (e) => card.setAttribute(field, e.detail));
+    // focusing the CVV flips the card over, any other field turns it back
+    inputs[i].addEventListener('focusin', () => card.setAttribute(':flipped', String(field === 'cvv')));
+  });
+</script>

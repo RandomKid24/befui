@@ -1,0 +1,10 @@
+<script type="module">
+  const list = document.querySelector('bef-onboarding-checklist');
+  let items = JSON.parse(list.getAttribute(':items'));
+  list.props = {
+    onToggle(id, done) {
+      items = items.map((i) => (i.id === id ? { ...i, done } : i));
+      list.setAttribute(':items', JSON.stringify(items));
+    },
+  };
+</script>

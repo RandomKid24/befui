@@ -1,3 +1,0 @@
-<div style="display:flex;gap:12px;align-items:center"><bef-button id="tour-a">Step one target</bef-button><bef-button id="tour-b" variant="outline">Step two target</bef-button><bef-button id="tour-go" variant="secondary">Start tour</bef-button></div>
-<bef-tour id="tour" emit="open-change" :steps='[{"target":"#tour-a","title":"First","body":"This is the first thing."},{"target":"#tour-b","title":"Second","body":"And this is the second.","side":"bottom"}]'></bef-tour>
-<script>document.getElementById('tour-go').addEventListener('click', () => document.getElementById('tour').setAttribute(':open', 'true'));</script>

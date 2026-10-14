@@ -2,3 +2,14 @@
   <bef-otp-input value="" :invalid="false" emit="change"></bef-otp-input>
   <p class="text-xs text-muted-foreground">Try 123456, or paste any code.</p>
 </div>
+<script type="module">
+  const otp = document.querySelector('bef-otp-input');
+  otp.addEventListener('bef:change', () => otp.setAttribute(':invalid', 'false'));
+  otp.props = {
+    onComplete(code) {
+      if (code === '123456') return befui.toast.success('Verified');
+      otp.setAttribute(':invalid', 'true');
+      setTimeout(() => otp.setAttribute('value', ''), 500);
+    },
+  };
+</script>

@@ -1,0 +1,14 @@
+<script type="module">
+  const stepper = document.querySelector('bef-stepper');
+  const [back, next] = document.querySelectorAll('bef-button');
+  const count = JSON.parse(stepper.getAttribute(':steps')).length;
+  const go = (delta) => {
+    const current = Number(stepper.getAttribute(':current')) + delta;
+    stepper.setAttribute(':current', String(current));
+    back.setAttribute(':disabled', String(current === 0));
+    next.setAttribute(':disabled', String(current === count));
+  };
+  back.addEventListener('click', () => go(-1));
+  next.addEventListener('click', () => go(1));
+  go(0);
+</script>

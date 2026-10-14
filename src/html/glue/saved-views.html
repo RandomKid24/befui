@@ -1,0 +1,14 @@
+<script type="module">
+  const el = document.querySelector('bef-saved-views');
+  let views = JSON.parse(el.getAttribute(':views'));
+  let active;
+  const draw = () => {
+    el.setAttribute(':views', JSON.stringify(views));
+    active ? el.setAttribute('active-id', active) : el.removeAttribute('active-id');
+  };
+  el.props = {
+    onSelect(id) { active = id; draw(); },
+    onSave(name) { const id = `v${Date.now()}`; views = [...views, { id, name }]; active = id; draw(); },
+    onDelete(id) { views = views.filter((v) => v.id !== id); if (active === id) active = undefined; draw(); },
+  };
+</script>

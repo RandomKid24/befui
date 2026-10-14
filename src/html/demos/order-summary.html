@@ -1,3 +1,15 @@
 <bef-order-summary :lines='[{"id":"1","name":"Wireless keyboard","detail":"Graphite · UK layout","qty":1,"price":3499},{"id":"2","name":"Noise-cancelling headphones","detail":"Midnight blue","qty":2,"price":8999},{"id":"3","name":"Standing desk mat","qty":1,"price":1299}]' :discount="0" :shipping="0" :tax-rate="0.18" :action='"<bef-button class=\"w-full\" size=\"lg\">Place order</bef-button>"'>
   <bef-coupon-input></bef-coupon-input>
 </bef-order-summary>
+<script type="module">
+  const summary = document.querySelector('bef-order-summary');
+  const coupon = document.querySelector('bef-coupon-input'); // a tag inside another tag stays live: its attributes and props can change later
+  coupon.props = {
+    onApply(code) {
+      const ok = code === 'FESTIVE250';
+      if (ok) { coupon.setAttribute('applied', code); coupon.setAttribute('hint', 'You save ₹250'); summary.setAttribute(':discount', '250'); }
+      return ok;
+    },
+    onRemove() { coupon.removeAttribute('applied'); coupon.removeAttribute('hint'); summary.setAttribute(':discount', '0'); },
+  };
+</script>

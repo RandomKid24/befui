@@ -1,1 +1,12 @@
 <bef-comment-thread class="w-full max-w-lg" :comments='[{"id":"1","author":"Meera Shah","time":"2h ago","body":"Can we move the review to Thursday?","replies":[{"id":"2","author":"Rohan Iyer","time":"1h ago","body":"Thursday works for me."}]},{"id":"3","author":"Kabir Anand","time":"30m ago","body":"Added the updated budget sheet."}]'></bef-comment-thread>
+<script type="module">
+  const thread = document.querySelector('bef-comment-thread');
+  let comments = JSON.parse(thread.getAttribute(':comments'));
+  const add = (list, parent, c) => list.map((x) => (x.id === parent ? { ...x, replies: [...(x.replies ?? []), c] } : { ...x, replies: x.replies && add(x.replies, parent, c) }));
+  thread.props = {
+    onReply(parent, text) {
+      comments = add(comments, parent, { id: crypto.randomUUID(), author: 'You', time: 'just now', body: text });
+      thread.setAttribute(':comments', JSON.stringify(comments));
+    },
+  };
+</script>

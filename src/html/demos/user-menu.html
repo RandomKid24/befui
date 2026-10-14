@@ -1,1 +1,6 @@
-<bef-user-menu name="Aarav Mehta" email="aarav@acme.co" :items='[{"label":"Profile","icon":"<bef-user-circle-icon></bef-user-circle-icon>"},{"label":"Billing","icon":"<bef-wallet-icon></bef-wallet-icon>"},{"label":"Settings","icon":"<bef-settings-icon></bef-settings-icon>"}]'></bef-user-menu>
+<bef-user-menu name="Aarav Mehta" email="aarav@acme.co" :items='[{"label":"Profile","icon":"<bef-user-circle-icon></bef-user-circle-icon>"},{"label":"Billing","icon":"<bef-wallet-icon></bef-wallet-icon>"},{"label":"Settings","icon":"<bef-settings-icon></bef-settings-icon>"}]' id="g1"></bef-user-menu>
+<script type="module">
+document.getElementById("g1").props = {
+  onSignOut: () => befui.toast.success("Signed out"),
+};
+</script>

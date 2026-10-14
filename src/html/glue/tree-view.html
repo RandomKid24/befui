@@ -1,0 +1,4 @@
+<script type="module">
+  const tree = document.querySelector('bef-tree-view');
+  tree.addEventListener('bef:select', (e) => tree.setAttribute('selected', e.detail.id));
+</script>

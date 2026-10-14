@@ -2,3 +2,19 @@
   <bef-coupon-input></bef-coupon-input>
   <p class="mt-2 px-1 text-xs text-muted-foreground">Try WELCOME10 or FESTIVE250.</p>
 </div>
+<script type="module">
+  const coupon = document.querySelector('bef-coupon-input');
+  const hint = document.querySelector('p');
+  const codes = { WELCOME10: 'You save 10% on this order', FESTIVE250: 'You save ₹250' };
+  coupon.props = {
+    async onApply(code) {
+      await new Promise((r) => setTimeout(r, 600));
+      if (!codes[code]) return false;
+      coupon.setAttribute('applied', code);
+      coupon.setAttribute('hint', codes[code]);
+      hint.hidden = true;
+      return true;
+    },
+    onRemove() { coupon.removeAttribute('applied'); coupon.removeAttribute('hint'); hint.hidden = false; },
+  };
+</script>

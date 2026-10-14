@@ -1,0 +1,15 @@
+<script type="module">
+  const chat = document.querySelector('bef-chat');
+  let messages = JSON.parse(chat.getAttribute(':messages'));
+  const add = (from, text) => {
+    messages = [...messages, { id: String(Date.now()), from, text, at: '~now' }];
+    chat.setAttribute(':messages', JSON.stringify(messages));
+  };
+  chat.props = {
+    onSend(text) {
+      add('You', text);
+      chat.setAttribute('typing', 'Diya Rao');
+      setTimeout(() => { chat.removeAttribute('typing'); add('Diya Rao', 'Got it, thanks!'); }, 1500);
+    },
+  };
+</script>

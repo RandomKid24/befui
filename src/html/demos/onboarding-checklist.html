@@ -1,1 +1,11 @@
 <bef-onboarding-checklist :items='[{"id":"profile","title":"Complete your profile","done":true},{"id":"team","title":"Invite your team","description":"Add colleagues by email so they can see shared reports.","done":false,"action":"<bef-button size=\"xs\">Invite people</bef-button>"},{"id":"data","title":"Import employees","description":"Upload a CSV or connect your payroll tool.","done":false,"action":"<bef-button size=\"xs\" variant=\"outline\">Upload CSV</bef-button>"},{"id":"leave","title":"Set up leave policies","done":false}]'></bef-onboarding-checklist>
+<script type="module">
+  const list = document.querySelector('bef-onboarding-checklist');
+  let items = JSON.parse(list.getAttribute(':items'));
+  list.props = {
+    onToggle(id, done) {
+      items = items.map((i) => (i.id === id ? { ...i, done } : i));
+      list.setAttribute(':items', JSON.stringify(items));
+    },
+  };
+</script>

@@ -8,3 +8,16 @@
   </bef-pull-to-refresh>
   <p class="mt-2 px-1 text-xs text-muted-foreground">Drag down from the top (touch or mouse).</p>
 </div>
+<script type="module">
+  const refresher = document.querySelector('bef-pull-to-refresh');
+  const list = refresher.querySelector('ul'); // a plain element inside a tag is part of its content, and changes show up
+  refresher.props = {
+    async onRefresh() {
+      await new Promise((r) => setTimeout(r, 1200));
+      const li = document.createElement('li');
+      li.className = 'px-4 py-3 text-[13px]';
+      li.textContent = `New update at ${new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', second: '2-digit' })}`;
+      list.prepend(li);
+    },
+  };
+</script>

@@ -146,6 +146,7 @@ Try it: `npm run demo:html` opens an HTML docs site with all 199 components, one
 
 - Attributes are props in kebab-case (`default-value`). Strings are the default; use `:` for JSON (`:value="40"`, `:items='[...]'`) and a bare attribute for `true`.
 - Callbacks: `emit="value-change"` fires a bubbling `bef:value-change` event with the value in `detail`, so htmx can listen with `hx-trigger="bef:value-change"`.
+- Every example in the docs is generated from the React example of the same name (`npm run html:demos`), so the markup is the same one the React demo renders: 194 of the 199 are identical element for element, the other five are clocks and animations that change with time. Buttons that open dialogs, toasts and similar behaviour are wired in small scripts next to the markup (`src/html/glue/`).
 - Components in props: put a tag in a JSON string (`:items='[{"icon":"<bef-home-icon></bef-home-icon>"}]'`), or use `slot="icon"` on a child for a single prop.
 - Dates: `~to="2026-12-31T09:00"`, or `"~2026-12-31"` inside JSON.
 - Controlled components (`value`, `open`, `checked`, `page`...) update themselves: `emit="value-change"` writes the new value back to the tag.

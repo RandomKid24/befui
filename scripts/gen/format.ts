@@ -37,11 +37,10 @@ export function format(html: string, width = 100) {
 
 /** &quot; inside :json attributes -> single-quoted attribute with plain quotes, and ="" -> bare attribute. */
 export function tidyAttrs(html: string) {
-  return html
-    .replace(/ ((?::|~)?[\w-]+)="([^"]*)"/g, (all, name: string, v: string) => {
-      const raw = v.replace(/&quot;/g, '"').replace(/&#x27;/g, "'").replace(/&amp;/g, '&');
-      if (!raw) return /^(value|placeholder|alt|title|name|label|aria-.*|data-.*)$/.test(name) ? all : ` ${name}`;
-      if (name.startsWith(':') && v.includes('&quot;') && !raw.includes("'")) return ` ${name}='${raw.replace(/&lt;/g, '<').replace(/&gt;/g, '>')}'`;
-      return all;
-    });
+  // :json attributes read best single-quoted with plain quotes inside; a literal ' becomes &#39;
+  return html.replace(/ ((?::|~)[\w-]+)="([^"]*)"/g, (all, name: string, v: string) => {
+    if (!/&(quot|#x27|lt|gt|amp);/.test(v)) return all;
+    const raw = v.replace(/&quot;/g, '"').replace(/&#x27;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+    return ` ${name}='${raw.replace(/&/g, '&amp;').replace(/'/g, '&#39;')}'`;
+  });
 }

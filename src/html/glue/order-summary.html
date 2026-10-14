@@ -1,0 +1,12 @@
+<script type="module">
+  const summary = document.querySelector('bef-order-summary');
+  const coupon = document.querySelector('bef-coupon-input'); // a tag inside another tag stays live: its attributes and props can change later
+  coupon.props = {
+    onApply(code) {
+      const ok = code === 'FESTIVE250';
+      if (ok) { coupon.setAttribute('applied', code); coupon.setAttribute('hint', 'You save ₹250'); summary.setAttribute(':discount', '250'); }
+      return ok;
+    },
+    onRemove() { coupon.removeAttribute('applied'); coupon.removeAttribute('hint'); summary.setAttribute(':discount', '0'); },
+  };
+</script>

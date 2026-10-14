@@ -1,0 +1,7 @@
+<script type="module">
+  const palette = document.querySelector('bef-command-dialog');
+  document.querySelector('bef-button').addEventListener('click', () => palette.setAttribute(':open', 'true'));
+  // picking an item closes the palette
+  befui.on(palette, 'click', (e) => e.target.closest('[cmdk-item]') && palette.setAttribute(':open', 'false'));
+  befui.on(palette, 'keydown', (e) => e.key === 'Enter' && e.target.closest('[cmdk-root]') && palette.setAttribute(':open', 'false'));
+</script>

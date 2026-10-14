@@ -1,7 +1,0 @@
-<bef-saved-views id="sv"></bef-saved-views>
-<script>
-  const sv = document.getElementById('sv');
-  let views = [{ id: '1', name: 'Active engineers' }], activeId;
-  const draw = () => sv.props = { views, activeId, onSelect: (id) => { activeId = id; draw(); }, onSave: (name) => { views = [...views, { id: String(Date.now()), name }]; draw(); }, onDelete: (id) => { views = views.filter((v) => v.id !== id); draw(); } };
-  draw();
-</script>

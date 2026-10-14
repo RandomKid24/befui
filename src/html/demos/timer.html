@@ -1,1 +1,6 @@
-<bef-timer></bef-timer>
+<bef-timer id="g1"></bef-timer>
+<script type="module">
+document.getElementById("g1").props = {
+  onDone: () => befui.toast.success("Time is up"),
+};
+</script>

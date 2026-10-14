@@ -1,7 +1,21 @@
 <div class="grid w-full max-w-xl gap-6">
-  <bef-stepper :steps='[{"title":"Details","description":"Basics"},{"title":"Role","description":"Team & level"},{"title":"Documents"},{"title":"Review"}]' :current="1"></bef-stepper>
+  <bef-stepper :steps='[{"title":"Details","description":"Basics"},{"title":"Role","description":"Team &amp; level"},{"title":"Documents"},{"title":"Review"}]' :current="1"></bef-stepper>
   <div class="flex gap-2">
     <bef-button size="sm" variant="outline" :disabled="false">Back</bef-button>
     <bef-button size="sm" :disabled="false">Next</bef-button>
   </div>
 </div>
+<script type="module">
+  const stepper = document.querySelector('bef-stepper');
+  const [back, next] = document.querySelectorAll('bef-button');
+  const count = JSON.parse(stepper.getAttribute(':steps')).length;
+  const go = (delta) => {
+    const current = Number(stepper.getAttribute(':current')) + delta;
+    stepper.setAttribute(':current', String(current));
+    back.setAttribute(':disabled', String(current === 0));
+    next.setAttribute(':disabled', String(current === count));
+  };
+  back.addEventListener('click', () => go(-1));
+  next.addEventListener('click', () => go(1));
+  go(0);
+</script>

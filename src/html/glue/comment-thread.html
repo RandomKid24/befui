@@ -1,0 +1,11 @@
+<script type="module">
+  const thread = document.querySelector('bef-comment-thread');
+  let comments = JSON.parse(thread.getAttribute(':comments'));
+  const add = (list, parent, c) => list.map((x) => (x.id === parent ? { ...x, replies: [...(x.replies ?? []), c] } : { ...x, replies: x.replies && add(x.replies, parent, c) }));
+  thread.props = {
+    onReply(parent, text) {
+      comments = add(comments, parent, { id: crypto.randomUUID(), author: 'You', time: 'just now', body: text });
+      thread.setAttribute(':comments', JSON.stringify(comments));
+    },
+  };
+</script>

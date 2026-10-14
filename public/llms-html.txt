@@ -13,9 +13,11 @@
 - Props are attributes in kebab-case (default-value, as-child). A bare attribute is true. Strings are the default.
 - JSON props use a colon: :value="40", :items='[{"id":"a","title":"T"}]'. Inside that JSON, a string that starts with a tag becomes content: {"icon":"<bef-home-icon></bef-home-icon>"}. A string like "~2026-12-31" becomes a Date.
 - A child with slot="name" becomes the prop `name` (<bef-button slot="action">Undo</bef-button>). Other children are the component's children.
-- Dates as plain attributes: ~to="2026-12-31T09:00".
+- Dates as plain attributes: ~to="2026-12-31T09:00", ~selected="now", ~at="now-14m" (also as "~now-14m" strings inside :json).
 - Callbacks: emit="value-change open-change" fires bubbling events bef:value-change and bef:open-change (value in event.detail). The tag also writes the new value back to itself (:value, :open...), so controlled components work with no script; set :open="true" to open a controlled dialog.
-- Props that are functions or JSX (render, columns, onSubmit, onApply) cannot be attributes: set them from script, element.props = { columns: [...], onSubmit: fn }.
+- Props that are functions or JSX (render, columns, onSubmit, onApply) cannot be attributes: set them from a <script type="module">, element.props = { columns: [...], onSubmit: fn }. It also works on a tag inside another tag, and attribute changes on nested tags redraw them. A render function can return markup: befui.h('bef-badge', { variant: 'success' }, 'Active') or an HTML string.
+- Content React draws outside the tag (dialogs, menus, sheets) is not inside it in the DOM: use befui.on(el, 'click', (e) => ...) for page-level listeners that go away with el.
+- Always load befui.js as <script type="module">.
 - style works on the outer tag. Do not invent Tailwind classes in HTML (they are not in the CSS); use inline style for layout.
 - Works with htmx: elements added by a swap upgrade by themselves and hx-* attributes inside are processed. Radix inputs submit with the surrounding <form>.
 - Dark mode: the dark class on <html>. Theme: the same CSS variables (--primary, ...).
@@ -32,14 +34,23 @@ Collapsible sections with a smooth height animation. Single or multiple open.
 ## Activity feed (activity-feed)
 Who did what and when, grouped under Today and Yesterday, with live relative times and an optional quoted detail.
 ```html
-<bef-activity-feed class="w-full max-w-md" :items='[{"id":"1","actor":"Aarav Mehta","action":"commented on","target":"Leave policy 2025","at":1791973812325,"icon":"<bef-message-square-icon></bef-message-square-icon>","detail":"“Carry-forward cap should be 12 days, not 10. Checked with Finance.”"},{"id":"2","actor":"Diya Rao","action":"uploaded","target":"offer-letter-v3.pdf","at":1791967332325,"icon":"<bef-file-icon></bef-file-icon>","detail":"248 KB · PDF"},{"id":"3","actor":"Isha Nair","action":"added","target":"Kabir Shah to Engineering","at":1791956532325,"icon":"<bef-user-plus-icon></bef-user-plus-icon>"},{"id":"4","actor":"Rohan Das","action":"merged","target":"Payroll export fixes","at":1791877332325,"icon":"<bef-git-merge-icon></bef-git-merge-icon>"},{"id":"5","actor":"Meera Iyer","action":"approved","target":"September expense report","at":1791866532325},{"id":"6","actor":"Vikram Joshi","action":"closed","target":"Duplicate employee IDs","at":1791614532325}]'></bef-activity-feed>
+<bef-activity-feed class="w-full max-w-md" :items='[{"id":"1","actor":"Aarav Mehta","action":"commented on","target":"Leave policy 2025","at":"~now-12m","icon":"<bef-message-square-icon></bef-message-square-icon>","detail":"“Carry-forward cap should be 12 days, not 10. Checked with Finance.”"},{"id":"2","actor":"Diya Rao","action":"uploaded","target":"offer-letter-v3.pdf","at":"~now-2h","icon":"<bef-file-icon></bef-file-icon>","detail":"248 KB · PDF"},{"id":"3","actor":"Isha Nair","action":"added","target":"Kabir Shah to Engineering","at":"~now-5h","icon":"<bef-user-plus-icon></bef-user-plus-icon>"},{"id":"4","actor":"Rohan Das","action":"merged","target":"Payroll export fixes","at":"~now-27h","icon":"<bef-git-merge-icon></bef-git-merge-icon>"},{"id":"5","actor":"Meera Iyer","action":"approved","target":"September expense report","at":"~now-30h"},{"id":"6","actor":"Vikram Joshi","action":"closed","target":"Duplicate employee IDs","at":1791628596217}]'></bef-activity-feed>
 ```
 
 ## Alert dialog (alert-dialog)
 Confirm before something destructive. Cancel and confirm, controlled by you.
 ```html
 <bef-button variant="destructive"><bef-trash-icon></bef-trash-icon> Delete employee</bef-button>
-<bef-alert-dialog :open="false" destructive title="Delete this employee?" description="Their records are removed from payroll and cannot be recovered." confirm-label="Delete" emit="open-change"></bef-alert-dialog>
+<bef-alert-dialog :open="false" destructive title="Delete this employee?" description="Their records are removed from payroll and cannot be recovered." confirm-label="Delete" emit="open-change" id="g2"></bef-alert-dialog>
+<script type="module">
+document.getElementById("g2").props = {
+  onConfirm: () => befui.toast.success("Employee deleted"),
+};
+</script>
+<script type="module">
+  const dialog = document.querySelector('bef-alert-dialog');
+  document.querySelector('bef-button').addEventListener('click', () => dialog.setAttribute(':open', 'true'));
+</script>
 ```
 
 ## Alert (alert)
@@ -76,7 +87,7 @@ SVG clock for any time zone, with a second hand that ticks with a small bounce.
 Sidebar, topbar and scrolling content area, plus a page header.
 ```html
 <div class="h-[420px] overflow-hidden rounded-xl border text-left">
-  <bef-app-shell class="h-full" :sidebar='"<bef-sidebar><bef-sidebar-header><span class=\"text-sm font-semibold\">My app</span></bef-sidebar-header><bef-sidebar-content><bef-sidebar-item :icon=\"&quot;<bef-home-icon></bef-home-icon>&quot;\" label=\"Home\" active=\"\"></bef-sidebar-item><bef-sidebar-item :icon=\"&quot;<bef-users-icon></bef-users-icon>&quot;\" label=\"Team\"></bef-sidebar-item><bef-sidebar-item :icon=\"&quot;<bef-settings-icon></bef-settings-icon>&quot;\" label=\"Settings\"></bef-sidebar-item></bef-sidebar-content></bef-sidebar>"'>
+  <bef-app-shell class="h-full" :sidebar='"<bef-sidebar><bef-sidebar-header><span class=\"text-sm font-semibold\">My app</span></bef-sidebar-header><bef-sidebar-content><bef-sidebar-item :icon=&#39;\"<bef-home-icon></bef-home-icon>\"&#39; label=\"Home\" active></bef-sidebar-item><bef-sidebar-item :icon=&#39;\"<bef-users-icon></bef-users-icon>\"&#39; label=\"Team\"></bef-sidebar-item><bef-sidebar-item :icon=&#39;\"<bef-settings-icon></bef-settings-icon>\"&#39; label=\"Settings\"></bef-sidebar-item></bef-sidebar-content></bef-sidebar>"'>
     <bef-topbar>
       <button class="ml-2 hidden h-8 w-56 items-center gap-2 rounded-md border bg-muted/60 px-2.5 text-[13px] text-muted-foreground sm:flex"><bef-search-icon class="size-3.5"></bef-search-icon> Search <bef-kbd class="ml-auto">/</bef-kbd></button>
       <bef-button variant="ghost" size="icon-sm" class="ml-auto" aria-label="Notifications">
@@ -98,6 +109,21 @@ Chain of approvers with decisions, comments and times. The current approver gets
   <p class="mb-4 text-sm font-semibold">Laptop purchase · ₹1,45,000</p>
   <bef-approval-flow :steps='[{"id":"1","approver":"Rohan Das","role":"Team lead","status":"approved","comment":"Looks fine, within the team budget.","at":"07 Oct"},{"id":"2","approver":"Meera Iyer","role":"Finance","status":"pending"},{"id":"3","approver":"Aarav Mehta","role":"CTO","status":"waiting"}]'></bef-approval-flow>
 </div>
+<script type="module">
+  const flow = document.querySelector('bef-approval-flow');
+  let steps = JSON.parse(flow.getAttribute(':steps'));
+  flow.props = {
+    onDecide(id, decision, comment) {
+      steps = steps.map((s, i) => {
+        if (s.id === id) return { ...s, status: decision, comment: comment || undefined, at: 'Just now' };
+        if (decision === 'approved' && steps[i - 1]?.id === id) return { ...s, status: 'pending' };
+        return s;
+      });
+      flow.setAttribute(':steps', JSON.stringify(steps));
+      befui.toast[decision === 'approved' ? 'success' : 'info'](decision === 'approved' ? 'Approved' : 'Rejected');
+    },
+  };
+</script>
 ```
 
 ## Area chart (area-chart)
@@ -117,7 +143,7 @@ document.getElementById("g1").props = {
 ## Audit log (audit-log)
 Who changed what and when, with expandable before and after values.
 ```html
-<bef-audit-log class="w-full max-w-xl" :entries='[{"id":"1","actor":"Meera Iyer","action":"updated","target":"Salary structure, Engineering","at":1791972732409,"ip":"10.0.4.21","changes":[{"field":"Basic","from":"₹60,000","to":"₹64,000"},{"field":"HRA","from":"₹24,000","to":"₹25,600"},{"field":"Effective from","from":"","to":"01 Nov 2026"}]},{"id":"2","actor":"Isha Nair","action":"created","target":"Employee EMP-0412","at":1791963732409,"ip":"10.0.4.18","changes":[{"field":"Name","to":"Ananya Kulkarni"},{"field":"Department","to":"Engineering"}]},{"id":"3","actor":"Kabir Shah","action":"exported","target":"Payroll report, September","at":1791902532409,"ip":"10.0.7.5"},{"id":"4","actor":"Rohan Das","action":"deleted","target":"Draft offer letter v1","at":1791866532409,"ip":"10.0.4.33"},{"id":"5","actor":"Aarav Mehta","action":"updated","target":"Leave policy 2026","at":1791787332409,"ip":"10.0.4.2","changes":[{"field":"Carry-forward cap","from":"10 days","to":"12 days"}]}]'></bef-audit-log>
+<bef-audit-log class="w-full max-w-xl" :entries='[{"id":"1","actor":"Meera Iyer","action":"updated","target":"Salary structure, Engineering","at":"~now-30m","ip":"10.0.4.21","changes":[{"field":"Basic","from":"₹60,000","to":"₹64,000"},{"field":"HRA","from":"₹24,000","to":"₹25,600"},{"field":"Effective from","from":"","to":"01 Nov 2026"}]},{"id":"2","actor":"Isha Nair","action":"created","target":"Employee EMP-0412","at":"~now-3h","ip":"10.0.4.18","changes":[{"field":"Name","to":"Ananya Kulkarni"},{"field":"Department","to":"Engineering"}]},{"id":"3","actor":"Kabir Shah","action":"exported","target":"Payroll report, September","at":"~now-20h","ip":"10.0.7.5"},{"id":"4","actor":"Rohan Das","action":"deleted","target":"Draft offer letter v1","at":"~now-30h","ip":"10.0.4.33"},{"id":"5","actor":"Aarav Mehta","action":"updated","target":"Leave policy 2026","at":"~now-2d","ip":"10.0.4.2","changes":[{"field":"Carry-forward cap","from":"10 days","to":"12 days"}]}]'></bef-audit-log>
 ```
 
 ## Avatar upload (avatar-upload)
@@ -225,6 +251,17 @@ Sheet that rises from the bottom, with a drag handle to dismiss. Radix Dialog un
     </li>
   </ul>
 </bef-bottom-sheet>
+<script type="module">
+  const sheet = document.querySelector('bef-bottom-sheet');
+  document.querySelector('bef-button').addEventListener('click', () => sheet.setAttribute(':open', 'true'));
+  // the options are drawn outside the tag (in the sheet), so listen on the page
+  befui.on(sheet, 'click', (e) => {
+    const option = e.target.closest('[role=dialog] li > button');
+    if (!option) return;
+    sheet.setAttribute(':open', 'false');
+    befui.toast.success('Selected', option.textContent);
+  });
+</script>
 ```
 
 ## Box plot chart (box-plot-chart)
@@ -393,18 +430,20 @@ Month grid for one day or a range. Arrow keys, Page Up/Down, Home and End work.
 ```html
 <div class="flex flex-wrap items-start justify-center gap-6">
   <div class="rounded-xl border bg-card p-3">
-    <bef-calendar ~selected="2026-10-14T10:42:12.476Z"></bef-calendar>
+    <bef-calendar ~selected="now" emit="select"></bef-calendar>
   </div>
   <div class="rounded-xl border bg-card p-3">
-    <bef-calendar mode="range" :week-starts-on="1" id="g1"></bef-calendar>
+    <bef-calendar mode="range" :week-starts-on="1" emit="select" id="g1"></bef-calendar>
   </div>
 </div>
 <script type="module">
-const { h: __h, T, Fragment: __Fragment } = befui;
-const addDays = T.addDays;
+const addDays = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
+const startOfDay = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate());
+
+const today = startOfDay(new Date());
 
 document.getElementById("g1").props = {
-  disabled: (d) => d < T.addDays(today, -1),
+  disabled: (d) => d < addDays(today, -1),
 };
 </script>
 ```
@@ -472,7 +511,22 @@ Sparkline, bar chart and donut in plain SVG. No chart library.
 ## Chat (chat)
 Message bubbles with avatars, timestamps, a typing indicator and a composer. Enter sends.
 ```html
-<bef-chat me="You" :messages='[{"id":"1","from":"Diya Rao","text":"Hey! Did the offer letter go out to Kabir?","at":1791973692513},{"id":"2","from":"Diya Rao","text":"He is asking about the joining date.","at":1791973752513},{"id":"3","from":"You","text":"Sent it this morning. Joining is 3 Nov.","at":1791973992513},{"id":"4","from":"Diya Rao","text":"Perfect, I will update the onboarding board.","at":1791974052513}]'></bef-chat>
+<bef-chat me="You" :messages='[{"id":"1","from":"Diya Rao","text":"Hey! Did the offer letter go out to Kabir?","at":"~now-14m"},{"id":"2","from":"Diya Rao","text":"He is asking about the joining date.","at":"~now-13m"},{"id":"3","from":"You","text":"Sent it this morning. Joining is 3 Nov.","at":"~now-9m"},{"id":"4","from":"Diya Rao","text":"Perfect, I will update the onboarding board.","at":"~now-8m"}]'></bef-chat>
+<script type="module">
+  const chat = document.querySelector('bef-chat');
+  let messages = JSON.parse(chat.getAttribute(':messages'));
+  const add = (from, text) => {
+    messages = [...messages, { id: String(Date.now()), from, text, at: '~now' }];
+    chat.setAttribute(':messages', JSON.stringify(messages));
+  };
+  chat.props = {
+    onSend(text) {
+      add('You', text);
+      chat.setAttribute('typing', 'Diya Rao');
+      setTimeout(() => { chat.removeAttribute('typing'); add('Diya Rao', 'Got it, thanks!'); }, 1500);
+    },
+  };
+</script>
 ```
 
 ## Checkbox (checkbox)
@@ -570,12 +624,30 @@ Searchable palette on cmdk. Bind it to Ctrl or Cmd K.
     </bef-command-group>
   </bef-command-list>
 </bef-command-dialog>
+<script type="module">
+  const palette = document.querySelector('bef-command-dialog');
+  document.querySelector('bef-button').addEventListener('click', () => palette.setAttribute(':open', 'true'));
+  // picking an item closes the palette
+  befui.on(palette, 'click', (e) => e.target.closest('[cmdk-item]') && palette.setAttribute(':open', 'false'));
+  befui.on(palette, 'keydown', (e) => e.key === 'Enter' && e.target.closest('[cmdk-root]') && palette.setAttribute(':open', 'false'));
+</script>
 ```
 
 ## Comment thread (comment-thread)
 Nested comments with inline reply boxes, three levels deep.
 ```html
 <bef-comment-thread class="w-full max-w-lg" :comments='[{"id":"1","author":"Meera Shah","time":"2h ago","body":"Can we move the review to Thursday?","replies":[{"id":"2","author":"Rohan Iyer","time":"1h ago","body":"Thursday works for me."}]},{"id":"3","author":"Kabir Anand","time":"30m ago","body":"Added the updated budget sheet."}]'></bef-comment-thread>
+<script type="module">
+  const thread = document.querySelector('bef-comment-thread');
+  let comments = JSON.parse(thread.getAttribute(':comments'));
+  const add = (list, parent, c) => list.map((x) => (x.id === parent ? { ...x, replies: [...(x.replies ?? []), c] } : { ...x, replies: x.replies && add(x.replies, parent, c) }));
+  thread.props = {
+    onReply(parent, text) {
+      comments = add(comments, parent, { id: crypto.randomUUID(), author: 'You', time: 'just now', body: text });
+      thread.setAttribute(':comments', JSON.stringify(comments));
+    },
+  };
+</script>
 ```
 
 ## Image compare (compare)
@@ -612,8 +684,8 @@ Right-click menu with items, shortcuts, checkbox items, labels and nested submen
   </bef-context-menu-trigger>
   <bef-context-menu-content class="w-56">
     <bef-context-menu-label>Q3-budget.xlsx</bef-context-menu-label>
-    <bef-context-menu-item><bef-edit-icon></bef-edit-icon> Rename <bef-context-menu-shortcut>F2</bef-context-menu-shortcut></bef-context-menu-item>
-    <bef-context-menu-item><bef-copy-icon></bef-copy-icon> Duplicate <bef-context-menu-shortcut>⌘D</bef-context-menu-shortcut></bef-context-menu-item>
+    <bef-context-menu-item id="g1"><bef-edit-icon></bef-edit-icon> Rename <bef-context-menu-shortcut>F2</bef-context-menu-shortcut></bef-context-menu-item>
+    <bef-context-menu-item id="g2"><bef-copy-icon></bef-copy-icon> Duplicate <bef-context-menu-shortcut>⌘D</bef-context-menu-shortcut></bef-context-menu-item>
     <bef-context-menu-sub>
       <bef-context-menu-sub-trigger><bef-folder-input-icon></bef-folder-input-icon> Move to</bef-context-menu-sub-trigger>
       <bef-context-menu-sub-content class="w-44">
@@ -624,12 +696,23 @@ Right-click menu with items, shortcuts, checkbox items, labels and nested submen
     </bef-context-menu-sub>
     <bef-context-menu-checkbox-item :checked="false" emit="checked-change">Starred</bef-context-menu-checkbox-item>
     <bef-context-menu-separator></bef-context-menu-separator>
-    <bef-context-menu-item><bef-link-icon></bef-link-icon> Copy link</bef-context-menu-item>
+    <bef-context-menu-item id="g3"><bef-link-icon></bef-link-icon> Copy link</bef-context-menu-item>
     <bef-context-menu-item><bef-download-icon></bef-download-icon> Download</bef-context-menu-item>
     <bef-context-menu-separator></bef-context-menu-separator>
     <bef-context-menu-item destructive><bef-trash-icon></bef-trash-icon> Delete <bef-context-menu-shortcut>⌫</bef-context-menu-shortcut></bef-context-menu-item>
   </bef-context-menu-content>
 </bef-context-menu>
+<script type="module">
+document.getElementById("g1").props = {
+  onSelect: () => befui.toast.info("Renaming"),
+};
+document.getElementById("g2").props = {
+  onSelect: () => befui.toast.success("Copied"),
+};
+document.getElementById("g3").props = {
+  onSelect: () => befui.toast.success("Link copied"),
+};
+</script>
 ```
 
 ## Cookie consent (cookie-consent)
@@ -650,7 +733,7 @@ Copies text and morphs to a check.
 ## Countdown (countdown)
 Live countdown with flipping digits.
 ```html
-<bef-countdown :to="1792248132603"></bef-countdown>
+<bef-countdown :to="1792262196495"></bef-countdown>
 ```
 
 ## Coupon input (coupon-input)
@@ -660,13 +743,29 @@ Promo code field with async validation, an error message and a removable applied
   <bef-coupon-input></bef-coupon-input>
   <p class="mt-2 px-1 text-xs text-muted-foreground">Try WELCOME10 or FESTIVE250.</p>
 </div>
+<script type="module">
+  const coupon = document.querySelector('bef-coupon-input');
+  const hint = document.querySelector('p');
+  const codes = { WELCOME10: 'You save 10% on this order', FESTIVE250: 'You save ₹250' };
+  coupon.props = {
+    async onApply(code) {
+      await new Promise((r) => setTimeout(r, 600));
+      if (!codes[code]) return false;
+      coupon.setAttribute('applied', code);
+      coupon.setAttribute('hint', codes[code]);
+      hint.hidden = true;
+      return true;
+    },
+    onRemove() { coupon.removeAttribute('applied'); coupon.removeAttribute('hint'); hint.hidden = false; },
+  };
+</script>
 ```
 
 ## Credit card (credit-card)
 Payment card preview that flips in 3D to show the CVV. Formats as the user types, guesses Visa, Mastercard, AmEx or RuPay, and can mask the number.
 ```html
 <div class="grid justify-items-center gap-5">
-  <bef-credit-card number="4111 1111 1111 1111" name="Aarav Mehta" expiry="08/28" cvv :flipped="false"></bef-credit-card>
+  <bef-credit-card number="4111 1111 1111 1111" name="Aarav Mehta" expiry="08/28" cvv="" :flipped="false" emit="flip"></bef-credit-card>
   <div class="grid w-80 max-w-full grid-cols-2 gap-2">
     <bef-input class="col-span-2" aria-label="Card number" input-mode="numeric" :max-length="19" value="4111 1111 1111 1111" emit="change"></bef-input>
     <bef-input class="col-span-2" aria-label="Name" value="Aarav Mehta" emit="change"></bef-input>
@@ -674,6 +773,15 @@ Payment card preview that flips in 3D to show the CVV. Formats as the user types
     <bef-input aria-label="CVV" placeholder="CVV" input-mode="numeric" :max-length="4" value="" emit="change"></bef-input>
   </div>
 </div>
+<script type="module">
+  const card = document.querySelector('bef-credit-card');
+  const inputs = [...document.querySelectorAll('bef-input')];
+  ['number', 'name', 'expiry', 'cvv'].forEach((field, i) => {
+    inputs[i].addEventListener('bef:change', (e) => card.setAttribute(field, e.detail));
+    // focusing the CVV flips the card over, any other field turns it back
+    inputs[i].addEventListener('focusin', () => card.setAttribute(':flipped', String(field === 'cvv')));
+  });
+</script>
 ```
 
 ## Currency input (currency-input)
@@ -770,11 +878,13 @@ Date and date range fields that open a calendar. The range picker has optional q
   </bef-field>
 </div>
 <script type="module">
-const { h: __h, T, Fragment: __Fragment } = befui;
-const addDays = T.addDays;
+const addDays = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
+const startOfDay = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate());
+
+const today = startOfDay(new Date());
 
 document.getElementById("leave").props = {
-  disabledDays: (d) => d < T.addDays(today, 0),
+  disabledDays: (d) => d < addDays(today, 0),
 };
 </script>
 ```
@@ -788,11 +898,13 @@ One field for a day and a time: calendar on top, time picker below.
   </bef-field>
 </div>
 <script type="module">
-const { h: __h, T, Fragment: __Fragment } = befui;
-const addDays = T.addDays;
+const addDays = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
+const startOfDay = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate());
+
+const today = startOfDay(new Date());
 
 document.getElementById("slot").props = {
-  disabledDays: (d) => d < T.addDays(today, 0),
+  disabledDays: (d) => d < addDays(today, 0),
 };
 </script>
 ```
@@ -800,13 +912,19 @@ document.getElementById("slot").props = {
 ## Day agenda (day-agenda)
 One day as a time grid: events sit at their time, overlapping ones share the width, a red now-line marks the time.
 ```html
-<bef-day-agenda class="w-[30rem] max-w-full" :height="420" now="11:20" :events='[{"id":"1","title":"Stand-up","start":"09:00","end":"09:30","location":"Room 2"},{"id":"2","title":"Design review","start":"10:00","end":"11:30","location":"Zoom","color":"text-success"},{"id":"3","title":"1:1 with Isha","start":"10:30","end":"11:00","color":"text-warning"},{"id":"4","title":"Lunch","start":"13:00","end":"14:00","color":"text-info"},{"id":"5","title":"Sprint planning","start":"15:00","end":"17:00","location":"Main hall"}]'></bef-day-agenda>
+<bef-day-agenda class="w-[30rem] max-w-full" :height="420" now="11:20" :events='[{"id":"1","title":"Stand-up","start":"09:00","end":"09:30","location":"Room 2"},{"id":"2","title":"Design review","start":"10:00","end":"11:30","location":"Zoom","color":"text-success"},{"id":"3","title":"1:1 with Isha","start":"10:30","end":"11:00","color":"text-warning"},{"id":"4","title":"Lunch","start":"13:00","end":"14:00","color":"text-info"},{"id":"5","title":"Sprint planning","start":"15:00","end":"17:00","location":"Main hall"}]' id="g1"></bef-day-agenda>
+<script type="module">
+document.getElementById("g1").props = {
+  onSelect: () => {
+      },
+};
+</script>
 ```
 
 ## Description list (description-list)
 Label and value pairs for a details panel, in one to three columns, optionally with dividers.
 ```html
-<bef-description-list class="w-full max-w-xl" :columns="2" bordered :items='[{"label":"Customer","value":"Northwind Traders"},{"label":"Status","value":"<bef-badge variant=\"success\" dot=\"\">Active</bef-badge>"},{"label":"Plan","value":"Business, yearly"},{"label":"Renews on","value":"14 Jan 2027"},{"label":"Billing email","value":"accounts@northwind.in"},{"label":"GSTIN","value":"29ABCDE1234F1Z5"},{"label":"Notes","value":"Wants invoices sent to two people, reminder 7 days before renewal.","wide":true}]'></bef-description-list>
+<bef-description-list class="w-full max-w-xl" :columns="2" bordered :items='[{"label":"Customer","value":"Northwind Traders"},{"label":"Status","value":"<bef-badge variant=\"success\" dot>Active</bef-badge>"},{"label":"Plan","value":"Business, yearly"},{"label":"Renews on","value":"14 Jan 2027"},{"label":"Billing email","value":"accounts@northwind.in"},{"label":"GSTIN","value":"29ABCDE1234F1Z5"},{"label":"Notes","value":"Wants invoices sent to two people, reminder 7 days before renewal.","wide":true}]'></bef-description-list>
 ```
 
 ## Dialog and Sheet (dialog)
@@ -947,7 +1065,12 @@ Full-section error or not found screen with a code or icon, explanation and retr
 ## Event calendar (event-calendar)
 Month view with events on their days, multi-day spans, +n more overflow, locale-aware names and RTL arrows.
 ```html
-<bef-event-calendar class="w-full" :events='[{"id":"1","title":"Sprint planning","start":"~2026-10-02T18:30:00.000Z","tone":"primary"},{"id":"2","title":"Diwali break","start":"~2026-10-08T18:30:00.000Z","end":"~2026-10-11T18:30:00.000Z","tone":"warning"},{"id":"3","title":"Payroll run","start":"~2026-10-14T18:30:00.000Z","tone":"success"},{"id":"4","title":"Design review","start":"~2026-10-14T18:30:00.000Z","tone":"primary"},{"id":"5","title":"Offsite","start":"~2026-10-14T18:30:00.000Z","end":"~2026-10-15T18:30:00.000Z","tone":"muted"},{"id":"6","title":"1:1 with Meera","start":"~2026-10-14T18:30:00.000Z","tone":"primary"},{"id":"7","title":"Audit deadline","start":"~2026-10-23T18:30:00.000Z","tone":"destructive"}]' :week-starts-on="1"></bef-event-calendar>
+<bef-event-calendar class="w-full" :events='[{"id":"1","title":"Sprint planning","start":"~2026-10-02T18:30:00.000Z","tone":"primary"},{"id":"2","title":"Diwali break","start":"~2026-10-08T18:30:00.000Z","end":"~now-3d","tone":"warning"},{"id":"3","title":"Payroll run","start":"~now+4h","tone":"success"},{"id":"4","title":"Design review","start":"~now+4h","tone":"primary"},{"id":"5","title":"Offsite","start":"~now+4h","end":"~now+28h","tone":"muted"},{"id":"6","title":"1:1 with Meera","start":"~now+4h","tone":"primary"},{"id":"7","title":"Audit deadline","start":"~2026-10-23T18:30:00.000Z","tone":"destructive"}]' :week-starts-on="1" id="g1"></bef-event-calendar>
+<script type="module">
+document.getElementById("g1").props = {
+  onEventClick: (e) => befui.toast.info(e.title),
+};
+</script>
 ```
 
 ## Floating action button (fab)
@@ -956,30 +1079,30 @@ Round primary action, extended with a label, or a speed dial that fans out actio
 <div class="relative h-72 w-full max-w-sm overflow-hidden rounded-xl border bg-muted/40">
   <p class="p-4 text-xs text-muted-foreground">Click the button for a speed dial. The second button is the extended form.</p>
   <bef-fab class="absolute bottom-4 right-4" id="g1"></bef-fab>
-  <bef-fab class="absolute bottom-4 left-4" :icon='"<bef-plus-icon></bef-plus-icon>"' label="Compose"></bef-fab>
+  <bef-fab class="absolute bottom-4 left-4" :icon='"<bef-plus-icon></bef-plus-icon>"' label="Compose" id="g2"></bef-fab>
 </div>
 <script type="module">
-const { h: __h, T, Fragment: __Fragment } = befui;
-const toast = T.toast;
-
 document.getElementById("g1").props = {
   actions: [
     {
       label: "New employee",
       icon: "<bef-users-icon></bef-users-icon>",
-      onClick: () => T.toast.info("New employee"),
+      onClick: () => befui.toast.info("New employee"),
     },
     {
       label: "New document",
       icon: "<bef-file-icon></bef-file-icon>",
-      onClick: () => T.toast.info("New document"),
+      onClick: () => befui.toast.info("New document"),
     },
     {
       label: "Quick note",
       icon: "<bef-edit-icon></bef-edit-icon>",
-      onClick: () => T.toast.info("Quick note"),
+      onClick: () => befui.toast.info("Quick note"),
     },
   ],
+};
+document.getElementById("g2").props = {
+  onClick: () => befui.toast.success("Compose"),
 };
 </script>
 ```
@@ -988,6 +1111,25 @@ document.getElementById("g1").props = {
 Folder browser with breadcrumb, list and grid views, selection and double-click or Enter to open.
 ```html
 <bef-file-manager class="max-w-xl" :path='["Files"]' :items='[{"id":"hr","name":"HR","type":"folder","modified":"07 Oct"},{"id":"fin","name":"Finance","type":"folder","modified":"05 Oct"},{"id":"brand","name":"Brand assets","type":"folder","modified":"28 Sep"},{"id":"readme","name":"Welcome.pdf","type":"file","size":482000,"modified":"01 Sep"}]'></bef-file-manager>
+<script type="module">
+  const tree = {
+    '': [{ id: 'hr', name: 'HR', type: 'folder', modified: '07 Oct' }, { id: 'fin', name: 'Finance', type: 'folder', modified: '05 Oct' }, { id: 'brand', name: 'Brand assets', type: 'folder', modified: '28 Sep' }, { id: 'readme', name: 'Welcome.pdf', type: 'file', size: 482000, modified: '01 Sep' }],
+    hr: [{ id: 'policy', name: 'Leave policy 2026.pdf', type: 'file', size: 910000, modified: '06 Oct' }, { id: 'offer', name: 'Offer letter template.docx', type: 'file', size: 64000, modified: '02 Oct' }, { id: 'org', name: 'Org chart.png', type: 'image', size: 1840000, modified: '30 Sep' }],
+    fin: [{ id: 'p', name: 'Payroll September.xlsx', type: 'file', size: 233000, modified: '05 Oct' }, { id: 'inv', name: 'Invoices', type: 'folder', modified: '03 Oct' }],
+    brand: [{ id: 'logo', name: 'Logo.png', type: 'image', size: 54000, modified: '12 Sep' }, { id: 'guide', name: 'Brand guide.pdf', type: 'file', size: 5200000, modified: '12 Sep' }],
+    inv: [{ id: 'i1', name: 'INV-204.pdf', type: 'file', size: 88000, modified: '03 Oct' }],
+  };
+  const files = document.querySelector('bef-file-manager');
+  let trail = [];
+  const draw = () => {
+    files.setAttribute(':path', JSON.stringify(['Files', ...trail.map((t) => t.name)]));
+    files.setAttribute(':items', JSON.stringify(tree[trail.length ? trail[trail.length - 1].id : ''] ?? []));
+  };
+  files.props = {
+    onNavigate(depth) { trail = trail.slice(0, depth); draw(); },
+    onOpen(item) { if (item.type === 'folder') { trail = [...trail, { id: item.id, name: item.name }]; draw(); } },
+  };
+</script>
 ```
 
 ## File uploader (file-uploader)
@@ -1171,7 +1313,7 @@ Lightbox with arrows, click to zoom and keyboard control.
 ## Inline edit (inline-edit)
 Text that becomes a field on click. Enter saves, Escape cancels.
 ```html
-<div class="w-64"><bef-inline-edit value="Q4 hiring plan"></bef-inline-edit></div>
+<div class="w-64"><bef-inline-edit value="Q4 hiring plan" emit="save"></bef-inline-edit></div>
 ```
 
 ## Input group (input-group)
@@ -1211,7 +1353,7 @@ Text input and textarea with icon, trailing slot, and invalid state.
     <bef-input id="email" type="email" :left-icon='"<bef-mail-icon></bef-mail-icon>"' placeholder="you@company.com"></bef-input>
   </bef-field>
   <bef-field label="Employee ID" for="eid" error="This ID is already taken.">
-    <bef-input id="eid" default-value="EMP-0042" aria-invalid=""></bef-input>
+    <bef-input id="eid" default-value="EMP-0042" aria-invalid></bef-input>
   </bef-field>
   <bef-input :left-icon='"<bef-search-icon></bef-search-icon>"' :right-slot='"<bef-kbd>/</bef-kbd>"' placeholder="Search..."></bef-input>
   <bef-field label="Notes" for="notes">
@@ -1307,12 +1449,21 @@ Streaming line chart that slides left as new values arrive. You give it a functi
     <span class="text-sm font-medium">Active users</span>
     <bef-button size="xs" variant="outline">Pause</bef-button>
   </div>
-  <bef-live-chart :paused="false" id="g1"></bef-live-chart>
+  <bef-live-chart :paused="false" id="g2"></bef-live-chart>
 </div>
 <script type="module">
-document.getElementById("g1").props = {
+document.getElementById("g2").props = {
   next: (p) => Math.max(10, Math.min(95, p + (Math.random() - 0.5) * 14)),
 };
+</script>
+<script type="module">
+  const chart = document.querySelector('bef-live-chart');
+  const button = document.querySelector('bef-button');
+  button.addEventListener('click', () => {
+    const paused = chart.getAttribute(':paused') !== 'true';
+    chart.setAttribute(':paused', String(paused));
+    button.textContent = paused ? 'Resume' : 'Pause';
+  });
 </script>
 ```
 
@@ -1362,6 +1513,15 @@ Six loading animations (ring, dots, bars, pulse, orbit, dual), an indeterminate 
     </bef-card>
   </bef-loading-overlay>
 </div>
+<script type="module">
+  const overlay = document.querySelector('bef-loading-overlay');
+  const button = [...document.querySelectorAll('bef-button')].pop();
+  button.addEventListener('click', () => {
+    const loading = overlay.getAttribute(':loading') !== 'true';
+    overlay.setAttribute(':loading', String(loading));
+    button.textContent = loading ? 'Stop loading' : 'Reload report';
+  });
+</script>
 ```
 
 ## Lollipop chart (lollipop-chart)
@@ -1543,7 +1703,7 @@ Counts up to a value with easing once it scrolls into view.
 ```html
 <div class="grid grid-cols-3 gap-10 text-center">
   <div>
-    <bef-number-ticker :value="14820" prefix class="text-4xl font-semibold tracking-tight"></bef-number-ticker>
+    <bef-number-ticker :value="14820" prefix="" class="text-4xl font-semibold tracking-tight"></bef-number-ticker>
     <p class="mt-1 text-sm text-muted-foreground">Employees onboarded</p>
   </div>
   <div>
@@ -1560,13 +1720,28 @@ Counts up to a value with easing once it scrolls into view.
 ## Onboarding carousel (onboarding-carousel)
 Mobile first-run intro with swipeable slides, dots, Skip and a final Get started button.
 ```html
-<bef-onboarding-carousel :slides='[{"title":"Apply for leave in seconds","description":"Pick your dates, choose an approver and send. No emails, no spreadsheets.","visual":"<bef-calendar-icon></bef-calendar-icon>"},{"title":"Know where your team is","description":"See who is in, out or on leave today, right from the home screen.","visual":"<bef-users-icon></bef-users-icon>"},{"title":"Never miss an approval","description":"Get a nudge when something needs your attention, and none when it does not.","visual":"<bef-bell-icon></bef-bell-icon>"}]'></bef-onboarding-carousel>
+<bef-onboarding-carousel :slides='[{"title":"Apply for leave in seconds","description":"Pick your dates, choose an approver and send. No emails, no spreadsheets.","visual":"<bef-calendar-icon></bef-calendar-icon>"},{"title":"Know where your team is","description":"See who is in, out or on leave today, right from the home screen.","visual":"<bef-users-icon></bef-users-icon>"},{"title":"Never miss an approval","description":"Get a nudge when something needs your attention, and none when it does not.","visual":"<bef-bell-icon></bef-bell-icon>"}]' id="g1"></bef-onboarding-carousel>
+<script type="module">
+document.getElementById("g1").props = {
+  onFinish: () => befui.toast.success("Welcome aboard"),
+};
+</script>
 ```
 
 ## Onboarding checklist (onboarding-checklist)
 Getting-started card with a progress bar, tick-off items, short help text and actions. Collapsible.
 ```html
 <bef-onboarding-checklist :items='[{"id":"profile","title":"Complete your profile","done":true},{"id":"team","title":"Invite your team","description":"Add colleagues by email so they can see shared reports.","done":false,"action":"<bef-button size=\"xs\">Invite people</bef-button>"},{"id":"data","title":"Import employees","description":"Upload a CSV or connect your payroll tool.","done":false,"action":"<bef-button size=\"xs\" variant=\"outline\">Upload CSV</bef-button>"},{"id":"leave","title":"Set up leave policies","done":false}]'></bef-onboarding-checklist>
+<script type="module">
+  const list = document.querySelector('bef-onboarding-checklist');
+  let items = JSON.parse(list.getAttribute(':items'));
+  list.props = {
+    onToggle(id, done) {
+      items = items.map((i) => (i.id === id ? { ...i, done } : i));
+      list.setAttribute(':items', JSON.stringify(items));
+    },
+  };
+</script>
 ```
 
 ## Order summary (order-summary)
@@ -1575,6 +1750,18 @@ Cart lines with subtotal, discount, shipping, tax and total computed for you. Sl
 <bef-order-summary :lines='[{"id":"1","name":"Wireless keyboard","detail":"Graphite · UK layout","qty":1,"price":3499},{"id":"2","name":"Noise-cancelling headphones","detail":"Midnight blue","qty":2,"price":8999},{"id":"3","name":"Standing desk mat","qty":1,"price":1299}]' :discount="0" :shipping="0" :tax-rate="0.18" :action='"<bef-button class=\"w-full\" size=\"lg\">Place order</bef-button>"'>
   <bef-coupon-input></bef-coupon-input>
 </bef-order-summary>
+<script type="module">
+  const summary = document.querySelector('bef-order-summary');
+  const coupon = document.querySelector('bef-coupon-input'); // a tag inside another tag stays live: its attributes and props can change later
+  coupon.props = {
+    onApply(code) {
+      const ok = code === 'FESTIVE250';
+      if (ok) { coupon.setAttribute('applied', code); coupon.setAttribute('hint', 'You save ₹250'); summary.setAttribute(':discount', '250'); }
+      return ok;
+    },
+    onRemove() { coupon.removeAttribute('applied'); coupon.removeAttribute('hint'); summary.setAttribute(':discount', '0'); },
+  };
+</script>
 ```
 
 ## Order tracker (order-tracker)
@@ -1596,6 +1783,17 @@ Code boxes with paste, backspace, arrow keys, autofill and a shake on error.
   <bef-otp-input value="" :invalid="false" emit="change"></bef-otp-input>
   <p class="text-xs text-muted-foreground">Try 123456, or paste any code.</p>
 </div>
+<script type="module">
+  const otp = document.querySelector('bef-otp-input');
+  otp.addEventListener('bef:change', () => otp.setAttribute(':invalid', 'false'));
+  otp.props = {
+    onComplete(code) {
+      if (code === '123456') return befui.toast.success('Verified');
+      otp.setAttribute(':invalid', 'true');
+      setTimeout(() => otp.setAttribute('value', ''), 500);
+    },
+  };
+</script>
 ```
 
 ## Pagination (pagination)
@@ -1690,11 +1888,17 @@ Plan card whose price counts to the new value. The highlighted plan gets a trave
 Product tile with image, rating, price with strike-through, discount tag, wishlist heart and Add button. Also exports Price.
 ```html
 <div class="flex flex-wrap justify-center gap-4">
-  <bef-product-card name="Wireless keyboard" category="Accessories" :price="3499" :compare-at="4999" :rating="4.6" :reviews="128" image="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20240%20240%22%3E%3Crect%20width%3D%22240%22%20height%3D%22240%22%20fill%3D%22%23e0e7ff%22%2F%3E%3Ccircle%20cx%3D%22120%22%20cy%3D%22120%22%20r%3D%2262%22%20fill%3D%22%234f46e5%22%2F%3E%3Ctext%20x%3D%22120%22%20y%3D%22136%22%20font-family%3D%22sans-serif%22%20font-size%3D%2244%22%20text-anchor%3D%22middle%22%20fill%3D%22white%22%3EK%3C%2Ftext%3E%3C%2Fsvg%3E" :wishlisted="false"></bef-product-card>
-  <bef-product-card name="Noise-cancelling headphones" category="Audio" :price="8999" :rating="4.8" :reviews="412" image="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20240%20240%22%3E%3Crect%20width%3D%22240%22%20height%3D%22240%22%20fill%3D%22%23fce7f3%22%2F%3E%3Ccircle%20cx%3D%22120%22%20cy%3D%22120%22%20r%3D%2262%22%20fill%3D%22%23db2777%22%2F%3E%3Ctext%20x%3D%22120%22%20y%3D%22136%22%20font-family%3D%22sans-serif%22%20font-size%3D%2244%22%20text-anchor%3D%22middle%22%20fill%3D%22white%22%3EH%3C%2Ftext%3E%3C%2Fsvg%3E" wishlisted></bef-product-card>
-  <bef-product-card name="Standing desk mat" category="Office" :price="1299" :compare-at="1599" :rating="4.2" :reviews="57" image="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20240%20240%22%3E%3Crect%20width%3D%22240%22%20height%3D%22240%22%20fill%3D%22%23dcfce7%22%2F%3E%3Ccircle%20cx%3D%22120%22%20cy%3D%22120%22%20r%3D%2262%22%20fill%3D%22%2316a34a%22%2F%3E%3Ctext%20x%3D%22120%22%20y%3D%22136%22%20font-family%3D%22sans-serif%22%20font-size%3D%2244%22%20text-anchor%3D%22middle%22%20fill%3D%22white%22%3EM%3C%2Ftext%3E%3C%2Fsvg%3E" :wishlisted="false"></bef-product-card>
+  <bef-product-card name="Wireless keyboard" category="Accessories" :price="3499" :compare-at="4999" :rating="4.6" :reviews="128" image="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20240%20240%22%3E%3Crect%20width%3D%22240%22%20height%3D%22240%22%20fill%3D%22%23e0e7ff%22%2F%3E%3Ccircle%20cx%3D%22120%22%20cy%3D%22120%22%20r%3D%2262%22%20fill%3D%22%234f46e5%22%2F%3E%3Ctext%20x%3D%22120%22%20y%3D%22136%22%20font-family%3D%22sans-serif%22%20font-size%3D%2244%22%20text-anchor%3D%22middle%22%20fill%3D%22white%22%3EK%3C%2Ftext%3E%3C%2Fsvg%3E" :wishlisted="false" emit="wishlist"></bef-product-card>
+  <bef-product-card name="Noise-cancelling headphones" category="Audio" :price="8999" :rating="4.8" :reviews="412" image="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20240%20240%22%3E%3Crect%20width%3D%22240%22%20height%3D%22240%22%20fill%3D%22%23fce7f3%22%2F%3E%3Ccircle%20cx%3D%22120%22%20cy%3D%22120%22%20r%3D%2262%22%20fill%3D%22%23db2777%22%2F%3E%3Ctext%20x%3D%22120%22%20y%3D%22136%22%20font-family%3D%22sans-serif%22%20font-size%3D%2244%22%20text-anchor%3D%22middle%22%20fill%3D%22white%22%3EH%3C%2Ftext%3E%3C%2Fsvg%3E" wishlisted emit="wishlist"></bef-product-card>
+  <bef-product-card name="Standing desk mat" category="Office" :price="1299" :compare-at="1599" :rating="4.2" :reviews="57" image="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20240%20240%22%3E%3Crect%20width%3D%22240%22%20height%3D%22240%22%20fill%3D%22%23dcfce7%22%2F%3E%3Ccircle%20cx%3D%22120%22%20cy%3D%22120%22%20r%3D%2262%22%20fill%3D%22%2316a34a%22%2F%3E%3Ctext%20x%3D%22120%22%20y%3D%22136%22%20font-family%3D%22sans-serif%22%20font-size%3D%2244%22%20text-anchor%3D%22middle%22%20fill%3D%22white%22%3EM%3C%2Ftext%3E%3C%2Fsvg%3E" :wishlisted="false" emit="wishlist"></bef-product-card>
   <p class="w-full text-center text-xs text-muted-foreground">Standalone price: <bef-price :amount="2499" :compare-at="3299"></bef-price></p>
 </div>
+<script type="module">
+  const names = ['Wireless keyboard', 'Noise-cancelling headphones', 'Standing desk mat'];
+  document.querySelectorAll('bef-product-card').forEach((card, i) => {
+    card.props = { onAdd: () => befui.toast.success('Added to cart', names[i]) };
+  });
+</script>
 ```
 
 ## Profile card (profile-card)
@@ -1740,6 +1944,19 @@ Scroll area you pull down from the top to refresh, with a spinner until your pro
   </bef-pull-to-refresh>
   <p class="mt-2 px-1 text-xs text-muted-foreground">Drag down from the top (touch or mouse).</p>
 </div>
+<script type="module">
+  const refresher = document.querySelector('bef-pull-to-refresh');
+  const list = refresher.querySelector('ul'); // a plain element inside a tag is part of its content, and changes show up
+  refresher.props = {
+    async onRefresh() {
+      await new Promise((r) => setTimeout(r, 1200));
+      const li = document.createElement('li');
+      li.className = 'px-4 py-3 text-[13px]';
+      li.textContent = `New update at ${new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', second: '2-digit' })}`;
+      list.prepend(li);
+    },
+  };
+</script>
 ```
 
 ## Punch card chart (punch-card-chart)
@@ -1791,7 +2008,7 @@ Native radios as selectable cards with descriptions.
 Review summary: big average, stars and a bar per star level. Rows can act as filters. Bars fill in on scroll.
 ```html
 <div class="grid w-[32rem] max-w-full gap-3">
-  <bef-rating-breakdown :counts="[812,340,96,38,54]"></bef-rating-breakdown>
+  <bef-rating-breakdown :counts="[812,340,96,38,54]" emit="select"></bef-rating-breakdown>
   <p class="text-center text-xs text-muted-foreground">Click a row to filter reviews</p>
 </div>
 ```
@@ -1811,23 +2028,23 @@ Star rating with hover preview. Read-only when no handler is given.
 <ul class="w-72 divide-y rounded-xl border bg-card text-sm">
   <li class="flex justify-between px-4 py-2.5">
     <span>Leave approved</span>
-    <bef-relative-time :date="1791974507924" class="text-muted-foreground"></bef-relative-time>
+    <bef-relative-time :date="1791988571925" class="text-muted-foreground"></bef-relative-time>
   </li>
   <li class="flex justify-between px-4 py-2.5">
     <span>Payslip generated</span>
-    <bef-relative-time :date="1791973692924" class="text-muted-foreground"></bef-relative-time>
+    <bef-relative-time :date="1791987756925" class="text-muted-foreground"></bef-relative-time>
   </li>
   <li class="flex justify-between px-4 py-2.5">
     <span>Review submitted</span>
-    <bef-relative-time :date="1791956532924" class="text-muted-foreground"></bef-relative-time>
+    <bef-relative-time :date="1791970596925" class="text-muted-foreground"></bef-relative-time>
   </li>
   <li class="flex justify-between px-4 py-2.5">
     <span>Joined the team</span>
-    <bef-relative-time :date="1791715332924" class="text-muted-foreground"></bef-relative-time>
+    <bef-relative-time :date="1791729396925" class="text-muted-foreground"></bef-relative-time>
   </li>
   <li class="flex justify-between px-4 py-2.5">
     <span>Offer expires</span>
-    <bef-relative-time :date="1792147332924" class="text-muted-foreground"></bef-relative-time>
+    <bef-relative-time :date="1792161396925" class="text-muted-foreground"></bef-relative-time>
   </li>
 </ul>
 ```
@@ -1881,6 +2098,20 @@ Flow diagram where ribbon width is the amount: traffic to page to outcome, budge
 Menu of saved table setups: pick one, save the current one under a name, delete.
 ```html
 <bef-saved-views :views='[{"id":"v1","name":"My open tasks"},{"id":"v2","name":"Overdue invoices"},{"id":"v3","name":"On leave this week"}]'></bef-saved-views>
+<script type="module">
+  const el = document.querySelector('bef-saved-views');
+  let views = JSON.parse(el.getAttribute(':views'));
+  let active;
+  const draw = () => {
+    el.setAttribute(':views', JSON.stringify(views));
+    active ? el.setAttribute('active-id', active) : el.removeAttribute('active-id');
+  };
+  el.props = {
+    onSelect(id) { active = id; draw(); },
+    onSave(name) { const id = `v${Date.now()}`; views = [...views, { id, name }]; active = id; draw(); },
+    onDelete(id) { views = views.filter((v) => v.id !== id); if (active === id) active = undefined; draw(); },
+  };
+</script>
 ```
 
 ## Scatter chart (scatter-chart)
@@ -1980,6 +2211,10 @@ document.getElementById("g1").props = {
       ],
     },
   ],
+  onSubmit: async (v) => {
+    await new Promise((r) => setTimeout(r, 700));
+    befui.toast.success("Employee created", `${v.first} ${v.last}`);
+  },
 };
 </script>
 ```
@@ -2011,7 +2246,12 @@ Thin bar that fills as you scroll the page or a container.
 ## Search bar (search-bar)
 Search field with live results, highlighted matches, recent searches and full keyboard control.
 ```html
-<bef-search-bar class="w-full max-w-sm" :items='[{"id":"0","label":"Employee directory","hint":"HRMS"},{"id":"1","label":"Leave approvals","hint":"HRMS"},{"id":"2","label":"Payroll run","hint":"HRMS"},{"id":"3","label":"Attendance report","hint":"HRMS"},{"id":"4","label":"Org chart","hint":"Page"},{"id":"5","label":"Recruitment pipeline","hint":"Page"},{"id":"6","label":"Performance reviews","hint":"Page"}]' :recent='[{"id":"0","label":"Employee directory","hint":"HRMS"},{"id":"1","label":"Leave approvals","hint":"HRMS"},{"id":"2","label":"Payroll run","hint":"HRMS"}]' placeholder="Search pages"></bef-search-bar>
+<bef-search-bar class="w-full max-w-sm" :items='[{"id":"0","label":"Employee directory","hint":"HRMS"},{"id":"1","label":"Leave approvals","hint":"HRMS"},{"id":"2","label":"Payroll run","hint":"HRMS"},{"id":"3","label":"Attendance report","hint":"HRMS"},{"id":"4","label":"Org chart","hint":"Page"},{"id":"5","label":"Recruitment pipeline","hint":"Page"},{"id":"6","label":"Performance reviews","hint":"Page"}]' :recent='[{"id":"0","label":"Employee directory","hint":"HRMS"},{"id":"1","label":"Leave approvals","hint":"HRMS"},{"id":"2","label":"Payroll run","hint":"HRMS"}]' placeholder="Search pages" id="g1"></bef-search-bar>
+<script type="module">
+document.getElementById("g1").props = {
+  onSelect: (i) => befui.toast.info(`Open ${i.label}`),
+};
+</script>
 ```
 
 ## Search input (search-input)
@@ -2097,6 +2337,10 @@ Keyboard cheat sheet that opens on ? and shows grouped shortcuts as keycaps.
   <p class="text-xs text-muted-foreground">or press <bef-kbd>?</bef-kbd></p>
   <bef-shortcuts-dialog :open="false" :groups='[{"title":"General","items":[{"keys":["Ctrl","K"],"label":"Command palette"},{"keys":["?"],"label":"This help"},{"keys":["Esc"],"label":"Close dialog"}]},{"title":"Navigation","items":[{"keys":["G","H"],"label":"Go to home"},{"keys":["G","R"],"label":"Go to reports"},{"keys":["/"],"label":"Focus search"}]},{"title":"Tables","items":[{"keys":["J"],"label":"Next row"},{"keys":["K"],"label":"Previous row"},{"keys":["Enter"],"label":"Open row"}]},{"title":"Editing","items":[{"keys":["⌘","S"],"label":"Save"},{"keys":["⌘","Z"],"label":"Undo"},{"keys":["Shift","⌘","Z"],"label":"Redo"}]}]' emit="open-change"></bef-shortcuts-dialog>
 </div>
+<script type="module">
+  const dialog = document.querySelector('bef-shortcuts-dialog');
+  document.querySelector('bef-button').addEventListener('click', () => dialog.setAttribute(':open', 'true'));
+</script>
 ```
 
 ## Sidebar (sidebar)
@@ -2116,7 +2360,7 @@ Collapsible nav with groups, nested links and badges. Icon rail on desktop, slid
         </bef-sidebar-group>
         <bef-sidebar-group label="People">
           <bef-sidebar-item :icon='"<bef-users-icon></bef-users-icon>"' label="Employees" :active="false"></bef-sidebar-item>
-          <bef-sidebar-item :icon='"<bef-calendar-icon></bef-calendar-icon>"' label="Leave" :active="false" id="g1"></bef-sidebar-item>
+          <bef-sidebar-item :icon='"<bef-calendar-icon></bef-calendar-icon>"' label="Leave" :active="false"></bef-sidebar-item>
         </bef-sidebar-group>
         <bef-sidebar-group label="Marketing">
           <bef-sidebar-item :icon='"<bef-megaphone-icon></bef-megaphone-icon>"' label="Campaigns" :active="false"></bef-sidebar-item>
@@ -2138,34 +2382,23 @@ Collapsible nav with groups, nested links and badges. Icon rail on desktop, slid
   </div>
 </bef-sidebar-provider>
 <script type="module">
-document.getElementById("g1").props = {
-  items: [
-    {
-      label: "Requests",
-      active: false,
-      onClick: () => {
-        setPage("Leave");
-        setSub(l);
-      },
-    },
-    {
-      label: "Balances",
-      active: false,
-      onClick: () => {
-        setPage("Leave");
-        setSub(l);
-      },
-    },
-    {
-      label: "Calendar",
-      active: false,
-      onClick: () => {
-        setPage("Leave");
-        setSub(l);
-      },
-    },
-  ],
-};
+  const items = [...document.querySelectorAll('bef-sidebar-item')];
+  const title = document.querySelector('bef-sidebar-provider span.text-sm.font-medium'); // the page name next to the toggle
+  let page = 'Dashboard', sub = 'Requests';
+  const draw = () => {
+    items.forEach((item) => {
+      const label = item.getAttribute('label');
+      item.setAttribute(':active', String(label === page));
+      item.props = {
+        onClick: () => { page = label; draw(); },
+        ...(label === 'Leave' && {
+          items: ['Requests', 'Balances', 'Calendar'].map((l) => ({ label: l, active: page === 'Leave' && sub === l, onClick: () => { page = 'Leave'; sub = l; draw(); } })),
+        }),
+      };
+    });
+    title.textContent = page === 'Leave' ? `Leave / ${sub}` : page;
+  };
+  draw();
 </script>
 ```
 
@@ -2322,12 +2555,26 @@ Small status light with an optional pulse and label.
 Horizontal steps for multi-step forms and onboarding.
 ```html
 <div class="grid w-full max-w-xl gap-6">
-  <bef-stepper :steps='[{"title":"Details","description":"Basics"},{"title":"Role","description":"Team & level"},{"title":"Documents"},{"title":"Review"}]' :current="1"></bef-stepper>
+  <bef-stepper :steps='[{"title":"Details","description":"Basics"},{"title":"Role","description":"Team &amp; level"},{"title":"Documents"},{"title":"Review"}]' :current="1"></bef-stepper>
   <div class="flex gap-2">
     <bef-button size="sm" variant="outline" :disabled="false">Back</bef-button>
     <bef-button size="sm" :disabled="false">Next</bef-button>
   </div>
 </div>
+<script type="module">
+  const stepper = document.querySelector('bef-stepper');
+  const [back, next] = document.querySelectorAll('bef-button');
+  const count = JSON.parse(stepper.getAttribute(':steps')).length;
+  const go = (delta) => {
+    const current = Number(stepper.getAttribute(':current')) + delta;
+    stepper.setAttribute(':current', String(current));
+    back.setAttribute(':disabled', String(current === 0));
+    next.setAttribute(':disabled', String(current === count));
+  };
+  back.addEventListener('click', () => go(-1));
+  next.addEventListener('click', () => go(1));
+  go(0);
+</script>
 ```
 
 ## Stopwatch (stopwatch)
@@ -2357,7 +2604,7 @@ document.getElementById("g1").props = {
 List row you swipe left to reveal action buttons. Touch, mouse drag and keyboard.
 ```html
 <div class="grid w-full max-w-sm gap-2">
-  <bef-swipe-actions id="g1">
+  <bef-swipe-actions>
     <div class="flex items-center gap-3 p-3">
       <bef-avatar name="Diya Rao"></bef-avatar>
       <div class="min-w-0">
@@ -2366,7 +2613,7 @@ List row you swipe left to reveal action buttons. Touch, mouse drag and keyboard
       </div>
     </div>
   </bef-swipe-actions>
-  <bef-swipe-actions id="g2">
+  <bef-swipe-actions>
     <div class="flex items-center gap-3 p-3">
       <bef-avatar name="Finance"></bef-avatar>
       <div class="min-w-0">
@@ -2375,7 +2622,7 @@ List row you swipe left to reveal action buttons. Touch, mouse drag and keyboard
       </div>
     </div>
   </bef-swipe-actions>
-  <bef-swipe-actions id="g3">
+  <bef-swipe-actions>
     <div class="flex items-center gap-3 p-3">
       <bef-avatar name="Rohan Das"></bef-avatar>
       <div class="min-w-0">
@@ -2387,75 +2634,16 @@ List row you swipe left to reveal action buttons. Touch, mouse drag and keyboard
   <p class="px-1 text-xs text-muted-foreground">Swipe or drag a row left. Keyboard: focus a row, press Left.</p>
 </div>
 <script type="module">
-const { h: __h, T, Fragment: __Fragment } = befui;
-const toast = T.toast;
-
-document.getElementById("g1").props = {
-  actions: [
-    {
-      label: "Star",
-      icon: "<bef-star-icon></bef-star-icon>",
-      tone: "warning",
-      onClick: () => T.toast.info("Starred", m.subject),
-    },
-    {
-      label: "Archive",
-      icon: "<bef-archive-icon></bef-archive-icon>",
-      tone: "primary",
-      onClick: () => T.toast.success("Archived", m.subject),
-    },
-    {
-      label: "Delete",
-      icon: "<bef-trash-icon></bef-trash-icon>",
-      tone: "danger",
-      onClick: () => T.toast.error("Deleted", m.subject),
-    },
-  ],
-};
-document.getElementById("g2").props = {
-  actions: [
-    {
-      label: "Star",
-      icon: "<bef-star-icon></bef-star-icon>",
-      tone: "warning",
-      onClick: () => T.toast.info("Starred", m.subject),
-    },
-    {
-      label: "Archive",
-      icon: "<bef-archive-icon></bef-archive-icon>",
-      tone: "primary",
-      onClick: () => T.toast.success("Archived", m.subject),
-    },
-    {
-      label: "Delete",
-      icon: "<bef-trash-icon></bef-trash-icon>",
-      tone: "danger",
-      onClick: () => T.toast.error("Deleted", m.subject),
-    },
-  ],
-};
-document.getElementById("g3").props = {
-  actions: [
-    {
-      label: "Star",
-      icon: "<bef-star-icon></bef-star-icon>",
-      tone: "warning",
-      onClick: () => T.toast.info("Starred", m.subject),
-    },
-    {
-      label: "Archive",
-      icon: "<bef-archive-icon></bef-archive-icon>",
-      tone: "primary",
-      onClick: () => T.toast.success("Archived", m.subject),
-    },
-    {
-      label: "Delete",
-      icon: "<bef-trash-icon></bef-trash-icon>",
-      tone: "danger",
-      onClick: () => T.toast.error("Deleted", m.subject),
-    },
-  ],
-};
+  const mails = ['Offer letter for Kabir', 'September payroll is ready', 'Laptop request'];
+  document.querySelectorAll('bef-swipe-actions').forEach((row, i) => {
+    row.props = {
+      actions: [
+        { label: 'Star', icon: '<bef-star-icon></bef-star-icon>', tone: 'warning', onClick: () => befui.toast.info('Starred', mails[i]) },
+        { label: 'Archive', icon: '<bef-archive-icon></bef-archive-icon>', tone: 'primary', onClick: () => befui.toast.success('Archived', mails[i]) },
+        { label: 'Delete', icon: '<bef-trash-icon></bef-trash-icon>', tone: 'danger', onClick: () => befui.toast.error('Deleted', mails[i]) },
+      ],
+    };
+  });
 </script>
 ```
 
@@ -2684,6 +2872,14 @@ Dark terminal window with prompt lines and output. Optional typing animation.
   <bef-terminal animate title="~/projects/hrms" :lines='["npx github:RandomKid24/befui init",{"text":"Wrote src/index.css and src/lib/utils.ts","kind":"muted"},"npx github:RandomKid24/befui add data-table kanban",{"text":"Installed 2 components and 1 dependency","kind":"output"},{"text":"Done in 2.1s","kind":"success"}]'></bef-terminal>
   <bef-button size="xs" variant="outline">Replay</bef-button>
 </div>
+<script type="module">
+  // Replay: draw a fresh copy so the typing animation starts again
+  const button = document.querySelector('bef-button');
+  button.addEventListener('click', () => {
+    const old = document.querySelector('bef-terminal');
+    old.replaceWith(old.cloneNode(true));
+  });
+</script>
 ```
 
 ## Testimonial card (testimonial-card)
@@ -2733,17 +2929,33 @@ Vertical activity feed with tone-colored markers.
 ## Timer (timer)
 Countdown with a ring that drains smoothly, presets and an onDone callback.
 ```html
-<bef-timer></bef-timer>
+<bef-timer id="g1"></bef-timer>
+<script type="module">
+document.getElementById("g1").props = {
+  onDone: () => befui.toast.success("Time is up"),
+};
+</script>
 ```
 
 ## Toast (toast)
 Call toast.success() from anywhere. No provider needed.
 ```html
 <div class="flex flex-wrap gap-2">
-  <bef-button variant="outline">Success</bef-button>
-  <bef-button variant="outline">Error</bef-button>
-  <bef-button variant="outline">Info</bef-button>
+  <bef-button variant="outline" id="g1">Success</bef-button>
+  <bef-button variant="outline" id="g2">Error</bef-button>
+  <bef-button variant="outline" id="g3">Info</bef-button>
 </div>
+<script type="module">
+document.getElementById("g1").props = {
+  onClick: () => befui.toast.success("Saved", "Your changes are live."),
+};
+document.getElementById("g2").props = {
+  onClick: () => befui.toast.error("Could not save", "Check your connection."),
+};
+document.getElementById("g3").props = {
+  onClick: () => befui.toast.info("Heads up"),
+};
+</script>
 ```
 
 ## Toggle group (toggle-group)
@@ -2836,6 +3048,18 @@ Spotlight a part of the page and step through it with a card, for product walkth
   <bef-button variant="soft">Take the tour</bef-button>
   <bef-tour :steps='[{"target":{"current":null},"title":"Search everything","body":"Find people, files and settings from one box."},{"target":{"current":null},"title":"Create something","body":"Start a project, invite a teammate or upload a file."},{"target":{"current":null},"title":"Stay in the loop","body":"Everything your team does shows up here.","side":"top"}]' :open="false" emit="open-change"></bef-tour>
 </div>
+<script type="module">
+  // the tour points at elements by CSS selector
+  const [search, create, activity] = [document.querySelector('bef-input').parentElement, document.querySelector('bef-button'), document.querySelector('.rounded-lg.border')];
+  search.id = 'tour-search'; create.id = 'tour-create'; activity.id = 'tour-activity';
+  const tour = document.querySelector('bef-tour');
+  tour.setAttribute(':steps', JSON.stringify([
+    { target: '#tour-search', title: 'Search everything', body: 'Find people, files and settings from one box.' },
+    { target: '#tour-create', title: 'Create something', body: 'Start a project, invite a teammate or upload a file.' },
+    { target: '#tour-activity', title: 'Stay in the loop', body: 'Everything your team does shows up here.', side: 'top' },
+  ]));
+  document.querySelectorAll('bef-button')[1].addEventListener('click', () => tour.setAttribute(':open', 'true'));
+</script>
 ```
 
 ## Tree table (tree-table)
@@ -2867,7 +3091,11 @@ document.getElementById("g1").props = {
 ## Tree view (tree-view)
 Nested expandable list with animated open and close.
 ```html
-<bef-tree-view class="w-64 rounded-lg border p-2" :nodes='[{"id":"co","label":"Acme Inc","children":[{"id":"eng","label":"Engineering","children":[{"id":"a","label":"Aarav Mehta"},{"id":"b","label":"Isha Rao"}]},{"id":"des","label":"Design","children":[{"id":"c","label":"Kabir Shah"}]},{"id":"ceo","label":"Leadership"}]}]' selected="a"></bef-tree-view>
+<bef-tree-view class="w-64 rounded-lg border p-2" :nodes='[{"id":"co","label":"Acme Inc","children":[{"id":"eng","label":"Engineering","children":[{"id":"a","label":"Aarav Mehta"},{"id":"b","label":"Isha Rao"}]},{"id":"des","label":"Design","children":[{"id":"c","label":"Kabir Shah"}]},{"id":"ceo","label":"Leadership"}]}]' selected="a" emit="select"></bef-tree-view>
+<script type="module">
+  const tree = document.querySelector('bef-tree-view');
+  tree.addEventListener('bef:select', (e) => tree.setAttribute('selected', e.detail.id));
+</script>
 ```
 
 ## Treemap (treemap)
@@ -2900,7 +3128,12 @@ Status-page strip with one tick per day in green, amber or red, the uptime perce
 ## User menu (user-menu)
 Avatar button for the topbar that opens a menu with name, email, your links and Sign out.
 ```html
-<bef-user-menu name="Aarav Mehta" email="aarav@acme.co" :items='[{"label":"Profile","icon":"<bef-user-circle-icon></bef-user-circle-icon>"},{"label":"Billing","icon":"<bef-wallet-icon></bef-wallet-icon>"},{"label":"Settings","icon":"<bef-settings-icon></bef-settings-icon>"}]'></bef-user-menu>
+<bef-user-menu name="Aarav Mehta" email="aarav@acme.co" :items='[{"label":"Profile","icon":"<bef-user-circle-icon></bef-user-circle-icon>"},{"label":"Billing","icon":"<bef-wallet-icon></bef-wallet-icon>"},{"label":"Settings","icon":"<bef-settings-icon></bef-settings-icon>"}]' id="g1"></bef-user-menu>
+<script type="module">
+document.getElementById("g1").props = {
+  onSignOut: () => befui.toast.success("Signed out"),
+};
+</script>
 ```
 
 ## Venn chart (venn-chart)
@@ -2953,7 +3186,7 @@ document.getElementById("g1").props = {
 Seven day pills with previous and next week arrows, a selected day and dots under days that have something. Arrow keys move the day.
 ```html
 <div class="grid w-[26rem] max-w-full gap-3">
-  <bef-week-strip ~value="2026-10-14T10:42:13.467Z" :marks='{"2026-10-13":1,"2026-10-14":2,"2026-10-15":3,"2026-10-17":true}' emit="change"></bef-week-strip>
+  <bef-week-strip ~value="now" :marks='{"2026-10-13":1,"2026-10-14":2,"2026-10-15":3,"2026-10-17":true}' emit="change"></bef-week-strip>
   <p class="text-center text-xs text-muted-foreground">Selected: Wed Oct 14 2026</p>
 </div>
 ```

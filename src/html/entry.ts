@@ -42,9 +42,19 @@ function tagsIn(el: Element) {
   return out;
 }
 
+const SYNC: Record<string, string> = { change: 'value', select: 'selected', save: 'value', flip: 'flipped', wishlist: 'wishlisted' }; // handler name -> the prop it controls
 const RENAME: Record<string, string> = { class: 'className', for: 'htmlFor', tabindex: 'tabIndex', readonly: 'readOnly', maxlength: 'maxLength', colspan: 'colSpan', rowspan: 'rowSpan' };
 const BOOLEAN = new Set(['disabled', 'checked', 'required', 'readonly', 'hidden', 'multiple', 'selected', 'open', 'autofocus', 'controls', 'loop', 'muted', 'autoplay']);
 const KEEP_EMPTY = new Set(['value', 'placeholder', 'alt', 'title', 'name']);
+
+/** "now", "now-14m", "now+2d" or an ISO date -> Date. The first three keep examples from going stale. */
+function toDate(v: string) {
+  const m = /^now(?:([+-])(\d+)([smhd]))?$/.exec(v);
+  if (!m) return new Date(v);
+  const unit = { s: 1e3, m: 6e4, h: 36e5, d: 864e5 }[m[3] ?? 's']!;
+  return new Date(Date.now() + (m[1] === '-' ? -1 : 1) * Number(m[2] ?? 0) * unit);
+}
+const DATE_STRING = /^~(?:now(?:[+-]\d+[smhd])?|\d{4}-\d\d-\d\d.*)$/;
 
 const parseStyle = (css: string) =>
   Object.fromEntries(css.split(';').map((d) => d.split(/:(.*)/s)).filter((p) => p[1]?.trim()).map(([k, v]) => [k.trim().startsWith('--') ? k.trim() : camel(k.trim()), v.trim()]));
@@ -62,8 +72,8 @@ function readProps(el: Element, host: Element): Record<string, unknown> {
   const props: Record<string, unknown> = {};
   for (const { name, value } of Array.from(el.attributes)) {
     if (name === 'emit' || name === 'data-bef' || name === 'slot') continue;
-    if (name.startsWith('~')) props[camel(name.slice(1))] = new Date(value); // ~to="2026-12-31T09:00"
-    else if (name.startsWith(':')) props[camel(name.slice(1))] = JSON.parse(value, (_, v) => (typeof v === 'string' ? (HTML.test(v) ? htmlNode(v, host) : /^~\d{4}-\d\d-\d\d/.test(v) ? new Date(v.slice(1)) : v) : v)); // :value="40", :items='[...]'
+    if (name.startsWith('~')) props[camel(name.slice(1))] = toDate(value); // ~to="2026-12-31T09:00", ~selected="now", ~at="now-14m"
+    else if (name.startsWith(':')) props[camel(name.slice(1))] = JSON.parse(value, (_, v) => (typeof v === 'string' ? (HTML.test(v) ? htmlNode(v, host) : DATE_STRING.test(v) ? toDate(v.slice(1)) : v) : v)); // :value="40", :items='[...]'
     else if (name === 'style') { if (el !== host) props.style = parseStyle(value); } // on the root tag, style stays on the tag itself
     else if (name === 'class' || name.startsWith('data-') || name.startsWith('aria-') || name.startsWith('hx-')) props[RENAME[name] ?? name] = value;
     else if (value === '' && (isBef ? !KEEP_EMPTY.has(name) : BOOLEAN.has(name))) props[camel(name)] = true;
@@ -72,15 +82,19 @@ function readProps(el: Element, host: Element): Record<string, unknown> {
   // emit="value-change open-change" -> onValueChange/onOpenChange fire a bubbling "bef:value-change" CustomEvent on the host
   for (const ev of (el.getAttribute('emit') ?? '').split(/\s+/).filter(Boolean)) {
     props[camel(`on-${ev}`)] = (...args: unknown[]) => {
-      host.dispatchEvent(new CustomEvent(`bef:${ev}`, { bubbles: true, detail: args[0] }));
-      // value-change / open-change / checked-change on the host also write the new value back (:value="..."), so controlled components just work
-      const prop = ev === 'change' ? 'value' : ev.replace(/-change$/, '');
-      if (el === host && (prop !== ev || ev === 'change')) {
+      // a native input's onChange gets an event: hand over its value instead
+      const first = args[0] as { nativeEvent?: unknown; target?: { type?: string; value?: unknown; checked?: boolean } } | undefined;
+      const v = first && typeof first === 'object' && 'nativeEvent' in first ? (first.target?.type === 'checkbox' ? first.target.checked : first.target?.value) : args[0];
+      host.dispatchEvent(new CustomEvent(`bef:${ev}`, { bubbles: true, detail: v }));
+      // value-change / open-change / checked-change (and select, save, flip, wishlist) on the host also write the new value back (:value="..."), so controlled components just work
+      const prop = SYNC[ev] ?? (ev.endsWith('-change') ? ev.slice(0, -7) : null);
+      // objects (a tree node, an event) are not written back; a date range ({ from, to } of Dates) is
+      const writable = !(v && typeof v === 'object' && !Array.isArray(v) && !(v instanceof Date) && !Object.values(v).every((x) => x == null || x instanceof Date));
+      if (el === host && prop && writable) {
         for (const a of [prop, `:${prop}`, `~${prop}`]) host.removeAttribute(a);
-        const v = args[0];
         try {
           if (v instanceof Date) host.setAttribute(`~${prop}`, v.toISOString());
-          else if (v !== undefined) host.setAttribute(`:${prop}`, JSON.stringify(v));
+          else if (v !== undefined) host.setAttribute(`:${prop}`, JSON.stringify(v, (_, x) => (x instanceof Date ? `~${x.toISOString()}` : x)));
         } catch { /* not JSON, leave it */ }
       }
     };
@@ -94,8 +108,10 @@ function convert(el: Node, host: Element) {
   const slots: Record<string, React.ReactNode[]> = {};
   for (const n of Array.from(el.childNodes)) {
     const slot = n.nodeType === Node.ELEMENT_NODE ? (n as Element).getAttribute('slot') : null;
-    if (slot) (slots[camel(slot)] ??= []).push(toReact(n, host));
-    else kids.push(toReact(n, host));
+    const r = toReact(n, host);
+    if (r === null) continue; // formatting whitespace: also keeps Radix's asChild happy, which wants exactly one child
+    if (slot) (slots[camel(slot)] ??= []).push(r);
+    else kids.push(r);
   }
   const props: Record<string, unknown> = {};
   for (const [k, v] of Object.entries(slots)) props[k] = v.length === 1 ? v[0] : React.createElement(React.Fragment, null, ...v);
@@ -162,17 +178,22 @@ const insideBef = (el: Element) => {
   return false;
 };
 
+/** The outermost tag a (possibly nested) tag is drawn by. */
+const outer = (el: Element) => el.closest<BefElement>('[data-bef]');
+
 class BefElement extends HTMLElement {
   private root?: Root;
   private starting = false;
-  private kids?: React.ReactNode[];
-  private slots: Record<string, unknown> = {};
+  // What was written inside the tag stays in the page, hidden, in [data-bef-source]: React draws from it on every render, so changing an attribute or
+  // el.props of a nested tag later (a script, htmx) redraws just like the outer one, and getElementById / querySelector still find those tags.
+  private source?: HTMLElement;
   extra: Record<string, unknown> = {};
   private watcher = new MutationObserver(() => this.render());
+  private sourceWatcher = new MutationObserver(() => this.render());
 
   // Non-JSON props (functions, JSX): el.props = { columns: [...], onRowClick: fn }
   // Functions that return an HTML string (render, renderCard, bulkActions...) get that string turned into content, like :json props.
-  set props(v: Record<string, unknown>) { this.extra = wrapFns(v, this) as Record<string, unknown>; if (this.root) this.render(); }
+  set props(v: Record<string, unknown>) { this.extra = wrapFns(v, this) as Record<string, unknown>; (outer(this) ?? this).render(); }
 
   connectedCallback() {
     // el.props = {...} run before this element was upgraded (inline script above the module) is a plain property on the instance: move it to the setter
@@ -186,9 +207,19 @@ class BefElement extends HTMLElement {
       await load(tagsIn(this));
       this.starting = false;
       if (!this.isConnected || this.root) return;
-      ({ kids: this.kids, slots: this.slots } = convert(this, this));
-      this.replaceChildren();
-      this.root = createRoot(this);
+      let view = this.querySelector<HTMLElement>(':scope > [data-bef-view]');
+      if (!this.source || !view) { // first time: what was written inside moves into the hidden source, React gets its own node
+        this.source = document.createElement('div');
+        this.source.hidden = true;
+        this.source.setAttribute('data-bef-source', '');
+        this.source.append(...Array.from(this.childNodes));
+        view = document.createElement('div');
+        view.style.display = 'contents';
+        view.setAttribute('data-bef-view', '');
+        this.append(this.source, view);
+        this.sourceWatcher.observe(this.source, { attributes: true, childList: true, subtree: true, characterData: true });
+      }
+      this.root = createRoot(view);
       this.watcher.observe(this, { attributes: true });
       this.render();
     });
@@ -201,11 +232,12 @@ class BefElement extends HTMLElement {
     if (root) queueMicrotask(() => root.unmount());
   }
 
-  private render() {
-    if (!this.root || !this.kids) return;
+  render() {
+    if (!this.root || !this.source) return;
     const type = loaded.get(this.localName);
     if (!type) return;
-    flushSync(() => this.root!.render(React.createElement(type, { ...readProps(this, this), ...this.slots, ...this.extra }, ...this.kids!)));
+    const { kids, slots } = convert(this.source, this);
+    flushSync(() => this.root!.render(React.createElement(type, { ...readProps(this, this), ...slots, ...this.extra }, ...kids)));
     (window as { htmx?: { process(el: Element): void } }).htmx?.process(this); // wire hx-* attributes React just rendered
     if (missing.size) { // a render function returned tags we have not downloaded yet: fetch them, then draw again
       const tags = [...missing];
@@ -219,6 +251,12 @@ for (const tag of Object.keys(manifest)) {
   if (!customElements.get(tag)) customElements.define(tag, class extends BefElement {});
 }
 
+/** document-level listener that goes away with its anchor element: befui.on(el, 'click', (e) => ...). For content that React puts outside the tag (dialogs, menus). */
+const on = (anchor: Element, type: string, fn: (e: Event) => void) => {
+  const handler = (e: Event) => (anchor.isConnected ? fn(e) : document.removeEventListener(type, handler));
+  document.addEventListener(type, handler);
+};
+
 // befui.toast.success('Saved') etc. load the toast code on first use (put a <bef-toaster> on the page to show them)
 const toastCall = (k: string) => (...a: unknown[]) => import('@/components/ui/toast').then((m) => (m.toast as unknown as Record<string, (...x: unknown[]) => unknown>)[k]!(...a));
-(window as unknown as { befui: unknown }).befui = { load, h, T, Fragment, toast: Object.fromEntries(['success', 'error', 'info', 'dismiss'].map((k) => [k, toastCall(k)])) };
+(window as unknown as { befui: unknown }).befui = { load, h, T, Fragment, on, toast: Object.fromEntries(['success', 'error', 'info', 'dismiss'].map((k) => [k, toastCall(k)])) };

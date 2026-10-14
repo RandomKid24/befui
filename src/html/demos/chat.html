@@ -1,1 +1,16 @@
-<bef-chat me="You" :messages='[{"id":"1","from":"Diya Rao","text":"Hey! Did the offer letter go out to Kabir?","at":1791973692513},{"id":"2","from":"Diya Rao","text":"He is asking about the joining date.","at":1791973752513},{"id":"3","from":"You","text":"Sent it this morning. Joining is 3 Nov.","at":1791973992513},{"id":"4","from":"Diya Rao","text":"Perfect, I will update the onboarding board.","at":1791974052513}]'></bef-chat>
+<bef-chat me="You" :messages='[{"id":"1","from":"Diya Rao","text":"Hey! Did the offer letter go out to Kabir?","at":"~now-14m"},{"id":"2","from":"Diya Rao","text":"He is asking about the joining date.","at":"~now-13m"},{"id":"3","from":"You","text":"Sent it this morning. Joining is 3 Nov.","at":"~now-9m"},{"id":"4","from":"Diya Rao","text":"Perfect, I will update the onboarding board.","at":"~now-8m"}]'></bef-chat>
+<script type="module">
+  const chat = document.querySelector('bef-chat');
+  let messages = JSON.parse(chat.getAttribute(':messages'));
+  const add = (from, text) => {
+    messages = [...messages, { id: String(Date.now()), from, text, at: '~now' }];
+    chat.setAttribute(':messages', JSON.stringify(messages));
+  };
+  chat.props = {
+    onSend(text) {
+      add('You', text);
+      chat.setAttribute('typing', 'Diya Rao');
+      setTimeout(() => { chat.removeAttribute('typing'); add('Diya Rao', 'Got it, thanks!'); }, 1500);
+    },
+  };
+</script>

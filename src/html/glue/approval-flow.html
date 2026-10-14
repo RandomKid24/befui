@@ -1,0 +1,15 @@
+<script type="module">
+  const flow = document.querySelector('bef-approval-flow');
+  let steps = JSON.parse(flow.getAttribute(':steps'));
+  flow.props = {
+    onDecide(id, decision, comment) {
+      steps = steps.map((s, i) => {
+        if (s.id === id) return { ...s, status: decision, comment: comment || undefined, at: 'Just now' };
+        if (decision === 'approved' && steps[i - 1]?.id === id) return { ...s, status: 'pending' };
+        return s;
+      });
+      flow.setAttribute(':steps', JSON.stringify(steps));
+      befui.toast[decision === 'approved' ? 'success' : 'info'](decision === 'approved' ? 'Approved' : 'Rejected');
+    },
+  };
+</script>

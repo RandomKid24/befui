@@ -1,4 +1,0 @@
-<bef-file-uploader id="fu" style="width:420px" accept="image/*,.pdf"></bef-file-uploader>
-<script>
-  document.getElementById('fu').props = { upload: (file, onProgress, signal) => new Promise((resolve) => { let p = 0; const t = setInterval(() => { p += 20; onProgress(p); if (p >= 100) { clearInterval(t); resolve(); } }, 200); }) };
-</script>
