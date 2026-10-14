@@ -21,6 +21,17 @@ function highlight(code) {
   return out + esc(code.slice(last));
 }
 
+const CSSRE = /(\/\*[\s\S]*?\*\/)|(@[\w-]+)|(--[\w-]+)(?=:)|([\w-]+)(?=\s*:)/g;
+function highlightCss(code) {
+  let out = '', last = 0, m;
+  while ((m = CSSRE.exec(code))) {
+    out += esc(code.slice(last, m.index));
+    out += m[1] ? `<span class="c">${esc(m[1])}</span>` : m[2] ? `<span class="t">${esc(m[2])}</span>` : `<span class="a">${esc(m[3] ?? m[4])}</span>`;
+    last = CSSRE.lastIndex;
+  }
+  return out + esc(code.slice(last));
+}
+
 const match = (c) => !query || (c.name + ' ' + c.slug + ' ' + c.category + ' ' + c.description).toLowerCase().includes(query);
 const link = (c) => `<a href="#/${c.slug}" data-s="${c.slug}">${esc(c.name)}</a>`;
 
@@ -64,14 +75,25 @@ function component(c) {
     <h1>${esc(c.name)}</h1><p class="lead">${esc(c.description)}</p>
     <div class="bar"><span class="seg" id="widths">${[['full', 'Full'], ['768', 'Tablet'], ['375', 'Mobile']].map(([w, l]) => `<button data-w="${w}" class="${w === width ? 'on' : ''}">${l}</button>`).join('')}</span></div>
     <div class="frame" id="frame" style="width:${width === 'full' ? '100%' : width + 'px'}"><div class="stage${c.wide ? ' wide' : ''}" id="stage"></div></div>
-    <h2>HTML</h2><div class="code"><button class="plain copy" id="cp">Copy</button><pre>${highlight(demo)}</pre></div>
+    <div class="bar" style="margin-top:34px"><span class="seg" id="tabs"><button data-tab="html" class="on">HTML</button>${c.css ? '<button data-tab="css">CSS</button>' : ''}</span><span class="size" id="size"></span></div>
+    <div class="code"><button class="plain copy" id="cp">Copy</button><pre id="code">${highlight(demo)}</pre></div>
     ${usesScript ? '<p class="note">This example uses a short <code>&lt;script&gt;</code> because some props are functions or objects that attributes cannot express. Everything else is plain attributes.</p>' : ''}
     <h2>Tags in this component</h2><div class="chips">${c.tags.map((t) => `<code data-t="${t}" title="Copy tag">&lt;${t}&gt;</code>`).join('') || '<span class="empty">none</span>'}</div>
     <div class="pager">${prev ? `<a href="#/${prev.slug}"><small>Previous</small>${esc(prev.name)}</a>` : '<span></span>'}${next ? `<a class="next" href="#/${next.slug}"><small>Next</small>${esc(next.name)}</a>` : ''}</div>`;
   const stage = $('#stage');
   stage.innerHTML = demo;
   stage.querySelectorAll('script').forEach((old) => { const s = document.createElement('script'); s.textContent = '{\n' + old.textContent + '\n}'; /* block scope: demos can reuse names */ old.replaceWith(s); });
-  $('#cp').onclick = (e) => copy(demo, e.target);
+  let shown = demo;
+  const tab = async (name) => {
+    document.querySelectorAll('#tabs button').forEach((b) => b.classList.toggle('on', b.dataset.tab === name));
+    if (name === 'html') { shown = demo; $('#code').innerHTML = highlight(demo); $('#size').textContent = ''; return; }
+    $('#code').textContent = 'Loading...';
+    const css = await fetch(`css/${c.slug}.css`).then((r) => r.text());
+    if (!$('#code')) return;
+    shown = css; $('#code').innerHTML = highlightCss(css); $('#size').textContent = `${(css.length / 1024).toFixed(1)} KB, only what this component uses`;
+  };
+  $('#tabs').onclick = (e) => e.target.dataset?.tab && tab(e.target.dataset.tab);
+  $('#cp').onclick = (e) => copy(shown, e.target);
   document.querySelectorAll('.chips code[data-t]').forEach((el) => (el.onclick = () => copy(`<${el.dataset.t}></${el.dataset.t}>`, el)));
   $('#widths').onclick = (e) => {
     const w = e.target.dataset?.w; if (!w) return;

@@ -1,5 +1,6 @@
 // Builds dist/html docs: demos.json (component list + the HTML example for each) and copies the docs shell.
 import fs from 'node:fs';
+import { buildComponentCss } from './html-css.mjs';
 
 const kebab = (s) => s.replace(/([a-z0-9])([A-Z])/g, '$1-$2').replace(/([A-Z])([A-Z][a-z])/g, '$1-$2').toLowerCase();
 const src = fs.readFileSync('src/registry/index.ts', 'utf8');
@@ -17,4 +18,8 @@ fs.mkdirSync('dist/html', { recursive: true });
 fs.writeFileSync('dist/html/demos.json', JSON.stringify({ list, demo }));
 for (const f of ['docs.css', 'docs.js']) fs.copyFileSync(`src/html/docs/${f}`, `dist/html/${f}`);
 fs.copyFileSync('src/html/docs/index.html', 'dist/html/index.html');
-console.log(`html docs: ${list.length} components, ${Object.keys(demo).length} with an example`);
+const sources = Object.fromEntries(list.map((c) => [c.slug, fs.readFileSync(`src/components/ui/${c.slug}.tsx`, 'utf8')]));
+const cssCount = buildComponentCss('dist/html/befui.css', sources, 'dist/html');
+for (const c of list) c.css = fs.existsSync(`dist/html/css/${c.slug}.css`);
+fs.writeFileSync('dist/html/demos.json', JSON.stringify({ list, demo }));
+console.log(`html docs (css for ${cssCount}): ${list.length} components, ${Object.keys(demo).length} with an example`);
