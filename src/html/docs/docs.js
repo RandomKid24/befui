@@ -40,7 +40,14 @@ $('#theme').addEventListener('click', () => {
   const dark = document.documentElement.classList.toggle('dark');
   $('#theme').textContent = dark ? 'Light' : 'Dark';
 });
-addEventListener('hashchange', page);
+addEventListener('hashchange', () => { page(); parent !== window && parent.postMessage({ befuiSlug: location.hash.slice(2) }, '*'); });
+
+// Embedded in the befui site: ?embed hides our header, ?theme=dark starts dark, and the site sends theme changes.
+const q = new URLSearchParams(location.search);
+if (q.has('embed')) document.body.classList.add('embed');
+const setDark = (dark) => { document.documentElement.classList.toggle('dark', dark); $('#theme').textContent = dark ? 'Light' : 'Dark'; };
+if (q.get('theme') === 'dark') setDark(true);
+addEventListener('message', (e) => e.data?.befuiTheme && setDark(e.data.befuiTheme === 'dark'));
 
 fetch('demos.json').then((r) => r.json()).then((d) => { data = d; nav(); page(); });
 

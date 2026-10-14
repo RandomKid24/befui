@@ -6,6 +6,7 @@ import { ThemesPage } from '@/site/themes-page';
 import { AiPage } from '@/site/ai-page';
 import { ChangelogPage } from '@/site/changelog-page';
 import { WebPage } from '@/site/web-page';
+import { HtmlPage } from '@/site/html-page';
 import { useRoute } from '@/site/router';
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
   else if (section === 'components') page = slug ? <ComponentPage slug={slug} /> : <ComponentsIndex />;
   else if (section === 'ai') page = <AiPage />;
   else if (section === 'web') page = <WebPage />;
+  else if (section === 'html') page = <HtmlPage slug={slug} />;
   else if (section === 'changelog') page = <ChangelogPage />;
   else if (section === 'icons') page = <IconsPage />;
   else if (section === 'themes') page = <ThemesPage />;
@@ -26,7 +28,7 @@ export default function App() {
   else page = <NotFound />;
 
   return (
-    <Shell path={path} docs={!home && section !== 'icons' && section !== 'themes' && section !== 'web'}>
+    <Shell path={path} docs={!home && section !== 'icons' && section !== 'themes' && section !== 'web' && section !== 'html'}>
       {page}
     </Shell>
   );

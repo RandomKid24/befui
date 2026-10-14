@@ -21,3 +21,5 @@ pre { margin: 0; padding: 14px; border: 1px solid var(--border); border-radius: 
 .tags code { display: inline-block; margin: 0 6px 6px 0; padding: 2px 8px; border-radius: 6px; background: var(--secondary); font-size: 12px; }
 .note { padding: 12px 14px; border: 1px dashed var(--border); border-radius: 10px; color: var(--muted-foreground); font-size: 14px; }
 @media (max-width: 760px) { .shell { grid-template-columns: 1fr; } nav { position: static; height: auto; max-height: 220px; border-right: 0; border-bottom: 1px solid var(--border); } main { padding: 20px 16px 60px; } }
+body.embed header .brand, body.embed #theme { display: none; }
+body.embed header { top: 0; }
