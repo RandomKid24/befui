@@ -13,3 +13,4 @@ Rules:
 - Colors: use theme tokens. Only `terminal`, `avatar` and `tag-manager` use fixed colors on purpose (dark terminal, per-name tints).
 - Merge classes with `cn` from `@/lib/utils`.
 - Edit copied component files freely; they belong to this project. To pull the latest version of one, re-run `add <name> --force` (this overwrites local edits).
+- No React in the page (plain HTML, htmx, server templates)? Use the `<bef-*>` custom elements from the HTML build instead: tag rules and an example per component are in https://raw.githubusercontent.com/RandomKid24/befui/main/public/llms-html.txt.

@@ -1,6 +1,6 @@
 // Builds public/r/*.json: one self-contained file per component and block, plus index.json.
 // The CLI (bin/befui.mjs) reads these. Dependencies come from each file's real imports.
-import { mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { hasDirective, needsClient } from './use-client.mjs';
 
 // Next.js App Router: a component with state, context, Radix, handlers or browser globals must say 'use client'.
@@ -101,6 +101,7 @@ const head = `# befui
 - Icons: our own set in \`@/components/ui/icons\`, e.g. \`import { SearchIcon } from '@/components/ui/icons'\`; no icon package needed
 - Theme: CSS variables in index.css (--primary, --ring, --accent...). Dark mode = \`dark\` class on <html>. Use tokens (\`bg-primary\`, \`text-muted-foreground\`, \`border\`), never hard-coded colors.
 - Full catalog with a working example per component: ${RAW}/llms-full.txt
+- Not using React (plain HTML, htmx, Django, Rails, PHP)? Every component is also a custom element, \`<bef-button>\`, \`<bef-dialog>\`... Rules and an HTML example for every component: ${RAW}/llms-html.txt
 
 ## Rules that save a debugging round
 - Wrap the app once in \`<TooltipProvider>\` (tooltip) and render \`<Toaster />\` once, then call \`toast.success('Saved')\` anywhere (toast).
@@ -193,5 +194,34 @@ const guides = JSON.parse(readFileSync('src/registry/chart-guides.json', 'utf8')
 const guideText = (name) => (guides[name] ? `- What it shows: ${guides[name].what}\n- How to read it: ${guides[name].read}\n- Use it for: ${guides[name].use}\n- Skip it when: ${guides[name].avoid}\n` : '');
 const full = byGroup.map((d) => `## ${d.title} (\`${d.name}\`)\n${d.description}\n- Group: ${d.group}\n${guideText(d.name)}- Add: \`npx github:RandomKid24/befui add ${d.name}\`\n- Import: \`import { ${importOf(d).join(', ')} } from '@/components/ui/${d.name}'\`\n${d.requires.length ? `- Also needs: ${d.requires.join(', ')}\n` : ''}${d.deps.length ? `- npm packages: ${d.deps.join(', ')}\n` : ''}\nExample:\n\n\`\`\`tsx\n${d.example.trim()}\n\`\`\`\n`).join('\n');
 writeFileSync('public/llms-full.txt', `${head}\n${iconSection}\n# Components\n\n${full}`);
+// HTML/htmx build: tags, prop rules and the example from src/html/demos for every component
+const htmlRules = `# befui for HTML and htmx
+
+> Every befui component is a custom element in a plain HTML page: one CSS file and one script, no React in your app. Build them with \`npm run build:html\` (dist/html/befui.css and befui.js).
+
+\`\`\`html
+<link rel="stylesheet" href="/befui.css">
+<script src="/befui.js" defer></script>
+<bef-button variant="soft">Save</bef-button>
+\`\`\`
+
+## Rules
+- Tag = \`bef-\` + kebab-case export name: Button -> <bef-button>, DataTable -> <bef-data-table>, DialogTrigger -> <bef-dialog-trigger>. Icons too: <bef-home-icon>.
+- Props are attributes in kebab-case (default-value, as-child). A bare attribute is true. Strings are the default.
+- JSON props use a colon: :value="40", :items='[{"id":"a","title":"T"}]'. Inside that JSON, a string that starts with a tag becomes content: {"icon":"<bef-home-icon></bef-home-icon>"}. A string like "~2026-12-31" becomes a Date.
+- A child with slot="name" becomes the prop \`name\` (<bef-button slot="action">Undo</bef-button>). Other children are the component's children.
+- Dates as plain attributes: ~to="2026-12-31T09:00".
+- Callbacks: emit="value-change open-change" fires bubbling events bef:value-change and bef:open-change (value in event.detail). The tag also writes the new value back to itself (:value, :open...), so controlled components work with no script; set :open="true" to open a controlled dialog.
+- Props that are functions or JSX (render, columns, onSubmit, onApply) cannot be attributes: set them from script, element.props = { columns: [...], onSubmit: fn }.
+- style works on the outer tag. Do not invent Tailwind classes in HTML (they are not in the CSS); use inline style for layout.
+- Works with htmx: elements added by a swap upgrade by themselves and hx-* attributes inside are processed. Radix inputs submit with the surrounding <form>.
+- Dark mode: the dark class on <html>. Theme: the same CSS variables (--primary, ...).
+- window.befui.toast.success('Saved') shows a toast when <bef-toaster> is on the page.
+
+# Examples
+`;
+const demoDir = 'src/html/demos';
+const htmlExamples = existsSync(demoDir) ? ui.filter((d) => existsSync(`${demoDir}/${d.name}.html`)).map((d) => `## ${d.title} (${d.name})\n${d.description}\n\`\`\`html\n${readFileSync(`${demoDir}/${d.name}.html`, 'utf8').trim()}\n\`\`\`\n`).join('\n') : '';
+writeFileSync('public/llms-html.txt', htmlRules + '\n' + htmlExamples);
 writeFileSync(`${out}/agents.md`, readFileSync('scripts/agents-snippet.md', 'utf8'));
 console.log(`registry: ${items.length} items, llms.txt for ${ui.length} components`);

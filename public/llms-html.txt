@@ -1,0 +1,1620 @@
+# befui for HTML and htmx
+
+> Every befui component is a custom element in a plain HTML page: one CSS file and one script, no React in your app. Build them with `npm run build:html` (dist/html/befui.css and befui.js).
+
+```html
+<link rel="stylesheet" href="/befui.css">
+<script src="/befui.js" defer></script>
+<bef-button variant="soft">Save</bef-button>
+```
+
+## Rules
+- Tag = `bef-` + kebab-case export name: Button -> <bef-button>, DataTable -> <bef-data-table>, DialogTrigger -> <bef-dialog-trigger>. Icons too: <bef-home-icon>.
+- Props are attributes in kebab-case (default-value, as-child). A bare attribute is true. Strings are the default.
+- JSON props use a colon: :value="40", :items='[{"id":"a","title":"T"}]'. Inside that JSON, a string that starts with a tag becomes content: {"icon":"<bef-home-icon></bef-home-icon>"}. A string like "~2026-12-31" becomes a Date.
+- A child with slot="name" becomes the prop `name` (<bef-button slot="action">Undo</bef-button>). Other children are the component's children.
+- Dates as plain attributes: ~to="2026-12-31T09:00".
+- Callbacks: emit="value-change open-change" fires bubbling events bef:value-change and bef:open-change (value in event.detail). The tag also writes the new value back to itself (:value, :open...), so controlled components work with no script; set :open="true" to open a controlled dialog.
+- Props that are functions or JSX (render, columns, onSubmit, onApply) cannot be attributes: set them from script, element.props = { columns: [...], onSubmit: fn }.
+- style works on the outer tag. Do not invent Tailwind classes in HTML (they are not in the CSS); use inline style for layout.
+- Works with htmx: elements added by a swap upgrade by themselves and hx-* attributes inside are processed. Radix inputs submit with the surrounding <form>.
+- Dark mode: the dark class on <html>. Theme: the same CSS variables (--primary, ...).
+- window.befui.toast.success('Saved') shows a toast when <bef-toaster> is on the page.
+
+# Examples
+
+## Accordion (accordion)
+Collapsible sections with a smooth height animation. Single or multiple open.
+```html
+<bef-accordion class="w-full max-w-lg" :default-open='["a"]' :items='[
+  {"id":"a","title":"How are leave balances calculated?","content":"Accrual runs on the first of every month, pro-rated for new joiners."},
+  {"id":"b","title":"Can managers delegate approvals?","content":"Yes. Set a delegate for any date range from the approvals page."},
+  {"id":"c","title":"Where is payroll data stored?","content":"Encrypted at rest, in the region you pick at signup."}]'></bef-accordion>
+```
+
+## Activity feed (activity-feed)
+Who did what and when, grouped under Today and Yesterday, with live relative times and an optional quoted detail.
+```html
+<bef-activity-feed class="w-full max-w-lg" :items='[
+  {"id":"1","actor":"Aarav Mehta","action":"moved","target":"Payroll run","at":"2026-10-13T09:30:00"},
+  {"id":"2","actor":"Diya Rao","action":"commented on","target":"Offer letter","at":"2026-10-12T16:10:00","detail":"Please double check the joining date."},
+  {"id":"3","actor":"Rohan Das","action":"approved","target":"Leave request","at":"2026-10-12T11:00:00"}]'></bef-activity-feed>
+```
+
+## Alert dialog (alert-dialog)
+Confirm before something destructive. Cancel and confirm, controlled by you.
+```html
+<bef-button id="ad-open" variant="outline">Delete project</bef-button>
+<bef-alert-dialog id="ad" emit="open-change" title="Delete this project?" description="This cannot be undone." confirm-label="Delete" destructive></bef-alert-dialog>
+<script>
+  const ad = document.getElementById('ad');
+  document.getElementById('ad-open').addEventListener('click', () => ad.setAttribute('open', 'true'));
+  ad.addEventListener('bef:open-change', (e) => e.detail ? ad.setAttribute('open', 'true') : ad.removeAttribute('open'));
+  ad.props = { onConfirm: () => ad.removeAttribute('open') };
+</script>
+```
+
+## Alert (alert)
+Inline message in info, success, warning and danger.
+```html
+<div style="display:grid;gap:10px;width:100%;max-width:480px">
+  <bef-alert title="Heads up">Your trial ends in 3 days.</bef-alert>
+  <bef-alert variant="success" title="Saved">Changes are live.</bef-alert>
+  <bef-alert variant="warning" title="Slow connection">Uploads may take longer.</bef-alert>
+  <bef-alert variant="danger" title="Payment failed">Update your card to continue.</bef-alert>
+</div>
+```
+
+## Analog clock (analog-clock)
+SVG clock for any time zone, with a second hand that ticks with a small bounce.
+```html
+<bef-analog-clock time-zone="Asia/Kolkata" :size="160"></bef-analog-clock>
+<bef-analog-clock time-zone="America/New_York" :size="160"></bef-analog-clock>
+```
+
+## App shell (app-shell)
+Sidebar, topbar and scrolling content area, plus a page header.
+```html
+<div style="width:100%;height:340px;border:1px solid var(--border);border-radius:12px;overflow:hidden">
+  <bef-app-shell>
+    <div slot="sidebar" style="padding:16px;width:180px;font-size:14px">Sidebar<br><br>Dashboard<br>People<br>Payroll</div>
+    <bef-topbar>Topbar</bef-topbar>
+    <bef-app-content>
+      <bef-page-header title="People" description="Everyone in your company"><bef-button slot="actions" size="sm">Invite</bef-button></bef-page-header>
+    </bef-app-content>
+  </bef-app-shell>
+</div>
+```
+
+## Approval flow (approval-flow)
+Chain of approvers with decisions, comments and times. The current approver gets Approve and Reject buttons.
+```html
+<bef-approval-flow class="w-full max-w-md" :steps='[
+  {"id":"1","approver":"Aarav Mehta","role":"Manager","status":"approved","comment":"Looks good","at":"12 Oct"},
+  {"id":"2","approver":"Isha Nair","role":"HR","status":"pending"},
+  {"id":"3","approver":"Meera Iyer","role":"Finance","status":"waiting"}]'></bef-approval-flow>
+```
+
+## Area chart (area-chart)
+Smooth gradient areas, stacked or overlapping, that wipe in on scroll. Hover for a readout across series.
+```html
+<bef-area-chart class="w-full max-w-xl" :labels='["Jan","Feb","Mar","Apr","May","Jun"]' :series='[
+  {"name":"Revenue","data":[12,18,15,24,30,36]},{"name":"Costs","data":[8,10,12,14,15,18]}]'></bef-area-chart>
+```
+
+## Audit log (audit-log)
+Who changed what and when, with expandable before and after values.
+```html
+<bef-audit-log class="w-full max-w-2xl" :entries='[
+  {"id":"1","actor":"Aarav Mehta","action":"updated","target":"Salary band L4","at":"2026-10-13T09:30:00","ip":"10.0.0.4","changes":[{"field":"Max","from":"18L","to":"20L"}]},
+  {"id":"2","actor":"Diya Rao","action":"created","target":"Role: Designer","at":"2026-10-12T16:10:00","ip":"10.0.0.9"},
+  {"id":"3","actor":"Rohan Das","action":"exported","target":"Payroll report","at":"2026-10-12T11:00:00"}]'></bef-audit-log>
+```
+
+## Avatar upload (avatar-upload)
+Click-to-change profile picture with instant preview, size and type checks, and a Remove link.
+```html
+<bef-avatar-upload name="Aarav Mehta"></bef-avatar-upload>
+<script>document.currentScript.previousElementSibling.props = { onChange: (f) => console.log('file', f) };</script>
+```
+
+## Avatar (avatar)
+Image with initials fallback in a stable color. Five sizes, circle or square, presence dot (online, away, busy, offline), a stacked group with hover names, and UserInfo for avatar plus name and subtitle.
+```html
+<bef-avatar name="Aarav Mehta" size="md" status="online"></bef-avatar>
+<bef-avatar name="Diya Rao" size="lg" shape="square" status="away"></bef-avatar>
+<bef-avatar-group :names='["Aarav Mehta","Diya Rao","Rohan Das","Isha Nair","Kabir Shah","Meera Iyer"]' :max="4"></bef-avatar-group>
+<bef-user-info name="Isha Nair" subtitle="People Ops" status="busy" size="md"></bef-user-info>
+```
+
+## Badge (badge)
+Status pill with semantic colors and an optional dot.
+```html
+<bef-badge>Default</bef-badge><bef-badge variant="primary">Primary</bef-badge><bef-badge variant="outline">Outline</bef-badge>
+<bef-badge variant="success" dot>Active</bef-badge><bef-badge variant="warning" dot>Pending</bef-badge><bef-badge variant="danger" dot>Failed</bef-badge><bef-badge variant="info">Info</bef-badge>
+```
+
+## Banner (banner)
+Announcement bar that collapses smoothly when dismissed.
+```html
+<bef-banner class="w-full max-w-xl">New: dark mode is here.<bef-button slot="action" size="xs" variant="outline">Try it</bef-button></bef-banner>
+```
+
+## Bar list (bar-list)
+Ranked list with a bar behind each row: top pages, products, sources, countries.
+```html
+<bef-bar-list class="w-full max-w-md" :items='[{"label":"/pricing","value":4200},{"label":"/docs","value":3100},{"label":"/blog","value":1800},{"label":"/contact","value":640}]'></bef-bar-list>
+```
+
+## Border beam (border-beam)
+A light beam that circles the border. For pricing cards and featured content.
+```html
+<bef-border-beam :duration="4" style="padding:24px 40px;border-radius:12px">Glowing border</bef-border-beam>
+```
+
+## Bottom navigation (bottom-nav)
+Mobile tab bar with icons, labels, an active pill and count badges.
+```html
+<div style="width:300px;height:260px;display:grid;grid-template-rows:1fr auto;border:4px solid var(--foreground);border-radius:28px;overflow:hidden;background:var(--background)">
+  <div id="bn-label" style="display:grid;place-items:center;font-size:14px">home</div>
+  <bef-bottom-nav id="bn" value="home" emit="value-change" :items='[
+    {"id":"home","label":"Home","icon":"<bef-home-icon></bef-home-icon>"},
+    {"id":"search","label":"Search","icon":"<bef-search-icon></bef-search-icon>"},
+    {"id":"alerts","label":"Alerts","icon":"<bef-bell-icon></bef-bell-icon>","badge":3},
+    {"id":"me","label":"Profile","icon":"<bef-user-icon></bef-user-icon>"}]'></bef-bottom-nav>
+</div>
+<script>
+  const bn = document.getElementById('bn');
+  bn.addEventListener('bef:value-change', (e) => { bn.setAttribute('value', e.detail); document.getElementById('bn-label').textContent = e.detail; });
+</script>
+```
+
+## Bottom sheet (bottom-sheet)
+Sheet that rises from the bottom, with a drag handle to dismiss. Radix Dialog underneath.
+```html
+<bef-button id="bs-open" variant="outline">Open sheet</bef-button>
+<bef-bottom-sheet id="bs" emit="open-change" title="Share" description="Pick how to share this page.">
+  <div style="display:grid;gap:8px;padding:8px 0"><bef-button variant="secondary">Copy link</bef-button><bef-button variant="secondary">Email</bef-button></div>
+</bef-bottom-sheet>
+<script>
+  const bs = document.getElementById('bs');
+  document.getElementById('bs-open').addEventListener('click', () => bs.setAttribute('open', 'true'));
+  bs.addEventListener('bef:open-change', (e) => e.detail ? bs.setAttribute('open', 'true') : bs.removeAttribute('open'));
+</script>
+```
+
+## Box plot chart (box-plot-chart)
+Spread per group: box for the middle half, median line, whiskers and outlier dots. Boxes open from the median; hover for the five numbers.
+```html
+<bef-box-plot-chart class="w-full max-w-xl" :groups='[
+  {"label":"Eng","min":8,"q1":14,"median":18,"q3":24,"max":32,"outliers":[40]},
+  {"label":"Design","min":7,"q1":11,"median":14,"q3":18,"max":22},
+  {"label":"Sales","min":5,"q1":8,"median":11,"q3":16,"max":21,"outliers":[28]}]'></bef-box-plot-chart>
+```
+
+## Brand icons (brand-icons)
+Logos of popular services as single-colour SVGs that follow the text colour, for sign-in buttons and integration lists.
+```html
+<bef-google-icon style="width:32px;height:32px"></bef-google-icon><bef-github-icon style="width:32px;height:32px"></bef-github-icon><bef-apple-icon style="width:32px;height:32px"></bef-apple-icon>
+<bef-facebook-icon style="width:32px;height:32px"></bef-facebook-icon><bef-youtube-icon style="width:32px;height:32px"></bef-youtube-icon>
+```
+
+## Breadcrumb (breadcrumb)
+Trail of parent pages.
+```html
+<bef-breadcrumb :items='[{"label":"Home","href":"#"},{"label":"People","href":"#"},{"label":"Aarav Mehta"}]'></bef-breadcrumb>
+```
+
+## Bullet chart (bullet-chart)
+A KPI against its target in one thin row, with shaded bands for poor, ok and good. The bar slides in on scroll.
+```html
+<bef-bullet-chart class="w-full max-w-md" :rows='[
+  {"label":"Revenue","value":270,"target":300,"ranges":[150,225,300]},
+  {"label":"Profit","value":24,"target":28,"ranges":[15,22,30]}]'></bef-bullet-chart>
+```
+
+## Bump chart (bump-chart)
+Rank over time as smooth lines that swap places. Lines draw in one by one; hover a line or name to follow it.
+```html
+<bef-bump-chart class="w-full max-w-xl" :labels='["Q1","Q2","Q3","Q4"]' :series='[
+  {"name":"Alpha","ranks":[1,2,2,1]},{"name":"Beta","ranks":[2,1,3,3]},{"name":"Gamma","ranks":[3,3,1,2]}]'></bef-bump-chart>
+```
+
+## Butterfly chart (butterfly-chart)
+Two bar sets back to back around shared rows, like a population pyramid. Bars grow outward from the middle.
+```html
+<bef-butterfly-chart class="w-full max-w-md" left-label="Women" right-label="Men" :rows='[
+  {"label":"18-24","left":120,"right":140},{"label":"25-34","left":260,"right":280},{"label":"35-44","left":210,"right":190}]'></bef-butterfly-chart>
+```
+
+## Button group (button-group)
+Buttons joined into one row or column with shared borders and rounded outer corners.
+```html
+<bef-button-group><bef-button variant="outline">Left</bef-button><bef-button variant="outline">Middle</bef-button><bef-button variant="outline">Right</bef-button></bef-button-group>
+```
+
+## Button (button)
+Thirteen variants from plain to glow, shine and 3D press, pill shape, five sizes, loading state, and asChild for links.
+```html
+<bef-button><bef-download-icon></bef-download-icon> Export</bef-button>
+<bef-button variant="secondary">Secondary</bef-button><bef-button variant="outline">Outline</bef-button><bef-button variant="ghost">Ghost</bef-button>
+<bef-button variant="soft" shape="pill">Soft pill</bef-button><bef-button variant="destructive">Delete</bef-button><bef-button variant="glow">Glow</bef-button>
+<bef-button variant="brutal">Brutal</bef-button><bef-button size="lg">Large</bef-button><bef-button loading>Saving</bef-button><bef-button disabled>Disabled</bef-button>
+```
+
+## Calendar (calendar)
+Month grid for one day or a range. Arrow keys, Page Up/Down, Home and End work.
+```html
+<bef-calendar id="cal"></bef-calendar>
+<script>document.getElementById('cal').props = { selected: new Date(), onSelect: (d) => console.log('picked', d) };</script>
+```
+
+## Candlestick chart (candlestick-chart)
+Open, high, low and close per period. Green closed up, red closed down. Candles grow from their midpoint in sequence; hover for the four numbers.
+```html
+<bef-candlestick-chart class="w-full max-w-xl" :data='[
+  {"label":"Mon","open":10,"high":14,"low":9,"close":13},{"label":"Tue","open":13,"high":15,"low":11,"close":12},
+  {"label":"Wed","open":12,"high":16,"low":12,"close":15},{"label":"Thu","open":15,"high":17,"low":13,"close":14}]'></bef-candlestick-chart>
+```
+
+## Card (card)
+Bordered surface with header, content and footer parts.
+```html
+<bef-card style="width:320px"><bef-card-header><bef-card-title>Team plan</bef-card-title><bef-card-description>Billed monthly.</bef-card-description></bef-card-header>
+<bef-card-content>12 seats, unlimited projects.</bef-card-content><bef-card-footer><bef-button size="sm">Upgrade</bef-button></bef-card-footer></bef-card>
+```
+
+## Carousel (carousel)
+Scroll-snap slides with arrows and animated dots.
+```html
+<bef-carousel style="width:420px;max-width:100%">
+  <div style="height:180px;display:grid;place-items:center;background:var(--primary);color:var(--primary-foreground);font-size:24px">Hire faster</div>
+  <div style="height:180px;display:grid;place-items:center;background:var(--foreground);color:var(--background);font-size:24px">Onboard in a day</div>
+  <div style="height:180px;display:grid;place-items:center;background:var(--accent);color:var(--accent-foreground);font-size:24px">Pay on time</div>
+</bef-carousel>
+```
+
+## Changelog (changelog)
+Release notes: version and date on the left, tagged New, Improved, Fixed or Removed changes on the right.
+```html
+<bef-changelog class="w-full max-w-xl" :releases='[
+  {"version":"1.2.0","date":"2026-10-10","title":"Dark mode","changes":[{"type":"new","text":"Dark mode everywhere"},{"type":"fixed","text":"Sidebar flicker"}]},
+  {"version":"1.1.0","date":"2026-09-01","changes":[{"type":"improved","text":"Faster tables"}]}]'></bef-changelog>
+```
+
+## Charts (charts)
+Sparkline, bar chart and donut in plain SVG. No chart library.
+```html
+<div style="display:flex;flex-wrap:wrap;gap:32px;align-items:center">
+  <bef-sparkline style="width:160px;height:48px" :data="[3,5,4,8,6,9,12,10]"></bef-sparkline>
+  <bef-bar-chart style="width:280px" :data='[{"label":"Mon","value":12},{"label":"Tue","value":18},{"label":"Wed","value":9},{"label":"Thu","value":22},{"label":"Fri","value":15}]'></bef-bar-chart>
+  <bef-donut-chart center-label="64%" :data='[{"label":"Done","value":64},{"label":"Open","value":24},{"label":"Blocked","value":12}]'></bef-donut-chart>
+</div>
+```
+
+## Chat (chat)
+Message bubbles with avatars, timestamps, a typing indicator and a composer. Enter sends.
+```html
+<bef-chat id="chat" me="Aarav" style="width:360px;height:380px" placeholder="Write a message"></bef-chat>
+<script>
+  const chat = document.getElementById('chat');
+  const msgs = [{ id: '1', from: 'Diya', text: 'Did the offer go out?', at: new Date() }];
+  const draw = () => chat.props = { messages: msgs, onSend: (text) => { msgs.push({ id: String(msgs.length + 1), from: 'Aarav', text, at: new Date() }); draw(); } };
+  draw();
+</script>
+```
+
+## Checkbox (checkbox)
+Checked, unchecked and indeterminate. Works for select-all rows.
+```html
+<label style="display:flex;gap:8px;align-items:center;font-size:14px"><bef-checkbox id="c1" default-checked></bef-checkbox> Email me updates</label>
+<label style="display:flex;gap:8px;align-items:center;font-size:14px"><bef-checkbox id="c2"></bef-checkbox> Accept terms</label>
+<label style="display:flex;gap:8px;align-items:center;font-size:14px"><bef-checkbox disabled></bef-checkbox> Disabled</label>
+```
+
+## Chip (chip)
+Toggleable filter chips, single or multi select.
+```html
+<bef-chip>Plain chip</bef-chip>
+<bef-chip selected>Selected chip</bef-chip>
+<bef-chip-group emit="value-change" :value='["Design"]' :options='["Design","Engineering","Sales","Support"]'></bef-chip-group>
+```
+
+## Chord chart (chord-chart)
+Flow between every pair of items around a circle. Arcs sweep in, then ribbons fade in; hover an item to keep only its ribbons.
+```html
+<bef-chord-chart :size="320" :labels='["Eng","Design","Sales","Support"]' :matrix='[[0,12,6,3],[12,0,4,2],[6,4,0,9],[3,2,9,0]]'></bef-chord-chart>
+```
+
+## Circle pack chart (circle-pack-chart)
+One bubble per item, area by value, packed into a cluster. Bubbles pop out from the center biggest first; hover for the share.
+```html
+<bef-circle-pack-chart class="w-full max-w-lg" :items='[{"label":"Search","value":420},{"label":"Direct","value":310},{"label":"Social","value":190},{"label":"Email","value":120},{"label":"Referral","value":80}]'></bef-circle-pack-chart>
+```
+
+## Code block (code-block)
+Code with a title, optional line numbers and a copy button. No highlighter dependency.
+```html
+<bef-code-block class="w-full max-w-xl" title="app.js" line-numbers :code='"const total = items.reduce((s, i) => s + i.price, 0);\nconsole.log(`Total: ${total}`);\n"'></bef-code-block>
+```
+
+## Collapsible (collapsible)
+One section that opens with a smooth height animation.
+```html
+<bef-collapsible title="Show details" class="w-full max-w-md">Everything here is hidden until you open it.</bef-collapsible>
+<bef-collapsible title="Open by default" default-open class="w-full max-w-md">Visible from the start.</bef-collapsible>
+```
+
+## Color picker (color-picker)
+Swatches, hex field and the native picker. Always returns a six-digit hex.
+```html
+<bef-color-picker emit="value-change" value="#2563eb"></bef-color-picker>
+```
+
+## Combobox (combobox)
+Searchable select, single or multiple, with descriptions under each option.
+```html
+<bef-combobox emit="value-change" placeholder="Pick a city" search-placeholder="Search cities" style="width:260px" :options='[{"value":"pune","label":"Pune"},{"value":"blr","label":"Bengaluru","description":"Karnataka"},{"value":"mum","label":"Mumbai"},{"value":"del","label":"Delhi"}]'></bef-combobox>
+<bef-multi-combobox emit="value-change" :value="[]" placeholder="Pick cities" style="width:260px" :options='[{"value":"pune","label":"Pune"},{"value":"blr","label":"Bengaluru"},{"value":"mum","label":"Mumbai"}]'></bef-multi-combobox>
+```
+
+## Command palette (command)
+Searchable palette on cmdk. Bind it to Ctrl or Cmd K.
+```html
+<bef-command style="width:360px;border:1px solid var(--border);border-radius:12px">
+  <bef-command-input placeholder="Type a command"></bef-command-input>
+  <bef-command-list>
+    <bef-command-empty>No results.</bef-command-empty>
+    <bef-command-group heading="Navigate">
+      <bef-command-item><bef-home-icon></bef-home-icon> Home</bef-command-item>
+      <bef-command-item><bef-users-icon></bef-users-icon> People</bef-command-item>
+    </bef-command-group>
+    <bef-command-group heading="Actions"><bef-command-item><bef-plus-icon></bef-plus-icon> New employee</bef-command-item></bef-command-group>
+  </bef-command-list>
+</bef-command>
+```
+
+## Comment thread (comment-thread)
+Nested comments with inline reply boxes, three levels deep.
+```html
+<bef-comment-thread class="w-full max-w-lg" :comments='[
+  {"id":"1","author":"Diya Rao","time":"2h ago","body":"Can we ship this on Friday?","replies":[{"id":"2","author":"Aarav Mehta","time":"1h ago","body":"Yes, QA is done."}]},
+  {"id":"3","author":"Isha Nair","time":"20m ago","body":"Looks good to me."}]'></bef-comment-thread>
+```
+
+## Image compare (compare)
+Before and after slider. Drag or use arrow keys.
+```html
+<div style="width:420px;max-width:100%"><bef-compare before="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='240'%3E%3Crect width='420' height='240' fill='%23cbd5e1'/%3E%3Ctext x='20' y='130' font-size='28' fill='%23475569'%3EBefore%3C/text%3E%3C/svg%3E" after="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='240'%3E%3Crect width='420' height='240' fill='%232563eb'/%3E%3Ctext x='250' y='130' font-size='28' fill='white'%3EAfter%3C/text%3E%3C/svg%3E"></bef-compare></div>
+```
+
+## Comparison table (comparison-table)
+Plans across the top, features down the side, a check, dash or text in each cell. For pricing pages.
+```html
+<bef-comparison-table class="w-full max-w-2xl" :plans='[{"id":"free","name":"Free"},{"id":"pro","name":"Pro","highlighted":true,"note":"Most popular"}]' :groups='[
+  {"title":"Core","rows":[{"feature":"Projects","values":{"free":"3","pro":"Unlimited"}},{"feature":"Custom domain","values":{"free":false,"pro":true}}]},
+  {"title":"Support","rows":[{"feature":"Priority support","values":{"free":false,"pro":true}}]}]'></bef-comparison-table>
+```
+
+## Confetti (confetti)
+Burst of confetti from any button, or call fireConfetti(x, y) yourself.
+```html
+<bef-confetti><bef-button>Celebrate</bef-button></bef-confetti>
+```
+
+## Context menu (context-menu)
+Right-click menu with items, shortcuts, checkbox items, labels and nested submenus.
+```html
+<bef-context-menu>
+  <bef-context-menu-trigger><div style="padding:48px 64px;border:1px dashed var(--border);border-radius:12px;font-size:14px">Right-click here</div></bef-context-menu-trigger>
+  <bef-context-menu-content>
+    <bef-context-menu-item>Copy</bef-context-menu-item>
+    <bef-context-menu-item>Rename</bef-context-menu-item>
+    <bef-context-menu-separator></bef-context-menu-separator>
+    <bef-context-menu-item destructive>Delete</bef-context-menu-item>
+  </bef-context-menu-content>
+</bef-context-menu>
+```
+
+## Cookie consent (cookie-consent)
+Bottom-left consent card that remembers Accept or Decline.
+```html
+<div style="position:relative;width:100%;min-height:200px"><bef-cookie-consent storage-key="befui-html-demo-consent" style="position:static"></bef-cookie-consent></div>
+<script>localStorage.removeItem('befui-html-demo-consent');</script>
+```
+
+## Copy button (copy-button)
+Copies text and morphs to a check.
+```html
+<bef-copy-button value="npm install befui" variant="outline" size="sm">Copy</bef-copy-button>
+```
+
+## Countdown (countdown)
+Live countdown with flipping digits.
+```html
+<bef-countdown id="cd"></bef-countdown>
+<script>document.getElementById('cd').props = { to: Date.now() + 3 * 86400000 + 4 * 3600000 };</script>
+```
+
+## Coupon input (coupon-input)
+Promo code field with async validation, an error message and a removable applied chip.
+```html
+<bef-coupon-input id="coupon" style="width:320px" hint="Try SAVE10"></bef-coupon-input>
+<script>
+  const cp = document.getElementById('coupon');
+  cp.props = { onApply: (code) => { const ok = code.toUpperCase() === 'SAVE10'; if (ok) cp.setAttribute('applied', code.toUpperCase()); return ok; }, onRemove: () => cp.removeAttribute('applied') };
+</script>
+```
+
+## Credit card (credit-card)
+Payment card preview that flips in 3D to show the CVV. Formats as the user types, guesses Visa, Mastercard, AmEx or RuPay, and can mask the number.
+```html
+<bef-credit-card number="4111 1111 1111 1111" name="Aarav Mehta" expiry="08/28" cvv="123"></bef-credit-card>
+<bef-credit-card number="5500 0000 0000 0004" name="Diya Rao" expiry="01/29" theme="contrast" mask></bef-credit-card>
+```
+
+## Currency input (currency-input)
+Money field that groups digits as you type (1,25,000) and hands you a plain number.
+```html
+<bef-currency-input emit="value-change" :value="1250" currency="₹" style="width:220px"></bef-currency-input>
+```
+
+## Data table (data-table)
+Sortable columns, a search box and pagination, with optional row selection and bulk actions, column visibility menu, sticky header, toolbar slot, row action menus and clickable rows. You pass rows and column definitions.
+```html
+<bef-data-table id="dt" class="w-full" selectable column-menu :page-size="4"></bef-data-table>
+<script>
+  const rows = [
+    { id: '1', name: 'Aarav Mehta', team: 'Engineering', salary: 1850000 }, { id: '2', name: 'Diya Rao', team: 'Design', salary: 1420000 },
+    { id: '3', name: 'Rohan Das', team: 'Sales', salary: 960000 }, { id: '4', name: 'Isha Nair', team: 'People Ops', salary: 1100000 },
+    { id: '5', name: 'Kabir Shah', team: 'Engineering', salary: 2250000 }, { id: '6', name: 'Meera Iyer', team: 'Finance', salary: 1380000 }];
+  document.getElementById('dt').props = {
+    rows, rowKey: (r) => r.id,
+    columns: [
+      { key: 'name', header: 'Name', sortable: true, value: (r) => r.name },
+      { key: 'team', header: 'Team', sortable: true, value: (r) => r.team },
+      { key: 'salary', header: 'Salary', sortable: true, align: 'right', value: (r) => r.salary, render: (r) => '₹' + (r.salary / 100000).toFixed(1) + 'L' }],
+  };
+</script>
+```
+
+## Date picker (date-picker)
+Date and date range fields that open a calendar. The range picker has optional quick presets (Last 7 days, This month...) and a day count. Closes on pick.
+```html
+<bef-date-picker emit="change" clearable style="width:240px"></bef-date-picker>
+<bef-date-range-picker id="drp" presets style="width:300px"></bef-date-range-picker>
+<script>
+  const drp = document.getElementById('drp');
+  const setRange = (value) => drp.props = { value, onChange: setRange };
+  setRange(undefined);
+</script>
+```
+
+## Date and time picker (datetime-picker)
+One field for a day and a time: calendar on top, time picker below.
+```html
+<bef-date-time-picker id="dtp" style="width:280px"></bef-date-time-picker>
+<script>const dtp = document.getElementById('dtp'); const setDt = (value) => dtp.props = { value, onChange: setDt }; setDt(undefined);</script>
+```
+
+## Day agenda (day-agenda)
+One day as a time grid: events sit at their time, overlapping ones share the width, a red now-line marks the time.
+```html
+<bef-day-agenda style="width:30rem;max-width:100%" :height="420" now="11:20" :events='[
+  {"id":"1","title":"Stand-up","start":"09:00","end":"09:30","location":"Room 2"},
+  {"id":"2","title":"Design review","start":"10:00","end":"11:30","location":"Zoom","color":"text-success"},
+  {"id":"3","title":"1:1 with Isha","start":"10:30","end":"11:00","color":"text-warning"},
+  {"id":"4","title":"Lunch","start":"13:00","end":"14:00","color":"text-info"},
+  {"id":"5","title":"Sprint planning","start":"15:00","end":"17:00","location":"Main hall"}]'></bef-day-agenda>
+```
+
+## Description list (description-list)
+Label and value pairs for a details panel, in one to three columns, optionally with dividers.
+```html
+<bef-description-list class="w-full max-w-xl" bordered :columns="2" :items='[
+  {"label":"Name","value":"Aarav Mehta"},{"label":"Team","value":"Engineering"},{"label":"Joined","value":"15 Mar 2021"},{"label":"Status","value":"<bef-badge variant=\"success\" dot>Active</bef-badge>"},{"label":"Notes","value":"Leads the platform group.","wide":true}]'></bef-description-list>
+```
+
+## Dialog and Sheet (dialog)
+Centered modal and edge-docked sheet on Radix Dialog.
+```html
+<bef-dialog>
+  <bef-dialog-trigger as-child><bef-button variant="outline">Open dialog</bef-button></bef-dialog-trigger>
+  <bef-dialog-content>
+    <bef-dialog-header><bef-dialog-title>Reject leave request</bef-dialog-title><bef-dialog-description>The employee gets an email with your reason.</bef-dialog-description></bef-dialog-header>
+    <bef-input placeholder="Team is short staffed that week"></bef-input>
+    <bef-dialog-footer><bef-dialog-close as-child><bef-button variant="ghost">Cancel</bef-button></bef-dialog-close><bef-button variant="destructive">Reject</bef-button></bef-dialog-footer>
+  </bef-dialog-content>
+</bef-dialog>
+<bef-sheet>
+  <bef-sheet-trigger as-child><bef-button variant="outline">Open sheet</bef-button></bef-sheet-trigger>
+  <bef-sheet-content><bef-sheet-header><bef-sheet-title>Edit profile</bef-sheet-title><bef-sheet-description>Slides in from the edge.</bef-sheet-description></bef-sheet-header><bef-input default-value="Aarav Mehta"></bef-input></bef-sheet-content>
+</bef-sheet>
+```
+
+## Diff viewer (diff-viewer)
+Before and after text as a unified diff: red removed lines, green added lines, line numbers, and unchanged stretches folded.
+```html
+<bef-diff-viewer class="w-full max-w-xl" title="config.json" :before='"{\n  \"retries\": 3,\n  \"timeout\": 30\n}"' :after='"{\n  \"retries\": 5,\n  \"timeout\": 30,\n  \"verbose\": true\n}"'></bef-diff-viewer>
+```
+
+## Dock (dock)
+Icons that grow toward the pointer, like the macOS dock.
+```html
+<bef-dock :items='[
+  {"id":"home","label":"Home","icon":"<bef-home-icon></bef-home-icon>"},{"id":"people","label":"People","icon":"<bef-users-icon></bef-users-icon>"},
+  {"id":"cal","label":"Calendar","icon":"<bef-calendar-icon></bef-calendar-icon>"},{"id":"mail","label":"Inbox","icon":"<bef-mail-icon></bef-mail-icon>"},
+  {"id":"bell","label":"Alerts","icon":"<bef-bell-icon></bef-bell-icon>"},{"id":"set","label":"Settings","icon":"<bef-settings-icon></bef-settings-icon>"}]'></bef-dock>
+```
+
+## Dropdown menu (dropdown-menu)
+Action menu with checkbox items, shortcuts and destructive items.
+```html
+<bef-dropdown-menu>
+  <bef-dropdown-menu-trigger as-child><bef-button variant="outline">Account <bef-chevron-down-icon></bef-chevron-down-icon></bef-button></bef-dropdown-menu-trigger>
+  <bef-dropdown-menu-content>
+    <bef-dropdown-menu-label>My account</bef-dropdown-menu-label>
+    <bef-dropdown-menu-item><bef-user-icon></bef-user-icon> Profile <bef-dropdown-menu-shortcut>⇧P</bef-dropdown-menu-shortcut></bef-dropdown-menu-item>
+    <bef-dropdown-menu-item><bef-settings-icon></bef-settings-icon> Settings</bef-dropdown-menu-item>
+    <bef-dropdown-menu-separator></bef-dropdown-menu-separator>
+    <bef-dropdown-menu-checkbox-item checked>Show sidebar</bef-dropdown-menu-checkbox-item>
+    <bef-dropdown-menu-separator></bef-dropdown-menu-separator>
+    <bef-dropdown-menu-item destructive><bef-log-out-icon></bef-log-out-icon> Sign out</bef-dropdown-menu-item>
+  </bef-dropdown-menu-content>
+</bef-dropdown-menu>
+```
+
+## Dropzone (dropzone)
+Drag and drop file area with size check and removable file list.
+```html
+<bef-dropzone id="dz" style="width:380px" accept="image/*" hint="Drop images here or click to browse"></bef-dropzone>
+<script>const dz = document.getElementById('dz'); const setFiles = (files) => dz.props = { files, onFilesChange: setFiles }; setFiles([]);</script>
+```
+
+## Dumbbell chart (dumbbell-chart)
+Change per item as two dots joined by a line: before and after, plan and actual. Green when good, red when bad.
+```html
+<bef-dumbbell-chart class="w-full max-w-md" from-label="2025" to-label="2026" :rows='[{"label":"Eng","from":62,"to":78},{"label":"Design","from":55,"to":70},{"label":"Sales","from":48,"to":44}]'></bef-dumbbell-chart>
+```
+
+## Empty state (empty-state)
+Dashed placeholder with icon, text and an action.
+```html
+<bef-empty-state class="w-full max-w-md" title="No projects yet" description="Create your first project to get started.">
+  <bef-folder-icon slot="icon"></bef-folder-icon><bef-button slot="action" size="sm">New project</bef-button>
+</bef-empty-state>
+```
+
+## Error state (error-state)
+Full-section error or not found screen with a code or icon, explanation and retry actions.
+```html
+<bef-error-state class="w-full max-w-md" code="404" title="Page not found" description="The page you are after moved or never existed.">
+  <bef-button variant="outline">Go home</bef-button>
+</bef-error-state>
+```
+
+## Event calendar (event-calendar)
+Month view with events on their days, multi-day spans, +n more overflow, locale-aware names and RTL arrows.
+```html
+<bef-event-calendar class="w-full max-w-3xl" default-view="month" :events='[
+  {"id":"1","title":"Sprint planning","start":"~2026-10-14T10:00","tone":"primary"},
+  {"id":"2","title":"Payday","start":"~2026-10-15T09:00","tone":"success"},
+  {"id":"3","title":"Offsite","start":"~2026-10-20T09:00","end":"~2026-10-21T18:00","tone":"warning"},
+  {"id":"4","title":"Audit","start":"~2026-10-27T14:00","tone":"destructive"}]'></bef-event-calendar>
+```
+
+## Floating action button (fab)
+Round primary action, extended with a label, or a speed dial that fans out actions.
+```html
+<div style="position:relative;width:240px;height:220px;border:1px dashed var(--border);border-radius:12px"><bef-fab label="Create" :actions='[
+  {"label":"New task","icon":"<bef-check-square-icon></bef-check-square-icon>"},{"label":"New note","icon":"<bef-sticky-note-icon></bef-sticky-note-icon>"}]'><bef-plus-icon slot="icon"></bef-plus-icon></bef-fab></div>
+```
+
+## File manager (file-manager)
+Folder browser with breadcrumb, list and grid views, selection and double-click or Enter to open.
+```html
+<bef-file-manager id="fm" class="w-full max-w-2xl"></bef-file-manager>
+<script>
+  const fm = document.getElementById('fm');
+  const all = { 0: [{ id: 'a', name: 'Contracts', type: 'folder', modified: '12 Oct' }, { id: 'b', name: 'logo.png', type: 'image', size: 48200, modified: '10 Oct' }, { id: 'c', name: 'handbook.pdf', type: 'file', size: 1480000, modified: '2 Oct' }],
+    1: [{ id: 'd', name: 'nda.pdf', type: 'file', size: 92000, modified: '1 Oct' }] };
+  let path = ['Files'];
+  const draw = () => fm.props = { path, items: all[path.length - 1] ?? [], onNavigate: (depth) => { path = path.slice(0, depth + 1); draw(); }, onOpen: (it) => { if (it.type === 'folder') { path = [...path, it.name]; draw(); } } };
+  draw();
+</script>
+```
+
+## File uploader (file-uploader)
+Multi-file drop area with a progress bar per file, cancel, retry and a concurrency limit. You supply the upload function.
+```html
+<bef-file-uploader id="fu" style="width:420px" accept="image/*,.pdf"></bef-file-uploader>
+<script>
+  document.getElementById('fu').props = { upload: (file, onProgress, signal) => new Promise((resolve) => { let p = 0; const t = setInterval(() => { p += 20; onProgress(p); if (p >= 100) { clearInterval(t); resolve(); } }, 200); }) };
+</script>
+```
+
+## Filter bar (filter-bar)
+Removable filter chips with an Add filter menu: pick a field, then a value.
+```html
+<bef-filter-bar emit="change" :value="{}" :fields='[{"key":"team","label":"Team","options":["Engineering","Design","Sales"]},{"key":"status","label":"Status","options":["Active","On leave","Notice"]}]'></bef-filter-bar>
+```
+
+## Forecast chart (forecast-chart)
+Solid line for what happened, dashed line inside a shaded band for what is expected. The band is the likely range.
+```html
+<bef-forecast-chart class="w-full max-w-xl" :labels='["Jan","Feb","Mar","Apr","May","Jun"]' :actual='[10,12,14,13]' :forecast='[13,15,17,19]' :low='[13,14,15,16]' :high='[13,16,19,22]'></bef-forecast-chart>
+```
+
+## Format helpers (format)
+formatCurrency, formatCompact, formatPercent, formatBytes, formatDuration and a signed Currency component. Indian rupees by default.
+```html
+<bef-currency :value="1234567" currency="INR"></bef-currency>
+<bef-currency :value="-4200.5" signed currency="USD" locale="en-US"></bef-currency>
+<bef-currency :value="1250000" compact></bef-currency>
+```
+
+## Funnel chart (funnel-chart)
+Conversion funnel with a bar per stage and the step-to-step rate.
+```html
+<bef-funnel-chart class="w-full max-w-md" :stages='[{"label":"Visited","value":10000},{"label":"Signed up","value":4200},{"label":"Activated","value":2100},{"label":"Paid","value":640}]'></bef-funnel-chart>
+```
+
+## Gantt chart (gantt)
+Schedule view with a bar per task, progress fill, weekend shading and a today line.
+```html
+<bef-gantt class="w-full max-w-3xl" :day-width="26" :tasks='[
+  {"id":"1","name":"Research","start":"2026-10-01","end":"2026-10-08","progress":100,"owner":"Diya","tone":"success"},
+  {"id":"2","name":"Design","start":"2026-10-06","end":"2026-10-16","progress":60,"owner":"Isha"},
+  {"id":"3","name":"Build","start":"2026-10-14","end":"2026-10-30","progress":20,"owner":"Aarav","tone":"info"}]'></bef-gantt>
+```
+
+## Gauge (gauge)
+Half-circle meter with a needle that swings to the value.
+```html
+<bef-gauge :value="72" label="CPU" tone="primary" :size="180"></bef-gauge>
+<bef-gauge :value="38" label="Memory" tone="success" :size="180"></bef-gauge>
+<bef-gauge :value="91" label="Disk" tone="danger" :size="180"></bef-gauge>
+```
+
+## Half donut chart (half-donut-chart)
+A semicircle split into parts with a total under the arch. Half the height of a donut, so it fits dashboard cards.
+```html
+<bef-half-donut-chart :max="100" :data='[{"label":"Won","value":54},{"label":"Open","value":28},{"label":"Lost","value":10}]' center="<div style=\"font-weight:600\">92 deals</div>"></bef-half-donut-chart>
+```
+
+## Heatmap (heatmap)
+Contribution-style grid for daily activity. Cells pop in column by column.
+```html
+<bef-heatmap id="hm" class="w-full max-w-3xl"></bef-heatmap>
+<script>document.getElementById('hm').props = { values: Array.from({ length: 120 }, (_, i) => (i * 7 + (i % 5) * 3) % 9) };</script>
+```
+
+## Histogram chart (histogram-chart)
+Counts how many values fall in each range from raw data, with a smooth curve over the bars. Bars rise in turn.
+```html
+<bef-histogram-chart class="w-full max-w-xl" :bins="10" :values='[2,3,3,4,4,4,5,5,5,5,6,6,6,7,7,8,8,9,10,12,12,13,15]'></bef-histogram-chart>
+```
+
+## Hover card (hover-card)
+Rich preview that opens when you hover or focus a link, for profiles and references.
+```html
+<bef-hover-card>
+  <bef-hover-card-trigger as-child><a href="#" style="color:var(--primary)">@aarav</a></bef-hover-card-trigger>
+  <bef-hover-card-content><div style="display:flex;gap:12px"><bef-avatar name="Aarav Mehta" size="md"></bef-avatar><div><div style="font-weight:600">Aarav Mehta</div><div style="font-size:13px;color:var(--muted-foreground)">Engineering lead, Pune</div></div></div></bef-hover-card-content>
+</bef-hover-card>
+```
+
+## Image upload (image-upload)
+Thumbnail grid with remove buttons, a cover label and a drop tile. Limits count, type and size.
+```html
+<bef-image-upload id="iu" style="width:420px"></bef-image-upload>
+<script>const iu = document.getElementById('iu'); const setImgs = (files) => iu.props = { files, onFilesChange: setImgs }; setImgs([]);</script>
+```
+
+## Image viewer (image-viewer)
+Lightbox with arrows, click to zoom and keyboard control.
+```html
+<div id="iv-row" style="display:flex;gap:8px"></div>
+<bef-image-viewer id="iv"></bef-image-viewer>
+<script>
+  const svg = (c, t) => 'data:image/svg+xml,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400"><rect width="640" height="400" fill="${c}"/><text x="320" y="215" font-size="48" fill="white" text-anchor="middle" font-family="sans-serif">${t}</text></svg>`);
+  const images = [{ src: svg('#2563eb', 'One'), alt: 'One' }, { src: svg('#059669', 'Two'), alt: 'Two' }, { src: svg('#d97706', 'Three'), alt: 'Three' }];
+  const iv = document.getElementById('iv');
+  const show = (index) => iv.props = { images, index, onIndexChange: show };
+  show(null);
+  images.forEach((im, i) => { const b = document.createElement('button'); b.innerHTML = `<img src="${im.src}" alt="${im.alt}" style="width:96px;border-radius:8px">`; b.onclick = () => show(i); document.getElementById('iv-row').append(b); });
+</script>
+```
+
+## Inline edit (inline-edit)
+Text that becomes a field on click. Enter saves, Escape cancels.
+```html
+<bef-inline-edit id="ie" value="Click to rename me" style="width:260px"></bef-inline-edit>
+<script>const ie = document.getElementById('ie'); ie.props = { onSave: (v) => ie.setAttribute('value', v) };</script>
+```
+
+## Input group (input-group)
+One field with text, icons or buttons attached at the start or end, like https:// or .com.
+```html
+<bef-input-group style="width:320px">
+  <bef-input-addon>https://</bef-input-addon>
+  <bef-input-group-input placeholder="example.com"></bef-input-group-input>
+  <bef-input-addon side="end">.com</bef-input-addon>
+</bef-input-group>
+```
+
+## Input (input)
+Text input and textarea with icon, trailing slot, and invalid state.
+```html
+<div style="display:grid;gap:10px;width:320px">
+  <bef-input placeholder="Plain input"></bef-input>
+  <bef-input placeholder="Search" aria-label="Search"><bef-search-icon slot="left-icon"></bef-search-icon></bef-input>
+  <bef-input placeholder="Disabled" disabled></bef-input>
+  <bef-input placeholder="Invalid" aria-invalid="true"></bef-input>
+  <bef-textarea placeholder="Textarea" rows="3"></bef-textarea>
+</div>
+```
+
+## Invoice (invoice)
+Printable invoice with number, status, from and bill-to, line items, tax and total computed from the lines.
+```html
+<bef-invoice number="INV-0042" status="unpaid" issued="12 Oct 2026" due="26 Oct 2026" :tax-rate="0.18" notes="Thank you for your business."
+  :from='{"name":"Acme Pvt Ltd","lines":["12 MG Road","Pune 411001"]}' :to='{"name":"Globex India","lines":["88 Link Road","Mumbai 400001"]}'
+  :lines='[{"description":"Design sprint","qty":1,"price":120000},{"description":"Development hours","qty":40,"price":3500}]'></bef-invoice>
+```
+
+## Kanban board (kanban)
+Columns of draggable cards. Drag with the mouse or move a focused card with Alt and the arrow keys. Controlled, no drag library.
+```html
+<bef-kanban id="kb" class="w-full"></bef-kanban>
+<script>
+  const cols = [{ id: 'todo', title: 'To do' }, { id: 'doing', title: 'In progress', tone: 'info' }, { id: 'done', title: 'Done', tone: 'success' }];
+  const board = { todo: [{ id: 'a', t: 'Write offer letter' }, { id: 'b', t: 'Book interviews' }], doing: [{ id: 'c', t: 'Payroll run' }], done: [{ id: 'd', t: 'Audit' }] };
+  const kb = document.getElementById('kb');
+  const draw = (value) => kb.props = { columns: cols, value, onChange: draw, renderCard: (i) => i.t };
+  draw(board);
+</script>
+```
+
+## Kbd (kbd)
+Keyboard key hint.
+```html
+<bef-kbd>⌘</bef-kbd> <bef-kbd>K</bef-kbd> <span style="font-size:14px">opens the command palette</span>
+```
+
+## Label and Field (label)
+Label with required marker, plus Field for label, control and hint or error.
+```html
+<div style="display:grid;gap:14px;width:320px">
+  <bef-field label="Email" hint="We never share it." html-for="em"><bef-input id="em" placeholder="you@example.com"></bef-input></bef-field>
+  <bef-field label="Password" error="Must be at least 8 characters" required html-for="pw"><bef-input id="pw" type="password" aria-invalid="true"></bef-input></bef-field>
+  <bef-label>Standalone label</bef-label>
+</div>
+```
+
+## Landing sections (landing-sections)
+Marketing page parts: Hero, LogoStrip, FeatureGrid, StatsStrip, Faq, CtaBanner and SiteFooter. Stack them with a Navbar.
+```html
+<div style="width:100%;max-width:900px">
+  <bef-hero eyebrow="New: payroll in one click" title="Run your people ops without the spreadsheet" description="Leave, attendance and payroll for growing teams.">
+    <bef-button slot="actions" size="lg">Start free</bef-button><bef-button slot="actions" size="lg" variant="outline">Book a demo</bef-button>
+  </bef-hero>
+  <bef-stats-strip :stats='[{"value":"4,200+","label":"Teams"},{"value":"99.98%","label":"Uptime"},{"value":"12 min","label":"Setup"},{"value":"4.8/5","label":"Rating"}]'></bef-stats-strip>
+  <bef-feature-grid title="Everything in one place" :features='[
+    {"icon":"<bef-zap-icon></bef-zap-icon>","title":"Fast","description":"Approve leave and run payroll in a couple of clicks."},
+    {"icon":"<bef-bar-chart-icon></bef-bar-chart-icon>","title":"Clear reports","description":"Headcount, cost and attendance without exports."},
+    {"icon":"<bef-shield-icon></bef-shield-icon>","title":"Secure","description":"Encrypted at rest, role based access."}]'></bef-feature-grid>
+  <bef-logo-strip :logos='["Acme","Globex","Initech","Umbrella"]'></bef-logo-strip>
+  <bef-faq :items='[{"id":"1","title":"Is there a free plan?","content":"Yes, up to 10 people."},{"id":"2","title":"Can I cancel anytime?","content":"Yes, no lock-in."}]'></bef-faq>
+  <bef-cta-banner title="Ready to start?" description="Set up in 12 minutes."><bef-button slot="actions">Start free</bef-button></bef-cta-banner>
+  <bef-site-footer brand="Acme" tagline="People ops, simplified." legal="© 2026 Acme" :columns='[{"title":"Product","links":[{"label":"Pricing","href":"#"},{"label":"Docs","href":"#"}]},{"title":"Company","links":[{"label":"About","href":"#"}]}]'></bef-site-footer>
+</div>
+```
+
+## Leaderboard (leaderboard)
+Ranked people or teams with avatars, score bars, gold, silver and bronze badges and place changes. Sorted for you; bars fill in on scroll.
+```html
+<bef-leaderboard class="w-full max-w-md" :items='[{"name":"Aarav Mehta","value":482,"delta":12,"subtitle":"Sales"},{"name":"Diya Rao","value":431,"delta":-4,"subtitle":"Sales"},{"name":"Rohan Das","value":390,"delta":8},{"name":"Isha Nair","value":344,"delta":0}]'></bef-leaderboard>
+```
+
+## Line chart (line-chart)
+Multi-series line or area chart in plain SVG with grid, axis labels, legend and a hover readout.
+```html
+<bef-line-chart class="w-full max-w-xl" area :labels='["Jan","Feb","Mar","Apr","May","Jun"]' :series='[{"name":"Signups","data":[120,180,150,240,300,360]},{"name":"Churn","data":[20,24,18,30,26,22]}]'></bef-line-chart>
+```
+
+## Live chart (live-chart)
+Streaming line chart that slides left as new values arrive. You give it a function for the next value; pause it any time.
+```html
+<bef-live-chart id="lc" class="w-full max-w-xl" :interval-ms="500" :height="120"></bef-live-chart>
+<script>document.getElementById('lc').props = { next: (p) => Math.max(5, Math.min(95, (p || 50) + (Math.random() - 0.5) * 14)) };</script>
+```
+
+## Loader (loader)
+Six loading animations (ring, dots, bars, pulse, orbit, dual), an indeterminate or determinate bar loader, and a loading overlay.
+```html
+<bef-loader variant="ring"></bef-loader><bef-loader variant="dots"></bef-loader><bef-loader variant="bars"></bef-loader><bef-loader variant="pulse"></bef-loader><bef-loader variant="orbit"></bef-loader><bef-loader variant="dual"></bef-loader>
+<div style="width:260px"><bef-bar-loader></bef-bar-loader></div>
+<bef-loading-overlay loading label="Loading"><div style="width:240px;height:100px;border:1px solid var(--border);border-radius:12px;display:grid;place-items:center">Content underneath</div></bef-loading-overlay>
+```
+
+## Lollipop chart (lollipop-chart)
+A bar chart as a thin stick with a dot on the end, sorted largest first. Lighter than bars when there are many items.
+```html
+<bef-lollipop-chart class="w-full max-w-md" :items='[{"label":"Pune","value":420},{"label":"Mumbai","value":380},{"label":"Delhi","value":310},{"label":"Chennai","value":190}]'></bef-lollipop-chart>
+```
+
+## Marimekko chart (marimekko-chart)
+Stacked 100% bars whose widths also mean something: column width is group size, block height is mix. Columns grow up on scroll.
+```html
+<bef-marimekko-chart class="w-full max-w-xl" :keys='[{"key":"a","label":"Basic"},{"key":"b","label":"Pro"},{"key":"c","label":"Team"}]' :columns='[
+  {"label":"India","values":{"a":40,"b":30,"c":10}},{"label":"US","values":{"a":20,"b":50,"c":40}},{"label":"UK","values":{"a":10,"b":20,"c":15}}]'></bef-marimekko-chart>
+```
+
+## Marquee (marquee)
+Endless logo or tag scroll with edge fade. Pauses on hover.
+```html
+<bef-marquee :speed="30" style="width:420px;overflow:hidden"><span style="padding:0 24px">Acme</span><span style="padding:0 24px">Globex</span><span style="padding:0 24px">Initech</span><span style="padding:0 24px">Umbrella</span></bef-marquee>
+```
+
+## Matrix heatmap (matrix-heatmap)
+Rows by columns shaded by value: traffic by hour and weekday, cohort retention. Cells fade in as a wave; hover lights up the row and column.
+```html
+<bef-matrix-heatmap class="w-full max-w-md" show-values :rows='["Mon","Tue","Wed"]' :cols='["9am","12pm","3pm","6pm"]' :values='[[2,5,8,3],[4,9,6,2],[1,3,7,5]]'></bef-matrix-heatmap>
+```
+
+## Mention input (mention-input)
+Textarea that suggests people when you type @. Arrow keys and Enter pick.
+```html
+<bef-mention-input emit="change" value="" style="width:360px" :people='[{"id":"1","name":"Aarav Mehta","role":"Engineering"},{"id":"2","name":"Diya Rao","role":"Design"},{"id":"3","name":"Rohan Das","role":"Sales"}]'></bef-mention-input>
+```
+
+## Menubar (menubar)
+Desktop-app style bar of menus (File, Edit, View) with shortcuts and checkable items.
+```html
+<div style="min-height:240px;width:100%;display:flex;justify-content:center">
+<bef-menubar>
+  <bef-menubar-menu><bef-menubar-trigger>File</bef-menubar-trigger><bef-menubar-content>
+    <bef-menubar-item>New file <bef-menubar-shortcut>⌘N</bef-menubar-shortcut></bef-menubar-item>
+    <bef-menubar-item>Open <bef-menubar-shortcut>⌘O</bef-menubar-shortcut></bef-menubar-item>
+    <bef-menubar-separator></bef-menubar-separator>
+    <bef-menubar-checkbox-item checked>Autosave</bef-menubar-checkbox-item>
+    <bef-menubar-separator></bef-menubar-separator>
+    <bef-menubar-item destructive>Delete project</bef-menubar-item></bef-menubar-content></bef-menubar-menu>
+  <bef-menubar-menu><bef-menubar-trigger>Edit</bef-menubar-trigger><bef-menubar-content>
+    <bef-menubar-item>Undo <bef-menubar-shortcut>⌘Z</bef-menubar-shortcut></bef-menubar-item>
+    <bef-menubar-item>Redo <bef-menubar-shortcut>⇧⌘Z</bef-menubar-shortcut></bef-menubar-item></bef-menubar-content></bef-menubar-menu>
+</bef-menubar></div>
+```
+
+## Navbar (navbar)
+Top bar with brand, links and actions that folds into a menu on small screens.
+```html
+<bef-navbar class="w-full" brand="Acme" :links='[{"label":"Product","href":"#","active":true},{"label":"Pricing","href":"#"},{"label":"Docs","href":"#"}]'><bef-button slot="actions" size="sm">Sign in</bef-button></bef-navbar>
+```
+
+## Navigation menu (navigation-menu)
+Desktop top-bar menu whose items open mega-menu panels, with keyboard and focus handled.
+```html
+<div style="min-height:300px;width:100%;display:flex;justify-content:center">
+<bef-navigation-menu><bef-navigation-menu-list>
+  <bef-navigation-menu-item><bef-navigation-menu-trigger>Products</bef-navigation-menu-trigger><bef-navigation-menu-content>
+    <ul style="display:grid;gap:4px;width:320px;margin:0;padding:0;list-style:none">
+      <li><bef-navigation-menu-link href="#analytics"><span style="display:block;font-weight:500">Analytics</span><span style="display:block;font-size:13px;color:var(--muted-foreground)">Traffic, funnels and reports.</span></bef-navigation-menu-link></li>
+      <li><bef-navigation-menu-link href="#automations"><span style="display:block;font-weight:500">Automations</span><span style="display:block;font-size:13px;color:var(--muted-foreground)">Run steps when something changes.</span></bef-navigation-menu-link></li>
+    </ul></bef-navigation-menu-content></bef-navigation-menu-item>
+  <bef-navigation-menu-item><bef-navigation-menu-trigger>Resources</bef-navigation-menu-trigger><bef-navigation-menu-content>
+    <ul style="display:grid;gap:4px;width:240px;margin:0;padding:0;list-style:none"><li><bef-navigation-menu-link href="#docs">Documentation</bef-navigation-menu-link></li><li><bef-navigation-menu-link href="#guides">Guides</bef-navigation-menu-link></li></ul>
+  </bef-navigation-menu-content></bef-navigation-menu-item>
+</bef-navigation-menu-list></bef-navigation-menu></div>
+```
+
+## Notification center (notification-center)
+Bell with an unread count and a popover list. Click marks read, Mark all read clears it.
+```html
+<bef-notification-center emit="change" class="w-full max-w-md" :notices='[
+  {"id":"1","title":"Leave approved","body":"Your leave for 20 Oct is approved.","time":"2m ago"},
+  {"id":"2","title":"Payslip ready","time":"1h ago"},
+  {"id":"3","title":"New comment","body":"Diya replied to you.","time":"Yesterday","read":true}]'></bef-notification-center>
+```
+
+## Notification preferences (notification-preferences)
+Grid of events by channel (email, push, SMS, in-app) with a switch per cell and a switch per channel.
+```html
+<bef-notification-preferences emit="change" class="w-full max-w-xl" :value='{"mentions":["email","push"],"billing":["email"]}'
+  :events='[{"id":"mentions","label":"Mentions","description":"When someone mentions you"},{"id":"billing","label":"Billing","description":"Invoices and receipts"}]'
+  :channels='[{"id":"email","label":"Email"},{"id":"push","label":"Push"},{"id":"sms","label":"SMS"}]'></bef-notification-preferences>
+```
+
+## Number stepper (number-stepper)
+Number field with plus and minus buttons and arrow keys.
+```html
+<bef-number-stepper emit="value-change" :value="2" :min="0" :max="10"></bef-number-stepper>
+```
+
+## Number ticker (number-ticker)
+Counts up to a value with easing once it scrolls into view.
+```html
+<span style="font-size:32px;font-weight:700"><bef-number-ticker :value="12480" prefix="₹" :duration="1500"></bef-number-ticker></span>
+<span style="font-size:32px;font-weight:700"><bef-number-ticker :value="98.6" :decimals="1" suffix="%"></bef-number-ticker></span>
+```
+
+## Onboarding carousel (onboarding-carousel)
+Mobile first-run intro with swipeable slides, dots, Skip and a final Get started button.
+```html
+<bef-onboarding-carousel style="width:360px" finish-label="Get started" :slides='[
+  {"title":"Welcome","description":"Run people ops from one place.","visual":"<bef-rocket-icon></bef-rocket-icon>"},
+  {"title":"Approve fast","description":"Leave and expenses in two clicks.","visual":"<bef-check-circle-icon></bef-check-circle-icon>"},
+  {"title":"Stay in sync","description":"Alerts where you already work.","visual":"<bef-bell-icon></bef-bell-icon>"}]'></bef-onboarding-carousel>
+```
+
+## Onboarding checklist (onboarding-checklist)
+Getting-started card with a progress bar, tick-off items, short help text and actions. Collapsible.
+```html
+<bef-onboarding-checklist id="ocl" style="width:380px"></bef-onboarding-checklist>
+<script>
+  const ocl = document.getElementById('ocl');
+  let items = [{ id: '1', title: 'Create your account', done: true }, { id: '2', title: 'Invite your team', description: 'Add at least 2 people', done: false }, { id: '3', title: 'Run a test payroll', done: false }];
+  const draw = () => ocl.props = { items, onToggle: (id, done) => { items = items.map((i) => i.id === id ? { ...i, done } : i); draw(); } };
+  draw();
+</script>
+```
+
+## Order summary (order-summary)
+Cart lines with subtotal, discount, shipping, tax and total computed for you. Slots for a coupon field and a checkout button.
+```html
+<bef-order-summary style="width:380px" :tax-rate="0.18" :shipping="99" :discount="200" :lines='[
+  {"id":"1","name":"Standing desk","detail":"Oak, 140cm","qty":1,"price":24999},{"id":"2","name":"Monitor arm","qty":2,"price":3499}]'><bef-button slot="action" style="width:100%">Checkout</bef-button></bef-order-summary>
+```
+
+## Order tracker (order-tracker)
+Delivery progress as steps joined by a line that fills up to the current one. Horizontal on wide screens, vertical on phones.
+```html
+<bef-order-tracker class="w-full max-w-2xl" :current="2" :steps='[
+  {"label":"Ordered","time":"12 Oct"},{"label":"Packed","time":"12 Oct"},{"label":"Shipped","description":"With the courier","time":"13 Oct"},{"label":"Delivered"}]'></bef-order-tracker>
+```
+
+## Org chart (org-chart)
+Reporting tree with connector lines and collapsible teams.
+```html
+<bef-org-chart class="w-full" :open-levels="2" :root='{"id":"1","name":"Aarav Mehta","title":"CEO","children":[
+  {"id":"2","name":"Diya Rao","title":"CTO","children":[{"id":"4","name":"Rohan Das","title":"Engineer"},{"id":"5","name":"Isha Nair","title":"Engineer"}]},
+  {"id":"3","name":"Kabir Shah","title":"CFO"}]}'></bef-org-chart>
+```
+
+## OTP input (otp-input)
+Code boxes with paste, backspace, arrow keys, autofill and a shake on error.
+```html
+<bef-otp-input emit="change" value="" :length="6"></bef-otp-input>
+```
+
+## Pagination (pagination)
+Page buttons with ellipsis for long ranges.
+```html
+<bef-pagination emit="page-change" :page="3" :page-count="12"></bef-pagination>
+```
+
+## Pareto chart (pareto-chart)
+Causes sorted by size as bars plus a running-total line with an 80% mark. Shows which few causes matter most.
+```html
+<bef-pareto-chart class="w-full max-w-xl" :items='[{"label":"Late delivery","value":48},{"label":"Damaged","value":27},{"label":"Wrong item","value":14},{"label":"Billing","value":8},{"label":"Other","value":3}]'></bef-pareto-chart>
+```
+
+## Password input (password-input)
+Show and hide toggle with an optional strength meter.
+```html
+<bef-password-input meter placeholder="Choose a password" style="width:320px"></bef-password-input>
+```
+
+## Permission matrix (permission-matrix)
+Roles by permissions grid of checkboxes with per-column toggle and locked roles.
+```html
+<bef-permission-matrix emit="change" class="w-full max-w-2xl" :locked='["admin"]' :value='{"admin":["read","write","delete"],"editor":["read","write"],"viewer":["read"]}'
+  :roles='[{"id":"admin","label":"Admin","hint":"Full access"},{"id":"editor","label":"Editor"},{"id":"viewer","label":"Viewer"}]'
+  :permissions='[{"id":"read","label":"Read"},{"id":"write","label":"Write"},{"id":"delete","label":"Delete"}]'></bef-permission-matrix>
+```
+
+## Phone input (phone-input)
+Phone field with a country picker. Groups digits as you type and hands back the E.164 number and whether it is complete.
+```html
+<bef-phone-input emit="value-change" style="width:300px" default-country="IN"></bef-phone-input>
+```
+
+## Pie chart (pie-chart)
+Slices of one whole that sweep around on scroll. Hover a slice or legend row and it pulls out.
+```html
+<bef-pie-chart :size="220" :data='[{"label":"Rent","value":42},{"label":"Payroll","value":31},{"label":"Software","value":15},{"label":"Other","value":12}]'></bef-pie-chart>
+```
+
+## Pivot table (pivot-table)
+Cross-tab of your rows: one field down the side, another across the top, sum, count, average, min or max in each cell, with totals and heat shading.
+```html
+<bef-pivot-table class="w-full max-w-2xl" rows="team" columns="quarter" value="amount" agg="sum" row-label="Team" :data='[
+  {"team":"Eng","quarter":"Q1","amount":120},{"team":"Eng","quarter":"Q2","amount":150},{"team":"Sales","quarter":"Q1","amount":90},
+  {"team":"Sales","quarter":"Q2","amount":210},{"team":"Design","quarter":"Q1","amount":60},{"team":"Design","quarter":"Q2","amount":75}]'></bef-pivot-table>
+```
+
+## Popover (popover)
+Floating panel anchored to a trigger.
+```html
+<bef-popover>
+  <bef-popover-trigger as-child><bef-button variant="outline">Open popover</bef-button></bef-popover-trigger>
+  <bef-popover-content><div style="display:grid;gap:8px;font-size:14px"><strong>Dimensions</strong><span>Set the size of the layer.</span><bef-input placeholder="Width" default-value="100%"></bef-input></div></bef-popover-content>
+</bef-popover>
+```
+
+## Pricing card (pricing-card)
+Plan card whose price counts to the new value. The highlighted plan gets a travelling border beam.
+```html
+<bef-pricing-card name="Starter" :price="199" description="For small teams" :features='["Up to 10 people","Leave and attendance","Email support"]'></bef-pricing-card>
+<bef-pricing-card name="Growth" :price="499" highlighted description="For growing companies" :features='["Unlimited people","Payroll","Priority support"]' cta="Start trial"></bef-pricing-card>
+```
+
+## Product card (product-card)
+Product tile with image, rating, price with strike-through, discount tag, wishlist heart and Add button. Also exports Price.
+```html
+<bef-product-card style="width:260px" name="Standing desk" category="Furniture" :price="24999" :compare-at="29999" :rating="4.5" :reviews="128"
+  image="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='240'%3E%3Crect width='320' height='240' fill='%23e2e8f0'/%3E%3C/svg%3E"></bef-product-card>
+<bef-price :amount="999" :compare-at="1499"></bef-price>
+```
+
+## Profile card (profile-card)
+Person card with banner, avatar, role, stats and an actions slot.
+```html
+<bef-profile-card style="width:320px" name="Aarav Mehta" role="Engineering lead" location="Pune" status="online" :stats='[{"label":"Projects","value":"12"},{"label":"Reviews","value":"48"}]'>Leads the platform group.</bef-profile-card>
+```
+
+## Progress ring (progress-ring)
+Circular progress with an eased stroke animation.
+```html
+<bef-progress-ring :value="72" aria-label="Completion"><span style="font-weight:600">72%</span></bef-progress-ring>
+<bef-progress-ring :value="35" :size="64" :stroke="6" aria-label="Small"></bef-progress-ring>
+```
+
+## Progress (progress)
+Thin progress bar with four tones.
+```html
+<div style="width:320px;display:grid;gap:12px"><bef-progress :value="40" aria-label="Upload"></bef-progress><bef-progress :value="75" tone="success" aria-label="Done"></bef-progress><bef-progress :value="90" tone="danger" aria-label="Disk"></bef-progress></div>
+```
+
+## Pull to refresh (pull-to-refresh)
+Scroll area you pull down from the top to refresh, with a spinner until your promise settles.
+```html
+<bef-pull-to-refresh id="ptr" style="width:280px;height:220px;border:1px solid var(--border);border-radius:12px;overflow:auto"><div style="padding:16px;font-size:14px">Pull down (touch) to refresh.<br>On desktop, drag with touch emulation.</div></bef-pull-to-refresh>
+<script>document.getElementById('ptr').props = { onRefresh: () => new Promise((r) => setTimeout(r, 800)) };</script>
+```
+
+## Punch card chart (punch-card-chart)
+A grid of dots where dot size is the value, like commits by weekday and hour. Dots pop in on a diagonal wave.
+```html
+<bef-punch-card-chart class="w-full max-w-xl" :rows='["Mon","Tue","Wed"]' :cols='["9","12","15","18"]' :values='[[3,8,5,2],[6,9,4,1],[2,5,9,7]]'></bef-punch-card-chart>
+```
+
+## Radar chart (radar-chart)
+Spider chart for several scores on the same axes: a pentagon with five, a hexagon with six. Shapes grow from the center on scroll; hover a legend name to highlight a series.
+```html
+<bef-radar-chart :size="280" :max="100" :axes='["Speed","Quality","Cost","Support","Reach"]' :series='[{"name":"Us","values":[80,90,60,70,85]},{"name":"Them","values":[60,70,85,50,65]}]'></bef-radar-chart>
+```
+
+## Radial bar chart (radial-bar-chart)
+Concentric rings, one per goal, that sweep in on scroll. Legend hover highlights a ring; the middle takes any content.
+```html
+<bef-radial-bar-chart :size="180" :data='[{"label":"Move","value":80,"max":100},{"label":"Exercise","value":55,"max":100},{"label":"Stand","value":90,"max":100}]'></bef-radial-bar-chart>
+```
+
+## Radial line chart (radial-line-chart)
+A line chart bent into a circle for things that repeat: 24 hours, 12 months. A smooth closed shape grows from the middle.
+```html
+<bef-radial-line-chart :size="300" :labels='["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]' :series='[{"name":"Visits","data":[12,18,15,24,30,22,14]}]'></bef-radial-line-chart>
+```
+
+## Radio group (radio-group)
+Native radios as selectable cards with descriptions.
+```html
+<bef-radio-group emit="value-change" name="plan" value="pro" :options='[{"value":"free","label":"Free","description":"For trying things out"},{"value":"pro","label":"Pro","description":"For teams"},{"value":"ent","label":"Enterprise","disabled":true}]'></bef-radio-group>
+```
+
+## Rating breakdown (rating-breakdown)
+Review summary: big average, stars and a bar per star level. Rows can act as filters. Bars fill in on scroll.
+```html
+<bef-rating-breakdown style="width:320px" :counts="[12,30,48,120,260]"></bef-rating-breakdown>
+```
+
+## Rating (rating)
+Star rating with hover preview. Read-only when no handler is given.
+```html
+<bef-rating emit="value-change" :value="3"></bef-rating>
+<bef-rating :value="4"></bef-rating>
+```
+
+## Relative time (relative-time)
+"3 minutes ago", kept live. Hover for the full date. Uses Intl, so it speaks your locale.
+```html
+<bef-relative-time ~date="2026-10-14T08:00:00"></bef-relative-time> ·
+<bef-relative-time id="rt2"></bef-relative-time>
+<script>document.getElementById('rt2').props = { date: new Date(Date.now() - 5 * 60000) };</script>
+```
+
+## Reveal (reveal)
+Scroll-in fade-up wrapper and a blur-in headline. One IntersectionObserver each.
+```html
+<bef-reveal :delay="100" style="padding:20px;border:1px solid var(--border);border-radius:12px">Fades and slides in</bef-reveal>
+<bef-text-reveal text="Words appear one after another" :step="80"></bef-text-reveal>
+```
+
+## Rich text editor (rich-text-editor)
+Small editor with bold, italic, underline, heading, lists, quote and link. Value is HTML. Built on contentEditable, no dependency.
+```html
+<bef-rich-text-editor emit="change" value="<p>Hello <b>world</b></p>" style="width:420px"></bef-rich-text-editor>
+```
+
+## Ridgeline chart (ridgeline-chart)
+One smooth curve per row, overlapping like mountain ridges on a shared scale. Ridges rise in turn; hover one to bring it forward.
+```html
+<bef-ridgeline-chart class="w-full max-w-xl" :labels='["a","b","c","d","e","f"]' :series='[{"name":"Mon","data":[1,3,6,4,2,1]},{"name":"Tue","data":[2,5,8,5,3,1]},{"name":"Wed","data":[1,2,4,7,5,2]}]'></bef-ridgeline-chart>
+```
+
+## Rose chart (rose-chart)
+Polar area chart: equal-angle petals whose length is the value. Petals bloom from the center in turn; hover one to read it.
+```html
+<bef-rose-chart :size="260" :data='[{"label":"N","value":30},{"label":"E","value":55},{"label":"S","value":20},{"label":"W","value":40}]'></bef-rose-chart>
+```
+
+## Sankey chart (sankey-chart)
+Flow diagram where ribbon width is the amount: traffic to page to outcome, budget to team. Ribbons draw in; hover follows a flow.
+```html
+<bef-sankey-chart class="w-full max-w-xl" :height="260" :nodes='[{"id":"a","label":"Visits"},{"id":"b","label":"Signup"},{"id":"c","label":"Bounce"},{"id":"d","label":"Paid"}]' :links='[{"source":"a","target":"b","value":40},{"source":"a","target":"c","value":60},{"source":"b","target":"d","value":15}]'></bef-sankey-chart>
+```
+
+## Saved views (saved-views)
+Menu of saved table setups: pick one, save the current one under a name, delete.
+```html
+<bef-saved-views id="sv"></bef-saved-views>
+<script>
+  const sv = document.getElementById('sv');
+  let views = [{ id: '1', name: 'Active engineers' }], activeId;
+  const draw = () => sv.props = { views, activeId, onSelect: (id) => { activeId = id; draw(); }, onSave: (name) => { views = [...views, { id: String(Date.now()), name }]; draw(); }, onDelete: (id) => { views = views.filter((v) => v.id !== id); draw(); } };
+  draw();
+</script>
+```
+
+## Scatter chart (scatter-chart)
+Scatter and bubble chart with axis labels, groups by color and a nearest-point hover. Points pop in one by one on scroll.
+```html
+<bef-scatter-chart class="w-full max-w-xl" x-label="Hours" y-label="Score" :groups='[{"name":"Class A"},{"name":"Class B"}]' :points='[
+  {"x":1,"y":42,"group":0},{"x":2,"y":55,"group":0},{"x":3,"y":61,"group":0},{"x":4,"y":72,"group":0},{"x":1.5,"y":35,"group":1},{"x":3,"y":48,"group":1},{"x":5,"y":66,"group":1}]'></bef-scatter-chart>
+```
+
+## Schema form (schema-form)
+Build a form from a description: text, email, number, date, select, textarea and checkbox fields, validation, and optional multi-step wizard with a stepper.
+```html
+<bef-schema-form id="sf" style="width:480px" submit-label="Create account"></bef-schema-form>
+<script>
+  document.getElementById('sf').props = {
+    onSubmit: (v) => alert(JSON.stringify(v)),
+    steps: [
+      { title: 'About you', fields: [{ name: 'name', label: 'Full name', required: true, half: true }, { name: 'email', label: 'Email', type: 'email', required: true, half: true }] },
+      { title: 'Team', fields: [{ name: 'size', label: 'Team size', type: 'select', options: [{ value: '1-10', label: '1-10' }, { value: '11-50', label: '11-50' }] }, { name: 'tos', label: 'I agree to the terms', type: 'checkbox' }] }],
+  };
+</script>
+```
+
+## Scroll progress (scroll-progress)
+Thin bar that fills as you scroll the page or a container.
+```html
+<div style="width:100%;position:relative"><bef-scroll-progress></bef-scroll-progress><div style="font-size:13px;color:var(--muted-foreground)">A thin bar fixed to the top of the page that fills as you scroll. Scroll this page to see it.</div></div>
+```
+
+## Search bar (search-bar)
+Search field with live results, highlighted matches, recent searches and full keyboard control.
+```html
+<bef-search-bar style="width:380px" placeholder="Search people" :items='[{"id":"1","label":"Aarav Mehta","hint":"Engineering"},{"id":"2","label":"Diya Rao","hint":"Design"},{"id":"3","label":"Rohan Das","hint":"Sales"}]' :recent='[{"id":"2","label":"Diya Rao","hint":"Design"}]'></bef-search-bar>
+```
+
+## Search input (search-input)
+Search field with a clear button, Escape to clear and a slash shortcut to focus.
+```html
+<bef-search-input emit="value-change" value="" shortcut="/" style="width:320px"></bef-search-input>
+```
+
+## Segmented control (segmented)
+Pick one of a few views or ranges. Smaller than tabs.
+```html
+<bef-segmented emit="value-change" value="week" :options='[{"value":"day","label":"Day"},{"value":"week","label":"Week"},{"value":"month","label":"Month"}]'></bef-segmented>
+```
+
+## Select (select)
+Styled dropdown with groups, built on Radix Select.
+```html
+<bef-select default-value="pro">
+  <bef-select-trigger style="width:220px"><bef-select-value placeholder="Pick a plan"></bef-select-value></bef-select-trigger>
+  <bef-select-content>
+    <bef-select-group><bef-select-label>Plans</bef-select-label>
+      <bef-select-item value="free">Free</bef-select-item><bef-select-item value="pro">Pro</bef-select-item><bef-select-item value="team">Team</bef-select-item></bef-select-group>
+  </bef-select-content>
+</bef-select>
+```
+
+## Separator (separator)
+Horizontal or vertical divider.
+```html
+<div style="width:260px;font-size:14px"><div>Above</div><bef-separator style="margin:12px 0"></bef-separator><div>Below</div></div>
+<div style="display:flex;height:24px;gap:12px;align-items:center;font-size:14px">Left<bef-separator orientation="vertical"></bef-separator>Right</div>
+```
+
+## Settings layout (settings-layout)
+Settings page frame: vertical section list on the left, SettingsSection rows (title and help on the left, controls on the right).
+```html
+<bef-settings-layout id="sl" class="w-full max-w-3xl" value="profile" emit="change" :items='[{"id":"profile","label":"Profile"},{"id":"billing","label":"Billing"},{"id":"team","label":"Team"}]'>
+  <bef-settings-section title="Profile" description="How you appear to others."><bef-input default-value="Aarav Mehta"></bef-input></bef-settings-section>
+</bef-settings-layout>
+```
+
+## Shimmer text (shimmer-text)
+Text with a light sweep passing over it.
+```html
+<bef-shimmer-text style="font-size:24px;font-weight:600">Generating your report...</bef-shimmer-text>
+```
+
+## Shortcuts dialog (shortcuts-dialog)
+Keyboard cheat sheet that opens on ? and shows grouped shortcuts as keycaps.
+```html
+<bef-button id="sd-open" variant="outline">Show shortcuts (or press ?)</bef-button>
+<bef-shortcuts-dialog id="sd" emit="open-change" :groups='[{"title":"General","items":[{"keys":["⌘","K"],"label":"Command palette"},{"keys":["?"],"label":"Show shortcuts"}]},{"title":"Editing","items":[{"keys":["⌘","S"],"label":"Save"}]}]'></bef-shortcuts-dialog>
+<script>document.getElementById('sd-open').addEventListener('click', () => document.getElementById('sd').setAttribute(':open', 'true'));</script>
+```
+
+## Sidebar (sidebar)
+Collapsible nav with groups, nested links and badges. Icon rail on desktop, slide-over on mobile.
+```html
+<div style="width:100%;height:360px;border:1px solid var(--border);border-radius:12px;overflow:hidden;display:flex">
+<bef-sidebar-provider>
+  <bef-sidebar>
+    <bef-sidebar-header><strong style="padding:8px">Acme</strong></bef-sidebar-header>
+    <bef-sidebar-content>
+      <bef-sidebar-group label="Main">
+        <bef-sidebar-item label="Dashboard" active><bef-layout-dashboard-icon slot="icon"></bef-layout-dashboard-icon></bef-sidebar-item>
+        <bef-sidebar-item label="People" :badge="4"><bef-users-icon slot="icon"></bef-users-icon></bef-sidebar-item>
+        <bef-sidebar-item label="Payroll" :items='[{"label":"Runs","href":"#"},{"label":"Payslips","href":"#"}]'><bef-wallet-icon slot="icon"></bef-wallet-icon></bef-sidebar-item>
+      </bef-sidebar-group>
+    </bef-sidebar-content>
+    <bef-sidebar-footer><span style="padding:8px;font-size:13px">v1.0</span></bef-sidebar-footer>
+  </bef-sidebar>
+  <div style="padding:16px;font-size:14px"><bef-sidebar-trigger></bef-sidebar-trigger> Main content</div>
+</bef-sidebar-provider></div>
+```
+
+## Signature pad (signature-pad)
+Draw-your-signature canvas for mouse, touch and pen. Sharp on retina screens, exports a PNG.
+```html
+<bef-signature-pad style="width:360px" :height="160" label="Sign here"></bef-signature-pad>
+```
+
+## Skeleton (skeleton)
+Shimmering placeholder for content that is loading.
+```html
+<div style="width:280px;display:grid;gap:10px"><bef-skeleton style="height:20px;width:60%"></bef-skeleton><bef-skeleton style="height:14px"></bef-skeleton><bef-skeleton style="height:14px;width:80%"></bef-skeleton></div>
+```
+
+## Slider (slider)
+Native range input with a filled track and floating value bubble.
+```html
+<bef-slider emit="value-change" :value="40" :min="0" :max="100" style="width:280px"></bef-slider>
+```
+
+## Slope chart (slope-chart)
+One line per item between two moments. Steep means big change, crossing means swapped places. Green rose, red fell.
+```html
+<bef-slope-chart class="w-full max-w-md" from-label="2025" to-label="2026" :rows='[{"label":"Eng","from":62,"to":78},{"label":"Design","from":55,"to":70},{"label":"Sales","from":58,"to":44}]'></bef-slope-chart>
+```
+
+## Sortable list (sortable-list)
+Reorder rows by dragging, or with arrow keys on the grip. Controlled, no drag library.
+```html
+<bef-sortable-list id="sl2" style="width:300px"></bef-sortable-list>
+<script>
+  const sl2 = document.getElementById('sl2');
+  const draw = (items) => sl2.props = { items, onChange: draw, renderItem: (i) => i.name };
+  draw([{ id: '1', name: 'Design review' }, { id: '2', name: 'Sprint planning' }, { id: '3', name: 'Retro' }]);
+</script>
+```
+
+## Spinner (spinner)
+Tiny CSS spinner that inherits text color.
+```html
+<bef-spinner></bef-spinner>
+```
+
+## Split pane (split-pane)
+Two resizable panels with a draggable divider. Keyboard resizable. Horizontal or vertical.
+```html
+<bef-split-pane style="width:460px;height:200px;border:1px solid var(--border);border-radius:12px;overflow:hidden" :default-size="40">
+  <div style="padding:16px;font-size:14px">Left pane</div><div style="padding:16px;font-size:14px">Right pane. Drag the handle.</div>
+</bef-split-pane>
+```
+
+## Spotlight card (spotlight-card)
+Card with a glow and border highlight that follow the cursor.
+```html
+<bef-spotlight-card style="width:300px;padding:28px">Move your cursor over this card.</bef-spotlight-card>
+```
+
+## Stacked bar chart (stacked-bar-chart)
+Bars split into colored segments that grow in on scroll, with a hover breakdown and legend. Sessions by device, revenue by plan.
+```html
+<bef-stacked-bar-chart class="w-full max-w-xl" :height="200" :keys='[{"key":"a","label":"Basic"},{"key":"b","label":"Pro"},{"key":"c","label":"Team"}]' :data='[
+  {"label":"Jan","values":{"a":20,"b":30,"c":10}},{"label":"Feb","values":{"a":25,"b":35,"c":15}},{"label":"Mar","values":{"a":22,"b":42,"c":20}}]'></bef-stacked-bar-chart>
+```
+
+## Stat card (stat-card)
+KPI tile with value, trend delta and a sparkline slot.
+```html
+<bef-stat-card style="width:260px" label="Revenue" value="₹12.4L" :delta="8.2"><bef-bar-chart-icon slot="icon"></bef-bar-chart-icon></bef-stat-card>
+<bef-stat-card style="width:260px" label="Churn" value="2.1%" :delta="-0.4" delta-label="vs last quarter"></bef-stat-card>
+```
+
+## Status dot (status-dot)
+Small status light with an optional pulse and label.
+```html
+<bef-status-dot tone="success" pulse>Operational</bef-status-dot> <bef-status-dot tone="warning">Degraded</bef-status-dot> <bef-status-dot tone="danger">Down</bef-status-dot>
+```
+
+## Stepper (stepper)
+Horizontal steps for multi-step forms and onboarding.
+```html
+<bef-stepper class="w-full max-w-xl" :current="1" :steps='[{"title":"Account","description":"Create login"},{"title":"Team","description":"Invite people"},{"title":"Done"}]'></bef-stepper>
+```
+
+## Stopwatch (stopwatch)
+Start, pause, lap and reset, down to hundredths of a second.
+```html
+<bef-stopwatch></bef-stopwatch>
+```
+
+## Stream chart (stream-chart)
+Streamgraph: smooth stacked flows around a center line to show shifts in mix over time. Ripples in from the left; hover a flow to focus it.
+```html
+<bef-stream-chart class="w-full max-w-xl" :height="220" :labels='["a","b","c","d","e"]' :series='[{"name":"X","data":[3,5,4,6,3]},{"name":"Y","data":[2,3,5,4,4]},{"name":"Z","data":[1,2,2,3,2]}]'></bef-stream-chart>
+```
+
+## Sunburst chart (sunburst-chart)
+A hierarchy as concentric rings: each ring splits its parent. Rings sweep outward; hover a slice to light up its parents and children.
+```html
+<bef-sunburst-chart :size="300" :data='[{"label":"Eng","children":[{"label":"Web","value":30},{"label":"Mobile","value":20}]},{"label":"Sales","children":[{"label":"India","value":25},{"label":"US","value":15}]}]'></bef-sunburst-chart>
+```
+
+## Swipe actions (swipe-actions)
+List row you swipe left to reveal action buttons. Touch, mouse drag and keyboard.
+```html
+<bef-swipe-actions id="swa" style="width:320px"><div style="padding:18px 16px;border:1px solid var(--border);border-radius:12px;font-size:14px">Swipe me left (touch) or use the keyboard</div></bef-swipe-actions>
+<script>document.getElementById('swa').props = { actions: [{ label: 'Archive', tone: 'primary', onClick: () => {} }, { label: 'Delete', tone: 'danger', onClick: () => {} }] };</script>
+```
+
+## Switch (switch)
+On/off toggle for settings that apply immediately.
+```html
+<label style="display:flex;gap:8px;align-items:center;font-size:14px"><bef-switch default-checked></bef-switch> Notifications</label>
+<label style="display:flex;gap:8px;align-items:center;font-size:14px"><bef-switch></bef-switch> Dark mode</label>
+<label style="display:flex;gap:8px;align-items:center;font-size:14px"><bef-switch disabled></bef-switch> Disabled</label>
+```
+
+## Table of contents (table-of-contents)
+On this page list that highlights the section currently in view.
+```html
+<bef-table-of-contents style="width:220px" :items='[{"id":"intro","label":"Introduction"},{"id":"setup","label":"Setup"},{"id":"install","label":"Install","level":2},{"id":"usage","label":"Usage"}]'></bef-table-of-contents>
+```
+
+## Table (table)
+Dense table parts with hover rows, a selected state, footer and caption.
+```html
+<bef-table style="width:100%;max-width:520px">
+  <bef-table-caption>Team</bef-table-caption>
+  <bef-table-header><bef-table-row><bef-table-head>Name</bef-table-head><bef-table-head>Team</bef-table-head><bef-table-head>Status</bef-table-head></bef-table-row></bef-table-header>
+  <bef-table-body>
+    <bef-table-row><bef-table-cell>Aarav Mehta</bef-table-cell><bef-table-cell>Engineering</bef-table-cell><bef-table-cell><bef-badge variant="success" dot>Active</bef-badge></bef-table-cell></bef-table-row>
+    <bef-table-row><bef-table-cell>Diya Rao</bef-table-cell><bef-table-cell>Design</bef-table-cell><bef-table-cell><bef-badge variant="warning" dot>On leave</bef-badge></bef-table-cell></bef-table-row>
+  </bef-table-body>
+</bef-table>
+```
+
+## Tabs (tabs)
+Underline or pill tabs on Radix Tabs.
+```html
+<bef-tabs default-value="account" style="width:420px">
+  <bef-tabs-list><bef-tabs-trigger value="account">Account</bef-tabs-trigger><bef-tabs-trigger value="password">Password</bef-tabs-trigger><bef-tabs-trigger value="team">Team</bef-tabs-trigger></bef-tabs-list>
+  <bef-tabs-content value="account">Account settings.</bef-tabs-content><bef-tabs-content value="password">Change your password.</bef-tabs-content><bef-tabs-content value="team">Manage your team.</bef-tabs-content>
+</bef-tabs>
+```
+
+## Tag input (tag-input)
+Type and press Enter to add chips. Backspace removes the last.
+```html
+<bef-tag-input emit="value-change" :value='["design","hiring"]' style="width:340px" aria-label="Tags"></bef-tag-input>
+```
+
+## Tag manager (tag-manager)
+Create, rename, recolor and delete labels, with usage counts.
+```html
+<bef-tag-manager emit="change" class="w-full max-w-md" :usage='{"1":12,"2":4}' :tags='[{"id":"1","name":"Urgent","color":"red"},{"id":"2","name":"Design","color":"blue"}]'></bef-tag-manager>
+```
+
+## Terminal (terminal)
+Dark terminal window with prompt lines and output. Optional typing animation.
+```html
+<bef-terminal class="w-full max-w-xl" title="bash" :lines='[{"text":"npm install befui","kind":"input"},"added 1 package in 2s",{"text":"Done","kind":"success"}]'></bef-terminal>
+```
+
+## Testimonial card (testimonial-card)
+Customer quote with avatar, role and optional star rating.
+```html
+<bef-testimonial-card style="width:340px" quote="We replaced three tools with this and onboarding takes a day now." name="Diya Rao" role="COO, Globex" :rating="5"></bef-testimonial-card>
+```
+
+## Theme toggle (theme-toggle)
+Icon button that flips light and dark mode and remembers the choice. Also exports a useTheme hook.
+```html
+<bef-theme-toggle></bef-theme-toggle>
+```
+
+## Tilt card (tilt-card)
+3D card that tilts toward the cursor with a moving sheen.
+```html
+<bef-tilt-card :max="12" style="width:260px;padding:32px;border:1px solid var(--border);border-radius:16px;background:var(--card)">Hover and move over me</bef-tilt-card>
+```
+
+## Time picker (time-picker)
+Hour, minute and AM/PM segments you type into or step with arrow keys. 12 or 24 hour.
+```html
+<bef-time-picker emit="value-change" value="09:30" :minute-step="5"></bef-time-picker>
+```
+
+## Timeline (timeline)
+Vertical activity feed with tone-colored markers.
+```html
+<bef-timeline style="width:360px" :items='[
+  {"title":"Application received","time":"10 Oct","tone":"info"},{"title":"Interview done","description":"Panel feedback positive","time":"12 Oct","tone":"success"},{"title":"Offer pending","time":"14 Oct","tone":"warning"}]'></bef-timeline>
+```
+
+## Timer (timer)
+Countdown with a ring that drains smoothly, presets and an onDone callback.
+```html
+<bef-timer :default-minutes="5" :presets="[1,5,10,25]"></bef-timer>
+```
+
+## Toast (toast)
+Call toast.success() from anywhere. No provider needed.
+```html
+<bef-toaster></bef-toaster>
+<bef-button variant="outline" onclick="befui.toast.success('Saved', 'Your changes are live.')">Success toast</bef-button>
+<bef-button variant="outline" onclick="befui.toast.error('Failed', 'Try again in a minute.')">Error toast</bef-button>
+<bef-button variant="outline" onclick="befui.toast.info('Heads up')">Info toast</bef-button>
+```
+
+## Toggle group (toggle-group)
+A row of toggles where one or several can be pressed, for formatting toolbars.
+```html
+<bef-toggle-group type="single" default-value="left" variant="outline">
+  <bef-toggle-group-item value="left" aria-label="Left"><bef-align-left-icon></bef-align-left-icon></bef-toggle-group-item>
+  <bef-toggle-group-item value="center" aria-label="Center"><bef-align-center-icon></bef-align-center-icon></bef-toggle-group-item>
+  <bef-toggle-group-item value="right" aria-label="Right"><bef-align-right-icon></bef-align-right-icon></bef-toggle-group-item>
+</bef-toggle-group>
+```
+
+## Toggle (toggle)
+Two-state button for favourite, bold or mute. Announces its state to screen readers.
+```html
+<bef-toggle emit="pressed-change" :pressed="false" aria-label="Bold"><bef-bold-icon></bef-bold-icon></bef-toggle>
+<bef-toggle emit="pressed-change" :pressed="true" variant="outline" aria-label="Italic"><bef-italic-icon></bef-italic-icon></bef-toggle>
+```
+
+## Tooltip (tooltip)
+Hint on hover and focus. Optional title, keyboard shortcut, light style and arrow, plus an (i) InfoTip and a TruncatedText that only shows a tooltip when cut off.
+```html
+<bef-tooltip-provider>
+  <bef-tooltip content="Save your work" title="Save" :shortcut='["⌘","S"]'><bef-button variant="outline">Hover me</bef-button></bef-tooltip>
+  <bef-tooltip content="Light card style" variant="light" arrow side="bottom"><bef-button variant="outline">Light</bef-button></bef-tooltip>
+  <bef-info-tip content="Extra help text"></bef-info-tip>
+</bef-tooltip-provider>
+```
+
+## Tour (tour)
+Spotlight a part of the page and step through it with a card, for product walkthroughs.
+```html
+<div style="display:flex;gap:12px;align-items:center"><bef-button id="tour-a">Step one target</bef-button><bef-button id="tour-b" variant="outline">Step two target</bef-button><bef-button id="tour-go" variant="secondary">Start tour</bef-button></div>
+<bef-tour id="tour" emit="open-change" :steps='[{"target":"#tour-a","title":"First","body":"This is the first thing."},{"target":"#tour-b","title":"Second","body":"And this is the second.","side":"bottom"}]'></bef-tour>
+<script>document.getElementById('tour-go').addEventListener('click', () => document.getElementById('tour').setAttribute(':open', 'true'));</script>
+```
+
+## Tree table (tree-table)
+Table whose rows have child rows. Expand and collapse branches by click or arrow keys.
+```html
+<bef-tree-table class="w-full max-w-2xl" default-expanded="all" id="tt"></bef-tree-table>
+<script>
+  document.getElementById('tt').props = {
+    columns: [{ key: 'name', header: 'Name' }, { key: 'size', header: 'Size', align: 'end' }],
+    rows: [{ id: '1', name: 'src', size: '—', children: [{ id: '2', name: 'index.ts', size: '2 KB' }, { id: '3', name: 'app.tsx', size: '8 KB' }] }, { id: '4', name: 'package.json', size: '1 KB' }],
+  };
+</script>
+```
+
+## Tree view (tree-view)
+Nested expandable list with animated open and close.
+```html
+<bef-tree-view style="width:260px" :nodes='[{"id":"1","label":"src","children":[{"id":"2","label":"components"},{"id":"3","label":"lib"}]},{"id":"4","label":"package.json"}]'></bef-tree-view>
+```
+
+## Treemap (treemap)
+Tiles sized by value, packed to stay square. Budget by team, revenue by product. Spring in on scroll; hover lifts one tile and dims the rest.
+```html
+<bef-treemap class="w-full max-w-xl" :height="260" :items='[{"label":"Cloud","value":420},{"label":"People","value":310},{"label":"Marketing","value":190},{"label":"Travel","value":90}]'></bef-treemap>
+```
+
+## Typewriter (typewriter)
+Types, holds and deletes phrases in a loop. Static for reduced motion.
+```html
+<span style="font-size:22px;font-weight:600"><bef-typewriter :phrases='["Hire faster.","Onboard in a day.","Pay on time."]'></bef-typewriter></span>
+```
+
+## Uptime bar (uptime-bar)
+Status-page strip with one tick per day in green, amber or red, the uptime percentage and an incident note on hover.
+```html
+<bef-uptime-bar id="ub" name="API" class="w-full max-w-xl"></bef-uptime-bar>
+<script>document.getElementById('ub').props = { days: Array.from({ length: 60 }, (_, i) => ({ date: '2026-08-' + String((i % 28) + 1).padStart(2, '0'), status: i === 12 ? 'down' : i === 40 ? 'degraded' : 'up' })) };</script>
+```
+
+## User menu (user-menu)
+Avatar button for the topbar that opens a menu with name, email, your links and Sign out.
+```html
+<bef-user-menu name="Aarav Mehta" email="aarav@acme.in" :items='[{"label":"Profile","icon":"<bef-user-icon></bef-user-icon>"},{"label":"Settings","icon":"<bef-settings-icon></bef-settings-icon>"}]'></bef-user-menu>
+```
+
+## Venn chart (venn-chart)
+Two or three overlapping circles with a count in every region: who is in one group, who is in several.
+```html
+<bef-venn-chart :size="300" :sets='[{"id":"a","label":"Design"},{"id":"b","label":"Code"},{"id":"c","label":"Data"}]' :values='{"a":20,"b":25,"c":15,"a,b":8,"b,c":6,"a,c":4,"a,b,c":3}'></bef-venn-chart>
+```
+
+## Version log (version-log)
+Animated version history: the rail draws and dots pop as releases scroll in, entries slide in one by one, releases fold open, with a version jump strip and a kind filter.
+```html
+<bef-version-log class="w-full max-w-xl" :releases='[
+  {"version":"1.2.0","date":"2026-10-10","title":"Dark mode","entries":[{"kind":"added","text":"Dark mode everywhere"},{"kind":"fixed","text":"Sidebar flicker"}]},
+  {"version":"1.1.0","date":"2026-09-01","entries":[{"kind":"changed","text":"Faster tables"},{"kind":"removed","text":"Old export"}]}]'></bef-version-log>
+```
+
+## Virtual list (virtual-list)
+Windowed list that renders only the visible rows. 100,000 items stay smooth.
+```html
+<bef-virtual-list id="vl" style="width:320px;border:1px solid var(--border);border-radius:12px"></bef-virtual-list>
+<script>document.getElementById('vl').props = { items: Array.from({ length: 5000 }, (_, i) => 'Row ' + (i + 1)), rowHeight: 36, height: 280, renderRow: (t) => t };</script>
+```
+
+## Waffle chart (waffle-chart)
+A grid of 100 squares, each one percent of the whole. Squares pop in as a wave; hover a legend row to light up its squares.
+```html
+<bef-waffle-chart :columns="10" :cell="20" :data='[{"label":"Done","value":62},{"label":"Doing","value":23},{"label":"To do","value":15}]'></bef-waffle-chart>
+```
+
+## Waterfall chart (waterfall-chart)
+How a start number becomes an end number: green adds, red subtracts, blue totals. Bars drop in one after another with connector lines.
+```html
+<bef-waterfall-chart class="w-full max-w-xl" :height="240" :steps='[{"label":"Start","value":100,"total":true},{"label":"Sales","value":60},{"label":"Refunds","value":-20},{"label":"Costs","value":-35},{"label":"End","value":105,"total":true}]'></bef-waterfall-chart>
+```
+
+## Week strip (week-strip)
+Seven day pills with previous and next week arrows, a selected day and dots under days that have something. Arrow keys move the day.
+```html
+<bef-week-strip emit="change" ~value="2026-10-14"></bef-week-strip>
+```
+
+## Word cloud (word-cloud)
+Words sized by how often they appear, biggest in the middle. Words grow in; hover to focus one, or make them clickable filters.
+```html
+<bef-word-cloud class="w-full max-w-xl" :height="260" :words='[{"text":"design","value":40},{"text":"people","value":32},{"text":"payroll","value":28},{"text":"leave","value":20},{"text":"hiring","value":18},{"text":"reports","value":12},{"text":"onboarding","value":10}]'></bef-word-cloud>
+```
+
+## World clock (world-clock)
+Cities with live local time, a day or night icon and the hour difference from you.
+```html
+<bef-world-clock class="w-full max-w-xl" :zones='[{"city":"Pune","timeZone":"Asia/Kolkata"},{"city":"London","timeZone":"Europe/London"},{"city":"New York","timeZone":"America/New_York"},{"city":"Tokyo","timeZone":"Asia/Tokyo"}]'></bef-world-clock>
+```
