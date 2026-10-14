@@ -153,7 +153,7 @@ Try it: `npm run demo:html` opens an HTML docs site with all 199 components, one
 - `style` works on the outer tag; extra Tailwind classes you invent are not in the CSS, so use inline style for layout.
 - Works for elements added later (htmx swaps, `innerHTML`) and `hx-*` attributes inside get processed. Radix selects and checkboxes submit with the surrounding `<form>`.
 - The CSS has no page-wide reset: a scoped one applies only inside `<bef-*>` tags and popups, and the tags are `display: contents`, so your own elements are untouched. Dark mode is the same `.dark` class on `<html>`.
-- The bundle is ~230 KB gzipped (React is inside). For a tiny, dependency-free set (`bf-select`, `bf-date-picker`, `bf-dialog`, `bf-toast`) see [web/](web/README.md).
+- The bundle is ~320 KB gzipped (React is inside). For a tiny, dependency-free set (`bf-select`, `bf-date-picker`, `bf-dialog`, `bf-toast`) see [web/](web/README.md).
 
 ## Theming notes
 
