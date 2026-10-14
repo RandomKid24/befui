@@ -26,7 +26,7 @@ function readProps(el: Element, host: Element): Record<string, unknown> {
   const isBef = registry.has(el.localName);
   const props: Record<string, unknown> = {};
   for (const { name, value } of Array.from(el.attributes)) {
-    if (name === 'emit') continue;
+    if (name === 'emit' || name === 'data-bef') continue;
     if (name.startsWith(':')) props[camel(name.slice(1))] = JSON.parse(value); // :value="40", :items='[...]'
     else if (name === 'style') props.style = parseStyle(value);
     else if (name === 'class' || name.startsWith('data-') || name.startsWith('aria-') || name.startsWith('hx-')) props[RENAME[name] ?? name] = value;
@@ -64,6 +64,7 @@ class BefElement extends HTMLElement {
 
   connectedCallback() {
     if (insideBef(this)) return;
+    this.setAttribute('data-bef', '');
     queueMicrotask(() => {
       if (!this.isConnected || this.root) return;
       this.kids = Array.from(this.childNodes).map((n) => toReact(n, this));

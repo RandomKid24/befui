@@ -126,7 +126,7 @@ Time picker, analog clock, world clock, stopwatch, countdown timer and live rela
 
 ### Use from plain HTML or htmx
 
-No React in your app. `npm run build:html` writes `dist/html/befui.js` and `befui.css`; every component is a `<bef-*>` tag (`DataTable` is `<bef-data-table>`, `DialogTrigger` is `<bef-dialog-trigger>`).
+Try it: `npm run demo:html` opens a demo page. No React in your app. `npm run build:html` writes `dist/html/befui.js` and `befui.css`; every component is a `<bef-*>` tag (`DataTable` is `<bef-data-table>`, `DialogTrigger` is `<bef-dialog-trigger>`).
 
 ```html
 <link rel="stylesheet" href="/befui.css">
@@ -148,7 +148,7 @@ No React in your app. `npm run build:html` writes `dist/html/befui.js` and `befu
 - Callbacks: `emit="value-change"` fires a bubbling `bef:value-change` event with the value in `detail`, so htmx can listen with `hx-trigger="bef:value-change"`.
 - Functions and JSX (table `columns`, render props): set them from script, `el.props = { columns }`.
 - Works for elements added later (htmx swaps, `innerHTML`) and `hx-*` attributes inside get processed. Radix selects and checkboxes submit with the surrounding `<form>`.
-- The CSS has no page-wide reset. Dark mode is the same `.dark` class on `<html>`.
+- The CSS has no page-wide reset: a scoped one applies only inside `<bef-*>` tags and popups, and the tags are `display: contents`, so your own elements are untouched. Dark mode is the same `.dark` class on `<html>`.
 - The bundle is ~230 KB gzipped (React is inside). For a tiny, dependency-free set (`bf-select`, `bf-date-picker`, `bf-dialog`, `bf-toast`) see [web/](web/README.md).
 
 ## Theming notes

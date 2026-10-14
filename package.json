@@ -27,8 +27,9 @@
   "scripts": {
     "dev": "vite",
     "build": "npm run registry:build && tsc --noEmit && vite build && npm run build:html",
-    "build:html": "vite build -c vite.html.config.ts && mkdir -p dist/web && rm -rf dist/web/html && cp -R dist/html dist/web/html",
+    "build:html": "vite build -c vite.html.config.ts && cp src/html/demo.html dist/html/demo.html && mkdir -p dist/web && rm -rf dist/web/html && cp -R dist/html dist/web/html",
     "preview": "vite preview",
+    "demo:html": "npm run build:html && vite preview --outDir dist/html --port 4173",
     "typecheck": "tsc --noEmit",
     "stories:gen": "node scripts/gen-stories.mjs",
     "storybook": "npm run stories:gen && storybook dev -p 6006",
