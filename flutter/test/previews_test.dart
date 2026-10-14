@@ -19,19 +19,13 @@ void main() {
       testWidgets('preview ${e.slug} ${b.name}', (tester) async {
         final key = GlobalKey();
         await tester.binding.setSurfaceSize(const Size(390, 1600));
-        await tester.pumpWidget(
-          framed(e.example, brightness: b, boundary: key),
-        );
+        await tester.pumpWidget(framed(e.example, brightness: b, boundary: key));
         await tester.pump(const Duration(milliseconds: 600));
-        final boundary = tester.renderObject<RenderRepaintBoundary>(
-          find.byKey(key),
-        );
+        final boundary = tester.renderObject<RenderRepaintBoundary>(find.byKey(key));
         await tester.runAsync(() async {
           final image = await boundary.toImage(pixelRatio: 2);
           final bytes = await image.toByteData(format: ui.ImageByteFormat.png);
-          File(
-            '${out.path}/${e.slug}-${b.name}.png',
-          ).writeAsBytesSync(bytes!.buffer.asUint8List());
+          File('${out.path}/${e.slug}-${b.name}.png').writeAsBytesSync(bytes!.buffer.asUint8List());
         });
       });
     }

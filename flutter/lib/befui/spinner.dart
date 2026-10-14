@@ -4,12 +4,7 @@ import 'core.dart';
 
 /// A ring that spins. Takes the surrounding text colour like the React `Spinner`; set [color] to override.
 class BefSpinner extends StatelessWidget {
-  const BefSpinner({
-    super.key,
-    this.size = 16,
-    this.strokeWidth = 2,
-    this.color,
-  });
+  const BefSpinner({super.key, this.size = 16, this.strokeWidth = 2, this.color});
   final double size;
   final double strokeWidth;
   final Color? color;
@@ -51,6 +46,5 @@ class _RingPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_RingPainter old) =>
-      old.color != color || old.width != width;
+  bool shouldRepaint(_RingPainter old) => old.color != color || old.width != width;
 }

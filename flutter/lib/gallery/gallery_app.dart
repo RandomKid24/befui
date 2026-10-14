@@ -68,9 +68,7 @@ class _IndexState extends State<_Index> {
     if (slug != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         final e = entries.firstWhere((e) => e.slug == slug);
-        Navigator.of(
-          context,
-        ).push(MaterialPageRoute<void>(builder: (_) => _Detail(e)));
+        Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => _Detail(e)));
       });
     }
   }
@@ -79,10 +77,7 @@ class _IndexState extends State<_Index> {
   Widget build(BuildContext context) {
     final c = context.bef;
     final shown = entries
-        .where(
-          (e) =>
-              '${e.name} ${e.category}'.toLowerCase().contains(q.toLowerCase()),
-        )
+        .where((e) => '${e.name} ${e.category}'.toLowerCase().contains(q.toLowerCase()))
         .toList();
     final cats = <String>{for (final e in shown) e.category};
     return Scaffold(
@@ -101,22 +96,10 @@ class _IndexState extends State<_Index> {
                     borderRadius: BorderRadius.circular(BefRadius.md),
                   ),
                   alignment: Alignment.center,
-                  child: BefIcon(
-                    BefIcons.befMark,
-                    size: 16,
-                    color: c.primaryForeground,
-                    weight: 2.2,
-                  ),
+                  child: BefIcon(BefIcons.befMark, size: 16, color: c.primaryForeground, weight: 2.2),
                 ),
                 const SizedBox(width: 10),
-                Text(
-                  'befui',
-                  style: BefText.style(
-                    context,
-                    size: 18,
-                    weight: FontWeight.w600,
-                  ),
-                ),
+                Text('befui', style: BefText.style(context, size: 18, weight: FontWeight.w600)),
                 const Spacer(),
                 _ModeButton(mode: widget.mode, onMode: widget.onMode),
               ],
@@ -174,11 +157,7 @@ class _IndexState extends State<_Index> {
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(BefRadius.full),
-                            border: Border.all(
-                              color: p == widget.palette
-                                  ? p.light.primary
-                                  : c.border,
-                            ),
+                            border: Border.all(color: p == widget.palette ? p.light.primary : c.border),
                           ),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
@@ -186,20 +165,10 @@ class _IndexState extends State<_Index> {
                               Container(
                                 width: 8,
                                 height: 8,
-                                decoration: BoxDecoration(
-                                  color: p.light.primary,
-                                  shape: BoxShape.circle,
-                                ),
+                                decoration: BoxDecoration(color: p.light.primary, shape: BoxShape.circle),
                               ),
                               const SizedBox(width: 6),
-                              Text(
-                                p.label,
-                                style: BefText.style(
-                                  context,
-                                  size: 12,
-                                  weight: FontWeight.w500,
-                                ),
-                              ),
+                              Text(p.label, style: BefText.style(context, size: 12, weight: FontWeight.w500)),
                             ],
                           ),
                         ),
@@ -225,46 +194,28 @@ class _IndexState extends State<_Index> {
               for (final e in shown.where((e) => e.category == cat))
                 InkWell(
                   borderRadius: BorderRadius.circular(BefRadius.md),
-                  onTap: () => Navigator.of(
-                    context,
-                  ).push(MaterialPageRoute<void>(builder: (_) => _Detail(e))),
+                  onTap: () =>
+                      Navigator.of(context).push(MaterialPageRoute<void>(builder: (_) => _Detail(e))),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 12,
-                      horizontal: 4,
-                    ),
+                    padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
                     child: Row(
                       children: [
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                e.name,
-                                style: BefText.style(
-                                  context,
-                                  weight: FontWeight.w500,
-                                ),
-                              ),
+                              Text(e.name, style: BefText.style(context, weight: FontWeight.w500)),
                               const SizedBox(height: 2),
                               Text(
                                 e.description,
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
-                                style: BefText.style(
-                                  context,
-                                  size: 13,
-                                  color: c.mutedForeground,
-                                ),
+                                style: BefText.style(context, size: 13, color: c.mutedForeground),
                               ),
                             ],
                           ),
                         ),
-                        BefIcon(
-                          BefIcons.chevronRight,
-                          size: 16,
-                          color: c.mutedForeground,
-                        ),
+                        BefIcon(BefIcons.chevronRight, size: 16, color: c.mutedForeground),
                       ],
                     ),
                   ),
@@ -306,10 +257,7 @@ class _Detail extends StatelessWidget {
         backgroundColor: c.background,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
-        title: Text(
-          entry.name,
-          style: BefText.style(context, size: 16, weight: FontWeight.w600),
-        ),
+        title: Text(entry.name, style: BefText.style(context, size: 16, weight: FontWeight.w600)),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(1),
           child: Divider(height: 1, color: c.border),
@@ -318,10 +266,7 @@ class _Detail extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(20),
         children: [
-          Text(
-            entry.description,
-            style: BefText.style(context, color: c.mutedForeground),
-          ),
+          Text(entry.description, style: BefText.style(context, color: c.mutedForeground)),
           const SizedBox(height: 16),
           Container(
             width: double.infinity,

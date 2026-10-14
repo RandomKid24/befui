@@ -106,11 +106,7 @@ class BefColors {
     primary: Color.lerp(a.primary, b.primary, t)!,
     primaryForeground: Color.lerp(a.primaryForeground, b.primaryForeground, t)!,
     secondary: Color.lerp(a.secondary, b.secondary, t)!,
-    secondaryForeground: Color.lerp(
-      a.secondaryForeground,
-      b.secondaryForeground,
-      t,
-    )!,
+    secondaryForeground: Color.lerp(a.secondaryForeground, b.secondaryForeground, t)!,
     muted: Color.lerp(a.muted, b.muted, t)!,
     mutedForeground: Color.lerp(a.mutedForeground, b.mutedForeground, t)!,
     accent: Color.lerp(a.accent, b.accent, t)!,
@@ -128,11 +124,7 @@ class BefColors {
 /// A light and a dark set of colours, like one entry of the Themes page.
 @immutable
 class BefPalette {
-  const BefPalette({
-    required this.label,
-    required this.light,
-    required this.dark,
-  });
+  const BefPalette({required this.label, required this.light, required this.dark});
   final String label;
   final BefColors light;
   final BefColors dark;
@@ -639,18 +631,7 @@ class BefPalette {
     ),
   );
 
-  static const all = <BefPalette>[
-    blue,
-    indigo,
-    violet,
-    rose,
-    red,
-    emerald,
-    teal,
-    amber,
-    orange,
-    slate,
-  ];
+  static const all = <BefPalette>[blue, indigo, violet, rose, red, emerald, teal, amber, orange, slate];
 }
 
 /// Corner radii: --radius is 0.5rem, and the CSS scale is sm = radius - 2, lg = radius + 2, xl = radius + 6.
@@ -666,11 +647,7 @@ class BefRadius {
 /// The theme extension that carries befui colours. Add it to your [ThemeData] with [BefTheme.data] and read it anywhere with `context.bef`.
 @immutable
 class BefTheme extends ThemeExtension<BefTheme> {
-  const BefTheme({
-    required this.colors,
-    this.fontFamily = 'Inter',
-    this.monoFamily = 'JetBrains Mono',
-  });
+  const BefTheme({required this.colors, this.fontFamily = 'Inter', this.monoFamily = 'JetBrains Mono'});
 
   final BefColors colors;
 
@@ -679,11 +656,7 @@ class BefTheme extends ThemeExtension<BefTheme> {
   final String monoFamily;
 
   @override
-  BefTheme copyWith({
-    BefColors? colors,
-    String? fontFamily,
-    String? monoFamily,
-  }) => BefTheme(
+  BefTheme copyWith({BefColors? colors, String? fontFamily, String? monoFamily}) => BefTheme(
     colors: colors ?? this.colors,
     fontFamily: fontFamily ?? this.fontFamily,
     monoFamily: monoFamily ?? this.monoFamily,
@@ -758,6 +731,7 @@ class BefText {
     final t = BefTheme.of(context);
     return TextStyle(
       fontFamily: mono ? t.monoFamily : t.fontFamily,
+      fontFamilyFallback: mono ? const ['Menlo', 'Roboto Mono', 'monospace'] : null,
       fontSize: size,
       fontWeight: weight,
       color: color ?? t.colors.foreground,
@@ -780,21 +754,9 @@ class BefText {
 
 /// The two shadows the CSS uses most: shadow-sm and shadow-md.
 class BefShadow {
-  static const sm = [
-    BoxShadow(color: Color(0x0D000000), blurRadius: 2, offset: Offset(0, 1)),
-  ];
+  static const sm = [BoxShadow(color: Color(0x0D000000), blurRadius: 2, offset: Offset(0, 1))];
   static const md = [
-    BoxShadow(
-      color: Color(0x1A000000),
-      blurRadius: 6,
-      offset: Offset(0, 4),
-      spreadRadius: -1,
-    ),
-    BoxShadow(
-      color: Color(0x1A000000),
-      blurRadius: 4,
-      offset: Offset(0, 2),
-      spreadRadius: -2,
-    ),
+    BoxShadow(color: Color(0x1A000000), blurRadius: 6, offset: Offset(0, 4), spreadRadius: -1),
+    BoxShadow(color: Color(0x1A000000), blurRadius: 4, offset: Offset(0, 2), spreadRadius: -2),
   ];
 }

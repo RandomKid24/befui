@@ -2,15 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'theme.dart';
 
-enum BefBadgeVariant {
-  defaultStyle,
-  outline,
-  primary,
-  success,
-  warning,
-  danger,
-  info,
-}
+enum BefBadgeVariant { defaultStyle, outline, primary, success, warning, danger, info }
 
 /// A small pill for status and counts. [dot] adds the coloured dot in front of the label.
 class BefBadge extends StatelessWidget {
@@ -33,37 +25,13 @@ class BefBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = context.bef;
     final (fg, bg, border) = switch (variant) {
-      BefBadgeVariant.defaultStyle => (
-        c.secondaryForeground,
-        c.secondary,
-        Colors.transparent,
-      ),
+      BefBadgeVariant.defaultStyle => (c.secondaryForeground, c.secondary, Colors.transparent),
       BefBadgeVariant.outline => (c.mutedForeground, null, c.border),
-      BefBadgeVariant.primary => (
-        c.primaryForeground,
-        c.primary,
-        Colors.transparent,
-      ),
-      BefBadgeVariant.success => (
-        c.success,
-        befTint(c.success, 0.1),
-        befTint(c.success, 0.2),
-      ),
-      BefBadgeVariant.warning => (
-        c.warning,
-        befTint(c.warning, 0.1),
-        befTint(c.warning, 0.25),
-      ),
-      BefBadgeVariant.danger => (
-        c.destructive,
-        befTint(c.destructive, 0.1),
-        befTint(c.destructive, 0.2),
-      ),
-      BefBadgeVariant.info => (
-        c.info,
-        befTint(c.info, 0.1),
-        befTint(c.info, 0.2),
-      ),
+      BefBadgeVariant.primary => (c.primaryForeground, c.primary, Colors.transparent),
+      BefBadgeVariant.success => (c.success, befTint(c.success, 0.1), befTint(c.success, 0.2)),
+      BefBadgeVariant.warning => (c.warning, befTint(c.warning, 0.1), befTint(c.warning, 0.25)),
+      BefBadgeVariant.danger => (c.destructive, befTint(c.destructive, 0.1), befTint(c.destructive, 0.2)),
+      BefBadgeVariant.info => (c.info, befTint(c.info, 0.1), befTint(c.info, 0.2)),
     };
     return DecoratedBox(
       decoration: BoxDecoration(
@@ -74,13 +42,7 @@ class BefBadge extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
         child: DefaultTextStyle.merge(
-          style: BefText.style(
-            context,
-            size: 11,
-            weight: FontWeight.w500,
-            color: fg,
-            height: 16 / 11,
-          ),
+          style: BefText.style(context, size: 11, weight: FontWeight.w500, color: fg, height: 16 / 11),
           child: IconTheme.merge(
             data: IconThemeData(size: 12, color: fg),
             child: Row(
@@ -91,16 +53,9 @@ class BefBadge extends StatelessWidget {
                     width: 6,
                     height: 6,
                     margin: const EdgeInsets.only(right: 4),
-                    decoration: BoxDecoration(
-                      color: fg,
-                      shape: BoxShape.circle,
-                    ),
+                    decoration: BoxDecoration(color: fg, shape: BoxShape.circle),
                   ),
-                if (leading != null)
-                  Padding(
-                    padding: const EdgeInsets.only(right: 4),
-                    child: leading,
-                  ),
+                if (leading != null) Padding(padding: const EdgeInsets.only(right: 4), child: leading),
                 if (child != null) child! else Text(label!, softWrap: false),
               ],
             ),

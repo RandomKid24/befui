@@ -17,6 +17,122 @@
 
 ## Widgets
 
+### Alert (`alert`)
+Inline message in info, success, warning and danger.
+- Add: `npx github:RandomKid24/befui add alert --flutter`
+- Import: `import 'befui/alert.dart';` (classes: BefAlert)
+- Also copies: core.dart, icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/alert.dart';
+
+Widget example(BuildContext context) {
+  return const Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      BefAlert(title: 'Payroll locks on the 25th', child: Text('Submit attendance corrections before then.')),
+      SizedBox(height: 12),
+      BefAlert(variant: BefAlertVariant.success, title: 'Leave approved'),
+      SizedBox(height: 12),
+      BefAlert(
+        variant: BefAlertVariant.warning,
+        title: '3 documents expire this month',
+        child: Text('Review them in the compliance tab.'),
+      ),
+      SizedBox(height: 12),
+      BefAlert(
+        variant: BefAlertVariant.danger,
+        title: 'Sync failed',
+        child: Text('The biometric device did not respond. Retrying in 5 minutes.'),
+      ),
+    ],
+  );
+}
+```
+
+### Avatar (`avatar`)
+Image with initials fallback in a stable color. Five sizes, circle or square, presence dot (online, away, busy, offline), a stacked group with hover names, and UserInfo for avatar plus name and subtitle.
+- Add: `npx github:RandomKid24/befui add avatar --flutter`
+- Import: `import 'befui/avatar.dart';` (classes: BefAvatar, BefAvatarGroup, BefUserInfo)
+- Also copies: theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/avatar.dart';
+
+const _team = [
+  'Aarav Mehta',
+  'Diya Rao',
+  'Kabir Shah',
+  'Meera Iyer',
+  'Rohan Das',
+  'Isha Nair',
+  'Vikram Joshi',
+];
+
+Widget example(BuildContext context) {
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      const Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          BefAvatar(name: 'Aarav Mehta', size: BefAvatarSize.xs),
+          SizedBox(width: 12),
+          BefAvatar(name: 'Diya Rao'),
+          SizedBox(width: 12),
+          BefAvatar(name: 'Kabir Shah', size: BefAvatarSize.md),
+          SizedBox(width: 12),
+          BefAvatar(name: 'Meera Iyer', size: BefAvatarSize.lg),
+          SizedBox(width: 12),
+          BefAvatar(name: 'Rohan Das', size: BefAvatarSize.xl),
+        ],
+      ),
+      const SizedBox(height: 24),
+      const Wrap(
+        spacing: 16,
+        runSpacing: 12,
+        crossAxisAlignment: WrapCrossAlignment.center,
+        children: [
+          BefAvatar(name: 'Aarav Mehta', size: BefAvatarSize.md, status: BefPresence.online),
+          BefAvatar(name: 'Diya Rao', size: BefAvatarSize.md, status: BefPresence.away),
+          BefAvatar(name: 'Kabir Shah', size: BefAvatarSize.md, status: BefPresence.busy),
+          BefAvatar(name: 'Meera Iyer', size: BefAvatarSize.md, status: BefPresence.offline),
+          BefAvatar(name: 'Acme Labs', size: BefAvatarSize.md, shape: BefAvatarShape.square),
+          BefAvatar(
+            name: 'Globex',
+            size: BefAvatarSize.md,
+            shape: BefAvatarShape.square,
+            status: BefPresence.online,
+          ),
+        ],
+      ),
+      const SizedBox(height: 24),
+      const BefAvatarGroup(names: _team),
+      const SizedBox(height: 24),
+      const BefAvatarGroup(names: _team, max: 3, size: BefAvatarSize.md, shape: BefAvatarShape.square),
+      const SizedBox(height: 24),
+      const BefUserInfo(
+        name: 'Aarav Mehta',
+        subtitle: 'Senior engineer · Pune',
+        status: BefPresence.online,
+        size: BefAvatarSize.md,
+      ),
+      const SizedBox(height: 12),
+      const BefUserInfo(name: 'Diya Rao', subtitle: 'diya.rao@acme.in'),
+    ],
+  );
+}
+```
+
 ### Badge (`badge`)
 Status pill with semantic colors and an optional dot.
 - Add: `npx github:RandomKid24/befui add badge --flutter`
@@ -47,6 +163,58 @@ Widget example(BuildContext context) {
 }
 ```
 
+### Banner (`banner`)
+Announcement bar that collapses smoothly when dismissed.
+- Add: `npx github:RandomKid24/befui add banner --flutter`
+- Import: `import 'befui/banner.dart';` (classes: BefBanner)
+- Also copies: icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/banner.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) {
+  final c = context.bef;
+  return ClipRRect(
+    borderRadius: BorderRadius.circular(BefRadius.lg),
+    child: DecoratedBox(
+      decoration: BoxDecoration(
+        border: Border.all(color: c.border),
+        borderRadius: BorderRadius.circular(BefRadius.lg),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          BefBanner(
+            action: Text(
+              'Read more',
+              style: BefText.style(
+                context,
+                size: 13,
+                weight: FontWeight.w500,
+                color: c.primaryForeground,
+              ).copyWith(decoration: TextDecoration.underline),
+            ),
+            child: const Text('Payroll 2.0 is live for everyone.'),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(24),
+            child: Text(
+              'Dismiss the bar and the page slides up.',
+              style: BefText.style(context, color: c.mutedForeground),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+```
+
 ### Button (`button`)
 Thirteen variants from plain to glow, shine and 3D press, pill shape, five sizes, loading state, and asChild for links.
 - Add: `npx github:RandomKid24/befui add button --flutter`
@@ -71,17 +239,9 @@ Widget example(BuildContext context) {
         spacing: 12,
         runSpacing: 12,
         children: [
-          BefButton(
-            label: 'Export',
-            leading: const BefIcon(BefIcons.download),
-            onPressed: () {},
-          ),
+          BefButton(label: 'Export', leading: const BefIcon(BefIcons.download), onPressed: () {}),
           for (final v in BefButtonVariant.values.skip(1))
-            BefButton(
-              label: v.name[0].toUpperCase() + v.name.substring(1),
-              variant: v,
-              onPressed: () {},
-            ),
+            BefButton(label: v.name[0].toUpperCase() + v.name.substring(1), variant: v, onPressed: () {}),
         ],
       ),
       const SizedBox(height: 20),
@@ -90,11 +250,7 @@ Widget example(BuildContext context) {
         runSpacing: 12,
         crossAxisAlignment: WrapCrossAlignment.center,
         children: [
-          BefButton(
-            label: 'Extra small',
-            size: BefButtonSize.xs,
-            onPressed: () {},
-          ),
+          BefButton(label: 'Extra small', size: BefButtonSize.xs, onPressed: () {}),
           BefButton(label: 'Small', size: BefButtonSize.sm, onPressed: () {}),
           BefButton(label: 'Medium', onPressed: () {}),
           BefButton(label: 'Large', size: BefButtonSize.lg, onPressed: () {}),
@@ -119,8 +275,848 @@ Widget example(BuildContext context) {
 }
 ```
 
+### Card (`card`)
+Bordered surface with header, content and footer parts.
+- Add: `npx github:RandomKid24/befui add card --flutter`
+- Import: `import 'befui/card.dart';` (classes: BefCard, BefCardHeader, BefCardTitle, BefCardDescription, BefCardContent, BefCardFooter)
+- Also copies: core.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/button.dart';
+import 'befui/card.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      BefCard(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const BefCardHeader(
+              children: [BefCardTitle('Payroll run'), BefCardDescription('October cycle closes in 3 days.')],
+            ),
+            BefCardContent(
+              child: Text(
+                '142 employees, 6 pending adjustments.',
+                style: BefText.style(context, size: 13, color: c.mutedForeground),
+              ),
+            ),
+            BefCardFooter(
+              alignment: MainAxisAlignment.end,
+              children: [
+                BefButton(
+                  label: 'Later',
+                  variant: BefButtonVariant.ghost,
+                  size: BefButtonSize.sm,
+                  onPressed: () {},
+                ),
+                BefButton(label: 'Review', size: BefButtonSize.sm, onPressed: () {}),
+              ],
+            ),
+          ],
+        ),
+      ),
+      const SizedBox(height: 16),
+      BefCard(
+        onTap: () {},
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Hoverable', style: BefText.style(context, weight: FontWeight.w600)),
+            const SizedBox(height: 4),
+            Text(
+              'Lifts 2px and gains a shadow on hover. Good for clickable tiles.',
+              style: BefText.style(context, size: 13, color: c.mutedForeground),
+            ),
+          ],
+        ),
+      ),
+    ],
+  );
+}
+```
+
+### Charts (`charts`)
+Sparkline, bar chart and donut in plain SVG. No chart library.
+- Add: `npx github:RandomKid24/befui add charts --flutter`
+- Import: `import 'befui/charts.dart';` (classes: BefSparkline, BefChartPoint, BefBarChart, BefDonutChart)
+- Also copies: core.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/card.dart';
+import 'befui/charts.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      BefCard(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Leads per month', style: BefText.style(context, weight: FontWeight.w600)),
+            const SizedBox(height: 16),
+            const BefBarChart(
+              data: [
+                BefChartPoint('May', 38),
+                BefChartPoint('Jun', 52),
+                BefChartPoint('Jul', 47),
+                BefChartPoint('Aug', 66),
+                BefChartPoint('Sep', 59),
+                BefChartPoint('Oct', 81),
+              ],
+            ),
+          ],
+        ),
+      ),
+      const SizedBox(height: 16),
+      BefCard(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Lead source', style: BefText.style(context, weight: FontWeight.w600)),
+            const SizedBox(height: 20),
+            BefDonutChart(
+              center: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text('342', style: BefText.style(context, size: 20, weight: FontWeight.w600, height: 1)),
+                  Text('leads', style: BefText.style(context, size: 11, color: c.mutedForeground)),
+                ],
+              ),
+              data: const [
+                BefChartPoint('Website', 140),
+                BefChartPoint('Referral', 90),
+                BefChartPoint('Events', 70),
+                BefChartPoint('Cold outreach', 42),
+              ],
+            ),
+            const SizedBox(height: 20),
+            const SizedBox(width: 160, height: 40, child: BefSparkline(data: [4, 6, 5, 8, 7, 10, 9, 13])),
+          ],
+        ),
+      ),
+    ],
+  );
+}
+```
+
+### Checkbox (`checkbox`)
+Checked, unchecked and indeterminate. Works for select-all rows.
+- Add: `npx github:RandomKid24/befui add checkbox --flutter`
+- Import: `import 'befui/checkbox.dart';` (classes: BefCheckbox)
+- Also copies: core.dart, icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/checkbox.dart';
+
+Widget example(BuildContext context) {
+  return StatefulBuilder(
+    builder: (context, set) {
+      final items = _items;
+      final all = items.values.every((v) => v);
+      final some = items.values.any((v) => v);
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          BefCheckbox(
+            value: all ? true : (some ? null : false),
+            label: 'Notify me by',
+            labelWeight: FontWeight.w600,
+            onChanged: (v) => set(() => items.updateAll((k, _) => v)),
+          ),
+          for (final k in items.keys) ...[
+            const SizedBox(height: 12),
+            Padding(
+              padding: const EdgeInsets.only(left: 24),
+              child: BefCheckbox(
+                value: items[k],
+                label: k[0].toUpperCase() + k.substring(1),
+                onChanged: (v) => set(() => items[k] = v),
+              ),
+            ),
+          ],
+        ],
+      );
+    },
+  );
+}
+
+final _items = {'email': true, 'sms': false, 'push': false};
+```
+
+### Chip (`chip`)
+Toggleable filter chips, single or multi select.
+- Add: `npx github:RandomKid24/befui add chip --flutter`
+- Import: `import 'befui/chip.dart';` (classes: BefChip, BefChipGroup)
+- Also copies: core.dart, icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/chip.dart';
+
+Widget example(BuildContext context) {
+  return StatefulBuilder(
+    builder: (context, set) {
+      return BefChipGroup(
+        value: _v,
+        onChanged: (v) => set(() => _v = v),
+        options: const ['Engineering', 'Design', 'Sales', 'Finance', 'People Ops'],
+      );
+    },
+  );
+}
+
+List<String> _v = ['Engineering'];
+```
+
+### Empty state (`empty-state`)
+Dashed placeholder with icon, text and an action.
+- Add: `npx github:RandomKid24/befui add empty-state --flutter`
+- Import: `import 'befui/empty_state.dart';` (classes: BefEmptyState)
+- Also copies: core.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/button.dart';
+import 'befui/empty_state.dart';
+import 'befui/icons.dart';
+
+Widget example(BuildContext context) {
+  return BefEmptyState(
+    icon: const BefIcon(BefIcons.inbox),
+    title: 'No leave requests',
+    description: 'When someone on your team applies for leave, it shows up here.',
+    action: BefButton(
+      label: 'Invite teammate',
+      size: BefButtonSize.sm,
+      variant: BefButtonVariant.outline,
+      onPressed: () {},
+    ),
+  );
+}
+```
+
+### Error state (`error-state`)
+Full-section error or not found screen with a code or icon, explanation and retry actions.
+- Add: `npx github:RandomKid24/befui add error-state --flutter`
+- Import: `import 'befui/error_state.dart';` (classes: BefErrorState)
+- Also copies: icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/button.dart';
+import 'befui/error_state.dart';
+import 'befui/icons.dart';
+
+Widget example(BuildContext context) {
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      BefErrorState(
+        code: '404',
+        title: 'Page not found',
+        description: 'The page you are looking for was moved or never existed.',
+        actions: [
+          BefButton(label: 'Go back', variant: BefButtonVariant.outline, onPressed: () {}),
+          BefButton(label: 'Home', onPressed: () {}),
+        ],
+      ),
+      BefErrorState(
+        title: 'We could not load payroll',
+        description: 'The server did not respond. Your data is safe. Try again in a moment.',
+        actions: [
+          BefButton(
+            label: 'Try again',
+            variant: BefButtonVariant.outline,
+            leading: const BefIcon(BefIcons.refresh),
+            onPressed: () {},
+          ),
+        ],
+      ),
+    ],
+  );
+}
+```
+
+### Input (`input`)
+Text input and textarea with icon, trailing slot, and invalid state.
+- Add: `npx github:RandomKid24/befui add input --flutter`
+- Import: `import 'befui/input.dart';` (classes: BefInput)
+- Also copies: core.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/icons.dart';
+import 'befui/input.dart';
+import 'befui/label.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) {
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    children: [
+      const BefField(
+        label: 'Full name',
+        required: true,
+        hint: 'As it appears on the offer letter.',
+        child: BefInput(placeholder: 'Aarav Mehta'),
+      ),
+      const SizedBox(height: 16),
+      const BefField(
+        label: 'Work email',
+        child: BefInput(
+          placeholder: 'you@company.com',
+          keyboardType: TextInputType.emailAddress,
+          leading: BefIcon(BefIcons.mail),
+        ),
+      ),
+      const SizedBox(height: 16),
+      const BefField(
+        label: 'Employee ID',
+        error: 'This ID is already taken.',
+        child: BefInput(initialValue: 'EMP-0042', invalid: true),
+      ),
+      const SizedBox(height: 16),
+      BefInput(placeholder: 'Search...', leading: const BefIcon(BefIcons.search), trailing: _Kbd('/')),
+      const SizedBox(height: 16),
+      const BefField(
+        label: 'Notes',
+        child: BefInput.textarea(placeholder: 'Anything the approver should know'),
+      ),
+      const SizedBox(height: 16),
+      const BefInput(placeholder: 'Disabled', enabled: false),
+    ],
+  );
+}
+
+class _Kbd extends StatelessWidget {
+  const _Kbd(this.text);
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.bef;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1),
+      decoration: BoxDecoration(
+        color: c.muted,
+        border: Border.all(color: c.border),
+        borderRadius: BorderRadius.circular(5),
+      ),
+      child: Text(text, style: BefText.style(context, size: 11, color: c.mutedForeground, mono: true)),
+    );
+  }
+}
+```
+
+### Label and Field (`label`)
+Label with required marker, plus Field for label, control and hint or error.
+- Add: `npx github:RandomKid24/befui add label --flutter`
+- Import: `import 'befui/label.dart';` (classes: BefLabel, BefField)
+- Also copies: theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/input.dart';
+import 'befui/label.dart';
+
+Widget example(BuildContext context) {
+  return const Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    children: [
+      BefField(
+        label: 'Email',
+        hint: 'We never share it.',
+        child: BefInput(placeholder: 'you@example.com'),
+      ),
+      SizedBox(height: 16),
+      BefField(
+        label: 'Password',
+        required: true,
+        error: 'Must be at least 8 characters',
+        child: BefInput(obscureText: true, initialValue: 'abc', invalid: true),
+      ),
+      SizedBox(height: 16),
+      BefLabel('Standalone label'),
+    ],
+  );
+}
+```
+
+### Progress (`progress`)
+Thin progress bar with four tones.
+- Add: `npx github:RandomKid24/befui add progress --flutter`
+- Import: `import 'befui/progress.dart';` (classes: BefProgress)
+- Also copies: theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/progress.dart';
+
+Widget example(BuildContext context) {
+  return const Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      BefProgress(value: 64, semanticLabel: 'Upload progress'),
+      SizedBox(height: 16),
+      BefProgress(value: 88, tone: BefProgressTone.success, semanticLabel: 'Tasks completed'),
+      SizedBox(height: 16),
+      BefProgress(value: 42, tone: BefProgressTone.warning, semanticLabel: 'Storage used'),
+      SizedBox(height: 16),
+      BefProgress(value: 15, tone: BefProgressTone.danger, semanticLabel: 'Battery left'),
+    ],
+  );
+}
+```
+
+### Progress ring (`progress-ring`)
+Circular progress with an eased stroke animation.
+- Add: `npx github:RandomKid24/befui add progress-ring --flutter`
+- Import: `import 'befui/progress_ring.dart';` (classes: BefProgressRing)
+- Also copies: theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/progress_ring.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) {
+  return StatefulBuilder(
+    builder: (context, set) {
+      final c = context.bef;
+      return Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          BefProgressRing(value: _v, semanticLabel: 'Upload progress'),
+          const SizedBox(width: 32),
+          BefProgressRing(
+            value: _v / 2,
+            size: 72,
+            stroke: 6,
+            color: c.success,
+            semanticLabel: 'Setup progress',
+          ),
+          const SizedBox(width: 24),
+          GestureDetector(
+            onTap: () => set(() => _v = _v == 72 ? 30 : 72),
+            child: Text('Animate', style: BefText.style(context, color: c.primary)),
+          ),
+        ],
+      );
+    },
+  );
+}
+
+double _v = 72;
+```
+
+### Radio group (`radio-group`)
+Native radios as selectable cards with descriptions.
+- Add: `npx github:RandomKid24/befui add radio-group --flutter`
+- Import: `import 'befui/radio_group.dart';` (classes: BefRadioOption, BefRadioGroup)
+- Also copies: core.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/radio_group.dart';
+
+Widget example(BuildContext context) {
+  return StatefulBuilder(
+    builder: (context, set) {
+      return BefRadioGroup<String>(
+        value: _plan,
+        onChanged: (v) => set(() => _plan = v),
+        options: const [
+          BefRadioOption(value: 'starter', label: 'Starter', description: 'Up to 25 employees'),
+          BefRadioOption(value: 'growth', label: 'Growth', description: 'Payroll and attendance included'),
+          BefRadioOption(
+            value: 'enterprise',
+            label: 'Enterprise',
+            description: 'SSO and audit logs',
+            disabled: true,
+          ),
+        ],
+      );
+    },
+  );
+}
+
+String _plan = 'growth';
+```
+
+### Segmented control (`segmented`)
+Pick one of a few views or ranges. Smaller than tabs.
+- Add: `npx github:RandomKid24/befui add segmented --flutter`
+- Import: `import 'befui/segmented.dart';` (classes: BefSegment, BefSegmented)
+- Also copies: core.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/icons.dart';
+import 'befui/segmented.dart';
+
+Widget example(BuildContext context) {
+  return StatefulBuilder(
+    builder: (context, set) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          BefSegmented<String>(
+            value: _range,
+            onChanged: (v) => set(() => _range = v),
+            segments: const [
+              BefSegment(value: '7d', label: '7 days'),
+              BefSegment(value: '30d', label: '30 days'),
+              BefSegment(value: '90d', label: '90 days'),
+            ],
+          ),
+          const SizedBox(height: 16),
+          BefSegmented<String>(
+            value: _view,
+            onChanged: (v) => set(() => _view = v),
+            segments: const [
+              BefSegment(
+                value: 'list',
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [BefIcon(BefIcons.list), SizedBox(width: 6), Text('List')],
+                ),
+              ),
+              BefSegment(
+                value: 'grid',
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [BefIcon(BefIcons.layoutGrid), SizedBox(width: 6), Text('Grid')],
+                ),
+              ),
+            ],
+          ),
+        ],
+      );
+    },
+  );
+}
+
+String _range = '30d', _view = 'list';
+```
+
+### Separator (`separator`)
+Horizontal or vertical divider.
+- Add: `npx github:RandomKid24/befui add separator --flutter`
+- Import: `import 'befui/separator.dart';` (classes: BefSeparator)
+- Also copies: theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/separator.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) {
+  final c = context.bef;
+  return SizedBox(
+    width: 256,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text('befui', style: BefText.style(context, size: 13, weight: FontWeight.w500)),
+        Text('Slim React components.', style: BefText.style(context, size: 13, color: c.mutedForeground)),
+        const SizedBox(height: 12),
+        const BefSeparator(),
+        const SizedBox(height: 12),
+        SizedBox(
+          height: 20,
+          child: Row(
+            children: [
+              Text('Docs', style: BefText.style(context, size: 13)),
+              const SizedBox(width: 12),
+              const BefSeparator(vertical: true),
+              const SizedBox(width: 12),
+              Text('Blocks', style: BefText.style(context, size: 13)),
+              const SizedBox(width: 12),
+              const BefSeparator(vertical: true),
+              const SizedBox(width: 12),
+              Text('Source', style: BefText.style(context, size: 13)),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+```
+
+### Skeleton (`skeleton`)
+Shimmering placeholder for content that is loading.
+- Add: `npx github:RandomKid24/befui add skeleton --flutter`
+- Import: `import 'befui/skeleton.dart';` (classes: BefSkeleton)
+- Also copies: core.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/skeleton.dart';
+
+Widget example(BuildContext context) {
+  return const Row(
+    children: [
+      BefSkeleton(height: 40, circle: true),
+      SizedBox(width: 12),
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          BefSkeleton(width: 160, height: 12),
+          SizedBox(height: 8),
+          BefSkeleton(width: 96, height: 12),
+        ],
+      ),
+    ],
+  );
+}
+```
+
+### Slider (`slider`)
+Native range input with a filled track and floating value bubble.
+- Add: `npx github:RandomKid24/befui add slider --flutter`
+- Import: `import 'befui/slider.dart';` (classes: BefSlider)
+- Also copies: theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/slider.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) {
+  return StatefulBuilder(
+    builder: (context, set) {
+      final c = context.bef;
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('Monthly budget', style: BefText.style(context, weight: FontWeight.w500)),
+              Text('₹${_v.toInt()}k', style: BefText.style(context, color: c.mutedForeground)),
+            ],
+          ),
+          BefSlider(
+            value: _v,
+            min: 10,
+            max: 100,
+            step: 5,
+            format: (n) => '₹${n.toInt()}k',
+            semanticLabel: 'Budget',
+            onChanged: (v) => set(() => _v = v),
+          ),
+        ],
+      );
+    },
+  );
+}
+
+double _v = 40;
+```
+
 ### Spinner (`spinner`)
 Tiny CSS spinner that inherits text color.
 - Add: `npx github:RandomKid24/befui add spinner --flutter`
 - Import: `import 'befui/spinner.dart';` (classes: BefSpinner)
 - Also copies: core.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/spinner.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) {
+  final c = context.bef;
+  return Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      BefSpinner(size: 12, color: c.primary),
+      const SizedBox(width: 20),
+      BefSpinner(color: c.primary),
+      const SizedBox(width: 20),
+      BefSpinner(size: 24, strokeWidth: 3, color: c.primary),
+    ],
+  );
+}
+```
+
+### Stat card (`stat-card`)
+KPI tile with value, trend delta and a sparkline slot.
+- Add: `npx github:RandomKid24/befui add stat-card --flutter`
+- Import: `import 'befui/stat_card.dart';` (classes: BefStatCard)
+- Also copies: card.dart, icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/charts.dart';
+import 'befui/icons.dart';
+import 'befui/stat_card.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      BefStatCard(
+        label: 'Headcount',
+        value: '142',
+        delta: 4.2,
+        icon: const BefIcon(BefIcons.users),
+        chart: const BefSparkline(data: [3, 4, 4, 5, 6, 6, 8, 9]),
+      ),
+      const SizedBox(height: 16),
+      BefStatCard(
+        label: 'Revenue',
+        value: '₹48.2L',
+        delta: 12.5,
+        icon: const BefIcon(BefIcons.indianRupee),
+        chart: BefSparkline(data: const [2, 3, 2.5, 4, 5, 4.6, 6, 7], color: c.success),
+      ),
+      const SizedBox(height: 16),
+      BefStatCard(
+        label: 'Open leads',
+        value: '64',
+        delta: -3.1,
+        icon: const BefIcon(BefIcons.megaphone),
+        chart: BefSparkline(data: const [8, 7, 7.5, 6, 6.2, 5, 5.4, 4], color: c.destructive),
+      ),
+    ],
+  );
+}
+```
+
+### Status dot (`status-dot`)
+Small status light with an optional pulse and label.
+- Add: `npx github:RandomKid24/befui add status-dot --flutter`
+- Import: `import 'befui/status_dot.dart';` (classes: BefStatusDot)
+- Also copies: core.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/status_dot.dart';
+
+Widget example(BuildContext context) {
+  return const Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      BefStatusDot(pulse: true, label: 'Live'),
+      SizedBox(height: 12),
+      BefStatusDot(tone: BefStatusTone.warning, label: 'Degraded'),
+      SizedBox(height: 12),
+      BefStatusDot(tone: BefStatusTone.danger, label: 'Offline'),
+      SizedBox(height: 12),
+      BefStatusDot(tone: BefStatusTone.neutral, label: 'Paused'),
+    ],
+  );
+}
+```
+
+### Switch (`switch`)
+On/off toggle for settings that apply immediately.
+- Add: `npx github:RandomKid24/befui add switch --flutter`
+- Import: `import 'befui/switch.dart';` (classes: BefSwitch)
+- Also copies: core.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/switch.dart';
+
+Widget example(BuildContext context) {
+  return StatefulBuilder(
+    builder: (context, set) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          BefSwitch(value: _a, label: 'Auto-approve short leaves', onChanged: (v) => set(() => _a = v)),
+          const SizedBox(height: 12),
+          BefSwitch(value: _b, label: 'Weekly digest', onChanged: (v) => set(() => _b = v)),
+          const SizedBox(height: 12),
+          const BefSwitch(value: false, label: 'Disabled'),
+        ],
+      );
+    },
+  );
+}
+
+bool _a = true, _b = false;
+```

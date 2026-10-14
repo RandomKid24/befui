@@ -68,27 +68,18 @@ class BefButton extends StatelessWidget {
       BefButtonSize.iconSm => (32.0, 0.0, 14.0),
     };
     final isIcon = size == BefButtonSize.icon || size == BefButtonSize.iconSm;
-    final radius = BorderRadius.circular(
-      shape == BefButtonShape.pill ? BefRadius.full : BefRadius.md,
-    );
+    final radius = BorderRadius.circular(shape == BefButtonShape.pill ? BefRadius.full : BefRadius.md);
 
     return BefPressable(
       enabled: enabled,
       onPressed: onPressed,
       semanticLabel: semanticLabel ?? label,
       builder: (context, states) {
-        final on =
-            states.contains(WidgetState.hovered) ||
-            states.contains(WidgetState.pressed);
+        final on = states.contains(WidgetState.hovered) || states.contains(WidgetState.pressed);
         final focused = states.contains(WidgetState.focused);
         final look = _look(c, variant, on);
-        final textStyle =
-            BefText.style(
-              context,
-              size: fontSize,
-              weight: FontWeight.w500,
-              color: look.fg,
-            ).copyWith(
+        final textStyle = BefText.style(context, size: fontSize, weight: FontWeight.w500, color: look.fg)
+            .copyWith(
               decoration: variant == BefButtonVariant.link && on
                   ? TextDecoration.underline
                   : TextDecoration.none,
@@ -100,9 +91,7 @@ class BefButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             if (loading) ...[
-              BefSpin(
-                child: BefIcon(BefIcons.loader, size: 16, color: look.fg),
-              ),
+              BefSpin(child: BefIcon(BefIcons.loader, size: 16, color: look.fg)),
               const SizedBox(width: 8),
             ] else if (leading != null) ...[
               IconTheme.merge(
@@ -114,13 +103,7 @@ class BefButton extends StatelessWidget {
             if (child != null)
               Flexible(child: child!)
             else
-              Flexible(
-                child: Text(
-                  label!,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
+              Flexible(child: Text(label!, maxLines: 1, overflow: TextOverflow.ellipsis)),
             if (trailing != null) ...[
               const SizedBox(width: 8),
               IconTheme.merge(
@@ -148,15 +131,11 @@ class BefButton extends StatelessWidget {
                       right: look.border!,
                       bottom: look.borderBottom ?? look.border!,
                     ),
-              boxShadow: [
-                ...look.shadow,
-                if (focused) ...befFocusRing(context),
-              ],
+              boxShadow: [...look.shadow, if (focused) ...befFocusRing(context)],
             ),
             transform: look.lift == null
                 ? null
-                : (Matrix4.identity()
-                    ..translateByDouble(look.lift!.dx, look.lift!.dy, 0, 1)),
+                : (Matrix4.identity()..translateByDouble(look.lift!.dx, look.lift!.dy, 0, 1)),
             child: DefaultTextStyle.merge(
               style: textStyle,
               child: IconTheme.merge(
@@ -172,14 +151,7 @@ class BefButton extends StatelessWidget {
 }
 
 class _Look {
-  const _Look({
-    required this.fg,
-    this.bg,
-    this.border,
-    this.borderBottom,
-    this.shadow = const [],
-    this.lift,
-  });
+  const _Look({required this.fg, this.bg, this.border, this.borderBottom, this.shadow = const [], this.lift});
   final Color fg;
   final Color? bg;
   final BorderSide? border;
@@ -192,16 +164,9 @@ _Look _look(BefColors c, BefButtonVariant v, bool on) {
   const sm = BefShadow.sm;
   switch (v) {
     case BefButtonVariant.primary:
-      return _Look(
-        fg: c.primaryForeground,
-        bg: on ? befOpacity(c.primary, 0.9) : c.primary,
-        shadow: sm,
-      );
+      return _Look(fg: c.primaryForeground, bg: on ? befOpacity(c.primary, 0.9) : c.primary, shadow: sm);
     case BefButtonVariant.secondary:
-      return _Look(
-        fg: c.secondaryForeground,
-        bg: on ? befOpacity(c.secondary, 0.7) : c.secondary,
-      );
+      return _Look(fg: c.secondaryForeground, bg: on ? befOpacity(c.secondary, 0.7) : c.secondary);
     case BefButtonVariant.outline:
       return _Look(
         fg: on ? c.foreground : c.foreground,
@@ -209,37 +174,21 @@ _Look _look(BefColors c, BefButtonVariant v, bool on) {
         border: BorderSide(color: c.border),
       );
     case BefButtonVariant.ghost:
-      return _Look(
-        fg: on ? c.foreground : c.mutedForeground,
-        bg: on ? c.secondary : null,
-      );
+      return _Look(fg: on ? c.foreground : c.mutedForeground, bg: on ? c.secondary : null);
     case BefButtonVariant.destructive:
-      return _Look(
-        fg: Colors.white,
-        bg: on ? befOpacity(c.destructive, 0.9) : c.destructive,
-        shadow: sm,
-      );
+      return _Look(fg: Colors.white, bg: on ? befOpacity(c.destructive, 0.9) : c.destructive, shadow: sm);
     case BefButtonVariant.link:
       return _Look(fg: c.primary);
     case BefButtonVariant.soft:
       return _Look(fg: c.primary, bg: befOpacity(c.primary, on ? 0.2 : 0.1));
     case BefButtonVariant.dark:
-      return _Look(
-        fg: c.background,
-        bg: on ? befOpacity(c.foreground, 0.85) : c.foreground,
-      );
+      return _Look(fg: c.background, bg: on ? befOpacity(c.foreground, 0.85) : c.foreground);
     case BefButtonVariant.glow:
       return _Look(
         fg: c.primaryForeground,
         bg: c.primary,
         shadow: on
-            ? [
-                BoxShadow(
-                  color: befOpacity(c.primary, 0.6),
-                  blurRadius: 24,
-                  spreadRadius: 2,
-                ),
-              ]
+            ? [BoxShadow(color: befOpacity(c.primary, 0.6), blurRadius: 24, spreadRadius: 2)]
             : const [],
         lift: on ? const Offset(0, -1) : null,
       );
@@ -250,12 +199,7 @@ _Look _look(BefColors c, BefButtonVariant v, bool on) {
         fg: Colors.black,
         bg: c.warning,
         border: BorderSide(color: c.foreground, width: 2),
-        shadow: [
-          BoxShadow(
-            color: c.foreground,
-            offset: on ? const Offset(2, 2) : const Offset(3, 3),
-          ),
-        ],
+        shadow: [BoxShadow(color: c.foreground, offset: on ? const Offset(2, 2) : const Offset(3, 3))],
         lift: on ? const Offset(1, 1) : null,
       );
     case BefButtonVariant.raised:
@@ -270,9 +214,7 @@ _Look _look(BefColors c, BefButtonVariant v, bool on) {
         fg: c.primary,
         bg: on ? befOpacity(c.primary, 0.1) : null,
         border: BorderSide(color: on ? c.primary : befOpacity(c.primary, 0.4)),
-        shadow: on
-            ? [BoxShadow(color: befOpacity(c.primary, 0.35), blurRadius: 16)]
-            : const [],
+        shadow: on ? [BoxShadow(color: befOpacity(c.primary, 0.35), blurRadius: 16)] : const [],
       );
   }
 }

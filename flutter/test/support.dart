@@ -10,15 +10,17 @@ import 'package:befui_flutter/befui/theme.dart';
 Future<void> loadInter() async {
   final loader = FontLoader('Inter');
   for (final w in ['Regular', 'Medium', 'SemiBold', 'Bold']) {
-    loader.addFont(
-      Future.value(
-        ByteData.sublistView(
-          File('assets/fonts/Inter-$w.ttf').readAsBytesSync(),
-        ),
-      ),
-    );
+    loader.addFont(Future.value(ByteData.sublistView(File('assets/fonts/Inter-$w.ttf').readAsBytesSync())));
   }
   await loader.load();
+  // JetBrains Mono is not bundled (2.5 MB a weight). Pick it up from the machine when it is installed, so code in previews matches the site.
+  final home = Platform.environment['HOME'];
+  final mono = File('$home/Library/Fonts/JetBrainsMonoNerdFont-Regular.ttf');
+  if (home != null && mono.existsSync()) {
+    final m = FontLoader('JetBrains Mono')
+      ..addFont(Future.value(ByteData.sublistView(mono.readAsBytesSync())));
+    await m.load();
+  }
 }
 
 /// An example inside a themed [MaterialApp], on a card-like frame as wide as a phone.

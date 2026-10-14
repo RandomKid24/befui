@@ -221,10 +221,14 @@ async function mcp() {
       run: async ({ query }) => text((await index()).filter((i) => !query || `${i.name} ${i.group} ${i.description}`.toLowerCase().includes(query.toLowerCase())).map((i) => `${i.name} (${i.group}): ${i.description}`).join('\n')),
     },
     get_component: {
-      description: 'Get the exact source, usage example, npm packages and import path of one befui component (blocks are "block:<name>"). Pass format "html" for plain HTML/htmx projects: returns the <bef-*> tags and an HTML example instead of React.',
-      schema: { type: 'object', properties: { name: { type: 'string' }, format: { type: 'string', enum: ['react', 'html'], description: 'react (default) or html' } }, required: ['name'] },
+      description: 'Get the exact source, usage example, npm packages and import path of one befui component (blocks are "block:<name>"). Pass format "html" for plain HTML/htmx projects (the <bef-*> tags and an HTML example) or "flutter" for Android and iOS apps (the Dart widget, its example and how to add it).',
+      schema: { type: 'object', properties: { name: { type: 'string' }, format: { type: 'string', enum: ['react', 'html', 'flutter'], description: 'react (default), html or flutter (Android and iOS widgets)' } }, required: ['name'] },
       run: async ({ name, format }) => {
         const c = await load(name);
+        if (format === 'flutter') {
+          if (!c.flutter) return { ...text(`"${name}" has no Flutter version yet. Use list_components to see which have one (flutter: true).`), isError: true };
+          return text(`# ${c.title} (${c.name}), Flutter\n${c.description}\n\nAdd: npx github:RandomKid24/befui add ${c.name} --flutter\nFiles: ${[...c.flutter.files.map((f) => f.path), ...c.flutter.requires.map((r) => r.replace(/^flutter-/, 'befui/') + '.dart')].join(', ')}\nClasses: ${c.flutter.classes.join(', ')}\n\nExample:\n\n\`\`\`dart\n${c.flutter.example}\n\`\`\`\n\nWidget source (${c.flutter.files[0].path}):\n\n\`\`\`dart\n${c.flutter.files[0].content}\n\`\`\`\n\nCall get_flutter_rules for the theme setup and conventions.`);
+        }
         if (format === 'html') {
           if (!c.htmlExample) return { ...text(`"${name}" has no HTML example (blocks are React only). Use format "react".`), isError: true };
           return text(`# ${c.title} (${c.name}), HTML\n${c.description}\n\nTags: ${c.tags.map((t) => `<${t}>`).join(' ')}\n\nExample:\n\n\`\`\`html\n${c.htmlExample}\n\`\`\`\n\nProps are attributes in kebab-case; :name="json" for non-strings; function props need element.props. Call get_html_rules for the full rules.`);
@@ -239,6 +243,15 @@ async function mcp() {
         try {
           return text(/^https?:/.test(from) ? await (await fetch(`${from}/html.md`)).text() : readFileSync(join(from, 'html.md'), 'utf8'));
         } catch (e) { return { ...text(`Could not load the HTML rules: ${e.message}`), isError: true }; }
+      },
+    },
+    get_flutter_rules: {
+      description: 'How to use befui in a Flutter app (Android and iOS): copy-paste widgets, the theme setup, colours, text and icons. Read once before writing Flutter UI.',
+      schema: { type: 'object', properties: {} },
+      run: async () => {
+        try {
+          return text(/^https?:/.test(from) ? await (await fetch(`${from}/agents-flutter.md`)).text() : readFileSync(join(from, 'agents-flutter.md'), 'utf8'));
+        } catch (e) { return { ...text(`Could not load the Flutter rules: ${e.message}`), isError: true }; }
       },
     },
     add_components: {

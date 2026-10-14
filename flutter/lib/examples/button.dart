@@ -13,17 +13,9 @@ Widget example(BuildContext context) {
         spacing: 12,
         runSpacing: 12,
         children: [
-          BefButton(
-            label: 'Export',
-            leading: const BefIcon(BefIcons.download),
-            onPressed: () {},
-          ),
+          BefButton(label: 'Export', leading: const BefIcon(BefIcons.download), onPressed: () {}),
           for (final v in BefButtonVariant.values.skip(1))
-            BefButton(
-              label: v.name[0].toUpperCase() + v.name.substring(1),
-              variant: v,
-              onPressed: () {},
-            ),
+            BefButton(label: v.name[0].toUpperCase() + v.name.substring(1), variant: v, onPressed: () {}),
         ],
       ),
       const SizedBox(height: 20),
@@ -32,11 +24,7 @@ Widget example(BuildContext context) {
         runSpacing: 12,
         crossAxisAlignment: WrapCrossAlignment.center,
         children: [
-          BefButton(
-            label: 'Extra small',
-            size: BefButtonSize.xs,
-            onPressed: () {},
-          ),
+          BefButton(label: 'Extra small', size: BefButtonSize.xs, onPressed: () {}),
           BefButton(label: 'Small', size: BefButtonSize.sm, onPressed: () {}),
           BefButton(label: 'Medium', onPressed: () {}),
           BefButton(label: 'Large', size: BefButtonSize.lg, onPressed: () {}),

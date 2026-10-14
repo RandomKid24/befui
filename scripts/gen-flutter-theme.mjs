@@ -128,6 +128,7 @@ class BefText {
     final t = BefTheme.of(context);
     return TextStyle(
       fontFamily: mono ? t.monoFamily : t.fontFamily,
+      fontFamilyFallback: mono ? const ['Menlo', 'Roboto Mono', 'monospace'] : null,
       fontSize: size,
       fontWeight: weight,
       color: color ?? t.colors.foreground,

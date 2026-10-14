@@ -5,8 +5,7 @@ import 'package:flutter/services.dart';
 import 'theme.dart';
 
 /// Builds the child for the current interaction [states] (hovered, focused, pressed, disabled).
-typedef BefPressBuilder =
-    Widget Function(BuildContext context, Set<WidgetState> states);
+typedef BefPressBuilder = Widget Function(BuildContext context, Set<WidgetState> states);
 
 /// A tappable surface without Material's ink: it reports hover / press / focus and scales slightly while pressed, like `active:scale-[0.98]` in the CSS.
 class BefPressable extends StatefulWidget {
@@ -44,9 +43,7 @@ class BefPressable extends StatefulWidget {
 class _BefPressableState extends State<BefPressable> {
   bool _hover = false, _focus = false, _down = false;
 
-  bool get _active =>
-      widget.enabled &&
-      (widget.onPressed != null || widget.onLongPress != null);
+  bool get _active => widget.enabled && (widget.onPressed != null || widget.onLongPress != null);
 
   @override
   Widget build(BuildContext context) {
@@ -75,9 +72,7 @@ class _BefPressableState extends State<BefPressable> {
       enabled: _active,
       focusNode: widget.focusNode,
       autofocus: widget.autofocus,
-      mouseCursor:
-          widget.cursor ??
-          (_active ? SystemMouseCursors.click : SystemMouseCursors.basic),
+      mouseCursor: widget.cursor ?? (_active ? SystemMouseCursors.click : SystemMouseCursors.basic),
       onShowHoverHighlight: (v) => setState(() => _hover = v),
       onShowFocusHighlight: (v) => setState(() => _focus = v),
       actions: {
@@ -118,11 +113,7 @@ List<BoxShadow> befFocusRing(BuildContext context) {
 
 /// Spins its child forever (the `animate-spin` of the CSS).
 class BefSpin extends StatefulWidget {
-  const BefSpin({
-    super.key,
-    required this.child,
-    this.duration = const Duration(seconds: 1),
-  });
+  const BefSpin({super.key, required this.child, this.duration = const Duration(seconds: 1)});
   final Widget child;
   final Duration duration;
 
@@ -131,10 +122,7 @@ class BefSpin extends StatefulWidget {
 }
 
 class _BefSpinState extends State<BefSpin> with SingleTickerProviderStateMixin {
-  late final AnimationController _c = AnimationController(
-    vsync: this,
-    duration: widget.duration,
-  )..repeat();
+  late final AnimationController _c = AnimationController(vsync: this, duration: widget.duration)..repeat();
 
   @override
   void dispose() {
@@ -143,13 +131,59 @@ class _BefSpinState extends State<BefSpin> with SingleTickerProviderStateMixin {
   }
 
   @override
-  Widget build(BuildContext context) =>
-      RotationTransition(turns: _c, child: widget.child);
+  Widget build(BuildContext context) => RotationTransition(turns: _c, child: widget.child);
 }
 
 /// Colour with an opacity, the `bg-primary/90` of the CSS.
 Color befOpacity(Color c, double opacity) => c.withValues(alpha: opacity);
 
 /// Whether animations should be skipped (the `prefers-reduced-motion` of the CSS).
-bool befReduceMotion(BuildContext context) =>
-    MediaQuery.maybeDisableAnimationsOf(context) ?? false;
+bool befReduceMotion(BuildContext context) => MediaQuery.maybeDisableAnimationsOf(context) ?? false;
+
+/// A dashed rounded border (`border-dashed`), which Flutter has no built-in for.
+class BefDashedBorder extends StatelessWidget {
+  const BefDashedBorder({
+    super.key,
+    required this.child,
+    this.color,
+    this.radius = BefRadius.xl,
+    this.dash = 4,
+    this.gap = 3,
+    this.strokeWidth = 1,
+  });
+  final Widget child;
+  final Color? color;
+  final double radius, dash, gap, strokeWidth;
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomPaint(
+      painter: _DashedPainter(color ?? context.bef.border, radius, dash, gap, strokeWidth),
+      child: child,
+    );
+  }
+}
+
+class _DashedPainter extends CustomPainter {
+  _DashedPainter(this.color, this.radius, this.dash, this.gap, this.width);
+  final Color color;
+  final double radius, dash, gap, width;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = color
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = width;
+    final path = Path()
+      ..addRRect(RRect.fromRectAndRadius((Offset.zero & size).deflate(width / 2), Radius.circular(radius)));
+    for (final m in path.computeMetrics()) {
+      for (var d = 0.0; d < m.length; d += dash + gap) {
+        canvas.drawPath(m.extractPath(d, (d + dash).clamp(0, m.length)), paint);
+      }
+    }
+  }
+
+  @override
+  bool shouldRepaint(_DashedPainter old) => old.color != color || old.radius != radius;
+}
