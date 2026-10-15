@@ -25,8 +25,48 @@ export function useText(files: Record<string, () => Promise<string>>, path: stri
 }
 
 /** The widget as rendered by Flutter (flutter test renders every example to a PNG, light and dark), shown inside an iPhone frame. */
-export function FlutterShot({ slug, width = 300, className }: { slug: string; width?: number; className?: string }) {
+function useDark() {
+  const [dark, setDark] = React.useState(() => document.documentElement.classList.contains('dark'));
+  React.useEffect(() => {
+    const ob = new MutationObserver(() => setDark(document.documentElement.classList.contains('dark')));
+    ob.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    return () => ob.disconnect();
+  }, []);
+  return dark;
+}
+
+/** The real Flutter widget, running in the browser at phone size. Drawn at 390px wide like a phone and scaled to fit the frame. */
+function FlutterLive({ slug }: { slug: string }) {
+  const box = React.useRef<HTMLDivElement>(null);
+  const [size, setSize] = React.useState({ w: 0, h: 0 });
+  const dark = useDark();
+  React.useEffect(() => {
+    const el = box.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() => setSize({ w: el.clientWidth, h: el.clientHeight }));
+    ro.observe(el);
+    setSize({ w: el.clientWidth, h: el.clientHeight });
+    return () => ro.disconnect();
+  }, []);
+  const k = size.w ? size.w / 390 : 1;
+  return (
+    <div ref={box} className="absolute inset-0">
+      {size.w > 0 && (
+        <iframe
+          key={dark ? 'dark' : 'light'}
+          title={`${slug} running in Flutter`}
+          src={`${import.meta.env.BASE_URL}flutter-app/index.html?w=${slug}&theme=${dark ? 'dark' : 'light'}`}
+          style={{ width: 390, height: size.h / k, transform: `scale(${k})`, transformOrigin: '0 0' }}
+          className="absolute left-0 top-0 border-0 bg-transparent"
+        />
+      )}
+    </div>
+  );
+}
+
+export function FlutterShot({ slug, width = 300, className, live = 'off' }: { slug: string; width?: number; className?: string; live?: 'off' | 'click' | 'auto' }) {
   const [missing, setMissing] = React.useState(false);
+  const [on, setOn] = React.useState(live === 'auto');
   if (missing) return null;
   return (
     <div className={cn('flex justify-center', className)}>
@@ -49,7 +89,7 @@ export function FlutterShot({ slug, width = 300, className }: { slug: string; wi
                   <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="currentColor" opacity=".4" /><rect x="2" y="2" width="18" height="8" rx="2.2" fill="currentColor" /><path d="M23 4v4a2 2 0 0 0 0-4z" fill="currentColor" opacity=".45" /></svg>
                 </span>
               </div>
-              <div className="min-h-0 flex-1 overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <div className="relative min-h-0 flex-1 overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                 {(['light', 'dark'] as const).map((m) => (
                   <img
                     key={m}
@@ -62,6 +102,16 @@ export function FlutterShot({ slug, width = 300, className }: { slug: string; wi
                     className={cn('w-full', m === 'light' ? 'dark:hidden' : 'hidden dark:block')}
                   />
                 ))}
+                {on && <FlutterLive slug={slug} />}
+                {live === 'click' && !on && (
+                  <button
+                    type="button"
+                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); setOn(true); }}
+                    className="absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-primary px-3 py-1.5 text-xs font-medium text-primary-foreground shadow-lg hover:opacity-90"
+                  >
+                    Try it live
+                  </button>
+                )}
               </div>
               <div aria-hidden className="mx-auto mb-2 mt-1 h-[5px] w-[100px] shrink-0 rounded-full bg-foreground" />
             </div>

@@ -6,7 +6,11 @@ import 'registry.dart';
 
 /// The befui gallery: every Flutter widget with its example, a light/dark switch and the ten palettes of the Themes page.
 class GalleryApp extends StatefulWidget {
-  const GalleryApp({super.key, this.initial});
+  const GalleryApp({super.key, this.initial, this.embed, this.embedDark = false});
+
+  /// Show only this widget's screen, in a fixed theme (the docs site embeds the app this way).
+  final String? embed;
+  final bool embedDark;
 
   /// Open straight on a component (used by screenshots and tests).
   final String? initial;
@@ -22,6 +26,15 @@ class _GalleryAppState extends State<GalleryApp> {
   @override
   Widget build(BuildContext context) {
     final nav = GlobalKey<NavigatorState>();
+    final only = widget.embed == null ? null : entries.where((e) => e.slug == widget.embed).firstOrNull;
+    if (only != null) {
+      return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: only.name,
+        theme: BefTheme.data(brightness: widget.embedDark ? Brightness.dark : Brightness.light),
+        home: _Detail(only, embedded: true),
+      );
+    }
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'befui for Flutter',
@@ -245,8 +258,9 @@ class _ModeButton extends StatelessWidget {
 }
 
 class _Detail extends StatelessWidget {
-  const _Detail(this.entry);
+  const _Detail(this.entry, {this.embedded = false});
   final GalleryEntry entry;
+  final bool embedded;
 
   @override
   Widget build(BuildContext context) {
@@ -254,6 +268,7 @@ class _Detail extends StatelessWidget {
     return Scaffold(
       backgroundColor: c.background,
       appBar: AppBar(
+        automaticallyImplyLeading: !embedded,
         backgroundColor: c.background,
         surfaceTintColor: Colors.transparent,
         elevation: 0,

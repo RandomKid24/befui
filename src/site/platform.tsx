@@ -125,7 +125,7 @@ export function FlutterComponentPage({ slug }: { slug: string }) {
             New to befui on Flutter? <Link to="/flutter" className="font-medium text-primary hover:underline">Set the theme once</Link>, then every widget works.
           </p>
         </div>
-        <FlutterShot slug={slug} width={300} className="min-w-0 rounded-xl border bg-muted/40 px-4 py-8" />
+        <FlutterShot slug={slug} width={300} live="auto" className="min-w-0 rounded-xl border bg-muted/40 px-4 py-8" />
       </div>
 
       <h2 className={h2}>Use it</h2>
