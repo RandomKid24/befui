@@ -290,7 +290,7 @@
 .icon-special:hover [data-ic],
 .group:hover .icon-special [data-ic],
 .icon-once [data-ic] {
-  animation: var(--ic) var(--icon-ms,.8s) cubic-bezier(.34,1.3,.64,1) var(--w,0s) both;
+  animation: var(--ic) var(--icon-ms,.8s) var(--ie,cubic-bezier(.34, 1.3, .64, 1)) var(--w,0s) both;
 }
 
 /* Animations */

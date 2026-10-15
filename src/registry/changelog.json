@@ -24,7 +24,7 @@
       },
       {
         "kind": "changed",
-        "text": "Icons: every one of the 389 now has its own motion, drawn per stroke (a bell swings from its top while the clapper slides, a clock's hands turn, a trash lid tilts, a truck's wheels spin, an eye blinks, a share icon's dots pop in a row). Add animate for hover, animate=\"loop\" for a loader, animate=\"once\" for when it appears. Off by default, and always off for reduced motion."
+        "text": "Icons: every one of the 389 has its own motion, drawn per stroke and with its own timing and easing, from a set of about thirty moves: a bell swings from its top while the clapper wags, a clock's hands tick round, a truck's wheels spin, an eye blinks while the pupil circles, arrows leave one side and re-enter from the other, a chart line is wiped on, a route's dashes march. No two icons share the same recipe. Add animate for hover, animate=\"loop\" for a loader, animate=\"once\" for when it appears. Off by default, and always off for reduced motion."
       },
       {
         "kind": "added",

@@ -14,7 +14,7 @@ import { cn } from '@/lib/utils';
 import { Command } from './code';
 
 const SIZES = ['16', '24', '32', '48'] as const;
-const SPEEDS = [['Slow', 1500], ['Normal', 900], ['Fast', 450]] as const;
+const SPEEDS = [['Own', 0], ['Slow', 1500], ['Fast', 450]] as const; // Own: each icon's own timing
 const COLORS = [
   ['Default', 'text-foreground'],
   ['Primary', 'text-primary'],
@@ -30,13 +30,13 @@ export function IconsPage() {
   const [weight, setWeight] = React.useState(1.75);
   const [color, setColor] = React.useState<string>(COLORS[1][1]);
   const [animate, setAnimate] = React.useState(true);
-  const [speed, setSpeed] = React.useState<number>(900);
+  const [speed, setSpeed] = React.useState<number>(0);
   const [active, setActive] = React.useState<keyof typeof icons>('SearchIcon');
 
   const shown = names.filter((n) => n.toLowerCase().includes(q.trim().toLowerCase()));
   const px = Number(size);
   const Active = icons[active];
-  const usage = `<${active}${px !== 16 ? ` className="size-${px / 4}"` : ''}${weight !== 1.75 ? ` weight={${weight}}` : ''}${animate ? ` animate${speed !== 900 ? ` speed={${speed}}` : ''}` : ''} />`;
+  const usage = `<${active}${px !== 16 ? ` className="size-${px / 4}"` : ''}${weight !== 1.75 ? ` weight={${weight}}` : ''}${animate ? ` animate${speed ? ` speed={${speed}}` : ''}` : ''} />`;
   const pick = (n: keyof typeof icons) => {
     setActive(n);
     navigator.clipboard?.writeText(`<${n} />`).then(() => toast.success(`Copied <${n} />`), () => {});
@@ -91,7 +91,7 @@ export function IconsPage() {
                         active === n && 'border-primary bg-accent',
                       )}
                     >
-                      <Icon animate={animate} speed={speed} weight={weight} className={color} style={{ width: px, height: px }} />
+                      <Icon animate={animate} speed={speed || undefined} weight={weight} className={color} style={{ width: px, height: px }} />
                       <span className="text-[11px] font-medium text-muted-foreground">{n.replace('Icon', '')}</span>
                     </button>
                   </Reveal>
@@ -103,7 +103,7 @@ export function IconsPage() {
 
         <aside className="grid gap-4 lg:sticky lg:top-20">
           <div className="grid place-items-center rounded-xl border bg-[radial-gradient(var(--border)_1px,transparent_1px)] [background-size:14px_14px] py-10">
-            <Active key={`${active}${weight}${size}${animate}`} animate={animate} speed={speed} weight={weight} className={cn('animate-pop', color)} style={{ width: Math.max(px, 48), height: Math.max(px, 48) }} />
+            <Active key={`${active}${weight}${size}${animate}`} animate={animate} speed={speed || undefined} weight={weight} className={cn('animate-pop', color)} style={{ width: Math.max(px, 48), height: Math.max(px, 48) }} />
           </div>
           <div className="grid gap-1">
             <p className="text-sm font-semibold">{active}</p>
