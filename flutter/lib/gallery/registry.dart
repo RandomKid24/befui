@@ -44,14 +44,19 @@ import '../examples/leaderboard.dart' as e_leaderboard;
 import '../examples/line_chart.dart' as e_line_chart;
 import '../examples/loader.dart' as e_loader;
 import '../examples/marquee.dart' as e_marquee;
+import '../examples/navbar.dart' as e_navbar;
 import '../examples/notification_center.dart' as e_notification_center;
+import '../examples/notification_preferences.dart' as e_notification_preferences;
 import '../examples/number_stepper.dart' as e_number_stepper;
 import '../examples/number_ticker.dart' as e_number_ticker;
 import '../examples/onboarding_carousel.dart' as e_onboarding_carousel;
+import '../examples/onboarding_checklist.dart' as e_onboarding_checklist;
+import '../examples/order_summary.dart' as e_order_summary;
 import '../examples/order_tracker.dart' as e_order_tracker;
 import '../examples/otp_input.dart' as e_otp_input;
 import '../examples/pagination.dart' as e_pagination;
 import '../examples/password_input.dart' as e_password_input;
+import '../examples/phone_input.dart' as e_phone_input;
 import '../examples/popover.dart' as e_popover;
 import '../examples/pricing_card.dart' as e_pricing_card;
 import '../examples/product_card.dart' as e_product_card;
@@ -61,14 +66,17 @@ import '../examples/progress_ring.dart' as e_progress_ring;
 import '../examples/pull_to_refresh.dart' as e_pull_to_refresh;
 import '../examples/radio_group.dart' as e_radio_group;
 import '../examples/rating.dart' as e_rating;
+import '../examples/rating_breakdown.dart' as e_rating_breakdown;
 import '../examples/relative_time.dart' as e_relative_time;
 import '../examples/search_input.dart' as e_search_input;
 import '../examples/segmented.dart' as e_segmented;
 import '../examples/select.dart' as e_select;
 import '../examples/separator.dart' as e_separator;
 import '../examples/shimmer_text.dart' as e_shimmer_text;
+import '../examples/signature_pad.dart' as e_signature_pad;
 import '../examples/skeleton.dart' as e_skeleton;
 import '../examples/slider.dart' as e_slider;
+import '../examples/sortable_list.dart' as e_sortable_list;
 import '../examples/spinner.dart' as e_spinner;
 import '../examples/stat_card.dart' as e_stat_card;
 import '../examples/status_dot.dart' as e_status_dot;
@@ -394,11 +402,25 @@ final List<GalleryEntry> entries = [
     e_marquee.example,
   ),
   GalleryEntry(
+    'navbar',
+    'Navbar',
+    'Navigation',
+    'Top bar with brand, links and actions that folds into a menu on small screens.',
+    e_navbar.example,
+  ),
+  GalleryEntry(
     'notification-center',
     'Notification center',
     'Feedback',
     'Bell with an unread count and a popover list. Click marks read, Mark all read clears it.',
     e_notification_center.example,
+  ),
+  GalleryEntry(
+    'notification-preferences',
+    'Notification preferences',
+    'Inputs',
+    'Grid of events by channel (email, push, SMS, in-app) with a switch per cell and a switch per channel.',
+    e_notification_preferences.example,
   ),
   GalleryEntry(
     'number-stepper',
@@ -420,6 +442,20 @@ final List<GalleryEntry> entries = [
     'Navigation',
     'Mobile first-run intro with swipeable slides, dots, Skip and a final Get started button.',
     e_onboarding_carousel.example,
+  ),
+  GalleryEntry(
+    'onboarding-checklist',
+    'Onboarding checklist',
+    'Display',
+    'Getting-started card with a progress bar, tick-off items, short help text and actions. Collapsible.',
+    e_onboarding_checklist.example,
+  ),
+  GalleryEntry(
+    'order-summary',
+    'Order summary',
+    'Display',
+    'Cart lines with subtotal, discount, shipping, tax and total computed for you. Slots for a coupon field and a checkout button.',
+    e_order_summary.example,
   ),
   GalleryEntry(
     'order-tracker',
@@ -448,6 +484,13 @@ final List<GalleryEntry> entries = [
     'Inputs',
     'Show and hide toggle with an optional strength meter.',
     e_password_input.example,
+  ),
+  GalleryEntry(
+    'phone-input',
+    'Phone input',
+    'Inputs',
+    'Phone field with a country picker. Groups digits as you type and hands back the E.164 number and whether it is complete.',
+    e_phone_input.example,
   ),
   GalleryEntry('popover', 'Popover', 'Overlays', 'Floating panel anchored to a trigger.', e_popover.example),
   GalleryEntry(
@@ -501,6 +544,13 @@ final List<GalleryEntry> entries = [
     e_rating.example,
   ),
   GalleryEntry(
+    'rating-breakdown',
+    'Rating breakdown',
+    'Display',
+    'Review summary: big average, stars and a bar per star level. Rows can act as filters. Bars fill in on scroll.',
+    e_rating_breakdown.example,
+  ),
+  GalleryEntry(
     'relative-time',
     'Relative time',
     'Time',
@@ -537,6 +587,13 @@ final List<GalleryEntry> entries = [
     e_shimmer_text.example,
   ),
   GalleryEntry(
+    'signature-pad',
+    'Signature pad',
+    'Inputs',
+    'Draw-your-signature canvas for mouse, touch and pen. Sharp on retina screens, exports a PNG.',
+    e_signature_pad.example,
+  ),
+  GalleryEntry(
     'skeleton',
     'Skeleton',
     'Feedback',
@@ -549,6 +606,13 @@ final List<GalleryEntry> entries = [
     'Inputs',
     'Native range input with a filled track and floating value bubble.',
     e_slider.example,
+  ),
+  GalleryEntry(
+    'sortable-list',
+    'Sortable list',
+    'Display',
+    'Reorder rows by dragging, or with arrow keys on the grip. Controlled, no drag library.',
+    e_sortable_list.example,
   ),
   GalleryEntry(
     'spinner',

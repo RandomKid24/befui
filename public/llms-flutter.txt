@@ -3408,6 +3408,84 @@ Widget _groups(BuildContext context, List<(String, Widget)> groups) {
 }
 ```
 
+### Navbar (`navbar`)
+Top bar with brand, links and actions that folds into a menu on small screens.
+- Add: `npx github:RandomKid24/befui add navbar --flutter`
+- Import: `import 'befui/navbar.dart';` (classes: BefAppBar, BefAppBarAction)
+- Also copies: core.dart, icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/navbar.dart';
+import 'befui/icons.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) {
+  Widget framed(Widget bar) => ClipRRect(
+    borderRadius: BorderRadius.circular(12),
+    child: DecoratedBox(
+      decoration: BoxDecoration(border: Border.all(color: Theme.of(context).dividerColor)),
+      child: bar,
+    ),
+  );
+  return _groups(context, [
+    (
+      'Title and actions',
+      framed(
+        BefAppBar(
+          title: 'Inbox',
+          actions: [
+            BefAppBarAction(icon: BefIcons.search, label: 'Search', onPressed: () {}),
+            BefAppBarAction(icon: BefIcons.bell, label: 'Alerts', badge: 3, onPressed: () {}),
+          ],
+        ),
+      ),
+    ),
+    (
+      'With back and subtitle',
+      framed(
+        BefAppBar(
+          title: 'Aarav Mehta',
+          subtitle: 'Online',
+          onBack: () {},
+          actions: [BefAppBarAction(icon: BefIcons.moreVertical, label: 'More', onPressed: () {})],
+        ),
+      ),
+    ),
+    ('Centred title', framed(BefAppBar(title: 'Settings', centerTitle: true, onBack: () {}))),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
+```
+
 ### Notification center (`notification-center`)
 Bell with an unread count and a popover list. Click marks read, Mark all read clears it.
 - Add: `npx github:RandomKid24/befui add notification-center --flutter`
@@ -3460,6 +3538,91 @@ class _DemoState extends State<_Demo> {
       Row(
         children: [
           BefNotificationCenter(notices: [for (final n in notices) n.markRead()], onChanged: (_) {}),
+        ],
+      ),
+    ),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
+```
+
+### Notification preferences (`notification-preferences`)
+Grid of events by channel (email, push, SMS, in-app) with a switch per cell and a switch per channel.
+- Add: `npx github:RandomKid24/befui add notification-preferences --flutter`
+- Import: `import 'befui/notification_preferences.dart';` (classes: BefPrefEvent, BefPrefChannel, BefNotificationPreferences)
+- Also copies: theme.dart, switch.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/notification_preferences.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) => const _Demo();
+
+class _Demo extends StatefulWidget {
+  const _Demo();
+  @override
+  State<_Demo> createState() => _DemoState();
+}
+
+class _DemoState extends State<_Demo> {
+  Map<String, List<String>> v = {
+    'leave': ['email', 'push', 'app'],
+    'payroll': ['email'],
+    'mention': ['push', 'app'],
+    'security': ['email', 'sms', 'push', 'app'],
+  };
+
+  @override
+  Widget build(BuildContext context) => _groups(context, [
+    (
+      'What to be told about, and where',
+      BefNotificationPreferences(
+        value: v,
+        onChanged: (n) => setState(() => v = n),
+        channels: const [
+          BefPrefChannel(id: 'email', label: 'Email'),
+          BefPrefChannel(id: 'push', label: 'Push'),
+          BefPrefChannel(id: 'sms', label: 'SMS'),
+          BefPrefChannel(id: 'app', label: 'In-app'),
+        ],
+        events: const [
+          BefPrefEvent(id: 'leave', label: 'Leave requests', description: 'Submitted, approved or rejected'),
+          BefPrefEvent(id: 'payroll', label: 'Payslips', description: 'When a new payslip is ready'),
+          BefPrefEvent(id: 'mention', label: 'Mentions and comments'),
+          BefPrefEvent(
+            id: 'security',
+            label: 'Security alerts',
+            description: 'New sign-ins and password changes',
+          ),
         ],
       ),
     ),
@@ -3652,6 +3815,199 @@ Widget example(BuildContext context) => _groups(context, [
     ),
   ),
 ]);
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
+```
+
+### Onboarding checklist (`onboarding-checklist`)
+Getting-started card with a progress bar, tick-off items, short help text and actions. Collapsible.
+- Add: `npx github:RandomKid24/befui add onboarding-checklist --flutter`
+- Import: `import 'befui/onboarding_checklist.dart';` (classes: BefChecklistItem, BefOnboardingChecklist)
+- Also copies: core.dart, icons.dart, theme.dart, progress.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/button.dart';
+import 'befui/onboarding_checklist.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) => const _Demo();
+
+class _Demo extends StatefulWidget {
+  const _Demo();
+  @override
+  State<_Demo> createState() => _DemoState();
+}
+
+class _DemoState extends State<_Demo> {
+  var items = [
+    const BefChecklistItem(id: 'profile', title: 'Complete your profile', done: true),
+    BefChecklistItem(
+      id: 'team',
+      title: 'Invite your team',
+      description: 'Add colleagues by email so they can see shared reports.',
+      done: false,
+      action: BefButton(label: 'Invite people', size: BefButtonSize.xs, onPressed: () {}),
+    ),
+    BefChecklistItem(
+      id: 'data',
+      title: 'Import employees',
+      description: 'Upload a CSV or connect your payroll tool.',
+      done: false,
+      action: BefButton(
+        label: 'Upload CSV',
+        size: BefButtonSize.xs,
+        variant: BefButtonVariant.outline,
+        onPressed: () {},
+      ),
+    ),
+    const BefChecklistItem(id: 'leave', title: 'Set up leave policies', done: false),
+  ];
+
+  @override
+  Widget build(BuildContext context) => _groups(context, [
+    (
+      'Tap the circles to tick items off',
+      BefOnboardingChecklist(
+        items: items,
+        onToggle: (id, done) => setState(
+          () => items = [
+            for (final i in items)
+              i.id == id
+                  ? BefChecklistItem(
+                      id: i.id,
+                      title: i.title,
+                      description: i.description,
+                      action: i.action,
+                      done: done,
+                    )
+                  : i,
+          ],
+        ),
+      ),
+    ),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
+```
+
+### Order summary (`order-summary`)
+Cart lines with subtotal, discount, shipping, tax and total computed for you. Slots for a coupon field and a checkout button.
+- Add: `npx github:RandomKid24/befui add order-summary --flutter`
+- Import: `import 'befui/order_summary.dart';` (classes: BefOrderLine, BefOrderSummary)
+- Also copies: theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/button.dart';
+import 'befui/coupon_input.dart';
+import 'befui/order_summary.dart';
+import 'befui/theme.dart';
+
+const _lines = [
+  BefOrderLine(id: '1', name: 'Wireless keyboard', detail: 'Graphite · UK layout', qty: 1, price: 3499),
+  BefOrderLine(id: '2', name: 'Noise-cancelling headphones', detail: 'Midnight blue', qty: 2, price: 8999),
+  BefOrderLine(id: '3', name: 'Standing desk mat', qty: 1, price: 1299),
+];
+
+Widget example(BuildContext context) => const _Demo();
+
+class _Demo extends StatefulWidget {
+  const _Demo();
+  @override
+  State<_Demo> createState() => _DemoState();
+}
+
+class _DemoState extends State<_Demo> {
+  String? code;
+
+  @override
+  Widget build(BuildContext context) => _groups(context, [
+    (
+      'Cart with a coupon, free shipping and 18% tax',
+      BefOrderSummary(
+        lines: _lines,
+        discount: code == null ? 0 : 250,
+        shipping: 0,
+        taxRate: 0.18,
+        action: BefButton(label: 'Place order', size: BefButtonSize.lg, expand: true, onPressed: () {}),
+        child: BefCouponInput(
+          applied: code,
+          hint: code == null ? null : 'You save ₹250',
+          onApply: (c) async {
+            if (c != 'FESTIVE250') return false;
+            setState(() => code = c);
+            return true;
+          },
+          onRemove: () => setState(() => code = null),
+        ),
+      ),
+    ),
+    (
+      'Single item, paid shipping',
+      const BefOrderSummary(
+        title: 'Your order',
+        lines: [BefOrderLine(id: '1', name: 'Standing desk mat', qty: 1, price: 1299)],
+        shipping: 99,
+      ),
+    ),
+  ]);
+}
 
 /// Labelled groups, one per kind of use.
 Widget _groups(BuildContext context, List<(String, Widget)> groups) {
@@ -3896,6 +4252,76 @@ Widget example(BuildContext context) => _groups(context, [
   ('With strength meter', const BefPasswordInput(meter: true, placeholder: 'Choose a password')),
   ('Plain', const BefPasswordInput(placeholder: 'Current password')),
 ]);
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
+```
+
+### Phone input (`phone-input`)
+Phone field with a country picker. Groups digits as you type and hands back the E.164 number and whether it is complete.
+- Add: `npx github:RandomKid24/befui add phone-input --flutter`
+- Import: `import 'befui/phone_input.dart';` (classes: BefCountry, BefPhoneValue, BefPhoneInput)
+- Also copies: bottom_sheet.dart, core.dart, icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/label.dart';
+import 'befui/phone_input.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) => const _Demo();
+
+class _Demo extends StatefulWidget {
+  const _Demo();
+  @override
+  State<_Demo> createState() => _DemoState();
+}
+
+class _DemoState extends State<_Demo> {
+  BefPhoneValue? v;
+
+  @override
+  Widget build(BuildContext context) {
+    final bad = v != null && v!.national.isNotEmpty && !v!.valid;
+    return _groups(context, [
+      (
+        'Mobile number',
+        BefField(
+          label: 'Mobile number',
+          error: bad ? 'Number looks incomplete.' : null,
+          hint: v?.valid == true ? 'Saved as ${v!.e164}' : 'We only use this for sign-in codes.',
+          child: BefPhoneInput(value: v, onChanged: (x) => setState(() => v = x), invalid: bad),
+        ),
+      ),
+    ]);
+  }
+}
 
 /// Labelled groups, one per kind of use.
 Widget _groups(BuildContext context, List<(String, Widget)> groups) {
@@ -4569,6 +4995,72 @@ Widget _groups(BuildContext context, List<(String, Widget)> groups) {
 }
 ```
 
+### Rating breakdown (`rating-breakdown`)
+Review summary: big average, stars and a bar per star level. Rows can act as filters. Bars fill in on scroll.
+- Add: `npx github:RandomKid24/befui add rating-breakdown --flutter`
+- Import: `import 'befui/rating_breakdown.dart';` (classes: BefRatingBreakdown)
+- Also copies: core.dart, icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/rating_breakdown.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) => const _Demo();
+
+class _Demo extends StatefulWidget {
+  const _Demo();
+  @override
+  State<_Demo> createState() => _DemoState();
+}
+
+class _DemoState extends State<_Demo> {
+  int? sel;
+
+  @override
+  Widget build(BuildContext context) => _groups(context, [
+    (
+      'Tap a row to filter',
+      BefRatingBreakdown(
+        counts: const [812, 340, 96, 38, 54],
+        selected: sel,
+        onSelect: (s) => setState(() => sel = s),
+      ),
+    ),
+    ('Few ratings', const BefRatingBreakdown(counts: [3, 1, 0, 0, 1])),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
+```
+
 ### Relative time (`relative-time`)
 "3 minutes ago", kept live. Hover for the full date. Uses Intl, so it speaks your locale.
 - Add: `npx github:RandomKid24/befui add relative-time --flutter`
@@ -4978,6 +5470,76 @@ Widget _groups(BuildContext context, List<(String, Widget)> groups) {
 }
 ```
 
+### Signature pad (`signature-pad`)
+Draw-your-signature canvas for mouse, touch and pen. Sharp on retina screens, exports a PNG.
+- Add: `npx github:RandomKid24/befui add signature-pad --flutter`
+- Import: `import 'befui/signature_pad.dart';` (classes: BefSignaturePad)
+- Also copies: button.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/signature_pad.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) => const _Demo();
+
+class _Demo extends StatefulWidget {
+  const _Demo();
+  @override
+  State<_Demo> createState() => _DemoState();
+}
+
+class _DemoState extends State<_Demo> {
+  int strokes = 0;
+
+  @override
+  Widget build(BuildContext context) => _groups(context, [
+    (
+      'Draw with a finger',
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          BefSignaturePad(onChanged: (s) => setState(() => strokes = s.length)),
+          Text(
+            strokes == 0 ? 'Nothing signed yet.' : 'Captured $strokes stroke${strokes == 1 ? '' : 's'}.',
+            style: BefText.style(context, size: 12, color: context.bef.mutedForeground),
+          ),
+        ],
+      ),
+    ),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
+```
+
 ### Skeleton (`skeleton`)
 Shimmering placeholder for content that is loading.
 - Add: `npx github:RandomKid24/befui add skeleton --flutter`
@@ -5101,6 +5663,79 @@ Widget example(BuildContext context) {
 }
 
 double _v = 40, _w = 60;
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
+```
+
+### Sortable list (`sortable-list`)
+Reorder rows by dragging, or with arrow keys on the grip. Controlled, no drag library.
+- Add: `npx github:RandomKid24/befui add sortable-list --flutter`
+- Import: `import 'befui/sortable_list.dart';` (classes: BefSortableList)
+- Also copies: icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/sortable_list.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) => const _Demo();
+
+class _Demo extends StatefulWidget {
+  const _Demo();
+  @override
+  State<_Demo> createState() => _DemoState();
+}
+
+class _DemoState extends State<_Demo> {
+  var steps = const [
+    'Collect timesheets',
+    'Verify attendance',
+    'Run payroll',
+    'Send payslips',
+    'File returns',
+  ];
+
+  @override
+  Widget build(BuildContext context) => _groups(context, [
+    (
+      'Drag the grip to reorder',
+      BefSortableList<String>(
+        items: steps,
+        idOf: (s) => s,
+        onChanged: (n) => setState(() => steps = n),
+        itemBuilder: (context, s, i) =>
+            Text('${i + 1}.  $s', style: BefText.style(context, size: 13, weight: FontWeight.w500)),
+      ),
+    ),
+  ]);
+}
 
 /// Labelled groups, one per kind of use.
 Widget _groups(BuildContext context, List<(String, Widget)> groups) {
