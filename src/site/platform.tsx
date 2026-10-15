@@ -98,11 +98,11 @@ function parseProps(src: string): { doc: string; className: string; props: Prop[
   return { doc: doc.join(' ').replace(/\[([^\]]+)\]/g, '$1'), className, props };
 }
 
-/** The widget working on screen (the web version of the same design), with a switch to see Flutter's own render inside a phone. */
+/** The widget working on screen (the web version of the same design), plain or inside a phone, and Flutter's own render as a picture. */
 function FlutterPreview({ slug }: { slug: string }) {
   const c = components.find((x) => x.slug === slug)!;
-  const [view, setView] = React.useState<'widget' | 'phone'>('widget');
-  const btn = (id: 'widget' | 'phone', label: string) => (
+  const [view, setView] = React.useState<'widget' | 'phone' | 'flutter'>('widget');
+  const btn = (id: typeof view, label: string) => (
     <button
       type="button"
       aria-pressed={view === id}
@@ -112,25 +112,26 @@ function FlutterPreview({ slug }: { slug: string }) {
       {label}
     </button>
   );
+  const demo = (
+    <React.Suspense fallback={<div className="h-24 animate-pulse rounded-lg bg-muted" />}>
+      <c.Demo />
+    </React.Suspense>
+  );
   return (
     <section aria-label="Preview" className="mt-8">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-        <div className="inline-flex gap-1 rounded-lg bg-secondary p-1">{btn('widget', 'Preview')}{btn('phone', 'Phone preview')}</div>
+        <div className="inline-flex gap-1 rounded-lg bg-secondary p-1">{btn('widget', 'Preview')}{btn('phone', 'Phone preview')}{btn('flutter', 'Flutter render')}</div>
         <span className="text-xs text-muted-foreground">
-          {view === 'widget' ? 'Try it here. Same design as the Flutter widget, at phone width.' : 'Drawn by Flutter itself, as it looks on an iPhone.'}
+          {view === 'flutter' ? 'A picture drawn by Flutter itself on an iPhone.' : 'Try it here. Same design as the Flutter widget, at phone width.'}
         </span>
       </div>
-      {view === 'widget' ? (
+      {view === 'widget' && (
         <div className="grid place-items-center rounded-xl border bg-background bg-[radial-gradient(var(--border)_1px,transparent_1px)] [background-size:16px_16px] px-4 py-8">
-          <div className="w-full max-w-[390px] rounded-xl border bg-background p-5 shadow-sm">
-            <React.Suspense fallback={<div className="h-24 animate-pulse rounded-lg bg-muted" />}>
-              <c.Demo />
-            </React.Suspense>
-          </div>
+          <div className="w-full max-w-[390px] rounded-xl border bg-background p-5 shadow-sm">{demo}</div>
         </div>
-      ) : (
-        <FlutterShot slug={slug} width={300} className="rounded-xl border bg-muted/40 px-4 py-10" />
       )}
+      {view === 'phone' && <FlutterShot slug={slug} width={320} body={demo} title={c.name} description={c.description} className="rounded-xl border bg-muted/40 px-4 py-10" />}
+      {view === 'flutter' && <FlutterShot slug={slug} width={300} className="rounded-xl border bg-muted/40 px-4 py-10" />}
     </section>
   );
 }

@@ -25,7 +25,7 @@ export function useText(files: Record<string, () => Promise<string>>, path: stri
 }
 
 /** The widget as rendered by Flutter (flutter test renders every example to a PNG, light and dark), shown inside an iPhone frame. */
-export function FlutterShot({ slug, width = 300, className }: { slug: string; width?: number; className?: string }) {
+export function FlutterShot({ slug, width = 300, className, body, title, description }: { slug: string; width?: number; className?: string; body?: React.ReactNode; title?: string; description?: string }) {
   const [missing, setMissing] = React.useState(false);
   if (missing) return null;
   return (
@@ -50,6 +50,16 @@ export function FlutterShot({ slug, width = 300, className }: { slug: string; wi
                 </span>
               </div>
               <div className="relative min-h-0 flex-1 overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                {body ? (
+                  <div style={{ zoom: (width - 20) / 390, width: 390 }}>
+                    <div className="flex h-[52px] items-center justify-center border-b px-4 text-base font-semibold">{title}</div>
+                    <div className="grid gap-4 p-5">
+                      {description && <p className="text-sm text-muted-foreground">{description}</p>}
+                      <div className="rounded-xl border p-5">{body}</div>
+                    </div>
+                  </div>
+                ) : (
+                  <>
                 {(['light', 'dark'] as const).map((m) => (
                   <img
                     key={m}
@@ -62,6 +72,8 @@ export function FlutterShot({ slug, width = 300, className }: { slug: string; wi
                     className={cn('w-full', m === 'light' ? 'dark:hidden' : 'hidden dark:block')}
                   />
                 ))}
+                  </>
+                )}
               </div>
               <div aria-hidden className="mx-auto mb-2 mt-1 h-[5px] w-[100px] shrink-0 rounded-full bg-foreground" />
             </div>
