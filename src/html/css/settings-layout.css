@@ -28,6 +28,9 @@
 }
 
 /* Utility rules */
+.\@container {
+  container-type: inline-size;
+}
 .flex {
   display: flex;
 }
@@ -153,12 +156,6 @@
   }
   .md\:content-start {
     align-content: flex-start;
-  }
-}
-
-@media (min-width:64rem) {
-  .lg\:grid-cols-\[14rem_1fr\] {
-    grid-template-columns: 14rem 1fr;
   }
 }
 

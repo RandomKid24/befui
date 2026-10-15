@@ -29,7 +29,7 @@ export function SettingsLayout({ items, value, onChange, children, className }: 
           </button>
         ))}
       </nav>
-      <div className="grid min-w-0 content-start gap-6">{children}</div>
+      <div className="@container grid min-w-0 content-start gap-6">{children}</div>
     </div>
   );
 }
@@ -37,7 +37,7 @@ export function SettingsLayout({ items, value, onChange, children, className }: 
 /** One settings group: title and help text on the left, the controls on the right. Stack several with dividers. */
 export function SettingsSection({ title, description, children, className }: { title: string; description?: string; children: React.ReactNode; className?: string }) {
   return (
-    <section className={cn('grid gap-4 border-b pb-6 last:border-b-0 lg:grid-cols-[14rem_1fr]', className)}>
+    <section className={cn('grid gap-4 border-b pb-6 last:border-b-0 @xl:grid-cols-[14rem_1fr]', className)}>
       <div className="grid content-start gap-1">
         <h2 className="text-sm font-semibold">{title}</h2>
         {description && <p className="text-[13px] text-muted-foreground">{description}</p>}
