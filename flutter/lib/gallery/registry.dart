@@ -30,15 +30,21 @@ import '../examples/coupon_input.dart' as e_coupon_input;
 import '../examples/credit_card.dart' as e_credit_card;
 import '../examples/currency_input.dart' as e_currency_input;
 import '../examples/date_picker.dart' as e_date_picker;
+import '../examples/datetime_picker.dart' as e_datetime_picker;
+import '../examples/day_agenda.dart' as e_day_agenda;
 import '../examples/description_list.dart' as e_description_list;
 import '../examples/dialog.dart' as e_dialog;
 import '../examples/dropdown_menu.dart' as e_dropdown_menu;
 import '../examples/empty_state.dart' as e_empty_state;
 import '../examples/error_state.dart' as e_error_state;
 import '../examples/fab.dart' as e_fab;
+import '../examples/funnel_chart.dart' as e_funnel_chart;
 import '../examples/gauge.dart' as e_gauge;
+import '../examples/image_viewer.dart' as e_image_viewer;
 import '../examples/inline_edit.dart' as e_inline_edit;
 import '../examples/input.dart' as e_input;
+import '../examples/input_group.dart' as e_input_group;
+import '../examples/kanban.dart' as e_kanban;
 import '../examples/label.dart' as e_label;
 import '../examples/leaderboard.dart' as e_leaderboard;
 import '../examples/line_chart.dart' as e_line_chart;
@@ -64,10 +70,12 @@ import '../examples/profile_card.dart' as e_profile_card;
 import '../examples/progress.dart' as e_progress;
 import '../examples/progress_ring.dart' as e_progress_ring;
 import '../examples/pull_to_refresh.dart' as e_pull_to_refresh;
+import '../examples/radar_chart.dart' as e_radar_chart;
 import '../examples/radio_group.dart' as e_radio_group;
 import '../examples/rating.dart' as e_rating;
 import '../examples/rating_breakdown.dart' as e_rating_breakdown;
 import '../examples/relative_time.dart' as e_relative_time;
+import '../examples/search_bar.dart' as e_search_bar;
 import '../examples/search_input.dart' as e_search_input;
 import '../examples/segmented.dart' as e_segmented;
 import '../examples/select.dart' as e_select;
@@ -78,6 +86,7 @@ import '../examples/skeleton.dart' as e_skeleton;
 import '../examples/slider.dart' as e_slider;
 import '../examples/sortable_list.dart' as e_sortable_list;
 import '../examples/spinner.dart' as e_spinner;
+import '../examples/stacked_bar_chart.dart' as e_stacked_bar_chart;
 import '../examples/stat_card.dart' as e_stat_card;
 import '../examples/status_dot.dart' as e_status_dot;
 import '../examples/stepper.dart' as e_stepper;
@@ -88,15 +97,18 @@ import '../examples/table.dart' as e_table;
 import '../examples/tabs.dart' as e_tabs;
 import '../examples/tag_input.dart' as e_tag_input;
 import '../examples/testimonial_card.dart' as e_testimonial_card;
+import '../examples/theme_toggle.dart' as e_theme_toggle;
 import '../examples/time_picker.dart' as e_time_picker;
 import '../examples/timeline.dart' as e_timeline;
 import '../examples/timer.dart' as e_timer;
 import '../examples/toast.dart' as e_toast;
 import '../examples/toggle.dart' as e_toggle;
+import '../examples/toggle_group.dart' as e_toggle_group;
 import '../examples/tooltip.dart' as e_tooltip;
 import '../examples/tree_view.dart' as e_tree_view;
 import '../examples/typewriter.dart' as e_typewriter;
 import '../examples/uptime_bar.dart' as e_uptime_bar;
+import '../examples/user_menu.dart' as e_user_menu;
 import '../examples/week_strip.dart' as e_week_strip;
 
 class GalleryEntry {
@@ -303,6 +315,20 @@ final List<GalleryEntry> entries = [
     e_date_picker.example,
   ),
   GalleryEntry(
+    'datetime-picker',
+    'Date and time picker',
+    'Inputs',
+    'One field for a day and a time: calendar on top, time picker below.',
+    e_datetime_picker.example,
+  ),
+  GalleryEntry(
+    'day-agenda',
+    'Day agenda',
+    'Time',
+    'One day as a time grid: events sit at their time, overlapping ones share the width, a red now-line marks the time.',
+    e_day_agenda.example,
+  ),
+  GalleryEntry(
     'description-list',
     'Description list',
     'Display',
@@ -346,11 +372,25 @@ final List<GalleryEntry> entries = [
     e_fab.example,
   ),
   GalleryEntry(
+    'funnel-chart',
+    'Funnel chart',
+    'Data',
+    'Conversion funnel with a bar per stage and the step-to-step rate.',
+    e_funnel_chart.example,
+  ),
+  GalleryEntry(
     'gauge',
     'Gauge',
     'Data',
     'Half-circle meter with a needle that swings to the value.',
     e_gauge.example,
+  ),
+  GalleryEntry(
+    'image-viewer',
+    'Image viewer',
+    'Overlays',
+    'Lightbox with arrows, click to zoom and keyboard control.',
+    e_image_viewer.example,
   ),
   GalleryEntry(
     'inline-edit',
@@ -365,6 +405,20 @@ final List<GalleryEntry> entries = [
     'Inputs',
     'Text input and textarea with icon, trailing slot, and invalid state.',
     e_input.example,
+  ),
+  GalleryEntry(
+    'input-group',
+    'Input group',
+    'Inputs',
+    'One field with text, icons or buttons attached at the start or end, like https:// or .com.',
+    e_input_group.example,
+  ),
+  GalleryEntry(
+    'kanban',
+    'Kanban board',
+    'Data',
+    'Columns of draggable cards. Drag with the mouse or move a focused card with Alt and the arrow keys. Controlled, no drag library.',
+    e_kanban.example,
   ),
   GalleryEntry(
     'label',
@@ -530,6 +584,13 @@ final List<GalleryEntry> entries = [
     e_pull_to_refresh.example,
   ),
   GalleryEntry(
+    'radar-chart',
+    'Radar chart',
+    'Data',
+    'Spider chart for several scores on the same axes: a pentagon with five, a hexagon with six. Shapes grow from the center on scroll; hover a legend name to highlight a series.',
+    e_radar_chart.example,
+  ),
+  GalleryEntry(
     'radio-group',
     'Radio group',
     'Inputs',
@@ -556,6 +617,13 @@ final List<GalleryEntry> entries = [
     'Time',
     '"3 minutes ago", kept live. Hover for the full date. Uses Intl, so it speaks your locale.',
     e_relative_time.example,
+  ),
+  GalleryEntry(
+    'search-bar',
+    'Search bar',
+    'Inputs',
+    'Search field with live results, highlighted matches, recent searches and full keyboard control.',
+    e_search_bar.example,
   ),
   GalleryEntry(
     'search-input',
@@ -622,6 +690,13 @@ final List<GalleryEntry> entries = [
     e_spinner.example,
   ),
   GalleryEntry(
+    'stacked-bar-chart',
+    'Stacked bar chart',
+    'Data',
+    'Bars split into colored segments that grow in on scroll, with a hover breakdown and legend. Sessions by device, revenue by plan.',
+    e_stacked_bar_chart.example,
+  ),
+  GalleryEntry(
     'stat-card',
     'Stat card',
     'Data',
@@ -686,6 +761,13 @@ final List<GalleryEntry> entries = [
     e_testimonial_card.example,
   ),
   GalleryEntry(
+    'theme-toggle',
+    'Theme toggle',
+    'Inputs',
+    'Icon button that flips light and dark mode and remembers the choice. Also exports a useTheme hook.',
+    e_theme_toggle.example,
+  ),
+  GalleryEntry(
     'time-picker',
     'Time picker',
     'Time',
@@ -721,6 +803,13 @@ final List<GalleryEntry> entries = [
     e_toggle.example,
   ),
   GalleryEntry(
+    'toggle-group',
+    'Toggle group',
+    'Inputs',
+    'A row of toggles where one or several can be pressed, for formatting toolbars.',
+    e_toggle_group.example,
+  ),
+  GalleryEntry(
     'tooltip',
     'Tooltip',
     'Overlays',
@@ -747,6 +836,13 @@ final List<GalleryEntry> entries = [
     'Data',
     'Status-page strip with one tick per day in green, amber or red, the uptime percentage and an incident note on hover.',
     e_uptime_bar.example,
+  ),
+  GalleryEntry(
+    'user-menu',
+    'User menu',
+    'Navigation',
+    'Avatar button for the topbar that opens a menu with name, email, your links and Sign out.',
+    e_user_menu.example,
   ),
   GalleryEntry(
     'week-strip',

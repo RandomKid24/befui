@@ -2290,6 +2290,139 @@ Widget _groups(BuildContext context, List<(String, Widget)> groups) {
 }
 ```
 
+### Date and time picker (`datetime-picker`)
+One field for a day and a time: calendar on top, time picker below.
+- Add: `npx github:RandomKid24/befui add datetime-picker --flutter`
+- Import: `import 'befui/datetime_picker.dart';` (classes: BefDateTimePicker)
+- Also copies: date_picker.dart, time_picker.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/datetime_picker.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) => const _Demo();
+
+class _Demo extends StatefulWidget {
+  const _Demo();
+  @override
+  State<_Demo> createState() => _DemoState();
+}
+
+class _DemoState extends State<_Demo> {
+  DateTime? at = DateTime.now().add(const Duration(days: 2, hours: 1));
+
+  @override
+  Widget build(BuildContext context) => _groups(context, [
+    ('Pick a day, then a time', BefDateTimePicker(value: at, onChanged: (d) => setState(() => at = d))),
+    (
+      '24-hour, 15 minute steps',
+      BefDateTimePicker(value: at, hour12: false, minuteStep: 15, onChanged: (d) => setState(() => at = d)),
+    ),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
+```
+
+### Day agenda (`day-agenda`)
+One day as a time grid: events sit at their time, overlapping ones share the width, a red now-line marks the time.
+- Add: `npx github:RandomKid24/befui add day-agenda --flutter`
+- Import: `import 'befui/day_agenda.dart';` (classes: BefAgendaEvent, BefDayAgenda)
+- Also copies: theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/day_agenda.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) {
+  final c = context.bef;
+  final events = [
+    const BefAgendaEvent(id: '1', title: 'Stand-up', start: '09:00', end: '09:30', location: 'Room 2'),
+    BefAgendaEvent(
+      id: '2',
+      title: 'Design review',
+      start: '10:00',
+      end: '11:30',
+      location: 'Zoom',
+      color: c.success,
+    ),
+    BefAgendaEvent(id: '3', title: '1:1 with Isha', start: '10:30', end: '11:00', color: c.warning),
+    BefAgendaEvent(id: '4', title: 'Lunch', start: '13:00', end: '14:00', color: c.info),
+    const BefAgendaEvent(
+      id: '5',
+      title: 'Sprint planning',
+      start: '15:00',
+      end: '17:00',
+      location: 'Main hall',
+    ),
+  ];
+  return _groups(context, [
+    (
+      'Overlapping events share the width, red line is now',
+      BefDayAgenda(events: events, now: '11:20', height: 420, onSelect: (_) {}),
+    ),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
+```
+
 ### Description list (`description-list`)
 Label and value pairs for a details panel, in one to three columns, optionally with dividers.
 - Add: `npx github:RandomKid24/befui add description-list --flutter`
@@ -2768,6 +2901,62 @@ Widget _groups(BuildContext context, List<(String, Widget)> groups) {
 }
 ```
 
+### Funnel chart (`funnel-chart`)
+Conversion funnel with a bar per stage and the step-to-step rate.
+- Add: `npx github:RandomKid24/befui add funnel-chart --flutter`
+- Import: `import 'befui/funnel_chart.dart';` (classes: BefFunnelStage, BefFunnelChart)
+- Also copies: core.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/funnel_chart.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) => _groups(context, [
+  (
+    'Hiring funnel',
+    const BefFunnelChart(
+      stages: [
+        BefFunnelStage('Applied', 1240),
+        BefFunnelStage('Screened', 640),
+        BefFunnelStage('Interview', 210),
+        BefFunnelStage('Offer', 48),
+        BefFunnelStage('Joined', 36),
+      ],
+    ),
+  ),
+]);
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
+```
+
 ### Gauge (`gauge`)
 Half-circle meter with a needle that swings to the value.
 - Add: `npx github:RandomKid24/befui add gauge --flutter`
@@ -2812,6 +3001,114 @@ class _DemoState extends State<_Demo> {
       'Fixed tone',
       const Center(
         child: BefGauge(value: 60, size: 160, tone: BefGaugeTone.primary, label: 'Fixed'),
+      ),
+    ),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
+```
+
+### Image viewer (`image-viewer`)
+Lightbox with arrows, click to zoom and keyboard control.
+- Add: `npx github:RandomKid24/befui add image-viewer --flutter`
+- Import: `import 'befui/image_viewer.dart';` (classes: BefViewerImage)
+- Also copies: icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'dart:typed_data';
+
+import 'package:flutter/material.dart';
+
+import 'befui/button.dart';
+import 'befui/image_viewer.dart';
+import 'befui/theme.dart';
+
+/// A plain coloured picture, so the example needs no files or network.
+ImageProvider _art(Color bg) {
+  final px = Uint8List.fromList([bg.r * 255, bg.g * 255, bg.b * 255, 255].map((v) => v.round()).toList());
+  return MemoryImage(_bmp(px));
+}
+
+Uint8List _bmp(Uint8List rgba) {
+  // 1x1 24-bit BMP, stretched by Image.fit
+  final b = ByteData(58);
+  b.setUint8(0, 0x42);
+  b.setUint8(1, 0x4D);
+  b.setUint32(2, 58, Endian.little);
+  b.setUint32(10, 54, Endian.little);
+  b.setUint32(14, 40, Endian.little);
+  b.setInt32(18, 1, Endian.little);
+  b.setInt32(22, 1, Endian.little);
+  b.setUint16(26, 1, Endian.little);
+  b.setUint16(28, 24, Endian.little);
+  b.setUint8(54, rgba[2]);
+  b.setUint8(55, rgba[1]);
+  b.setUint8(56, rgba[0]);
+  return b.buffer.asUint8List();
+}
+
+Widget example(BuildContext context) {
+  final images = [
+    BefViewerImage(image: _art(const Color(0xFFE0E7FF)), alt: 'Office floor plan'),
+    BefViewerImage(image: _art(const Color(0xFFFCE7F3)), alt: 'Brand moodboard'),
+    BefViewerImage(image: _art(const Color(0xFFDCFCE7)), alt: 'Event photos'),
+  ];
+  return _groups(context, [
+    (
+      'Tap a tile, swipe, pinch or double-tap to zoom',
+      Row(
+        children: [
+          for (var i = 0; i < images.length; i++)
+            Padding(
+              padding: const EdgeInsets.only(right: 8),
+              child: GestureDetector(
+                onTap: () => showBefImageViewer(context: context, images: images, initialIndex: i),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: SizedBox(
+                    width: 72,
+                    height: 72,
+                    child: Image(image: images[i].image, fit: BoxFit.cover),
+                  ),
+                ),
+              ),
+            ),
+        ],
+      ),
+    ),
+    (
+      'Or from a button',
+      BefButton(
+        label: 'Open the first photo',
+        variant: BefButtonVariant.outline,
+        onPressed: () => showBefImageViewer(context: context, images: images),
       ),
     ),
   ]);
@@ -2976,6 +3273,165 @@ class _Kbd extends StatelessWidget {
       ),
       child: Text(text, style: BefText.style(context, size: 11, color: c.mutedForeground, mono: true)),
     );
+  }
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
+```
+
+### Input group (`input-group`)
+One field with text, icons or buttons attached at the start or end, like https:// or .com.
+- Add: `npx github:RandomKid24/befui add input-group --flutter`
+- Import: `import 'befui/input_group.dart';` (classes: BefInputGroup)
+- Also copies: theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/icons.dart';
+import 'befui/input_group.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) {
+  Widget field(String hint, {String? text}) => TextField(
+    controller: text == null ? null : TextEditingController(text: text),
+    style: BefText.style(context),
+    decoration: InputDecoration(
+      border: InputBorder.none,
+      isCollapsed: true,
+      hintText: hint,
+      hintStyle: BefText.style(context, color: context.bef.mutedForeground),
+    ),
+  );
+  return _groups(context, [
+    ('Text before', BefInputGroup(prefix: const Text('https://'), child: field('your-site.com'))),
+    ('Text after', BefInputGroup(suffix: const Text('INR'), child: field('0.00'))),
+    ('Both', BefInputGroup(prefix: const Text('₹'), suffix: const Text('per month'), child: field('499'))),
+    ('Icon', BefInputGroup(prefix: const BefIcon(BefIcons.mail), child: field('you@company.com'))),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
+```
+
+### Kanban board (`kanban`)
+Columns of draggable cards. Drag with the mouse or move a focused card with Alt and the arrow keys. Controlled, no drag library.
+- Add: `npx github:RandomKid24/befui add kanban --flutter`
+- Import: `import 'befui/kanban.dart';` (classes: BefKanbanColumn, BefKanban)
+- Also copies: icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/kanban.dart';
+import 'befui/theme.dart';
+
+class _Task {
+  const _Task(this.id, this.title, this.tag, this.owner);
+  final String id, title, tag, owner;
+}
+
+Widget example(BuildContext context) => const _Demo();
+
+class _Demo extends StatefulWidget {
+  const _Demo();
+  @override
+  State<_Demo> createState() => _DemoState();
+}
+
+class _DemoState extends State<_Demo> {
+  var board = <String, List<_Task>>{
+    'todo': [
+      const _Task('t1', 'Onboarding checklist for new hires', 'Feature', 'Isha Nair'),
+      const _Task('t2', 'Fix payslip PDF margins', 'Bug', 'Rohan Das'),
+    ],
+    'doing': [const _Task('t4', 'Leave balance widget', 'Feature', 'Aarav Mehta')],
+    'review': [const _Task('t6', 'Holiday calendar import', 'Feature', 'Kabir Shah')],
+    'done': [const _Task('t7', 'Dark mode for dashboards', 'Design', 'Diya Rao')],
+  };
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.bef;
+    return _groups(context, [
+      (
+        'Long-press a card, drag it to another column',
+        BefKanban<_Task>(
+          idOf: (t) => t.id,
+          value: board,
+          onChanged: (b) => setState(() => board = b),
+          columns: const [
+            BefKanbanColumn(id: 'todo', title: 'To do'),
+            BefKanbanColumn(id: 'doing', title: 'In progress', tone: BefKanbanTone.info),
+            BefKanbanColumn(id: 'review', title: 'In review', tone: BefKanbanTone.warning),
+            BefKanbanColumn(id: 'done', title: 'Done', tone: BefKanbanTone.success),
+          ],
+          cardBuilder: (context, t) => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(t.title, style: BefText.style(context, size: 13, weight: FontWeight.w500)),
+              const SizedBox(height: 6),
+              Text(
+                '${t.tag} · ${t.owner}',
+                style: BefText.style(context, size: 12, color: c.mutedForeground),
+              ),
+            ],
+          ),
+        ),
+      ),
+    ]);
   }
 }
 
@@ -4876,6 +5332,62 @@ Widget _groups(BuildContext context, List<(String, Widget)> groups) {
 }
 ```
 
+### Radar chart (`radar-chart`)
+Spider chart for several scores on the same axes: a pentagon with five, a hexagon with six. Shapes grow from the center on scroll; hover a legend name to highlight a series.
+- Add: `npx github:RandomKid24/befui add radar-chart --flutter`
+- Import: `import 'befui/radar_chart.dart';` (classes: BefRadarSeries, BefRadarChart)
+- Also copies: core.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/radar_chart.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) => _groups(context, [
+  (
+    'Team against target',
+    const Center(
+      child: BefRadarChart(
+        axes: ['Speed', 'Quality', 'Reach', 'Cost', 'Support'],
+        series: [
+          BefRadarSeries(name: 'This quarter', data: [80, 65, 90, 55, 70]),
+          BefRadarSeries(name: 'Target', data: [70, 75, 70, 70, 75]),
+        ],
+      ),
+    ),
+  ),
+]);
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
+```
+
 ### Radio group (`radio-group`)
 Native radios as selectable cards with descriptions.
 - Add: `npx github:RandomKid24/befui add radio-group --flutter`
@@ -5092,6 +5604,69 @@ Widget example(BuildContext context) {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [t(const Duration(hours: 2), future: true), t(const Duration(days: 4), future: true)],
       ),
+    ),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
+```
+
+### Search bar (`search-bar`)
+Search field with live results, highlighted matches, recent searches and full keyboard control.
+- Add: `npx github:RandomKid24/befui add search-bar --flutter`
+- Import: `import 'befui/search_bar.dart';` (classes: BefSearchItem, BefSearchBar)
+- Also copies: icons.dart, theme.dart, search_input.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/icons.dart';
+import 'befui/search_bar.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) {
+  final items = [
+    for (final l in [
+      'Employee directory',
+      'Leave approvals',
+      'Payroll run',
+      'Attendance report',
+      'Org chart',
+      'Recruitment pipeline',
+      'Performance reviews',
+    ])
+      BefSearchItem(id: l, label: l, hint: 'Page', icon: BefIcons.file),
+  ];
+  return _groups(context, [
+    (
+      'Type "pay" or "re"; empty shows recent',
+      BefSearchBar(items: items, recent: items.take(3).toList(), placeholder: 'Search pages'),
     ),
   ]);
 }
@@ -5837,6 +6412,61 @@ Widget _groups(BuildContext context, List<(String, Widget)> groups) {
 }
 ```
 
+### Stacked bar chart (`stacked-bar-chart`)
+Bars split into colored segments that grow in on scroll, with a hover breakdown and legend. Sessions by device, revenue by plan.
+- Add: `npx github:RandomKid24/befui add stacked-bar-chart --flutter`
+- Import: `import 'befui/stacked_bar_chart.dart';` (classes: BefStackSeries, BefStackedBarChart)
+- Also copies: core.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/stacked_bar_chart.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) => _groups(context, [
+  (
+    'Hours by team, tap a bar',
+    const BefStackedBarChart(
+      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+      series: [
+        BefStackSeries(name: 'Design', data: [4, 6, 5, 7, 3]),
+        BefStackSeries(name: 'Build', data: [8, 7, 9, 6, 8]),
+        BefStackSeries(name: 'Review', data: [2, 1, 3, 2, 4]),
+      ],
+    ),
+  ),
+]);
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
+```
+
 ### Stat card (`stat-card`)
 KPI tile with value, trend delta and a sparkline slot.
 - Add: `npx github:RandomKid24/befui add stat-card --flutter`
@@ -6551,6 +7181,69 @@ Widget _groups(BuildContext context, List<(String, Widget)> groups) {
 }
 ```
 
+### Theme toggle (`theme-toggle`)
+Icon button that flips light and dark mode and remembers the choice. Also exports a useTheme hook.
+- Add: `npx github:RandomKid24/befui add theme-toggle --flutter`
+- Import: `import 'befui/theme_toggle.dart';` (classes: BefThemeToggle)
+- Also copies: button.dart, icons.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/theme_toggle.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) => const _Demo();
+
+class _Demo extends StatefulWidget {
+  const _Demo();
+  @override
+  State<_Demo> createState() => _DemoState();
+}
+
+class _DemoState extends State<_Demo> {
+  bool dark = false;
+
+  @override
+  Widget build(BuildContext context) => _groups(context, [
+    (
+      'Flips the icon (you flip your ThemeMode)',
+      Row(
+        children: [BefThemeToggle(dark: dark, onChanged: (v) => setState(() => dark = v))],
+      ),
+    ),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
+```
+
 ### Time picker (`time-picker`)
 Hour, minute and AM/PM segments you type into or step with arrow keys. 12 or 24 hour.
 - Add: `npx github:RandomKid24/befui add time-picker --flutter`
@@ -6890,6 +7583,105 @@ Widget _groups(BuildContext context, List<(String, Widget)> groups) {
 }
 ```
 
+### Toggle group (`toggle-group`)
+A row of toggles where one or several can be pressed, for formatting toolbars.
+- Add: `npx github:RandomKid24/befui add toggle-group --flutter`
+- Import: `import 'befui/toggle_group.dart';` (classes: BefToggleGroup, BefToggleGroupItem)
+- Also copies: core.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/icons.dart';
+import 'befui/toggle_group.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) => const _Demo();
+
+class _Demo extends StatefulWidget {
+  const _Demo();
+  @override
+  State<_Demo> createState() => _DemoState();
+}
+
+class _DemoState extends State<_Demo> {
+  var format = ['bold'];
+  var align = ['left'];
+  var range = ['week'];
+
+  @override
+  Widget build(BuildContext context) => _groups(context, [
+    (
+      'Several at once',
+      BefToggleGroup(
+        multiple: true,
+        outline: true,
+        value: format,
+        onChanged: (v) => setState(() => format = v),
+        items: const [
+          BefToggleGroupItem(value: 'bold', label: 'Bold', child: BefIcon(BefIcons.bold)),
+          BefToggleGroupItem(value: 'italic', label: 'Italic', child: BefIcon(BefIcons.italic)),
+          BefToggleGroupItem(value: 'underline', label: 'Underline', child: BefIcon(BefIcons.underline)),
+        ],
+      ),
+    ),
+    (
+      'One at a time',
+      BefToggleGroup(
+        value: align,
+        onChanged: (v) => setState(() => align = v),
+        items: const [
+          BefToggleGroupItem(value: 'left', label: 'Align left', child: BefIcon(BefIcons.alignLeft)),
+          BefToggleGroupItem(value: 'center', label: 'Align centre', child: BefIcon(BefIcons.alignCenter)),
+          BefToggleGroupItem(value: 'right', label: 'Align right', child: BefIcon(BefIcons.alignRight)),
+        ],
+      ),
+    ),
+    (
+      'With text',
+      BefToggleGroup(
+        outline: true,
+        value: range,
+        onChanged: (v) => setState(() => range = v),
+        items: const [
+          BefToggleGroupItem(value: 'day', label: 'Day', child: Text('Day')),
+          BefToggleGroupItem(value: 'week', label: 'Week', child: Text('Week')),
+          BefToggleGroupItem(value: 'month', label: 'Month', child: Text('Month')),
+        ],
+      ),
+    ),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
+```
+
 ### Tooltip (`tooltip`)
 Hint on hover and focus. Optional title, keyboard shortcut, light style and arrow, plus an (i) InfoTip and a TruncatedText that only shows a tooltip when cut off.
 - Add: `npx github:RandomKid24/befui add tooltip --flutter`
@@ -7143,6 +7935,68 @@ Widget example(BuildContext context) {
     ('All up', BefUptimeBar(name: 'Webhooks', days: _days({}))),
   ]);
 }
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
+```
+
+### User menu (`user-menu`)
+Avatar button for the topbar that opens a menu with name, email, your links and Sign out.
+- Add: `npx github:RandomKid24/befui add user-menu --flutter`
+- Import: `import 'befui/user_menu.dart';` (classes: BefUserMenuItem, BefUserMenu)
+- Also copies: avatar.dart, bottom_sheet.dart, core.dart, icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/icons.dart';
+import 'befui/user_menu.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) => _groups(context, [
+  (
+    'Tap the avatar',
+    Row(
+      children: [
+        BefUserMenu(
+          name: 'Aarav Mehta',
+          email: 'aarav@acme.co',
+          items: const [
+            BefUserMenuItem(label: 'Profile', icon: BefIcons.userCircle),
+            BefUserMenuItem(label: 'Billing', icon: BefIcons.wallet),
+            BefUserMenuItem(label: 'Settings', icon: BefIcons.settings),
+          ],
+          onSignOut: () {},
+        ),
+      ],
+    ),
+  ),
+]);
 
 /// Labelled groups, one per kind of use.
 Widget _groups(BuildContext context, List<(String, Widget)> groups) {
