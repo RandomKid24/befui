@@ -149,13 +149,13 @@ export function FlutterInline({ slug }: { slug: string }) {
       if (e.source === ref.current?.contentWindow && e.data?.befui === 'height') setH(Math.ceil(e.data.value));
     };
     window.addEventListener('message', on);
-    const t = setTimeout(() => setSlow(true), 12000);
+    const t = setTimeout(() => setSlow(true), 6000);
     return () => { window.removeEventListener('message', on); clearTimeout(t); };
   }, [slug, dark]);
   const src = `${APP}index.html?w=${slug}&mode=widget&theme=${dark ? 'dark' : 'light'}`;
   return (
     <div className="relative grid place-items-center overflow-hidden rounded-xl border bg-background bg-[radial-gradient(var(--border)_1px,transparent_1px)] [background-size:16px_16px]">
-      {h === null && (
+      {h === null && !slow && (
         <div className="relative w-full max-w-[460px] p-5">
           {(['light', 'dark'] as const).map((m) => (
             <img
@@ -166,11 +166,8 @@ export function FlutterInline({ slug }: { slug: string }) {
             />
           ))}
           <span className="absolute right-8 top-8 inline-flex items-center gap-2 rounded-full border bg-background/90 px-2.5 py-1 text-xs text-muted-foreground shadow-sm backdrop-blur">
-            {slow ? (
-              <>Live preview is slow. <a className="font-medium text-primary hover:underline" href={src} target="_blank" rel="noreferrer">Open it</a></>
-            ) : (
-              <><span className="size-3 animate-spin rounded-full border-2 border-primary border-t-transparent" /> Making it interactive…</>
-            )}
+            <span className="size-3 animate-spin rounded-full border-2 border-primary border-t-transparent" /> Loading
+
           </span>
         </div>
       )}
@@ -179,7 +176,7 @@ export function FlutterInline({ slug }: { slug: string }) {
         ref={ref}
         title={`${slug} running in Flutter`}
         src={src}
-        style={h === null ? { position: 'absolute', inset: 0, height: '100%', width: '100%', opacity: 0, pointerEvents: 'none' } : { height: Math.min(Math.max(h, 160), 720), minHeight: 160 }}
+        style={h === null && !slow ? { position: 'absolute', inset: 0, height: '100%', width: '100%', opacity: 0, pointerEvents: 'none' } : { height: Math.min(Math.max(h ?? 420, 160), 720), minHeight: 160 }}
         className="w-full max-w-[460px] border-0 bg-transparent"
       />
     </div>
