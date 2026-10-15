@@ -12,7 +12,7 @@ const DART_TOKEN = /(\/\/[^\n]*|\/\*[\s\S]*?\*\/)|('(?:\\.|[^'\\\n])*'|"(?:\\.|[
 const TOKEN = /(\/\/[^\n]*|\/\*[\s\S]*?\*\/)|('(?:\\.|[^'\\\n])*'|"(?:\\.|[^"\\\n])*"|`(?:\\.|[^`\\])*`)|(<\/?[A-Z][\w.]*)|(\b\d+(?:\.\d+)?\b)|(\b[A-Za-z_$][\w$]*\b)/g;
 
 /** Small regex highlighter. Not a parser, but good enough to read TSX and CSS. */
-function highlight(code: string, mode: 'tsx' | 'html' | 'dart' = 'tsx'): React.ReactNode[] {
+export function highlight(code: string, mode: 'tsx' | 'html' | 'dart' = 'tsx'): React.ReactNode[] {
   const html = mode === 'html';
   const out: React.ReactNode[] = [];
   let last = 0;

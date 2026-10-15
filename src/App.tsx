@@ -17,6 +17,8 @@ const ThemesPage = named(() => import('@/site/themes-page'), 'ThemesPage');
 const AiPage = named(() => import('@/site/ai-page'), 'AiPage');
 const ChangelogPage = named(() => import('@/site/changelog-page'), 'ChangelogPage');
 const HtmlPage = named(() => import('@/site/html-page'), 'HtmlPage');
+const RecipesIndex = named(() => import('@/site/recipes-page'), 'RecipesIndex');
+const RecipePage = named(() => import('@/site/recipes-page'), 'RecipePage');
 const FlutterPage = named(() => import('@/site/flutter-page'), 'FlutterPage');
 const FlutterComponentPage = named(() => import('@/site/platform'), 'FlutterComponentPage');
 const HtmlComponentPage = named(() => import('@/site/platform'), 'HtmlComponentPage');
@@ -38,6 +40,7 @@ export default function App() {
   else if (section === 'docs') page = <GettingStarted />;
   else if (section === 'components') page = slug ? <ComponentPage slug={slug} /> : <ComponentsIndex />;
   else if (section === 'ai') page = <AiPage />;
+  else if (section === 'recipes') page = slug ? <RecipePage slug={slug} /> : <RecipesIndex />;
   else if (section === 'html') page = slug ? <HtmlComponentPage slug={slug} /> : <HtmlPage />;
   else if (section === 'flutter') page = slug ? <FlutterComponentPage slug={slug} /> : <FlutterPage />;
   else if (section === 'changelog') page = <ChangelogPage />;
@@ -47,7 +50,7 @@ export default function App() {
   else page = <NotFound />;
 
   return (
-    <Shell path={path} docs={!home && section !== 'icons' && section !== 'themes'}>
+    <Shell path={path} docs={!home && section !== 'icons' && section !== 'themes' && section !== 'recipes'}>
       <style>{`
         @keyframes rise { from { opacity: 0; transform: translateY(10px) scale(0.995) } to { opacity: 1; transform: none } }
         /* a page's sections rise in one after the other, and a demo fades up when it has loaded */

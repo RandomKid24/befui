@@ -12,9 +12,10 @@ const known: Record<string, string> = baseline;
 const update = Boolean(process.env.UPDATE_BASELINE);
 type Loader = () => Promise<{ default: ComponentType }>;
 const name = (path: string, dir: string) => path.slice(dir.length, -'.tsx'.length);
-// Examples are keyed by slug, blocks as `block:<slug>`.
+// Examples are keyed by slug, blocks as `block:<slug>`, recipe steps as `recipe:<recipe>/step-N`.
 const loaders: Record<string, Loader> = {
   ...Object.fromEntries(Object.entries(import.meta.glob('/src/examples/*.tsx') as Record<string, Loader>).map(([path, load]) => [name(path, '/src/examples/'), load])),
+  ...Object.fromEntries(Object.entries(import.meta.glob('/src/recipes/*/step-*.tsx') as Record<string, Loader>).map(([path, load]) => [`recipe:${path.slice('/src/recipes/'.length, -'.tsx'.length)}`, load])),
   ...Object.fromEntries(Object.entries(import.meta.glob('/src/blocks/*.tsx') as Record<string, Loader>).map(([path, load]) => [`block:${name(path, '/src/blocks/')}`, load])),
 };
 const slugs = Object.keys(loaders).sort();

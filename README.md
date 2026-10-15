@@ -125,6 +125,7 @@ Time picker, analog clock, world clock, stopwatch, countdown timer and live rela
 
 ## Read more
 
+- **Recipes** on the docs site (`/recipes`): whole features built step by step with a live preview, highlighted code and an install line: sign-in form, settings page, overview dashboard, AI assistant, leave request, checkout. Every step is a file in [`src/recipes/`](src/recipes).
 - [`COMPONENTS.md`](COMPONENTS.md): every component and block in one list, with which have an HTML tag and a Flutter widget.
 - [`DESIGN.md`](DESIGN.md): the design rules (colour, type, shape, motion) and how to add a component so it matches.
 - [`CHANGELOG.md`](CHANGELOG.md): what changed in each release.

@@ -6,6 +6,10 @@
     "entries": [
       {
         "kind": "added",
+        "text": "Recipes: six whole features built up step by step (sign-in form, settings page, overview dashboard, AI assistant, leave request, checkout). Scroll a recipe and a sticky live preview and the code grow with it, the lines each step adds are highlighted, every step is a real copy-paste file, and each recipe has an install command and a Copy for AI prompt."
+      },
+      {
+        "kind": "added",
         "text": "AI components, a new group of twelve: AI chat (a whole chat: follows the newest message with a Latest button, starter prompts, thinking row, pinned prompt box), streaming text (words fade up out of a soft blur with a caret), prompt input, AI message, thinking, tool call, sources (citation chips and source cards), prompt suggestions, token meter, model picker, voice wave (audio level bars) and attachment (file chip with upload progress). All twelve also have an HTML tag.",
         "slugs": [
           "ai-chat",

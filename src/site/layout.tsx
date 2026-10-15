@@ -77,6 +77,7 @@ function SearchPalette({ open, setOpen }: { open: boolean; setOpen: (o: boolean)
           <CommandItem onSelect={() => pick('/icons')}><SparkleIcon /> Icons</CommandItem>
           <CommandItem onSelect={() => pick('/themes')}><PaletteIcon /> Themes</CommandItem>
           <CommandItem onSelect={() => pick('/ai')}><ZapIcon /> Use with AI</CommandItem>
+          <CommandItem onSelect={() => pick('/recipes')}><LayersIcon /> Recipes</CommandItem>
           <CommandItem onSelect={() => pick('/html')}><CodeIcon /> Use from HTML and htmx</CommandItem>
           <CommandItem onSelect={() => pick('/flutter')}><PhoneIcon /> Use in Flutter</CommandItem>
           <CommandItem onSelect={() => pick('/changelog')}><ClockIcon /> Changelog</CommandItem>
@@ -332,6 +333,7 @@ export function Shell({ path, docs, children }: { path: string; docs: boolean; c
             {navLink('/docs', 'Docs', '/docs')}
             {navLink('/components', 'Components', '/components')}
             {navLink('/blocks', 'Blocks', '/blocks')}
+            {navLink('/recipes', 'Recipes', '/recipes')}
             {navLink('/icons', 'Icons', '/icons')}
             {navLink('/ai', 'AI', '/ai')}
             {navLink('/html', 'HTML', '/html')}
