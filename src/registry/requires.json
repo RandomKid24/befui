@@ -6,6 +6,9 @@
     "avatar",
     "relative-time"
   ],
+  "ai-message": [
+    "icons"
+  ],
   "alert": [
     "icons"
   ],
@@ -334,6 +337,10 @@
   ],
   "progress": [],
   "progress-ring": [],
+  "prompt-input": [
+    "icons"
+  ],
+  "prompt-suggestions": [],
   "pull-to-refresh": [
     "icons"
   ],
@@ -418,6 +425,9 @@
     "charts"
   ],
   "sortable-list": [],
+  "sources": [
+    "icons"
+  ],
   "spinner": [],
   "split-pane": [],
   "spotlight-card": [],
@@ -463,6 +473,9 @@
     "button",
     "icons"
   ],
+  "thinking": [
+    "icons"
+  ],
   "tilt-card": [],
   "time-picker": [
     "icons"
@@ -477,6 +490,10 @@
   ],
   "toggle": [],
   "toggle-group": [],
+  "token-meter": [],
+  "tool-call": [
+    "icons"
+  ],
   "tooltip": [
     "icons",
     "kbd"

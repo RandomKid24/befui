@@ -1,0 +1,11 @@
+<div class="grid w-full max-w-xl gap-5">
+  <bef-prompt-suggestions :items='[{"id":"1","label":"Summarise this week","hint":"Attendance, leave and approvals","icon":"<bef-calendar-icon></bef-calendar-icon>"},{"id":"2","label":"Draft an offer letter","hint":"From a role and a salary","icon":"<bef-file-text-icon></bef-file-text-icon>"},{"id":"3","label":"Who is out tomorrow?","hint":"Across all teams","icon":"<bef-users-icon></bef-users-icon>"},{"id":"4","label":"Explain this payslip","hint":"Line by line, in plain words","icon":"<bef-sparkle-icon></bef-sparkle-icon>"}]'></bef-prompt-suggestions>
+  <bef-prompt-suggestions layout="chips" :items='[{"id":"1","label":"Summarise this week","hint":"Attendance, leave and approvals"},{"id":"2","label":"Draft an offer letter","hint":"From a role and a salary"},{"id":"3","label":"Who is out tomorrow?","hint":"Across all teams"},{"id":"4","label":"Explain this payslip","hint":"Line by line, in plain words"}]'></bef-prompt-suggestions>
+  <p class="text-xs text-muted-foreground">Pick one.</p>
+</div>
+<script type="module">
+  const note = document.querySelector('p');
+  document.querySelectorAll('bef-prompt-suggestions').forEach((el) => {
+    el.props = { onSelect: (s) => { note.textContent = `Picked: ${s.label}`; } };
+  });
+</script>

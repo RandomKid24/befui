@@ -1,0 +1,6 @@
+<script type="module">
+  const note = document.querySelector('p');
+  document.querySelectorAll('bef-prompt-suggestions').forEach((el) => {
+    el.props = { onSelect: (s) => { note.textContent = `Picked: ${s.label}`; } };
+  });
+</script>

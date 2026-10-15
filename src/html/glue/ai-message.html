@@ -1,0 +1,4 @@
+<script type="module">
+  const reply = document.querySelectorAll('bef-ai-message')[1];
+  reply.props = { onFeedback: (v) => reply.setAttribute('feedback', v ?? '') };
+</script>

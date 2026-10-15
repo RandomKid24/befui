@@ -3254,6 +3254,203 @@ export default function VersionLogDemo() {
 }
 ```
 
+## AI message (`ai-message`)
+One message in an AI chat: a right-aligned user bubble, or an assistant answer with copy, regenerate and thumbs actions and a blinking caret while it streams.
+- Group: AI
+- Add: `npx github:RandomKid24/befui add ai-message`
+- Import: `import { AiMessage } from '@/components/ui/ai-message'`
+- Also needs: icons
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { AiMessage } from '@/components/ui/ai-message';
+import { Cite } from '@/components/ui/sources';
+
+export default function AiMessageDemo() {
+  const [fb, setFb] = React.useState<'up' | 'down' | null>(null);
+  const answer = 'Carry-forward is capped at 12 days a year, and anything above that lapses on 31 March.';
+  return (
+    <div className="grid w-full max-w-xl gap-6">
+      <AiMessage role="user">How many leave days can I carry forward?</AiMessage>
+      <AiMessage role="assistant" plain={answer} onRegenerate={() => {}} feedback={fb} onFeedback={setFb}>
+        <p>Carry-forward is capped at <strong>12 days</strong> a year<Cite n={1} href="#policy" title="Leave policy 2025" />, and anything above that lapses on 31 March<Cite n={2} href="#faq" title="Leave FAQ" />.</p>
+        <p>Casual leave does not carry forward at all.</p>
+      </AiMessage>
+      <AiMessage role="assistant" streaming>Checking the policy for the part about encashment</AiMessage>
+    </div>
+  );
+}
+```
+
+## Prompt input (`prompt-input`)
+The box you type a prompt into: grows with the text, Enter sends, Shift+Enter adds a line, and the send button turns into Stop while a reply streams.
+- Group: AI
+- Add: `npx github:RandomKid24/befui add prompt-input`
+- Import: `import { PromptInput } from '@/components/ui/prompt-input'`
+- Also needs: icons
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { PaperclipIcon } from '@/components/ui/icons';
+import { Button } from '@/components/ui/button';
+import { PromptInput } from '@/components/ui/prompt-input';
+
+export default function PromptInputDemo() {
+  const [value, setValue] = React.useState('');
+  const [streaming, setStreaming] = React.useState(false);
+  const timer = React.useRef<ReturnType<typeof setTimeout>>(undefined);
+  const send = () => {
+    setValue('');
+    setStreaming(true);
+    timer.current = setTimeout(() => setStreaming(false), 3000);
+  };
+  const stop = () => { clearTimeout(timer.current); setStreaming(false); };
+  return (
+    <div className="grid w-full max-w-xl gap-3">
+      <PromptInput
+        value={value}
+        onValueChange={setValue}
+        onSubmit={send}
+        onStop={stop}
+        streaming={streaming}
+        maxLength={400}
+        placeholder="Ask about leave policy, payroll or onboarding"
+        leading={<Button variant="ghost" size="icon-sm" aria-label="Attach a file"><PaperclipIcon /></Button>}
+      />
+      <p className="text-xs text-muted-foreground">Enter sends, Shift+Enter adds a line. After sending it shows Stop for three seconds.</p>
+    </div>
+  );
+}
+```
+
+## Prompt suggestions (`prompt-suggestions`)
+Starter prompts for an empty chat, as two-line cards or compact chips. Selecting one fills the prompt box.
+- Group: AI
+- Add: `npx github:RandomKid24/befui add prompt-suggestions`
+- Import: `import { PromptSuggestions } from '@/components/ui/prompt-suggestions'`
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { CalendarIcon, FileTextIcon, SparkleIcon, UsersIcon } from '@/components/ui/icons';
+import { PromptSuggestions, type Suggestion } from '@/components/ui/prompt-suggestions';
+
+const items: Suggestion[] = [
+  { id: '1', label: 'Summarise this week', hint: 'Attendance, leave and approvals', icon: <CalendarIcon /> },
+  { id: '2', label: 'Draft an offer letter', hint: 'From a role and a salary', icon: <FileTextIcon /> },
+  { id: '3', label: 'Who is out tomorrow?', hint: 'Across all teams', icon: <UsersIcon /> },
+  { id: '4', label: 'Explain this payslip', hint: 'Line by line, in plain words', icon: <SparkleIcon /> },
+];
+
+export default function PromptSuggestionsDemo() {
+  const [picked, setPicked] = React.useState<string>();
+  return (
+    <div className="grid w-full max-w-xl gap-5">
+      <PromptSuggestions items={items} onSelect={(s) => setPicked(s.label)} />
+      <PromptSuggestions layout="chips" items={items.map(({ icon: _i, ...s }) => s)} onSelect={(s) => setPicked(s.label)} />
+      <p className="text-xs text-muted-foreground">{picked ? `Picked: ${picked}` : 'Pick one.'}</p>
+    </div>
+  );
+}
+```
+
+## Sources (`sources`)
+Numbered citation chips (Cite) to drop inside an answer, and a SourceList of cards with title and site under it.
+- Group: AI
+- Add: `npx github:RandomKid24/befui add sources`
+- Import: `import { Cite, SourceList } from '@/components/ui/sources'`
+- Also needs: icons
+
+Example:
+
+```tsx
+import { SourceList, type Source } from '@/components/ui/sources';
+
+const sources: Source[] = [
+  { id: '1', title: 'Leave policy 2025: carry-forward and encashment', site: 'handbook.acme.co', href: '#policy' },
+  { id: '2', title: 'Leave FAQ: what lapses on 31 March', site: 'help.acme.co', href: '#faq' },
+  { id: '3', title: 'HR circular 14: changes to casual leave', site: 'intranet.acme.co', href: '#circular' },
+];
+
+export default function SourcesDemo() {
+  return <SourceList sources={sources} className="w-full max-w-2xl" />;
+}
+```
+
+## Thinking (`thinking`)
+A shimmering "Thinking" status with bouncing dots, or a collapsible list of the steps the model is working through that settles into "Thought for 4s".
+- Group: AI
+- Add: `npx github:RandomKid24/befui add thinking`
+- Import: `import { Thinking } from '@/components/ui/thinking'`
+- Also needs: icons
+
+Example:
+
+```tsx
+import { Thinking } from '@/components/ui/thinking';
+
+export default function ThinkingDemo() {
+  return (
+    <div className="grid w-full max-w-sm gap-6">
+      <Thinking />
+      <Thinking label="Searching the handbook" steps={[{ label: 'Read the question', done: true }, { label: 'Search leave policy', done: true }, { label: 'Compare with your balance' }]} />
+      <Thinking done took="4s" steps={[{ label: 'Read the question', done: true }, { label: 'Wrote the answer', done: true }]} />
+    </div>
+  );
+}
+```
+
+## Token meter (`token-meter`)
+How much of a model context window is used: a bar that turns amber and red as it fills, token counts, an optional cost, and a split by prompt, files and reply.
+- Group: AI
+- Add: `npx github:RandomKid24/befui add token-meter`
+- Import: `import { TokenMeter } from '@/components/ui/token-meter'`
+
+Example:
+
+```tsx
+import { TokenMeter } from '@/components/ui/token-meter';
+
+export default function TokenMeterDemo() {
+  return (
+    <div className="grid w-full max-w-sm gap-6">
+      <TokenMeter used={18_400} limit={200_000} cost="$0.04" />
+      <TokenMeter used={152_000} limit={200_000} />
+      <TokenMeter used={196_500} limit={200_000} />
+      <TokenMeter used={88_000} limit={200_000} segments={[{ label: 'Prompt', tokens: 12_000 }, { label: 'Files', tokens: 61_000 }, { label: 'Reply', tokens: 15_000 }]} />
+    </div>
+  );
+}
+```
+
+## Tool call (`tool-call`)
+A card for one tool or function call an AI made: name, running, done or failed, how long it took, and its input and output to expand.
+- Group: AI
+- Add: `npx github:RandomKid24/befui add tool-call`
+- Import: `import { ToolCall } from '@/components/ui/tool-call'`
+- Also needs: icons
+
+Example:
+
+```tsx
+import { ToolCall } from '@/components/ui/tool-call';
+
+export default function ToolCallDemo() {
+  return (
+    <div className="grid w-full max-w-lg gap-2">
+      <ToolCall name="get_leave_balance" status="done" duration="0.4s" defaultOpen input={'{\n  "employee": "aarav.mehta",\n  "type": "casual"\n}'} output={'{\n  "balance": 7,\n  "carry_forward": 12\n}'} />
+      <ToolCall name="search_policies" status="running" input={'{ "query": "encashment" }'} />
+      <ToolCall name="send_email" status="error" duration="1.2s" input={'{ "to": "hr@acme.co" }'} output="SMTP 550: mailbox unavailable" />
+    </div>
+  );
+}
+```
+
 ## Area chart (`area-chart`)
 Smooth gradient areas, stacked or overlapping, that wipe in on scroll. Hover for a readout across series.
 - Group: Data

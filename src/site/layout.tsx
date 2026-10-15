@@ -111,6 +111,7 @@ const GROUP_ICONS = {
   Overlays: LayersIcon,
   Navigation: ListIcon,
   Time: ClockIcon,
+  AI: SparkleIcon,
   Blocks: ComponentsIcon,
 } as const;
 

@@ -327,7 +327,7 @@ color\] {
     translate: var(--tw-translate-x) var(--tw-translate-y);
   }
   .hover\:border-primary:hover,
-  .hover\:border-primary\/50:hover {
+  .hover\:border-primary\/40:hover {
     border-color: var(--primary);
   }
   .hover\:bg-destructive\/90:hover {

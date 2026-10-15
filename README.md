@@ -4,7 +4,7 @@
 
 **Interfaces people actually enjoy using.**
 
-200 copy-paste React components, 389 hand-drawn icons and 37 full-page blocks.<br/>
+207 copy-paste React components, 389 hand-drawn icons and 37 full-page blocks.<br/>
 Plus **109 Flutter widgets** for Android and iOS, and every component as a `<bef-*>` HTML tag.<br/>
 Built on Radix, Tailwind 4 and CSS variables. You own every file.
 
@@ -201,7 +201,7 @@ Add a `## x.y.z` section to `CHANGELOG.md`, then `npm version minor` (checks the
 Some components (loader, bottom sheet, toast...) need keyframes from `index.css`. After adding components, run `npx github:RandomKid24/befui update` to append any your project is missing (`--check` only reports, handy in CI). `add` also prints a warning when something is missing.
 
 <!-- components:start -->
-### Components (200)
+### Components (207)
 
 <details>
 <summary><b>Layout</b> (5)</summary>
@@ -228,6 +228,13 @@ Some components (loader, bottom sheet, toast...) need keyframes from `index.css`
 <summary><b>Display</b> (44)</summary>
 
 `accordion` · `activity-feed` · `approval-flow` · `avatar` · `badge` · `border-beam` · `brand-icons` · `card` · `carousel` · `changelog` · `chat` · `code-block` · `collapsible` · `comment-thread` · `compare` · `credit-card` · `description-list` · `diff-viewer` · `empty-state` · `format` · `invoice` · `kbd` · `marquee` · `onboarding-checklist` · `order-summary` · `pricing-card` · `product-card` · `profile-card` · `rating-breakdown` · `reveal` · `separator` · `shimmer-text` · `sortable-list` · `spotlight-card` · `status-dot` · `swipe-actions` · `table` · `tag-manager` · `terminal` · `testimonial-card` · `tilt-card` · `timeline` · `typewriter` · `version-log`
+
+</details>
+
+<details>
+<summary><b>AI</b> (7)</summary>
+
+`ai-message` · `prompt-input` · `prompt-suggestions` · `sources` · `thinking` · `token-meter` · `tool-call`
 
 </details>
 

@@ -190,7 +190,7 @@
 
 @media (hover:hover) {
   .hover\:border-primary:hover,
-  .hover\:border-primary\/50:hover {
+  .hover\:border-primary\/40:hover {
     border-color: var(--primary);
   }
 }

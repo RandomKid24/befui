@@ -5,7 +5,7 @@ import realRequires from './requires.json';
 
 export interface ChartGuide { what: string; read: string; use: string; avoid: string }
 
-export type Category = 'Inputs' | 'Display' | 'Feedback' | 'Overlays' | 'Navigation' | 'Data' | 'Layout' | 'Time';
+export type Category = 'Inputs' | 'Display' | 'Feedback' | 'Overlays' | 'Navigation' | 'Data' | 'Layout' | 'Time' | 'AI';
 
 export interface Entry {
   slug: string;
@@ -45,7 +45,7 @@ export function useSource(load: () => Promise<string>): string {
 }
 
 /** Slugs shown as "New". Trim this list when a release is no longer recent. */
-export const NEW_SLUGS = new Set(['brand-icons', 'tour', 'menubar', 'navigation-menu', 'toggle-group', 'hover-card', 'button-group', 'input-group', 'circle-pack-chart', 'marimekko-chart', 'punch-card-chart', 'forecast-chart', 'venn-chart', 'word-cloud', 'week-strip', 'order-tracker', 'diff-viewer', 'day-agenda', 'pie-chart', 'half-donut-chart', 'radial-line-chart', 'histogram-chart', 'pareto-chart', 'slope-chart', 'butterfly-chart', 'lollipop-chart', 'sunburst-chart', 'ridgeline-chart', 'box-plot-chart', 'chord-chart', 'uptime-bar', 'leaderboard', 'rating-breakdown', 'credit-card', 'bump-chart', 'rose-chart', 'bullet-chart', 'dumbbell-chart', 'waffle-chart', 'treemap', 'waterfall-chart', 'sankey-chart', 'stream-chart', 'candlestick-chart', 'area-chart', 'scatter-chart', 'matrix-heatmap', 'stacked-bar-chart', 'radial-bar-chart', 'live-chart', 'theme-toggle', 'user-menu', 'description-list', 'bar-list', 'settings-layout', 'comparison-table', 'invoice', 'landing-sections', 'pivot-table', 'tree-table', 'file-uploader', 'onboarding-carousel', 'event-calendar']);
+export const NEW_SLUGS = new Set(['prompt-input', 'ai-message', 'thinking', 'tool-call', 'sources', 'prompt-suggestions', 'token-meter', 'brand-icons', 'tour', 'menubar', 'navigation-menu', 'toggle-group', 'hover-card', 'button-group', 'input-group', 'circle-pack-chart', 'marimekko-chart', 'punch-card-chart', 'forecast-chart', 'venn-chart', 'word-cloud', 'week-strip', 'order-tracker', 'diff-viewer', 'day-agenda', 'pie-chart', 'half-donut-chart', 'radial-line-chart', 'histogram-chart', 'pareto-chart', 'slope-chart', 'butterfly-chart', 'lollipop-chart', 'sunburst-chart', 'ridgeline-chart', 'box-plot-chart', 'chord-chart', 'uptime-bar', 'leaderboard', 'rating-breakdown', 'credit-card', 'bump-chart', 'rose-chart', 'bullet-chart', 'dumbbell-chart', 'waffle-chart', 'treemap', 'waterfall-chart', 'sankey-chart', 'stream-chart', 'candlestick-chart', 'area-chart', 'scatter-chart', 'matrix-heatmap', 'stacked-bar-chart', 'radial-bar-chart', 'live-chart', 'theme-toggle', 'user-menu', 'description-list', 'bar-list', 'settings-layout', 'comparison-table', 'invoice', 'landing-sections', 'pivot-table', 'tree-table', 'file-uploader', 'onboarding-carousel', 'event-calendar']);
 
 const m = (
   slug: string,
@@ -197,6 +197,13 @@ const metas: Meta[] = [
   m('order-summary', 'Order summary', 'Display', 'Cart lines with subtotal, discount, shipping, tax and total computed for you. Slots for a coupon field and a checkout button.', { keywords: ['cart', 'checkout', 'invoice', 'totals', 'receipt', 'ecommerce'] }),
   m('split-pane', 'Split pane', 'Layout', 'Two resizable panels with a draggable divider. Keyboard resizable. Horizontal or vertical.', { keywords: ['resizable', 'panels', 'divider', 'layout', 'ide', 'master detail'], wide: true }),
   m('sortable-list', 'Sortable list', 'Display', 'Reorder rows by dragging, or with arrow keys on the grip. Controlled, no drag library.', { keywords: ['drag', 'drop', 'reorder', 'priority', 'checklist', 'rank'] }),
+  m('prompt-input', 'Prompt input', 'AI', 'The box you type a prompt into: grows with the text, Enter sends, Shift+Enter adds a line, and the send button turns into Stop while a reply streams.', { requires: ['icons'], keywords: ['chat', 'composer', 'llm', 'ai', 'textarea', 'message box'] }),
+  m('ai-message', 'AI message', 'AI', 'One message in an AI chat: a right-aligned user bubble, or an assistant answer with copy, regenerate and thumbs actions and a blinking caret while it streams.', { requires: ['icons'], keywords: ['chat', 'llm', 'assistant', 'answer', 'streaming', 'response'] }),
+  m('thinking', 'Thinking', 'AI', 'A shimmering "Thinking" status with bouncing dots, or a collapsible list of the steps the model is working through that settles into "Thought for 4s".', { requires: ['icons'], keywords: ['loading', 'reasoning', 'llm', 'ai', 'status', 'agent'] }),
+  m('tool-call', 'Tool call', 'AI', 'A card for one tool or function call an AI made: name, running, done or failed, how long it took, and its input and output to expand.', { requires: ['icons'], keywords: ['agent', 'function', 'llm', 'mcp', 'api call', 'log'] }),
+  m('sources', 'Sources', 'AI', 'Numbered citation chips (Cite) to drop inside an answer, and a SourceList of cards with title and site under it.', { requires: ['icons'], keywords: ['citation', 'references', 'links', 'rag', 'ai', 'footnote'] }),
+  m('prompt-suggestions', 'Prompt suggestions', 'AI', 'Starter prompts for an empty chat, as two-line cards or compact chips. Selecting one fills the prompt box.', { keywords: ['starter', 'examples', 'chips', 'chat', 'empty state', 'ai'] }),
+  m('token-meter', 'Token meter', 'AI', 'How much of a model context window is used: a bar that turns amber and red as it fills, token counts, an optional cost, and a split by prompt, files and reply.', { keywords: ['context', 'usage', 'limit', 'llm', 'cost', 'quota'] }),
   m('chat', 'Chat', 'Display', 'Message bubbles with avatars, timestamps, a typing indicator and a composer. Enter sends.', { requires: ['avatar', 'icons'], keywords: ['messages', 'conversation', 'support', 'inbox', 'dm'] }),
   m('mention-input', 'Mention input', 'Inputs', 'Textarea that suggests people when you type @. Arrow keys and Enter pick.', { requires: ['avatar'], keywords: ['at', 'tag', 'people', 'comment', 'autocomplete'] }),
   m('profile-card', 'Profile card', 'Display', 'Person card with banner, avatar, role, stats and an actions slot.', { requires: ['avatar'], keywords: ['user', 'employee', 'team', 'member', 'bio'] }),
@@ -293,7 +300,7 @@ export const components: Entry[] = metas.map((meta) => {
   };
 });
 
-export const categories: Category[] = ['Layout', 'Inputs', 'Time', 'Display', 'Data', 'Feedback', 'Overlays', 'Navigation'];
+export const categories: Category[] = ['Layout', 'Inputs', 'Time', 'Display', 'AI', 'Data', 'Feedback', 'Overlays', 'Navigation'];
 
 export interface Block {
   slug: string;

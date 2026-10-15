@@ -191,6 +191,9 @@ transform\] {
   .group-hover\:bg-primary:is(:where(.group):hover *) {
     background-color: var(--primary);
   }
+  .group-hover\:text-primary:is(:where(.group):hover *) {
+    color: var(--primary);
+  }
   .group-hover\:opacity-100:is(:where(.group):hover *) {
     opacity: 1;
   }

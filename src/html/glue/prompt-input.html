@@ -1,0 +1,13 @@
+<script type="module">
+  const box = document.querySelector('bef-prompt-input');
+  let timer;
+  const settle = () => { clearTimeout(timer); box.setAttribute(':streaming', 'false'); };
+  box.props = {
+    onSubmit() {
+      box.setAttribute('value', '');
+      box.setAttribute(':streaming', 'true');
+      timer = setTimeout(settle, 3000);
+    },
+    onStop: settle,
+  };
+</script>

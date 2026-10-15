@@ -7,6 +7,7 @@ All notable changes to befui. Versions follow [semver](https://semver.org): new 
 
 Flutter widgets for Android and iOS, a page per platform, a new hero
 
+- **Added:** AI components, a new group: prompt input (grows, Enter sends, Stop while streaming), AI message (user bubble or assistant answer with copy, regenerate and thumbs, streaming caret), thinking (shimmer and steps), tool call (running, done, failed, input and output), sources (citation chips and source cards), prompt suggestions and token meter (context window use). All seven also have an HTML tag. (Prompt input, AI message, Thinking, Tool call, Sources, Prompt suggestions, Token meter)
 - **Added:** Flutter: 109 widgets for Android and iOS apps, one Dart file per widget, copy-paste like the React ones. Buttons, inputs, cards, dialogs, sheets, toasts, tabs, bottom nav, calendar, date and time pickers, chat, kanban, charts and more, with the same colours, radii, ten palettes and dark mode as the web components.
 - **Added:** CLI and MCP: befui add, init and list take --flutter (files go to lib/befui, relative imports, no dependencies). get_component accepts format: "flutter", get_flutter_rules returns the rules, and llms-flutter.txt lists every widget with an example.
 - **Added:** Docs: every component has a React, an HTML and (where it exists) a Flutter tab, each on its own page with its own sidebar. Flutter pages show a working preview, a phone view, the example, the source and a properties table.

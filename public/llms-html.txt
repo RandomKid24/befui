@@ -37,6 +37,29 @@ Who did what and when, grouped under Today and Yesterday, with live relative tim
 <bef-activity-feed class="w-full max-w-md" :items='[{"id":"1","actor":"Aarav Mehta","action":"commented on","target":"Leave policy 2025","at":"~now-12m","icon":"<bef-message-square-icon></bef-message-square-icon>","detail":"“Carry-forward cap should be 12 days, not 10. Checked with Finance.”"},{"id":"2","actor":"Diya Rao","action":"uploaded","target":"offer-letter-v3.pdf","at":"~now-2h","icon":"<bef-file-icon></bef-file-icon>","detail":"248 KB · PDF"},{"id":"3","actor":"Isha Nair","action":"added","target":"Kabir Shah to Engineering","at":"~now-5h","icon":"<bef-user-plus-icon></bef-user-plus-icon>"},{"id":"4","actor":"Rohan Das","action":"merged","target":"Payroll export fixes","at":"~now-27h","icon":"<bef-git-merge-icon></bef-git-merge-icon>"},{"id":"5","actor":"Meera Iyer","action":"approved","target":"September expense report","at":"~now-30h"},{"id":"6","actor":"Vikram Joshi","action":"closed","target":"Duplicate employee IDs","at":1791628596217}]'></bef-activity-feed>
 ```
 
+## AI message (ai-message)
+One message in an AI chat: a right-aligned user bubble, or an assistant answer with copy, regenerate and thumbs actions and a blinking caret while it streams.
+```html
+<div class="grid w-full max-w-xl gap-6">
+  <bef-ai-message role="user">How many leave days can I carry forward?</bef-ai-message>
+  <bef-ai-message role="assistant" plain="Carry-forward is capped at 12 days a year, and anything above that lapses on 31 March." id="g1">
+    <p>Carry-forward is capped at <strong>12 days</strong> a year<bef-cite :n="1" href="#policy" title="Leave policy 2025"></bef-cite>, and anything above that lapses on 31 March<bef-cite :n="2" href="#faq" title="Leave FAQ"></bef-cite>.</p>
+    <p>Casual leave does not carry forward at all.</p>
+  </bef-ai-message>
+  <bef-ai-message role="assistant" streaming>Checking the policy for the part about encashment</bef-ai-message>
+</div>
+<script type="module">
+document.getElementById("g1").props = {
+  onRegenerate: () => {
+  },
+};
+</script>
+<script type="module">
+  const reply = document.querySelectorAll('bef-ai-message')[1];
+  reply.props = { onFeedback: (v) => reply.setAttribute('feedback', v ?? '') };
+</script>
+```
+
 ## Alert dialog (alert-dialog)
 Confirm before something destructive. Cancel and confirm, controlled by you.
 ```html
@@ -1931,6 +1954,44 @@ Thin progress bar with four tones.
 </div>
 ```
 
+## Prompt input (prompt-input)
+The box you type a prompt into: grows with the text, Enter sends, Shift+Enter adds a line, and the send button turns into Stop while a reply streams.
+```html
+<div class="grid w-full max-w-xl gap-3">
+  <bef-prompt-input value="" :streaming="false" :max-length="400" placeholder="Ask about leave policy, payroll or onboarding" :leading='"<bef-button variant=\"ghost\" size=\"icon-sm\" aria-label=\"Attach a file\"><bef-paperclip-icon></bef-paperclip-icon></bef-button>"' emit="value-change"></bef-prompt-input>
+  <p class="text-xs text-muted-foreground">Enter sends, Shift+Enter adds a line. After sending it shows Stop for three seconds.</p>
+</div>
+<script type="module">
+  const box = document.querySelector('bef-prompt-input');
+  let timer;
+  const settle = () => { clearTimeout(timer); box.setAttribute(':streaming', 'false'); };
+  box.props = {
+    onSubmit() {
+      box.setAttribute('value', '');
+      box.setAttribute(':streaming', 'true');
+      timer = setTimeout(settle, 3000);
+    },
+    onStop: settle,
+  };
+</script>
+```
+
+## Prompt suggestions (prompt-suggestions)
+Starter prompts for an empty chat, as two-line cards or compact chips. Selecting one fills the prompt box.
+```html
+<div class="grid w-full max-w-xl gap-5">
+  <bef-prompt-suggestions :items='[{"id":"1","label":"Summarise this week","hint":"Attendance, leave and approvals","icon":"<bef-calendar-icon></bef-calendar-icon>"},{"id":"2","label":"Draft an offer letter","hint":"From a role and a salary","icon":"<bef-file-text-icon></bef-file-text-icon>"},{"id":"3","label":"Who is out tomorrow?","hint":"Across all teams","icon":"<bef-users-icon></bef-users-icon>"},{"id":"4","label":"Explain this payslip","hint":"Line by line, in plain words","icon":"<bef-sparkle-icon></bef-sparkle-icon>"}]'></bef-prompt-suggestions>
+  <bef-prompt-suggestions layout="chips" :items='[{"id":"1","label":"Summarise this week","hint":"Attendance, leave and approvals"},{"id":"2","label":"Draft an offer letter","hint":"From a role and a salary"},{"id":"3","label":"Who is out tomorrow?","hint":"Across all teams"},{"id":"4","label":"Explain this payslip","hint":"Line by line, in plain words"}]'></bef-prompt-suggestions>
+  <p class="text-xs text-muted-foreground">Pick one.</p>
+</div>
+<script type="module">
+  const note = document.querySelector('p');
+  document.querySelectorAll('bef-prompt-suggestions').forEach((el) => {
+    el.props = { onSelect: (s) => { note.textContent = `Picked: ${s.label}`; } };
+  });
+</script>
+```
+
 ## Pull to refresh (pull-to-refresh)
 Scroll area you pull down from the top to refresh, with a spinner until your promise settles.
 ```html
@@ -2468,6 +2529,12 @@ document.getElementById("g1").props = {
 </script>
 ```
 
+## Sources (sources)
+Numbered citation chips (Cite) to drop inside an answer, and a SourceList of cards with title and site under it.
+```html
+<bef-source-list :sources='[{"id":"1","title":"Leave policy 2025: carry-forward and encashment","site":"handbook.acme.co","href":"#policy"},{"id":"2","title":"Leave FAQ: what lapses on 31 March","site":"help.acme.co","href":"#faq"},{"id":"3","title":"HR circular 14: changes to casual leave","site":"intranet.acme.co","href":"#circular"}]' class="w-full max-w-2xl"></bef-source-list>
+```
+
 ## Spinner (spinner)
 Tiny CSS spinner that inherits text color.
 ```html
@@ -2894,6 +2961,16 @@ Icon button that flips light and dark mode and remembers the choice. Also export
 <bef-theme-toggle></bef-theme-toggle>
 ```
 
+## Thinking (thinking)
+A shimmering "Thinking" status with bouncing dots, or a collapsible list of the steps the model is working through that settles into "Thought for 4s".
+```html
+<div class="grid w-full max-w-sm gap-6">
+  <bef-thinking></bef-thinking>
+  <bef-thinking label="Searching the handbook" :steps='[{"label":"Read the question","done":true},{"label":"Search leave policy","done":true},{"label":"Compare with your balance"}]'></bef-thinking>
+  <bef-thinking done took="4s" :steps='[{"label":"Read the question","done":true},{"label":"Wrote the answer","done":true}]'></bef-thinking>
+</div>
+```
+
 ## Tilt card (tilt-card)
 3D card that tilts toward the cursor with a moving sheen.
 ```html
@@ -2998,6 +3075,33 @@ Two-state button for favourite, bold or mute. Announces its state to screen read
     <bef-star-icon></bef-star-icon>
   </bef-toggle>
   <bef-toggle variant="outline" :pressed="false" emit="pressed-change"><bef-bookmark-icon></bef-bookmark-icon> Save</bef-toggle>
+</div>
+```
+
+## Token meter (token-meter)
+How much of a model context window is used: a bar that turns amber and red as it fills, token counts, an optional cost, and a split by prompt, files and reply.
+```html
+<div class="grid w-full max-w-sm gap-6">
+  <bef-token-meter :used="18400" :limit="200000" cost="$0.04"></bef-token-meter>
+  <bef-token-meter :used="152000" :limit="200000"></bef-token-meter>
+  <bef-token-meter :used="196500" :limit="200000"></bef-token-meter>
+  <bef-token-meter :used="88000" :limit="200000" :segments='[{"label":"Prompt","tokens":12000},{"label":"Files","tokens":61000},{"label":"Reply","tokens":15000}]'></bef-token-meter>
+</div>
+```
+
+## Tool call (tool-call)
+A card for one tool or function call an AI made: name, running, done or failed, how long it took, and its input and output to expand.
+```html
+<div class="grid w-full max-w-lg gap-2">
+  <bef-tool-call name="get_leave_balance" status="done" duration="0.4s" default-open input="{
+  &quot;employee&quot;: &quot;aarav.mehta&quot;,
+  &quot;type&quot;: &quot;casual&quot;
+}" output="{
+  &quot;balance&quot;: 7,
+  &quot;carry_forward&quot;: 12
+}"></bef-tool-call>
+  <bef-tool-call name="search_policies" status="running" input="{ &quot;query&quot;: &quot;encashment&quot; }"></bef-tool-call>
+  <bef-tool-call name="send_email" status="error" duration="1.2s" input="{ &quot;to&quot;: &quot;hr@acme.co&quot; }" output="SMTP 550: mailbox unavailable"></bef-tool-call>
 </div>
 ```
 

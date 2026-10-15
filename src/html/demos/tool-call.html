@@ -1,0 +1,11 @@
+<div class="grid w-full max-w-lg gap-2">
+  <bef-tool-call name="get_leave_balance" status="done" duration="0.4s" default-open input="{
+  &quot;employee&quot;: &quot;aarav.mehta&quot;,
+  &quot;type&quot;: &quot;casual&quot;
+}" output="{
+  &quot;balance&quot;: 7,
+  &quot;carry_forward&quot;: 12
+}"></bef-tool-call>
+  <bef-tool-call name="search_policies" status="running" input="{ &quot;query&quot;: &quot;encashment&quot; }"></bef-tool-call>
+  <bef-tool-call name="send_email" status="error" duration="1.2s" input="{ &quot;to&quot;: &quot;hr@acme.co&quot; }" output="SMTP 550: mailbox unavailable"></bef-tool-call>
+</div>

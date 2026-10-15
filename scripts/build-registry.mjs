@@ -189,7 +189,7 @@ ${[
 `;
 const iconNames = [...readFileSync('src/components/ui/icons.tsx', 'utf8').matchAll(/^export const (\w+Icon) = make/gm)].map((m) => m[1]);
 const iconSection = `## Icons (${iconNames.length})\nImport from \`@/components/ui/icons\`. Use only these names; do not guess or add an icon package. Props: className (size-4 default, e.g. size-5), weight, draw.\n${iconNames.join(', ')}\n`;
-const ORDER = ['Layout', 'Navigation', 'Inputs', 'Display', 'Data', 'Feedback', 'Overlays', 'Time'];
+const ORDER = ['Layout', 'Navigation', 'Inputs', 'Display', 'AI', 'Data', 'Feedback', 'Overlays', 'Time'];
 const rank = (g) => (ORDER.includes(g) ? ORDER.indexOf(g) : ORDER.length);
 const byGroup = [...ui].sort((x, y) => rank(x.group) - rank(y.group) || x.name.localeCompare(y.name));
 // README: the component catalog and the headline counts come from the registry so they cannot drift (CI fails if they do).

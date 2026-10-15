@@ -1,0 +1,17 @@
+<div class="grid w-full max-w-xl gap-3">
+  <bef-prompt-input value="" :streaming="false" :max-length="400" placeholder="Ask about leave policy, payroll or onboarding" :leading='"<bef-button variant=\"ghost\" size=\"icon-sm\" aria-label=\"Attach a file\"><bef-paperclip-icon></bef-paperclip-icon></bef-button>"' emit="value-change"></bef-prompt-input>
+  <p class="text-xs text-muted-foreground">Enter sends, Shift+Enter adds a line. After sending it shows Stop for three seconds.</p>
+</div>
+<script type="module">
+  const box = document.querySelector('bef-prompt-input');
+  let timer;
+  const settle = () => { clearTimeout(timer); box.setAttribute(':streaming', 'false'); };
+  box.props = {
+    onSubmit() {
+      box.setAttribute('value', '');
+      box.setAttribute(':streaming', 'true');
+      timer = setTimeout(settle, 3000);
+    },
+    onStop: settle,
+  };
+</script>

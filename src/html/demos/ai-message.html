@@ -1,0 +1,18 @@
+<div class="grid w-full max-w-xl gap-6">
+  <bef-ai-message role="user">How many leave days can I carry forward?</bef-ai-message>
+  <bef-ai-message role="assistant" plain="Carry-forward is capped at 12 days a year, and anything above that lapses on 31 March." id="g1">
+    <p>Carry-forward is capped at <strong>12 days</strong> a year<bef-cite :n="1" href="#policy" title="Leave policy 2025"></bef-cite>, and anything above that lapses on 31 March<bef-cite :n="2" href="#faq" title="Leave FAQ"></bef-cite>.</p>
+    <p>Casual leave does not carry forward at all.</p>
+  </bef-ai-message>
+  <bef-ai-message role="assistant" streaming>Checking the policy for the part about encashment</bef-ai-message>
+</div>
+<script type="module">
+document.getElementById("g1").props = {
+  onRegenerate: () => {
+  },
+};
+</script>
+<script type="module">
+  const reply = document.querySelectorAll('bef-ai-message')[1];
+  reply.props = { onFeedback: (v) => reply.setAttribute('feedback', v ?? '') };
+</script>
