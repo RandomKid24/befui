@@ -19,6 +19,9 @@ const report: Record<string, string[]> = {};
 for (const slug of slugs) {
   notes.dropped.clear(); notes.scripts.length = 0; notes.n = 0;
   try {
+    // hand-written demos (for the few that cannot be generated, like 100,000 rows) win over the generated one
+    const overrideFile = `src/html/overrides/${slug}.html`;
+    if (fs.existsSync(overrideFile)) { fs.copyFileSync(overrideFile, `src/html/demos/${slug}.html`); continue; }
     const mod = await import(`/src/examples/${slug}.tsx`);
     const Demo = mod.default as React.ComponentType;
     let markup = tidyAttrs(finish(renderToStaticMarkup(<Demo />)));

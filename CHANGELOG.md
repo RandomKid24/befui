@@ -3,6 +3,17 @@
 All notable changes to befui. Versions follow [semver](https://semver.org): new components are minor releases, breaking prop changes are major. The same list, with links to each component, is on the docs site under Changelog.
 (Generated from src/registry/changelog.json by `npm run registry:build`. Edit the JSON, not this file.)
 
+## 1.10.0 - 2026-10-15
+
+Flutter widgets for Android and iOS, a page per platform, a new hero
+
+- **Added:** Flutter: 109 widgets for Android and iOS apps, one Dart file per widget, copy-paste like the React ones. Buttons, inputs, cards, dialogs, sheets, toasts, tabs, bottom nav, calendar, date and time pickers, chat, kanban, charts and more, with the same colours, radii, ten palettes and dark mode as the web components.
+- **Added:** CLI and MCP: befui add, init and list take --flutter (files go to lib/befui, relative imports, no dependencies). get_component accepts format: "flutter", get_flutter_rules returns the rules, and llms-flutter.txt lists every widget with an example.
+- **Added:** Docs: every component has a React, an HTML and (where it exists) a Flutter tab, each on its own page with its own sidebar. Flutter pages show a working preview, a phone view, the example, the source and a properties table.
+- **Changed:** Docs: the home page hero is now a sheet of real, usable components that fills in once. Docs pages load on demand, which makes the first load about 22% smaller (gzipped), and the Flutter previews are WebP at a quarter of the size.
+- **Fixed:** Settings layout: sections stack by the width of the panel, not the window, so the title and fields no longer get squeezed in a narrow preview. (Settings layout)
+- **Fixed:** HTML: the virtual list demo no longer ships 100,000 rows as a 5 MB file; it builds them in the page. (Virtual list)
+
 ## 1.9.1 - 2026-10-14
 
 Next.js fixes for four dashboards, safer remove, readable amber and orange
