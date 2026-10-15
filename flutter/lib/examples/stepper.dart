@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../befui/button.dart';
 import '../befui/stepper.dart';
+import '../befui/theme.dart';
 
 const _steps = [
   BefStep(title: 'Details', description: 'Basics'),
@@ -13,12 +14,10 @@ const _steps = [
 Widget example(BuildContext context) {
   return StatefulBuilder(
     builder: (context, set) {
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          BefStepper(steps: _steps, current: _current),
-          const SizedBox(height: 24),
+      return _groups(context, [
+        ('Onboarding steps', BefStepper(steps: _steps, current: _current)),
+        (
+          'Move through them',
           Row(
             children: [
               BefButton(
@@ -35,10 +34,36 @@ Widget example(BuildContext context) {
               ),
             ],
           ),
-        ],
-      );
+        ),
+      ]);
     },
   );
 }
 
 int _current = 1;
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}

@@ -6,9 +6,9 @@ import '../befui/theme.dart';
 
 Widget example(BuildContext context) {
   final c = context.bef;
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
+  return _groups(context, [
+    (
+      'Bar chart, tap a bar',
       BefCard(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -29,7 +29,9 @@ Widget example(BuildContext context) {
           ],
         ),
       ),
-      const SizedBox(height: 16),
+    ),
+    (
+      'Donut chart',
       BefCard(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -52,11 +54,39 @@ Widget example(BuildContext context) {
                 BefChartPoint('Cold outreach', 42),
               ],
             ),
-            const SizedBox(height: 20),
-            const SizedBox(width: 160, height: 40, child: BefSparkline(data: [4, 6, 5, 8, 7, 10, 9, 13])),
           ],
         ),
       ),
+    ),
+    (
+      'Sparkline',
+      const SizedBox(width: 160, height: 40, child: BefSparkline(data: [4, 6, 5, 8, 7, 10, 9, 13])),
+    ),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
     ],
   );
 }

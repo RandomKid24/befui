@@ -29,26 +29,58 @@ Example:
 import 'package:flutter/material.dart';
 
 import 'befui/accordion.dart';
+import 'befui/theme.dart';
 
 Widget example(BuildContext context) {
-  return const BefAccordion(
-    initiallyOpen: ['a'],
-    items: [
-      BefAccordionItem(
-        id: 'a',
-        title: 'How are leave balances calculated?',
-        content: Text('Accrual runs on the first of every month, pro-rated for new joiners.'),
+  return _groups(context, [
+    (
+      'FAQ',
+      const BefAccordion(
+        initiallyOpen: ['a'],
+        items: [
+          BefAccordionItem(
+            id: 'a',
+            title: 'How are leave balances calculated?',
+            content: Text('Accrual runs on the first of every month, pro-rated for new joiners.'),
+          ),
+          BefAccordionItem(
+            id: 'b',
+            title: 'Can managers delegate approvals?',
+            content: Text('Yes. Set a delegate for any date range from the approvals page.'),
+          ),
+          BefAccordionItem(
+            id: 'c',
+            title: 'Where is payroll data stored?',
+            content: Text('Encrypted at rest, in the region you pick at signup.'),
+          ),
+        ],
       ),
-      BefAccordionItem(
-        id: 'b',
-        title: 'Can managers delegate approvals?',
-        content: Text('Yes. Set a delegate for any date range from the approvals page.'),
-      ),
-      BefAccordionItem(
-        id: 'c',
-        title: 'Where is payroll data stored?',
-        content: Text('Encrypted at rest, in the region you pick at signup.'),
-      ),
+    ),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
     ],
   );
 }
@@ -67,10 +99,15 @@ import 'package:flutter/material.dart';
 
 import 'befui/activity_feed.dart';
 import 'befui/icons.dart';
+import 'befui/theme.dart';
 
 Widget example(BuildContext context) {
   final now = DateTime.now();
   DateTime ago(double h) => now.subtract(Duration(minutes: (h * 60).round()));
+  return _groups(context, [('Newest first, grouped by day', _feed(now, ago))]);
+}
+
+Widget _feed(DateTime now, DateTime Function(double) ago) {
   return BefActivityFeed(
     now: now,
     items: [
@@ -108,6 +145,32 @@ Widget example(BuildContext context) {
     ],
   );
 }
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Alert (`alert`)
@@ -122,26 +185,57 @@ Example:
 import 'package:flutter/material.dart';
 
 import 'befui/alert.dart';
+import 'befui/theme.dart';
 
-Widget example(BuildContext context) {
-  return const Column(
+Widget example(BuildContext context) => _groups(context, [
+  (
+    'Default',
+    const BefAlert(
+      title: 'Payroll locks on the 25th',
+      child: Text('Submit attendance corrections before then.'),
+    ),
+  ),
+  ('Success', const BefAlert(variant: BefAlertVariant.success, title: 'Leave approved')),
+  (
+    'Warning',
+    const BefAlert(
+      variant: BefAlertVariant.warning,
+      title: '3 documents expire this month',
+      child: Text('Review them in the compliance tab.'),
+    ),
+  ),
+  (
+    'Danger',
+    const BefAlert(
+      variant: BefAlertVariant.danger,
+      title: 'Sync failed',
+      child: Text('The biometric device did not respond. Retrying in 5 minutes.'),
+    ),
+  ),
+]);
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
     mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      BefAlert(title: 'Payroll locks on the 25th', child: Text('Submit attendance corrections before then.')),
-      SizedBox(height: 12),
-      BefAlert(variant: BefAlertVariant.success, title: 'Leave approved'),
-      SizedBox(height: 12),
-      BefAlert(
-        variant: BefAlertVariant.warning,
-        title: '3 documents expire this month',
-        child: Text('Review them in the compliance tab.'),
-      ),
-      SizedBox(height: 12),
-      BefAlert(
-        variant: BefAlertVariant.danger,
-        title: 'Sync failed',
-        child: Text('The biometric device did not respond. Retrying in 5 minutes.'),
-      ),
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
     ],
   );
 }
@@ -162,8 +256,13 @@ import 'befui/alert_dialog.dart';
 import 'befui/button.dart';
 import 'befui/icons.dart';
 import 'befui/toast.dart';
+import 'befui/theme.dart';
 
 Widget example(BuildContext context) {
+  return _groups(context, [('Tap to open', _trigger(context))]);
+}
+
+Widget _trigger(BuildContext context) {
   return BefButton(
     label: 'Delete employee',
     variant: BefButtonVariant.destructive,
@@ -190,6 +289,32 @@ Widget preview(BuildContext context) {
     onResult: (_) {},
   );
 }
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Avatar (`avatar`)
@@ -204,6 +329,7 @@ Example:
 import 'package:flutter/material.dart';
 
 import 'befui/avatar.dart';
+import 'befui/theme.dart';
 
 const _team = [
   'Aarav Mehta',
@@ -215,57 +341,97 @@ const _team = [
   'Vikram Joshi',
 ];
 
-Widget example(BuildContext context) {
+Widget example(BuildContext context) => _groups(context, [
+  (
+    'Sizes',
+    const Row(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        BefAvatar(name: 'Aarav Mehta', size: BefAvatarSize.xs),
+        SizedBox(width: 12),
+        BefAvatar(name: 'Diya Rao'),
+        SizedBox(width: 12),
+        BefAvatar(name: 'Kabir Shah', size: BefAvatarSize.md),
+        SizedBox(width: 12),
+        BefAvatar(name: 'Meera Iyer', size: BefAvatarSize.lg),
+        SizedBox(width: 12),
+        BefAvatar(name: 'Rohan Das', size: BefAvatarSize.xl),
+      ],
+    ),
+  ),
+  (
+    'Presence',
+    const Wrap(
+      spacing: 16,
+      runSpacing: 12,
+      children: [
+        BefAvatar(name: 'Aarav Mehta', size: BefAvatarSize.md, status: BefPresence.online),
+        BefAvatar(name: 'Diya Rao', size: BefAvatarSize.md, status: BefPresence.away),
+        BefAvatar(name: 'Kabir Shah', size: BefAvatarSize.md, status: BefPresence.busy),
+        BefAvatar(name: 'Meera Iyer', size: BefAvatarSize.md, status: BefPresence.offline),
+      ],
+    ),
+  ),
+  (
+    'Square',
+    const Wrap(
+      spacing: 16,
+      children: [
+        BefAvatar(name: 'Acme Labs', size: BefAvatarSize.md, shape: BefAvatarShape.square),
+        BefAvatar(
+          name: 'Globex',
+          size: BefAvatarSize.md,
+          shape: BefAvatarShape.square,
+          status: BefPresence.online,
+        ),
+      ],
+    ),
+  ),
+  ('Group', const BefAvatarGroup(names: _team)),
+  (
+    'Group, capped at three',
+    const BefAvatarGroup(names: _team, max: 3, size: BefAvatarSize.md, shape: BefAvatarShape.square),
+  ),
+  (
+    'With name and details',
+    const Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        BefUserInfo(
+          name: 'Aarav Mehta',
+          subtitle: 'Senior engineer · Pune',
+          status: BefPresence.online,
+          size: BefAvatarSize.md,
+        ),
+        SizedBox(height: 12),
+        BefUserInfo(name: 'Diya Rao', subtitle: 'diya.rao@acme.in'),
+      ],
+    ),
+  ),
+]);
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
   return Column(
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      const Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          BefAvatar(name: 'Aarav Mehta', size: BefAvatarSize.xs),
-          SizedBox(width: 12),
-          BefAvatar(name: 'Diya Rao'),
-          SizedBox(width: 12),
-          BefAvatar(name: 'Kabir Shah', size: BefAvatarSize.md),
-          SizedBox(width: 12),
-          BefAvatar(name: 'Meera Iyer', size: BefAvatarSize.lg),
-          SizedBox(width: 12),
-          BefAvatar(name: 'Rohan Das', size: BefAvatarSize.xl),
-        ],
-      ),
-      const SizedBox(height: 24),
-      const Wrap(
-        spacing: 16,
-        runSpacing: 12,
-        crossAxisAlignment: WrapCrossAlignment.center,
-        children: [
-          BefAvatar(name: 'Aarav Mehta', size: BefAvatarSize.md, status: BefPresence.online),
-          BefAvatar(name: 'Diya Rao', size: BefAvatarSize.md, status: BefPresence.away),
-          BefAvatar(name: 'Kabir Shah', size: BefAvatarSize.md, status: BefPresence.busy),
-          BefAvatar(name: 'Meera Iyer', size: BefAvatarSize.md, status: BefPresence.offline),
-          BefAvatar(name: 'Acme Labs', size: BefAvatarSize.md, shape: BefAvatarShape.square),
-          BefAvatar(
-            name: 'Globex',
-            size: BefAvatarSize.md,
-            shape: BefAvatarShape.square,
-            status: BefPresence.online,
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
           ),
-        ],
-      ),
-      const SizedBox(height: 24),
-      const BefAvatarGroup(names: _team),
-      const SizedBox(height: 24),
-      const BefAvatarGroup(names: _team, max: 3, size: BefAvatarSize.md, shape: BefAvatarShape.square),
-      const SizedBox(height: 24),
-      const BefUserInfo(
-        name: 'Aarav Mehta',
-        subtitle: 'Senior engineer · Pune',
-        status: BefPresence.online,
-        size: BefAvatarSize.md,
-      ),
-      const SizedBox(height: 12),
-      const BefUserInfo(name: 'Diya Rao', subtitle: 'diya.rao@acme.in'),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
     ],
   );
 }
@@ -283,19 +449,58 @@ Example:
 import 'package:flutter/material.dart';
 
 import 'befui/badge.dart';
+import 'befui/theme.dart';
 
-Widget example(BuildContext context) {
-  return const Wrap(
-    spacing: 8,
-    runSpacing: 8,
+Widget example(BuildContext context) => _groups(context, [
+  (
+    'Variants',
+    const Wrap(
+      spacing: 8,
+      runSpacing: 8,
+      children: [
+        BefBadge(label: 'Default'),
+        BefBadge(label: 'Outline', variant: BefBadgeVariant.outline),
+        BefBadge(label: 'Primary', variant: BefBadgeVariant.primary),
+        BefBadge(label: 'Info', variant: BefBadgeVariant.info),
+      ],
+    ),
+  ),
+  (
+    'With a status dot',
+    const Wrap(
+      spacing: 8,
+      runSpacing: 8,
+      children: [
+        BefBadge(label: 'Active', variant: BefBadgeVariant.success, dot: true),
+        BefBadge(label: 'Pending', variant: BefBadgeVariant.warning, dot: true),
+        BefBadge(label: 'Failed', variant: BefBadgeVariant.danger, dot: true),
+      ],
+    ),
+  ),
+]);
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      BefBadge(label: 'Default'),
-      BefBadge(label: 'Outline', variant: BefBadgeVariant.outline),
-      BefBadge(label: 'Primary', variant: BefBadgeVariant.primary),
-      BefBadge(label: 'Active', variant: BefBadgeVariant.success, dot: true),
-      BefBadge(label: 'Pending', variant: BefBadgeVariant.warning, dot: true),
-      BefBadge(label: 'Failed', variant: BefBadgeVariant.danger, dot: true),
-      BefBadge(label: 'Info', variant: BefBadgeVariant.info),
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
     ],
   );
 }
@@ -317,7 +522,7 @@ import 'befui/theme.dart';
 
 Widget example(BuildContext context) {
   final c = context.bef;
-  return ClipRRect(
+  Widget framed(Widget banner) => ClipRRect(
     borderRadius: BorderRadius.circular(BefRadius.lg),
     child: DecoratedBox(
       decoration: BoxDecoration(
@@ -327,28 +532,62 @@ Widget example(BuildContext context) {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          BefBanner(
-            action: Text(
-              'Read more',
-              style: BefText.style(
-                context,
-                size: 13,
-                weight: FontWeight.w500,
-                color: c.primaryForeground,
-              ).copyWith(decoration: TextDecoration.underline),
-            ),
-            child: const Text('Payroll 2.0 is live for everyone.'),
-          ),
+          banner,
           Padding(
-            padding: const EdgeInsets.all(24),
+            padding: const EdgeInsets.all(20),
             child: Text(
-              'Dismiss the bar and the page slides up.',
+              'Page content below the bar.',
               style: BefText.style(context, color: c.mutedForeground),
             ),
           ),
         ],
       ),
     ),
+  );
+  return _groups(context, [
+    (
+      'With an action, dismissible',
+      framed(
+        BefBanner(
+          action: Text(
+            'Read more',
+            style: BefText.style(
+              context,
+              size: 13,
+              weight: FontWeight.w500,
+              color: c.primaryForeground,
+            ).copyWith(decoration: TextDecoration.underline),
+          ),
+          child: const Text('Payroll 2.0 is live for everyone.'),
+        ),
+      ),
+    ),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
   );
 }
 ```
@@ -365,15 +604,45 @@ Example:
 import 'package:flutter/material.dart';
 
 import 'befui/bar_list.dart';
+import 'befui/theme.dart';
 
-Widget example(BuildContext context) {
-  return const BefBarList(
-    items: [
-      BefBarListItem(label: '/pricing', value: 12840),
-      BefBarListItem(label: '/docs/getting-started', value: 9210),
-      BefBarListItem(label: '/blog/launch-notes', value: 5632),
-      BefBarListItem(label: '/signup', value: 3120),
-      BefBarListItem(label: '/changelog', value: 1480),
+Widget example(BuildContext context) => _groups(context, [
+  (
+    'Top pages',
+    const BefBarList(
+      items: [
+        BefBarListItem(label: '/pricing', value: 12840),
+        BefBarListItem(label: '/docs/getting-started', value: 9210),
+        BefBarListItem(label: '/blog/launch-notes', value: 5632),
+        BefBarListItem(label: '/signup', value: 3120),
+        BefBarListItem(label: '/changelog', value: 1480),
+      ],
+    ),
+  ),
+]);
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
     ],
   );
 }
@@ -398,45 +667,76 @@ Widget example(BuildContext context) {
   return StatefulBuilder(
     builder: (context, set) {
       final c = context.bef;
-      return Center(
-        child: Container(
-          width: 288,
-          height: 256,
-          clipBehavior: Clip.antiAlias,
-          decoration: BoxDecoration(
-            color: c.background,
-            borderRadius: BorderRadius.circular(28),
-            border: Border.all(color: c.foreground.withValues(alpha: 0.8), width: 4),
-          ),
-          child: Column(
-            children: [
-              Expanded(
-                child: Center(
-                  child: Text(
-                    _tab[0].toUpperCase() + _tab.substring(1),
-                    style: BefText.style(context, weight: FontWeight.w500, color: c.mutedForeground),
-                  ),
-                ),
+      return _groups(context, [
+        (
+          'Four tabs with a badge',
+          Center(
+            child: Container(
+              width: 288,
+              height: 256,
+              clipBehavior: Clip.antiAlias,
+              decoration: BoxDecoration(
+                color: c.background,
+                borderRadius: BorderRadius.circular(28),
+                border: Border.all(color: c.foreground.withValues(alpha: 0.8), width: 4),
               ),
-              BefBottomNav(
-                value: _tab,
-                onChanged: (v) => set(() => _tab = v),
-                items: const [
-                  BefNavItem(id: 'home', label: 'Home', icon: BefIcon(BefIcons.home)),
-                  BefNavItem(id: 'search', label: 'Search', icon: BefIcon(BefIcons.search)),
-                  BefNavItem(id: 'alerts', label: 'Alerts', icon: BefIcon(BefIcons.bell), badge: 3),
-                  BefNavItem(id: 'profile', label: 'Profile', icon: BefIcon(BefIcons.user)),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: Center(
+                      child: Text(
+                        _tab[0].toUpperCase() + _tab.substring(1),
+                        style: BefText.style(context, weight: FontWeight.w500, color: c.mutedForeground),
+                      ),
+                    ),
+                  ),
+                  BefBottomNav(
+                    value: _tab,
+                    onChanged: (v) => set(() => _tab = v),
+                    items: const [
+                      BefNavItem(id: 'home', label: 'Home', icon: BefIcon(BefIcons.home)),
+                      BefNavItem(id: 'search', label: 'Search', icon: BefIcon(BefIcons.search)),
+                      BefNavItem(id: 'alerts', label: 'Alerts', icon: BefIcon(BefIcons.bell), badge: 3),
+                      BefNavItem(id: 'profile', label: 'Profile', icon: BefIcon(BefIcons.user)),
+                    ],
+                  ),
                 ],
               ),
-            ],
+            ),
           ),
         ),
-      );
+      ]);
     },
   );
 }
 
 String _tab = 'home';
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Bottom sheet (`bottom-sheet`)
@@ -480,6 +780,10 @@ Widget _list(BuildContext context, ValueChanged<String> onPick) {
 }
 
 Widget example(BuildContext context) {
+  return _groups(context, [('Tap to open', _trigger(context))]);
+}
+
+Widget _trigger(BuildContext context) {
   return BefButton(
     label: 'Apply for leave',
     variant: BefButtonVariant.outline,
@@ -502,6 +806,32 @@ Widget preview(BuildContext context) {
     child: _list(context, (_) {}),
   );
 }
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Button (`button`)
@@ -521,7 +851,16 @@ import 'befui/theme.dart';
 
 Widget _label(BuildContext context, String text) => Padding(
   padding: const EdgeInsets.only(bottom: 10),
-  child: Text(text.toUpperCase(), style: BefText.style(context, size: 11, weight: FontWeight.w500, color: context.bef.mutedForeground, letterSpacing: 0.8)),
+  child: Text(
+    text.toUpperCase(),
+    style: BefText.style(
+      context,
+      size: 11,
+      weight: FontWeight.w500,
+      color: context.bef.mutedForeground,
+      letterSpacing: 0.8,
+    ),
+  ),
 );
 
 /// Variants, sizes, shapes and states, in labelled groups.
@@ -551,7 +890,12 @@ Widget example(BuildContext context) {
           BefButton(label: 'Small', size: BefButtonSize.sm, onPressed: () {}),
           BefButton(label: 'Medium', onPressed: () {}),
           BefButton(label: 'Large', size: BefButtonSize.lg, onPressed: () {}),
-          BefButton(size: BefButtonSize.icon, variant: BefButtonVariant.outline, child: const BefIcon(BefIcons.plus), onPressed: () {}),
+          BefButton(
+            size: BefButtonSize.icon,
+            variant: BefButtonVariant.outline,
+            child: const BefIcon(BefIcons.plus),
+            onPressed: () {},
+          ),
         ],
       ),
       const SizedBox(height: 24),
@@ -562,7 +906,12 @@ Widget example(BuildContext context) {
         children: [
           BefButton(label: 'Rounded', onPressed: () {}),
           BefButton(label: 'Pill', shape: BefButtonShape.pill, onPressed: () {}),
-          BefButton(label: 'Pill soft', shape: BefButtonShape.pill, variant: BefButtonVariant.soft, onPressed: () {}),
+          BefButton(
+            label: 'Pill soft',
+            shape: BefButtonShape.pill,
+            variant: BefButtonVariant.soft,
+            onPressed: () {},
+          ),
         ],
       ),
       const SizedBox(height: 24),
@@ -596,13 +945,49 @@ import 'package:flutter/material.dart';
 
 import 'befui/button.dart';
 import 'befui/button_group.dart';
+import 'befui/theme.dart';
 
 Widget example(BuildContext context) {
-  return BefButtonGroup(
+  BefButton b(String l, [BefButtonVariant v = BefButtonVariant.outline]) =>
+      BefButton(label: l, variant: v, onPressed: () {});
+  return _groups(context, [
+    ('Outline', BefButtonGroup(children: [b('Day'), b('Week'), b('Month')])),
+    (
+      'Secondary',
+      BefButtonGroup(
+        children: [
+          b('Left', BefButtonVariant.secondary),
+          b('Center', BefButtonVariant.secondary),
+          b('Right', BefButtonVariant.secondary),
+        ],
+      ),
+    ),
+    ('Two buttons', BefButtonGroup(children: [b('Save'), b('Save and close')])),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      BefButton(label: 'Day', variant: BefButtonVariant.outline, onPressed: () {}),
-      BefButton(label: 'Week', variant: BefButtonVariant.outline, onPressed: () {}),
-      BefButton(label: 'Month', variant: BefButtonVariant.outline, onPressed: () {}),
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
     ],
   );
 }
@@ -621,6 +1006,7 @@ import 'package:flutter/material.dart';
 
 import 'befui/calendar.dart';
 import 'befui/card.dart';
+import 'befui/theme.dart';
 
 Widget example(BuildContext context) => const _Demo();
 
@@ -637,14 +1023,16 @@ class _DemoState extends State<_Demo> {
   @override
   Widget build(BuildContext context) {
     final today = befDay(DateTime.now());
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
+    return _groups(context, [
+      (
+        'Single day',
         BefCard(
           padding: const EdgeInsets.all(12),
           child: BefCalendar(selected: day, onSelect: (d) => setState(() => day = d)),
         ),
-        const SizedBox(height: 16),
+      ),
+      (
+        'Range, Monday first, past disabled',
         BefCard(
           padding: const EdgeInsets.all(12),
           child: BefCalendar(
@@ -655,9 +1043,35 @@ class _DemoState extends State<_Demo> {
             disabled: (d) => d.isBefore(today.subtract(const Duration(days: 1))),
           ),
         ),
-      ],
-    );
+      ),
+    ]);
   }
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
 }
 ```
 
@@ -678,9 +1092,9 @@ import 'befui/theme.dart';
 
 Widget example(BuildContext context) {
   final c = context.bef;
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
+  return _groups(context, [
+    (
+      'Header, content and footer',
       BefCard(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -710,7 +1124,9 @@ Widget example(BuildContext context) {
           ],
         ),
       ),
-      const SizedBox(height: 16),
+    ),
+    (
+      'Tappable',
       BefCard(
         onTap: () {},
         padding: const EdgeInsets.all(20),
@@ -726,6 +1142,32 @@ Widget example(BuildContext context) {
           ],
         ),
       ),
+    ),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
     ],
   );
 }
@@ -760,11 +1202,42 @@ Widget example(BuildContext context) {
       ],
     ),
   );
-  return BefCarousel(
+  return _groups(context, [
+    (
+      'Swipe or tap the dots',
+      BefCarousel(
+        children: [
+          slide('Approvals', 'Leave and expenses in one inbox.', c.primary.withValues(alpha: 0.1)),
+          slide('Payroll', 'Run it in three taps.', c.success.withValues(alpha: 0.12)),
+          slide('Reports', 'Headcount and cost, always current.', c.warning.withValues(alpha: 0.12)),
+        ],
+      ),
+    ),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      slide('Approvals', 'Leave and expenses in one inbox.', c.primary.withValues(alpha: 0.1)),
-      slide('Payroll', 'Run it in three taps.', c.success.withValues(alpha: 0.12)),
-      slide('Reports', 'Headcount and cost, always current.', c.warning.withValues(alpha: 0.12)),
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
     ],
   );
 }
@@ -787,9 +1260,9 @@ import 'befui/theme.dart';
 
 Widget example(BuildContext context) {
   final c = context.bef;
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
+  return _groups(context, [
+    (
+      'Bar chart, tap a bar',
       BefCard(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -810,7 +1283,9 @@ Widget example(BuildContext context) {
           ],
         ),
       ),
-      const SizedBox(height: 16),
+    ),
+    (
+      'Donut chart',
       BefCard(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -833,11 +1308,39 @@ Widget example(BuildContext context) {
                 BefChartPoint('Cold outreach', 42),
               ],
             ),
-            const SizedBox(height: 20),
-            const SizedBox(width: 160, height: 40, child: BefSparkline(data: [4, 6, 5, 8, 7, 10, 9, 13])),
           ],
         ),
       ),
+    ),
+    (
+      'Sparkline',
+      const SizedBox(width: 160, height: 40, child: BefSparkline(data: [4, 6, 5, 8, 7, 10, 9, 13])),
+    ),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
     ],
   );
 }
@@ -855,6 +1358,7 @@ Example:
 import 'package:flutter/material.dart';
 
 import 'befui/chat.dart';
+import 'befui/theme.dart';
 
 Widget example(BuildContext context) => const _Demo();
 
@@ -906,9 +1410,40 @@ class _DemoState extends State<_Demo> {
   }
 
   @override
-  Widget build(BuildContext context) => SizedBox(
-    height: 420,
-    child: BefChat(me: 'You', messages: messages, onSend: send, typing: typing),
+  Widget build(BuildContext context) => _groups(context, [
+    (
+      'Send a message, a reply follows',
+      SizedBox(
+        height: 420,
+        child: BefChat(me: 'You', messages: messages, onSend: send, typing: typing),
+      ),
+    ),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
   );
 }
 ```
@@ -925,6 +1460,7 @@ Example:
 import 'package:flutter/material.dart';
 
 import 'befui/checkbox.dart';
+import 'befui/theme.dart';
 
 Widget example(BuildContext context) {
   return StatefulBuilder(
@@ -932,34 +1468,75 @@ Widget example(BuildContext context) {
       final items = _items;
       final all = items.values.every((v) => v);
       final some = items.values.any((v) => v);
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          BefCheckbox(
-            value: all ? true : (some ? null : false),
-            label: 'Notify me by',
-            labelWeight: FontWeight.w600,
-            onChanged: (v) => set(() => items.updateAll((k, _) => v)),
-          ),
-          for (final k in items.keys) ...[
-            const SizedBox(height: 12),
-            Padding(
-              padding: const EdgeInsets.only(left: 24),
-              child: BefCheckbox(
-                value: items[k],
-                label: k[0].toUpperCase() + k.substring(1),
-                onChanged: (v) => set(() => items[k] = v),
+      return _groups(context, [
+        (
+          'Parent with a mixed state',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              BefCheckbox(
+                value: all ? true : (some ? null : false),
+                label: 'Notify me by',
+                labelWeight: FontWeight.w600,
+                onChanged: (v) => set(() => items.updateAll((k, _) => v)),
               ),
-            ),
-          ],
-        ],
-      );
+              for (final k in items.keys) ...[
+                const SizedBox(height: 12),
+                Padding(
+                  padding: const EdgeInsets.only(left: 24),
+                  child: BefCheckbox(
+                    value: items[k],
+                    label: k[0].toUpperCase() + k.substring(1),
+                    onChanged: (v) => set(() => items[k] = v),
+                  ),
+                ),
+              ],
+            ],
+          ),
+        ),
+        (
+          'Disabled',
+          const Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              BefCheckbox(value: false, label: 'Unchecked'),
+              SizedBox(height: 12),
+              BefCheckbox(value: true, label: 'Checked'),
+            ],
+          ),
+        ),
+      ]);
     },
   );
 }
 
 final _items = {'email': true, 'sms': false, 'push': false};
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Chip (`chip`)
@@ -974,20 +1551,51 @@ Example:
 import 'package:flutter/material.dart';
 
 import 'befui/chip.dart';
+import 'befui/theme.dart';
 
 Widget example(BuildContext context) {
   return StatefulBuilder(
-    builder: (context, set) {
-      return BefChipGroup(
-        value: _v,
-        onChanged: (v) => set(() => _v = v),
-        options: const ['Engineering', 'Design', 'Sales', 'Finance', 'People Ops'],
-      );
-    },
+    builder: (context, set) => _groups(context, [
+      (
+        'Multi select',
+        BefChipGroup(
+          value: _v,
+          onChanged: (v) => set(() => _v = v),
+          options: const ['Engineering', 'Design', 'Sales', 'Finance', 'People Ops'],
+        ),
+      ),
+      ('Selected: ${_v.isEmpty ? 'none' : _v.join(', ')}', const SizedBox.shrink()),
+    ]),
   );
 }
 
 List<String> _v = ['Engineering'];
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Code block (`code-block`)
@@ -1002,12 +1610,45 @@ Example:
 import 'package:flutter/material.dart';
 
 import 'befui/code_block.dart';
+import 'befui/theme.dart';
 
-Widget example(BuildContext context) => const BefCodeBlock(
-  title: 'main.dart',
-  lineNumbers: true,
-  code: "void main() {\n  runApp(const MyApp());\n}\n",
-);
+Widget example(BuildContext context) => _groups(context, [
+  (
+    'With title and line numbers',
+    const BefCodeBlock(
+      title: 'main.dart',
+      lineNumbers: true,
+      code: 'void main() {\n  runApp(const MyApp());\n}\n',
+    ),
+  ),
+  ('Plain', const BefCodeBlock(code: 'flutter pub get\nflutter run')),
+]);
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Collapsible (`collapsible`)
@@ -1026,20 +1667,63 @@ import 'befui/theme.dart';
 
 Widget example(BuildContext context) {
   final c = context.bef;
-  return Container(
+  Widget box(Widget child) => Container(
     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
     decoration: BoxDecoration(
       color: c.card,
       borderRadius: BorderRadius.circular(BefRadius.xl),
       border: Border.all(color: c.border),
     ),
-    child: const BefCollapsible(
-      title: 'Show advanced options',
-      initiallyOpen: true,
-      child: Text(
-        'Delegate approvals, set a carry-over cap and choose who is notified when a request is rejected.',
+    child: child,
+  );
+  return _groups(context, [
+    (
+      'Open',
+      box(
+        const BefCollapsible(
+          title: 'Show advanced options',
+          initiallyOpen: true,
+          child: Text(
+            'Delegate approvals, set a carry-over cap and choose who is notified when a request is rejected.',
+          ),
+        ),
       ),
     ),
+    (
+      'Closed',
+      box(
+        const BefCollapsible(
+          title: 'Show notification rules',
+          child: Text('Email, push and in-app rules live here.'),
+        ),
+      ),
+    ),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
   );
 }
 ```
@@ -1060,33 +1744,56 @@ import 'befui/theme.dart';
 
 Widget example(BuildContext context) {
   return StatefulBuilder(
-    builder: (context, set) {
-      return Wrap(
-        spacing: 32,
-        runSpacing: 16,
-        children: [
-          BefColorPicker(value: _c, onChanged: (v) => set(() => _c = v)),
-          AnimatedContainer(
-            duration: const Duration(milliseconds: 300),
-            width: 128,
-            height: 96,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: Color(int.parse('FF${_c.substring(1)}', radix: 16)),
-              borderRadius: BorderRadius.circular(BefRadius.xl),
-            ),
-            child: Text(
-              'Preview',
-              style: BefText.style(context, weight: FontWeight.w500, color: Colors.white),
-            ),
+    builder: (context, set) => _groups(context, [
+      ('Pick a colour', BefColorPicker(value: _c, onChanged: (v) => set(() => _c = v))),
+      (
+        'Preview',
+        AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          width: double.infinity,
+          height: 72,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: Color(int.parse('FF${_c.substring(1)}', radix: 16)),
+            borderRadius: BorderRadius.circular(BefRadius.xl),
           ),
-        ],
-      );
-    },
+          child: Text(
+            _c.toUpperCase(),
+            style: BefText.style(context, weight: FontWeight.w500, color: Colors.white),
+          ),
+        ),
+      ),
+    ]),
   );
 }
 
 String _c = '#2563eb';
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Comment thread (`comment-thread`)
@@ -1101,6 +1808,7 @@ Example:
 import 'package:flutter/material.dart';
 
 import 'befui/comment_thread.dart';
+import 'befui/theme.dart';
 
 Widget example(BuildContext context) => const _Demo();
 
@@ -1136,7 +1844,9 @@ class _DemoState extends State<_Demo> {
   ];
 
   @override
-  Widget build(BuildContext context) => BefCommentThread(
+  Widget build(BuildContext context) => _groups(context, [('Tap Reply under a comment', _thread())]);
+
+  Widget _thread() => BefCommentThread(
     comments: comments,
     onReply: (p, text) => setState(
       () => comments = add(
@@ -1150,6 +1860,32 @@ class _DemoState extends State<_Demo> {
         ),
       ),
     ),
+  );
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
   );
 }
 ```
@@ -1170,8 +1906,7 @@ import 'befui/theme.dart';
 
 Widget example(BuildContext context) {
   final c = context.bef;
-  const cmd = 'npm i clsx tailwind-merge';
-  return Container(
+  Widget line(String cmd) => Container(
     padding: const EdgeInsets.fromLTRB(12, 6, 6, 6),
     decoration: BoxDecoration(
       color: c.muted,
@@ -1183,9 +1918,39 @@ Widget example(BuildContext context) {
       children: [
         Text(cmd, style: BefText.style(context, mono: true)),
         const SizedBox(width: 8),
-        const BefCopyButton(value: cmd),
+        BefCopyButton(value: cmd),
       ],
     ),
+  );
+  return _groups(context, [
+    ('Next to a command', line('npm i clsx tailwind-merge')),
+    ('Alone', const BefCopyButton(value: 'ORDER-2041')),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
   );
 }
 ```
@@ -1202,9 +1967,38 @@ Example:
 import 'package:flutter/material.dart';
 
 import 'befui/countdown.dart';
+import 'befui/theme.dart';
 
-Widget example(BuildContext context) =>
-    BefCountdown(to: DateTime.now().add(const Duration(days: 3, hours: 4)));
+Widget example(BuildContext context) => _groups(context, [
+  ('Launch in', BefCountdown(to: DateTime.now().add(const Duration(days: 3, hours: 4)))),
+  ('Sale ends', BefCountdown(to: DateTime.now().add(const Duration(hours: 5, minutes: 30)))),
+]);
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Coupon input (`coupon-input`)
@@ -1225,11 +2019,10 @@ const _codes = {'WELCOME10': 'You save 10% on this order', 'FESTIVE250': 'You sa
 
 Widget example(BuildContext context) {
   return StatefulBuilder(
-    builder: (context, set) {
-      return SizedBox(
-        width: 320,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
+    builder: (context, set) => _groups(context, [
+      (
+        'Apply a code',
+        Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             BefCouponInput(
@@ -1253,12 +2046,38 @@ Widget example(BuildContext context) {
               ),
           ],
         ),
-      );
-    },
+      ),
+    ]),
   );
 }
 
 String? _applied;
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Credit card (`credit-card`)
@@ -1273,9 +2092,54 @@ Example:
 import 'package:flutter/material.dart';
 
 import 'befui/credit_card.dart';
+import 'befui/theme.dart';
 
-Widget example(BuildContext context) =>
-    const BefCreditCard(number: '4111 1111 1111 1234', name: 'Aarav Mehta', expiry: '09/28', cvv: '482');
+Widget example(BuildContext context) => _groups(context, [
+  (
+    'Dark, tap to flip',
+    const BefCreditCard(number: '4111 1111 1111 1234', name: 'Aarav Mehta', expiry: '09/28', cvv: '482'),
+  ),
+  (
+    'Primary, masked',
+    const BefCreditCard(
+      number: '5500 0000 0000 0004',
+      name: 'Diya Rao',
+      expiry: '01/27',
+      mask: true,
+      theme: BefCardTheme.primary,
+    ),
+  ),
+  (
+    'Light, still typing',
+    const BefCreditCard(number: '3782 8224', name: 'Kabir Shah', theme: BefCardTheme.light),
+  ),
+]);
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Currency input (`currency-input`)
@@ -1294,11 +2158,10 @@ import 'befui/theme.dart';
 
 Widget example(BuildContext context) {
   return StatefulBuilder(
-    builder: (context, set) {
-      return SizedBox(
-        width: 240,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
+    builder: (context, set) => _groups(context, [
+      (
+        'Rupees, grouped as you type',
+        Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             BefCurrencyInput(value: _v, semanticLabel: 'Salary', onChanged: (v) => set(() => _v = v)),
@@ -1309,12 +2172,38 @@ Widget example(BuildContext context) {
             ),
           ],
         ),
-      );
-    },
+      ),
+    ]),
   );
 }
 
 int? _v = 125000;
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Date picker (`date-picker`)
@@ -1331,6 +2220,7 @@ import 'package:flutter/material.dart';
 import 'befui/calendar.dart';
 import 'befui/date_picker.dart';
 import 'befui/label.dart';
+import 'befui/theme.dart';
 
 Widget example(BuildContext context) => const _Demo();
 
@@ -1347,15 +2237,17 @@ class _DemoState extends State<_Demo> {
   @override
   Widget build(BuildContext context) {
     final today = befDay(DateTime.now());
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
+    return _groups(context, [
+      (
+        'One date',
         BefField(
           label: 'Joining date',
           hint: 'Clear it with the x.',
           child: BefDatePicker(value: joined, onChanged: (d) => setState(() => joined = d), clearable: true),
         ),
-        const SizedBox(height: 16),
+      ),
+      (
+        'Date range',
         BefField(
           label: 'Leave dates',
           hint: 'Past dates are disabled.',
@@ -1366,9 +2258,35 @@ class _DemoState extends State<_Demo> {
             clearable: true,
           ),
         ),
-      ],
-    );
+      ),
+    ]);
   }
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
 }
 ```
 
@@ -1385,28 +2303,67 @@ import 'package:flutter/material.dart';
 
 import 'befui/badge.dart';
 import 'befui/description_list.dart';
+import 'befui/theme.dart';
 
-Widget example(BuildContext context) {
-  return const BefDescriptionList(
-    bordered: true,
-    items: [
-      BefDescriptionItem(label: 'Customer', value: 'Northwind Traders'),
-      BefDescriptionItem(
-        label: 'Status',
-        value: Align(
-          alignment: Alignment.centerLeft,
-          child: BefBadge(label: 'Active', variant: BefBadgeVariant.success, dot: true),
+Widget example(BuildContext context) => _groups(context, [
+  (
+    'Bordered',
+    const BefDescriptionList(
+      bordered: true,
+      items: [
+        BefDescriptionItem(label: 'Customer', value: 'Northwind Traders'),
+        BefDescriptionItem(
+          label: 'Status',
+          value: Align(
+            alignment: Alignment.centerLeft,
+            child: BefBadge(label: 'Active', variant: BefBadgeVariant.success, dot: true),
+          ),
         ),
-      ),
-      BefDescriptionItem(label: 'Plan', value: 'Business, yearly'),
-      BefDescriptionItem(label: 'Renews on', value: '14 Jan 2027'),
-      BefDescriptionItem(label: 'Billing email', value: 'accounts@northwind.in'),
-      BefDescriptionItem(label: 'GSTIN', value: '29ABCDE1234F1Z5'),
-      BefDescriptionItem(
-        label: 'Notes',
-        value: 'Wants invoices sent to two people, reminder 7 days before renewal.',
-        wide: true,
-      ),
+        BefDescriptionItem(label: 'Plan', value: 'Business, yearly'),
+        BefDescriptionItem(label: 'Renews on', value: '14 Jan 2027'),
+        BefDescriptionItem(label: 'Billing email', value: 'accounts@northwind.in'),
+        BefDescriptionItem(label: 'GSTIN', value: '29ABCDE1234F1Z5'),
+        BefDescriptionItem(
+          label: 'Notes',
+          value: 'Wants invoices sent to two people, reminder 7 days before renewal.',
+          wide: true,
+        ),
+      ],
+    ),
+  ),
+  (
+    'Plain',
+    const BefDescriptionList(
+      items: [
+        BefDescriptionItem(label: 'Order', value: '#2041'),
+        BefDescriptionItem(label: 'Placed', value: '10 Oct 2026'),
+      ],
+    ),
+  ),
+]);
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
     ],
   );
 }
@@ -1427,6 +2384,7 @@ import 'befui/button.dart';
 import 'befui/dialog.dart';
 import 'befui/input.dart';
 import 'befui/label.dart';
+import 'befui/theme.dart';
 
 Widget _panel(BuildContext context, {VoidCallback? onClose}) {
   return BefDialog(
@@ -1446,6 +2404,10 @@ Widget _panel(BuildContext context, {VoidCallback? onClose}) {
 
 /// Tap the button to open it.
 Widget example(BuildContext context) {
+  return _groups(context, [('Tap to open', _trigger(context))]);
+}
+
+Widget _trigger(BuildContext context) {
   return BefButton(
     label: 'Open dialog',
     variant: BefButtonVariant.outline,
@@ -1458,6 +2420,32 @@ Widget example(BuildContext context) {
 
 /// The open dialog, for the screenshot.
 Widget preview(BuildContext context) => _panel(context, onClose: () {});
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Dropdown menu (`dropdown-menu`)
@@ -1474,10 +2462,19 @@ import 'package:flutter/material.dart';
 import 'befui/button.dart';
 import 'befui/dropdown_menu.dart';
 import 'befui/icons.dart';
+import 'befui/theme.dart';
 
 Widget example(BuildContext context) {
   return StatefulBuilder(
     builder: (context, set) {
+      return _groups(context, [('Tap Account', _menu(set))]);
+    },
+  );
+}
+
+Widget _menu(void Function(VoidCallback) set) {
+  return StatefulBuilder(
+    builder: (context, _) {
       return BefDropdownMenu(
         items: [
           const BefMenuLabel('My account'),
@@ -1516,6 +2513,32 @@ Widget example(BuildContext context) {
 }
 
 bool _sidebar = true;
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Empty state (`empty-state`)
@@ -1532,18 +2555,56 @@ import 'package:flutter/material.dart';
 import 'befui/button.dart';
 import 'befui/empty_state.dart';
 import 'befui/icons.dart';
+import 'befui/theme.dart';
 
-Widget example(BuildContext context) {
-  return BefEmptyState(
-    icon: const BefIcon(BefIcons.inbox),
-    title: 'No leave requests',
-    description: 'When someone on your team applies for leave, it shows up here.',
-    action: BefButton(
-      label: 'Invite teammate',
-      size: BefButtonSize.sm,
-      variant: BefButtonVariant.outline,
-      onPressed: () {},
+Widget example(BuildContext context) => _groups(context, [
+  (
+    'With an action',
+    BefEmptyState(
+      icon: const BefIcon(BefIcons.inbox),
+      title: 'No leave requests',
+      description: 'When someone on your team applies for leave, it shows up here.',
+      action: BefButton(
+        label: 'Invite teammate',
+        size: BefButtonSize.sm,
+        variant: BefButtonVariant.outline,
+        onPressed: () {},
+      ),
     ),
+  ),
+  (
+    'Without an action',
+    const BefEmptyState(
+      icon: BefIcon(BefIcons.search),
+      title: 'No results',
+      description: 'Try a different search.',
+    ),
+  ),
+]);
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
   );
 }
 ```
@@ -1562,32 +2623,60 @@ import 'package:flutter/material.dart';
 import 'befui/button.dart';
 import 'befui/error_state.dart';
 import 'befui/icons.dart';
+import 'befui/theme.dart';
 
-Widget example(BuildContext context) {
+Widget example(BuildContext context) => _groups(context, [
+  (
+    'Not found',
+    BefErrorState(
+      code: '404',
+      title: 'Page not found',
+      description: 'The page you are looking for was moved or never existed.',
+      actions: [
+        BefButton(label: 'Go back', variant: BefButtonVariant.outline, onPressed: () {}),
+        BefButton(label: 'Home', onPressed: () {}),
+      ],
+    ),
+  ),
+  (
+    'Server error with retry',
+    BefErrorState(
+      title: 'We could not load payroll',
+      description: 'The server did not respond. Your data is safe. Try again in a moment.',
+      actions: [
+        BefButton(
+          label: 'Try again',
+          variant: BefButtonVariant.outline,
+          leading: const BefIcon(BefIcons.refresh),
+          onPressed: () {},
+        ),
+      ],
+    ),
+  ),
+]);
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
   return Column(
     mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      BefErrorState(
-        code: '404',
-        title: 'Page not found',
-        description: 'The page you are looking for was moved or never existed.',
-        actions: [
-          BefButton(label: 'Go back', variant: BefButtonVariant.outline, onPressed: () {}),
-          BefButton(label: 'Home', onPressed: () {}),
-        ],
-      ),
-      BefErrorState(
-        title: 'We could not load payroll',
-        description: 'The server did not respond. Your data is safe. Try again in a moment.',
-        actions: [
-          BefButton(
-            label: 'Try again',
-            variant: BefButtonVariant.outline,
-            leading: const BefIcon(BefIcons.refresh),
-            onPressed: () {},
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
           ),
-        ],
-      ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
     ],
   );
 }
@@ -1610,6 +2699,10 @@ import 'befui/theme.dart';
 
 Widget example(BuildContext context) {
   final c = context.bef;
+  return _groups(context, [('Speed dial (right) and extended (left)', _stage(context, c))]);
+}
+
+Widget _stage(BuildContext context, BefColors c) {
   return Container(
     height: 288,
     clipBehavior: Clip.antiAlias,
@@ -1647,6 +2740,32 @@ Widget example(BuildContext context) {
     ),
   );
 }
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Gauge (`gauge`)
@@ -1662,6 +2781,7 @@ import 'package:flutter/material.dart';
 
 import 'befui/gauge.dart';
 import 'befui/slider.dart';
+import 'befui/theme.dart';
 
 Widget example(BuildContext context) => const _Demo();
 
@@ -1675,12 +2795,50 @@ class _DemoState extends State<_Demo> {
   double v = 72;
 
   @override
-  Widget build(BuildContext context) => Column(
+  Widget build(BuildContext context) => _groups(context, [
+    (
+      'Follows the value',
+      Column(
+        children: [
+          Center(
+            child: BefGauge(value: v, label: 'Team engagement'),
+          ),
+          const SizedBox(height: 16),
+          BefSlider(value: v, onChanged: (x) => setState(() => v = x), min: 0, max: 100),
+        ],
+      ),
+    ),
+    (
+      'Fixed tone',
+      const Center(
+        child: BefGauge(value: 60, size: 160, tone: BefGaugeTone.primary, label: 'Fixed'),
+      ),
+    ),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
     mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      BefGauge(value: v, label: 'Team engagement'),
-      const SizedBox(height: 16),
-      BefSlider(value: v, onChanged: (x) => setState(() => v = x), min: 0, max: 100),
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
     ],
   );
 }
@@ -1698,17 +2856,49 @@ Example:
 import 'package:flutter/material.dart';
 
 import 'befui/inline_edit.dart';
+import 'befui/theme.dart';
 
 Widget example(BuildContext context) {
   return StatefulBuilder(
-    builder: (context, set) => SizedBox(
-      width: 256,
-      child: BefInlineEdit(value: _name, onSaved: (v) => set(() => _name = v)),
-    ),
+    builder: (context, set) => _groups(context, [
+      (
+        'Tap to edit',
+        SizedBox(
+          width: 256,
+          child: BefInlineEdit(value: _name, onSaved: (v) => set(() => _name = v)),
+        ),
+      ),
+    ]),
   );
 }
 
 String _name = 'Q4 hiring plan';
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Input (`input`)
@@ -1727,44 +2917,48 @@ import 'befui/input.dart';
 import 'befui/label.dart';
 import 'befui/theme.dart';
 
-Widget example(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    crossAxisAlignment: CrossAxisAlignment.stretch,
-    children: [
-      const BefField(
-        label: 'Full name',
-        required: true,
-        hint: 'As it appears on the offer letter.',
-        child: BefInput(placeholder: 'Aarav Mehta'),
+Widget example(BuildContext context) => _groups(context, [
+  (
+    'Required, with a hint',
+    const BefField(
+      label: 'Full name',
+      required: true,
+      hint: 'As it appears on the offer letter.',
+      child: BefInput(placeholder: 'Aarav Mehta'),
+    ),
+  ),
+  (
+    'Leading icon',
+    const BefField(
+      label: 'Work email',
+      child: BefInput(
+        placeholder: 'you@company.com',
+        keyboardType: TextInputType.emailAddress,
+        leading: BefIcon(BefIcons.mail),
       ),
-      const SizedBox(height: 16),
-      const BefField(
-        label: 'Work email',
-        child: BefInput(
-          placeholder: 'you@company.com',
-          keyboardType: TextInputType.emailAddress,
-          leading: BefIcon(BefIcons.mail),
-        ),
-      ),
-      const SizedBox(height: 16),
-      const BefField(
-        label: 'Employee ID',
-        error: 'This ID is already taken.',
-        child: BefInput(initialValue: 'EMP-0042', invalid: true),
-      ),
-      const SizedBox(height: 16),
-      BefInput(placeholder: 'Search...', leading: const BefIcon(BefIcons.search), trailing: _Kbd('/')),
-      const SizedBox(height: 16),
-      const BefField(
-        label: 'Notes',
-        child: BefInput.textarea(placeholder: 'Anything the approver should know'),
-      ),
-      const SizedBox(height: 16),
-      const BefInput(placeholder: 'Disabled', enabled: false),
-    ],
-  );
-}
+    ),
+  ),
+  (
+    'Invalid',
+    const BefField(
+      label: 'Employee ID',
+      error: 'This ID is already taken.',
+      child: BefInput(initialValue: 'EMP-0042', invalid: true),
+    ),
+  ),
+  (
+    'With a trailing hint',
+    BefInput(placeholder: 'Search...', leading: const BefIcon(BefIcons.search), trailing: _Kbd('/')),
+  ),
+  (
+    'Multi-line',
+    const BefField(
+      label: 'Notes',
+      child: BefInput.textarea(placeholder: 'Anything the approver should know'),
+    ),
+  ),
+  ('Disabled', const BefInput(placeholder: 'Disabled', enabled: false)),
+]);
 
 class _Kbd extends StatelessWidget {
   const _Kbd(this.text);
@@ -1784,6 +2978,32 @@ class _Kbd extends StatelessWidget {
     );
   }
 }
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Label and Field (`label`)
@@ -1799,26 +3019,51 @@ import 'package:flutter/material.dart';
 
 import 'befui/input.dart';
 import 'befui/label.dart';
+import 'befui/theme.dart';
 
-Widget example(BuildContext context) {
-  return const Column(
+Widget example(BuildContext context) => _groups(context, [
+  (
+    'With a hint',
+    const BefField(
+      label: 'Email',
+      hint: 'We never share it.',
+      child: BefInput(placeholder: 'you@example.com'),
+    ),
+  ),
+  (
+    'Required, with an error',
+    const BefField(
+      label: 'Password',
+      required: true,
+      error: 'Must be at least 8 characters',
+      child: BefInput(obscureText: true, initialValue: 'abc', invalid: true),
+    ),
+  ),
+  ('Standalone label', const BefLabel('Display name')),
+]);
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
     mainAxisSize: MainAxisSize.min,
-    crossAxisAlignment: CrossAxisAlignment.stretch,
+    crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      BefField(
-        label: 'Email',
-        hint: 'We never share it.',
-        child: BefInput(placeholder: 'you@example.com'),
-      ),
-      SizedBox(height: 16),
-      BefField(
-        label: 'Password',
-        required: true,
-        error: 'Must be at least 8 characters',
-        child: BefInput(obscureText: true, initialValue: 'abc', invalid: true),
-      ),
-      SizedBox(height: 16),
-      BefLabel('Standalone label'),
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
     ],
   );
 }
@@ -1836,16 +3081,46 @@ Example:
 import 'package:flutter/material.dart';
 
 import 'befui/leaderboard.dart';
+import 'befui/theme.dart';
 
-Widget example(BuildContext context) {
-  return BefLeaderboard(
-    format: (n) => '₹${(n / 100000).toStringAsFixed(1)}L',
-    items: const [
-      BefLeaderboardItem(name: 'Rohan Das', subtitle: 'Enterprise', value: 2450000, delta: 2),
-      BefLeaderboardItem(name: 'Diya Rao', subtitle: 'Mid-market', value: 3120000, delta: -1),
-      BefLeaderboardItem(name: 'Isha Nair', subtitle: 'Enterprise', value: 2980000, delta: 1),
-      BefLeaderboardItem(name: 'Kabir Shah', subtitle: 'SMB', value: 1620000),
-      BefLeaderboardItem(name: 'Ananya Kulkarni', subtitle: 'SMB', value: 1240000, delta: -2),
+Widget example(BuildContext context) => _groups(context, [
+  (
+    'Sales this quarter',
+    BefLeaderboard(
+      format: (n) => '₹${(n / 100000).toStringAsFixed(1)}L',
+      items: const [
+        BefLeaderboardItem(name: 'Rohan Das', subtitle: 'Enterprise', value: 2450000, delta: 2),
+        BefLeaderboardItem(name: 'Diya Rao', subtitle: 'Mid-market', value: 3120000, delta: -1),
+        BefLeaderboardItem(name: 'Isha Nair', subtitle: 'Enterprise', value: 2980000, delta: 1),
+        BefLeaderboardItem(name: 'Kabir Shah', subtitle: 'SMB', value: 1620000),
+        BefLeaderboardItem(name: 'Ananya Kulkarni', subtitle: 'SMB', value: 1240000, delta: -2),
+      ],
+    ),
+  ),
+]);
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
     ],
   );
 }
@@ -1865,16 +3140,66 @@ import 'package:flutter/material.dart';
 import 'befui/line_chart.dart';
 import 'befui/theme.dart';
 
-Widget example(BuildContext context) => BefLineChart(
-  area: true,
-  labels: const ['Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
-  format: (n) => '₹${n.round()}L',
-  series: [
-    const BefLineSeries(name: 'Revenue', data: [42, 48, 45, 58, 63, 61, 72]),
-    BefLineSeries(name: 'Payroll', data: const [30, 31, 31, 34, 36, 36, 38], color: context.bef.warning),
-    BefLineSeries(name: 'Profit', data: const [12, 17, 14, 24, 27, 25, 34], color: context.bef.success),
-  ],
-);
+Widget example(BuildContext context) {
+  const labels = ['Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'];
+  String lakh(double n) => '₹${n.round()}L';
+  return _groups(context, [
+    (
+      'Area, three series, touch to read',
+      BefLineChart(
+        area: true,
+        labels: labels,
+        format: lakh,
+        series: [
+          const BefLineSeries(name: 'Revenue', data: [42, 48, 45, 58, 63, 61, 72]),
+          BefLineSeries(
+            name: 'Payroll',
+            data: const [30, 31, 31, 34, 36, 36, 38],
+            color: context.bef.warning,
+          ),
+          BefLineSeries(name: 'Profit', data: const [12, 17, 14, 24, 27, 25, 34], color: context.bef.success),
+        ],
+      ),
+    ),
+    (
+      'Lines only, one series',
+      BefLineChart(
+        labels: labels,
+        format: lakh,
+        height: 160,
+        series: const [
+          BefLineSeries(name: 'Revenue', data: [42, 48, 45, 58, 63, 61, 72]),
+        ],
+      ),
+    ),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Loader (`loader`)
@@ -1898,10 +3223,9 @@ Widget example(BuildContext context) {
   return StatefulBuilder(
     builder: (context, set) {
       final c = context.bef;
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
+      return _groups(context, [
+        (
+          'Spinners',
           Wrap(
             spacing: 12,
             runSpacing: 12,
@@ -1924,54 +3248,84 @@ Widget example(BuildContext context) {
                 ),
             ],
           ),
-          const SizedBox(height: 24),
-          const BefBarLoader(),
-          const SizedBox(height: 12),
-          const BefBarLoader(value: 64),
-          const SizedBox(height: 24),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: BefButton(
-              label: _loading ? 'Stop loading' : 'Reload report',
-              size: BefButtonSize.sm,
-              variant: BefButtonVariant.outline,
-              onPressed: () => set(() => _loading = !_loading),
-            ),
-          ),
-          const SizedBox(height: 24),
-          BefLoadingOverlay(
-            loading: _loading,
-            label: 'Fetching report',
-            variant: BefLoaderVariant.orbit,
-            child: const BefCard(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  BefCardHeader(children: [BefCardTitle('Monthly revenue')]),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        BefSkeleton(width: 100, height: 24),
-                        SizedBox(height: 8),
-                        BefSkeleton(height: 16),
-                        SizedBox(height: 8),
-                        BefSkeleton(width: 220, height: 16),
-                      ],
-                    ),
-                  ),
-                ],
+        ),
+        (
+          'Bars, indeterminate and 64%',
+          const Column(children: [BefBarLoader(), SizedBox(height: 12), BefBarLoader(value: 64)]),
+        ),
+        (
+          'Overlay on content',
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              BefButton(
+                label: _loading ? 'Stop loading' : 'Reload report',
+                size: BefButtonSize.sm,
+                variant: BefButtonVariant.outline,
+                onPressed: () => set(() => _loading = !_loading),
               ),
-            ),
+              const SizedBox(height: 12),
+              BefLoadingOverlay(
+                loading: _loading,
+                label: 'Fetching report',
+                variant: BefLoaderVariant.orbit,
+                child: const BefCard(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      BefCardHeader(children: [BefCardTitle('Monthly revenue')]),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            BefSkeleton(width: 100, height: 24),
+                            SizedBox(height: 8),
+                            BefSkeleton(height: 16),
+                            SizedBox(height: 8),
+                            BefSkeleton(width: 220, height: 16),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
-      );
+        ),
+      ]);
     },
   );
 }
 
 bool _loading = true;
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Marquee (`marquee`)
@@ -1988,15 +3342,70 @@ import 'package:flutter/material.dart';
 import 'befui/marquee.dart';
 import 'befui/theme.dart';
 
-Widget example(BuildContext context) => BefMarquee(
-  children: [
-    for (final n in ['Northwind', 'Acme', 'Globex', 'Initech', 'Umbrella', 'Hooli'])
-      Text(
-        n,
-        style: BefText.style(context, size: 18, weight: FontWeight.w600, color: context.bef.mutedForeground),
+Widget example(BuildContext context) {
+  Widget names(List<String> l) => BefMarquee(
+    children: [
+      for (final n in l)
+        Text(
+          n,
+          style: BefText.style(
+            context,
+            size: 18,
+            weight: FontWeight.w600,
+            color: context.bef.mutedForeground,
+          ),
+        ),
+    ],
+  );
+  return _groups(context, [
+    ('Left', names(['Northwind', 'Acme', 'Globex', 'Initech', 'Umbrella', 'Hooli'])),
+    (
+      'Right, slower',
+      BefMarquee(
+        speed: 45,
+        reverse: true,
+        children: [
+          for (final n in ['Stripe', 'Linear', 'Vercel', 'Notion', 'Figma', 'Slack'])
+            Text(
+              n,
+              style: BefText.style(
+                context,
+                size: 18,
+                weight: FontWeight.w600,
+                color: context.bef.mutedForeground,
+              ),
+            ),
+        ],
       ),
-  ],
-);
+    ),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Notification center (`notification-center`)
@@ -2011,6 +3420,7 @@ Example:
 import 'package:flutter/material.dart';
 
 import 'befui/notification_center.dart';
+import 'befui/theme.dart';
 
 Widget example(BuildContext context) => const _Demo();
 
@@ -2038,8 +3448,48 @@ class _DemoState extends State<_Demo> {
   ];
 
   @override
-  Widget build(BuildContext context) =>
-      BefNotificationCenter(notices: notices, onChanged: (n) => setState(() => notices = n));
+  Widget build(BuildContext context) => _groups(context, [
+    (
+      'Tap the bell',
+      Row(
+        children: [BefNotificationCenter(notices: notices, onChanged: (n) => setState(() => notices = n))],
+      ),
+    ),
+    (
+      'All read',
+      Row(
+        children: [
+          BefNotificationCenter(notices: [for (final n in notices) n.markRead()], onChanged: (_) {}),
+        ],
+      ),
+    ),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
 }
 ```
 
@@ -2055,15 +3505,43 @@ Example:
 import 'package:flutter/material.dart';
 
 import 'befui/number_stepper.dart';
+import 'befui/theme.dart';
 
 Widget example(BuildContext context) {
   return StatefulBuilder(
-    builder: (context, set) =>
-        BefNumberStepper(value: _v, min: 1, max: 10, onChanged: (v) => set(() => _v = v)),
+    builder: (context, set) => _groups(context, [
+      ('Min 1, max 10', BefNumberStepper(value: _v, min: 1, max: 10, onChanged: (v) => set(() => _v = v))),
+    ]),
   );
 }
 
 int _v = 2;
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Number ticker (`number-ticker`)
@@ -2089,14 +3567,43 @@ Widget example(BuildContext context) {
       Text(label, style: muted),
     ],
   );
-  return Wrap(
-    spacing: 40,
-    runSpacing: 24,
-    alignment: WrapAlignment.center,
+  return _groups(context, [
+    ('Whole number', Center(child: stat(const BefNumberTicker(value: 14820), 'Employees onboarded'))),
+    (
+      'Decimals and suffix',
+      Center(child: stat(const BefNumberTicker(value: 98.6, suffix: '%', decimals: 1), 'Payroll accuracy')),
+    ),
+    (
+      'Prefix and suffix',
+      Center(
+        child: stat(const BefNumberTicker(value: 4.2, prefix: '₹', suffix: 'Cr', decimals: 1), 'Revenue'),
+      ),
+    ),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      stat(const BefNumberTicker(value: 14820), 'Employees onboarded'),
-      stat(const BefNumberTicker(value: 98.6, suffix: '%', decimals: 1), 'Payroll accuracy'),
-      stat(const BefNumberTicker(value: 4.2, prefix: '₹', suffix: 'Cr', decimals: 1), 'Revenue'),
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
     ],
   );
 }
@@ -2115,30 +3622,62 @@ import 'package:flutter/material.dart';
 
 import 'befui/icons.dart';
 import 'befui/onboarding_carousel.dart';
+import 'befui/theme.dart';
 
-Widget example(BuildContext context) => SizedBox(
-  height: 460,
-  child: BefOnboardingCarousel(
-    onFinish: () {},
-    slides: const [
-      BefOnboardingSlide(
-        title: 'Apply for leave in seconds',
-        description: 'Pick your dates, choose an approver and send. No emails, no spreadsheets.',
-        visual: BefIcon(BefIcons.calendar, size: 48),
+Widget example(BuildContext context) => _groups(context, [
+  (
+    'First-run intro',
+    SizedBox(
+      height: 460,
+      child: BefOnboardingCarousel(
+        onFinish: () {},
+        slides: const [
+          BefOnboardingSlide(
+            title: 'Apply for leave in seconds',
+            description: 'Pick your dates, choose an approver and send. No emails, no spreadsheets.',
+            visual: BefIcon(BefIcons.calendar, size: 48),
+          ),
+          BefOnboardingSlide(
+            title: 'Know where your team is',
+            description: 'See who is in, out or on leave today, right from the home screen.',
+            visual: BefIcon(BefIcons.users, size: 48),
+          ),
+          BefOnboardingSlide(
+            title: 'Never miss an approval',
+            description: 'Get a nudge when something needs your attention, and none when it does not.',
+            visual: BefIcon(BefIcons.bell, size: 48),
+          ),
+        ],
       ),
-      BefOnboardingSlide(
-        title: 'Know where your team is',
-        description: 'See who is in, out or on leave today, right from the home screen.',
-        visual: BefIcon(BefIcons.users, size: 48),
-      ),
-      BefOnboardingSlide(
-        title: 'Never miss an approval',
-        description: 'Get a nudge when something needs your attention, and none when it does not.',
-        visual: BefIcon(BefIcons.bell, size: 48),
-      ),
-    ],
+    ),
   ),
-);
+]);
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Order tracker (`order-tracker`)
@@ -2153,17 +3692,61 @@ Example:
 import 'package:flutter/material.dart';
 
 import 'befui/order_tracker.dart';
+import 'befui/theme.dart';
 
-Widget example(BuildContext context) => const BefOrderTracker(
-  current: 2,
-  steps: [
-    BefOrderStep(label: 'Ordered', time: '10 Oct, 9:12 am'),
-    BefOrderStep(label: 'Packed', time: '10 Oct, 6:40 pm'),
-    BefOrderStep(label: 'Shipped', description: 'Pune hub', time: '11 Oct, 8:05 am'),
-    BefOrderStep(label: 'Out for delivery'),
-    BefOrderStep(label: 'Delivered'),
-  ],
-);
+Widget example(BuildContext context) => _groups(context, [
+  (
+    'In transit',
+    const BefOrderTracker(
+      current: 2,
+      steps: [
+        BefOrderStep(label: 'Ordered', time: '10 Oct, 9:12 am'),
+        BefOrderStep(label: 'Packed', time: '10 Oct, 6:40 pm'),
+        BefOrderStep(label: 'Shipped', description: 'Pune hub', time: '11 Oct, 8:05 am'),
+        BefOrderStep(label: 'Out for delivery'),
+        BefOrderStep(label: 'Delivered'),
+      ],
+    ),
+  ),
+  (
+    'Just ordered',
+    const BefOrderTracker(
+      current: 0,
+      steps: [
+        BefOrderStep(label: 'Ordered', time: 'Today'),
+        BefOrderStep(label: 'Packed'),
+        BefOrderStep(label: 'Shipped'),
+        BefOrderStep(label: 'Delivered'),
+      ],
+    ),
+  ),
+]);
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### OTP input (`otp-input`)
@@ -2182,37 +3765,65 @@ import 'befui/theme.dart';
 
 Widget example(BuildContext context) {
   return StatefulBuilder(
-    builder: (context, set) {
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          BefOtpInput(
-            value: _v,
-            invalid: _bad,
-            onChanged: (x) => set(() {
-              _v = x;
-              _bad = false;
-            }),
-            onComplete: (x) {
-              if (x != '123456') {
-                set(() => _bad = true);
-                Future.delayed(const Duration(milliseconds: 500), () => set(() => _v = ''));
-              }
-            },
-          ),
-          const SizedBox(height: 12),
-          Text(
-            'Try 123456, or paste any code.',
-            style: BefText.style(context, size: 12, color: context.bef.mutedForeground),
-          ),
-        ],
-      );
-    },
+    builder: (context, set) => _groups(context, [
+      (
+        'Six digits, try 123456',
+        Column(
+          children: [
+            BefOtpInput(
+              value: _v,
+              invalid: _bad,
+              onChanged: (x) => set(() {
+                _v = x;
+                _bad = false;
+              }),
+              onComplete: (x) {
+                if (x != '123456') {
+                  set(() => _bad = true);
+                  Future.delayed(const Duration(milliseconds: 500), () => set(() => _v = ''));
+                }
+              },
+            ),
+            const SizedBox(height: 12),
+            Text(
+              'A wrong code shakes and clears. You can paste a code too.',
+              style: BefText.style(context, size: 12, color: context.bef.mutedForeground),
+            ),
+          ],
+        ),
+      ),
+    ]),
   );
 }
 
 String _v = '';
 bool _bad = false;
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Pagination (`pagination`)
@@ -2227,15 +3838,44 @@ Example:
 import 'package:flutter/material.dart';
 
 import 'befui/pagination.dart';
+import 'befui/theme.dart';
 
 Widget example(BuildContext context) {
   return StatefulBuilder(
-    builder: (context, set) =>
-        BefPagination(page: _page, pageCount: 12, onPageChanged: (p) => set(() => _page = p)),
+    builder: (context, set) => _groups(context, [
+      ('12 pages', BefPagination(page: _page, pageCount: 12, onPageChanged: (p) => set(() => _page = p))),
+      ('5 pages', BefPagination(page: _small, pageCount: 5, onPageChanged: (p) => set(() => _small = p))),
+    ]),
   );
 }
 
-int _page = 5;
+int _page = 5, _small = 2;
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Password input (`password-input`)
@@ -2250,8 +3890,38 @@ Example:
 import 'package:flutter/material.dart';
 
 import 'befui/password_input.dart';
+import 'befui/theme.dart';
 
-Widget example(BuildContext context) => const BefPasswordInput(meter: true, placeholder: 'Choose a password');
+Widget example(BuildContext context) => _groups(context, [
+  ('With strength meter', const BefPasswordInput(meter: true, placeholder: 'Choose a password')),
+  ('Plain', const BefPasswordInput(placeholder: 'Current password')),
+]);
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Popover (`popover`)
@@ -2272,21 +3942,55 @@ import 'befui/theme.dart';
 
 Widget example(BuildContext context) {
   final c = context.bef;
-  return BefPopover(
-    content: Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('Dimensions', style: BefText.style(context, weight: FontWeight.w600)),
-        const SizedBox(height: 4),
-        Text('Set the size of the layer.', style: BefText.style(context, size: 13, color: c.mutedForeground)),
-        const SizedBox(height: 12),
-        const BefInput(initialValue: '100%', placeholder: 'Width'),
+  return _groups(context, [
+    (
+      'Tap the button',
+      BefPopover(
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Dimensions', style: BefText.style(context, weight: FontWeight.w600)),
+            const SizedBox(height: 4),
+            Text(
+              'Set the size of the layer.',
+              style: BefText.style(context, size: 13, color: c.mutedForeground),
+            ),
+            const SizedBox(height: 12),
+            const BefInput(initialValue: '100%', placeholder: 'Width'),
+          ],
+        ),
+        child: IgnorePointer(
+          child: BefButton(label: 'Open popover', variant: BefButtonVariant.outline, onPressed: () {}),
+        ),
+      ),
+    ),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
       ],
-    ),
-    child: IgnorePointer(
-      child: BefButton(label: 'Open popover', variant: BefButtonVariant.outline, onPressed: () {}),
-    ),
+    ],
   );
 }
 ```
@@ -2304,6 +4008,7 @@ import 'package:flutter/material.dart';
 
 import 'befui/pricing_card.dart';
 import 'befui/segmented.dart';
+import 'befui/theme.dart';
 
 Widget example(BuildContext context) => const _Demo();
 
@@ -2319,9 +4024,9 @@ class _DemoState extends State<_Demo> {
   @override
   Widget build(BuildContext context) {
     final y = plan == 'yearly';
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
+    return _groups(context, [
+      (
+        'Billing period',
         BefSegmented<String>(
           value: plan,
           onChanged: (v) => setState(() => plan = v),
@@ -2330,7 +4035,9 @@ class _DemoState extends State<_Demo> {
             BefSegment(value: 'yearly', label: 'Yearly, save 20%'),
           ],
         ),
-        const SizedBox(height: 24),
+      ),
+      (
+        'Highlighted plan',
         BefPricingCard(
           highlighted: true,
           name: 'Growth',
@@ -2344,9 +4051,45 @@ class _DemoState extends State<_Demo> {
           ],
           onSelect: () {},
         ),
-      ],
-    );
+      ),
+      (
+        'Plain plan',
+        BefPricingCard(
+          name: 'Starter',
+          description: 'For teams up to 25.',
+          price: y ? 239 : 299,
+          features: const ['Leave and attendance', 'Employee directory', 'Email support'],
+          onSelect: () {},
+        ),
+      ),
+    ]);
   }
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
 }
 ```
 
@@ -2362,6 +4105,7 @@ Example:
 import 'package:flutter/material.dart';
 
 import 'befui/product_card.dart';
+import 'befui/theme.dart';
 
 Widget example(BuildContext context) => const _Demo();
 
@@ -2375,15 +4119,47 @@ class _DemoState extends State<_Demo> {
   bool wished = false;
 
   @override
-  Widget build(BuildContext context) => BefProductCard(
-    name: 'Merino crew sweater',
-    category: 'Knitwear',
-    price: 2499,
-    compareAt: 3299,
-    rating: 4,
-    wished: wished,
-    onWish: (v) => setState(() => wished = v),
-    onTap: () {},
+  Widget build(BuildContext context) => _groups(context, [
+    (
+      'On sale, with wishlist',
+      BefProductCard(
+        name: 'Merino crew sweater',
+        category: 'Knitwear',
+        price: 2499,
+        compareAt: 3299,
+        rating: 4,
+        wished: wished,
+        onWish: (v) => setState(() => wished = v),
+        onTap: () {},
+      ),
+    ),
+    ('Full price', BefProductCard(name: 'Canvas tote', category: 'Bags', price: 1299, onTap: () {})),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
   );
 }
 ```
@@ -2401,22 +4177,55 @@ import 'package:flutter/material.dart';
 
 import 'befui/button.dart';
 import 'befui/profile_card.dart';
+import 'befui/theme.dart';
 
-Widget example(BuildContext context) => const BefProfileCard(
-  name: 'Aarav Mehta',
-  role: 'Senior engineer, Platform',
-  location: 'Pune, India',
-  status: 'Online',
-  stats: [
-    BefProfileStat(label: 'Projects', value: '14'),
-    BefProfileStat(label: 'Reports', value: '5'),
-    BefProfileStat(label: 'Years', value: '4.5'),
-  ],
-  actions: [
-    BefButton(label: 'Message', variant: BefButtonVariant.outline),
-    BefButton(label: 'View profile'),
-  ],
-);
+Widget example(BuildContext context) => _groups(context, [
+  (
+    'With stats and actions',
+    const BefProfileCard(
+      name: 'Aarav Mehta',
+      role: 'Senior engineer, Platform',
+      location: 'Pune, India',
+      status: 'Online',
+      stats: [
+        BefProfileStat(label: 'Projects', value: '14'),
+        BefProfileStat(label: 'Reports', value: '5'),
+        BefProfileStat(label: 'Years', value: '4.5'),
+      ],
+      actions: [
+        BefButton(label: 'Message', variant: BefButtonVariant.outline),
+        BefButton(label: 'View profile'),
+      ],
+    ),
+  ),
+  ('Minimal', const BefProfileCard(name: 'Diya Rao', role: 'Designer')),
+]);
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Progress (`progress`)
@@ -2431,18 +4240,46 @@ Example:
 import 'package:flutter/material.dart';
 
 import 'befui/progress.dart';
+import 'befui/theme.dart';
 
-Widget example(BuildContext context) {
-  return const Column(
+Widget example(BuildContext context) => _groups(context, [
+  ('Default', const BefProgress(value: 64, semanticLabel: 'Upload progress')),
+  (
+    'Tones',
+    const Column(
+      children: [
+        BefProgress(value: 88, tone: BefProgressTone.success, semanticLabel: 'Tasks completed'),
+        SizedBox(height: 16),
+        BefProgress(value: 42, tone: BefProgressTone.warning, semanticLabel: 'Storage used'),
+        SizedBox(height: 16),
+        BefProgress(value: 15, tone: BefProgressTone.danger, semanticLabel: 'Battery left'),
+      ],
+    ),
+  ),
+]);
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
     mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      BefProgress(value: 64, semanticLabel: 'Upload progress'),
-      SizedBox(height: 16),
-      BefProgress(value: 88, tone: BefProgressTone.success, semanticLabel: 'Tasks completed'),
-      SizedBox(height: 16),
-      BefProgress(value: 42, tone: BefProgressTone.warning, semanticLabel: 'Storage used'),
-      SizedBox(height: 16),
-      BefProgress(value: 15, tone: BefProgressTone.danger, semanticLabel: 'Battery left'),
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
     ],
   );
 }
@@ -2466,30 +4303,62 @@ Widget example(BuildContext context) {
   return StatefulBuilder(
     builder: (context, set) {
       final c = context.bef;
-      return Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          BefProgressRing(value: _v, semanticLabel: 'Upload progress'),
-          const SizedBox(width: 32),
-          BefProgressRing(
-            value: _v / 2,
-            size: 72,
-            stroke: 6,
-            color: c.success,
-            semanticLabel: 'Setup progress',
+      return _groups(context, [
+        (
+          'Sizes',
+          Row(
+            children: [
+              BefProgressRing(value: _v, semanticLabel: 'Upload progress'),
+              const SizedBox(width: 32),
+              BefProgressRing(
+                value: _v / 2,
+                size: 72,
+                stroke: 6,
+                color: c.success,
+                semanticLabel: 'Setup progress',
+              ),
+            ],
           ),
-          const SizedBox(width: 24),
+        ),
+        (
+          'Animates on change',
           GestureDetector(
             onTap: () => set(() => _v = _v == 72 ? 30 : 72),
-            child: Text('Animate', style: BefText.style(context, color: c.primary)),
+            child: Text('Tap to animate', style: BefText.style(context, color: c.primary)),
           ),
-        ],
-      );
+        ),
+      ]);
     },
   );
 }
 
 double _v = 72;
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Pull to refresh (`pull-to-refresh`)
@@ -2525,6 +4394,10 @@ class _DemoState extends State<_Demo> {
   @override
   Widget build(BuildContext context) {
     final c = context.bef;
+    return _groups(context, [('Pull down from the top', _box(context, c))]);
+  }
+
+  Widget _box(BuildContext context, BefColors c) {
     return Container(
       height: 256,
       clipBehavior: Clip.antiAlias,
@@ -2549,6 +4422,32 @@ class _DemoState extends State<_Demo> {
     );
   }
 }
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Radio group (`radio-group`)
@@ -2563,29 +4462,59 @@ Example:
 import 'package:flutter/material.dart';
 
 import 'befui/radio_group.dart';
+import 'befui/theme.dart';
 
 Widget example(BuildContext context) {
   return StatefulBuilder(
-    builder: (context, set) {
-      return BefRadioGroup<String>(
-        value: _plan,
-        onChanged: (v) => set(() => _plan = v),
-        options: const [
-          BefRadioOption(value: 'starter', label: 'Starter', description: 'Up to 25 employees'),
-          BefRadioOption(value: 'growth', label: 'Growth', description: 'Payroll and attendance included'),
-          BefRadioOption(
-            value: 'enterprise',
-            label: 'Enterprise',
-            description: 'SSO and audit logs',
-            disabled: true,
-          ),
-        ],
-      );
-    },
+    builder: (context, set) => _groups(context, [
+      (
+        'Plans, one disabled',
+        BefRadioGroup<String>(
+          value: _plan,
+          onChanged: (v) => set(() => _plan = v),
+          options: const [
+            BefRadioOption(value: 'starter', label: 'Starter', description: 'Up to 25 employees'),
+            BefRadioOption(value: 'growth', label: 'Growth', description: 'Payroll and attendance included'),
+            BefRadioOption(
+              value: 'enterprise',
+              label: 'Enterprise',
+              description: 'SSO and audit logs',
+              disabled: true,
+            ),
+          ],
+        ),
+      ),
+    ]),
   );
 }
 
 String _plan = 'growth';
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Rating (`rating`)
@@ -2600,23 +4529,44 @@ Example:
 import 'package:flutter/material.dart';
 
 import 'befui/rating.dart';
+import 'befui/theme.dart';
 
 Widget example(BuildContext context) {
   return StatefulBuilder(
-    builder: (context, set) {
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          BefRating(value: _v, onChanged: (v) => set(() => _v = v)),
-          const SizedBox(height: 12),
-          const BefRating(value: 4, size: 16),
-        ],
-      );
-    },
+    builder: (context, set) => _groups(context, [
+      ('Tap to rate', BefRating(value: _v, onChanged: (v) => set(() => _v = v))),
+      ('Read only', const BefRating(value: 4, size: 16)),
+    ]),
   );
 }
 
 int _v = 3;
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Relative time (`relative-time`)
@@ -2631,8 +4581,54 @@ Example:
 import 'package:flutter/material.dart';
 
 import 'befui/relative_time.dart';
+import 'befui/theme.dart';
 
-Widget example(BuildContext context) => BefRelativeTime(DateTime.now().subtract(const Duration(minutes: 3)));
+Widget example(BuildContext context) {
+  final now = DateTime.now();
+  Widget t(Duration d, {bool future = false}) => BefRelativeTime(future ? now.add(d) : now.subtract(d));
+  return _groups(context, [
+    (
+      'Past',
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [t(const Duration(minutes: 3)), t(const Duration(hours: 5)), t(const Duration(days: 3))],
+      ),
+    ),
+    (
+      'Future',
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [t(const Duration(hours: 2), future: true), t(const Duration(days: 4), future: true)],
+      ),
+    ),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Search input (`search-input`)
@@ -2647,15 +4643,46 @@ Example:
 import 'package:flutter/material.dart';
 
 import 'befui/search_input.dart';
+import 'befui/theme.dart';
 
 Widget example(BuildContext context) {
   return StatefulBuilder(
-    builder: (context, set) =>
+    builder: (context, set) => _groups(context, [
+      (
+        'Search field',
         BefSearchInput(value: _v, placeholder: 'Search people', onChanged: (v) => set(() => _v = v)),
+      ),
+    ]),
   );
 }
 
 String _v = '';
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Segmented control (`segmented`)
@@ -2671,14 +4698,14 @@ import 'package:flutter/material.dart';
 
 import 'befui/icons.dart';
 import 'befui/segmented.dart';
+import 'befui/theme.dart';
 
 Widget example(BuildContext context) {
   return StatefulBuilder(
     builder: (context, set) {
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+      return _groups(context, [
+        (
+          'Text options',
           BefSegmented<String>(
             value: _range,
             onChanged: (v) => set(() => _range = v),
@@ -2688,7 +4715,9 @@ Widget example(BuildContext context) {
               BefSegment(value: '90d', label: '90 days'),
             ],
           ),
-          const SizedBox(height: 16),
+        ),
+        (
+          'With icons',
           BefSegmented<String>(
             value: _view,
             onChanged: (v) => set(() => _view = v),
@@ -2709,13 +4738,39 @@ Widget example(BuildContext context) {
               ),
             ],
           ),
-        ],
-      );
+        ),
+      ]);
     },
   );
 }
 
 String _range = '30d', _view = 'list';
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Select (`select`)
@@ -2730,38 +4785,64 @@ Example:
 import 'package:flutter/material.dart';
 
 import 'befui/select.dart';
+import 'befui/theme.dart';
 
 Widget example(BuildContext context) {
   return StatefulBuilder(
-    builder: (context, set) {
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          BefSelect<String>(
-            value: _plan,
-            placeholder: 'Pick a plan',
-            onChanged: (v) => set(() => _plan = v),
-            options: const [
-              BefSelectOption(value: 'free', label: 'Free'),
-              BefSelectOption(value: 'pro', label: 'Pro'),
-              BefSelectOption(value: 'team', label: 'Team'),
-            ],
-          ),
-          const SizedBox(height: 12),
-          BefSelect<String>(
-            value: null,
-            placeholder: 'Nothing chosen yet',
-            onChanged: (_) {},
-            options: const [BefSelectOption(value: 'a', label: 'A')],
-          ),
-        ],
-      );
-    },
+    builder: (context, set) => _groups(context, [
+      (
+        'With a value',
+        BefSelect<String>(
+          value: _plan,
+          placeholder: 'Pick a plan',
+          onChanged: (v) => set(() => _plan = v),
+          options: const [
+            BefSelectOption(value: 'free', label: 'Free'),
+            BefSelectOption(value: 'pro', label: 'Pro'),
+            BefSelectOption(value: 'team', label: 'Team'),
+          ],
+        ),
+      ),
+      (
+        'Empty',
+        BefSelect<String>(
+          value: null,
+          placeholder: 'Nothing chosen yet',
+          onChanged: (_) {},
+          options: const [BefSelectOption(value: 'a', label: 'A')],
+        ),
+      ),
+    ]),
   );
 }
 
 String _plan = 'pro';
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Separator (`separator`)
@@ -2780,35 +4861,67 @@ import 'befui/theme.dart';
 
 Widget example(BuildContext context) {
   final c = context.bef;
-  return SizedBox(
-    width: 256,
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text('befui', style: BefText.style(context, size: 13, weight: FontWeight.w500)),
-        Text('Slim React components.', style: BefText.style(context, size: 13, color: c.mutedForeground)),
-        const SizedBox(height: 12),
-        const BefSeparator(),
-        const SizedBox(height: 12),
-        SizedBox(
-          height: 20,
-          child: Row(
-            children: [
-              Text('Docs', style: BefText.style(context, size: 13)),
-              const SizedBox(width: 12),
-              const BefSeparator(vertical: true),
-              const SizedBox(width: 12),
-              Text('Blocks', style: BefText.style(context, size: 13)),
-              const SizedBox(width: 12),
-              const BefSeparator(vertical: true),
-              const SizedBox(width: 12),
-              Text('Source', style: BefText.style(context, size: 13)),
-            ],
+  Widget link(String t) => Text(t, style: BefText.style(context, size: 13));
+  return _groups(context, [
+    (
+      'Horizontal',
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('befui', style: BefText.style(context, size: 13, weight: FontWeight.w500)),
+          Text('Slim React components.', style: BefText.style(context, size: 13, color: c.mutedForeground)),
+          const SizedBox(height: 12),
+          const BefSeparator(),
+          const SizedBox(height: 12),
+          Text('Below the line', style: BefText.style(context, size: 13)),
+        ],
+      ),
+    ),
+    (
+      'Vertical',
+      SizedBox(
+        height: 20,
+        child: Row(
+          children: [
+            link('Docs'),
+            const SizedBox(width: 12),
+            const BefSeparator(vertical: true),
+            const SizedBox(width: 12),
+            link('Blocks'),
+            const SizedBox(width: 12),
+            const BefSeparator(vertical: true),
+            const SizedBox(width: 12),
+            link('Source'),
+          ],
+        ),
+      ),
+    ),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
           ),
         ),
+        const SizedBox(height: 10),
+        groups[i].$2,
       ],
-    ),
+    ],
   );
 }
 ```
@@ -2827,10 +4940,42 @@ import 'package:flutter/material.dart';
 import 'befui/shimmer_text.dart';
 import 'befui/theme.dart';
 
-Widget example(BuildContext context) => BefShimmerText(
-  'Generating your report…',
-  style: BefText.style(context, size: 18, weight: FontWeight.w600),
-);
+Widget example(BuildContext context) => _groups(context, [
+  (
+    'Loading copy',
+    BefShimmerText(
+      'Generating your report…',
+      style: BefText.style(context, size: 18, weight: FontWeight.w600),
+    ),
+  ),
+  ('Small label', BefShimmerText('New', style: BefText.style(context, size: 12, weight: FontWeight.w600))),
+]);
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Skeleton (`skeleton`)
@@ -2845,20 +4990,63 @@ Example:
 import 'package:flutter/material.dart';
 
 import 'befui/skeleton.dart';
+import 'befui/theme.dart';
 
-Widget example(BuildContext context) {
-  return const Row(
+Widget example(BuildContext context) => _groups(context, [
+  (
+    'List row',
+    const Row(
+      children: [
+        BefSkeleton(height: 40, circle: true),
+        SizedBox(width: 12),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            BefSkeleton(width: 160, height: 12),
+            SizedBox(height: 8),
+            BefSkeleton(width: 96, height: 12),
+          ],
+        ),
+      ],
+    ),
+  ),
+  (
+    'Text block',
+    const Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        BefSkeleton(height: 12),
+        SizedBox(height: 8),
+        BefSkeleton(height: 12),
+        SizedBox(height: 8),
+        BefSkeleton(width: 120, height: 12),
+      ],
+    ),
+  ),
+]);
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      BefSkeleton(height: 40, circle: true),
-      SizedBox(width: 12),
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          BefSkeleton(width: 160, height: 12),
-          SizedBox(height: 8),
-          BefSkeleton(width: 96, height: 12),
-        ],
-      ),
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
     ],
   );
 }
@@ -2882,32 +5070,63 @@ Widget example(BuildContext context) {
   return StatefulBuilder(
     builder: (context, set) {
       final c = context.bef;
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      return _groups(context, [
+        (
+          'With a step and label',
+          Column(
             children: [
-              Text('Monthly budget', style: BefText.style(context, weight: FontWeight.w500)),
-              Text('₹${_v.toInt()}k', style: BefText.style(context, color: c.mutedForeground)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Monthly budget', style: BefText.style(context, weight: FontWeight.w500)),
+                  Text('₹${_v.toInt()}k', style: BefText.style(context, color: c.mutedForeground)),
+                ],
+              ),
+              BefSlider(
+                value: _v,
+                min: 10,
+                max: 100,
+                step: 5,
+                format: (n) => '₹${n.toInt()}k',
+                semanticLabel: 'Budget',
+                onChanged: (v) => set(() => _v = v),
+              ),
             ],
           ),
-          BefSlider(
-            value: _v,
-            min: 10,
-            max: 100,
-            step: 5,
-            format: (n) => '₹${n.toInt()}k',
-            semanticLabel: 'Budget',
-            onChanged: (v) => set(() => _v = v),
-          ),
-        ],
-      );
+        ),
+        ('Plain 0 to 100', BefSlider(value: _w, onChanged: (v) => set(() => _w = v))),
+      ]);
     },
   );
 }
 
-double _v = 40;
+double _v = 40, _w = 60;
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Spinner (`spinner`)
@@ -2926,14 +5145,58 @@ import 'befui/theme.dart';
 
 Widget example(BuildContext context) {
   final c = context.bef;
-  return Row(
+  return _groups(context, [
+    (
+      'Sizes',
+      Row(
+        children: [
+          BefSpinner(size: 12, color: c.primary),
+          const SizedBox(width: 20),
+          BefSpinner(color: c.primary),
+          const SizedBox(width: 20),
+          BefSpinner(size: 24, strokeWidth: 3, color: c.primary),
+        ],
+      ),
+    ),
+    (
+      'Colours',
+      Row(
+        children: [
+          BefSpinner(size: 20, color: c.success),
+          const SizedBox(width: 20),
+          BefSpinner(size: 20, color: c.warning),
+          const SizedBox(width: 20),
+          BefSpinner(size: 20, color: c.destructive),
+          const SizedBox(width: 20),
+          BefSpinner(size: 20, color: c.mutedForeground),
+        ],
+      ),
+    ),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
     mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      BefSpinner(size: 12, color: c.primary),
-      const SizedBox(width: 20),
-      BefSpinner(color: c.primary),
-      const SizedBox(width: 20),
-      BefSpinner(size: 24, strokeWidth: 3, color: c.primary),
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
     ],
   );
 }
@@ -2957,9 +5220,9 @@ import 'befui/theme.dart';
 
 Widget example(BuildContext context) {
   final c = context.bef;
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
+  return _groups(context, [
+    (
+      'Up',
       BefStatCard(
         label: 'Headcount',
         value: '142',
@@ -2967,7 +5230,9 @@ Widget example(BuildContext context) {
         icon: const BefIcon(BefIcons.users),
         chart: const BefSparkline(data: [3, 4, 4, 5, 6, 6, 8, 9]),
       ),
-      const SizedBox(height: 16),
+    ),
+    (
+      'Up, green chart',
       BefStatCard(
         label: 'Revenue',
         value: '₹48.2L',
@@ -2975,7 +5240,9 @@ Widget example(BuildContext context) {
         icon: const BefIcon(BefIcons.indianRupee),
         chart: BefSparkline(data: const [2, 3, 2.5, 4, 5, 4.6, 6, 7], color: c.success),
       ),
-      const SizedBox(height: 16),
+    ),
+    (
+      'Down',
       BefStatCard(
         label: 'Open leads',
         value: '64',
@@ -2983,6 +5250,32 @@ Widget example(BuildContext context) {
         icon: const BefIcon(BefIcons.megaphone),
         chart: BefSparkline(data: const [8, 7, 7.5, 6, 6.2, 5, 5.4, 4], color: c.destructive),
       ),
+    ),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
     ],
   );
 }
@@ -3000,19 +5293,49 @@ Example:
 import 'package:flutter/material.dart';
 
 import 'befui/status_dot.dart';
+import 'befui/theme.dart';
 
-Widget example(BuildContext context) {
-  return const Column(
+Widget example(BuildContext context) => _groups(context, [
+  ('Pulsing', const BefStatusDot(pulse: true, label: 'Live')),
+  (
+    'Tones',
+    const Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        BefStatusDot(label: 'Online'),
+        SizedBox(height: 12),
+        BefStatusDot(tone: BefStatusTone.warning, label: 'Degraded'),
+        SizedBox(height: 12),
+        BefStatusDot(tone: BefStatusTone.danger, label: 'Offline'),
+        SizedBox(height: 12),
+        BefStatusDot(tone: BefStatusTone.neutral, label: 'Paused'),
+      ],
+    ),
+  ),
+]);
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      BefStatusDot(pulse: true, label: 'Live'),
-      SizedBox(height: 12),
-      BefStatusDot(tone: BefStatusTone.warning, label: 'Degraded'),
-      SizedBox(height: 12),
-      BefStatusDot(tone: BefStatusTone.danger, label: 'Offline'),
-      SizedBox(height: 12),
-      BefStatusDot(tone: BefStatusTone.neutral, label: 'Paused'),
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
     ],
   );
 }
@@ -3031,6 +5354,7 @@ import 'package:flutter/material.dart';
 
 import 'befui/button.dart';
 import 'befui/stepper.dart';
+import 'befui/theme.dart';
 
 const _steps = [
   BefStep(title: 'Details', description: 'Basics'),
@@ -3042,12 +5366,10 @@ const _steps = [
 Widget example(BuildContext context) {
   return StatefulBuilder(
     builder: (context, set) {
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          BefStepper(steps: _steps, current: _current),
-          const SizedBox(height: 24),
+      return _groups(context, [
+        ('Onboarding steps', BefStepper(steps: _steps, current: _current)),
+        (
+          'Move through them',
           Row(
             children: [
               BefButton(
@@ -3064,13 +5386,39 @@ Widget example(BuildContext context) {
               ),
             ],
           ),
-        ],
-      );
+        ),
+      ]);
     },
   );
 }
 
 int _current = 1;
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Stopwatch (`stopwatch`)
@@ -3085,8 +5433,35 @@ Example:
 import 'package:flutter/material.dart';
 
 import 'befui/stopwatch.dart';
+import 'befui/theme.dart';
 
-Widget example(BuildContext context) => const BefStopwatch();
+Widget example(BuildContext context) => _groups(context, [('Start, lap and reset', const BefStopwatch())]);
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Swipe actions (`swipe-actions`)
@@ -3150,14 +5525,42 @@ Widget example(BuildContext context) {
       ),
     ),
   );
+  return _groups(context, [
+    (
+      'Swipe a row left for three actions',
+      Column(
+        children: [
+          row('Diya Rao', 'Offer letter for Kabir', 'Sent it this morning.'),
+          row('Finance', 'September payroll is ready', 'Please review and approve.'),
+          row('Rohan Das', 'Laptop request', 'Need a 16 GB machine.'),
+        ],
+      ),
+    ),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
   return Column(
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      row('Diya Rao', 'Offer letter for Kabir', 'Sent it this morning.'),
-      row('Finance', 'September payroll is ready', 'Please review and approve.'),
-      row('Rohan Das', 'Laptop request', 'Need a 16 GB machine.'),
-      Text('Swipe a row left.', style: BefText.style(context, size: 12, color: c.mutedForeground)),
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
     ],
   );
 }
@@ -3175,26 +5578,64 @@ Example:
 import 'package:flutter/material.dart';
 
 import 'befui/switch.dart';
+import 'befui/theme.dart';
 
 Widget example(BuildContext context) {
   return StatefulBuilder(
-    builder: (context, set) {
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          BefSwitch(value: _a, label: 'Auto-approve short leaves', onChanged: (v) => set(() => _a = v)),
-          const SizedBox(height: 12),
-          BefSwitch(value: _b, label: 'Weekly digest', onChanged: (v) => set(() => _b = v)),
-          const SizedBox(height: 12),
-          const BefSwitch(value: false, label: 'Disabled'),
-        ],
-      );
-    },
+    builder: (context, set) => _groups(context, [
+      (
+        'Interactive',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            BefSwitch(value: _a, label: 'Auto-approve short leaves', onChanged: (v) => set(() => _a = v)),
+            const SizedBox(height: 12),
+            BefSwitch(value: _b, label: 'Weekly digest', onChanged: (v) => set(() => _b = v)),
+          ],
+        ),
+      ),
+      (
+        'Disabled',
+        const Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            BefSwitch(value: false, label: 'Off'),
+            SizedBox(height: 12),
+            BefSwitch(value: true, label: 'On'),
+          ],
+        ),
+      ),
+    ]),
   );
 }
 
 bool _a = true, _b = false;
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Table (`table`)
@@ -3231,6 +5672,10 @@ Widget example(BuildContext context) {
     'Due' => BefBadgeVariant.warning,
     _ => BefBadgeVariant.danger,
   };
+  return _groups(context, [('Invoices', _table(context, c, tone))]);
+}
+
+Widget _table(BuildContext context, BefColors c, BefBadgeVariant Function(String) tone) {
   return ClipRRect(
     borderRadius: BorderRadius.circular(BefRadius.xl),
     child: BefCard(
@@ -3263,6 +5708,32 @@ Widget example(BuildContext context) {
     ),
   );
 }
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Tabs (`tabs`)
@@ -3282,10 +5753,9 @@ import 'befui/theme.dart';
 Widget example(BuildContext context) {
   final muted = BefText.style(context, size: 13, color: context.bef.mutedForeground);
   Widget text(String t) => Text(t, style: muted);
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    crossAxisAlignment: CrossAxisAlignment.stretch,
-    children: [
+  return _groups(context, [
+    (
+      'Underline, for page sections',
       BefTabs(
         tabs: [
           BefTab(label: 'Overview', child: text('Underline tabs, good for page sections.')),
@@ -3293,7 +5763,9 @@ Widget example(BuildContext context) {
           BefTab(label: 'Documents', child: text('Contracts and ID proofs.')),
         ],
       ),
-      const SizedBox(height: 32),
+    ),
+    (
+      'Pill, for toggling a view',
       BefTabs(
         variant: BefTabsVariant.pill,
         tabs: [
@@ -3302,6 +5774,32 @@ Widget example(BuildContext context) {
           BefTab(label: 'Yearly', child: text('Yearly view.')),
         ],
       ),
+    ),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
     ],
   );
 }
@@ -3319,15 +5817,46 @@ Example:
 import 'package:flutter/material.dart';
 
 import 'befui/tag_input.dart';
+import 'befui/theme.dart';
 
 Widget example(BuildContext context) {
   return StatefulBuilder(
-    builder: (context, set) =>
+    builder: (context, set) => _groups(context, [
+      (
+        'Add with Enter, remove with the x',
         BefTagInput(value: _v, placeholder: 'Add skills, press Enter', onChanged: (v) => set(() => _v = v)),
+      ),
+    ]),
   );
 }
 
 List<String> _v = ['Design', 'Remote'];
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Testimonial card (`testimonial-card`)
@@ -3342,13 +5871,49 @@ Example:
 import 'package:flutter/material.dart';
 
 import 'befui/testimonial_card.dart';
+import 'befui/theme.dart';
 
-Widget example(BuildContext context) => const BefTestimonialCard(
-  rating: 5,
-  name: 'Ananya Rao',
-  role: 'Head of People, Northwind',
-  quote: 'We replaced three spreadsheets with one screen. Approvals that took a day now take minutes.',
-);
+Widget example(BuildContext context) => _groups(context, [
+  (
+    'With rating',
+    const BefTestimonialCard(
+      rating: 5,
+      name: 'Ananya Rao',
+      role: 'Head of People, Northwind',
+      quote: 'We replaced three spreadsheets with one screen. Approvals that took a day now take minutes.',
+    ),
+  ),
+  (
+    'Without rating',
+    const BefTestimonialCard(name: 'Rohan Das', quote: 'Payroll closes in an afternoon now.'),
+  ),
+]);
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Time picker (`time-picker`)
@@ -3378,22 +5943,43 @@ class _DemoState extends State<_Demo> {
 
   @override
   Widget build(BuildContext context) {
-    final c = context.bef;
-    Widget label(String t) => Padding(
-      padding: const EdgeInsets.only(bottom: 6),
-      child: Text(t, style: BefText.style(context, size: 12, color: c.mutedForeground)),
-    );
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        label('Shift starts (12-hour)'),
+    return _groups(context, [
+      (
+        'Shift starts, 12-hour',
         BefTimePicker(value: a, onChanged: (v) => setState(() => a = v), minuteStep: 15),
-        const SizedBox(height: 16),
-        label('Shift ends (24-hour)'),
+      ),
+      (
+        'Shift ends, 24-hour',
         BefTimePicker(value: b, onChanged: (v) => setState(() => b = v), hour12: false, minuteStep: 15),
-      ],
-    );
+      ),
+    ]);
   }
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
 }
 ```
 
@@ -3409,32 +5995,62 @@ Example:
 import 'package:flutter/material.dart';
 
 import 'befui/icons.dart';
+import 'befui/theme.dart';
 import 'befui/timeline.dart';
 
-Widget example(BuildContext context) {
-  return const BefTimeline(
-    items: [
-      BefTimelineItem(
-        title: 'Offer accepted',
-        description: 'Signed digitally by the candidate.',
-        time: '2h ago',
-        tone: BefTimelineTone.success,
-        icon: BefIcon(BefIcons.check),
-      ),
-      BefTimelineItem(
-        title: 'Documents uploaded',
-        time: 'Yesterday',
-        tone: BefTimelineTone.info,
-        icon: BefIcon(BefIcons.file),
-      ),
-      BefTimelineItem(
-        title: 'Background check failed',
-        description: 'Address could not be verified.',
-        time: 'Mon',
-        tone: BefTimelineTone.danger,
-        icon: BefIcon(BefIcons.x),
-      ),
-      BefTimelineItem(title: 'Application received', time: 'Last week', icon: BefIcon(BefIcons.userPlus)),
+Widget example(BuildContext context) => _groups(context, [
+  (
+    'Hiring history',
+    const BefTimeline(
+      items: [
+        BefTimelineItem(
+          title: 'Offer accepted',
+          description: 'Signed digitally by the candidate.',
+          time: '2h ago',
+          tone: BefTimelineTone.success,
+          icon: BefIcon(BefIcons.check),
+        ),
+        BefTimelineItem(
+          title: 'Documents uploaded',
+          time: 'Yesterday',
+          tone: BefTimelineTone.info,
+          icon: BefIcon(BefIcons.file),
+        ),
+        BefTimelineItem(
+          title: 'Background check failed',
+          description: 'Address could not be verified.',
+          time: 'Mon',
+          tone: BefTimelineTone.danger,
+          icon: BefIcon(BefIcons.x),
+        ),
+        BefTimelineItem(title: 'Application received', time: 'Last week', icon: BefIcon(BefIcons.userPlus)),
+      ],
+    ),
+  ),
+]);
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
     ],
   );
 }
@@ -3451,10 +6067,39 @@ Example:
 ```dart
 import 'package:flutter/material.dart';
 
+import 'befui/theme.dart';
 import 'befui/timer.dart';
 import 'befui/toast.dart';
 
-Widget example(BuildContext context) => BefTimer(onDone: () => BefToast.success(context, 'Time is up'));
+Widget example(BuildContext context) => _groups(context, [
+  ('Count down with controls', BefTimer(onDone: () => BefToast.success(context, 'Time is up'))),
+]);
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Toast (`toast`)
@@ -3469,28 +6114,50 @@ Example:
 import 'package:flutter/material.dart';
 
 import 'befui/button.dart';
+import 'befui/theme.dart';
 import 'befui/toast.dart';
 
 Widget example(BuildContext context) {
-  return Wrap(
-    spacing: 8,
-    runSpacing: 8,
+  BefButton b(String l, VoidCallback f) =>
+      BefButton(label: l, variant: BefButtonVariant.outline, onPressed: f);
+  return _groups(context, [
+    (
+      'Tap to show',
+      Wrap(
+        spacing: 8,
+        runSpacing: 8,
+        children: [
+          b('Success', () => BefToast.success(context, 'Saved', 'Your changes are live.')),
+          b('Error', () => BefToast.error(context, 'Could not save', 'Check your connection.')),
+          b('Info', () => BefToast.info(context, 'Heads up')),
+        ],
+      ),
+    ),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      BefButton(
-        label: 'Success',
-        variant: BefButtonVariant.outline,
-        onPressed: () => BefToast.success(context, 'Saved', 'Your changes are live.'),
-      ),
-      BefButton(
-        label: 'Error',
-        variant: BefButtonVariant.outline,
-        onPressed: () => BefToast.error(context, 'Could not save', 'Check your connection.'),
-      ),
-      BefButton(
-        label: 'Info',
-        variant: BefButtonVariant.outline,
-        onPressed: () => BefToast.info(context, 'Heads up'),
-      ),
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
     ],
   );
 }
@@ -3515,46 +6182,77 @@ Widget example(BuildContext context) {
   return StatefulBuilder(
     builder: (context, set) {
       final c = context.bef;
-      return Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          BefToggle(
-            pressed: _a,
-            onChanged: (v) => set(() => _a = v),
-            size: BefToggleSize.icon,
-            semanticLabel: 'Favourite',
-            child: BefIcon(BefIcons.heart, fill: _a ? c.accentForeground : null),
+      return _groups(context, [
+        (
+          'Icon toggles and a labelled one',
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              BefToggle(
+                pressed: _a,
+                onChanged: (v) => set(() => _a = v),
+                size: BefToggleSize.icon,
+                semanticLabel: 'Favourite',
+                child: BefIcon(BefIcons.heart, fill: _a ? c.accentForeground : null),
+              ),
+              const SizedBox(width: 8),
+              BefToggle(
+                variant: BefToggleVariant.outline,
+                pressed: _b,
+                onChanged: (v) => set(() => _b = v),
+                size: BefToggleSize.icon,
+                semanticLabel: 'Star',
+                child: BefIcon(BefIcons.star, fill: _b ? c.accentForeground : null),
+              ),
+              const SizedBox(width: 8),
+              BefToggle(
+                variant: BefToggleVariant.outline,
+                pressed: _c,
+                onChanged: (v) => set(() => _c = v),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    BefIcon(BefIcons.bookmark, fill: _c ? c.accentForeground : null),
+                    const SizedBox(width: 8),
+                    const Text('Save'),
+                  ],
+                ),
+              ),
+            ],
           ),
-          const SizedBox(width: 8),
-          BefToggle(
-            variant: BefToggleVariant.outline,
-            pressed: _b,
-            onChanged: (v) => set(() => _b = v),
-            size: BefToggleSize.icon,
-            semanticLabel: 'Star',
-            child: BefIcon(BefIcons.star, fill: _b ? c.accentForeground : null),
-          ),
-          const SizedBox(width: 8),
-          BefToggle(
-            variant: BefToggleVariant.outline,
-            pressed: _c,
-            onChanged: (v) => set(() => _c = v),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                BefIcon(BefIcons.bookmark, fill: _c ? c.accentForeground : null),
-                const SizedBox(width: 8),
-                const Text('Save'),
-              ],
-            ),
-          ),
-        ],
-      );
+        ),
+      ]);
     },
   );
 }
 
 bool _a = true, _b = false, _c = false;
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Tooltip (`tooltip`)
@@ -3570,24 +6268,30 @@ import 'package:flutter/material.dart';
 
 import 'befui/button.dart';
 import 'befui/icons.dart';
+import 'befui/theme.dart';
 import 'befui/tooltip.dart';
 
 /// Long-press a button to see its tooltip (hover on desktop).
 Widget example(BuildContext context) {
-  return Wrap(
-    spacing: 12,
-    runSpacing: 12,
-    children: [
+  return _groups(context, [
+    (
+      'Dark, with a title',
       BefTooltip(
         message: 'Save your work',
         title: 'Save',
         child: BefButton(label: 'Hold me', variant: BefButtonVariant.outline, onPressed: () {}),
       ),
+    ),
+    (
+      'Light card style',
       BefTooltip(
         message: 'Light card style',
         light: true,
         child: BefButton(label: 'Light', variant: BefButtonVariant.outline, onPressed: () {}),
       ),
+    ),
+    (
+      'On an icon button',
       BefTooltip(
         message: 'Add a teammate',
         child: BefButton(
@@ -3597,6 +6301,32 @@ Widget example(BuildContext context) {
           child: const BefIcon(BefIcons.userPlus),
         ),
       ),
+    ),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
     ],
   );
 }
@@ -3614,6 +6344,7 @@ Example:
 import 'package:flutter/material.dart';
 
 import 'befui/tree_view.dart';
+import 'befui/theme.dart';
 
 Widget example(BuildContext context) => const _Demo();
 
@@ -3650,8 +6381,38 @@ class _DemoState extends State<_Demo> {
   String sel = 'a';
 
   @override
-  Widget build(BuildContext context) =>
-      BefTreeView(nodes: _nodes, selected: sel, onSelect: (n) => setState(() => sel = n.id));
+  Widget build(BuildContext context) => _groups(context, [
+    (
+      'Org chart, tap a person',
+      BefTreeView(nodes: _nodes, selected: sel, onSelect: (n) => setState(() => sel = n.id)),
+    ),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
 }
 ```
 
@@ -3666,10 +6427,42 @@ Example:
 ```dart
 import 'package:flutter/material.dart';
 
+import 'befui/theme.dart';
 import 'befui/typewriter.dart';
 
-Widget example(BuildContext context) =>
-    const BefTypewriter(phrases: ['Ship faster.', 'Approve in one tap.', 'Run payroll on time.']);
+Widget example(BuildContext context) => _groups(context, [
+  (
+    'Looping phrases',
+    const BefTypewriter(phrases: ['Ship faster.', 'Approve in one tap.', 'Run payroll on time.']),
+  ),
+  ('Type once', const BefTypewriter(phrases: ['Welcome aboard.'], loop: false)),
+]);
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
 ```
 
 ### Uptime bar (`uptime-bar`)
@@ -3684,6 +6477,7 @@ Example:
 import 'package:flutter/material.dart';
 
 import 'befui/uptime_bar.dart';
+import 'befui/theme.dart';
 
 List<BefUptimeDay> _days(Map<int, BefUptimeStatus> bad) => [
   for (var i = 0; i < 60; i++)
@@ -3695,11 +6489,13 @@ List<BefUptimeDay> _days(Map<int, BefUptimeStatus> bad) => [
 ];
 
 Widget example(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: [
+  return _groups(context, [
+    (
+      'With an outage',
       BefUptimeBar(name: 'API', days: _days({14: BefUptimeStatus.degraded, 41: BefUptimeStatus.down})),
-      const SizedBox(height: 24),
+    ),
+    (
+      'Some slow days',
       BefUptimeBar(
         name: 'Dashboard',
         days: _days({
@@ -3708,8 +6504,33 @@ Widget example(BuildContext context) {
           58: BefUptimeStatus.degraded,
         }),
       ),
-      const SizedBox(height: 24),
-      BefUptimeBar(name: 'Webhooks', days: _days({})),
+    ),
+    ('All up', BefUptimeBar(name: 'Webhooks', days: _days({}))),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
     ],
   );
 }
@@ -3727,6 +6548,7 @@ Example:
 import 'package:flutter/material.dart';
 
 import 'befui/week_strip.dart';
+import 'befui/theme.dart';
 
 Widget example(BuildContext context) => const _Demo();
 
@@ -3742,15 +6564,55 @@ class _DemoState extends State<_Demo> {
   @override
   Widget build(BuildContext context) {
     final t = DateTime(day.year, day.month, day.day);
-    return BefWeekStrip(
-      value: day,
-      onChanged: (d) => setState(() => day = d),
-      marks: {
-        t.add(const Duration(days: 1)): 1,
-        t.add(const Duration(days: 2)): 3,
-        t.subtract(const Duration(days: 1)): 2,
-      },
-    );
+    return _groups(context, [
+      (
+        'With dots for busy days',
+        BefWeekStrip(
+          value: day,
+          onChanged: (d) => setState(() => day = d),
+          marks: {
+            t.add(const Duration(days: 1)): 1,
+            t.add(const Duration(days: 2)): 3,
+            t.subtract(const Duration(days: 1)): 2,
+          },
+        ),
+      ),
+      (
+        'Starts on Sunday, no past days',
+        BefWeekStrip(
+          value: day,
+          onChanged: (d) => setState(() => day = d),
+          weekStartsOn: DateTime.sunday,
+          min: t,
+        ),
+      ),
+    ]);
   }
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
 }
 ```

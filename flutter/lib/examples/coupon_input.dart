@@ -7,11 +7,10 @@ const _codes = {'WELCOME10': 'You save 10% on this order', 'FESTIVE250': 'You sa
 
 Widget example(BuildContext context) {
   return StatefulBuilder(
-    builder: (context, set) {
-      return SizedBox(
-        width: 320,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
+    builder: (context, set) => _groups(context, [
+      (
+        'Apply a code',
+        Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             BefCouponInput(
@@ -35,9 +34,35 @@ Widget example(BuildContext context) {
               ),
           ],
         ),
-      );
-    },
+      ),
+    ]),
   );
 }
 
 String? _applied;
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}

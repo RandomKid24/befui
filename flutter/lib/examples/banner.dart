@@ -5,7 +5,7 @@ import '../befui/theme.dart';
 
 Widget example(BuildContext context) {
   final c = context.bef;
-  return ClipRRect(
+  Widget framed(Widget banner) => ClipRRect(
     borderRadius: BorderRadius.circular(BefRadius.lg),
     child: DecoratedBox(
       decoration: BoxDecoration(
@@ -15,27 +15,61 @@ Widget example(BuildContext context) {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          BefBanner(
-            action: Text(
-              'Read more',
-              style: BefText.style(
-                context,
-                size: 13,
-                weight: FontWeight.w500,
-                color: c.primaryForeground,
-              ).copyWith(decoration: TextDecoration.underline),
-            ),
-            child: const Text('Payroll 2.0 is live for everyone.'),
-          ),
+          banner,
           Padding(
-            padding: const EdgeInsets.all(24),
+            padding: const EdgeInsets.all(20),
             child: Text(
-              'Dismiss the bar and the page slides up.',
+              'Page content below the bar.',
               style: BefText.style(context, color: c.mutedForeground),
             ),
           ),
         ],
       ),
     ),
+  );
+  return _groups(context, [
+    (
+      'With an action, dismissible',
+      framed(
+        BefBanner(
+          action: Text(
+            'Read more',
+            style: BefText.style(
+              context,
+              size: 13,
+              weight: FontWeight.w500,
+              color: c.primaryForeground,
+            ).copyWith(decoration: TextDecoration.underline),
+          ),
+          child: const Text('Payroll 2.0 is live for everyone.'),
+        ),
+      ),
+    ),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
   );
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../befui/calendar.dart';
 import '../befui/card.dart';
+import '../befui/theme.dart';
 
 Widget example(BuildContext context) => const _Demo();
 
@@ -18,14 +19,16 @@ class _DemoState extends State<_Demo> {
   @override
   Widget build(BuildContext context) {
     final today = befDay(DateTime.now());
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
+    return _groups(context, [
+      (
+        'Single day',
         BefCard(
           padding: const EdgeInsets.all(12),
           child: BefCalendar(selected: day, onSelect: (d) => setState(() => day = d)),
         ),
-        const SizedBox(height: 16),
+      ),
+      (
+        'Range, Monday first, past disabled',
         BefCard(
           padding: const EdgeInsets.all(12),
           child: BefCalendar(
@@ -36,7 +39,33 @@ class _DemoState extends State<_Demo> {
             disabled: (d) => d.isBefore(today.subtract(const Duration(days: 1))),
           ),
         ),
-      ],
-    );
+      ),
+    ]);
   }
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
 }

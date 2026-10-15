@@ -50,14 +50,42 @@ Widget example(BuildContext context) {
       ),
     ),
   );
+  return _groups(context, [
+    (
+      'Swipe a row left for three actions',
+      Column(
+        children: [
+          row('Diya Rao', 'Offer letter for Kabir', 'Sent it this morning.'),
+          row('Finance', 'September payroll is ready', 'Please review and approve.'),
+          row('Rohan Das', 'Laptop request', 'Need a 16 GB machine.'),
+        ],
+      ),
+    ),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
   return Column(
     mainAxisSize: MainAxisSize.min,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      row('Diya Rao', 'Offer letter for Kabir', 'Sent it this morning.'),
-      row('Finance', 'September payroll is ready', 'Please review and approve.'),
-      row('Rohan Das', 'Laptop request', 'Need a 16 GB machine.'),
-      Text('Swipe a row left.', style: BefText.style(context, size: 12, color: c.mutedForeground)),
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
     ],
   );
 }
