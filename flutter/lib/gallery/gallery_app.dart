@@ -343,7 +343,10 @@ class _BareState extends State<_Bare> {
               child: Padding(
                 key: _measure,
                 padding: const EdgeInsets.all(20),
-                child: DefaultTextStyle.merge(style: TextStyle(color: c.foreground), child: widget.entry.example(context)),
+                child: DefaultTextStyle.merge(
+                  style: TextStyle(color: c.foreground),
+                  child: widget.entry.example(context),
+                ),
               ),
             ),
           ),

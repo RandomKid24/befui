@@ -45,7 +45,12 @@ class _BefSelectState<T> extends State<BefSelect<T>> {
           menuChildren: [
             for (final o in widget.options)
               MenuItemButton(
-                style: befMenuItemStyle(context),
+                // the panel is as wide as its widest item, so the items are what make the menu as wide as the field
+                style: befMenuItemStyle(context).copyWith(
+                  minimumSize: WidgetStatePropertyAll(
+                    Size(box.maxWidth.isFinite ? box.maxWidth - 8 : 152, 34),
+                  ),
+                ),
                 leadingIcon: SizedBox(
                   width: 16,
                   child: o.value == widget.value
