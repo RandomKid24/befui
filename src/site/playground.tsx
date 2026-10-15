@@ -105,6 +105,7 @@ function codeFor(spec: Spec, v: Values) {
 export function Playground({ slug }: { slug: string }) {
   const spec = specs[slug];
   const [v, setV] = React.useState<Values>(spec.initial);
+  const deferred = React.useDeferredValue(v); // the usage snippet follows a beat behind, so typing in a control never waits for it
   const set = (k: string, x: string | number | boolean) => setV((o) => ({ ...o, [k]: x }));
   return (
     <div className="grid overflow-hidden rounded-xl border lg:grid-cols-[1fr_17rem]">
@@ -128,7 +129,7 @@ export function Playground({ slug }: { slug: string }) {
           </div>
         ))}
       </div>
-      <div className="border-t lg:col-span-2"><CodeBlock code={codeFor(spec, v)} title="Usage" /></div>
+      <div className="border-t lg:col-span-2"><CodeBlock code={codeFor(spec, deferred)} title="Usage" /></div>
     </div>
   );
 }

@@ -48,8 +48,17 @@ export default function App() {
 
   return (
     <Shell path={path} docs={!home && section !== 'icons' && section !== 'themes'}>
-      <style>{'@keyframes page-in { from { opacity: 0; transform: translateY(6px) } to { opacity: 1; transform: none } } @media (prefers-reduced-motion: reduce) { [data-page] { animation: none !important } }'}</style>
-      <div data-page key={path} className="animate-[page-in_0.28s_cubic-bezier(0.22,1,0.36,1)]"><React.Suspense fallback={fallback}>{page}</React.Suspense></div>
+      <style>{`
+        @keyframes rise { from { opacity: 0; transform: translateY(10px) scale(0.995) } to { opacity: 1; transform: none } }
+        /* a page's sections rise in one after the other, and a demo fades up when it has loaded */
+        [data-page] article > * { animation: rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both }
+        [data-page] article > :nth-child(2) { animation-delay: 40ms } [data-page] article > :nth-child(3) { animation-delay: 80ms }
+        [data-page] article > :nth-child(4) { animation-delay: 120ms } [data-page] article > :nth-child(5) { animation-delay: 160ms }
+        [data-page] article > :nth-child(n+6) { animation-delay: 200ms }
+        [data-stage] > * { animation: rise 0.45s cubic-bezier(0.22, 1, 0.36, 1) both }
+        @media (prefers-reduced-motion: reduce) { [data-page], [data-page] article > *, [data-stage] > * { animation: none !important } }
+      `}</style>
+      <div data-page key={path}><React.Suspense fallback={fallback}>{page}</React.Suspense></div>
     </Shell>
   );
 }

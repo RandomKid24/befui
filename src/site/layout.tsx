@@ -179,7 +179,7 @@ export function SidebarNav({ path, onNavigate }: { path: string; onNavigate?: ()
     return () => clearTimeout(t);
   }, [path]);
 
-  const term = q.trim().toLowerCase();
+  const term = React.useDeferredValue(q.trim().toLowerCase());
   const item = (to: string, label: string) => (
     <Link
       key={to}

@@ -78,7 +78,7 @@ export function Preview({
         >
           {/* dir on the wrapper flips CSS; Radix components (menus, tabs, toggle groups) read their arrow-key direction from this provider instead. */}
           <DirectionProvider dir={rtl ? 'rtl' : 'ltr'}>
-            <div className={cn(bleed ? 'mx-auto w-full max-w-6xl' : 'max-w-full')}>{children}</div>
+            <div data-stage className={cn(bleed ? 'mx-auto w-full max-w-6xl' : 'max-w-full')}>{children}</div>
           </DirectionProvider>
         </div>
       </TabsContent>

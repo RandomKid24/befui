@@ -138,7 +138,7 @@ export function GettingStarted() {
 
 /* ------------------------------------------------------------ components */
 
-function ComponentCard({ c }: { c: (typeof components)[number]; i?: number }) {
+const ComponentCard = React.memo(function ComponentCard({ c }: { c: (typeof components)[number]; i?: number }) {
   // no per-card observer or entrance animation: 199 of them made this page slow, and the browser skips drawing cards that are off screen
   return (
     <Link to={`/components/${c.slug}`} className="group block h-full rounded-xl outline-none [contain-intrinsic-size:auto_96px] [content-visibility:auto] focus-visible:ring-2 focus-visible:ring-ring/50">
@@ -151,12 +151,12 @@ function ComponentCard({ c }: { c: (typeof components)[number]; i?: number }) {
       </SpotlightCard>
     </Link>
   );
-}
+});
 
 export function ComponentsIndex() {
   const [q, setQ] = React.useState('');
   const [cat, setCat] = React.useState<string[]>([]);
-  const term = q.trim().toLowerCase();
+  const term = React.useDeferredValue(q.trim().toLowerCase()); // typing stays instant, the grid catches up a beat later
   const match = (c: (typeof components)[number]) =>
     (!cat.length || cat.includes(c.category)) &&
     (!term || `${c.name} ${c.description} ${c.keywords.join(' ')}`.toLowerCase().includes(term));

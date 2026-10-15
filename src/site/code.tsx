@@ -56,7 +56,13 @@ export function CodeBlock({
 }) {
   const [expanded, setExpanded] = React.useState(false);
   const clipped = maxHeight !== undefined && !expanded;
-  const nodes = React.useMemo(() => highlight(code, html ? 'html' : dart ? 'dart' : 'tsx'), [code, html, dart]);
+  // a collapsed block only shows about 20 lines, so highlight the first 60 and the rest once it is expanded (long sources made pages slow to open)
+  const shown = React.useMemo(() => {
+    if (!clipped) return code;
+    const lines = code.split('\n');
+    return lines.length > 60 ? lines.slice(0, 60).join('\n') : code;
+  }, [code, clipped]);
+  const nodes = React.useMemo(() => highlight(shown, html ? 'html' : dart ? 'dart' : 'tsx'), [shown, html, dart]);
   return (
     <div className={cn('overflow-hidden rounded-lg border bg-muted/60', className)}>
       <div className="flex h-9 items-center justify-between border-b bg-muted px-3">
