@@ -297,6 +297,32 @@ Widget example(BuildContext context) {
 }
 ```
 
+### Bar list (`bar-list`)
+Ranked list with a bar behind each row: top pages, products, sources, countries.
+- Add: `npx github:RandomKid24/befui add bar-list --flutter`
+- Import: `import 'befui/bar_list.dart';` (classes: BefBarListItem, BefBarList)
+- Also copies: theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/bar_list.dart';
+
+Widget example(BuildContext context) {
+  return const BefBarList(
+    items: [
+      BefBarListItem(label: '/pricing', value: 12840),
+      BefBarListItem(label: '/docs/getting-started', value: 9210),
+      BefBarListItem(label: '/blog/launch-notes', value: 5632),
+      BefBarListItem(label: '/signup', value: 3120),
+      BefBarListItem(label: '/changelog', value: 1480),
+    ],
+  );
+}
+```
+
 ### Bottom navigation (`bottom-nav`)
 Mobile tab bar with icons, labels, an active pill and count badges.
 - Add: `npx github:RandomKid24/befui add bottom-nav --flutter`
@@ -761,6 +787,197 @@ Widget example(BuildContext context) {
 }
 ```
 
+### Color picker (`color-picker`)
+Swatches, hex field and the native picker. Always returns a six-digit hex.
+- Add: `npx github:RandomKid24/befui add color-picker --flutter`
+- Import: `import 'befui/color_picker.dart';` (classes: BefColorPicker)
+- Also copies: core.dart, icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/color_picker.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) {
+  return StatefulBuilder(
+    builder: (context, set) {
+      return Wrap(
+        spacing: 32,
+        runSpacing: 16,
+        children: [
+          BefColorPicker(value: _c, onChanged: (v) => set(() => _c = v)),
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 300),
+            width: 128,
+            height: 96,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: Color(int.parse('FF${_c.substring(1)}', radix: 16)),
+              borderRadius: BorderRadius.circular(BefRadius.xl),
+            ),
+            child: Text(
+              'Preview',
+              style: BefText.style(context, weight: FontWeight.w500, color: Colors.white),
+            ),
+          ),
+        ],
+      );
+    },
+  );
+}
+
+String _c = '#2563eb';
+```
+
+### Copy button (`copy-button`)
+Copies text and morphs to a check.
+- Add: `npx github:RandomKid24/befui add copy-button --flutter`
+- Import: `import 'befui/copy_button.dart';` (classes: BefCopyButton)
+- Also copies: core.dart, icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/copy_button.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) {
+  final c = context.bef;
+  const cmd = 'npm i clsx tailwind-merge';
+  return Container(
+    padding: const EdgeInsets.fromLTRB(12, 6, 6, 6),
+    decoration: BoxDecoration(
+      color: c.muted,
+      borderRadius: BorderRadius.circular(BefRadius.lg),
+      border: Border.all(color: c.border),
+    ),
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(cmd, style: BefText.style(context, mono: true)),
+        const SizedBox(width: 8),
+        const BefCopyButton(value: cmd),
+      ],
+    ),
+  );
+}
+```
+
+### Countdown (`countdown`)
+Live countdown with flipping digits.
+- Add: `npx github:RandomKid24/befui add countdown --flutter`
+- Import: `import 'befui/countdown.dart';` (classes: BefCountdown)
+- Also copies: theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/countdown.dart';
+
+Widget example(BuildContext context) =>
+    BefCountdown(to: DateTime.now().add(const Duration(days: 3, hours: 4)));
+```
+
+### Coupon input (`coupon-input`)
+Promo code field with async validation, an error message and a removable applied chip.
+- Add: `npx github:RandomKid24/befui add coupon-input --flutter`
+- Import: `import 'befui/coupon_input.dart';` (classes: BefCouponInput)
+- Also copies: button.dart, core.dart, icons.dart, theme.dart, input.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/coupon_input.dart';
+import 'befui/theme.dart';
+
+const _codes = {'WELCOME10': 'You save 10% on this order', 'FESTIVE250': 'You save ₹250'};
+
+Widget example(BuildContext context) {
+  return StatefulBuilder(
+    builder: (context, set) {
+      return SizedBox(
+        width: 320,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            BefCouponInput(
+              applied: _applied,
+              hint: _applied == null ? null : _codes[_applied],
+              onApply: (c) async {
+                await Future<void>.delayed(const Duration(milliseconds: 600));
+                if (!_codes.containsKey(c)) return false;
+                set(() => _applied = c);
+                return true;
+              },
+              onRemove: () => set(() => _applied = null),
+            ),
+            if (_applied == null)
+              Padding(
+                padding: const EdgeInsets.fromLTRB(4, 8, 4, 0),
+                child: Text(
+                  'Try WELCOME10 or FESTIVE250.',
+                  style: BefText.style(context, size: 12, color: context.bef.mutedForeground),
+                ),
+              ),
+          ],
+        ),
+      );
+    },
+  );
+}
+
+String? _applied;
+```
+
+### Currency input (`currency-input`)
+Money field that groups digits as you type (1,25,000) and hands you a plain number.
+- Add: `npx github:RandomKid24/befui add currency-input --flutter`
+- Import: `import 'befui/currency_input.dart';` (classes: BefCurrencyInput)
+- Also copies: theme.dart, input.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/currency_input.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) {
+  return StatefulBuilder(
+    builder: (context, set) {
+      return SizedBox(
+        width: 240,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            BefCurrencyInput(value: _v, semanticLabel: 'Salary', onChanged: (v) => set(() => _v = v)),
+            const SizedBox(height: 8),
+            Text(
+              'Value: ${_v ?? 'empty'}',
+              style: BefText.style(context, size: 12, color: context.bef.mutedForeground),
+            ),
+          ],
+        ),
+      );
+    },
+  );
+}
+
+int? _v = 125000;
+```
+
 ### Description list (`description-list`)
 Label and value pairs for a details panel, in one to three columns, optionally with dividers.
 - Add: `npx github:RandomKid24/befui add description-list --flutter`
@@ -1038,6 +1255,31 @@ Widget example(BuildContext context) {
 }
 ```
 
+### Inline edit (`inline-edit`)
+Text that becomes a field on click. Enter saves, Escape cancels.
+- Add: `npx github:RandomKid24/befui add inline-edit --flutter`
+- Import: `import 'befui/inline_edit.dart';` (classes: BefInlineEdit)
+- Also copies: core.dart, icons.dart, theme.dart, input.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/inline_edit.dart';
+
+Widget example(BuildContext context) {
+  return StatefulBuilder(
+    builder: (context, set) => SizedBox(
+      width: 256,
+      child: BefInlineEdit(value: _name, onSaved: (v) => set(() => _name = v)),
+    ),
+  );
+}
+
+String _name = 'Q4 hiring plan';
+```
+
 ### Input (`input`)
 Text input and textarea with icon, trailing slot, and invalid state.
 - Add: `npx github:RandomKid24/befui add input --flutter`
@@ -1151,6 +1393,130 @@ Widget example(BuildContext context) {
 }
 ```
 
+### Leaderboard (`leaderboard`)
+Ranked people or teams with avatars, score bars, gold, silver and bronze badges and place changes. Sorted for you; bars fill in on scroll.
+- Add: `npx github:RandomKid24/befui add leaderboard --flutter`
+- Import: `import 'befui/leaderboard.dart';` (classes: BefLeaderboardItem, BefLeaderboard)
+- Also copies: avatar.dart, core.dart, icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/leaderboard.dart';
+
+Widget example(BuildContext context) {
+  return BefLeaderboard(
+    format: (n) => '₹${(n / 100000).toStringAsFixed(1)}L',
+    items: const [
+      BefLeaderboardItem(name: 'Rohan Das', subtitle: 'Enterprise', value: 2450000, delta: 2),
+      BefLeaderboardItem(name: 'Diya Rao', subtitle: 'Mid-market', value: 3120000, delta: -1),
+      BefLeaderboardItem(name: 'Isha Nair', subtitle: 'Enterprise', value: 2980000, delta: 1),
+      BefLeaderboardItem(name: 'Kabir Shah', subtitle: 'SMB', value: 1620000),
+      BefLeaderboardItem(name: 'Ananya Kulkarni', subtitle: 'SMB', value: 1240000, delta: -2),
+    ],
+  );
+}
+```
+
+### Loader (`loader`)
+Six loading animations (ring, dots, bars, pulse, orbit, dual), an indeterminate or determinate bar loader, and a loading overlay.
+- Add: `npx github:RandomKid24/befui add loader --flutter`
+- Import: `import 'befui/loader.dart';` (classes: BefLoader, BefBarLoader, BefLoadingOverlay)
+- Also copies: theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/button.dart';
+import 'befui/card.dart';
+import 'befui/loader.dart';
+import 'befui/skeleton.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) {
+  return StatefulBuilder(
+    builder: (context, set) {
+      final c = context.bef;
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Wrap(
+            spacing: 12,
+            runSpacing: 12,
+            children: [
+              for (final v in BefLoaderVariant.values)
+                Container(
+                  width: 88,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(BefRadius.lg),
+                    border: Border.all(color: c.border),
+                  ),
+                  child: Column(
+                    children: [
+                      BefLoader(variant: v),
+                      const SizedBox(height: 8),
+                      Text(v.name, style: BefText.style(context, size: 11, color: c.mutedForeground)),
+                    ],
+                  ),
+                ),
+            ],
+          ),
+          const SizedBox(height: 24),
+          const BefBarLoader(),
+          const SizedBox(height: 12),
+          const BefBarLoader(value: 64),
+          const SizedBox(height: 24),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: BefButton(
+              label: _loading ? 'Stop loading' : 'Reload report',
+              size: BefButtonSize.sm,
+              variant: BefButtonVariant.outline,
+              onPressed: () => set(() => _loading = !_loading),
+            ),
+          ),
+          const SizedBox(height: 24),
+          BefLoadingOverlay(
+            loading: _loading,
+            label: 'Fetching report',
+            variant: BefLoaderVariant.orbit,
+            child: const BefCard(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  BefCardHeader(children: [BefCardTitle('Monthly revenue')]),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        BefSkeleton(width: 100, height: 24),
+                        SizedBox(height: 8),
+                        BefSkeleton(height: 16),
+                        SizedBox(height: 8),
+                        BefSkeleton(width: 220, height: 16),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      );
+    },
+  );
+}
+
+bool _loading = true;
+```
+
 ### Number stepper (`number-stepper`)
 Number field with plus and minus buttons and arrow keys.
 - Add: `npx github:RandomKid24/befui add number-stepper --flutter`
@@ -1172,6 +1538,42 @@ Widget example(BuildContext context) {
 }
 
 int _v = 2;
+```
+
+### Number ticker (`number-ticker`)
+Counts up to a value with easing once it scrolls into view.
+- Add: `npx github:RandomKid24/befui add number-ticker --flutter`
+- Import: `import 'befui/number_ticker.dart';` (classes: BefNumberTicker)
+- Also copies: core.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/number_ticker.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) {
+  final muted = BefText.style(context, color: context.bef.mutedForeground);
+  Widget stat(Widget n, String label) => Column(
+    children: [
+      n,
+      const SizedBox(height: 4),
+      Text(label, style: muted),
+    ],
+  );
+  return Wrap(
+    spacing: 40,
+    runSpacing: 24,
+    alignment: WrapAlignment.center,
+    children: [
+      stat(const BefNumberTicker(value: 14820), 'Employees onboarded'),
+      stat(const BefNumberTicker(value: 98.6, suffix: '%', decimals: 1), 'Payroll accuracy'),
+      stat(const BefNumberTicker(value: 4.2, prefix: '₹', suffix: 'Cr', decimals: 1), 'Revenue'),
+    ],
+  );
+}
 ```
 
 ### OTP input (`otp-input`)
@@ -1858,6 +2260,22 @@ Widget example(BuildContext context) {
 int _current = 1;
 ```
 
+### Stopwatch (`stopwatch`)
+Start, pause, lap and reset, down to hundredths of a second.
+- Add: `npx github:RandomKid24/befui add stopwatch --flutter`
+- Import: `import 'befui/stopwatch.dart';` (classes: BefStopwatch)
+- Also copies: button.dart, icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/stopwatch.dart';
+
+Widget example(BuildContext context) => const BefStopwatch();
+```
+
 ### Switch (`switch`)
 On/off toggle for settings that apply immediately.
 - Add: `npx github:RandomKid24/befui add switch --flutter`
@@ -2068,6 +2486,23 @@ Widget example(BuildContext context) {
 }
 ```
 
+### Timer (`timer`)
+Countdown with a ring that drains smoothly, presets and an onDone callback.
+- Add: `npx github:RandomKid24/befui add timer --flutter`
+- Import: `import 'befui/timer.dart';` (classes: BefTimer)
+- Also copies: button.dart, core.dart, icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/timer.dart';
+import 'befui/toast.dart';
+
+Widget example(BuildContext context) => BefTimer(onDone: () => BefToast.success(context, 'Time is up'));
+```
+
 ### Toast (`toast`)
 Call toast.success() from anywhere. No provider needed.
 - Add: `npx github:RandomKid24/befui add toast --flutter`
@@ -2208,6 +2643,49 @@ Widget example(BuildContext context) {
           child: const BefIcon(BefIcons.userPlus),
         ),
       ),
+    ],
+  );
+}
+```
+
+### Uptime bar (`uptime-bar`)
+Status-page strip with one tick per day in green, amber or red, the uptime percentage and an incident note on hover.
+- Add: `npx github:RandomKid24/befui add uptime-bar --flutter`
+- Import: `import 'befui/uptime_bar.dart';` (classes: BefUptimeDay, BefUptimeBar)
+- Also copies: theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/uptime_bar.dart';
+
+List<BefUptimeDay> _days(Map<int, BefUptimeStatus> bad) => [
+  for (var i = 0; i < 60; i++)
+    BefUptimeDay(
+      date: '${60 - i} days ago',
+      status: bad[i] ?? BefUptimeStatus.up,
+      note: bad[i] == BefUptimeStatus.down ? 'Outage' : (bad[i] == null ? null : 'Slow responses'),
+    ),
+];
+
+Widget example(BuildContext context) {
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      BefUptimeBar(name: 'API', days: _days({14: BefUptimeStatus.degraded, 41: BefUptimeStatus.down})),
+      const SizedBox(height: 24),
+      BefUptimeBar(
+        name: 'Dashboard',
+        days: _days({
+          22: BefUptimeStatus.degraded,
+          23: BefUptimeStatus.degraded,
+          58: BefUptimeStatus.degraded,
+        }),
+      ),
+      const SizedBox(height: 24),
+      BefUptimeBar(name: 'Webhooks', days: _days({})),
     ],
   );
 }

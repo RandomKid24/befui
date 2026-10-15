@@ -7,6 +7,7 @@ import '../examples/alert_dialog.dart' as e_alert_dialog;
 import '../examples/avatar.dart' as e_avatar;
 import '../examples/badge.dart' as e_badge;
 import '../examples/banner.dart' as e_banner;
+import '../examples/bar_list.dart' as e_bar_list;
 import '../examples/bottom_nav.dart' as e_bottom_nav;
 import '../examples/bottom_sheet.dart' as e_bottom_sheet;
 import '../examples/button.dart' as e_button;
@@ -16,15 +17,24 @@ import '../examples/charts.dart' as e_charts;
 import '../examples/checkbox.dart' as e_checkbox;
 import '../examples/chip.dart' as e_chip;
 import '../examples/collapsible.dart' as e_collapsible;
+import '../examples/color_picker.dart' as e_color_picker;
+import '../examples/copy_button.dart' as e_copy_button;
+import '../examples/countdown.dart' as e_countdown;
+import '../examples/coupon_input.dart' as e_coupon_input;
+import '../examples/currency_input.dart' as e_currency_input;
 import '../examples/description_list.dart' as e_description_list;
 import '../examples/dialog.dart' as e_dialog;
 import '../examples/dropdown_menu.dart' as e_dropdown_menu;
 import '../examples/empty_state.dart' as e_empty_state;
 import '../examples/error_state.dart' as e_error_state;
 import '../examples/fab.dart' as e_fab;
+import '../examples/inline_edit.dart' as e_inline_edit;
 import '../examples/input.dart' as e_input;
 import '../examples/label.dart' as e_label;
+import '../examples/leaderboard.dart' as e_leaderboard;
+import '../examples/loader.dart' as e_loader;
 import '../examples/number_stepper.dart' as e_number_stepper;
+import '../examples/number_ticker.dart' as e_number_ticker;
 import '../examples/otp_input.dart' as e_otp_input;
 import '../examples/pagination.dart' as e_pagination;
 import '../examples/password_input.dart' as e_password_input;
@@ -43,14 +53,17 @@ import '../examples/spinner.dart' as e_spinner;
 import '../examples/stat_card.dart' as e_stat_card;
 import '../examples/status_dot.dart' as e_status_dot;
 import '../examples/stepper.dart' as e_stepper;
+import '../examples/stopwatch.dart' as e_stopwatch;
 import '../examples/switch.dart' as e_switch;
 import '../examples/table.dart' as e_table;
 import '../examples/tabs.dart' as e_tabs;
 import '../examples/tag_input.dart' as e_tag_input;
 import '../examples/timeline.dart' as e_timeline;
+import '../examples/timer.dart' as e_timer;
 import '../examples/toast.dart' as e_toast;
 import '../examples/toggle.dart' as e_toggle;
 import '../examples/tooltip.dart' as e_tooltip;
+import '../examples/uptime_bar.dart' as e_uptime_bar;
 
 class GalleryEntry {
   const GalleryEntry(this.slug, this.name, this.category, this.description, this.example, [this.preview]);
@@ -104,6 +117,13 @@ final List<GalleryEntry> entries = [
     'Feedback',
     'Announcement bar that collapses smoothly when dismissed.',
     e_banner.example,
+  ),
+  GalleryEntry(
+    'bar-list',
+    'Bar list',
+    'Data',
+    'Ranked list with a bar behind each row: top pages, products, sources, countries.',
+    e_bar_list.example,
   ),
   GalleryEntry(
     'bottom-nav',
@@ -164,6 +184,35 @@ final List<GalleryEntry> entries = [
     e_collapsible.example,
   ),
   GalleryEntry(
+    'color-picker',
+    'Color picker',
+    'Inputs',
+    'Swatches, hex field and the native picker. Always returns a six-digit hex.',
+    e_color_picker.example,
+  ),
+  GalleryEntry(
+    'copy-button',
+    'Copy button',
+    'Inputs',
+    'Copies text and morphs to a check.',
+    e_copy_button.example,
+  ),
+  GalleryEntry('countdown', 'Countdown', 'Data', 'Live countdown with flipping digits.', e_countdown.example),
+  GalleryEntry(
+    'coupon-input',
+    'Coupon input',
+    'Inputs',
+    'Promo code field with async validation, an error message and a removable applied chip.',
+    e_coupon_input.example,
+  ),
+  GalleryEntry(
+    'currency-input',
+    'Currency input',
+    'Inputs',
+    'Money field that groups digits as you type (1,25,000) and hands you a plain number.',
+    e_currency_input.example,
+  ),
+  GalleryEntry(
     'description-list',
     'Description list',
     'Display',
@@ -207,6 +256,13 @@ final List<GalleryEntry> entries = [
     e_fab.example,
   ),
   GalleryEntry(
+    'inline-edit',
+    'Inline edit',
+    'Inputs',
+    'Text that becomes a field on click. Enter saves, Escape cancels.',
+    e_inline_edit.example,
+  ),
+  GalleryEntry(
     'input',
     'Input',
     'Inputs',
@@ -221,11 +277,32 @@ final List<GalleryEntry> entries = [
     e_label.example,
   ),
   GalleryEntry(
+    'leaderboard',
+    'Leaderboard',
+    'Data',
+    'Ranked people or teams with avatars, score bars, gold, silver and bronze badges and place changes. Sorted for you; bars fill in on scroll.',
+    e_leaderboard.example,
+  ),
+  GalleryEntry(
+    'loader',
+    'Loader',
+    'Feedback',
+    'Six loading animations (ring, dots, bars, pulse, orbit, dual), an indeterminate or determinate bar loader, and a loading overlay.',
+    e_loader.example,
+  ),
+  GalleryEntry(
     'number-stepper',
     'Number stepper',
     'Inputs',
     'Number field with plus and minus buttons and arrow keys.',
     e_number_stepper.example,
+  ),
+  GalleryEntry(
+    'number-ticker',
+    'Number ticker',
+    'Data',
+    'Counts up to a value with easing once it scrolls into view.',
+    e_number_ticker.example,
   ),
   GalleryEntry(
     'otp-input',
@@ -336,6 +413,13 @@ final List<GalleryEntry> entries = [
     e_stepper.example,
   ),
   GalleryEntry(
+    'stopwatch',
+    'Stopwatch',
+    'Time',
+    'Start, pause, lap and reset, down to hundredths of a second.',
+    e_stopwatch.example,
+  ),
+  GalleryEntry(
     'switch',
     'Switch',
     'Inputs',
@@ -365,6 +449,13 @@ final List<GalleryEntry> entries = [
     e_timeline.example,
   ),
   GalleryEntry(
+    'timer',
+    'Timer',
+    'Time',
+    'Countdown with a ring that drains smoothly, presets and an onDone callback.',
+    e_timer.example,
+  ),
+  GalleryEntry(
     'toast',
     'Toast',
     'Feedback',
@@ -384,5 +475,12 @@ final List<GalleryEntry> entries = [
     'Overlays',
     'Hint on hover and focus. Optional title, keyboard shortcut, light style and arrow, plus an (i) InfoTip and a TruncatedText that only shows a tooltip when cut off.',
     e_tooltip.example,
+  ),
+  GalleryEntry(
+    'uptime-bar',
+    'Uptime bar',
+    'Data',
+    'Status-page strip with one tick per day in green, amber or red, the uptime percentage and an incident note on hover.',
+    e_uptime_bar.example,
   ),
 ];
