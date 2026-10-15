@@ -54,6 +54,62 @@ Widget example(BuildContext context) {
 }
 ```
 
+### Activity feed (`activity-feed`)
+Who did what and when, grouped under Today and Yesterday, with live relative times and an optional quoted detail.
+- Add: `npx github:RandomKid24/befui add activity-feed --flutter`
+- Import: `import 'befui/activity_feed.dart';` (classes: BefActivity, BefActivityFeed)
+- Also copies: avatar.dart, icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/activity_feed.dart';
+import 'befui/icons.dart';
+
+Widget example(BuildContext context) {
+  final now = DateTime.now();
+  DateTime ago(double h) => now.subtract(Duration(minutes: (h * 60).round()));
+  return BefActivityFeed(
+    now: now,
+    items: [
+      BefActivity(
+        actor: 'Aarav Mehta',
+        action: 'commented on',
+        target: 'Leave policy 2025',
+        at: ago(0.2),
+        icon: BefIcons.messageSquare,
+        detail: '“Carry-forward cap should be 12 days, not 10.”',
+      ),
+      BefActivity(
+        actor: 'Diya Rao',
+        action: 'uploaded',
+        target: 'offer-letter-v3.pdf',
+        at: ago(2),
+        icon: BefIcons.file,
+        detail: '248 KB · PDF',
+      ),
+      BefActivity(
+        actor: 'Isha Nair',
+        action: 'added',
+        target: 'Kabir Shah to Engineering',
+        at: ago(5),
+        icon: BefIcons.userPlus,
+      ),
+      BefActivity(
+        actor: 'Rohan Das',
+        action: 'merged',
+        target: 'Payroll export fixes',
+        at: ago(27),
+        icon: BefIcons.gitMerge,
+      ),
+      BefActivity(actor: 'Meera Iyer', action: 'approved', target: 'September expense report', at: ago(30)),
+    ],
+  );
+}
+```
+
 ### Alert (`alert`)
 Inline message in info, success, warning and danger.
 - Add: `npx github:RandomKid24/befui add alert --flutter`
@@ -939,6 +995,23 @@ Widget example(BuildContext context) {
 String? _applied;
 ```
 
+### Credit card (`credit-card`)
+Payment card preview that flips in 3D to show the CVV. Formats as the user types, guesses Visa, Mastercard, AmEx or RuPay, and can mask the number.
+- Add: `npx github:RandomKid24/befui add credit-card --flutter`
+- Import: `import 'befui/credit_card.dart';` (classes: BefCreditCard)
+- Also copies: theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/credit_card.dart';
+
+Widget example(BuildContext context) =>
+    const BefCreditCard(number: '4111 1111 1111 1234', name: 'Aarav Mehta', expiry: '09/28', cvv: '482');
+```
+
 ### Currency input (`currency-input`)
 Money field that groups digits as you type (1,25,000) and hands you a plain number.
 - Add: `npx github:RandomKid24/befui add currency-input --flutter`
@@ -1576,6 +1649,31 @@ Widget example(BuildContext context) {
 }
 ```
 
+### Order tracker (`order-tracker`)
+Delivery progress as steps joined by a line that fills up to the current one. Horizontal on wide screens, vertical on phones.
+- Add: `npx github:RandomKid24/befui add order-tracker --flutter`
+- Import: `import 'befui/order_tracker.dart';` (classes: BefOrderStep, BefOrderTracker)
+- Also copies: core.dart, icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/order_tracker.dart';
+
+Widget example(BuildContext context) => const BefOrderTracker(
+  current: 2,
+  steps: [
+    BefOrderStep(label: 'Ordered', time: '10 Oct, 9:12 am'),
+    BefOrderStep(label: 'Packed', time: '10 Oct, 6:40 pm'),
+    BefOrderStep(label: 'Shipped', description: 'Pune hub', time: '11 Oct, 8:05 am'),
+    BefOrderStep(label: 'Out for delivery'),
+    BefOrderStep(label: 'Delivered'),
+  ],
+);
+```
+
 ### OTP input (`otp-input`)
 Code boxes with paste, backspace, arrow keys, autofill and a shake on error.
 - Add: `npx github:RandomKid24/befui add otp-input --flutter`
@@ -1699,6 +1797,134 @@ Widget example(BuildContext context) {
     ),
   );
 }
+```
+
+### Pricing card (`pricing-card`)
+Plan card whose price counts to the new value. The highlighted plan gets a travelling border beam.
+- Add: `npx github:RandomKid24/befui add pricing-card --flutter`
+- Import: `import 'befui/pricing_card.dart';` (classes: BefPricingCard)
+- Also copies: button.dart, icons.dart, theme.dart, number_ticker.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/pricing_card.dart';
+import 'befui/segmented.dart';
+
+Widget example(BuildContext context) => const _Demo();
+
+class _Demo extends StatefulWidget {
+  const _Demo();
+  @override
+  State<_Demo> createState() => _DemoState();
+}
+
+class _DemoState extends State<_Demo> {
+  String plan = 'monthly';
+
+  @override
+  Widget build(BuildContext context) {
+    final y = plan == 'yearly';
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        BefSegmented<String>(
+          value: plan,
+          onChanged: (v) => setState(() => plan = v),
+          segments: const [
+            BefSegment(value: 'monthly', label: 'Monthly'),
+            BefSegment(value: 'yearly', label: 'Yearly, save 20%'),
+          ],
+        ),
+        const SizedBox(height: 24),
+        BefPricingCard(
+          highlighted: true,
+          name: 'Growth',
+          description: 'Payroll included.',
+          price: y ? 399 : 499,
+          features: const [
+            'Everything in Starter',
+            'Payroll and payslips',
+            'Approvals workflow',
+            'Priority support',
+          ],
+          onSelect: () {},
+        ),
+      ],
+    );
+  }
+}
+```
+
+### Product card (`product-card`)
+Product tile with image, rating, price with strike-through, discount tag, wishlist heart and Add button. Also exports Price.
+- Add: `npx github:RandomKid24/befui add product-card --flutter`
+- Import: `import 'befui/product_card.dart';` (classes: BefProductCard)
+- Also copies: core.dart, icons.dart, theme.dart, rating.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/product_card.dart';
+
+Widget example(BuildContext context) => const _Demo();
+
+class _Demo extends StatefulWidget {
+  const _Demo();
+  @override
+  State<_Demo> createState() => _DemoState();
+}
+
+class _DemoState extends State<_Demo> {
+  bool wished = false;
+
+  @override
+  Widget build(BuildContext context) => BefProductCard(
+    name: 'Merino crew sweater',
+    category: 'Knitwear',
+    price: 2499,
+    compareAt: 3299,
+    rating: 4,
+    wished: wished,
+    onWish: (v) => setState(() => wished = v),
+    onTap: () {},
+  );
+}
+```
+
+### Profile card (`profile-card`)
+Person card with banner, avatar, role, stats and an actions slot.
+- Add: `npx github:RandomKid24/befui add profile-card --flutter`
+- Import: `import 'befui/profile_card.dart';` (classes: BefProfileStat, BefProfileCard)
+- Also copies: avatar.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/button.dart';
+import 'befui/profile_card.dart';
+
+Widget example(BuildContext context) => const BefProfileCard(
+  name: 'Aarav Mehta',
+  role: 'Senior engineer, Platform',
+  location: 'Pune, India',
+  status: 'Online',
+  stats: [
+    BefProfileStat(label: 'Projects', value: '14'),
+    BefProfileStat(label: 'Reports', value: '5'),
+    BefProfileStat(label: 'Years', value: '4.5'),
+  ],
+  actions: [
+    BefButton(label: 'Message', variant: BefButtonVariant.outline),
+    BefButton(label: 'View profile'),
+  ],
+);
 ```
 
 ### Progress (`progress`)
@@ -2441,6 +2667,27 @@ Widget example(BuildContext context) {
 }
 
 List<String> _v = ['Design', 'Remote'];
+```
+
+### Testimonial card (`testimonial-card`)
+Customer quote with avatar, role and optional star rating.
+- Add: `npx github:RandomKid24/befui add testimonial-card --flutter`
+- Import: `import 'befui/testimonial_card.dart';` (classes: BefTestimonialCard)
+- Also copies: avatar.dart, theme.dart, rating.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/testimonial_card.dart';
+
+Widget example(BuildContext context) => const BefTestimonialCard(
+  rating: 5,
+  name: 'Ananya Rao',
+  role: 'Head of People, Northwind',
+  quote: 'We replaced three spreadsheets with one screen. Approvals that took a day now take minutes.',
+);
 ```
 
 ### Timeline (`timeline`)

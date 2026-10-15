@@ -2,6 +2,7 @@
 import 'package:flutter/widgets.dart';
 
 import '../examples/accordion.dart' as e_accordion;
+import '../examples/activity_feed.dart' as e_activity_feed;
 import '../examples/alert.dart' as e_alert;
 import '../examples/alert_dialog.dart' as e_alert_dialog;
 import '../examples/avatar.dart' as e_avatar;
@@ -21,6 +22,7 @@ import '../examples/color_picker.dart' as e_color_picker;
 import '../examples/copy_button.dart' as e_copy_button;
 import '../examples/countdown.dart' as e_countdown;
 import '../examples/coupon_input.dart' as e_coupon_input;
+import '../examples/credit_card.dart' as e_credit_card;
 import '../examples/currency_input.dart' as e_currency_input;
 import '../examples/description_list.dart' as e_description_list;
 import '../examples/dialog.dart' as e_dialog;
@@ -35,10 +37,14 @@ import '../examples/leaderboard.dart' as e_leaderboard;
 import '../examples/loader.dart' as e_loader;
 import '../examples/number_stepper.dart' as e_number_stepper;
 import '../examples/number_ticker.dart' as e_number_ticker;
+import '../examples/order_tracker.dart' as e_order_tracker;
 import '../examples/otp_input.dart' as e_otp_input;
 import '../examples/pagination.dart' as e_pagination;
 import '../examples/password_input.dart' as e_password_input;
 import '../examples/popover.dart' as e_popover;
+import '../examples/pricing_card.dart' as e_pricing_card;
+import '../examples/product_card.dart' as e_product_card;
+import '../examples/profile_card.dart' as e_profile_card;
 import '../examples/progress.dart' as e_progress;
 import '../examples/progress_ring.dart' as e_progress_ring;
 import '../examples/radio_group.dart' as e_radio_group;
@@ -58,6 +64,7 @@ import '../examples/switch.dart' as e_switch;
 import '../examples/table.dart' as e_table;
 import '../examples/tabs.dart' as e_tabs;
 import '../examples/tag_input.dart' as e_tag_input;
+import '../examples/testimonial_card.dart' as e_testimonial_card;
 import '../examples/timeline.dart' as e_timeline;
 import '../examples/timer.dart' as e_timer;
 import '../examples/toast.dart' as e_toast;
@@ -81,6 +88,13 @@ final List<GalleryEntry> entries = [
     'Display',
     'Collapsible sections with a smooth height animation. Single or multiple open.',
     e_accordion.example,
+  ),
+  GalleryEntry(
+    'activity-feed',
+    'Activity feed',
+    'Display',
+    'Who did what and when, grouped under Today and Yesterday, with live relative times and an optional quoted detail.',
+    e_activity_feed.example,
   ),
   GalleryEntry(
     'alert',
@@ -206,6 +220,13 @@ final List<GalleryEntry> entries = [
     e_coupon_input.example,
   ),
   GalleryEntry(
+    'credit-card',
+    'Credit card',
+    'Display',
+    'Payment card preview that flips in 3D to show the CVV. Formats as the user types, guesses Visa, Mastercard, AmEx or RuPay, and can mask the number.',
+    e_credit_card.example,
+  ),
+  GalleryEntry(
     'currency-input',
     'Currency input',
     'Inputs',
@@ -305,6 +326,13 @@ final List<GalleryEntry> entries = [
     e_number_ticker.example,
   ),
   GalleryEntry(
+    'order-tracker',
+    'Order tracker',
+    'Navigation',
+    'Delivery progress as steps joined by a line that fills up to the current one. Horizontal on wide screens, vertical on phones.',
+    e_order_tracker.example,
+  ),
+  GalleryEntry(
     'otp-input',
     'OTP input',
     'Inputs',
@@ -326,6 +354,27 @@ final List<GalleryEntry> entries = [
     e_password_input.example,
   ),
   GalleryEntry('popover', 'Popover', 'Overlays', 'Floating panel anchored to a trigger.', e_popover.example),
+  GalleryEntry(
+    'pricing-card',
+    'Pricing card',
+    'Display',
+    'Plan card whose price counts to the new value. The highlighted plan gets a travelling border beam.',
+    e_pricing_card.example,
+  ),
+  GalleryEntry(
+    'product-card',
+    'Product card',
+    'Display',
+    'Product tile with image, rating, price with strike-through, discount tag, wishlist heart and Add button. Also exports Price.',
+    e_product_card.example,
+  ),
+  GalleryEntry(
+    'profile-card',
+    'Profile card',
+    'Display',
+    'Person card with banner, avatar, role, stats and an actions slot.',
+    e_profile_card.example,
+  ),
   GalleryEntry('progress', 'Progress', 'Data', 'Thin progress bar with four tones.', e_progress.example),
   GalleryEntry(
     'progress-ring',
@@ -440,6 +489,13 @@ final List<GalleryEntry> entries = [
     'Inputs',
     'Type and press Enter to add chips. Backspace removes the last.',
     e_tag_input.example,
+  ),
+  GalleryEntry(
+    'testimonial-card',
+    'Testimonial card',
+    'Display',
+    'Customer quote with avatar, role and optional star rating.',
+    e_testimonial_card.example,
   ),
   GalleryEntry(
     'timeline',
