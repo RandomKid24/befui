@@ -1,5 +1,5 @@
 import { CodeBlock, Command } from './code';
-import { flutterSlugs } from './flutter-docs';
+import { flutterSlugs } from './platform-lists';
 import { Link } from './router';
 
 const title = (slug: string) => slug.replace(/-/g, ' ').replace(/^./, (c) => c.toUpperCase());

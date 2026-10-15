@@ -1,6 +1,6 @@
 import { Link } from './router';
 import { CodeBlock } from './code';
-import { htmlSlugs } from './html-docs';
+import { htmlSlugs } from './platform-lists';
 import { components } from '@/registry';
 
 const START = `<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/RandomKid24/befui@main/cdn/befui.css">

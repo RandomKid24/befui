@@ -13,7 +13,7 @@ import { Tooltip, TooltipProvider } from '@/components/ui/tooltip';
 import { blocks, categories, components, NEW_SLUGS } from '@/registry';
 import { cn } from '@/lib/utils';
 import { Link, go } from './router';
-import { platformList } from './platform';
+import { platformList } from './platform-lists';
 
 export const REPO = 'https://github.com/RandomKid24/befui';
 

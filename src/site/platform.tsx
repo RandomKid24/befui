@@ -6,8 +6,9 @@ import { components } from '@/registry';
 import { cn } from '@/lib/utils';
 import { CodeBlock, Command } from './code';
 import { Link } from './router';
-import { FlutterShot, examples, flutterSlugs, hasFlutter, snake, useText, widgets } from './flutter-docs';
-import { HtmlLive, demos, hasHtml, htmlSlugs, styles } from './html-docs';
+import { FlutterShot, examples, snake, useText, widgets } from './flutter-docs';
+import { hasFlutter, hasHtml, platformList } from './platform-lists';
+import { HtmlLive, demos, styles } from './html-docs';
 
 const h1 = 'text-3xl font-semibold tracking-tight sm:text-4xl';
 const h2 = 'mt-12 mb-4 scroll-mt-20 text-xl font-semibold tracking-tight';
@@ -64,11 +65,6 @@ function PrevNext({ list, slug, base }: { list: { slug: string; name: string }[]
   );
 }
 
-/** Components that have a version on this platform, in site order. */
-export function platformList(platform: 'html' | 'flutter') {
-  const have = new Set(platform === 'html' ? htmlSlugs : flutterSlugs);
-  return components.filter((c) => have.has(c.slug));
-}
 
 /* --------------------------------------------------------------- Flutter */
 

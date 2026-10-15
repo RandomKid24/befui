@@ -7,10 +7,6 @@ import { Link } from './router';
 // The HTML build of every component: <bef-*> tags that work in plain HTML and htmx. The examples are generated from the React ones (npm run html:demos),
 // the CSS is cut out of the built stylesheet (npm run build:html). Delete this file and its uses in pages.tsx and App.tsx to remove the HTML tab.
 export const demos = import.meta.glob<string>('/src/html/demos/*.html', { query: '?raw', import: 'default' });
-export const htmlSlugs = Object.keys(import.meta.glob('/src/html/demos/*.html'))
-  .map((p) => p.split('/').pop()!.replace('.html', ''))
-  .sort();
-export const hasHtml = (slug: string) => htmlSlugs.includes(slug);
 export const styles = import.meta.glob<string>('/src/html/css/*.css', { query: '?raw', import: 'default' });
 
 /** Loads a text file for a slug (null while loading, '' when there is none). */

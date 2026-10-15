@@ -18,9 +18,9 @@ import { SpotlightCard } from '@/components/ui/spotlight-card';
 import { Switch } from '@/components/ui/switch';
 import { TiltCard } from '@/components/ui/tilt-card';
 import { blocks, components } from '@/registry';
-import { BlockGrid, HeroCollage } from './pages';
+import { BlockGrid, HeroCollage } from './home-parts';
 import { Link } from './router';
-import { flutterSlugs } from './flutter-docs';
+import { flutterSlugs } from './platform-lists';
 
 const INSTALL = 'npx befui add button';
 
@@ -81,8 +81,11 @@ const PIECES: { at: string; depth: number; rot: number; delay: number; node: (o:
  * (a switch flipping, a progress bar filling, a headcount ticking). The layers shift with the cursor by depth.
  * The grid below them rolls forward like a floor. Static for reduced motion.
  */
+let PIECES_ON: typeof PIECES = PIECES; // the pieces currently on screen, read by the pointer loop
+
 function HeroBackdrop({ target }: { target: React.RefObject<HTMLElement | null> }) {
   const root = React.useRef<HTMLDivElement>(null);
+  const layers = React.useRef<(HTMLDivElement | null)[]>([]);
   const [wide, setWide] = React.useState(false); // the floating pieces only exist on wide screens, so small ones never render them
   const [xl, setXl] = React.useState(false);
   const [onScreen, setOnScreen] = React.useState(true);
@@ -111,8 +114,11 @@ function HeroBackdrop({ target }: { target: React.RefObject<HTMLElement | null> 
     const loop = () => {
       x += (tx - x) * 0.09;
       y += (ty - y) * 0.09;
-      el.style.setProperty('--px', x.toFixed(3));
-      el.style.setProperty('--py', y.toFixed(3));
+      // one transform write per piece, no style recalculation of the subtree
+      layers.current.forEach((l, i) => {
+        const d = PIECES_ON[i]?.depth ?? 0;
+        if (l) l.style.transform = `translate3d(${(x * d * -34).toFixed(1)}px, ${(y * d * -22).toFixed(1)}px, 0)`;
+      });
       // stop the loop once it has settled; the next pointer move starts it again
       raf = Math.abs(tx - x) + Math.abs(ty - y) > 0.002 ? requestAnimationFrame(loop) : 0;
     };
@@ -129,9 +135,10 @@ function HeroBackdrop({ target }: { target: React.RefObject<HTMLElement | null> 
     return () => { cancelAnimationFrame(raf); host.removeEventListener('pointermove', move); host.removeEventListener('pointerleave', leave); };
   }, [target, wide, onScreen]);
   const pieces = PIECES.filter((p) => wide && (xl || !p.hide));
+  PIECES_ON = pieces;
   return (
     <HeroActive.Provider value={onScreen}>
-      <div ref={root} aria-hidden data-paused={!onScreen} style={{ '--px': 0, '--py': 0 } as React.CSSProperties} className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+      <div ref={root} aria-hidden data-paused={!onScreen} className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
         <style>{`
           @keyframes hero-floor { to { transform: translate3d(0, 48px, 0) } }
           @keyframes hero-bob { 0%,100% { translate: 0 0 } 50% { translate: 0 -12px } }
@@ -150,8 +157,8 @@ function HeroBackdrop({ target }: { target: React.RefObject<HTMLElement | null> 
         {pieces.map((p, i) => (
           <div
             key={i}
-            className={`absolute ${p.at}`}
-            style={{ transform: `translate3d(calc(var(--px) * ${p.depth * -34}px), calc(var(--py) * ${p.depth * -22}px), 0)` }}
+            ref={(n) => { layers.current[i] = n; }}
+            className={`absolute ${p.at} [will-change:transform]`}
           >
             <div
               className="hero-anim rounded-xl border bg-card px-3.5 py-3 shadow-lg shadow-black/5 [animation:hero-bob_6s_ease-in-out_infinite]"

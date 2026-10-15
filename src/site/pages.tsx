@@ -24,47 +24,13 @@ import { Preview } from './preview';
 import { Playground, hasPlayground } from './playground';
 import { Gallery, hasGallery } from './gallery';
 import { PlatformTabs } from './platform';
+import { BlockGrid } from './home-parts';
 
 const h1 = 'text-3xl font-semibold tracking-tight sm:text-4xl';
 const h2 = 'mt-12 mb-4 scroll-mt-20 text-xl font-semibold tracking-tight';
 
 /* ------------------------------------------------------------------ home */
 
-export function HeroCollage() {
-  return (
-    <div className="pointer-events-none relative mx-auto mt-14 w-full max-w-4xl select-none text-left" aria-hidden>
-      <div className="absolute -inset-x-6 -top-6 bottom-0 -z-10 rounded-[2rem] bg-[radial-gradient(60%_60%_at_50%_0%,color-mix(in_srgb,var(--primary)_14%,transparent),transparent)]" />
-      <div className="rounded-2xl border bg-card p-3 shadow-xl shadow-black/5 sm:p-4">
-        <div className="grid gap-3 sm:grid-cols-3">
-          <StatCard label="Headcount" value="142" delta={4.2} icon={<Users />} chart={<Sparkline data={[3, 4, 4, 5, 6, 6, 8, 9]} />} />
-          <StatCard label="Revenue" value="₹48.2L" delta={12.5} icon={<IndianRupee />} chart={<Sparkline data={[2, 3, 2.5, 4, 5, 4.6, 6, 7]} className="text-success" />} />
-          <Card className="hidden flex-col justify-between gap-3 p-5 sm:flex">
-            <span className="text-[13px] font-medium text-muted-foreground">Leave balance</span>
-            <div className="grid gap-2.5">
-              <Progress value={70} /><Progress value={45} tone="success" /><Progress value={20} tone="warning" />
-            </div>
-          </Card>
-        </div>
-        <div className="mt-3 grid gap-3 sm:grid-cols-5">
-          <Card className="p-5 sm:col-span-3">
-            <p className="mb-3 text-sm font-semibold">Leads per month</p>
-            <BarChart height={110} data={[{ label: 'May', value: 38 }, { label: 'Jun', value: 52 }, { label: 'Jul', value: 47 }, { label: 'Aug', value: 66 }, { label: 'Sep', value: 59 }, { label: 'Oct', value: 81 }]} />
-          </Card>
-          <Card className="grid content-start gap-3 p-5 sm:col-span-2">
-            <p className="text-sm font-semibold">Approvals</p>
-            {[['Diya Rao', 'Casual leave', 'success'], ['Rohan Das', 'Sick leave', 'warning'], ['Isha Nair', 'Earned leave', 'info']].map(([n, t, v]) => (
-              <div key={n} className="flex items-center gap-2.5">
-                <Avatar name={n!} size="sm" />
-                <div className="grid flex-1 leading-tight"><span className="text-[13px] font-medium">{n}</span><span className="text-xs text-muted-foreground">{t}</span></div>
-                <Badge variant={v as 'success' | 'warning' | 'info'} dot>{v === 'success' ? 'Done' : 'Open'}</Badge>
-              </div>
-            ))}
-          </Card>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 /* ----------------------------------------------------------- getting started */
 
@@ -343,30 +309,6 @@ export function ComponentPage({ slug }: { slug: string }) {
 }
 
 /* ---------------------------------------------------------------- blocks */
-
-export function BlockGrid({ items }: { items: typeof blocks }) {
-  return (
-    <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-      {items.map((b) => (
-        <Link key={b.slug} to={`/blocks/${b.slug}`} className="group rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-ring/50">
-          <Card hoverable className="overflow-hidden">
-            <div className="pointer-events-none relative h-56 overflow-hidden border-b bg-muted/50" aria-hidden>
-              <div className="absolute left-0 top-0 w-[200%] origin-top-left scale-50 p-6"><React.Suspense fallback={null}><b.Demo /></React.Suspense></div>
-              <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-card to-transparent" />
-            </div>
-            <div className="flex items-start justify-between gap-3 p-4">
-              <div>
-                <p className="text-sm font-semibold">{b.name}</p>
-                <p className="mt-0.5 text-[13px] text-muted-foreground">{b.description}</p>
-              </div>
-              <Badge variant="outline">{b.module}</Badge>
-            </div>
-          </Card>
-        </Link>
-      ))}
-    </div>
-  );
-}
 
 export function BlocksIndex() {
   return (

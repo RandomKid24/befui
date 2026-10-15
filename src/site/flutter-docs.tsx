@@ -7,11 +7,6 @@ export const widgets = import.meta.glob<string>('/flutter/lib/befui/*.dart', { q
 export const examples = import.meta.glob<string>('/flutter/lib/examples/*.dart', { query: '?raw', import: 'default' });
 
 export const snake = (slug: string) => slug.replace(/-/g, '_');
-export const flutterSlugs = Object.keys(widgets)
-  .map((p) => p.split('/').pop()!.replace('.dart', '').replace(/_/g, '-'))
-  .filter((n) => !['theme', 'core', 'icons'].includes(n))
-  .sort();
-export const hasFlutter = (slug: string) => `/flutter/lib/befui/${snake(slug)}.dart` in widgets;
 
 export function useText(files: Record<string, () => Promise<string>>, path: string) {
   const [text, setText] = React.useState<string | null>(null);
