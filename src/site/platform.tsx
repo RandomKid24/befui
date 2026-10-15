@@ -15,6 +15,18 @@ const h2 = 'mt-12 mb-4 scroll-mt-20 text-xl font-semibold tracking-tight';
 export type Platform = 'react' | 'html' | 'flutter';
 
 /** React, HTML and Flutter versions of one component, side by side as page tabs. */
+/** Start downloading what the other tab needs as soon as the pointer is near it, so the switch feels instant. */
+function warm(id: Platform, slug: string) {
+  if (id === 'html') {
+    void import('@/html/entry');
+    demos[`/src/html/demos/${slug}.html`]?.();
+  } else if (id === 'flutter') {
+    for (const m of ['light', 'dark']) new Image().src = `${import.meta.env.BASE_URL}flutter/${slug}-${m}.png`;
+    widgets[`/flutter/lib/befui/${snake(slug)}.dart`]?.();
+    examples[`/flutter/lib/examples/${snake(slug)}.dart`]?.();
+  }
+}
+
 export function PlatformTabs({ slug, active }: { slug: string; active: Platform }) {
   const items: [Platform, string, string, boolean][] = [
     ['react', 'React', `/components/${slug}`, true],
@@ -28,6 +40,9 @@ export function PlatformTabs({ slug, active }: { slug: string; active: Platform 
           key={id}
           to={to}
           aria-current={id === active ? 'page' : undefined}
+          onPointerEnter={() => warm(id, slug)}
+          onTouchStart={() => warm(id, slug)}
+          onFocus={() => warm(id, slug)}
           className={cn('rounded-md px-3 py-1 text-[13px] font-medium transition-colors', id === active ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground')}
         >
           {label}
@@ -101,7 +116,7 @@ export function FlutterComponentPage({ slug }: { slug: string }) {
       <p className="mt-3 max-w-2xl text-muted-foreground">{info?.doc || c.description}</p>
       <PlatformTabs slug={slug} active="flutter" />
 
-      <div className="mt-8 grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start">
+      <div className="mt-8 grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1fr)_340px] xl:items-start">
         <div className="min-w-0">
           <h2 className={cn(h2, 'mt-0')}>Add it</h2>
           <p className="mb-3 text-[13px] text-muted-foreground">In the folder with your pubspec.yaml. It also copies the theme, core and icon files this widget needs:</p>
@@ -110,7 +125,7 @@ export function FlutterComponentPage({ slug }: { slug: string }) {
             New to befui on Flutter? <Link to="/flutter" className="font-medium text-primary hover:underline">Set the theme once</Link>, then every widget works.
           </p>
         </div>
-        <FlutterShot slug={slug} width={280} className="rounded-xl border bg-muted/40 px-6 py-8" />
+        <FlutterShot slug={slug} width={300} className="min-w-0 rounded-xl border bg-muted/40 px-4 py-8" />
       </div>
 
       <h2 className={h2}>Use it</h2>

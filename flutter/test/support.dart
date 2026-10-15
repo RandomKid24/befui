@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:befui_flutter/befui/icons.dart';
 import 'package:befui_flutter/befui/theme.dart';
+import 'package:befui_flutter/gallery/registry.dart';
 
 /// Loads the bundled Inter weights so text renders like the docs site instead of the test font.
 Future<void> loadInter() async {
@@ -52,6 +54,82 @@ Widget framed(
           ),
         ),
       ),
+    ),
+  );
+}
+
+/// An example as a full app screen (back arrow, title, description, the example in a bordered box), the way the gallery app shows it. At least phone height.
+Widget screen(
+  GalleryEntry entry,
+  Widget Function(BuildContext) body, {
+  Brightness brightness = Brightness.light,
+  double width = 390,
+  Key? boundary,
+}) {
+  return MaterialApp(
+    debugShowCheckedModeBanner: false,
+    theme: BefTheme.data(brightness: brightness),
+    home: Builder(
+      builder: (context) {
+        final c = context.bef;
+        return Material(
+          color: c.background,
+          child: SingleChildScrollView(
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: RepaintBoundary(
+                key: boundary,
+                child: Container(
+                  width: width,
+                  constraints: const BoxConstraints(minHeight: 760),
+                  color: c.background,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Container(
+                        height: 52,
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        decoration: BoxDecoration(border: Border(bottom: BorderSide(color: c.border))),
+                        child: Row(
+                          children: [
+                            BefIcon(BefIcons.chevronLeft, size: 22, color: c.foreground),
+                            Expanded(
+                              child: Text(entry.name, textAlign: TextAlign.center, style: BefText.style(context, size: 16, weight: FontWeight.w600)),
+                            ),
+                            const SizedBox(width: 22),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(entry.description, style: BefText.style(context, color: c.mutedForeground)),
+                            const SizedBox(height: 16),
+                            Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.all(20),
+                              decoration: BoxDecoration(
+                                color: c.background,
+                                border: Border.all(color: c.border),
+                                borderRadius: BorderRadius.circular(BefRadius.xl),
+                              ),
+                              child: body(context),
+                            ),
+                            const SizedBox(height: 24),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
     ),
   );
 }
