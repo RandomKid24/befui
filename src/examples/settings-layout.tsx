@@ -10,7 +10,7 @@ export default function SettingsLayoutDemo() {
   const [email, setEmail] = React.useState(true);
   return (
     <SettingsLayout
-      className="w-full"
+      className="w-[48rem] max-w-full"
       value={tab}
       onChange={setTab}
       items={[

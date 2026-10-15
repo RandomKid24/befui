@@ -10,6 +10,10 @@ const widgets = import.meta.glob<string>('/flutter/lib/befui/*.dart', { query: '
 const examples = import.meta.glob<string>('/flutter/lib/examples/*.dart', { query: '?raw', import: 'default' });
 
 const snake = (slug: string) => slug.replace(/-/g, '_');
+export const flutterSlugs = Object.keys(widgets)
+  .map((p) => p.split('/').pop()!.replace('.dart', '').replace(/_/g, '-'))
+  .filter((n) => !['theme', 'core', 'icons'].includes(n))
+  .sort();
 export const hasFlutter = (slug: string) => `/flutter/lib/befui/${snake(slug)}.dart` in widgets;
 
 function useText(files: Record<string, () => Promise<string>>, path: string) {
@@ -24,12 +28,12 @@ function useText(files: Record<string, () => Promise<string>>, path: string) {
 }
 
 /** The widget as rendered by Flutter (flutter test renders every example to a PNG, light and dark), shown inside an iPhone frame. */
-function FlutterShot({ slug }: { slug: string }) {
+export function FlutterShot({ slug, width = 300, className }: { slug: string; width?: number; className?: string }) {
   const [missing, setMissing] = React.useState(false);
   if (missing) return null;
   return (
-    <div className="mb-4 flex justify-center rounded-xl border bg-muted/40 px-4 py-10">
-      <div className="relative w-[min(100%,300px)]">
+    <div className={cn('flex justify-center', className)}>
+      <div className="relative" style={{ width: `min(100%, ${width}px)` }}>
         {/* side buttons: action, volume up/down, power */}
         <span aria-hidden className="absolute -left-[3px] top-[88px] h-6 w-[3px] rounded-l bg-neutral-500" />
         <span aria-hidden className="absolute -left-[3px] top-[132px] h-11 w-[3px] rounded-l bg-neutral-500" />
@@ -86,7 +90,7 @@ export function FlutterSection({ slug, h2 }: { slug: string; h2: string }) {
         The same component as a Flutter widget for Android and iOS, with the same colours, radii and dark mode. Copy-paste like the React one: the file is yours.{' '}
         <Link to="/flutter" className="font-medium text-primary hover:underline">How it works</Link>
       </p>
-      <FlutterShot slug={slug} />
+      <FlutterShot slug={slug} className="mb-4 rounded-xl border bg-muted/40 px-4 py-10" />
       <Command>{`npx github:RandomKid24/befui add ${slug} --flutter`}</Command>
       <Tabs value={tab === 'example' && !code ? 'source' : tab} onValueChange={setTab} className="mt-4 min-w-0">
         <TabsList variant="pill">

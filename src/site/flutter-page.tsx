@@ -1,5 +1,8 @@
 import { CodeBlock, Command } from './code';
+import { FlutterShot, flutterSlugs } from './flutter-docs';
 import { Link } from './router';
+
+const title = (slug: string) => slug.replace(/-/g, ' ').replace(/^./, (c) => c.toUpperCase());
 
 const THEME = `import 'befui/theme.dart';
 
@@ -33,12 +36,25 @@ const RULES: [string, string][] = [
 /** The /flutter page: how to use the Flutter widgets. Each component page has its own Flutter section. */
 export function FlutterPage() {
   return (
-    <article className="max-w-3xl">
+    <article>
       <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">Use in Flutter</h1>
       <p className="mt-3 max-w-2xl text-muted-foreground">
         The befui components as Flutter widgets, for your Android and iOS apps. Copy-paste, like the React ones: one Dart file per widget, the same design, and from then on the file is yours.
       </p>
-      <h2 className="mb-4 mt-10 text-xl font-semibold tracking-tight">1. Add a widget</h2>
+      <div className="mt-5 flex flex-wrap gap-3">
+        <button type="button" onClick={() => document.getElementById('get-started')?.scrollIntoView({ behavior: 'smooth' })} className="inline-flex h-9 items-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground hover:opacity-90">How to add one</button>
+        <span className="inline-flex h-9 items-center text-sm text-muted-foreground">{flutterSlugs.length} widgets, rendered by Flutter</span>
+      </div>
+      <section aria-label="All Flutter widgets" className="mt-8 grid gap-x-6 gap-y-10 sm:grid-cols-2 xl:grid-cols-3">
+        {flutterSlugs.map((slug) => (
+          <Link key={slug} to={`/components/${slug}`} className="group grid justify-items-center gap-3 rounded-xl border bg-muted/30 p-4 pb-5 transition-colors hover:bg-muted/60">
+            <FlutterShot slug={slug} width={230} />
+            <span className="text-sm font-medium group-hover:text-primary">{title(slug)}</span>
+          </Link>
+        ))}
+      </section>
+      <div id="get-started" className="max-w-3xl scroll-mt-20">
+      <h2 className="mb-4 mt-14 text-xl font-semibold tracking-tight">1. Add a widget</h2>
       <p className="mb-3 text-[13px] text-muted-foreground">In the folder with your pubspec.yaml. It also copies the shared theme, core and icon files the widget needs:</p>
       <Command>{'npx github:RandomKid24/befui add button badge --flutter'}</Command>
       <h2 className="mb-4 mt-10 text-xl font-semibold tracking-tight">2. Set the theme once</h2>
@@ -58,6 +74,7 @@ export function FlutterPage() {
       <p className="mt-8 text-sm text-muted-foreground">
         Every <Link to="/components" className="font-medium text-primary hover:underline">component page</Link> that has a Flutter version shows an example and the widget source in a Use in Flutter section. Run <code className="rounded bg-secondary px-1 py-0.5 font-mono text-xs">npx github:RandomKid24/befui list --flutter</code> for the list.
       </p>
+      </div>
     </article>
   );
 }

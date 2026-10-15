@@ -13,19 +13,23 @@ import '../examples/bottom_nav.dart' as e_bottom_nav;
 import '../examples/bottom_sheet.dart' as e_bottom_sheet;
 import '../examples/button.dart' as e_button;
 import '../examples/button_group.dart' as e_button_group;
+import '../examples/calendar.dart' as e_calendar;
 import '../examples/card.dart' as e_card;
 import '../examples/carousel.dart' as e_carousel;
 import '../examples/charts.dart' as e_charts;
+import '../examples/chat.dart' as e_chat;
 import '../examples/checkbox.dart' as e_checkbox;
 import '../examples/chip.dart' as e_chip;
 import '../examples/code_block.dart' as e_code_block;
 import '../examples/collapsible.dart' as e_collapsible;
 import '../examples/color_picker.dart' as e_color_picker;
+import '../examples/comment_thread.dart' as e_comment_thread;
 import '../examples/copy_button.dart' as e_copy_button;
 import '../examples/countdown.dart' as e_countdown;
 import '../examples/coupon_input.dart' as e_coupon_input;
 import '../examples/credit_card.dart' as e_credit_card;
 import '../examples/currency_input.dart' as e_currency_input;
+import '../examples/date_picker.dart' as e_date_picker;
 import '../examples/description_list.dart' as e_description_list;
 import '../examples/dialog.dart' as e_dialog;
 import '../examples/dropdown_menu.dart' as e_dropdown_menu;
@@ -180,6 +184,13 @@ final List<GalleryEntry> entries = [
     e_button_group.example,
   ),
   GalleryEntry(
+    'calendar',
+    'Calendar',
+    'Inputs',
+    'Month grid for one day or a range. Arrow keys, Page Up/Down, Home and End work.',
+    e_calendar.example,
+  ),
+  GalleryEntry(
     'card',
     'Card',
     'Display',
@@ -199,6 +210,13 @@ final List<GalleryEntry> entries = [
     'Data',
     'Sparkline, bar chart and donut in plain SVG. No chart library.',
     e_charts.example,
+  ),
+  GalleryEntry(
+    'chat',
+    'Chat',
+    'Display',
+    'Message bubbles with avatars, timestamps, a typing indicator and a composer. Enter sends.',
+    e_chat.example,
   ),
   GalleryEntry(
     'checkbox',
@@ -230,6 +248,13 @@ final List<GalleryEntry> entries = [
     e_color_picker.example,
   ),
   GalleryEntry(
+    'comment-thread',
+    'Comment thread',
+    'Display',
+    'Nested comments with inline reply boxes, three levels deep.',
+    e_comment_thread.example,
+  ),
+  GalleryEntry(
     'copy-button',
     'Copy button',
     'Inputs',
@@ -257,6 +282,13 @@ final List<GalleryEntry> entries = [
     'Inputs',
     'Money field that groups digits as you type (1,25,000) and hands you a plain number.',
     e_currency_input.example,
+  ),
+  GalleryEntry(
+    'date-picker',
+    'Date picker',
+    'Inputs',
+    'Date and date range fields that open a calendar. The range picker has optional quick presets (Last 7 days, This month...) and a day count. Closes on pick.',
+    e_date_picker.example,
   ),
   GalleryEntry(
     'description-list',

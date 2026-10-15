@@ -589,6 +589,59 @@ Widget example(BuildContext context) {
 }
 ```
 
+### Calendar (`calendar`)
+Month grid for one day or a range. Arrow keys, Page Up/Down, Home and End work.
+- Add: `npx github:RandomKid24/befui add calendar --flutter`
+- Import: `import 'befui/calendar.dart';` (classes: BefDateRange, BefCalendar)
+- Also copies: core.dart, icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/calendar.dart';
+import 'befui/card.dart';
+
+Widget example(BuildContext context) => const _Demo();
+
+class _Demo extends StatefulWidget {
+  const _Demo();
+  @override
+  State<_Demo> createState() => _DemoState();
+}
+
+class _DemoState extends State<_Demo> {
+  DateTime? day = befDay(DateTime.now());
+  BefDateRange? range;
+
+  @override
+  Widget build(BuildContext context) {
+    final today = befDay(DateTime.now());
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        BefCard(
+          padding: const EdgeInsets.all(12),
+          child: BefCalendar(selected: day, onSelect: (d) => setState(() => day = d)),
+        ),
+        const SizedBox(height: 16),
+        BefCard(
+          padding: const EdgeInsets.all(12),
+          child: BefCalendar(
+            range: true,
+            weekStartsOn: DateTime.monday,
+            selectedRange: range,
+            onSelectRange: (r) => setState(() => range = r),
+            disabled: (d) => d.isBefore(today.subtract(const Duration(days: 1))),
+          ),
+        ),
+      ],
+    );
+  }
+}
+```
+
 ### Card (`card`)
 Bordered surface with header, content and footer parts.
 - Add: `npx github:RandomKid24/befui add card --flutter`
@@ -771,6 +824,76 @@ Widget example(BuildContext context) {
 }
 ```
 
+### Chat (`chat`)
+Message bubbles with avatars, timestamps, a typing indicator and a composer. Enter sends.
+- Add: `npx github:RandomKid24/befui add chat --flutter`
+- Import: `import 'befui/chat.dart';` (classes: BefChatMessage, BefChat)
+- Also copies: avatar.dart, icons.dart, theme.dart, input.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/chat.dart';
+
+Widget example(BuildContext context) => const _Demo();
+
+class _Demo extends StatefulWidget {
+  const _Demo();
+  @override
+  State<_Demo> createState() => _DemoState();
+}
+
+class _DemoState extends State<_Demo> {
+  static BefChatMessage m(String id, String from, String text, int ago) => BefChatMessage(
+    id: id,
+    from: from,
+    text: text,
+    at: DateTime.now().subtract(Duration(minutes: ago)),
+  );
+
+  late var messages = [
+    m('1', 'Diya Rao', 'Hey! Did the offer letter go out to Kabir?', 14),
+    m('2', 'Diya Rao', 'He is asking about the joining date.', 13),
+    m('3', 'You', 'Sent it this morning. Joining is 3 Nov.', 9),
+    m('4', 'Diya Rao', 'Perfect, I will update the onboarding board.', 8),
+  ];
+  String? typing;
+
+  void send(String text) {
+    setState(() {
+      messages = [
+        ...messages,
+        BefChatMessage(id: '${messages.length + 1}', from: 'You', text: text, at: DateTime.now()),
+      ];
+      typing = 'Diya Rao';
+    });
+    Future<void>.delayed(const Duration(milliseconds: 1500), () {
+      if (!mounted) return;
+      setState(() {
+        typing = null;
+        messages = [
+          ...messages,
+          BefChatMessage(
+            id: '${messages.length + 1}',
+            from: 'Diya Rao',
+            text: 'Got it, thanks!',
+            at: DateTime.now(),
+          ),
+        ];
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) => SizedBox(
+    height: 420,
+    child: BefChat(me: 'You', messages: messages, onSend: send, typing: typing),
+  );
+}
+```
+
 ### Checkbox (`checkbox`)
 Checked, unchecked and indeterminate. Works for select-all rows.
 - Add: `npx github:RandomKid24/befui add checkbox --flutter`
@@ -947,6 +1070,71 @@ Widget example(BuildContext context) {
 String _c = '#2563eb';
 ```
 
+### Comment thread (`comment-thread`)
+Nested comments with inline reply boxes, three levels deep.
+- Add: `npx github:RandomKid24/befui add comment-thread --flutter`
+- Import: `import 'befui/comment_thread.dart';` (classes: BefComment, BefCommentThread)
+- Also copies: avatar.dart, button.dart, theme.dart, input.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/comment_thread.dart';
+
+Widget example(BuildContext context) => const _Demo();
+
+class _Demo extends StatefulWidget {
+  const _Demo();
+  @override
+  State<_Demo> createState() => _DemoState();
+}
+
+class _DemoState extends State<_Demo> {
+  var comments = const [
+    BefComment(
+      id: '1',
+      author: 'Meera Shah',
+      time: '2h ago',
+      body: 'Can we move the review to Thursday?',
+      replies: [BefComment(id: '2', author: 'Rohan Iyer', time: '1h ago', body: 'Thursday works for me.')],
+    ),
+    BefComment(id: '3', author: 'Kabir Anand', time: '30m ago', body: 'Added the updated budget sheet.'),
+  ];
+
+  List<BefComment> add(List<BefComment> list, String parent, BefComment c) => [
+    for (final x in list)
+      x.id == parent
+          ? BefComment(id: x.id, author: x.author, time: x.time, body: x.body, replies: [...x.replies, c])
+          : BefComment(
+              id: x.id,
+              author: x.author,
+              time: x.time,
+              body: x.body,
+              replies: add(x.replies, parent, c),
+            ),
+  ];
+
+  @override
+  Widget build(BuildContext context) => BefCommentThread(
+    comments: comments,
+    onReply: (p, text) => setState(
+      () => comments = add(
+        comments,
+        p,
+        BefComment(
+          id: '${DateTime.now().microsecondsSinceEpoch}',
+          author: 'You',
+          time: 'just now',
+          body: text,
+        ),
+      ),
+    ),
+  );
+}
+```
+
 ### Copy button (`copy-button`)
 Copies text and morphs to a check.
 - Add: `npx github:RandomKid24/befui add copy-button --flutter`
@@ -1108,6 +1296,61 @@ Widget example(BuildContext context) {
 }
 
 int? _v = 125000;
+```
+
+### Date picker (`date-picker`)
+Date and date range fields that open a calendar. The range picker has optional quick presets (Last 7 days, This month...) and a day count. Closes on pick.
+- Add: `npx github:RandomKid24/befui add date-picker --flutter`
+- Import: `import 'befui/date_picker.dart';` (classes: BefDatePicker, BefDateRangePicker)
+- Also copies: bottom_sheet.dart, calendar.dart, core.dart, icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/calendar.dart';
+import 'befui/date_picker.dart';
+import 'befui/label.dart';
+
+Widget example(BuildContext context) => const _Demo();
+
+class _Demo extends StatefulWidget {
+  const _Demo();
+  @override
+  State<_Demo> createState() => _DemoState();
+}
+
+class _DemoState extends State<_Demo> {
+  DateTime? joined;
+  BefDateRange? leave;
+
+  @override
+  Widget build(BuildContext context) {
+    final today = befDay(DateTime.now());
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        BefField(
+          label: 'Joining date',
+          hint: 'Clear it with the x.',
+          child: BefDatePicker(value: joined, onChanged: (d) => setState(() => joined = d), clearable: true),
+        ),
+        const SizedBox(height: 16),
+        BefField(
+          label: 'Leave dates',
+          hint: 'Past dates are disabled.',
+          child: BefDateRangePicker(
+            value: leave,
+            onChanged: (r) => setState(() => leave = r),
+            disabledDays: (d) => d.isBefore(today),
+            clearable: true,
+          ),
+        ),
+      ],
+    );
+  }
+}
 ```
 
 ### Description list (`description-list`)
