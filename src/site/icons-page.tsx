@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { motionFor } from '@/components/ui/icons';
 import { Badge } from '@/components/ui/badge';
 import { CopyButton } from '@/components/ui/copy-button';
 import { EmptyState } from '@/components/ui/empty-state';
@@ -36,7 +35,7 @@ export function IconsPage() {
   const shown = names.filter((n) => n.toLowerCase().includes(q.trim().toLowerCase()));
   const px = Number(size);
   const Active = icons[active];
-  const usage = `<${active}${px !== 16 ? ` className="size-${px / 4}"` : ''}${weight !== 1.75 ? ` weight={${weight}}` : ''}${animate ? ` animate${speed !== 900 ? ` speed={${speed}}` : ''}` : ''} />`;
+  const usage = `<${active}${px !== 16 ? ` className="size-${px / 4}"` : ''}${weight !== 1.75 ? ` weight={${weight}}` : ''}${animate ? ` draw${speed !== 900 ? ` speed={${speed}}` : ''}` : ''} />`;
   const pick = (n: keyof typeof icons) => {
     setActive(n);
     navigator.clipboard?.writeText(`<${n} />`).then(() => toast.success(`Copied <${n} />`), () => {});
@@ -48,7 +47,7 @@ export function IconsPage() {
         <Badge variant="outline" className="mb-4">{names.length} icons</Badge>
         <h1 className="text-3xl font-semibold tracking-tight sm:text-5xl">Icons</h1>
         <p className="mt-3 max-w-xl text-muted-foreground">
-          Our own set, drawn on one 24px grid with round strokes. No icon package. Click one to copy it. Every icon has its own motion, drawn per stroke (a bell swings while its clapper slides, a clock's hands turn, a truck's wheels spin). Hover one to see it. It is opt-in with the animate prop, so by default icons are static.
+          Our own set, drawn on one 24px grid with round strokes. No icon package. Click one to copy it. Animation is opt-in per icon, so by default they are static.
         </p>
       </Reveal>
 
@@ -91,7 +90,7 @@ export function IconsPage() {
                         active === n && 'border-primary bg-accent',
                       )}
                     >
-                      <Icon animate={animate} speed={speed} weight={weight} className={color} style={{ width: px, height: px }} />
+                      <Icon draw={animate} speed={speed} weight={weight} className={color} style={{ width: px, height: px }} />
                       <span className="text-[11px] font-medium text-muted-foreground">{n.replace('Icon', '')}</span>
                     </button>
                   </Reveal>
@@ -103,7 +102,7 @@ export function IconsPage() {
 
         <aside className="grid gap-4 lg:sticky lg:top-20">
           <div className="grid place-items-center rounded-xl border bg-[radial-gradient(var(--border)_1px,transparent_1px)] [background-size:14px_14px] py-10">
-            <Active key={`${active}${weight}${size}${animate}`} animate={animate} speed={speed} weight={weight} className={cn('animate-pop', color)} style={{ width: Math.max(px, 48), height: Math.max(px, 48) }} />
+            <Active key={`${active}${weight}${size}${animate}`} draw={animate} speed={speed} weight={weight} className={cn('animate-pop', color)} style={{ width: Math.max(px, 48), height: Math.max(px, 48) }} />
           </div>
           <div className="grid gap-1">
             <p className="text-sm font-semibold">{active}</p>
@@ -119,9 +118,9 @@ export function IconsPage() {
 
       <section className="mt-14 max-w-3xl">
         <h2 className="mb-3 text-xl font-semibold tracking-tight">Use them</h2>
-        <p className="mb-3 text-[13px] text-muted-foreground">One file, no dependencies besides the <code className="rounded bg-secondary px-1 py-0.5 font-mono text-xs">cn</code> helper. Without <code className="rounded bg-secondary px-1 py-0.5 font-mono text-xs">animate</code> the icons are plain SVG, so the theme CSS is only needed if you want the motion. It also switches off for people who ask for reduced motion.</p>
+        <p className="mb-3 text-[13px] text-muted-foreground">One file, no dependencies besides the <code className="rounded bg-secondary px-1 py-0.5 font-mono text-xs">cn</code> helper. Without <code className="rounded bg-secondary px-1 py-0.5 font-mono text-xs">draw</code> the icons are plain SVG, so the theme CSS is only needed if you want the animation. It also switches off for people who ask for reduced motion.</p>
         <Command>npx befui add icons</Command>
-        <pre className="mt-3 overflow-auto rounded-lg border bg-muted/60 p-4 font-mono text-[12.5px] leading-relaxed">{`import { SearchIcon } from '@/components/ui/icons';\n\n<SearchIcon />                      // 16px, follows text color\n<SearchIcon className="size-6" />      // static, the default\n<BellIcon animate />                   // rings on hover (every icon has its own motion)\n<RefreshIcon animate="loop" />          // spins all the time, e.g. while loading\n<CheckIcon animate="once" />            // pops when it appears\n<SearchIcon draw />                    // the old stroke redraw\n<SearchIcon weight={2.5} />            // heavier stroke`}</pre>
+        <pre className="mt-3 overflow-auto rounded-lg border bg-muted/60 p-4 font-mono text-[12.5px] leading-relaxed">{`import { SearchIcon } from '@/components/ui/icons';\n\n<SearchIcon />                      // 16px, follows text color\n<SearchIcon className="size-6" />      // static, the default\n<SearchIcon draw />                    // redraws on hover\n<SearchIcon draw speed={1500} />       // slower\n<SearchIcon weight={2.5} />            // heavier stroke`}</pre>
       </section>
     </div>
   );

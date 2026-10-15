@@ -13,107 +13,10 @@ export interface IconProps extends Omit<React.SVGProps<SVGSVGElement>, 'ref'> {
   draw?: boolean;
   /** Milliseconds each stroke takes to draw. Only used with `draw`. */
   speed?: number;
-  /**
-   * Gives the icon its own motion on hover (or when a `group` parent is hovered): a bell rings, a heart beats, a download arrow drops,
-   * a refresh icon spins. `'loop'` repeats it for as long as the icon is shown, `'once'` plays it when the icon appears.
-   * Icons without a motion of their own redraw their strokes instead. Off by default.
-   */
-  animate?: boolean | 'loop' | 'once';
 }
 
-/** The motion each icon gets from `animate`, picked by name. Anything not matched redraws its strokes (the `draw` effect). */
-export type IconMotion = 'ring' | 'beat' | 'drop' | 'rise-up' | 'nudge-right' | 'nudge-left' | 'pop' | 'twinkle' | 'shake' | 'wiggle' | 'spin' | 'turn' | 'float' | 'flash' | 'blink' | 'launch' | 'sway' | 'swing' | 'grow' | 'tilt' | 'tick' | 'hop' | 'draw';
-const MOTIONS: [RegExp, IconMotion][] = [
-  [/^(Loader|Refresh|RotateCw|RotateCcw|Repeat|Sync|Orbit)/, 'spin'],
-  [/^(Settings|Sun|Cog|Sliders|Aperture|Crosshair|Target|Compass|Gauge)/, 'turn'],
-  [/^(Bell|Alarm|Call|Phone|Megaphone|Vibrate)/, 'ring'],
-  [/^(Heart|Activity|Wifi|Mic|Volume|Radio|Signal)/, 'beat'],
-  [/^(Download|ArrowDown|ChevronDown|ChevronsDown|Inbox|Archive|CornerDown|Droplet|Bookmark|Pin|MapPin|ArrowDownToLine)/, 'drop'],
-  [/^(Upload|ArrowUp|ChevronUp|ChevronsUp|CloudUpload|Trending|ArrowUpFromLine|ArrowUpRight)/, 'rise-up'],
-  [/^(ArrowRight|ChevronRight|ChevronsRight|ExternalLink|Send|Forward|LogIn|SkipForward|Share|Navigation|ArrowDownRight)/, 'nudge-right'],
-  [/^(ArrowLeft|ChevronLeft|ChevronsLeft|Reply|LogOut|SkipBack|Undo|ArrowUpLeft|ArrowDownLeft|CornerUpLeft)/, 'nudge-left'],
-  [/^(Check|Plus|ThumbsUp|Award|Trophy|Medal|Crown|Gem|Save|Copy|User|Users|Smile|Badge|Diamond|ShieldCheck|CheckCircle|PlusCircle|ClipboardCheck|ListChecks|Percent)/, 'pop'],
-  [/^(Star|Sparkle|Wand|Lightbulb|Gift|Cake)/, 'twinkle'],
-  [/^(Alert|Triangle|Octagon|Ban|ThumbsDown|XCircle|X$|Minus|Frown|Bug|HelpCircle|Info)/, 'shake'],
-  [/^(Lock|Unlock|Key|Link|Trash|Paperclip|Tag|Flag|Printer|Scissors|Toggle|Power|Share2|Hash|AtSign|Bluetooth|Bot|Smile)/, 'wiggle'],
-  [/^(Cloud|Mail|Layers|Package|Box|Wind|Umbrella|Snowflake|Feather|Anchor|Balloon|Inbox)/, 'float'],
-  [/^(Zap|Flame|Camera|Video|Film|Lightning|Bolt|Battery)/, 'flash'],
-  [/^(Eye|Glasses|Scan)/, 'blink'],
-  [/^(Rocket|Plane|Truck|Car|Bus|Bike|Ship|Train|Scooter|Navigation|Send)/, 'launch'],
-  [/^(Leaf|Flower|Tree|Sprout|Palette|Music|Headphones)/, 'sway'],
-  [/^(Search|ZoomIn|ZoomOut|Moon|Bookmark|Pendulum|Timer|Hourglass|History)/, 'swing'],
-  [/(Chart|Kanban|Columns|Histogram|Funnel|Waterfall|Table|Database|Server|Building|Warehouse|Store|Landmark|Scale|BarChart|Rows|Grid)/, 'grow'],
-  [/^(Edit|Pen|Pencil|Highlighter|Signature|Brush|Eraser|Quote|Text|Bold|Italic|Underline|Align|List|Clipboard|File|Folder|Book|Newspaper|Receipt|Notebook)/, 'tilt'],
-  [/^(Clock|Calendar|Stopwatch)/, 'tick'],
-  [/^(Home|House|Menu|More|Grip|Maximize|Minimize|Move|Expand|Shrink|Fullscreen|Components|Blocks|Layout|Panel|Sidebar|Monitor|Tablet|Laptop|Globe|Map|Network|Workflow|Cpu|HardDrive|Terminal|Code|Braces|Brackets|Command)/, 'hop'],
-];
-export const motionFor = (name: string): IconMotion => MOTIONS.find(([re]) => re.test(name))?.[1] ?? 'draw';
-
-
-/**
- * Bespoke motion, per shape. Each icon lists what each of its strokes does, in drawing order, separated by "|":
- * `preset:value@x,y~delay`, e.g. Bell is "rot:16@12,4|tx:2" (the bell swings from its top while the clapper slides). An empty slot leaves that stroke still.
- * Presets: rot (wobble by value degrees), turn (rotate value degrees), tx / ty (bounce value units), slide (value "dx,dy" out and back), sc (pulse to value),
- * beat (heartbeat to value), pop (grow in from nothing), blink (squash to value), grow (rise from the base), fade (dip), skew (wobble by value degrees), draw (redraw the stroke).
- * `@x,y` is the pivot on the 24 grid (centre by default); `~ms` delays that stroke, so strokes can follow one another.
- */
-const SPEC: Record<string, string> = {
-  Search: 'sc:1.16@11,11|slide:2,2', Copy: 'slide:1.5,1.5|slide:-1.5,-1.5', Sun: 'sc:1.2|turn:90', Moon: 'rot:-20', Sparkle: 'beat:1.22@12,10|turn:180@19,19',
-  Zap: 'fade', Layers: 'ty:-2|ty:2', Package: 'ty:-1.5|draw~120', Palette: 'rot:10|pop@7.5,11|pop@10,7~90|pop@15,7~180', Book: 'skew:-8@5,12|ty:1',
-  Upload: 'ty:-3|sc:1.05@12,19', Download: 'ty:3', Sort: 'turn:180', Refresh: 'turn:360', Info: 'sc:1.08|pop@12,12~140', Alert: 'rot:9@12,20|ty:-1.2',
-  AlertCircle: 'sc:1.06|fade', CheckCircle: 'sc:1.06|draw~100', XCircle: 'sc:1.06|draw~100', Loader: 'turn:360', Shield: 'sc:1.06|draw~100',
-  User: 'ty:-1.5|sc:1.06@12,20', Users: 'ty:-1.5|sc:1.05@9,19|ty:-1.5~110|sc:1.05@19,19~110', Mail: 'sc:1.05|blink:0.35@12,7', Bell: 'rot:16@12,4|tx:2',
-  Calendar: 'sc:1.04|ty:1.5', Clock: 'sc:1.04|turn:360', Home: 'ty:-2|sc:1.04@12,20', Settings: 'sc:1.02|tx:-4|tx:4', Lock: 'sc:1.04@12,16|ty:-2.5',
-  Globe: 'sc:1.03|turn:180', Star: 'turn:144', Heart: 'beat:1.22@12,13', Bookmark: 'rot:8@12,4', Edit: 'rot:-14@5,19|fade', Trash: 'skew:8@12,20',
-  Filter: 'ty:-1.5', Eye: 'blink:0.12|tx:2.5', EyeOff: 'blink:0.12|tx:2.5|draw~80', Link: 'slide:-1,1|slide:1,-1', ExternalLink: 'slide:2,-2|sc:0.96',
-  LogOut: 'sc:1.02|tx:3', Play: 'tx:2', Pause: 'sc:0.86', BarChart: 'grow@12,20', Trending: 'draw', Code: 'rot:-6', Terminal: 'sc:1.03|draw~100',
-  Archive: 'ty:-2.5|sc:1.04@12,14', CreditCard: 'rot:-6|tx:2', Inbox: 'ty:2', Megaphone: 'rot:-12@5,12', MessageSquare: 'pop', Save: 'ty:2',
-  Target: 'sc:1.08|sc:1.15~80|sc:1.6~160', UserPlus: 'ty:-1.5|sc:1.04', Wallet: 'rot:-5', Printer: 'ty:1.5', Call: 'rot:14', MapPin: 'ty:-3|sc:1.4@12,10',
-  Camera: 'sc:1.03|sc:0.5@12,13', Mic: 'sc:1.12@12,8|draw~100', Video: 'sc:1.04|rot:-12@16,12', Wifi: 'beat:1.1@12,19', Battery: 'sc:1.02|fade', Send: 'slide:3,-3',
-  Paperclip: 'rot:-18', Tag: 'rot:14@3,3|pop@7.5,7.5~120', Flag: 'skew:10@5,12', Pin: 'rot:-14@12,20', ThumbsUp: 'rot:-14@5,20', Smile: 'sc:1.06|ty:1.2',
-  Key: 'rot:-25@8,15|rot:-25@8,15', Unlock: 'sc:1.03|rot:-12@8,11', Cloud: 'ty:-2', Activity: 'draw', Percent: 'rot:12|sc:1.4@7,7|sc:1.4@17,17',
-  Calculator: 'sc:1.03|fade', Truck: 'tx:3|turn:360@7,18|turn:360@17,18', ShoppingCart: 'tx:2|turn:360@9,19|turn:360@17,19', ShoppingBag: 'ty:-1.5',
-  Gift: 'ty:-2.5|sc:1.04@12,16', Briefcase: 'sc:1.04|ty:-1.2', Building: 'sc:1.03|fade', Award: 'sc:1.08@12,9|ty:1.5', Trophy: 'sc:1.12',
-  Rocket: 'slide:2,-2.5', Lightbulb: 'sc:1.1@12,9', Flame: 'skew:8@12,21', Droplet: 'sc:1.12@12,17', Leaf: 'rot:12@5,19', Undo: 'rot:-18@9,14',
-  Redo: 'rot:18@15,14', Compass: 'sc:1.03|turn:360', Navigation: 'slide:2,-2', Timer: 'sc:1.04@12,13|rot:20@12,13', Hourglass: 'turn:180', Power: 'sc:1.12',
-  Toggle: 'sc:1.03|tx:-8', Gauge: 'rot:12@12,17', Volume: 'sc:1.08@4,12', VolumeOff: 'rot:-8', MessageCircle: 'pop', Bot: 'rot:-6@12,19|ty:-2',
-  Check: 'draw', X: 'draw', Plus: 'turn:90', Menu: 'tx:3', Minus: 'sc:0.7',
-  // second batch
-  ArrowRight: 'tx:3', ChevronRight: 'tx:3', ChevronLeft: 'tx:-3', ChevronDown: 'ty:3', ChevronUp: 'ty:-3', ArrowLeft: 'tx:-3', ArrowUp: 'ty:-3', ArrowDown: 'ty:3', ArrowUpRight: 'slide:2.5,-2.5', ArrowDownRight: 'slide:2.5,2.5', ArrowUpLeft: 'slide:-2.5,-2.5', ArrowDownLeft: 'slide:-2.5,2.5', CommandKey: 'turn:90', List: 'draw', Folder: 'ty:-1.5', Cake: 'ty:-1.5', FolderInput: 'tx:2', IndianRupee: 'rot:10', MousePointerClick: 'sc:0.86', Bluetooth: 'rot:10', Share: 'slide:2,-2', Database: 'ty:-1.2', CloudUpload: 'ty:-2.5', PieChart: 'turn:90', LineChart: 'draw', Receipt: 'ty:2', GraduationCap: 'rot:-8@12,9', Maximize: 'sc:1.14', Minimize: 'sc:0.82', Bold: 'sc:1.12', Italic: 'skew:-14', Underline: 'draw', AlignLeft: 'tx:-2', AlignCenter: 'sc:1.06', Quote: 'rot:-8', Hash: 'rot:10', ShieldCheck: 'sc:1.06', Map: 'skew:6', Box: 'ty:-2', CornerDownRight: 'slide:2,2', ChevronsLeft: 'tx:-3', ChevronsRight: 'tx:3', FileText: 'draw', FileSpreadsheet: 'draw', FolderPlus: 'ty:-1.5', FolderOpen: 'skew:-8@3,20', Text: 'draw', Square: 'rot:8', Circle: 'sc:1.12', SkipForward: 'tx:3', SkipBack: 'tx:-3', ChevronsUpDown: 'ty:2', ArrowLeftRight: 'tx:3', ArrowUpDown: 'ty:3', Reply: 'tx:-3', Forward: 'tx:3', Repeat: 'turn:180', Shuffle: 'tx:2', Move: 'sc:1.12', RotateCw: 'turn:360', RotateCcw: 'turn:-360', History: 'turn:-360', LogIn: 'tx:3', ChartArea: 'draw', BarChartHorizontal: 'draw', TrendingDown: 'draw', ListChecks: 'draw', Diamond: 'rot:14', Triangle: 'ty:-2', Hexagon: 'turn:60', Asterisk: 'turn:90', BellOff: 'rot:10@12,4', BellRing: 'rot:20@12,4', MailOpen: 'ty:-2', Crown: 'ty:-2', Gem: 'sc:1.12', Wand: 'rot:-20@5,19', DollarSign: 'rot:10', Landmark: 'ty:-1.5', Store: 'ty:-1.5', Ticket: 'rot:-10', Warehouse: 'ty:-1.5', Building2: 'sc:1.04', Scale: 'rot:8@12,4', FileCode: 'draw', FilePlus: 'draw', FileCheck: 'draw', ClipboardList: 'draw', StickyNote: 'rot:-8@4,20', Newspaper: 'draw', Plug: 'slide:0,2', CloudDownload: 'ty:2.5', WifiOff: 'fade', Scan: 'sc:1.1', Bug: 'rot:10', Flask: 'rot:-10@12,20', ShieldAlert: 'sc:1.06', OctagonAlert: 'rot:8', TriangleAlert: 'rot:8@12,20', Thermometer: 'ty:-2', Coffee: 'rot:-6@12,18', Car: 'tx:3', Pill: 'rot:25', Type: 'sc:1.1', Strikethrough: 'draw', AlignRight: 'tx:2', Translate: 'rot:6', Crop: 'rot:-10', Ruler: 'rot:-8', Syringe: 'slide:-2,2', Brain: 'sc:1.08', Hospital: 'sc:1.04', Tooth: 'rot:8', MedicalCross: 'sc:1.12', Euro: 'rot:10', Pound: 'rot:10', Yen: 'rot:10', Bitcoin: 'rot:10', Funnel: 'ty:2', Sigma: 'rot:8', Histogram: 'grow@12,20', Wind: 'tx:3', Sunrise: 'ty:-2', Sunset: 'ty:2', Umbrella: 'rot:12@12,3', Snowflake: 'turn:60', Ship: 'rot:6@12,20', Plane: 'slide:3,-3', Road: 'draw', SignalBars: 'grow@12,20', Cast: 'beat:1.1@4,20', Fingerprint: 'draw', ChevronsUp: 'ty:-3', ChevronsDown: 'ty:3', CornerUpLeft: 'slide:-2,-2', CornerUpRight: 'slide:2,-2', CornerDownLeft: 'slide:-2,2', ArrowDownToLine: 'ty:2', ArrowUpFromLine: 'ty:-2', Expand: 'sc:1.12', Shrink: 'sc:0.84', AlignJustify: 'sc:1.04', ListOrdered: 'draw', Heading1: 'sc:1.1', Heading2: 'sc:1.1', Heading3: 'sc:1.1', Indent: 'tx:2', Outdent: 'tx:-2', Highlighter: 'rot:-12@5,19', Pilcrow: 'rot:8', FileVideo: 'draw', FileX: 'draw', FileDown: 'ty:2', FileUp: 'ty:-2', FileArchive: 'ty:-1.5', FileJson: 'draw', Braces: 'sc:1.1', Brackets: 'sc:1.1', Puzzle: 'rot:-10', PinOff: 'rot:-14@12,20', ThumbsDown: 'rot:14@5,4', GripVertical: 'ty:2', GripHorizontal: 'tx:2', Dot: 'sc:1.8', Equal: 'sc:1.15', ReplyAll: 'tx:-3', Components: 'pop@7.5,7.5|pop@16.5,7.5~90|pop@7.5,16.5~180|sc:1.15@16.5,16.5~270', Blocks: 'ty:-1.5|ty:1.5|ty:1.5~90', Monitor: 'sc:1.03|ty:1', Tablet: 'rot:-5|sc:1.4@12,18', Phone: 'rot:6|sc:1.5@12,18', More: 'ty:-2|ty:-2~90|ty:-2~180', File: 'sc:1.03|rot:-10@14,8', Image: 'sc:1.03|pop@9,10~100|draw~150', GitMerge: 'sc:1.2@6,5|sc:1.2@6,19|sc:1.2@18,12~100|draw~150', LayoutDashboard: 'sc:1.08@6.5,7.5|sc:1.08@17.5,5.5~80|sc:1.08@17.5,16.5~160|sc:1.08@6.5,18.5~240', LayoutGrid: 'sc:1.1@6.5,6.5|sc:1.1@17.5,6.5~80|sc:1.1@6.5,17.5~160|sc:1.1@17.5,17.5~240', PanelLeft: 'sc:1.02|tx:-1.5', Share2: 'sc:1.25@18,5|sc:1.25@6,12~80|sc:1.25@18,19~160|draw~100', UserCircle: 'sc:1.05|ty:-1.2|ty:1', UserMinus: 'ty:-1.5|draw', Table: 'sc:1.02|draw~100', Server: 'ty:-1.2|ty:1.2|fade~120', MoreVertical: 'tx:2|tx:2~90|tx:2~180', Grip: 'sc:1.7@9,6|sc:1.7@15,6~60|sc:1.7@9,12~120|sc:1.7@15,12~180|sc:1.7@9,18~240|sc:1.7@15,18~300', ZoomIn: 'sc:1.16@11,11|slide:2,2', ZoomOut: 'sc:1.16@11,11|slide:2,2', AtSign: 'sc:1.2|turn:360', GitBranch: 'sc:1.2@6,5|sc:1.2@6,19|sc:1.2@18,8~100|draw~150', HelpCircle: 'sc:1.06|rot:10@12,13', Ban: 'sc:1.04|draw', LifeBuoy: 'sc:1.04|sc:1.2|turn:90', PlusCircle: 'sc:1.06|turn:90', MinusCircle: 'sc:1.06|sc:0.8', UserCheck: 'ty:-1.5|draw~100', Kanban: 'ty:-2|ty:-2~90|ty:-2~180', PanelRight: 'sc:1.02|tx:1.5', Columns: 'sc:1.03|draw', Clipboard: 'sc:1.03|ty:-1.5', ClipboardCheck: 'sc:1.03|draw~120', CheckSquare: 'sc:1.06|draw~100', Sliders: 'sc:1.02|tx:-4|tx:4', LayoutList: 'ty:-1|ty:1', PanelTop: 'sc:1.02|ty:1.5', PanelBottom: 'sc:1.02|ty:-1.5', Rows: 'sc:1.02|draw', Grid: 'sc:1.02|draw~100', SidebarLeft: 'sc:1.02|tx:-1.5', Workflow: 'sc:1.15@6,6|sc:1.15@18,18~120|draw~60', Network: 'sc:1.15@12,6|sc:1.15@6,18~100|sc:1.15@18,18~200|draw~60', CircleDot: 'sc:1.08|sc:1.6', IdCard: 'rot:-4|pop@9,11~80|draw~120', UserX: 'draw|ty:-1.5', BadgeCheck: 'turn:30|draw~100', Medal: 'sc:1.08@12,15|ty:1.5', Meh: 'sc:1.05|tx:1.5', Frown: 'sc:1.05|ty:1.5', Banknote: 'rot:-4|sc:1.3|fade', Coins: 'sc:1.1@9,9|turn:20@14,14', Rss: 'draw|pop@6,18~140', Film: 'sc:1.02|ty:-2', Music: 'ty:-2|sc:1.2@6,18|sc:1.2@17,16~90', Headphones: 'sc:1.04@12,12|ty:-1|ty:-1', Cpu: 'sc:1.03|sc:1.2|fade~80', HardDrive: 'skew:4@12,14|sc:1.04|fade~100', Laptop: 'rot:-4@12,15|sc:1.02', QrCode: 'sc:1.1@7,7|sc:1.1@17,7~80|sc:1.1@7,17~160|fade~240', CalendarCheck: 'sc:1.03|draw~100', AlarmClock: 'rot:8@12,13|rot:8@12,13', Contrast: 'sc:1.04|turn:180', Scissors: 'sc:1.2@6,6|sc:1.2@6,18|rot:-6', Stethoscope: 'ty:-1.5|beat:1.4@20,11', HeartPulse: 'beat:1.2@12,13|draw~100', Bandage: 'rot:-8|fade', Dna: 'skew:12|skew:-12|fade', Microscope: 'rot:-8@8,3|sc:1.02', Ambulance: 'tx:2|turn:360@7,17|turn:360@17,17|beat:1.3@8.5,10', Bed: 'ty:-1|sc:1.3@7,11', PiggyBank: 'rot:-5|beat:1.4@16,10.5|fade', Safe: 'sc:1.02|turn:90|fade', Handshake: 'tx:2|tx:-2|ty:-1|fade~100', Invoice: 'sc:1.03|draw~100', ScatterChart: 'draw|pop@8,14~80|pop@12,9~160|pop@16,15~240|pop@18,8~320', RadarChart: 'sc:1.08|turn:60', CandlestickChart: 'ty:-2|ty:-2|ty:2~100|ty:2~100', DonutChart: 'sc:1.03|sc:1.2|turn:90', StackedBar: 'grow@8,20|grow@17,20~100|fade~200', CloudRain: 'ty:-1.5|ty:2', CloudSnow: 'ty:-1.5|ty:2', CloudLightning: 'ty:-1.5|fade', CloudSun: 'ty:-1.5|sc:1.2@8,8|turn:90@8,8', CloudFog: 'ty:-1.5|tx:3', Bus: 'ty:-1|sc:1.04|sc:1.5~80|sc:1.5~80', Train: 'sc:1.03|tx:1.5|sc:1.6|sc:1.6', Bike: 'turn:360@6,16|turn:360@18,16|tx:2', Fuel: 'sc:1.03|slide:1,-1', Parking: 'sc:1.04|rot:-6', Anchor: 'ty:-1.5|rot:8@12,5', Scooter: 'turn:360@5,18.5|turn:360@19,18.5|tx:2', Keyboard: 'sc:1.02|fade', BatteryCharging: 'sc:1.02|fade', PanelLeftClose: 'sc:1.02|tx:-2', PanelLeftOpen: 'sc:1.02|tx:2', Fullscreen: 'sc:1.12|sc:0.8', SidebarRight: 'sc:1.02|tx:1.5', LayoutTemplate: 'ty:-1.5|ty:1.5|ty:1.5~80', FileImage: 'draw|pop@10,12.5~100', FileAudio: 'draw|sc:1.3@9,18|sc:1.3@13,17~80', Webhook: 'sc:1.25@12,6|sc:1.25@6.5,17~90|sc:1.25@17.5,17~180|draw~60', GitCommit: 'sc:1.2|draw', GitPullRequest: 'sc:1.2@6,6|sc:1.2@6,18~80|sc:1.2@18,18~160|draw~60', GitFork: 'sc:1.2@6,5|sc:1.2@18,5~80|sc:1.2@12,19~160|draw~60', Binary: 'ty:-1|sc:1.1|sc:1.1~100|ty:1', Unlink: 'slide:-1.5,1.5|slide:1.5,-1.5|draw~100', ToggleRight: 'sc:1.03|tx:-9', Crosshair: 'sc:1.06|sc:1.3', UserCog: 'ty:-1|draw|turn:360@18,18', CalendarPlus: 'sc:1.03|turn:90@12,15.5', CalendarDays: 'sc:1.03|fade', CalendarX: 'sc:1.03|draw~100',
-};
-
-type Cue = { name: string; vars: Record<string, string> };
-const parseCue = (raw: string): Cue | null => {
-  if (!raw) return null;
-  const m = /^([a-z]+)(?::([-\d.,]+))?(?:@([\d.]+),([\d.]+))?(?:~(\d+))?$/.exec(raw);
-  if (!m) return null;
-  const [, preset, val, ox, oy, delay] = m;
-  const vars: Record<string, string> = {};
-  const num = val?.split(',') ?? [];
-  if (ox !== undefined) vars['--o'] = `${ox}px ${oy}px`;
-  if (delay) vars['--w'] = `${delay}ms`;
-  const a = (d: number) => `${num[0] ?? d}deg`;
-  switch (preset) {
-    case 'rot': vars['--a'] = a(12); break;
-    case 'turn': vars['--a'] = a(360); break;
-    case 'skew': vars['--a'] = a(10); break;
-    case 'tx': case 'ty': vars['--d'] = `${num[0] ?? 2}px`; break;
-    case 'slide': vars['--dx'] = `${num[0] ?? 2}px`; vars['--dy'] = `${num[1] ?? -2}px`; break;
-    case 'sc': case 'beat': vars['--s'] = num[0] ?? '1.15'; break;
-    case 'blink': vars['--s'] = num[0] ?? '0.1'; break;
-    default: break;
-  }
-  return { name: `ic-${preset}`, vars };
-};
-const cuesFor = (name: string): (Cue | null)[] | null => {
-  const raw = SPEC[name.replace(/Icon$/, '')];
-  return raw ? raw.split('|').map(parseCue) : null;
-};
-
 function make(name: string, shapes: Shape[]) {
-  const cues = cuesFor(name);
-  const motion = cues ? 'draw' : motionFor(name.replace(/Icon$/, ''));
-  const Icon = ({ weight = 1.75, draw, animate, speed = 900, className, style, ...props }: IconProps) => (
+  const Icon = ({ weight = 1.75, draw, speed = 900, className, style, ...props }: IconProps) => (
     <svg
       viewBox="0 0 24 24"
       fill="none"
@@ -122,17 +25,15 @@ function make(name: string, shapes: Shape[]) {
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden={props['aria-label'] ? undefined : true}
-      className={cn('size-4 shrink-0', (draw || (animate && motion === 'draw' && !cues)) && 'icon-draw', animate && cues && ['icon-special', animate === 'loop' && 'icon-loop', animate === 'once' && 'icon-once'], animate && !cues && motion !== 'draw' && ['icon-anim', animate === 'loop' && 'icon-loop', animate === 'once' && 'icon-once'], className)}
-      data-motion={animate && !cues && motion !== 'draw' ? motion : undefined}
-      style={draw || animate ? ({ '--icon-ms': `${speed}ms`, ...style } as React.CSSProperties) : style}
+      className={cn('size-4 shrink-0', draw && 'icon-draw', className)}
+      style={draw ? ({ '--icon-ms': `${speed}ms`, ...style } as React.CSSProperties) : style}
       {...props}
     >
       {shapes.map((s, i) => {
-        const cue = cues?.[i];
-        const st = { '--i': i, ...(cue ? { '--ic': cue.name, ...cue.vars } : null) } as React.CSSProperties;
-        return s[0] === 'path' ? <path key={i} d={s[1]} pathLength={1} style={st} data-ic={cue ? '' : undefined} />
-          : s[0] === 'circle' ? <circle key={i} cx={s[1]} cy={s[2]} r={s[3]} pathLength={1} style={st} data-ic={cue ? '' : undefined} />
-          : <rect key={i} x={s[1]} y={s[2]} width={s[3]} height={s[4]} rx={s[5]} pathLength={1} style={st} data-ic={cue ? '' : undefined} />;
+        const st = { '--i': i } as React.CSSProperties;
+        return s[0] === 'path' ? <path key={i} d={s[1]} pathLength={1} style={st} />
+          : s[0] === 'circle' ? <circle key={i} cx={s[1]} cy={s[2]} r={s[3]} pathLength={1} style={st} />
+          : <rect key={i} x={s[1]} y={s[2]} width={s[3]} height={s[4]} rx={s[5]} pathLength={1} style={st} />;
       })}
     </svg>
   );

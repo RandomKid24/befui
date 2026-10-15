@@ -131,7 +131,7 @@ function NavGroup({ title, count, open, onToggle, current, children }: { title: 
           current ? 'text-foreground' : 'text-foreground/80',
         )}
       >
-        <Icon animate className={cn('transition-colors', current ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground')} />
+        <Icon className={cn('transition-colors', current ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground')} />
         <span className="flex-1">{title}</span>
         <span className="rounded-full bg-secondary px-1.5 py-px text-[11px] font-medium tabular-nums text-muted-foreground">{count}</span>
         <ChevronRightIcon className={cn('size-3.5 text-muted-foreground transition-transform duration-200', open && 'rotate-90')} />
@@ -218,9 +218,9 @@ export function SidebarNav({ path, onNavigate }: { path: string; onNavigate?: ()
               to={to}
               onClick={onNavigate}
               aria-current={path === to ? 'page' : undefined}
-              className={cn('group flex items-center gap-2.5 rounded-md px-2.5 py-1.5 text-sm font-medium transition-colors', path === to ? 'bg-accent text-accent-foreground' : 'text-foreground/80 hover:bg-secondary hover:text-foreground')}
+              className={cn('flex items-center gap-2.5 rounded-md px-2.5 py-1.5 text-sm font-medium transition-colors', path === to ? 'bg-accent text-accent-foreground' : 'text-foreground/80 hover:bg-secondary hover:text-foreground')}
             >
-              <Icon animate className={path === to ? 'text-primary' : 'text-muted-foreground'} /> {label}
+              <Icon className={path === to ? 'text-primary' : 'text-muted-foreground'} /> {label}
             </Link>
           ))}
         </div>

@@ -108,7 +108,7 @@ function Hero() {
             Copy-paste React components with real motion, built on Radix and Tailwind. Plus ready-made HRMS and marketing screens.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <Button asChild size="lg" shape="pill"><Link to="/docs">Get started <ArrowRightIcon animate /></Link></Button>
+            <Button asChild size="lg" shape="pill"><Link to="/docs">Get started <ArrowRightIcon draw /></Link></Button>
             <Button asChild size="lg" variant="outline" shape="pill"><Link to="/components">Browse components</Link></Button>
           </div>
           <div className="mx-auto mt-6 flex w-fit items-center gap-2 rounded-full border bg-background/70 py-1.5 pl-4 pr-1.5 backdrop-blur">
@@ -198,7 +198,7 @@ function Playground() {
           </div>
         </SpotlightCard></Reveal>
         <Reveal className="md:col-span-3"><TiltCard className="h-full bg-primary text-primary-foreground">
-          <SparkleIcon animate="loop" className="size-5" />
+          <SparkleIcon draw className="size-5" />
           <p className="mt-6 text-xl font-semibold">Tilt me</p>
           <p className="mt-1 max-w-xs text-sm text-primary-foreground/80">3D tilt with a moving sheen. Zero dependencies, pointer events only.</p>
         </TiltCard></Reveal>
@@ -209,7 +209,7 @@ function Playground() {
                 <p className="text-sm font-semibold">Border beam</p>
                 <p className="mt-1 text-sm text-muted-foreground">For pricing cards and anything that should get noticed.</p>
               </div>
-              <Button asChild shape="pill" variant="shine" className="w-fit"><Link to="/components/border-beam">See it <ArrowRightIcon animate /></Link></Button>
+              <Button asChild shape="pill" variant="shine" className="w-fit"><Link to="/components/border-beam">See it <ArrowRightIcon draw /></Link></Button>
             </div>
           </BorderBeam>
         </Reveal>
@@ -273,7 +273,7 @@ export function Home() {
             <h2 className="text-2xl font-semibold tracking-tight">Blocks</h2>
             <p className="mt-1 text-[13px] text-muted-foreground">Whole screens built from the components.</p>
           </div>
-          <Button asChild variant="ghost" size="sm"><Link to="/blocks">All blocks <ArrowRightIcon animate /></Link></Button>
+          <Button asChild variant="ghost" size="sm"><Link to="/blocks">All blocks <ArrowRightIcon draw /></Link></Button>
         </Reveal>
         <BlockGrid items={blocks.slice(0, 3)} />
       </section>
@@ -284,7 +284,7 @@ export function Home() {
             <div className="grid justify-items-center gap-4 px-6 py-12 text-center">
               <h2 className="text-3xl font-semibold tracking-tight">Ship your next screen today</h2>
               <p className="max-w-md text-muted-foreground">Pick a component, copy the file, done. No account, no lock-in.</p>
-              <Button asChild size="lg" shape="pill"><Link to="/docs">Get started <ArrowRightIcon animate /></Link></Button>
+              <Button asChild size="lg" shape="pill"><Link to="/docs">Get started <ArrowRightIcon draw /></Link></Button>
             </div>
           </BorderBeam>
         </Reveal>

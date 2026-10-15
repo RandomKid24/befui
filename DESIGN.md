@@ -61,7 +61,7 @@ Only `transform` and `opacity` are animated in loops or on scroll, so nothing re
 - **Compose, do not configure.** Cards are `Card` + `CardHeader` + `CardContent`; menus are items you pass in. A component takes children before it takes a config object.
 - **One file each.** A component is a single file you can copy; shared pieces (`cn`, icons) are the only imports across files.
 - **Logical spacing.** `ms-*`, `ps-*`, `start-*` instead of left and right, so components flip in right-to-left pages.
-- **Icons:** our own set (`src/components/ui/icons.tsx`), 24px grid, 1.75 stroke, `currentColor`. Every icon has its own per-stroke motion behind the `animate` prop (a bell swings while its clapper slides, a clock's hands turn); off by default, off for reduced motion. No icon package.
+- **Icons:** our own set (`src/components/ui/icons.tsx`), 24px grid, 1.75 stroke, `currentColor`, optional draw animation. No icon package.
 
 ## The docs site
 
