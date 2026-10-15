@@ -1,0 +1,9 @@
+<script type="module">
+  const [text, button] = [document.querySelector('bef-streaming-text'), document.querySelector('bef-button')];
+  button.addEventListener('click', () => {
+    const fresh = text.cloneNode(true);
+    text.replaceWith(fresh); // a new element starts the stream again
+    fresh.id = '';
+    fresh.setAttribute('data-bef-fresh', '');
+  });
+</script>

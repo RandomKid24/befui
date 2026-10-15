@@ -1,0 +1,6 @@
+<script type="module">
+  document.querySelectorAll('bef-attachment[on-remove], bef-attachment').forEach((el) => {
+    if (el.getAttribute('status')) return;
+    el.props = { onRemove: () => el.remove() };
+  });
+</script>

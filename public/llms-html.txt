@@ -37,6 +37,42 @@ Who did what and when, grouped under Today and Yesterday, with live relative tim
 <bef-activity-feed class="w-full max-w-md" :items='[{"id":"1","actor":"Aarav Mehta","action":"commented on","target":"Leave policy 2025","at":"~now-12m","icon":"<bef-message-square-icon></bef-message-square-icon>","detail":"“Carry-forward cap should be 12 days, not 10. Checked with Finance.”"},{"id":"2","actor":"Diya Rao","action":"uploaded","target":"offer-letter-v3.pdf","at":"~now-2h","icon":"<bef-file-icon></bef-file-icon>","detail":"248 KB · PDF"},{"id":"3","actor":"Isha Nair","action":"added","target":"Kabir Shah to Engineering","at":"~now-5h","icon":"<bef-user-plus-icon></bef-user-plus-icon>"},{"id":"4","actor":"Rohan Das","action":"merged","target":"Payroll export fixes","at":"~now-27h","icon":"<bef-git-merge-icon></bef-git-merge-icon>"},{"id":"5","actor":"Meera Iyer","action":"approved","target":"September expense report","at":"~now-30h"},{"id":"6","actor":"Vikram Joshi","action":"closed","target":"Duplicate employee IDs","at":1791628596217}]'></bef-activity-feed>
 ```
 
+## AI chat (ai-chat)
+A whole AI chat in one piece: a conversation that follows the newest message with a Latest button, a greeting and starter prompts while empty, a thinking row and the prompt box pinned below.
+```html
+<bef-ai-chat class="max-w-2xl" :messages="[]" value="" :thinking="false" :streaming="false" greeting="What are you working on?" :suggestions='[{"id":"1","label":"Summarise this week","hint":"Attendance, leave and approvals","icon":"<bef-calendar-icon></bef-calendar-icon>"},{"id":"2","label":"Draft an offer letter","hint":"From a role and a salary","icon":"<bef-file-text-icon></bef-file-text-icon>"},{"id":"3","label":"Who is out tomorrow?","hint":"Across all teams","icon":"<bef-users-icon></bef-users-icon>"}]' placeholder="Message the assistant" emit="value-change"></bef-ai-chat>
+<script type="module">
+  const chat = document.querySelector('bef-ai-chat');
+  const replies = [
+    'Here is the short version: 142 people are in, 9 are on leave, and 6 approvals are waiting for you.',
+    'Sure. I would start with the role, the band and the joining date, then add the notice period and the probation terms.',
+  ];
+  let list = [];
+  let n = 0;
+  let timer;
+  const put = () => chat.setAttribute(':messages', JSON.stringify(list));
+  const send = (text) => {
+    const reply = replies[n++ % replies.length];
+    chat.setAttribute('value', '');
+    list = [...list, { id: `u${Date.now()}`, role: 'user', content: text }];
+    put();
+    chat.setAttribute(':thinking', 'true');
+    chat.setAttribute(':streaming', 'true');
+    timer = setTimeout(() => {
+      chat.setAttribute(':thinking', 'false');
+      list = [...list, { id: `a${Date.now()}`, role: 'assistant', plain: reply, content: `<bef-streaming-text text="${reply}" speed="20" :caret="false"></bef-streaming-text>` }];
+      put();
+      setTimeout(() => chat.setAttribute(':streaming', 'false'), (reply.split(' ').length / 20) * 1000 + 400);
+    }, 1400);
+  };
+  chat.props = {
+    onSubmit: send,
+    onSuggestion: (s) => send(s.label),
+    onStop: () => { clearTimeout(timer); chat.setAttribute(':thinking', 'false'); chat.setAttribute(':streaming', 'false'); },
+  };
+</script>
+```
+
 ## AI message (ai-message)
 One message in an AI chat: a right-aligned user bubble, or an assistant answer with copy, regenerate and thumbs actions and a blinking caret while it streams.
 ```html
@@ -160,6 +196,29 @@ Smooth gradient areas, stacked or overlapping, that wipe in on scroll. Hover for
 document.getElementById("g1").props = {
   format: (n) => `${n}K`,
 };
+</script>
+```
+
+## Attachment (attachment)
+A file attached to a prompt: icon or thumbnail, name, size, an upload progress line, an error state and a remove button.
+```html
+<div class="flex flex-wrap gap-2">
+  <bef-attachment name="offer-letter-v3.pdf" size="248 KB"></bef-attachment>
+  <bef-attachment name="org-chart.png" size="1.2 MB"></bef-attachment>
+  <bef-attachment name="payroll-october.xlsx" status="uploading" :progress="35"></bef-attachment>
+  <bef-attachment name="scan-0042.png" status="error" id="g3"></bef-attachment>
+</div>
+<script type="module">
+document.getElementById("g3").props = {
+  onRemove: () => {
+  },
+};
+</script>
+<script type="module">
+  document.querySelectorAll('bef-attachment[on-remove], bef-attachment').forEach((el) => {
+    if (el.getAttribute('status')) return;
+    el.props = { onRemove: () => el.remove() };
+  });
 </script>
 ```
 
@@ -1643,6 +1702,15 @@ Desktop-app style bar of menus (File, Edit, View) with shortcuts and checkable i
 </div>
 ```
 
+## Model picker (model-picker)
+Compact button that opens a list of models with a description, context size and tags such as Fast or Vision.
+```html
+<div class="flex items-center gap-3">
+  <bef-model-picker :models='[{"id":"fast","name":"Swift","description":"Quick answers for everyday questions.","context":"128K","tags":["Fast","Low cost"]},{"id":"balanced","name":"Balanced","description":"The default: good at writing, analysis and code.","context":"200K","tags":["Vision","Tools"]},{"id":"deep","name":"Deep","description":"Slower, for hard problems and long documents.","context":"1M","tags":["Reasoning","Vision","Tools"]}]' value="balanced" emit="value-change"></bef-model-picker>
+  <span class="text-xs text-muted-foreground">Selected: balanced</span>
+</div>
+```
+
 ## Navbar (navbar)
 Top bar with brand, links and actions that folds into a menu on small screens.
 ```html
@@ -2656,6 +2724,26 @@ Streamgraph: smooth stacked flows around a center line to show shifts in mix ove
 <bef-stream-chart class="w-full max-w-xl" :labels='["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct"]' :series='[{"name":"Billing","data":[20,24,30,28,22,18,16,20,26,30]},{"name":"Login","data":[12,14,13,18,26,34,30,22,16,14]},{"name":"Bugs","data":[8,10,14,20,24,22,28,34,30,24]},{"name":"How-to","data":[14,12,11,10,12,14,16,18,20,22]}]'></bef-stream-chart>
 ```
 
+## Streaming text (streaming-text)
+Text that arrives word by word, each word fading up out of a soft blur, with a caret that follows the last one. Screen readers get the full text at once.
+```html
+<div class="grid w-full max-w-lg gap-4">
+  <p class="min-h-24 text-sm leading-7">
+    <bef-streaming-text text="Carry-forward is capped at 12 days a year. Anything above that lapses on 31 March, and casual leave does not carry forward at all. If you are close to the cap, apply for leave before the financial year ends." :speed="16"></bef-streaming-text>
+  </p>
+  <bef-button variant="outline" size="sm" class="w-fit">Replay</bef-button>
+</div>
+<script type="module">
+  const [text, button] = [document.querySelector('bef-streaming-text'), document.querySelector('bef-button')];
+  button.addEventListener('click', () => {
+    const fresh = text.cloneNode(true);
+    text.replaceWith(fresh); // a new element starts the stream again
+    fresh.id = '';
+    fresh.setAttribute('data-bef-fresh', '');
+  });
+</script>
+```
+
 ## Sunburst chart (sunburst-chart)
 A hierarchy as concentric rings: each ring splits its parent. Rings sweep outward; hover a slice to light up its parents and children.
 ```html
@@ -3269,6 +3357,31 @@ document.getElementById("g1").props = {
   getKey: (r) => r.id,
   renderRow: (r) => __h("div", { className: "flex h-full items-center justify-between border-b px-4 text-sm" }, __h("span", null, __h("span", { className: "me-3 tabular-nums text-muted-foreground" }, "#", r.id), r.name), __h("span", { className: "text-muted-foreground" }, r.dept)),
 };
+</script>
+```
+
+## Voice wave (voice-wave)
+Audio level bars for a voice input: they dance while listening and settle to a line when paused. Drive them with a real level or leave them idle.
+```html
+<div class="flex w-full max-w-md items-center gap-3 rounded-2xl border bg-card p-3">
+  <bef-button size="icon" variant="primary" shape="pill" aria-pressed aria-label="Stop listening">
+    <bef-mic-icon></bef-mic-icon>
+  </bef-button>
+  <bef-voice-wave active class="flex-1"></bef-voice-wave>
+  <span class="w-16 text-end text-xs text-muted-foreground">Listening</span>
+</div>
+<script type="module">
+  const button = document.querySelector('bef-button');
+  const wave = document.querySelector('bef-voice-wave');
+  const label = button.parentElement.querySelector('span');
+  let on = true;
+  button.addEventListener('click', () => {
+    on = !on;
+    wave.setAttribute(':active', String(on));
+    button.setAttribute('variant', on ? 'primary' : 'outline');
+    button.setAttribute('aria-pressed', String(on));
+    label.textContent = on ? 'Listening' : 'Paused';
+  });
 </script>
 ```
 

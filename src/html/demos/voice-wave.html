@@ -1,0 +1,20 @@
+<div class="flex w-full max-w-md items-center gap-3 rounded-2xl border bg-card p-3">
+  <bef-button size="icon" variant="primary" shape="pill" aria-pressed aria-label="Stop listening">
+    <bef-mic-icon></bef-mic-icon>
+  </bef-button>
+  <bef-voice-wave active class="flex-1"></bef-voice-wave>
+  <span class="w-16 text-end text-xs text-muted-foreground">Listening</span>
+</div>
+<script type="module">
+  const button = document.querySelector('bef-button');
+  const wave = document.querySelector('bef-voice-wave');
+  const label = button.parentElement.querySelector('span');
+  let on = true;
+  button.addEventListener('click', () => {
+    on = !on;
+    wave.setAttribute(':active', String(on));
+    button.setAttribute('variant', on ? 'primary' : 'outline');
+    button.setAttribute('aria-pressed', String(on));
+    label.textContent = on ? 'Listening' : 'Paused';
+  });
+</script>

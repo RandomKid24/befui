@@ -1,0 +1,30 @@
+<script type="module">
+  const chat = document.querySelector('bef-ai-chat');
+  const replies = [
+    'Here is the short version: 142 people are in, 9 are on leave, and 6 approvals are waiting for you.',
+    'Sure. I would start with the role, the band and the joining date, then add the notice period and the probation terms.',
+  ];
+  let list = [];
+  let n = 0;
+  let timer;
+  const put = () => chat.setAttribute(':messages', JSON.stringify(list));
+  const send = (text) => {
+    const reply = replies[n++ % replies.length];
+    chat.setAttribute('value', '');
+    list = [...list, { id: `u${Date.now()}`, role: 'user', content: text }];
+    put();
+    chat.setAttribute(':thinking', 'true');
+    chat.setAttribute(':streaming', 'true');
+    timer = setTimeout(() => {
+      chat.setAttribute(':thinking', 'false');
+      list = [...list, { id: `a${Date.now()}`, role: 'assistant', plain: reply, content: `<bef-streaming-text text="${reply}" speed="20" :caret="false"></bef-streaming-text>` }];
+      put();
+      setTimeout(() => chat.setAttribute(':streaming', 'false'), (reply.split(' ').length / 20) * 1000 + 400);
+    }, 1400);
+  };
+  chat.props = {
+    onSubmit: send,
+    onSuggestion: (s) => send(s.label),
+    onStop: () => { clearTimeout(timer); chat.setAttribute(':thinking', 'false'); chat.setAttribute(':streaming', 'false'); },
+  };
+</script>

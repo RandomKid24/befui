@@ -3,9 +3,11 @@ import 'package:flutter/widgets.dart';
 
 import '../examples/accordion.dart' as e_accordion;
 import '../examples/activity_feed.dart' as e_activity_feed;
+import '../examples/ai_chat.dart' as e_ai_chat;
 import '../examples/ai_message.dart' as e_ai_message;
 import '../examples/alert.dart' as e_alert;
 import '../examples/alert_dialog.dart' as e_alert_dialog;
+import '../examples/attachment.dart' as e_attachment;
 import '../examples/avatar.dart' as e_avatar;
 import '../examples/badge.dart' as e_badge;
 import '../examples/banner.dart' as e_banner;
@@ -51,6 +53,7 @@ import '../examples/leaderboard.dart' as e_leaderboard;
 import '../examples/line_chart.dart' as e_line_chart;
 import '../examples/loader.dart' as e_loader;
 import '../examples/marquee.dart' as e_marquee;
+import '../examples/model_picker.dart' as e_model_picker;
 import '../examples/navbar.dart' as e_navbar;
 import '../examples/notification_center.dart' as e_notification_center;
 import '../examples/notification_preferences.dart' as e_notification_preferences;
@@ -95,6 +98,7 @@ import '../examples/stat_card.dart' as e_stat_card;
 import '../examples/status_dot.dart' as e_status_dot;
 import '../examples/stepper.dart' as e_stepper;
 import '../examples/stopwatch.dart' as e_stopwatch;
+import '../examples/streaming_text.dart' as e_streaming_text;
 import '../examples/swipe_actions.dart' as e_swipe_actions;
 import '../examples/switch.dart' as e_switch;
 import '../examples/table.dart' as e_table;
@@ -116,6 +120,7 @@ import '../examples/tree_view.dart' as e_tree_view;
 import '../examples/typewriter.dart' as e_typewriter;
 import '../examples/uptime_bar.dart' as e_uptime_bar;
 import '../examples/user_menu.dart' as e_user_menu;
+import '../examples/voice_wave.dart' as e_voice_wave;
 import '../examples/week_strip.dart' as e_week_strip;
 
 class GalleryEntry {
@@ -143,6 +148,13 @@ final List<GalleryEntry> entries = [
     e_activity_feed.example,
   ),
   GalleryEntry(
+    'ai-chat',
+    'AI chat',
+    'AI',
+    'A whole AI chat in one piece: a conversation that follows the newest message with a Latest button, a greeting and starter prompts while empty, a thinking row and the prompt box pinned below.',
+    e_ai_chat.example,
+  ),
+  GalleryEntry(
     'ai-message',
     'AI message',
     'AI',
@@ -163,6 +175,13 @@ final List<GalleryEntry> entries = [
     'Confirm before something destructive. Cancel and confirm, controlled by you.',
     e_alert_dialog.example,
     e_alert_dialog.preview,
+  ),
+  GalleryEntry(
+    'attachment',
+    'Attachment',
+    'AI',
+    'A file attached to a prompt: icon or thumbnail, name, size, an upload progress line, an error state and a remove button.',
+    e_attachment.example,
   ),
   GalleryEntry(
     'avatar',
@@ -470,6 +489,13 @@ final List<GalleryEntry> entries = [
     e_marquee.example,
   ),
   GalleryEntry(
+    'model-picker',
+    'Model picker',
+    'AI',
+    'Compact button that opens a list of models with a description, context size and tags such as Fast or Vision.',
+    e_model_picker.example,
+  ),
+  GalleryEntry(
     'navbar',
     'Navbar',
     'Navigation',
@@ -760,6 +786,13 @@ final List<GalleryEntry> entries = [
     e_stopwatch.example,
   ),
   GalleryEntry(
+    'streaming-text',
+    'Streaming text',
+    'AI',
+    'Text that arrives word by word, each word fading up out of a soft blur, with a caret that follows the last one. Screen readers get the full text at once.',
+    e_streaming_text.example,
+  ),
+  GalleryEntry(
     'swipe-actions',
     'Swipe actions',
     'Display',
@@ -899,6 +932,13 @@ final List<GalleryEntry> entries = [
     'Navigation',
     'Avatar button for the topbar that opens a menu with name, email, your links and Sign out.',
     e_user_menu.example,
+  ),
+  GalleryEntry(
+    'voice-wave',
+    'Voice wave',
+    'AI',
+    'Audio level bars for a voice input: they dance while listening and settle to a line when paused. Drive them with a real level or leave them idle.',
+    e_voice_wave.example,
   ),
   GalleryEntry(
     'week-strip',

@@ -3254,6 +3254,71 @@ export default function VersionLogDemo() {
 }
 ```
 
+## AI chat (`ai-chat`)
+A whole AI chat in one piece: a conversation that follows the newest message with a Latest button, a greeting and starter prompts while empty, a thinking row and the prompt box pinned below.
+- Group: AI
+- Add: `npx github:RandomKid24/befui add ai-chat`
+- Import: `import { AiChat } from '@/components/ui/ai-chat'`
+- Also needs: ai-message, icons, prompt-input, prompt-suggestions, thinking
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { AiChat, type AiChatMessage } from '@/components/ui/ai-chat';
+import { CalendarIcon, FileTextIcon, UsersIcon } from '@/components/ui/icons';
+import type { Suggestion } from '@/components/ui/prompt-suggestions';
+import { StreamingText } from '@/components/ui/streaming-text';
+
+const suggestions: Suggestion[] = [
+  { id: '1', label: 'Summarise this week', hint: 'Attendance, leave and approvals', icon: <CalendarIcon /> },
+  { id: '2', label: 'Draft an offer letter', hint: 'From a role and a salary', icon: <FileTextIcon /> },
+  { id: '3', label: 'Who is out tomorrow?', hint: 'Across all teams', icon: <UsersIcon /> },
+];
+
+const replies = [
+  'Here is the short version: 142 people are in, 9 are on leave, and 6 approvals are waiting for you. Attendance is up 2% on last week.',
+  'Sure. I would start with the role, the band and the joining date, then add the notice period and the probation terms. Want me to draft it?',
+];
+
+export default function AiChatDemo() {
+  const [messages, setMessages] = React.useState<AiChatMessage[]>([]);
+  const [value, setValue] = React.useState('');
+  const [thinking, setThinking] = React.useState(false);
+  const [streaming, setStreaming] = React.useState(false);
+  const n = React.useRef(0);
+  const timers = React.useRef<ReturnType<typeof setTimeout>[]>([]);
+  const send = (text: string) => {
+    const reply = replies[n.current++ % replies.length]!;
+    setValue('');
+    setMessages((l) => [...l, { id: `u${Date.now()}`, role: 'user', content: text }]);
+    setThinking(true);
+    timers.current.push(setTimeout(() => {
+      setThinking(false);
+      setStreaming(true);
+      setMessages((l) => [...l, { id: `a${Date.now()}`, role: 'assistant', plain: reply, streaming: true, content: <StreamingText text={reply} speed={20} caret={false} onDone={() => { setStreaming(false); setMessages((m) => m.map((x) => ({ ...x, streaming: false }))); }} /> }]);
+    }, 1400));
+  };
+  const stop = () => { timers.current.forEach(clearTimeout); setThinking(false); setStreaming(false); setMessages((m) => m.map((x) => ({ ...x, streaming: false }))); };
+  return (
+    <AiChat
+      className="max-w-2xl"
+      messages={messages}
+      value={value}
+      onValueChange={setValue}
+      onSubmit={send}
+      onStop={stop}
+      thinking={thinking}
+      streaming={streaming || thinking}
+      greeting="What are you working on?"
+      suggestions={suggestions}
+      onSuggestion={(s) => send(s.label)}
+      placeholder="Message the assistant"
+    />
+  );
+}
+```
+
 ## AI message (`ai-message`)
 One message in an AI chat: a right-aligned user bubble, or an assistant answer with copy, regenerate and thumbs actions and a blinking caret while it streams.
 - Group: AI
@@ -3279,6 +3344,66 @@ export default function AiMessageDemo() {
         <p>Casual leave does not carry forward at all.</p>
       </AiMessage>
       <AiMessage role="assistant" streaming>Checking the policy for the part about encashment</AiMessage>
+    </div>
+  );
+}
+```
+
+## Attachment (`attachment`)
+A file attached to a prompt: icon or thumbnail, name, size, an upload progress line, an error state and a remove button.
+- Group: AI
+- Add: `npx github:RandomKid24/befui add attachment`
+- Import: `import { Attachment } from '@/components/ui/attachment'`
+- Also needs: icons
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { Attachment } from '@/components/ui/attachment';
+
+export default function AttachmentDemo() {
+  const [files, setFiles] = React.useState(['offer-letter-v3.pdf', 'org-chart.png']);
+  const [pct, setPct] = React.useState(35);
+  React.useEffect(() => {
+    const id = setInterval(() => setPct((p) => (p >= 100 ? 8 : p + 9)), 700);
+    return () => clearInterval(id);
+  }, []);
+  return (
+    <div className="flex flex-wrap gap-2">
+      {files.map((f) => <Attachment key={f} name={f} size={f.endsWith('pdf') ? '248 KB' : '1.2 MB'} onRemove={() => setFiles((l) => l.filter((x) => x !== f))} />)}
+      <Attachment name="payroll-october.xlsx" status="uploading" progress={pct} />
+      <Attachment name="scan-0042.png" status="error" onRemove={() => {}} />
+    </div>
+  );
+}
+```
+
+## Model picker (`model-picker`)
+Compact button that opens a list of models with a description, context size and tags such as Fast or Vision.
+- Group: AI
+- Add: `npx github:RandomKid24/befui add model-picker`
+- Import: `import { ModelPicker } from '@/components/ui/model-picker'`
+- Also needs: icons, popover
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { ModelPicker, type Model } from '@/components/ui/model-picker';
+
+const models: Model[] = [
+  { id: 'fast', name: 'Swift', description: 'Quick answers for everyday questions.', context: '128K', tags: ['Fast', 'Low cost'] },
+  { id: 'balanced', name: 'Balanced', description: 'The default: good at writing, analysis and code.', context: '200K', tags: ['Vision', 'Tools'] },
+  { id: 'deep', name: 'Deep', description: 'Slower, for hard problems and long documents.', context: '1M', tags: ['Reasoning', 'Vision', 'Tools'] },
+];
+
+export default function ModelPickerDemo() {
+  const [id, setId] = React.useState('balanced');
+  return (
+    <div className="flex items-center gap-3">
+      <ModelPicker models={models} value={id} onValueChange={setId} />
+      <span className="text-xs text-muted-foreground">Selected: {id}</span>
     </div>
   );
 }
@@ -3382,6 +3507,32 @@ export default function SourcesDemo() {
 }
 ```
 
+## Streaming text (`streaming-text`)
+Text that arrives word by word, each word fading up out of a soft blur, with a caret that follows the last one. Screen readers get the full text at once.
+- Group: AI
+- Add: `npx github:RandomKid24/befui add streaming-text`
+- Import: `import { StreamingText } from '@/components/ui/streaming-text'`
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { Button } from '@/components/ui/button';
+import { StreamingText } from '@/components/ui/streaming-text';
+
+const answer = 'Carry-forward is capped at 12 days a year. Anything above that lapses on 31 March, and casual leave does not carry forward at all. If you are close to the cap, apply for leave before the financial year ends.';
+
+export default function StreamingTextDemo() {
+  const [run, setRun] = React.useState(0);
+  return (
+    <div className="grid w-full max-w-lg gap-4">
+      <p className="min-h-24 text-sm leading-7"><StreamingText key={run} text={answer} speed={16} /></p>
+      <Button variant="outline" size="sm" className="w-fit" onClick={() => setRun((n) => n + 1)}>Replay</Button>
+    </div>
+  );
+}
+```
+
 ## Thinking (`thinking`)
 A shimmering "Thinking" status with bouncing dots, or a collapsible list of the steps the model is working through that settles into "Thought for 4s".
 - Group: AI
@@ -3446,6 +3597,32 @@ export default function ToolCallDemo() {
       <ToolCall name="get_leave_balance" status="done" duration="0.4s" defaultOpen input={'{\n  "employee": "aarav.mehta",\n  "type": "casual"\n}'} output={'{\n  "balance": 7,\n  "carry_forward": 12\n}'} />
       <ToolCall name="search_policies" status="running" input={'{ "query": "encashment" }'} />
       <ToolCall name="send_email" status="error" duration="1.2s" input={'{ "to": "hr@acme.co" }'} output="SMTP 550: mailbox unavailable" />
+    </div>
+  );
+}
+```
+
+## Voice wave (`voice-wave`)
+Audio level bars for a voice input: they dance while listening and settle to a line when paused. Drive them with a real level or leave them idle.
+- Group: AI
+- Add: `npx github:RandomKid24/befui add voice-wave`
+- Import: `import { VoiceWave } from '@/components/ui/voice-wave'`
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { MicIcon } from '@/components/ui/icons';
+import { Button } from '@/components/ui/button';
+import { VoiceWave } from '@/components/ui/voice-wave';
+
+export default function VoiceWaveDemo() {
+  const [on, setOn] = React.useState(true);
+  return (
+    <div className="flex w-full max-w-md items-center gap-3 rounded-2xl border bg-card p-3">
+      <Button size="icon" variant={on ? 'primary' : 'outline'} shape="pill" aria-pressed={on} aria-label={on ? 'Stop listening' : 'Start listening'} onClick={() => setOn(!on)}><MicIcon /></Button>
+      <VoiceWave active={on} className="flex-1" />
+      <span className="w-16 text-end text-xs text-muted-foreground">{on ? 'Listening' : 'Paused'}</span>
     </div>
   );
 }

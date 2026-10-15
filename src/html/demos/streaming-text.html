@@ -1,0 +1,15 @@
+<div class="grid w-full max-w-lg gap-4">
+  <p class="min-h-24 text-sm leading-7">
+    <bef-streaming-text text="Carry-forward is capped at 12 days a year. Anything above that lapses on 31 March, and casual leave does not carry forward at all. If you are close to the cap, apply for leave before the financial year ends." :speed="16"></bef-streaming-text>
+  </p>
+  <bef-button variant="outline" size="sm" class="w-fit">Replay</bef-button>
+</div>
+<script type="module">
+  const [text, button] = [document.querySelector('bef-streaming-text'), document.querySelector('bef-button')];
+  button.addEventListener('click', () => {
+    const fresh = text.cloneNode(true);
+    text.replaceWith(fresh); // a new element starts the stream again
+    fresh.id = '';
+    fresh.setAttribute('data-bef-fresh', '');
+  });
+</script>

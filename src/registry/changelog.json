@@ -6,20 +6,25 @@
     "entries": [
       {
         "kind": "added",
-        "text": "AI components, a new group: prompt input (grows, Enter sends, Stop while streaming), AI message (user bubble or assistant answer with copy, regenerate and thumbs, streaming caret), thinking (shimmer and steps), tool call (running, done, failed, input and output), sources (citation chips and source cards), prompt suggestions and token meter (context window use). All seven also have an HTML tag.",
+        "text": "AI components, a new group of twelve: AI chat (a whole chat: follows the newest message with a Latest button, starter prompts, thinking row, pinned prompt box), streaming text (words fade up out of a soft blur with a caret), prompt input, AI message, thinking, tool call, sources (citation chips and source cards), prompt suggestions, token meter, model picker, voice wave (audio level bars) and attachment (file chip with upload progress). All twelve also have an HTML tag.",
         "slugs": [
+          "ai-chat",
+          "streaming-text",
           "prompt-input",
           "ai-message",
           "thinking",
           "tool-call",
           "sources",
           "prompt-suggestions",
-          "token-meter"
+          "token-meter",
+          "model-picker",
+          "voice-wave",
+          "attachment"
         ]
       },
       {
         "kind": "added",
-        "text": "Flutter: 116 widgets for Android and iOS apps, one Dart file per widget, copy-paste like the React ones. Buttons, inputs, cards, dialogs, sheets, toasts, tabs, bottom nav, calendar, date and time pickers, chat, kanban, charts and more, with the same colours, radii, ten palettes and dark mode as the web components. The seven AI components (prompt input, AI message, thinking, tool call, sources, prompt suggestions, token meter) are Flutter widgets too."
+        "text": "Flutter: 121 widgets for Android and iOS apps, one Dart file per widget, copy-paste like the React ones. Buttons, inputs, cards, dialogs, sheets, toasts, tabs, bottom nav, calendar, date and time pickers, chat, kanban, charts and more, with the same colours, radii, ten palettes and dark mode as the web components. Most of the AI components are Flutter widgets too (chat, streaming text, prompt input, message, thinking, tool call, sources, suggestions, token meter, model picker, voice wave, attachment)."
       },
       {
         "kind": "added",

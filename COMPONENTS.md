@@ -1,6 +1,6 @@
 # Components
 
-Every befui component and block. **207 React components**, **206 with an HTML tag** (`<bef-*>`), **116 Flutter widgets**, and **37 page blocks**.
+Every befui component and block. **212 React components**, **211 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **37 page blocks**.
 (Generated from the registry by `npm run registry:build`. Do not edit by hand.)
 
 Install a React component with `npx github:RandomKid24/befui add <name>`, the Flutter version with `npx github:RandomKid24/befui add <name> --flutter`.
@@ -131,17 +131,22 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `typewriter` | Types, holds and deletes phrases in a loop. Static for reduced motion. | ✓ | ✓ |
 | `version-log` | Animated version history: the rail draws and dots pop as releases scroll in, entries slide in one by one, releases fold open, with a version jump strip and a kind filter. | ✓ |  |
 
-## AI (7)
+## AI (12)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
+| `ai-chat` | A whole AI chat in one piece: a conversation that follows the newest message with a Latest button, a greeting and starter prompts while empty, a thinking row and the prompt box pinned below. | ✓ | ✓ |
 | `ai-message` | One message in an AI chat: a right-aligned user bubble, or an assistant answer with copy, regenerate and thumbs actions and a blinking caret while it streams. | ✓ | ✓ |
+| `attachment` | A file attached to a prompt: icon or thumbnail, name, size, an upload progress line, an error state and a remove button. | ✓ | ✓ |
+| `model-picker` | Compact button that opens a list of models with a description, context size and tags such as Fast or Vision. | ✓ | ✓ |
 | `prompt-input` | The box you type a prompt into: grows with the text, Enter sends, Shift+Enter adds a line, and the send button turns into Stop while a reply streams. | ✓ | ✓ |
 | `prompt-suggestions` | Starter prompts for an empty chat, as two-line cards or compact chips. Selecting one fills the prompt box. | ✓ | ✓ |
 | `sources` | Numbered citation chips (Cite) to drop inside an answer, and a SourceList of cards with title and site under it. | ✓ | ✓ |
+| `streaming-text` | Text that arrives word by word, each word fading up out of a soft blur, with a caret that follows the last one. Screen readers get the full text at once. | ✓ | ✓ |
 | `thinking` | A shimmering "Thinking" status with bouncing dots, or a collapsible list of the steps the model is working through that settles into "Thought for 4s". | ✓ | ✓ |
 | `token-meter` | How much of a model context window is used: a bar that turns amber and red as it fills, token counts, an optional cost, and a split by prompt, files and reply. | ✓ | ✓ |
 | `tool-call` | A card for one tool or function call an AI made: name, running, done or failed, how long it took, and its input and output to expand. | ✓ | ✓ |
+| `voice-wave` | Audio level bars for a voice input: they dance while listening and settle to a line when paused. Drive them with a real level or leave them idle. | ✓ | ✓ |
 
 ## Data (61)
 

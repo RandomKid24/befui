@@ -1,13 +1,17 @@
 {
- "prompt-input": [
-  "dropped onSubmit (uses setValue, setStreaming, timer)",
-  "dropped onStop (uses timer, setStreaming)"
+ "streaming-text": [
+  "dropped onClick (uses setRun)"
  ],
- "ai-message": [
-  "dropped onFeedback (uses native, code)"
+ "ai-chat": [
+  "dropped onSubmit (uses n, setValue, setMessages, setThinking, timers, setStreaming)",
+  "dropped onStop (uses timers, setThinking, setStreaming, setMessages)",
+  "dropped onSuggestion (uses send)"
  ],
- "prompt-suggestions": [
-  "dropped onSelect (uses setPicked)",
-  "dropped onSelect (uses setPicked)"
+ "voice-wave": [
+  "dropped onClick (uses setOn, on)"
+ ],
+ "attachment": [
+  "dropped onRemove (uses setFiles, f)",
+  "dropped onRemove (uses setFiles, f)"
  ]
 }

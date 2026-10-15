@@ -6,6 +6,13 @@
     "avatar",
     "relative-time"
   ],
+  "ai-chat": [
+    "ai-message",
+    "icons",
+    "prompt-input",
+    "prompt-suggestions",
+    "thinking"
+  ],
   "ai-message": [
     "icons"
   ],
@@ -28,6 +35,9 @@
   ],
   "area-chart": [
     "charts"
+  ],
+  "attachment": [
+    "icons"
   ],
   "audit-log": [
     "avatar",
@@ -265,6 +275,10 @@
   "menubar": [
     "icons"
   ],
+  "model-picker": [
+    "icons",
+    "popover"
+  ],
   "navbar": [
     "icons"
   ],
@@ -450,6 +464,7 @@
     "area-chart",
     "charts"
   ],
+  "streaming-text": [],
   "sunburst-chart": [
     "charts"
   ],
@@ -529,6 +544,7 @@
     "segmented"
   ],
   "virtual-list": [],
+  "voice-wave": [],
   "waffle-chart": [
     "charts"
   ],

@@ -1,0 +1,18 @@
+<div class="flex flex-wrap gap-2">
+  <bef-attachment name="offer-letter-v3.pdf" size="248 KB"></bef-attachment>
+  <bef-attachment name="org-chart.png" size="1.2 MB"></bef-attachment>
+  <bef-attachment name="payroll-october.xlsx" status="uploading" :progress="35"></bef-attachment>
+  <bef-attachment name="scan-0042.png" status="error" id="g3"></bef-attachment>
+</div>
+<script type="module">
+document.getElementById("g3").props = {
+  onRemove: () => {
+  },
+};
+</script>
+<script type="module">
+  document.querySelectorAll('bef-attachment[on-remove], bef-attachment').forEach((el) => {
+    if (el.getAttribute('status')) return;
+    el.props = { onRemove: () => el.remove() };
+  });
+</script>
