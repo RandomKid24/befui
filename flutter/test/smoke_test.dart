@@ -16,6 +16,14 @@ void main() {
         await tester.pump(const Duration(milliseconds: 300));
         expect(tester.takeException(), isNull);
       });
+      if (e.preview != null) {
+        testWidgets('${e.slug} preview builds in ${b.name}', (tester) async {
+          await tester.binding.setSurfaceSize(const Size(390, 900));
+          await tester.pumpWidget(framed(e.preview!, brightness: b));
+          await tester.pump(const Duration(milliseconds: 300));
+          expect(tester.takeException(), isNull);
+        });
+      }
     }
   }
 }

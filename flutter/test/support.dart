@@ -44,7 +44,7 @@ Widget framed(
               key: boundary,
               child: Container(
                 width: width,
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.fromLTRB(20, 20, 20, 44),
                 color: Theme.of(context).scaffoldBackgroundColor,
                 child: example(context),
               ),

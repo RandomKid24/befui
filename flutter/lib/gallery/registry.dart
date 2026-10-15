@@ -3,10 +3,12 @@ import 'package:flutter/widgets.dart';
 
 import '../examples/accordion.dart' as e_accordion;
 import '../examples/alert.dart' as e_alert;
+import '../examples/alert_dialog.dart' as e_alert_dialog;
 import '../examples/avatar.dart' as e_avatar;
 import '../examples/badge.dart' as e_badge;
 import '../examples/banner.dart' as e_banner;
 import '../examples/bottom_nav.dart' as e_bottom_nav;
+import '../examples/bottom_sheet.dart' as e_bottom_sheet;
 import '../examples/button.dart' as e_button;
 import '../examples/button_group.dart' as e_button_group;
 import '../examples/card.dart' as e_card;
@@ -15,6 +17,8 @@ import '../examples/checkbox.dart' as e_checkbox;
 import '../examples/chip.dart' as e_chip;
 import '../examples/collapsible.dart' as e_collapsible;
 import '../examples/description_list.dart' as e_description_list;
+import '../examples/dialog.dart' as e_dialog;
+import '../examples/dropdown_menu.dart' as e_dropdown_menu;
 import '../examples/empty_state.dart' as e_empty_state;
 import '../examples/error_state.dart' as e_error_state;
 import '../examples/fab.dart' as e_fab;
@@ -24,12 +28,14 @@ import '../examples/number_stepper.dart' as e_number_stepper;
 import '../examples/otp_input.dart' as e_otp_input;
 import '../examples/pagination.dart' as e_pagination;
 import '../examples/password_input.dart' as e_password_input;
+import '../examples/popover.dart' as e_popover;
 import '../examples/progress.dart' as e_progress;
 import '../examples/progress_ring.dart' as e_progress_ring;
 import '../examples/radio_group.dart' as e_radio_group;
 import '../examples/rating.dart' as e_rating;
 import '../examples/search_input.dart' as e_search_input;
 import '../examples/segmented.dart' as e_segmented;
+import '../examples/select.dart' as e_select;
 import '../examples/separator.dart' as e_separator;
 import '../examples/skeleton.dart' as e_skeleton;
 import '../examples/slider.dart' as e_slider;
@@ -42,12 +48,17 @@ import '../examples/table.dart' as e_table;
 import '../examples/tabs.dart' as e_tabs;
 import '../examples/tag_input.dart' as e_tag_input;
 import '../examples/timeline.dart' as e_timeline;
+import '../examples/toast.dart' as e_toast;
 import '../examples/toggle.dart' as e_toggle;
+import '../examples/tooltip.dart' as e_tooltip;
 
 class GalleryEntry {
-  const GalleryEntry(this.slug, this.name, this.category, this.description, this.example);
+  const GalleryEntry(this.slug, this.name, this.category, this.description, this.example, [this.preview]);
   final String slug, name, category, description;
   final Widget Function(BuildContext) example;
+
+  /// A static picture of what the example opens (a dialog panel, a menu), used for the screenshots on the site.
+  final Widget Function(BuildContext)? preview;
 }
 
 final List<GalleryEntry> entries = [
@@ -64,6 +75,14 @@ final List<GalleryEntry> entries = [
     'Feedback',
     'Inline message in info, success, warning and danger.',
     e_alert.example,
+  ),
+  GalleryEntry(
+    'alert-dialog',
+    'Alert dialog',
+    'Overlays',
+    'Confirm before something destructive. Cancel and confirm, controlled by you.',
+    e_alert_dialog.example,
+    e_alert_dialog.preview,
   ),
   GalleryEntry(
     'avatar',
@@ -92,6 +111,14 @@ final List<GalleryEntry> entries = [
     'Navigation',
     'Mobile tab bar with icons, labels, an active pill and count badges.',
     e_bottom_nav.example,
+  ),
+  GalleryEntry(
+    'bottom-sheet',
+    'Bottom sheet',
+    'Overlays',
+    'Sheet that rises from the bottom, with a drag handle to dismiss. Radix Dialog underneath.',
+    e_bottom_sheet.example,
+    e_bottom_sheet.preview,
   ),
   GalleryEntry(
     'button',
@@ -142,6 +169,21 @@ final List<GalleryEntry> entries = [
     'Display',
     'Label and value pairs for a details panel, in one to three columns, optionally with dividers.',
     e_description_list.example,
+  ),
+  GalleryEntry(
+    'dialog',
+    'Dialog and Sheet',
+    'Overlays',
+    'Centered modal and edge-docked sheet on Radix Dialog.',
+    e_dialog.example,
+    e_dialog.preview,
+  ),
+  GalleryEntry(
+    'dropdown-menu',
+    'Dropdown menu',
+    'Overlays',
+    'Action menu with checkbox items, shortcuts and destructive items.',
+    e_dropdown_menu.example,
   ),
   GalleryEntry(
     'empty-state',
@@ -206,6 +248,7 @@ final List<GalleryEntry> entries = [
     'Show and hide toggle with an optional strength meter.',
     e_password_input.example,
   ),
+  GalleryEntry('popover', 'Popover', 'Overlays', 'Floating panel anchored to a trigger.', e_popover.example),
   GalleryEntry('progress', 'Progress', 'Data', 'Thin progress bar with four tones.', e_progress.example),
   GalleryEntry(
     'progress-ring',
@@ -241,6 +284,13 @@ final List<GalleryEntry> entries = [
     'Inputs',
     'Pick one of a few views or ranges. Smaller than tabs.',
     e_segmented.example,
+  ),
+  GalleryEntry(
+    'select',
+    'Select',
+    'Inputs',
+    'Styled dropdown with groups, built on Radix Select.',
+    e_select.example,
   ),
   GalleryEntry('separator', 'Separator', 'Display', 'Horizontal or vertical divider.', e_separator.example),
   GalleryEntry(
@@ -315,10 +365,24 @@ final List<GalleryEntry> entries = [
     e_timeline.example,
   ),
   GalleryEntry(
+    'toast',
+    'Toast',
+    'Feedback',
+    'Call toast.success() from anywhere. No provider needed.',
+    e_toast.example,
+  ),
+  GalleryEntry(
     'toggle',
     'Toggle',
     'Inputs',
     'Two-state button for favourite, bold or mute. Announces its state to screen readers.',
     e_toggle.example,
+  ),
+  GalleryEntry(
+    'tooltip',
+    'Tooltip',
+    'Overlays',
+    'Hint on hover and focus. Optional title, keyboard shortcut, light style and arrow, plus an (i) InfoTip and a TruncatedText that only shows a tooltip when cut off.',
+    e_tooltip.example,
   ),
 ];
