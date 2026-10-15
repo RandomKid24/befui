@@ -28,14 +28,15 @@ function warm(id: Platform, slug: string) {
   }
 }
 
-export function PlatformTabs({ slug, active }: { slug: string; active: Platform }) {
+export function PlatformTabs({ slug, active, children }: { slug: string; active: Platform; children?: React.ReactNode }) {
   const items: [Platform, string, string, boolean][] = [
     ['react', 'React', `/components/${slug}`, true],
     ['html', 'HTML', `/html/${slug}`, hasHtml(slug)],
     ['flutter', 'Flutter', `/flutter/${slug}`, hasFlutter(slug)],
   ];
   return (
-    <nav aria-label="Platform" className="mt-5 inline-flex gap-1 rounded-lg bg-secondary p-1">
+    <div className="mt-5 flex flex-wrap items-center gap-3">
+    <nav aria-label="Platform" className="inline-flex h-10 items-center gap-1 rounded-lg bg-secondary p-1">
       {items.filter((i) => i[3]).map(([id, label, to]) => (
         <Link
           key={id}
@@ -50,6 +51,8 @@ export function PlatformTabs({ slug, active }: { slug: string; active: Platform 
         </Link>
       ))}
     </nav>
+    {children}
+    </div>
   );
 }
 

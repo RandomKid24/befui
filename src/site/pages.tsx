@@ -225,7 +225,7 @@ function CopyForAI({ c }: { c: (typeof components)[number] }) {
     try { await navigator.clipboard.writeText(text); setState('done'); setTimeout(() => setState('idle'), 2000); } catch { setState('idle'); }
   };
   return (
-    <Button variant="outline" size="sm" onClick={copy} loading={state === 'busy'} className="mt-4">
+    <Button variant="outline" size="sm" onClick={copy} loading={state === 'busy'} className="h-10">
       {state === 'done' ? <CheckIcon /> : <SparkleIcon />} {state === 'done' ? 'Copied for AI' : 'Copy for AI'}
     </Button>
   );
@@ -267,8 +267,7 @@ export function ComponentPage({ slug }: { slug: string }) {
       <Breadcrumb className="mb-4" items={[{ label: 'Components', href: '#/components' }, { label: c.category }, { label: c.name }]} />
       <h1 className={h1}>{c.name}{c.isNew && <Badge variant="primary" className="ml-3 align-middle">New</Badge>}</h1>
       <p className="mt-3 max-w-2xl text-muted-foreground">{c.description}</p>
-      <PlatformTabs slug={slug} active="react" />
-      <CopyForAI c={c} />
+      <PlatformTabs slug={slug} active="react"><CopyForAI c={c} /></PlatformTabs>
 
       <div className="mt-8">
         {hasGallery(slug) ? (
