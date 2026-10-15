@@ -45,12 +45,13 @@ class _BefChatState extends State<BefChat> {
     super.didUpdateWidget(old);
     if (old.messages.length != widget.messages.length || old.typing != widget.typing) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (_scroll.hasClients)
+        if (_scroll.hasClients) {
           _scroll.animateTo(
             _scroll.position.maxScrollExtent,
             duration: const Duration(milliseconds: 200),
             curve: Curves.easeOut,
           );
+        }
       });
     }
   }
