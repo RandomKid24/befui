@@ -1,6 +1,6 @@
 # Components
 
-Every befui component and block. **207 React components**, **206 with an HTML tag** (`<bef-*>`), **109 Flutter widgets**, and **37 page blocks**.
+Every befui component and block. **207 React components**, **206 with an HTML tag** (`<bef-*>`), **116 Flutter widgets**, and **37 page blocks**.
 (Generated from the registry by `npm run registry:build`. Do not edit by hand.)
 
 Install a React component with `npx github:RandomKid24/befui add <name>`, the Flutter version with `npx github:RandomKid24/befui add <name> --flutter`.
@@ -135,13 +135,13 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
-| `ai-message` | One message in an AI chat: a right-aligned user bubble, or an assistant answer with copy, regenerate and thumbs actions and a blinking caret while it streams. | ✓ |  |
-| `prompt-input` | The box you type a prompt into: grows with the text, Enter sends, Shift+Enter adds a line, and the send button turns into Stop while a reply streams. | ✓ |  |
-| `prompt-suggestions` | Starter prompts for an empty chat, as two-line cards or compact chips. Selecting one fills the prompt box. | ✓ |  |
-| `sources` | Numbered citation chips (Cite) to drop inside an answer, and a SourceList of cards with title and site under it. | ✓ |  |
-| `thinking` | A shimmering "Thinking" status with bouncing dots, or a collapsible list of the steps the model is working through that settles into "Thought for 4s". | ✓ |  |
-| `token-meter` | How much of a model context window is used: a bar that turns amber and red as it fills, token counts, an optional cost, and a split by prompt, files and reply. | ✓ |  |
-| `tool-call` | A card for one tool or function call an AI made: name, running, done or failed, how long it took, and its input and output to expand. | ✓ |  |
+| `ai-message` | One message in an AI chat: a right-aligned user bubble, or an assistant answer with copy, regenerate and thumbs actions and a blinking caret while it streams. | ✓ | ✓ |
+| `prompt-input` | The box you type a prompt into: grows with the text, Enter sends, Shift+Enter adds a line, and the send button turns into Stop while a reply streams. | ✓ | ✓ |
+| `prompt-suggestions` | Starter prompts for an empty chat, as two-line cards or compact chips. Selecting one fills the prompt box. | ✓ | ✓ |
+| `sources` | Numbered citation chips (Cite) to drop inside an answer, and a SourceList of cards with title and site under it. | ✓ | ✓ |
+| `thinking` | A shimmering "Thinking" status with bouncing dots, or a collapsible list of the steps the model is working through that settles into "Thought for 4s". | ✓ | ✓ |
+| `token-meter` | How much of a model context window is used: a bar that turns amber and red as it fills, token counts, an optional cost, and a split by prompt, files and reply. | ✓ | ✓ |
+| `tool-call` | A card for one tool or function call an AI made: name, running, done or failed, how long it took, and its input and output to expand. | ✓ | ✓ |
 
 ## Data (61)
 

@@ -173,6 +173,100 @@ Widget _groups(BuildContext context, List<(String, Widget)> groups) {
 }
 ```
 
+### AI message (`ai-message`)
+One message in an AI chat: a right-aligned user bubble, or an assistant answer with copy, regenerate and thumbs actions and a blinking caret while it streams.
+- Add: `npx github:RandomKid24/befui add ai-message --flutter`
+- Import: `import 'befui/ai_message.dart';` (classes: BefAiMessage)
+- Also copies: core.dart, icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/ai_message.dart';
+import 'befui/sources.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) => const _Demo();
+
+class _Demo extends StatefulWidget {
+  const _Demo();
+  @override
+  State<_Demo> createState() => _DemoState();
+}
+
+class _DemoState extends State<_Demo> {
+  BefFeedback? fb;
+
+  @override
+  Widget build(BuildContext context) => _groups(context, [
+    ('User bubble', const BefAiMessage(user: true, child: Text('How many leave days can I carry forward?'))),
+    (
+      'Answer with citations and actions',
+      BefAiMessage(
+        plain: 'Carry-forward is capped at 12 days a year.',
+        onRegenerate: () {},
+        feedback: fb,
+        onFeedback: (v) => setState(() => fb = v),
+        child: Text.rich(
+          TextSpan(
+            children: [
+              const TextSpan(text: 'Carry-forward is capped at '),
+              const TextSpan(
+                text: '12 days',
+                style: TextStyle(fontWeight: FontWeight.w700),
+              ),
+              const TextSpan(text: ' a year'),
+              WidgetSpan(
+                alignment: PlaceholderAlignment.middle,
+                child: BefCite(n: 1, onTap: () {}),
+              ),
+              const TextSpan(text: ', and anything above lapses on 31 March'),
+              WidgetSpan(
+                alignment: PlaceholderAlignment.middle,
+                child: BefCite(n: 2, onTap: () {}),
+              ),
+              const TextSpan(text: '.'),
+            ],
+          ),
+        ),
+      ),
+    ),
+    (
+      'Streaming, with a caret',
+      const BefAiMessage(streaming: true, child: Text('Checking the policy for the part about encashment')),
+    ),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
+```
+
 ### Alert (`alert`)
 Inline message in info, success, warning and danger.
 - Add: `npx github:RandomKid24/befui add alert --flutter`
@@ -5243,6 +5337,206 @@ Widget _groups(BuildContext context, List<(String, Widget)> groups) {
 }
 ```
 
+### Prompt input (`prompt-input`)
+The box you type a prompt into: grows with the text, Enter sends, Shift+Enter adds a line, and the send button turns into Stop while a reply streams.
+- Add: `npx github:RandomKid24/befui add prompt-input --flutter`
+- Import: `import 'befui/prompt_input.dart';` (classes: BefPromptInput)
+- Also copies: core.dart, icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+
+import 'befui/button.dart';
+import 'befui/icons.dart';
+import 'befui/prompt_input.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) => const _Demo();
+
+class _Demo extends StatefulWidget {
+  const _Demo();
+  @override
+  State<_Demo> createState() => _DemoState();
+}
+
+class _DemoState extends State<_Demo> {
+  final text = TextEditingController();
+  bool streaming = false;
+  Timer? timer;
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    text.dispose();
+    super.dispose();
+  }
+
+  void send(String _) {
+    text.clear();
+    setState(() => streaming = true);
+    timer = Timer(const Duration(seconds: 3), () => mounted ? setState(() => streaming = false) : null);
+  }
+
+  void stop() {
+    timer?.cancel();
+    setState(() => streaming = false);
+  }
+
+  @override
+  Widget build(BuildContext context) => _groups(context, [
+    (
+      'Grows as you type, send becomes Stop',
+      BefPromptInput(
+        controller: text,
+        streaming: streaming,
+        onSubmit: send,
+        onStop: stop,
+        maxLength: 400,
+        placeholder: 'Ask about leave, payroll or onboarding',
+        leading: BefButton(
+          size: BefButtonSize.iconSm,
+          variant: BefButtonVariant.ghost,
+          semanticLabel: 'Attach a file',
+          onPressed: () {},
+          child: const BefIcon(BefIcons.paperclip),
+        ),
+      ),
+    ),
+    ('Plain', BefPromptInput(controller: TextEditingController(), onSubmit: (_) {})),
+  ]);
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
+```
+
+### Prompt suggestions (`prompt-suggestions`)
+Starter prompts for an empty chat, as two-line cards or compact chips. Selecting one fills the prompt box.
+- Add: `npx github:RandomKid24/befui add prompt-suggestions --flutter`
+- Import: `import 'befui/prompt_suggestions.dart';` (classes: BefSuggestion, BefPromptSuggestions)
+- Also copies: core.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/icons.dart';
+import 'befui/prompt_suggestions.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) => const _Demo();
+
+class _Demo extends StatefulWidget {
+  const _Demo();
+  @override
+  State<_Demo> createState() => _DemoState();
+}
+
+class _DemoState extends State<_Demo> {
+  String? picked;
+
+  @override
+  Widget build(BuildContext context) {
+    const items = [
+      BefSuggestion(
+        id: '1',
+        label: 'Summarise this week',
+        hint: 'Attendance, leave and approvals',
+        icon: BefIcon(BefIcons.calendar),
+      ),
+      BefSuggestion(
+        id: '2',
+        label: 'Draft an offer letter',
+        hint: 'From a role and a salary',
+        icon: BefIcon(BefIcons.fileText),
+      ),
+      BefSuggestion(
+        id: '3',
+        label: 'Who is out tomorrow?',
+        hint: 'Across all teams',
+        icon: BefIcon(BefIcons.users),
+      ),
+    ];
+    return _groups(context, [
+      ('Cards', BefPromptSuggestions(items: items, onSelect: (s) => setState(() => picked = s.label))),
+      (
+        'Chips',
+        BefPromptSuggestions(
+          chips: true,
+          items: const [
+            BefSuggestion(id: '1', label: 'Summarise this week'),
+            BefSuggestion(id: '2', label: 'Draft an offer letter'),
+            BefSuggestion(id: '3', label: 'Who is out tomorrow?'),
+          ],
+          onSelect: (s) => setState(() => picked = s.label),
+        ),
+      ),
+      (
+        'Picked',
+        Text(
+          picked ?? 'Pick one.',
+          style: BefText.style(context, size: 12, color: context.bef.mutedForeground),
+        ),
+      ),
+    ]);
+  }
+}
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
+```
+
 ### Pull to refresh (`pull-to-refresh`)
 Scroll area you pull down from the top to refresh, with a spinner until your promise settles.
 - Add: `npx github:RandomKid24/befui add pull-to-refresh --flutter`
@@ -6339,6 +6633,80 @@ Widget _groups(BuildContext context, List<(String, Widget)> groups) {
 }
 ```
 
+### Sources (`sources`)
+Numbered citation chips (Cite) to drop inside an answer, and a SourceList of cards with title and site under it.
+- Add: `npx github:RandomKid24/befui add sources --flutter`
+- Import: `import 'befui/sources.dart';` (classes: BefSource, BefCite, BefSourceList)
+- Also copies: core.dart, icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/sources.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) => _groups(context, [
+  (
+    'Source cards',
+    BefSourceList(
+      sources: [
+        BefSource(
+          id: '1',
+          title: 'Leave policy 2025: carry-forward and encashment',
+          site: 'handbook.acme.co',
+          onTap: () {},
+        ),
+        BefSource(id: '2', title: 'Leave FAQ: what lapses on 31 March', site: 'help.acme.co', onTap: () {}),
+        BefSource(
+          id: '3',
+          title: 'HR circular 14: changes to casual leave',
+          site: 'intranet.acme.co',
+          onTap: () {},
+        ),
+      ],
+    ),
+  ),
+  (
+    'Inline chips',
+    Row(
+      children: [
+        BefCite(n: 1, onTap: () {}),
+        BefCite(n: 2, onTap: () {}),
+        BefCite(n: 3, onTap: () {}),
+      ],
+    ),
+  ),
+]);
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
+```
+
 ### Spinner (`spinner`)
 Tiny CSS spinner that inherits text color.
 - Add: `npx github:RandomKid24/befui add spinner --flutter`
@@ -7244,6 +7612,73 @@ Widget _groups(BuildContext context, List<(String, Widget)> groups) {
 }
 ```
 
+### Thinking (`thinking`)
+A shimmering "Thinking" status with bouncing dots, or a collapsible list of the steps the model is working through that settles into "Thought for 4s".
+- Add: `npx github:RandomKid24/befui add thinking --flutter`
+- Import: `import 'befui/thinking.dart';` (classes: BefThinkingStep, BefThinking)
+- Also copies: core.dart, icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/thinking.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) => _groups(context, [
+  ('Plain', const BefThinking()),
+  (
+    'With steps, tap to open',
+    const BefThinking(
+      label: 'Searching the handbook',
+      steps: [
+        BefThinkingStep('Read the question', done: true),
+        BefThinkingStep('Search leave policy', done: true),
+        BefThinkingStep('Compare with your balance'),
+      ],
+    ),
+  ),
+  (
+    'Done',
+    const BefThinking(
+      done: true,
+      took: '4s',
+      steps: [
+        BefThinkingStep('Read the question', done: true),
+        BefThinkingStep('Wrote the answer', done: true),
+      ],
+    ),
+  ),
+]);
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
+```
+
 ### Time picker (`time-picker`)
 Hour, minute and AM/PM segments you type into or step with arrow keys. 12 or 24 hour.
 - Add: `npx github:RandomKid24/befui add time-picker --flutter`
@@ -7654,6 +8089,138 @@ class _DemoState extends State<_Demo> {
     ),
   ]);
 }
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
+```
+
+### Token meter (`token-meter`)
+How much of a model context window is used: a bar that turns amber and red as it fills, token counts, an optional cost, and a split by prompt, files and reply.
+- Add: `npx github:RandomKid24/befui add token-meter --flutter`
+- Import: `import 'befui/token_meter.dart';` (classes: BefTokenSegment, BefTokenMeter)
+- Also copies: core.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/token_meter.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) => _groups(context, [
+  ('Plenty left', const BefTokenMeter(used: 18400, limit: 200000, cost: r'$0.04')),
+  ('Getting full', const BefTokenMeter(used: 152000, limit: 200000)),
+  ('Nearly out', const BefTokenMeter(used: 196500, limit: 200000)),
+  (
+    'Split by what it is',
+    const BefTokenMeter(
+      used: 88000,
+      limit: 200000,
+      segments: [
+        BefTokenSegment('Prompt', 12000),
+        BefTokenSegment('Files', 61000),
+        BefTokenSegment('Reply', 15000),
+      ],
+    ),
+  ),
+]);
+
+/// Labelled groups, one per kind of use.
+Widget _groups(BuildContext context, List<(String, Widget)> groups) {
+  final c = context.bef;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      for (var i = 0; i < groups.length; i++) ...[
+        if (i > 0) const SizedBox(height: 24),
+        Text(
+          groups[i].$1.toUpperCase(),
+          style: BefText.style(
+            context,
+            size: 11,
+            weight: FontWeight.w500,
+            color: c.mutedForeground,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 10),
+        groups[i].$2,
+      ],
+    ],
+  );
+}
+```
+
+### Tool call (`tool-call`)
+A card for one tool or function call an AI made: name, running, done or failed, how long it took, and its input and output to expand.
+- Add: `npx github:RandomKid24/befui add tool-call --flutter`
+- Import: `import 'befui/tool_call.dart';` (classes: BefToolCall)
+- Also copies: core.dart, icons.dart, theme.dart, spinner.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/tool_call.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) => _groups(context, [
+  (
+    'Done, open',
+    const BefToolCall(
+      name: 'get_leave_balance',
+      status: BefToolStatus.done,
+      duration: '0.4s',
+      initiallyOpen: true,
+      input: '{\n  "employee": "aarav.mehta",\n  "type": "casual"\n}',
+      output: '{\n  "balance": 7,\n  "carry_forward": 12\n}',
+    ),
+  ),
+  (
+    'Running',
+    const BefToolCall(
+      name: 'search_policies',
+      status: BefToolStatus.running,
+      input: '{ "query": "encashment" }',
+    ),
+  ),
+  (
+    'Failed',
+    const BefToolCall(
+      name: 'send_email',
+      status: BefToolStatus.error,
+      duration: '1.2s',
+      input: '{ "to": "hr@acme.co" }',
+      output: 'SMTP 550: mailbox unavailable',
+    ),
+  ),
+]);
 
 /// Labelled groups, one per kind of use.
 Widget _groups(BuildContext context, List<(String, Widget)> groups) {

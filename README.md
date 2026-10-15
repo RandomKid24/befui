@@ -5,7 +5,7 @@
 **Interfaces people actually enjoy using.**
 
 207 copy-paste React components, 389 hand-drawn icons and 37 full-page blocks.<br/>
-Plus **109 Flutter widgets** for Android and iOS, and every component as a `<bef-*>` HTML tag.<br/>
+Plus **116 Flutter widgets** for Android and iOS, and every component as a `<bef-*>` HTML tag.<br/>
 Built on Radix, Tailwind 4 and CSS variables. You own every file.
 
 [![React 19](https://img.shields.io/badge/React-19-61dafb?logo=react&logoColor=white)](https://react.dev)
@@ -131,7 +131,7 @@ Time picker, analog clock, world clock, stopwatch, countdown timer and live rela
 
 ## What is inside
 
-### Use in Flutter (109 widgets)
+### Use in Flutter (116 widgets)
 
 The mobile components exist as Flutter widgets too, for Android and iOS apps. One Dart file per widget, copy-paste like the React ones, no package to depend on: buttons, inputs, cards, dialogs, sheets, toasts, tabs, bottom nav, charts, calendar, chat, kanban, pickers and more. Colours, radii and the ten palettes come from the same source as the React components, and light and dark both follow.
 

@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 
 import '../examples/accordion.dart' as e_accordion;
 import '../examples/activity_feed.dart' as e_activity_feed;
+import '../examples/ai_message.dart' as e_ai_message;
 import '../examples/alert.dart' as e_alert;
 import '../examples/alert_dialog.dart' as e_alert_dialog;
 import '../examples/avatar.dart' as e_avatar;
@@ -69,6 +70,8 @@ import '../examples/product_card.dart' as e_product_card;
 import '../examples/profile_card.dart' as e_profile_card;
 import '../examples/progress.dart' as e_progress;
 import '../examples/progress_ring.dart' as e_progress_ring;
+import '../examples/prompt_input.dart' as e_prompt_input;
+import '../examples/prompt_suggestions.dart' as e_prompt_suggestions;
 import '../examples/pull_to_refresh.dart' as e_pull_to_refresh;
 import '../examples/radar_chart.dart' as e_radar_chart;
 import '../examples/radio_group.dart' as e_radio_group;
@@ -85,6 +88,7 @@ import '../examples/signature_pad.dart' as e_signature_pad;
 import '../examples/skeleton.dart' as e_skeleton;
 import '../examples/slider.dart' as e_slider;
 import '../examples/sortable_list.dart' as e_sortable_list;
+import '../examples/sources.dart' as e_sources;
 import '../examples/spinner.dart' as e_spinner;
 import '../examples/stacked_bar_chart.dart' as e_stacked_bar_chart;
 import '../examples/stat_card.dart' as e_stat_card;
@@ -98,12 +102,15 @@ import '../examples/tabs.dart' as e_tabs;
 import '../examples/tag_input.dart' as e_tag_input;
 import '../examples/testimonial_card.dart' as e_testimonial_card;
 import '../examples/theme_toggle.dart' as e_theme_toggle;
+import '../examples/thinking.dart' as e_thinking;
 import '../examples/time_picker.dart' as e_time_picker;
 import '../examples/timeline.dart' as e_timeline;
 import '../examples/timer.dart' as e_timer;
 import '../examples/toast.dart' as e_toast;
 import '../examples/toggle.dart' as e_toggle;
 import '../examples/toggle_group.dart' as e_toggle_group;
+import '../examples/token_meter.dart' as e_token_meter;
+import '../examples/tool_call.dart' as e_tool_call;
 import '../examples/tooltip.dart' as e_tooltip;
 import '../examples/tree_view.dart' as e_tree_view;
 import '../examples/typewriter.dart' as e_typewriter;
@@ -134,6 +141,13 @@ final List<GalleryEntry> entries = [
     'Display',
     'Who did what and when, grouped under Today and Yesterday, with live relative times and an optional quoted detail.',
     e_activity_feed.example,
+  ),
+  GalleryEntry(
+    'ai-message',
+    'AI message',
+    'AI',
+    'One message in an AI chat: a right-aligned user bubble, or an assistant answer with copy, regenerate and thumbs actions and a blinking caret while it streams.',
+    e_ai_message.example,
   ),
   GalleryEntry(
     'alert',
@@ -577,6 +591,20 @@ final List<GalleryEntry> entries = [
     e_progress_ring.example,
   ),
   GalleryEntry(
+    'prompt-input',
+    'Prompt input',
+    'AI',
+    'The box you type a prompt into: grows with the text, Enter sends, Shift+Enter adds a line, and the send button turns into Stop while a reply streams.',
+    e_prompt_input.example,
+  ),
+  GalleryEntry(
+    'prompt-suggestions',
+    'Prompt suggestions',
+    'AI',
+    'Starter prompts for an empty chat, as two-line cards or compact chips. Selecting one fills the prompt box.',
+    e_prompt_suggestions.example,
+  ),
+  GalleryEntry(
     'pull-to-refresh',
     'Pull to refresh',
     'Feedback',
@@ -683,6 +711,13 @@ final List<GalleryEntry> entries = [
     e_sortable_list.example,
   ),
   GalleryEntry(
+    'sources',
+    'Sources',
+    'AI',
+    'Numbered citation chips (Cite) to drop inside an answer, and a SourceList of cards with title and site under it.',
+    e_sources.example,
+  ),
+  GalleryEntry(
     'spinner',
     'Spinner',
     'Feedback',
@@ -768,6 +803,13 @@ final List<GalleryEntry> entries = [
     e_theme_toggle.example,
   ),
   GalleryEntry(
+    'thinking',
+    'Thinking',
+    'AI',
+    'A shimmering "Thinking" status with bouncing dots, or a collapsible list of the steps the model is working through that settles into "Thought for 4s".',
+    e_thinking.example,
+  ),
+  GalleryEntry(
     'time-picker',
     'Time picker',
     'Time',
@@ -808,6 +850,20 @@ final List<GalleryEntry> entries = [
     'Inputs',
     'A row of toggles where one or several can be pressed, for formatting toolbars.',
     e_toggle_group.example,
+  ),
+  GalleryEntry(
+    'token-meter',
+    'Token meter',
+    'AI',
+    'How much of a model context window is used: a bar that turns amber and red as it fills, token counts, an optional cost, and a split by prompt, files and reply.',
+    e_token_meter.example,
+  ),
+  GalleryEntry(
+    'tool-call',
+    'Tool call',
+    'AI',
+    'A card for one tool or function call an AI made: name, running, done or failed, how long it took, and its input and output to expand.',
+    e_tool_call.example,
   ),
   GalleryEntry(
     'tooltip',
