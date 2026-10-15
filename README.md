@@ -123,6 +123,12 @@ Time picker, analog clock, world clock, stopwatch, countdown timer and live rela
 </tr>
 </table>
 
+## Read more
+
+- [`COMPONENTS.md`](COMPONENTS.md): every component and block in one list, with which have an HTML tag and a Flutter widget.
+- [`DESIGN.md`](DESIGN.md): the design rules (colour, type, shape, motion) and how to add a component so it matches.
+- [`CHANGELOG.md`](CHANGELOG.md): what changed in each release.
+
 ## What is inside
 
 ### Use in Flutter (109 widgets)

@@ -116,6 +116,9 @@ const GROUP_ICONS = {
 
 function NavGroup({ title, count, open, onToggle, current, children }: { title: keyof typeof GROUP_ICONS; count: number; open: boolean; onToggle: () => void; current: boolean; children: React.ReactNode }) {
   const Icon = GROUP_ICONS[title];
+  // a group's links are only built once it has been opened (the sidebar has about 200 of them)
+  const [built, setBuilt] = React.useState(open);
+  React.useEffect(() => { if (open) setBuilt(true); }, [open]);
   return (
     <div>
       <button
@@ -134,7 +137,7 @@ function NavGroup({ title, count, open, onToggle, current, children }: { title: 
       </button>
       <div className={cn('grid transition-[grid-template-rows] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]', open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]')}>
         <div className="overflow-hidden">
-          <div className="ml-[1.1rem] mt-0.5 grid gap-px border-l pl-2.5 pb-1">{children}</div>
+          <div className="ml-[1.1rem] mt-0.5 grid gap-px border-l pl-2.5 pb-1">{built || open ? children : null}</div>
         </div>
       </div>
     </div>

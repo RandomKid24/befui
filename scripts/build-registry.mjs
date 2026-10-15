@@ -217,6 +217,43 @@ for (const [pattern, text] of [
   readmeNew = readmeNew.replace(pattern, () => text);
 }
 if (readmeNew !== readmeOld) writeFileSync('README.md', readmeNew);
+// COMPONENTS.md: every component and block in one readable list, with which platforms have it. Generated, so it cannot drift.
+{
+  const fl = new Set(flutterItems.map((x) => x.slug));
+  const cell = (d) => d.description.replace(/\|/g, '\\|').replace(/\n/g, ' ');
+  const groups = ORDER.concat([...new Set(ui.map((d) => d.group))].filter((g) => !ORDER.includes(g)));
+  const htmlCount = ui.filter((d) => existsSync(`src/html/demos/${d.name}.html`)).length;
+  const md = [
+    '# Components',
+    '',
+    `Every befui component and block. **${ui.length} React components**, **${htmlCount} with an HTML tag** (\`<bef-*>\`), **${flutterItems.length} Flutter widgets**, and **${bl.length} page blocks**.`,
+    '(Generated from the registry by `npm run registry:build`. Do not edit by hand.)',
+    '',
+    'Install a React component with `npx github:RandomKid24/befui add <name>`, the Flutter version with `npx github:RandomKid24/befui add <name> --flutter`.',
+    '',
+    ...groups.flatMap((g) => {
+      const list = byGroup.filter((d) => d.group === g);
+      if (!list.length) return [];
+      return [
+        `## ${ORDER.includes(g) ? g : 'Other'} (${list.length})`,
+        '',
+        '| Component | What it is | HTML | Flutter |',
+        '|---|---|:-:|:-:|',
+        ...list.map((d) => `| \`${d.name}\` | ${cell(d)} | ${existsSync(`src/html/demos/${d.name}.html`) ? '✓' : ''} | ${fl.has(d.name) ? '✓' : ''} |`),
+        '',
+      ];
+    }),
+    `## Blocks (${bl.length})`,
+    '',
+    'Full screens built from the components, with mock data you swap for your own API.',
+    '',
+    '| Block | Module | What it is |',
+    '|---|---|---|',
+    ...bl.map((d) => `| \`${d.name.replace(/^block:/, '')}\` | ${d.group} | ${cell(d)} |`),
+    '',
+  ].join('\n');
+  writeFileSync('COMPONENTS.md', md);
+}
 const importOf = (d) => d.exports.filter((e) => !/Variants$/.test(e));
 const line = (d) => `- \`${d.name}\`: ${d.description} Exports: ${importOf(d).slice(0, 8).join(', ')}${importOf(d).length > 8 ? ', ...' : ''}.${d.requires.length ? ` Needs: ${d.requires.join(', ')}.` : ''}`;
 const sections = ORDER.concat([...new Set(ui.map((d) => d.group))].filter((g) => !ORDER.includes(g)))

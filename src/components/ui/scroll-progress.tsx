@@ -9,14 +9,18 @@ export function ScrollProgress({ target, className }: { target?: React.RefObject
   React.useEffect(() => {
     const el = target?.current ?? null;
     const src: HTMLElement | Window = el ?? window;
-    const update = () => {
+    let raf = 0;
+    const paint = () => {
+      raf = 0;
       const top = el ? el.scrollTop : window.scrollY;
       const max = el ? el.scrollHeight - el.clientHeight : document.documentElement.scrollHeight - innerHeight;
       if (bar.current) bar.current.style.transform = `scaleX(${max > 0 ? top / max : 0})`;
     };
-    update();
+    // at most one layout read per frame, however fast the scroll events come
+    const update = () => { if (!raf) raf = requestAnimationFrame(paint); };
+    paint();
     src.addEventListener('scroll', update, { passive: true });
-    return () => src.removeEventListener('scroll', update);
+    return () => { cancelAnimationFrame(raf); src.removeEventListener('scroll', update); };
   }, [target]);
   return (
     <div className={cn(target ? 'sticky top-0' : 'fixed inset-x-0 top-0', 'z-50 h-0.5', className)}>

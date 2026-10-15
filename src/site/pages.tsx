@@ -138,19 +138,18 @@ export function GettingStarted() {
 
 /* ------------------------------------------------------------ components */
 
-function ComponentCard({ c, i }: { c: (typeof components)[number]; i: number }) {
+function ComponentCard({ c }: { c: (typeof components)[number]; i?: number }) {
+  // no per-card observer or entrance animation: 199 of them made this page slow, and the browser skips drawing cards that are off screen
   return (
-    <Reveal delay={Math.min(i, 5) * 40} y={10}>
-      <Link to={`/components/${c.slug}`} className="group block h-full rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-ring/50">
-        <SpotlightCard className="h-full p-4 hover:translate-y-0">
-          <div className="flex items-center justify-between">
-            <p className="flex items-center gap-2 text-sm font-semibold">{c.name}{c.isNew && <Badge variant="primary">New</Badge>}</p>
-            <ArrowRightIcon className="size-4 text-muted-foreground/0 transition-all group-hover:translate-x-0.5 group-hover:text-muted-foreground" />
-          </div>
-          <p className="mt-1 text-[13px] text-muted-foreground">{c.description}</p>
-        </SpotlightCard>
-      </Link>
-    </Reveal>
+    <Link to={`/components/${c.slug}`} className="group block h-full rounded-xl outline-none [contain-intrinsic-size:auto_96px] [content-visibility:auto] focus-visible:ring-2 focus-visible:ring-ring/50">
+      <SpotlightCard className="h-full p-4 hover:translate-y-0">
+        <div className="flex items-center justify-between">
+          <p className="flex items-center gap-2 text-sm font-semibold">{c.name}{c.isNew && <Badge variant="primary">New</Badge>}</p>
+          <ArrowRightIcon className="size-4 text-muted-foreground/0 transition-all group-hover:translate-x-0.5 group-hover:text-muted-foreground" />
+        </div>
+        <p className="mt-1 text-[13px] text-muted-foreground">{c.description}</p>
+      </SpotlightCard>
+    </Link>
   );
 }
 
@@ -177,7 +176,7 @@ export function ComponentsIndex() {
         <section className="mt-10">
           <h2 className="mb-3 flex items-center gap-2 text-sm font-semibold text-muted-foreground">Newly added <Badge variant="primary">{shown.filter((c) => c.isNew).length}</Badge></h2>
           <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-            {shown.filter((c) => c.isNew).map((c, i) => <ComponentCard key={c.slug} c={c} i={i} />)}
+            {shown.filter((c) => c.isNew).map((c, i) => <ComponentCard key={c.slug} c={c} />)}
           </div>
         </section>
       )}
@@ -185,7 +184,7 @@ export function ComponentsIndex() {
         <section key={k} className="mt-10">
           <h2 className="mb-3 text-sm font-semibold text-muted-foreground">{k}</h2>
           <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-            {shown.filter((c) => c.category === k).map((c, i) => <ComponentCard key={c.slug} c={c} i={i} />)}
+            {shown.filter((c) => c.category === k).map((c, i) => <ComponentCard key={c.slug} c={c} />)}
           </div>
         </section>
       ))}
