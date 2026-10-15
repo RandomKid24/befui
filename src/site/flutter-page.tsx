@@ -1,5 +1,5 @@
 import { CodeBlock, Command } from './code';
-import { FlutterShot, flutterSlugs } from './flutter-docs';
+import { flutterSlugs } from './flutter-docs';
 import { Link } from './router';
 
 const title = (slug: string) => slug.replace(/-/g, ' ').replace(/^./, (c) => c.toUpperCase());
@@ -45,11 +45,28 @@ export function FlutterPage() {
         <button type="button" onClick={() => document.getElementById('get-started')?.scrollIntoView({ behavior: 'smooth' })} className="inline-flex h-9 items-center rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground hover:opacity-90">How to add one</button>
         <span className="inline-flex h-9 items-center text-sm text-muted-foreground">{flutterSlugs.length} widgets, rendered by Flutter</span>
       </div>
-      <section aria-label="All Flutter widgets" className="mt-8 grid gap-x-6 gap-y-10 sm:grid-cols-2 xl:grid-cols-3">
+      <section aria-label="All Flutter widgets" className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {flutterSlugs.map((slug) => (
-          <Link key={slug} to={`/flutter/${slug}`} className="group grid justify-items-center gap-3 rounded-xl border bg-muted/30 p-4 pb-5 transition-colors [contain-intrinsic-size:auto_560px] [content-visibility:auto] hover:bg-muted/60">
-            <FlutterShot slug={slug} width={230} live="click" />
-            <span className="text-sm font-medium group-hover:text-primary">{title(slug)}</span>
+          <Link key={slug} to={`/flutter/${slug}`} className="group overflow-hidden rounded-xl border bg-card transition-all [contain-intrinsic-size:auto_240px] [content-visibility:auto] hover:-translate-y-0.5 hover:shadow-md">
+            <div className="aspect-[4/3] overflow-hidden border-b bg-muted/40">
+              <img
+                src={`${import.meta.env.BASE_URL}flutter/${slug}-light.webp`}
+                alt=""
+                loading="lazy"
+                decoding="async"
+                className="w-full object-cover object-top dark:hidden"
+              />
+              <img
+                src={`${import.meta.env.BASE_URL}flutter/${slug}-dark.webp`}
+                alt=""
+                loading="lazy"
+                decoding="async"
+                className="hidden w-full object-cover object-top dark:block"
+              />
+            </div>
+            <div className="px-3.5 py-3">
+              <span className="text-sm font-medium group-hover:text-primary">{title(slug)}</span>
+            </div>
           </Link>
         ))}
       </section>

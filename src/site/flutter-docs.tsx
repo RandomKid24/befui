@@ -121,3 +121,35 @@ export function FlutterShot({ slug, width = 300, className, live = 'off' }: { sl
     </div>
   );
 }
+
+/** The widget on its own, running live (Flutter web), sized to its content. */
+export function FlutterInline({ slug }: { slug: string }) {
+  const dark = useDark();
+  const ref = React.useRef<HTMLIFrameElement>(null);
+  const [h, setH] = React.useState<number | null>(null);
+  React.useEffect(() => {
+    setH(null);
+    const on = (e: MessageEvent) => {
+      if (e.source === ref.current?.contentWindow && e.data?.befui === 'height') setH(Math.ceil(e.data.value));
+    };
+    window.addEventListener('message', on);
+    return () => window.removeEventListener('message', on);
+  }, [slug, dark]);
+  return (
+    <div className="relative grid place-items-center overflow-hidden rounded-xl border bg-background bg-[radial-gradient(var(--border)_1px,transparent_1px)] [background-size:16px_16px]">
+      {h === null && (
+        <div className="absolute inset-0 grid place-items-center text-[13px] text-muted-foreground">
+          <span className="inline-flex items-center gap-2"><span className="size-3.5 animate-spin rounded-full border-2 border-primary border-t-transparent" /> Starting Flutter…</span>
+        </div>
+      )}
+      <iframe
+        key={`${slug}-${dark}`}
+        ref={ref}
+        title={`${slug} running in Flutter`}
+        src={`${import.meta.env.BASE_URL}flutter-app/index.html?w=${slug}&mode=widget&theme=${dark ? 'dark' : 'light'}`}
+        style={{ height: Math.min(Math.max(h ?? 260, 160), 720), minHeight: 260 }}
+        className={cn('w-full max-w-[460px] border-0 bg-transparent transition-opacity', h === null ? 'opacity-0' : 'opacity-100')}
+      />
+    </div>
+  );
+}

@@ -6,7 +6,7 @@ import { components } from '@/registry';
 import { cn } from '@/lib/utils';
 import { CodeBlock, Command } from './code';
 import { Link } from './router';
-import { FlutterShot, examples, flutterSlugs, hasFlutter, snake, useText, widgets } from './flutter-docs';
+import { FlutterInline, FlutterShot, examples, flutterSlugs, hasFlutter, snake, useText, widgets } from './flutter-docs';
 import { HtmlLive, demos, hasHtml, htmlSlugs, styles } from './html-docs';
 
 const h1 = 'text-3xl font-semibold tracking-tight sm:text-4xl';
@@ -98,6 +98,34 @@ function parseProps(src: string): { doc: string; className: string; props: Prop[
   return { doc: doc.join(' ').replace(/\[([^\]]+)\]/g, '$1'), className, props };
 }
 
+/** Live widget, with a switch to see it inside a phone. */
+function FlutterPreview({ slug }: { slug: string }) {
+  const [view, setView] = React.useState<'widget' | 'phone'>('widget');
+  const btn = (id: 'widget' | 'phone', label: string) => (
+    <button
+      type="button"
+      aria-pressed={view === id}
+      onClick={() => setView(id)}
+      className={cn('rounded-md px-3 py-1 text-[13px] font-medium transition-colors', view === id ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground')}
+    >
+      {label}
+    </button>
+  );
+  return (
+    <section aria-label="Preview" className="mt-8">
+      <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+        <div className="inline-flex gap-1 rounded-lg bg-secondary p-1">{btn('widget', 'Preview')}{btn('phone', 'Phone preview')}</div>
+        <span className="text-xs text-muted-foreground">Real Flutter, running here. Tap and type.</span>
+      </div>
+      {view === 'widget' ? (
+        <FlutterInline slug={slug} />
+      ) : (
+        <FlutterShot slug={slug} width={300} live="auto" className="rounded-xl border bg-muted/40 px-4 py-10" />
+      )}
+    </section>
+  );
+}
+
 export function FlutterComponentPage({ slug }: { slug: string }) {
   const c = components.find((x) => x.slug === slug);
   const file = snake(slug);
@@ -116,17 +144,14 @@ export function FlutterComponentPage({ slug }: { slug: string }) {
       <p className="mt-3 max-w-2xl text-muted-foreground">{info?.doc || c.description}</p>
       <PlatformTabs slug={slug} active="flutter" />
 
-      <div className="mt-8 grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1fr)_340px] xl:items-start">
-        <div className="min-w-0">
-          <h2 className={cn(h2, 'mt-0')}>Add it</h2>
-          <p className="mb-3 text-[13px] text-muted-foreground">In the folder with your pubspec.yaml. It also copies the theme, core and icon files this widget needs:</p>
-          <Command>{`npx github:RandomKid24/befui add ${slug} --flutter`}</Command>
-          <p className="mt-3 text-[13px] text-muted-foreground">
-            New to befui on Flutter? <Link to="/flutter" className="font-medium text-primary hover:underline">Set the theme once</Link>, then every widget works.
-          </p>
-        </div>
-        <FlutterShot slug={slug} width={300} live="auto" className="min-w-0 rounded-xl border bg-muted/40 px-4 py-8" />
-      </div>
+      <FlutterPreview slug={slug} />
+
+      <h2 className={h2}>Add it</h2>
+      <p className="mb-3 text-[13px] text-muted-foreground">In the folder with your pubspec.yaml. It also copies the theme, core and icon files this widget needs:</p>
+      <Command>{`npx github:RandomKid24/befui add ${slug} --flutter`}</Command>
+      <p className="mt-3 text-[13px] text-muted-foreground">
+        New to befui on Flutter? <Link to="/flutter" className="font-medium text-primary hover:underline">Set the theme once</Link>, then every widget works.
+      </p>
 
       <h2 className={h2}>Use it</h2>
       <Tabs value={tab === 'example' && !code ? 'source' : tab} onValueChange={setTab} className="min-w-0">
