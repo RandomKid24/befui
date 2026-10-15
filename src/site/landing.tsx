@@ -18,18 +18,72 @@ import { TiltCard } from '@/components/ui/tilt-card';
 import { blocks, components } from '@/registry';
 import { BlockGrid, HeroCollage } from './pages';
 import { Link } from './router';
+import { flutterSlugs } from './flutter-docs';
 
 const INSTALL = 'npx befui add button';
 
-function Hero() {
+/**
+ * Hero background: a dot grid that lights up under the cursor (and drifts by itself on touch screens or when the mouse is still),
+ * with two slow aurora blobs and a sweeping beam behind it. Pure CSS variables plus one rAF loop; static for reduced motion.
+ */
+function HeroBackdrop({ target }: { target: React.RefObject<HTMLElement | null> }) {
+  const lit = React.useRef<HTMLDivElement>(null);
+  React.useEffect(() => {
+    const host = target.current;
+    const el = lit.current;
+    if (!host || !el || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let x = 50, y = 30, tx = 50, ty = 30, last = 0, raf = 0, auto = true;
+    const move = (e: PointerEvent) => {
+      const r = host.getBoundingClientRect();
+      tx = ((e.clientX - r.left) / r.width) * 100;
+      ty = ((e.clientY - r.top) / r.height) * 100;
+      auto = false;
+      last = performance.now();
+    };
+    host.addEventListener('pointermove', move);
+    const tick = (t: number) => {
+      if (!auto && t - last > 2500) auto = true;
+      if (auto) { tx = 50 + Math.sin(t / 2600) * 34; ty = 36 + Math.cos(t / 3400) * 22; }
+      x += (tx - x) * 0.08;
+      y += (ty - y) * 0.08;
+      el.style.setProperty('--mx', `${x}%`);
+      el.style.setProperty('--my', `${y}%`);
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => { cancelAnimationFrame(raf); host.removeEventListener('pointermove', move); };
+  }, [target]);
   return (
-    <section className="relative isolate overflow-hidden">
-      <div aria-hidden className="absolute inset-0 -z-10 [mask-image:radial-gradient(70%_60%_at_50%_30%,#000,transparent)] bg-[radial-gradient(var(--border)_1px,transparent_1px)] [background-size:22px_22px]" />
+    <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+      <style>{`
+        @keyframes hero-drift-a { 0%,100% { transform: translate3d(-8%, -6%, 0) scale(1) } 50% { transform: translate3d(10%, 8%, 0) scale(1.18) } }
+        @keyframes hero-drift-b { 0%,100% { transform: translate3d(10%, 4%, 0) scale(1.1) } 50% { transform: translate3d(-12%, -8%, 0) scale(0.92) } }
+        @keyframes hero-beam { from { transform: rotate(0deg) } to { transform: rotate(360deg) } }
+        @media (prefers-reduced-motion: reduce) { .hero-anim { animation: none !important } }
+      `}</style>
+      <div className="hero-anim absolute -left-[10%] -top-[30%] h-[70%] w-[55%] rounded-full bg-primary/20 blur-[90px] [animation:hero-drift-a_16s_ease-in-out_infinite]" />
+      <div className="hero-anim absolute -right-[8%] top-[5%] h-[60%] w-[48%] rounded-full bg-[color-mix(in_srgb,var(--primary)_55%,#a855f7)]/20 blur-[100px] [animation:hero-drift-b_20s_ease-in-out_infinite]" />
+      <div className="hero-anim absolute left-1/2 top-[30%] aspect-square w-[130%] -translate-x-1/2 -translate-y-1/2 opacity-[0.18] [animation:hero-beam_28s_linear_infinite] [background:conic-gradient(from_0deg,transparent_0deg,var(--primary)_28deg,transparent_62deg)] [mask-image:radial-gradient(circle,transparent_14%,#000_60%,transparent_72%)]" />
+      <div className="absolute inset-0 [background-size:22px_22px] [background-image:radial-gradient(var(--border)_1px,transparent_1px)] [mask-image:radial-gradient(75%_65%_at_50%_30%,#000,transparent)]" />
+      <div
+        ref={lit}
+        style={{ '--mx': '50%', '--my': '30%' } as React.CSSProperties}
+        className="absolute inset-0 [background-size:22px_22px] [background-image:radial-gradient(var(--primary)_1.4px,transparent_1.6px)] [mask-image:radial-gradient(220px_circle_at_var(--mx)_var(--my),#000,transparent_70%)]"
+      />
+    </div>
+  );
+}
+
+function Hero() {
+  const host = React.useRef<HTMLElement>(null);
+  return (
+    <section ref={host} className="relative isolate overflow-hidden">
+      <HeroBackdrop target={host} />
       <div className="mx-auto max-w-[88rem] px-4 pb-16 pt-16 text-center sm:px-6 sm:pt-24">
         <Reveal>
           <Badge variant="outline" className="mb-6 bg-background/60 py-1 pl-1 pr-3 backdrop-blur">
             <span className="rounded-full bg-primary px-2 py-0.5 text-[10px] font-semibold text-primary-foreground">New</span>
-            {components.length} components, {blocks.length} blocks, Storybook included
+            {components.length} components, {blocks.length} blocks, {flutterSlugs.length} Flutter widgets
           </Badge>
         </Reveal>
         <h1 className="mx-auto max-w-4xl text-balance text-5xl font-semibold tracking-tight sm:text-7xl sm:leading-[1.02]">

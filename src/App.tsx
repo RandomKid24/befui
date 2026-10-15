@@ -30,7 +30,8 @@ export default function App() {
 
   return (
     <Shell path={path} docs={!home && section !== 'icons' && section !== 'themes'}>
-      {page}
+      <style>{'@keyframes page-in { from { opacity: 0; transform: translateY(6px) } to { opacity: 1; transform: none } } @media (prefers-reduced-motion: reduce) { [data-page] { animation: none !important } }'}</style>
+      <div data-page key={path} className="animate-[page-in_0.28s_cubic-bezier(0.22,1,0.36,1)]">{page}</div>
     </Shell>
   );
 }
