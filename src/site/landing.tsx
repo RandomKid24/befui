@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { ArrowRightIcon, BlocksIcon, LayersIcon, PackageIcon, PaletteIcon, SparkleIcon } from '@/components/ui/icons';
 import { Accordion } from '@/components/ui/accordion';
+import { Avatar } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { BorderBeam } from '@/components/ui/border-beam';
 import { Button } from '@/components/ui/button';
@@ -8,6 +9,7 @@ import { Chip } from '@/components/ui/chip';
 import { CopyButton } from '@/components/ui/copy-button';
 import { Marquee } from '@/components/ui/marquee';
 import { NumberTicker } from '@/components/ui/number-ticker';
+import { Progress } from '@/components/ui/progress';
 import { ProgressRing } from '@/components/ui/progress-ring';
 import { Rating } from '@/components/ui/rating';
 import { Reveal, TextReveal } from '@/components/ui/reveal';
@@ -22,54 +24,113 @@ import { flutterSlugs } from './flutter-docs';
 
 const INSTALL = 'npx befui add button';
 
+/** Cycles a value on a timer (only used by the hero backdrop, so every floating piece is alive). */
+function useCycle<T>(values: T[], every: number, offset = 0) {
+  const [i, setI] = React.useState(0);
+  React.useEffect(() => {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const t = setTimeout(() => {
+      const id = setInterval(() => setI((n) => (n + 1) % values.length), every);
+      cleanup = () => clearInterval(id);
+    }, offset);
+    let cleanup = () => {};
+    return () => { clearTimeout(t); cleanup(); };
+  }, [every, offset, values.length]);
+  return values[i]!;
+}
+
+function LiveSwitch({ offset }: { offset: number }) {
+  const on = useCycle([false, true, true, false], 1700, offset);
+  return <div className="flex items-center gap-2.5"><Switch checked={on} aria-label="Demo switch" tabIndex={-1} /><span className="text-xs font-medium">Auto-approve</span></div>;
+}
+function LiveProgress({ offset }: { offset: number }) {
+  const v = useCycle([12, 38, 64, 88, 100, 64, 30], 1100, offset);
+  return <div className="w-40 grid gap-1.5"><div className="flex justify-between text-xs"><span className="font-medium">Payroll run</span><span className="tabular-nums text-muted-foreground">{v}%</span></div><Progress value={v} tone={v === 100 ? 'success' : undefined} /></div>;
+}
+function LiveRating({ offset }: { offset: number }) {
+  const v = useCycle([3, 4, 5, 4, 2, 5], 1200, offset);
+  return <Rating value={v} />;
+}
+function LiveStat({ offset }: { offset: number }) {
+  const v = useCycle([142, 145, 151, 149, 158], 1500, offset);
+  return <div className="grid gap-0.5"><span className="text-[11px] text-muted-foreground">Headcount</span><span className="text-2xl font-semibold tabular-nums tracking-tight">{v}</span></div>;
+}
+function LiveChips({ offset }: { offset: number }) {
+  const v = useCycle([0, 1, 2], 1400, offset);
+  return <div className="flex gap-1.5">{['Design', 'Sales', 'People'].map((l, i) => <span key={l} className={`rounded-full border px-2.5 py-0.5 text-xs font-medium transition-colors duration-300 ${i === v ? 'border-primary bg-primary/10 text-primary' : 'text-muted-foreground'}`}>{l}</span>)}</div>;
+}
+function LiveAvatars() {
+  return <div className="flex items-center -space-x-2">{['Aarav Mehta', 'Diya Rao', 'Kabir Shah', 'Isha Nair'].map((n) => <Avatar key={n} name={n} size="sm" className="ring-2 ring-card" />)}<span className="grid size-8 place-items-center rounded-full bg-secondary text-[11px] font-medium ring-2 ring-card">+8</span></div>;
+}
+
+// where each floating piece sits (percent of the hero), how far it is (depth 1 near .. 0 far) and its drift timing
+const PIECES: { at: string; depth: number; rot: number; delay: number; node: (o: number) => React.ReactNode; hide?: boolean }[] = [
+  { at: 'left-[3%] top-[14%]', depth: 0.9, rot: -5, delay: 0, node: (o) => <LiveProgress offset={o} /> },
+  { at: 'left-[12%] top-[56%]', depth: 0.5, rot: 4, delay: 1.2, node: (o) => <LiveChips offset={o} /> },
+  { at: 'left-[2%] top-[78%]', depth: 0.3, rot: -3, delay: 2.1, hide: true, node: () => <LiveAvatars /> },
+  { at: 'right-[4%] top-[12%]', depth: 0.8, rot: 5, delay: 0.6, node: (o) => <LiveSwitch offset={o} /> },
+  { at: 'right-[10%] top-[44%]', depth: 0.55, rot: -4, delay: 1.7, node: (o) => <LiveStat offset={o} /> },
+  { at: 'right-[3%] top-[72%]', depth: 0.35, rot: 3, delay: 2.6, hide: true, node: (o) => <LiveRating offset={o} /> },
+];
+
 /**
- * Hero background: a dot grid that lights up under the cursor (and drifts by itself on touch screens or when the mouse is still),
- * with two slow aurora blobs and a sweeping beam behind it. Pure CSS variables plus one rAF loop; static for reduced motion.
+ * Hero background: real befui components floating in a perspective grid, each one running its own tiny animation
+ * (a switch flipping, a progress bar filling, a headcount ticking). The layers shift with the cursor by depth.
+ * The grid below them rolls forward like a floor. Static for reduced motion.
  */
 function HeroBackdrop({ target }: { target: React.RefObject<HTMLElement | null> }) {
-  const lit = React.useRef<HTMLDivElement>(null);
+  const root = React.useRef<HTMLDivElement>(null);
   React.useEffect(() => {
     const host = target.current;
-    const el = lit.current;
+    const el = root.current;
     if (!host || !el || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    let x = 50, y = 30, tx = 50, ty = 30, last = 0, raf = 0, auto = true;
+    let x = 0, y = 0, tx = 0, ty = 0, raf = 0;
     const move = (e: PointerEvent) => {
       const r = host.getBoundingClientRect();
-      tx = ((e.clientX - r.left) / r.width) * 100;
-      ty = ((e.clientY - r.top) / r.height) * 100;
-      auto = false;
-      last = performance.now();
+      tx = ((e.clientX - r.left) / r.width - 0.5) * 2;
+      ty = ((e.clientY - r.top) / r.height - 0.5) * 2;
     };
+    const leave = () => { tx = 0; ty = 0; };
     host.addEventListener('pointermove', move);
-    const tick = (t: number) => {
-      if (!auto && t - last > 2500) auto = true;
-      if (auto) { tx = 50 + Math.sin(t / 2600) * 34; ty = 36 + Math.cos(t / 3400) * 22; }
-      x += (tx - x) * 0.08;
-      y += (ty - y) * 0.08;
-      el.style.setProperty('--mx', `${x}%`);
-      el.style.setProperty('--my', `${y}%`);
+    host.addEventListener('pointerleave', leave);
+    const tick = () => {
+      x += (tx - x) * 0.07;
+      y += (ty - y) * 0.07;
+      el.style.setProperty('--px', x.toFixed(3));
+      el.style.setProperty('--py', y.toFixed(3));
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
-    return () => { cancelAnimationFrame(raf); host.removeEventListener('pointermove', move); };
+    return () => { cancelAnimationFrame(raf); host.removeEventListener('pointermove', move); host.removeEventListener('pointerleave', leave); };
   }, [target]);
   return (
-    <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+    <div ref={root} aria-hidden style={{ '--px': 0, '--py': 0 } as React.CSSProperties} className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
       <style>{`
-        @keyframes hero-drift-a { 0%,100% { transform: translate3d(-8%, -6%, 0) scale(1) } 50% { transform: translate3d(10%, 8%, 0) scale(1.18) } }
-        @keyframes hero-drift-b { 0%,100% { transform: translate3d(10%, 4%, 0) scale(1.1) } 50% { transform: translate3d(-12%, -8%, 0) scale(0.92) } }
-        @keyframes hero-beam { from { transform: rotate(0deg) } to { transform: rotate(360deg) } }
+        @keyframes hero-floor { from { background-position: 0 0 } to { background-position: 0 48px } }
+        @keyframes hero-bob { 0%,100% { translate: 0 0 } 50% { translate: 0 -12px } }
         @media (prefers-reduced-motion: reduce) { .hero-anim { animation: none !important } }
       `}</style>
-      <div className="hero-anim absolute -left-[10%] -top-[30%] h-[70%] w-[55%] rounded-full bg-primary/20 blur-[90px] [animation:hero-drift-a_16s_ease-in-out_infinite]" />
-      <div className="hero-anim absolute -right-[8%] top-[5%] h-[60%] w-[48%] rounded-full bg-[color-mix(in_srgb,var(--primary)_55%,#a855f7)]/20 blur-[100px] [animation:hero-drift-b_20s_ease-in-out_infinite]" />
-      <div className="hero-anim absolute left-1/2 top-[30%] aspect-square w-[130%] -translate-x-1/2 -translate-y-1/2 opacity-[0.18] [animation:hero-beam_28s_linear_infinite] [background:conic-gradient(from_0deg,transparent_0deg,var(--primary)_28deg,transparent_62deg)] [mask-image:radial-gradient(circle,transparent_14%,#000_60%,transparent_72%)]" />
-      <div className="absolute inset-0 [background-size:22px_22px] [background-image:radial-gradient(var(--border)_1px,transparent_1px)] [mask-image:radial-gradient(75%_65%_at_50%_30%,#000,transparent)]" />
-      <div
-        ref={lit}
-        style={{ '--mx': '50%', '--my': '30%' } as React.CSSProperties}
-        className="absolute inset-0 [background-size:22px_22px] [background-image:radial-gradient(var(--primary)_1.4px,transparent_1.6px)] [mask-image:radial-gradient(220px_circle_at_var(--mx)_var(--my),#000,transparent_70%)]"
-      />
+      {/* rolling perspective floor */}
+      <div className="absolute inset-x-0 bottom-0 h-[60%] [perspective:520px] [mask-image:linear-gradient(to_top,#000_10%,transparent_90%)]">
+        <div
+          className="hero-anim absolute -inset-x-[40%] bottom-0 h-[220%] origin-bottom [animation:hero-floor_2.4s_linear_infinite] [background-image:linear-gradient(var(--border)_1px,transparent_1px),linear-gradient(90deg,var(--border)_1px,transparent_1px)] [background-size:48px_48px] [transform:rotateX(62deg)]"
+        />
+      </div>
+      <div className="absolute left-1/2 top-[34%] h-[46%] w-[70%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/10 blur-[110px]" />
+      {PIECES.map((p, i) => (
+        <div
+          key={i}
+          className={`absolute ${p.at} ${p.hide ? 'hidden xl:block' : 'hidden lg:block'}`}
+          style={{ transform: `translate3d(calc(var(--px) * ${p.depth * -34}px), calc(var(--py) * ${p.depth * -22}px), 0)` }}
+        >
+          <div
+            className="hero-anim rounded-xl border bg-card/80 px-3.5 py-3 shadow-lg shadow-black/5 backdrop-blur [animation:hero-bob_6s_ease-in-out_infinite]"
+            style={{ rotate: `${p.rot}deg`, scale: `${0.82 + p.depth * 0.3}`, opacity: 0.55 + p.depth * 0.4, animationDelay: `${p.delay}s`, filter: `blur(${(1 - p.depth) * 1.6}px)` }}
+          >
+            {p.node(p.delay * 500)}
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
