@@ -40,7 +40,7 @@ export function FlutterShot({ slug, width = 300, className }: { slug: string; wi
         <div className="rounded-[3.1rem] bg-gradient-to-b from-neutral-300 via-neutral-500 to-neutral-400 p-[2px] shadow-[0_24px_50px_-12px_rgba(0,0,0,0.45)]">
           <div className="rounded-[3rem] bg-black p-[8px]">
             <div className="relative flex aspect-[9/19.5] flex-col overflow-hidden rounded-[2.4rem] bg-background">
-              <div className="relative flex h-12 shrink-0 items-center justify-between px-7 pt-2 text-[12px] font-semibold">
+              <div className="relative flex h-12 shrink-0 items-center justify-between px-7 pt-2 text-[12px] font-semibold" style={{ zoom: Math.min(1, width / 300) }}>
                 <span>9:41</span>
                 <span aria-hidden className="absolute left-1/2 top-2.5 h-[22px] w-[84px] -translate-x-1/2 rounded-full bg-black" />
                 <span aria-hidden className="flex items-center gap-1">
@@ -53,10 +53,11 @@ export function FlutterShot({ slug, width = 300, className }: { slug: string; wi
                 {(['light', 'dark'] as const).map((m) => (
                   <img
                     key={m}
-                    src={`${import.meta.env.BASE_URL}flutter/${slug}-${m}.png`}
+                    src={`${import.meta.env.BASE_URL}flutter/${slug}-${m}.webp`}
                     alt={`${slug} widget in Flutter, ${m} theme`}
                     width={390}
                     loading="lazy"
+                    decoding="async"
                     onError={() => setMissing(true)}
                     className={cn('w-full', m === 'light' ? 'dark:hidden' : 'hidden dark:block')}
                   />

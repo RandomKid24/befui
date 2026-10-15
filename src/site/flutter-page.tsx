@@ -47,7 +47,7 @@ export function FlutterPage() {
       </div>
       <section aria-label="All Flutter widgets" className="mt-8 grid gap-x-6 gap-y-10 sm:grid-cols-2 xl:grid-cols-3">
         {flutterSlugs.map((slug) => (
-          <Link key={slug} to={`/flutter/${slug}`} className="group grid justify-items-center gap-3 rounded-xl border bg-muted/30 p-4 pb-5 transition-colors hover:bg-muted/60">
+          <Link key={slug} to={`/flutter/${slug}`} className="group grid justify-items-center gap-3 rounded-xl border bg-muted/30 p-4 pb-5 transition-colors [contain-intrinsic-size:auto_560px] [content-visibility:auto] hover:bg-muted/60">
             <FlutterShot slug={slug} width={230} />
             <span className="text-sm font-medium group-hover:text-primary">{title(slug)}</span>
           </Link>

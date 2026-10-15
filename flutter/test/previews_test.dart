@@ -23,7 +23,7 @@ void main() {
         await tester.pump(const Duration(milliseconds: 600));
         final boundary = tester.renderObject<RenderRepaintBoundary>(find.byKey(key));
         await tester.runAsync(() async {
-          final image = await boundary.toImage(pixelRatio: 2);
+          final image = await boundary.toImage(pixelRatio: 1.5);
           final bytes = await image.toByteData(format: ui.ImageByteFormat.png);
           File('${out.path}/${e.slug}-${b.name}.png').writeAsBytesSync(bytes!.buffer.asUint8List());
         });

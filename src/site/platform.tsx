@@ -21,7 +21,7 @@ function warm(id: Platform, slug: string) {
     void import('@/html/entry');
     demos[`/src/html/demos/${slug}.html`]?.();
   } else if (id === 'flutter') {
-    for (const m of ['light', 'dark']) new Image().src = `${import.meta.env.BASE_URL}flutter/${slug}-${m}.png`;
+    for (const m of ['light', 'dark']) new Image().src = `${import.meta.env.BASE_URL}flutter/${slug}-${m}.webp`;
     widgets[`/flutter/lib/befui/${snake(slug)}.dart`]?.();
     examples[`/flutter/lib/examples/${snake(slug)}.dart`]?.();
   }
