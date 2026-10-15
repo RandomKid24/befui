@@ -36,15 +36,18 @@ import '../examples/dropdown_menu.dart' as e_dropdown_menu;
 import '../examples/empty_state.dart' as e_empty_state;
 import '../examples/error_state.dart' as e_error_state;
 import '../examples/fab.dart' as e_fab;
+import '../examples/gauge.dart' as e_gauge;
 import '../examples/inline_edit.dart' as e_inline_edit;
 import '../examples/input.dart' as e_input;
 import '../examples/label.dart' as e_label;
 import '../examples/leaderboard.dart' as e_leaderboard;
+import '../examples/line_chart.dart' as e_line_chart;
 import '../examples/loader.dart' as e_loader;
 import '../examples/marquee.dart' as e_marquee;
 import '../examples/notification_center.dart' as e_notification_center;
 import '../examples/number_stepper.dart' as e_number_stepper;
 import '../examples/number_ticker.dart' as e_number_ticker;
+import '../examples/onboarding_carousel.dart' as e_onboarding_carousel;
 import '../examples/order_tracker.dart' as e_order_tracker;
 import '../examples/otp_input.dart' as e_otp_input;
 import '../examples/pagination.dart' as e_pagination;
@@ -77,6 +80,7 @@ import '../examples/table.dart' as e_table;
 import '../examples/tabs.dart' as e_tabs;
 import '../examples/tag_input.dart' as e_tag_input;
 import '../examples/testimonial_card.dart' as e_testimonial_card;
+import '../examples/time_picker.dart' as e_time_picker;
 import '../examples/timeline.dart' as e_timeline;
 import '../examples/timer.dart' as e_timer;
 import '../examples/toast.dart' as e_toast;
@@ -334,6 +338,13 @@ final List<GalleryEntry> entries = [
     e_fab.example,
   ),
   GalleryEntry(
+    'gauge',
+    'Gauge',
+    'Data',
+    'Half-circle meter with a needle that swings to the value.',
+    e_gauge.example,
+  ),
+  GalleryEntry(
     'inline-edit',
     'Inline edit',
     'Inputs',
@@ -360,6 +371,13 @@ final List<GalleryEntry> entries = [
     'Data',
     'Ranked people or teams with avatars, score bars, gold, silver and bronze badges and place changes. Sorted for you; bars fill in on scroll.',
     e_leaderboard.example,
+  ),
+  GalleryEntry(
+    'line-chart',
+    'Line chart',
+    'Data',
+    'Multi-series line or area chart in plain SVG with grid, axis labels, legend and a hover readout.',
+    e_line_chart.example,
   ),
   GalleryEntry(
     'loader',
@@ -395,6 +413,13 @@ final List<GalleryEntry> entries = [
     'Data',
     'Counts up to a value with easing once it scrolls into view.',
     e_number_ticker.example,
+  ),
+  GalleryEntry(
+    'onboarding-carousel',
+    'Onboarding carousel',
+    'Navigation',
+    'Mobile first-run intro with swipeable slides, dots, Skip and a final Get started button.',
+    e_onboarding_carousel.example,
   ),
   GalleryEntry(
     'order-tracker',
@@ -595,6 +620,13 @@ final List<GalleryEntry> entries = [
     'Display',
     'Customer quote with avatar, role and optional star rating.',
     e_testimonial_card.example,
+  ),
+  GalleryEntry(
+    'time-picker',
+    'Time picker',
+    'Time',
+    'Hour, minute and AM/PM segments you type into or step with arrow keys. 12 or 24 hour.',
+    e_time_picker.example,
   ),
   GalleryEntry(
     'timeline',

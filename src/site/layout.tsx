@@ -13,6 +13,7 @@ import { Tooltip, TooltipProvider } from '@/components/ui/tooltip';
 import { blocks, categories, components, NEW_SLUGS } from '@/registry';
 import { cn } from '@/lib/utils';
 import { Link, go } from './router';
+import { platformList } from './platform';
 
 export const REPO = 'https://github.com/RandomKid24/befui';
 
@@ -141,13 +142,19 @@ function NavGroup({ title, count, open, onToggle, current, children }: { title: 
 }
 
 export function SidebarNav({ path, onNavigate }: { path: string; onNavigate?: () => void }) {
-  const groups = React.useMemo(
-    () => [
+  const platform = /^\/(html|flutter)(\/|$)/.exec(path)?.[1] as 'html' | 'flutter' | undefined;
+  const groups = React.useMemo(() => {
+    if (platform) {
+      const have = new Set(platformList(platform).map((c) => c.slug));
+      return categories
+        .map((cat) => ({ title: cat as keyof typeof GROUP_ICONS, items: components.filter((c) => c.category === cat && have.has(c.slug)).map((c) => ({ to: `/${platform}/${c.slug}`, label: c.name, extra: c.keywords.join(' ') })) }))
+        .filter((g) => g.items.length);
+    }
+    return [
       ...categories.map((cat) => ({ title: cat as keyof typeof GROUP_ICONS, items: components.filter((c) => c.category === cat).map((c) => ({ to: `/components/${c.slug}`, label: c.name, extra: c.keywords.join(' ') })) })),
       { title: 'Blocks' as const, items: blocks.map((b) => ({ to: `/blocks/${b.slug}`, label: b.name, extra: b.module })) },
-    ],
-    [],
-  );
+    ];
+  }, [platform]);
   const currentGroup = groups.find((g) => g.items.some((i) => i.to === path))?.title;
   const [open, setOpen] = React.useState<Record<string, boolean>>(() => ({ [currentGroup ?? '']: true }));
   const [q, setQ] = React.useState('');
@@ -188,6 +195,9 @@ export function SidebarNav({ path, onNavigate }: { path: string; onNavigate?: ()
     </Link>
   );
   const top = [['/docs', 'Getting started', BookIcon], ['/components', 'All components', ComponentsIcon], ['/blocks', 'All blocks', BlocksIcon], ['/icons', 'Icons', SparkleIcon], ['/themes', 'Themes', PaletteIcon], ['/ai', 'Use with AI', ZapIcon], ['/html', 'HTML and htmx', CodeIcon], ['/flutter', 'Flutter', PhoneIcon], ['/changelog', 'Changelog', ClockIcon]] as const;
+  const platformTop = platform
+    ? ([[`/${platform}`, platform === 'html' ? 'HTML overview' : 'Flutter overview', platform === 'html' ? CodeIcon : PhoneIcon], ['/components', 'React components', ComponentsIcon], ['/themes', 'Themes', PaletteIcon], ['/ai', 'Use with AI', ZapIcon]] as const)
+    : null;
   const allOpen = groups.every((g) => open[g.title]);
   const visible = groups
     .map((g) => ({ ...g, shown: term ? g.items.filter((i) => `${i.label} ${i.extra}`.toLowerCase().includes(term)) : g.items }))
@@ -195,10 +205,10 @@ export function SidebarNav({ path, onNavigate }: { path: string; onNavigate?: ()
 
   return (
     <nav ref={root} className="grid gap-4">
-      <SearchInput value={q} onValueChange={setQ} shortcut="" placeholder="Filter components" />
+      <SearchInput value={q} onValueChange={setQ} shortcut="" placeholder={platform ? `Filter ${platform === 'html' ? 'HTML' : 'Flutter'} components` : 'Filter components'} />
       {!term && (
         <div className="grid gap-px">
-          {top.map(([to, label, Icon]) => (
+          {(platformTop ?? top).map(([to, label, Icon]) => (
             <Link
               key={to}
               to={to}

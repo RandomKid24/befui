@@ -33,7 +33,7 @@ const RULES: [string, string][] = [
   ['Built for AI too', 'befui init --flutter writes the rules into AGENTS.md, and the whole list is in llms-flutter.txt.'],
 ];
 
-/** The /flutter page: how to use the Flutter widgets. Each component page has its own Flutter section. */
+/** The /flutter page: how to use the Flutter widgets. Each widget has its own Flutter page. */
 export function FlutterPage() {
   return (
     <article>
@@ -47,7 +47,7 @@ export function FlutterPage() {
       </div>
       <section aria-label="All Flutter widgets" className="mt-8 grid gap-x-6 gap-y-10 sm:grid-cols-2 xl:grid-cols-3">
         {flutterSlugs.map((slug) => (
-          <Link key={slug} to={`/components/${slug}`} className="group grid justify-items-center gap-3 rounded-xl border bg-muted/30 p-4 pb-5 transition-colors hover:bg-muted/60">
+          <Link key={slug} to={`/flutter/${slug}`} className="group grid justify-items-center gap-3 rounded-xl border bg-muted/30 p-4 pb-5 transition-colors hover:bg-muted/60">
             <FlutterShot slug={slug} width={230} />
             <span className="text-sm font-medium group-hover:text-primary">{title(slug)}</span>
           </Link>
@@ -72,7 +72,7 @@ export function FlutterPage() {
         ))}
       </div>
       <p className="mt-8 text-sm text-muted-foreground">
-        Every <Link to="/components" className="font-medium text-primary hover:underline">component page</Link> that has a Flutter version shows an example and the widget source in a Use in Flutter section. Run <code className="rounded bg-secondary px-1 py-0.5 font-mono text-xs">npx github:RandomKid24/befui list --flutter</code> for the list.
+        Every widget above has its own page with the phone preview, example, source and properties. Run <code className="rounded bg-secondary px-1 py-0.5 font-mono text-xs">npx github:RandomKid24/befui list --flutter</code> for the list.
       </p>
       </div>
     </article>

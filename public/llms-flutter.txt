@@ -1630,6 +1630,43 @@ Widget example(BuildContext context) {
 }
 ```
 
+### Gauge (`gauge`)
+Half-circle meter with a needle that swings to the value.
+- Add: `npx github:RandomKid24/befui add gauge --flutter`
+- Import: `import 'befui/gauge.dart';` (classes: BefGauge)
+- Also copies: core.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/gauge.dart';
+import 'befui/slider.dart';
+
+Widget example(BuildContext context) => const _Demo();
+
+class _Demo extends StatefulWidget {
+  const _Demo();
+  @override
+  State<_Demo> createState() => _DemoState();
+}
+
+class _DemoState extends State<_Demo> {
+  double v = 72;
+
+  @override
+  Widget build(BuildContext context) => Column(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      BefGauge(value: v, label: 'Team engagement'),
+      const SizedBox(height: 16),
+      BefSlider(value: v, onChanged: (x) => setState(() => v = x), min: 0, max: 100),
+    ],
+  );
+}
+```
+
 ### Inline edit (`inline-edit`)
 Text that becomes a field on click. Enter saves, Escape cancels.
 - Add: `npx github:RandomKid24/befui add inline-edit --flutter`
@@ -1793,6 +1830,32 @@ Widget example(BuildContext context) {
     ],
   );
 }
+```
+
+### Line chart (`line-chart`)
+Multi-series line or area chart in plain SVG with grid, axis labels, legend and a hover readout.
+- Add: `npx github:RandomKid24/befui add line-chart --flutter`
+- Import: `import 'befui/line_chart.dart';` (classes: BefLineSeries, BefLineChart)
+- Also copies: theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/line_chart.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) => BefLineChart(
+  area: true,
+  labels: const ['Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+  format: (n) => '₹${n.round()}L',
+  series: [
+    const BefLineSeries(name: 'Revenue', data: [42, 48, 45, 58, 63, 61, 72]),
+    BefLineSeries(name: 'Payroll', data: const [30, 31, 31, 34, 36, 36, 38], color: context.bef.warning),
+    BefLineSeries(name: 'Profit', data: const [12, 17, 14, 24, 27, 25, 34], color: context.bef.success),
+  ],
+);
 ```
 
 ### Loader (`loader`)
@@ -2018,6 +2081,45 @@ Widget example(BuildContext context) {
     ],
   );
 }
+```
+
+### Onboarding carousel (`onboarding-carousel`)
+Mobile first-run intro with swipeable slides, dots, Skip and a final Get started button.
+- Add: `npx github:RandomKid24/befui add onboarding-carousel --flutter`
+- Import: `import 'befui/onboarding_carousel.dart';` (classes: BefOnboardingSlide, BefOnboardingCarousel)
+- Also copies: button.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/icons.dart';
+import 'befui/onboarding_carousel.dart';
+
+Widget example(BuildContext context) => SizedBox(
+  height: 460,
+  child: BefOnboardingCarousel(
+    onFinish: () {},
+    slides: const [
+      BefOnboardingSlide(
+        title: 'Apply for leave in seconds',
+        description: 'Pick your dates, choose an approver and send. No emails, no spreadsheets.',
+        visual: BefIcon(BefIcons.calendar, size: 48),
+      ),
+      BefOnboardingSlide(
+        title: 'Know where your team is',
+        description: 'See who is in, out or on leave today, right from the home screen.',
+        visual: BefIcon(BefIcons.users, size: 48),
+      ),
+      BefOnboardingSlide(
+        title: 'Never miss an approval',
+        description: 'Get a nudge when something needs your attention, and none when it does not.',
+        visual: BefIcon(BefIcons.bell, size: 48),
+      ),
+    ],
+  ),
+);
 ```
 
 ### Order tracker (`order-tracker`)
@@ -3228,6 +3330,52 @@ Widget example(BuildContext context) => const BefTestimonialCard(
   role: 'Head of People, Northwind',
   quote: 'We replaced three spreadsheets with one screen. Approvals that took a day now take minutes.',
 );
+```
+
+### Time picker (`time-picker`)
+Hour, minute and AM/PM segments you type into or step with arrow keys. 12 or 24 hour.
+- Add: `npx github:RandomKid24/befui add time-picker --flutter`
+- Import: `import 'befui/time_picker.dart';` (classes: BefTimePicker)
+- Also copies: bottom_sheet.dart, button.dart, core.dart, icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/theme.dart';
+import 'befui/time_picker.dart';
+
+Widget example(BuildContext context) => const _Demo();
+
+class _Demo extends StatefulWidget {
+  const _Demo();
+  @override
+  State<_Demo> createState() => _DemoState();
+}
+
+class _DemoState extends State<_Demo> {
+  String a = '09:30', b = '17:45';
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.bef;
+    Widget label(String t) => Padding(
+      padding: const EdgeInsets.only(bottom: 6),
+      child: Text(t, style: BefText.style(context, size: 12, color: c.mutedForeground)),
+    );
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        label('Shift starts (12-hour)'),
+        BefTimePicker(value: a, onChanged: (v) => setState(() => a = v), minuteStep: 15),
+        const SizedBox(height: 16),
+        label('Shift ends (24-hour)'),
+        BefTimePicker(value: b, onChanged: (v) => setState(() => b = v), hour12: false, minuteStep: 15),
+      ],
+    );
+  }
+}
 ```
 
 ### Timeline (`timeline`)
