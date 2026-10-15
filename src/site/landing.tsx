@@ -24,18 +24,21 @@ import { flutterSlugs } from './flutter-docs';
 
 const INSTALL = 'npx befui add button';
 
+const HeroActive = React.createContext(true);
+
 /** Cycles a value on a timer (only used by the hero backdrop, so every floating piece is alive). */
 function useCycle<T>(values: T[], every: number, offset = 0) {
   const [i, setI] = React.useState(0);
+  const active = React.useContext(HeroActive);
   React.useEffect(() => {
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!active || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const t = setTimeout(() => {
       const id = setInterval(() => setI((n) => (n + 1) % values.length), every);
       cleanup = () => clearInterval(id);
     }, offset);
     let cleanup = () => {};
     return () => { clearTimeout(t); cleanup(); };
-  }, [every, offset, values.length]);
+  }, [every, offset, values.length, active]);
   return values[i]!;
 }
 
@@ -80,58 +83,86 @@ const PIECES: { at: string; depth: number; rot: number; delay: number; node: (o:
  */
 function HeroBackdrop({ target }: { target: React.RefObject<HTMLElement | null> }) {
   const root = React.useRef<HTMLDivElement>(null);
+  const [wide, setWide] = React.useState(false); // the floating pieces only exist on wide screens, so small ones never render them
+  const [xl, setXl] = React.useState(false);
+  const [onScreen, setOnScreen] = React.useState(true);
+  React.useEffect(() => {
+    const a = matchMedia('(min-width: 1024px)');
+    const b = matchMedia('(min-width: 1280px)');
+    const sync = () => { setWide(a.matches); setXl(b.matches); };
+    sync();
+    a.addEventListener('change', sync);
+    b.addEventListener('change', sync);
+    return () => { a.removeEventListener('change', sync); b.removeEventListener('change', sync); };
+  }, []);
+  // nothing runs while the hero is scrolled out of view
+  React.useEffect(() => {
+    const host = target.current;
+    if (!host) return;
+    const io = new IntersectionObserver(([e]) => setOnScreen(!!e?.isIntersecting));
+    io.observe(host);
+    return () => io.disconnect();
+  }, [target]);
   React.useEffect(() => {
     const host = target.current;
     const el = root.current;
-    if (!host || !el || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!host || !el || !wide || !onScreen || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     let x = 0, y = 0, tx = 0, ty = 0, raf = 0;
+    const loop = () => {
+      x += (tx - x) * 0.09;
+      y += (ty - y) * 0.09;
+      el.style.setProperty('--px', x.toFixed(3));
+      el.style.setProperty('--py', y.toFixed(3));
+      // stop the loop once it has settled; the next pointer move starts it again
+      raf = Math.abs(tx - x) + Math.abs(ty - y) > 0.002 ? requestAnimationFrame(loop) : 0;
+    };
+    const kick = () => { if (!raf) raf = requestAnimationFrame(loop); };
     const move = (e: PointerEvent) => {
       const r = host.getBoundingClientRect();
       tx = ((e.clientX - r.left) / r.width - 0.5) * 2;
       ty = ((e.clientY - r.top) / r.height - 0.5) * 2;
+      kick();
     };
-    const leave = () => { tx = 0; ty = 0; };
-    host.addEventListener('pointermove', move);
+    const leave = () => { tx = 0; ty = 0; kick(); };
+    host.addEventListener('pointermove', move, { passive: true });
     host.addEventListener('pointerleave', leave);
-    const tick = () => {
-      x += (tx - x) * 0.07;
-      y += (ty - y) * 0.07;
-      el.style.setProperty('--px', x.toFixed(3));
-      el.style.setProperty('--py', y.toFixed(3));
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
     return () => { cancelAnimationFrame(raf); host.removeEventListener('pointermove', move); host.removeEventListener('pointerleave', leave); };
-  }, [target]);
+  }, [target, wide, onScreen]);
+  const pieces = PIECES.filter((p) => wide && (xl || !p.hide));
   return (
-    <div ref={root} aria-hidden style={{ '--px': 0, '--py': 0 } as React.CSSProperties} className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-      <style>{`
-        @keyframes hero-floor { from { background-position: 0 0 } to { background-position: 0 48px } }
-        @keyframes hero-bob { 0%,100% { translate: 0 0 } 50% { translate: 0 -12px } }
-        @media (prefers-reduced-motion: reduce) { .hero-anim { animation: none !important } }
-      `}</style>
-      {/* rolling perspective floor */}
-      <div className="absolute inset-x-0 bottom-0 h-[60%] [perspective:520px] [mask-image:linear-gradient(to_top,#000_10%,transparent_90%)]">
-        <div
-          className="hero-anim absolute -inset-x-[40%] bottom-0 h-[220%] origin-bottom [animation:hero-floor_2.4s_linear_infinite] [background-image:linear-gradient(var(--border)_1px,transparent_1px),linear-gradient(90deg,var(--border)_1px,transparent_1px)] [background-size:48px_48px] [transform:rotateX(62deg)]"
-        />
-      </div>
-      <div className="absolute left-1/2 top-[34%] h-[46%] w-[70%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/10 blur-[110px]" />
-      {PIECES.map((p, i) => (
-        <div
-          key={i}
-          className={`absolute ${p.at} ${p.hide ? 'hidden xl:block' : 'hidden lg:block'}`}
-          style={{ transform: `translate3d(calc(var(--px) * ${p.depth * -34}px), calc(var(--py) * ${p.depth * -22}px), 0)` }}
-        >
-          <div
-            className="hero-anim rounded-xl border bg-card/80 px-3.5 py-3 shadow-lg shadow-black/5 backdrop-blur [animation:hero-bob_6s_ease-in-out_infinite]"
-            style={{ rotate: `${p.rot}deg`, scale: `${0.82 + p.depth * 0.3}`, opacity: 0.55 + p.depth * 0.4, animationDelay: `${p.delay}s`, filter: `blur(${(1 - p.depth) * 1.6}px)` }}
-          >
-            {p.node(p.delay * 500)}
+    <HeroActive.Provider value={onScreen}>
+      <div ref={root} aria-hidden data-paused={!onScreen} style={{ '--px': 0, '--py': 0 } as React.CSSProperties} className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+        <style>{`
+          @keyframes hero-floor { to { transform: translate3d(0, 48px, 0) } }
+          @keyframes hero-bob { 0%,100% { translate: 0 0 } 50% { translate: 0 -12px } }
+          [data-paused="true"] .hero-anim { animation-play-state: paused !important }
+          @media (prefers-reduced-motion: reduce) { .hero-anim { animation: none !important } }
+        `}</style>
+        {/* rolling perspective floor: the grid slides with a transform (compositor only), nothing repaints */}
+        <div className="absolute inset-x-0 bottom-0 h-[55%] overflow-hidden [mask-image:linear-gradient(to_top,#000_10%,transparent_90%)]">
+          <div className="absolute inset-0 origin-bottom [perspective:520px]">
+            <div className="absolute -inset-x-[40%] bottom-0 h-[200%] origin-bottom [transform:rotateX(62deg)]">
+              <div className="hero-anim absolute -top-12 bottom-0 inset-x-0 [animation:hero-floor_2.4s_linear_infinite] [background-image:linear-gradient(var(--border)_1px,transparent_1px),linear-gradient(90deg,var(--border)_1px,transparent_1px)] [background-size:48px_48px]" />
+            </div>
           </div>
         </div>
-      ))}
-    </div>
+        <div className="absolute left-1/2 top-[34%] h-[60%] w-[80%] -translate-x-1/2 -translate-y-1/2 [background:radial-gradient(closest-side,color-mix(in_srgb,var(--primary)_14%,transparent),transparent)]" />
+        {pieces.map((p, i) => (
+          <div
+            key={i}
+            className={`absolute ${p.at}`}
+            style={{ transform: `translate3d(calc(var(--px) * ${p.depth * -34}px), calc(var(--py) * ${p.depth * -22}px), 0)` }}
+          >
+            <div
+              className="hero-anim rounded-xl border bg-card px-3.5 py-3 shadow-lg shadow-black/5 [animation:hero-bob_6s_ease-in-out_infinite]"
+              style={{ rotate: `${p.rot}deg`, scale: `${0.82 + p.depth * 0.3}`, opacity: 0.5 + p.depth * 0.45, animationDelay: `${p.delay}s` }}
+            >
+              {p.node(p.delay * 500)}
+            </div>
+          </div>
+        ))}
+      </div>
+    </HeroActive.Provider>
   );
 }
 
@@ -182,7 +213,7 @@ function Stats() {
     { v: 1, l: 'File per component' },
   ];
   return (
-    <section className="border-y bg-muted/40">
+    <section className="[content-visibility:auto] [contain-intrinsic-size:auto_640px] border-y bg-muted/40">
       <div className="mx-auto grid max-w-[88rem] grid-cols-2 gap-8 px-4 py-12 text-center sm:px-6 lg:grid-cols-4">
         {stats.map((s) => (
           <div key={s.l}>
@@ -197,7 +228,7 @@ function Stats() {
 
 function Everything() {
   return (
-    <section className="py-16">
+    <section className="[content-visibility:auto] [contain-intrinsic-size:auto_640px] py-16">
       <Reveal className="mx-auto mb-8 max-w-[88rem] px-4 sm:px-6">
         <h2 className="text-center text-sm font-medium uppercase tracking-widest text-muted-foreground">Everything you need, one file at a time</h2>
       </Reveal>
@@ -219,7 +250,7 @@ function Playground() {
   const [chips, setChips] = React.useState(['Remote']);
   const tog = (c: string) => setChips((x) => (x.includes(c) ? x.filter((y) => y !== c) : [...x, c]));
   return (
-    <section className="mx-auto max-w-[88rem] px-4 py-16 sm:px-6">
+    <section className="[content-visibility:auto] [contain-intrinsic-size:auto_640px] mx-auto max-w-[88rem] px-4 py-16 sm:px-6">
       <Reveal className="mb-10 text-center">
         <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">Try them right here</h2>
         <p className="mx-auto mt-3 max-w-lg text-muted-foreground">Every control below is a real component from the library. Hover, drag, click.</p>
@@ -275,7 +306,7 @@ function Why() {
     { icon: BlocksIcon, title: 'Real screens included', body: 'Directory, approvals, pipeline, campaign report. Drop in and wire up.' },
   ];
   return (
-    <section className="border-y bg-muted/40">
+    <section className="[content-visibility:auto] [contain-intrinsic-size:auto_640px] border-y bg-muted/40">
       <div className="mx-auto grid max-w-[88rem] gap-8 px-4 py-14 sm:grid-cols-2 sm:px-6 lg:grid-cols-4">
         {features.map((f, i) => (
           <Reveal key={f.title} delay={i * 80} className="grid content-start gap-2">
@@ -291,7 +322,7 @@ function Why() {
 
 function Faq() {
   return (
-    <section className="mx-auto max-w-2xl px-4 pb-16 sm:px-6">
+    <section className="[content-visibility:auto] [contain-intrinsic-size:auto_640px] mx-auto max-w-2xl px-4 pb-16 sm:px-6">
       <Reveal>
         <h2 className="mb-6 text-center text-2xl font-semibold tracking-tight">Questions</h2>
         <Accordion
@@ -316,7 +347,7 @@ export function Home() {
       <Everything />
       <Playground />
       <Why />
-      <section className="mx-auto max-w-[88rem] px-4 py-16 sm:px-6">
+      <section className="[content-visibility:auto] [contain-intrinsic-size:auto_640px] mx-auto max-w-[88rem] px-4 py-16 sm:px-6">
         <Reveal className="mb-6 flex items-end justify-between">
           <div>
             <h2 className="text-2xl font-semibold tracking-tight">Blocks</h2>
@@ -327,7 +358,7 @@ export function Home() {
         <BlockGrid items={blocks.slice(0, 3)} />
       </section>
       <Faq />
-      <section className="mx-auto max-w-3xl px-4 pb-24 sm:px-6">
+      <section className="[content-visibility:auto] [contain-intrinsic-size:auto_640px] mx-auto max-w-3xl px-4 pb-24 sm:px-6">
         <Reveal>
           <BorderBeam>
             <div className="grid justify-items-center gap-4 px-6 py-12 text-center">
