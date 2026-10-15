@@ -6,7 +6,7 @@ import { components } from '@/registry';
 import { cn } from '@/lib/utils';
 import { CodeBlock, Command } from './code';
 import { Link } from './router';
-import { FlutterInline, FlutterShot, examples, flutterSlugs, hasFlutter, snake, useText, widgets } from './flutter-docs';
+import { FlutterInline, FlutterShot, examples, warmFlutterApp, flutterSlugs, hasFlutter, snake, useText, widgets } from './flutter-docs';
 import { HtmlLive, demos, hasHtml, htmlSlugs, styles } from './html-docs';
 
 const h1 = 'text-3xl font-semibold tracking-tight sm:text-4xl';
@@ -132,6 +132,7 @@ export function FlutterComponentPage({ slug }: { slug: string }) {
   const example = useText(examples, `/flutter/lib/examples/${file}.dart`);
   const source = useText(widgets, `/flutter/lib/befui/${file}.dart`);
   const [tab, setTab] = React.useState('example');
+  React.useEffect(warmFlutterApp, []);
   if (!c || !hasFlutter(slug)) return <NotFoundPlatform name="Flutter" />;
   // in an app the example sits next to befui/, not in a sibling folder
   const code = example?.replace(/'\.\.\/befui\//g, "'befui/");

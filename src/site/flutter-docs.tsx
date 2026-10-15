@@ -122,33 +122,65 @@ export function FlutterShot({ slug, width = 300, className, live = 'off' }: { sl
   );
 }
 
-/** The widget on its own, running live (Flutter web), sized to its content. */
+const APP = `${import.meta.env.BASE_URL}flutter-app/`;
+
+/** Download the Flutter web app in the background (about 10 MB, cached after the first time) so a live preview starts quickly. */
+export function warmFlutterApp() {
+  for (const f of ['flutter_bootstrap.js', 'main.dart.js', 'canvaskit/canvaskit.js', 'canvaskit/canvaskit.wasm']) {
+    if (document.head.querySelector(`link[data-flutter-app="${f}"]`)) continue;
+    const l = document.createElement('link');
+    l.rel = 'prefetch';
+    l.href = APP + f;
+    l.dataset.flutterApp = f;
+    document.head.appendChild(l);
+  }
+}
+
+/** The widget on its own, running live (Flutter web), sized to its content. The picture of it shows until Flutter has started. */
 export function FlutterInline({ slug }: { slug: string }) {
   const dark = useDark();
   const ref = React.useRef<HTMLIFrameElement>(null);
   const [h, setH] = React.useState<number | null>(null);
+  const [slow, setSlow] = React.useState(false);
   React.useEffect(() => {
     setH(null);
+    setSlow(false);
     const on = (e: MessageEvent) => {
       if (e.source === ref.current?.contentWindow && e.data?.befui === 'height') setH(Math.ceil(e.data.value));
     };
     window.addEventListener('message', on);
-    return () => window.removeEventListener('message', on);
+    const t = setTimeout(() => setSlow(true), 12000);
+    return () => { window.removeEventListener('message', on); clearTimeout(t); };
   }, [slug, dark]);
+  const src = `${APP}index.html?w=${slug}&mode=widget&theme=${dark ? 'dark' : 'light'}`;
   return (
     <div className="relative grid place-items-center overflow-hidden rounded-xl border bg-background bg-[radial-gradient(var(--border)_1px,transparent_1px)] [background-size:16px_16px]">
       {h === null && (
-        <div className="absolute inset-0 grid place-items-center text-[13px] text-muted-foreground">
-          <span className="inline-flex items-center gap-2"><span className="size-3.5 animate-spin rounded-full border-2 border-primary border-t-transparent" /> Starting Flutter…</span>
+        <div className="relative w-full max-w-[460px] p-5">
+          {(['light', 'dark'] as const).map((m) => (
+            <img
+              key={m}
+              src={`${import.meta.env.BASE_URL}flutter/${slug}-${m}.webp`}
+              alt={`${slug} widget in Flutter`}
+              className={cn('max-h-[420px] w-full rounded-lg border object-cover object-top', m === 'light' ? 'dark:hidden' : 'hidden dark:block')}
+            />
+          ))}
+          <span className="absolute right-8 top-8 inline-flex items-center gap-2 rounded-full border bg-background/90 px-2.5 py-1 text-xs text-muted-foreground shadow-sm backdrop-blur">
+            {slow ? (
+              <>Live preview is slow. <a className="font-medium text-primary hover:underline" href={src} target="_blank" rel="noreferrer">Open it</a></>
+            ) : (
+              <><span className="size-3 animate-spin rounded-full border-2 border-primary border-t-transparent" /> Making it interactive…</>
+            )}
+          </span>
         </div>
       )}
       <iframe
         key={`${slug}-${dark}`}
         ref={ref}
         title={`${slug} running in Flutter`}
-        src={`${import.meta.env.BASE_URL}flutter-app/index.html?w=${slug}&mode=widget&theme=${dark ? 'dark' : 'light'}`}
-        style={{ height: Math.min(Math.max(h ?? 260, 160), 720), minHeight: 260 }}
-        className={cn('w-full max-w-[460px] border-0 bg-transparent transition-opacity', h === null ? 'opacity-0' : 'opacity-100')}
+        src={src}
+        style={h === null ? { position: 'absolute', inset: 0, height: '100%', width: '100%', opacity: 0, pointerEvents: 'none' } : { height: Math.min(Math.max(h, 160), 720), minHeight: 160 }}
+        className="w-full max-w-[460px] border-0 bg-transparent"
       />
     </div>
   );
