@@ -38,6 +38,7 @@ import '../examples/label.dart' as e_label;
 import '../examples/leaderboard.dart' as e_leaderboard;
 import '../examples/loader.dart' as e_loader;
 import '../examples/marquee.dart' as e_marquee;
+import '../examples/notification_center.dart' as e_notification_center;
 import '../examples/number_stepper.dart' as e_number_stepper;
 import '../examples/number_ticker.dart' as e_number_ticker;
 import '../examples/order_tracker.dart' as e_order_tracker;
@@ -50,6 +51,7 @@ import '../examples/product_card.dart' as e_product_card;
 import '../examples/profile_card.dart' as e_profile_card;
 import '../examples/progress.dart' as e_progress;
 import '../examples/progress_ring.dart' as e_progress_ring;
+import '../examples/pull_to_refresh.dart' as e_pull_to_refresh;
 import '../examples/radio_group.dart' as e_radio_group;
 import '../examples/rating.dart' as e_rating;
 import '../examples/relative_time.dart' as e_relative_time;
@@ -65,6 +67,7 @@ import '../examples/stat_card.dart' as e_stat_card;
 import '../examples/status_dot.dart' as e_status_dot;
 import '../examples/stepper.dart' as e_stepper;
 import '../examples/stopwatch.dart' as e_stopwatch;
+import '../examples/swipe_actions.dart' as e_swipe_actions;
 import '../examples/switch.dart' as e_switch;
 import '../examples/table.dart' as e_table;
 import '../examples/tabs.dart' as e_tabs;
@@ -75,6 +78,7 @@ import '../examples/timer.dart' as e_timer;
 import '../examples/toast.dart' as e_toast;
 import '../examples/toggle.dart' as e_toggle;
 import '../examples/tooltip.dart' as e_tooltip;
+import '../examples/tree_view.dart' as e_tree_view;
 import '../examples/typewriter.dart' as e_typewriter;
 import '../examples/uptime_bar.dart' as e_uptime_bar;
 import '../examples/week_strip.dart' as e_week_strip;
@@ -340,6 +344,13 @@ final List<GalleryEntry> entries = [
     e_marquee.example,
   ),
   GalleryEntry(
+    'notification-center',
+    'Notification center',
+    'Feedback',
+    'Bell with an unread count and a popover list. Click marks read, Mark all read clears it.',
+    e_notification_center.example,
+  ),
+  GalleryEntry(
     'number-stepper',
     'Number stepper',
     'Inputs',
@@ -410,6 +421,13 @@ final List<GalleryEntry> entries = [
     'Data',
     'Circular progress with an eased stroke animation.',
     e_progress_ring.example,
+  ),
+  GalleryEntry(
+    'pull-to-refresh',
+    'Pull to refresh',
+    'Feedback',
+    'Scroll area you pull down from the top to refresh, with a spinner until your promise settles.',
+    e_pull_to_refresh.example,
   ),
   GalleryEntry(
     'radio-group',
@@ -511,6 +529,13 @@ final List<GalleryEntry> entries = [
     e_stopwatch.example,
   ),
   GalleryEntry(
+    'swipe-actions',
+    'Swipe actions',
+    'Display',
+    'List row you swipe left to reveal action buttons. Touch, mouse drag and keyboard.',
+    e_swipe_actions.example,
+  ),
+  GalleryEntry(
     'switch',
     'Switch',
     'Inputs',
@@ -573,6 +598,13 @@ final List<GalleryEntry> entries = [
     'Overlays',
     'Hint on hover and focus. Optional title, keyboard shortcut, light style and arrow, plus an (i) InfoTip and a TruncatedText that only shows a tooltip when cut off.',
     e_tooltip.example,
+  ),
+  GalleryEntry(
+    'tree-view',
+    'Tree view',
+    'Navigation',
+    'Nested expandable list with animated open and close.',
+    e_tree_view.example,
   ),
   GalleryEntry(
     'typewriter',

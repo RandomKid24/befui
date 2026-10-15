@@ -1674,6 +1674,50 @@ Widget example(BuildContext context) => BefMarquee(
 );
 ```
 
+### Notification center (`notification-center`)
+Bell with an unread count and a popover list. Click marks read, Mark all read clears it.
+- Add: `npx github:RandomKid24/befui add notification-center --flutter`
+- Import: `import 'befui/notification_center.dart';` (classes: BefNotice, BefNotificationCenter)
+- Also copies: bottom_sheet.dart, button.dart, core.dart, icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/notification_center.dart';
+
+Widget example(BuildContext context) => const _Demo();
+
+class _Demo extends StatefulWidget {
+  const _Demo();
+  @override
+  State<_Demo> createState() => _DemoState();
+}
+
+class _DemoState extends State<_Demo> {
+  var notices = const [
+    BefNotice(
+      id: '1',
+      title: 'Priya requested 2 days leave',
+      body: 'Nov 4 to Nov 5, needs your approval',
+      time: '2m',
+    ),
+    BefNotice(
+      id: '2',
+      title: 'Payroll for October is ready',
+      body: 'Review and release before the 28th',
+      time: '1h',
+    ),
+    BefNotice(id: '3', title: 'New hire: Arjun joins Monday', time: '3h', read: true),
+  ];
+
+  @override
+  Widget build(BuildContext context) =>
+      BefNotificationCenter(notices: notices, onChanged: (n) => setState(() => notices = n));
+}
+```
+
 ### Number stepper (`number-stepper`)
 Number field with plus and minus buttons and arrow keys.
 - Add: `npx github:RandomKid24/befui add number-stepper --flutter`
@@ -2082,6 +2126,65 @@ Widget example(BuildContext context) {
 }
 
 double _v = 72;
+```
+
+### Pull to refresh (`pull-to-refresh`)
+Scroll area you pull down from the top to refresh, with a spinner until your promise settles.
+- Add: `npx github:RandomKid24/befui add pull-to-refresh --flutter`
+- Import: `import 'befui/pull_to_refresh.dart';` (classes: BefPullToRefresh)
+- Also copies: theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/pull_to_refresh.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) => const _Demo();
+
+class _Demo extends StatefulWidget {
+  const _Demo();
+  @override
+  State<_Demo> createState() => _DemoState();
+}
+
+class _DemoState extends State<_Demo> {
+  var items = ['Aarav punched in', 'Diya applied for leave', 'Payroll draft created'];
+
+  Future<void> refresh() async {
+    await Future<void>.delayed(const Duration(milliseconds: 1200));
+    setState(() => items = ['New update at ${TimeOfDay.now().format(context)}', ...items]);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.bef;
+    return Container(
+      height: 256,
+      clipBehavior: Clip.antiAlias,
+      decoration: BoxDecoration(
+        color: c.card,
+        borderRadius: BorderRadius.circular(BefRadius.xl),
+        border: Border.all(color: c.border),
+      ),
+      child: BefPullToRefresh(
+        onRefresh: refresh,
+        children: [
+          for (final t in items)
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(color: c.border)),
+              ),
+              child: Text(t, style: BefText.style(context, size: 13)),
+            ),
+        ],
+      ),
+    );
+  }
+}
 ```
 
 ### Radio group (`radio-group`)
@@ -2622,6 +2725,80 @@ import 'befui/stopwatch.dart';
 Widget example(BuildContext context) => const BefStopwatch();
 ```
 
+### Swipe actions (`swipe-actions`)
+List row you swipe left to reveal action buttons. Touch, mouse drag and keyboard.
+- Add: `npx github:RandomKid24/befui add swipe-actions --flutter`
+- Import: `import 'befui/swipe_actions.dart';` (classes: BefSwipeAction, BefSwipeActions)
+- Also copies: icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/avatar.dart';
+import 'befui/icons.dart';
+import 'befui/swipe_actions.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) {
+  final c = context.bef;
+  Widget row(String name, String subject, String preview) => Padding(
+    padding: const EdgeInsets.only(bottom: 8),
+    child: BefSwipeActions(
+      actions: [
+        BefSwipeAction(label: 'Star', icon: BefIcons.star, tone: BefSwipeTone.warning, onPressed: () {}),
+        BefSwipeAction(
+          label: 'Archive',
+          icon: BefIcons.archive,
+          tone: BefSwipeTone.primary,
+          onPressed: () {},
+        ),
+        BefSwipeAction(label: 'Delete', icon: BefIcons.trash, tone: BefSwipeTone.danger, onPressed: () {}),
+      ],
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Row(
+          children: [
+            BefAvatar(name: name, size: BefAvatarSize.md),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    subject,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: BefText.style(context, size: 13, weight: FontWeight.w500),
+                  ),
+                  Text(
+                    '$name · $preview',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: BefText.style(context, size: 12, color: c.mutedForeground),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      row('Diya Rao', 'Offer letter for Kabir', 'Sent it this morning.'),
+      row('Finance', 'September payroll is ready', 'Please review and approve.'),
+      row('Rohan Das', 'Laptop request', 'Need a 16 GB machine.'),
+      Text('Swipe a row left.', style: BefText.style(context, size: 12, color: c.mutedForeground)),
+    ],
+  );
+}
+```
+
 ### Switch (`switch`)
 On/off toggle for settings that apply immediately.
 - Add: `npx github:RandomKid24/befui add switch --flutter`
@@ -3012,6 +3189,59 @@ Widget example(BuildContext context) {
       ),
     ],
   );
+}
+```
+
+### Tree view (`tree-view`)
+Nested expandable list with animated open and close.
+- Add: `npx github:RandomKid24/befui add tree-view --flutter`
+- Import: `import 'befui/tree_view.dart';` (classes: BefTreeNode, BefTreeView)
+- Also copies: core.dart, icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/tree_view.dart';
+
+Widget example(BuildContext context) => const _Demo();
+
+const _nodes = [
+  BefTreeNode(
+    id: 'co',
+    label: 'Acme Inc',
+    children: [
+      BefTreeNode(
+        id: 'eng',
+        label: 'Engineering',
+        children: [
+          BefTreeNode(id: 'a', label: 'Aarav Mehta'),
+          BefTreeNode(id: 'b', label: 'Isha Rao'),
+        ],
+      ),
+      BefTreeNode(
+        id: 'des',
+        label: 'Design',
+        children: [BefTreeNode(id: 'c', label: 'Kabir Shah')],
+      ),
+      BefTreeNode(id: 'ceo', label: 'Leadership'),
+    ],
+  ),
+];
+
+class _Demo extends StatefulWidget {
+  const _Demo();
+  @override
+  State<_Demo> createState() => _DemoState();
+}
+
+class _DemoState extends State<_Demo> {
+  String sel = 'a';
+
+  @override
+  Widget build(BuildContext context) =>
+      BefTreeView(nodes: _nodes, selected: sel, onSelect: (n) => setState(() => sel = n.id));
 }
 ```
 
