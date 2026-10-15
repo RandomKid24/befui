@@ -297,7 +297,7 @@ SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, Chev
 - `world-clock`: Cities with live local time, a day or night icon and the hour difference from you. Exports: WorldClock. Needs: icons.
 
 ### ui (1)
-- `icons`:  Exports: motionFor, BefMark, SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ....
+- `icons`:  Exports: BefMark, SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, ....
 
 ## Blocks
 - `block:admin-shell`: Full app frame: grouped sidebar with nested links, topbar with search, alerts and user menu, and a dashboard page. Uses: app-shell, avatar, breadcrumb, button, calendar, card, charts, date-picker, dropdown-menu, icons, kbd, sidebar, stat-card, timeline.
