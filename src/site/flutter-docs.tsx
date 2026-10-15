@@ -25,48 +25,8 @@ export function useText(files: Record<string, () => Promise<string>>, path: stri
 }
 
 /** The widget as rendered by Flutter (flutter test renders every example to a PNG, light and dark), shown inside an iPhone frame. */
-function useDark() {
-  const [dark, setDark] = React.useState(() => document.documentElement.classList.contains('dark'));
-  React.useEffect(() => {
-    const ob = new MutationObserver(() => setDark(document.documentElement.classList.contains('dark')));
-    ob.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-    return () => ob.disconnect();
-  }, []);
-  return dark;
-}
-
-/** The real Flutter widget, running in the browser at phone size. Drawn at 390px wide like a phone and scaled to fit the frame. */
-function FlutterLive({ slug }: { slug: string }) {
-  const box = React.useRef<HTMLDivElement>(null);
-  const [size, setSize] = React.useState({ w: 0, h: 0 });
-  const dark = useDark();
-  React.useEffect(() => {
-    const el = box.current;
-    if (!el) return;
-    const ro = new ResizeObserver(() => setSize({ w: el.clientWidth, h: el.clientHeight }));
-    ro.observe(el);
-    setSize({ w: el.clientWidth, h: el.clientHeight });
-    return () => ro.disconnect();
-  }, []);
-  const k = size.w ? size.w / 390 : 1;
-  return (
-    <div ref={box} className="absolute inset-0">
-      {size.w > 0 && (
-        <iframe
-          key={dark ? 'dark' : 'light'}
-          title={`${slug} running in Flutter`}
-          src={`${import.meta.env.BASE_URL}flutter-app/index.html?w=${slug}&theme=${dark ? 'dark' : 'light'}`}
-          style={{ width: 390, height: size.h / k, transform: `scale(${k})`, transformOrigin: '0 0' }}
-          className="absolute left-0 top-0 border-0 bg-transparent"
-        />
-      )}
-    </div>
-  );
-}
-
-export function FlutterShot({ slug, width = 300, className, live = 'off' }: { slug: string; width?: number; className?: string; live?: 'off' | 'click' | 'auto' }) {
+export function FlutterShot({ slug, width = 300, className }: { slug: string; width?: number; className?: string }) {
   const [missing, setMissing] = React.useState(false);
-  const [on, setOn] = React.useState(live === 'auto');
   if (missing) return null;
   return (
     <div className={cn('flex justify-center', className)}>
@@ -102,83 +62,12 @@ export function FlutterShot({ slug, width = 300, className, live = 'off' }: { sl
                     className={cn('w-full', m === 'light' ? 'dark:hidden' : 'hidden dark:block')}
                   />
                 ))}
-                {on && <FlutterLive slug={slug} />}
-                {live === 'click' && !on && (
-                  <button
-                    type="button"
-                    onClick={(e) => { e.preventDefault(); e.stopPropagation(); setOn(true); }}
-                    className="absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-primary px-3 py-1.5 text-xs font-medium text-primary-foreground shadow-lg hover:opacity-90"
-                  >
-                    Try it live
-                  </button>
-                )}
               </div>
               <div aria-hidden className="mx-auto mb-2 mt-1 h-[5px] w-[100px] shrink-0 rounded-full bg-foreground" />
             </div>
           </div>
         </div>
       </div>
-    </div>
-  );
-}
-
-const APP = `${import.meta.env.BASE_URL}flutter-app/`;
-
-/** Download the Flutter web app in the background (about 10 MB, cached after the first time) so a live preview starts quickly. */
-export function warmFlutterApp() {
-  for (const f of ['flutter_bootstrap.js', 'main.dart.js', 'canvaskit/canvaskit.js', 'canvaskit/canvaskit.wasm']) {
-    if (document.head.querySelector(`link[data-flutter-app="${f}"]`)) continue;
-    const l = document.createElement('link');
-    l.rel = 'prefetch';
-    l.href = APP + f;
-    l.dataset.flutterApp = f;
-    document.head.appendChild(l);
-  }
-}
-
-/** The widget on its own, running live (Flutter web), sized to its content. The picture of it shows until Flutter has started. */
-export function FlutterInline({ slug }: { slug: string }) {
-  const dark = useDark();
-  const ref = React.useRef<HTMLIFrameElement>(null);
-  const [h, setH] = React.useState<number | null>(null);
-  const [slow, setSlow] = React.useState(false);
-  React.useEffect(() => {
-    setH(null);
-    setSlow(false);
-    const on = (e: MessageEvent) => {
-      if (e.source === ref.current?.contentWindow && e.data?.befui === 'height') setH(Math.ceil(e.data.value));
-    };
-    window.addEventListener('message', on);
-    const t = setTimeout(() => setSlow(true), 6000);
-    return () => { window.removeEventListener('message', on); clearTimeout(t); };
-  }, [slug, dark]);
-  const src = `${APP}index.html?w=${slug}&mode=widget&theme=${dark ? 'dark' : 'light'}`;
-  return (
-    <div className="relative grid place-items-center overflow-hidden rounded-xl border bg-background bg-[radial-gradient(var(--border)_1px,transparent_1px)] [background-size:16px_16px]">
-      {h === null && !slow && (
-        <div className="relative w-full max-w-[460px] p-5">
-          {(['light', 'dark'] as const).map((m) => (
-            <img
-              key={m}
-              src={`${import.meta.env.BASE_URL}flutter/${slug}-${m}.webp`}
-              alt={`${slug} widget in Flutter`}
-              className={cn('max-h-[420px] w-full rounded-lg border object-cover object-top', m === 'light' ? 'dark:hidden' : 'hidden dark:block')}
-            />
-          ))}
-          <span className="absolute right-8 top-8 inline-flex items-center gap-2 rounded-full border bg-background/90 px-2.5 py-1 text-xs text-muted-foreground shadow-sm backdrop-blur">
-            <span className="size-3 animate-spin rounded-full border-2 border-primary border-t-transparent" /> Loading
-
-          </span>
-        </div>
-      )}
-      <iframe
-        key={`${slug}-${dark}`}
-        ref={ref}
-        title={`${slug} running in Flutter`}
-        src={src}
-        style={h === null && !slow ? { position: 'absolute', inset: 0, height: '100%', width: '100%', opacity: 0, pointerEvents: 'none' } : { height: Math.min(Math.max(h ?? 420, 160), 720), minHeight: 160 }}
-        className="w-full max-w-[460px] border-0 bg-transparent"
-      />
     </div>
   );
 }

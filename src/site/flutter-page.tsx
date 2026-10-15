@@ -1,6 +1,5 @@
 import { CodeBlock, Command } from './code';
-import * as React from 'react';
-import { flutterSlugs, warmFlutterApp } from './flutter-docs';
+import { flutterSlugs } from './flutter-docs';
 import { Link } from './router';
 
 const title = (slug: string) => slug.replace(/-/g, ' ').replace(/^./, (c) => c.toUpperCase());
@@ -36,10 +35,6 @@ const RULES: [string, string][] = [
 
 /** The /flutter page: how to use the Flutter widgets. Each widget has its own Flutter page. */
 export function FlutterPage() {
-  React.useEffect(() => {
-    const id = setTimeout(warmFlutterApp, 1500);
-    return () => clearTimeout(id);
-  }, []);
   return (
     <article>
       <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">Use in Flutter</h1>

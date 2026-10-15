@@ -6,7 +6,7 @@ import { components } from '@/registry';
 import { cn } from '@/lib/utils';
 import { CodeBlock, Command } from './code';
 import { Link } from './router';
-import { FlutterInline, FlutterShot, examples, warmFlutterApp, flutterSlugs, hasFlutter, snake, useText, widgets } from './flutter-docs';
+import { FlutterShot, examples, flutterSlugs, hasFlutter, snake, useText, widgets } from './flutter-docs';
 import { HtmlLive, demos, hasHtml, htmlSlugs, styles } from './html-docs';
 
 const h1 = 'text-3xl font-semibold tracking-tight sm:text-4xl';
@@ -98,8 +98,9 @@ function parseProps(src: string): { doc: string; className: string; props: Prop[
   return { doc: doc.join(' ').replace(/\[([^\]]+)\]/g, '$1'), className, props };
 }
 
-/** Live widget, with a switch to see it inside a phone. */
+/** The widget working on screen (the web version of the same design), with a switch to see Flutter's own render inside a phone. */
 function FlutterPreview({ slug }: { slug: string }) {
+  const c = components.find((x) => x.slug === slug)!;
   const [view, setView] = React.useState<'widget' | 'phone'>('widget');
   const btn = (id: 'widget' | 'phone', label: string) => (
     <button
@@ -115,12 +116,20 @@ function FlutterPreview({ slug }: { slug: string }) {
     <section aria-label="Preview" className="mt-8">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
         <div className="inline-flex gap-1 rounded-lg bg-secondary p-1">{btn('widget', 'Preview')}{btn('phone', 'Phone preview')}</div>
-        <span className="text-xs text-muted-foreground">Real Flutter, running here. Tap and type.</span>
+        <span className="text-xs text-muted-foreground">
+          {view === 'widget' ? 'Try it here. Same design as the Flutter widget, at phone width.' : 'Drawn by Flutter itself, as it looks on an iPhone.'}
+        </span>
       </div>
       {view === 'widget' ? (
-        <FlutterInline slug={slug} />
+        <div className="grid place-items-center rounded-xl border bg-background bg-[radial-gradient(var(--border)_1px,transparent_1px)] [background-size:16px_16px] px-4 py-8">
+          <div className="w-full max-w-[390px] rounded-xl border bg-background p-5 shadow-sm">
+            <React.Suspense fallback={<div className="h-24 animate-pulse rounded-lg bg-muted" />}>
+              <c.Demo />
+            </React.Suspense>
+          </div>
+        </div>
       ) : (
-        <FlutterShot slug={slug} width={300} live="auto" className="rounded-xl border bg-muted/40 px-4 py-10" />
+        <FlutterShot slug={slug} width={300} className="rounded-xl border bg-muted/40 px-4 py-10" />
       )}
     </section>
   );
@@ -132,7 +141,6 @@ export function FlutterComponentPage({ slug }: { slug: string }) {
   const example = useText(examples, `/flutter/lib/examples/${file}.dart`);
   const source = useText(widgets, `/flutter/lib/befui/${file}.dart`);
   const [tab, setTab] = React.useState('example');
-  React.useEffect(warmFlutterApp, []);
   if (!c || !hasFlutter(slug)) return <NotFoundPlatform name="Flutter" />;
   // in an app the example sits next to befui/, not in a sibling folder
   const code = example?.replace(/'\.\.\/befui\//g, "'befui/");

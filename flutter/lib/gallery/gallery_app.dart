@@ -2,19 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../befui/icons.dart';
 import '../befui/theme.dart';
-import 'embed_stub.dart' if (dart.library.js_interop) 'embed_web.dart';
 import 'registry.dart';
 
 /// The befui gallery: every Flutter widget with its example, a light/dark switch and the ten palettes of the Themes page.
 class GalleryApp extends StatefulWidget {
-  const GalleryApp({super.key, this.initial, this.embed, this.embedDark = false, this.embedBare = false});
-
-  /// Show only this widget's screen, in a fixed theme (the docs site embeds the app this way).
-  final String? embed;
-  final bool embedDark;
-
-  /// With [embed]: show just the example on the page background, no app bar, and report its height to the page.
-  final bool embedBare;
+  const GalleryApp({super.key, this.initial});
 
   /// Open straight on a component (used by screenshots and tests).
   final String? initial;
@@ -30,15 +22,6 @@ class _GalleryAppState extends State<GalleryApp> {
   @override
   Widget build(BuildContext context) {
     final nav = GlobalKey<NavigatorState>();
-    final only = widget.embed == null ? null : entries.where((e) => e.slug == widget.embed).firstOrNull;
-    if (only != null) {
-      return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: only.name,
-        theme: BefTheme.data(brightness: widget.embedDark ? Brightness.dark : Brightness.light),
-        home: widget.embedBare ? _Bare(only) : _Detail(only, embedded: true),
-      );
-    }
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'befui for Flutter',
@@ -262,9 +245,8 @@ class _ModeButton extends StatelessWidget {
 }
 
 class _Detail extends StatelessWidget {
-  const _Detail(this.entry, {this.embedded = false});
+  const _Detail(this.entry);
   final GalleryEntry entry;
-  final bool embedded;
 
   @override
   Widget build(BuildContext context) {
@@ -272,7 +254,6 @@ class _Detail extends StatelessWidget {
     return Scaffold(
       backgroundColor: c.background,
       appBar: AppBar(
-        automaticallyImplyLeading: !embedded,
         backgroundColor: c.background,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
@@ -298,59 +279,6 @@ class _Detail extends StatelessWidget {
             child: entry.example(context),
           ),
         ],
-      ),
-    );
-  }
-}
-
-/// Just the example, centred on the page background. Reports its height so the docs page can size the frame around it.
-class _Bare extends StatefulWidget {
-  const _Bare(this.entry);
-  final GalleryEntry entry;
-
-  @override
-  State<_Bare> createState() => _BareState();
-}
-
-class _BareState extends State<_Bare> {
-  final _measure = GlobalKey();
-
-  void _report() {
-    final box = _measure.currentContext?.findRenderObject() as RenderBox?;
-    if (box != null && box.hasSize) reportHeight(box.size.height);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _report());
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final c = context.bef;
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: NotificationListener<SizeChangedLayoutNotification>(
-        onNotification: (n) {
-          WidgetsBinding.instance.addPostFrameCallback((_) => _report());
-          return false;
-        },
-        child: SingleChildScrollView(
-          child: Align(
-            alignment: Alignment.topCenter,
-            child: SizeChangedLayoutNotifier(
-              child: Padding(
-                key: _measure,
-                padding: const EdgeInsets.all(20),
-                child: DefaultTextStyle.merge(
-                  style: TextStyle(color: c.foreground),
-                  child: widget.entry.example(context),
-                ),
-              ),
-            ),
-          ),
-        ),
       ),
     );
   }
