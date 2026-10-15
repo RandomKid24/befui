@@ -659,6 +659,45 @@ Widget example(BuildContext context) {
 }
 ```
 
+### Carousel (`carousel`)
+Scroll-snap slides with arrows and animated dots.
+- Add: `npx github:RandomKid24/befui add carousel --flutter`
+- Import: `import 'befui/carousel.dart';` (classes: BefCarousel)
+- Also copies: theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/carousel.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) {
+  final c = context.bef;
+  Widget slide(String title, String body, Color bg) => Container(
+    color: bg,
+    padding: const EdgeInsets.all(24),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(title, style: BefText.style(context, size: 20, weight: FontWeight.w600)),
+        const SizedBox(height: 4),
+        Text(body, style: BefText.style(context, color: c.mutedForeground)),
+      ],
+    ),
+  );
+  return BefCarousel(
+    children: [
+      slide('Approvals', 'Leave and expenses in one inbox.', c.primary.withValues(alpha: 0.1)),
+      slide('Payroll', 'Run it in three taps.', c.success.withValues(alpha: 0.12)),
+      slide('Reports', 'Headcount and cost, always current.', c.warning.withValues(alpha: 0.12)),
+    ],
+  );
+}
+```
+
 ### Charts (`charts`)
 Sparkline, bar chart and donut in plain SVG. No chart library.
 - Add: `npx github:RandomKid24/befui add charts --flutter`
@@ -807,6 +846,26 @@ Widget example(BuildContext context) {
 }
 
 List<String> _v = ['Engineering'];
+```
+
+### Code block (`code-block`)
+Code with a title, optional line numbers and a copy button. No highlighter dependency.
+- Add: `npx github:RandomKid24/befui add code-block --flutter`
+- Import: `import 'befui/code_block.dart';` (classes: BefCodeBlock)
+- Also copies: core.dart, icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/code_block.dart';
+
+Widget example(BuildContext context) => const BefCodeBlock(
+  title: 'main.dart',
+  lineNumbers: true,
+  code: "void main() {\n  runApp(const MyApp());\n}\n",
+);
 ```
 
 ### Collapsible (`collapsible`)
@@ -1590,6 +1649,31 @@ Widget example(BuildContext context) {
 bool _loading = true;
 ```
 
+### Marquee (`marquee`)
+Endless logo or tag scroll with edge fade. Pauses on hover.
+- Add: `npx github:RandomKid24/befui add marquee --flutter`
+- Import: `import 'befui/marquee.dart';` (classes: BefMarquee)
+- Also copies: core.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/marquee.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) => BefMarquee(
+  children: [
+    for (final n in ['Northwind', 'Acme', 'Globex', 'Initech', 'Umbrella', 'Hooli'])
+      Text(
+        n,
+        style: BefText.style(context, size: 18, weight: FontWeight.w600, color: context.bef.mutedForeground),
+      ),
+  ],
+);
+```
+
 ### Number stepper (`number-stepper`)
 Number field with plus and minus buttons and arrow keys.
 - Add: `npx github:RandomKid24/befui add number-stepper --flutter`
@@ -2068,6 +2152,22 @@ Widget example(BuildContext context) {
 int _v = 3;
 ```
 
+### Relative time (`relative-time`)
+"3 minutes ago", kept live. Hover for the full date. Uses Intl, so it speaks your locale.
+- Add: `npx github:RandomKid24/befui add relative-time --flutter`
+- Import: `import 'befui/relative_time.dart';` (classes: BefRelativeTime)
+- Also copies: theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/relative_time.dart';
+
+Widget example(BuildContext context) => BefRelativeTime(DateTime.now().subtract(const Duration(minutes: 3)));
+```
+
 ### Search input (`search-input`)
 Search field with a clear button, Escape to clear and a slash shortcut to focus.
 - Add: `npx github:RandomKid24/befui add search-input --flutter`
@@ -2244,6 +2344,26 @@ Widget example(BuildContext context) {
     ),
   );
 }
+```
+
+### Shimmer text (`shimmer-text`)
+Text with a light sweep passing over it.
+- Add: `npx github:RandomKid24/befui add shimmer-text --flutter`
+- Import: `import 'befui/shimmer_text.dart';` (classes: BefShimmerText)
+- Also copies: core.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/shimmer_text.dart';
+import 'befui/theme.dart';
+
+Widget example(BuildContext context) => BefShimmerText(
+  'Generating your report…',
+  style: BefText.style(context, size: 18, weight: FontWeight.w600),
+);
 ```
 
 ### Skeleton (`skeleton`)
@@ -2895,6 +3015,23 @@ Widget example(BuildContext context) {
 }
 ```
 
+### Typewriter (`typewriter`)
+Types, holds and deletes phrases in a loop. Static for reduced motion.
+- Add: `npx github:RandomKid24/befui add typewriter --flutter`
+- Import: `import 'befui/typewriter.dart';` (classes: BefTypewriter)
+- Also copies: core.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/typewriter.dart';
+
+Widget example(BuildContext context) =>
+    const BefTypewriter(phrases: ['Ship faster.', 'Approve in one tap.', 'Run payroll on time.']);
+```
+
 ### Uptime bar (`uptime-bar`)
 Status-page strip with one tick per day in green, amber or red, the uptime percentage and an incident note on hover.
 - Add: `npx github:RandomKid24/befui add uptime-bar --flutter`
@@ -2935,5 +3072,45 @@ Widget example(BuildContext context) {
       BefUptimeBar(name: 'Webhooks', days: _days({})),
     ],
   );
+}
+```
+
+### Week strip (`week-strip`)
+Seven day pills with previous and next week arrows, a selected day and dots under days that have something. Arrow keys move the day.
+- Add: `npx github:RandomKid24/befui add week-strip --flutter`
+- Import: `import 'befui/week_strip.dart';` (classes: BefWeekStrip)
+- Also copies: core.dart, icons.dart, theme.dart
+
+Example:
+
+```dart
+import 'package:flutter/material.dart';
+
+import 'befui/week_strip.dart';
+
+Widget example(BuildContext context) => const _Demo();
+
+class _Demo extends StatefulWidget {
+  const _Demo();
+  @override
+  State<_Demo> createState() => _DemoState();
+}
+
+class _DemoState extends State<_Demo> {
+  DateTime day = DateTime.now();
+
+  @override
+  Widget build(BuildContext context) {
+    final t = DateTime(day.year, day.month, day.day);
+    return BefWeekStrip(
+      value: day,
+      onChanged: (d) => setState(() => day = d),
+      marks: {
+        t.add(const Duration(days: 1)): 1,
+        t.add(const Duration(days: 2)): 3,
+        t.subtract(const Duration(days: 1)): 2,
+      },
+    );
+  }
 }
 ```

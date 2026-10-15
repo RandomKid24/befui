@@ -14,9 +14,11 @@ import '../examples/bottom_sheet.dart' as e_bottom_sheet;
 import '../examples/button.dart' as e_button;
 import '../examples/button_group.dart' as e_button_group;
 import '../examples/card.dart' as e_card;
+import '../examples/carousel.dart' as e_carousel;
 import '../examples/charts.dart' as e_charts;
 import '../examples/checkbox.dart' as e_checkbox;
 import '../examples/chip.dart' as e_chip;
+import '../examples/code_block.dart' as e_code_block;
 import '../examples/collapsible.dart' as e_collapsible;
 import '../examples/color_picker.dart' as e_color_picker;
 import '../examples/copy_button.dart' as e_copy_button;
@@ -35,6 +37,7 @@ import '../examples/input.dart' as e_input;
 import '../examples/label.dart' as e_label;
 import '../examples/leaderboard.dart' as e_leaderboard;
 import '../examples/loader.dart' as e_loader;
+import '../examples/marquee.dart' as e_marquee;
 import '../examples/number_stepper.dart' as e_number_stepper;
 import '../examples/number_ticker.dart' as e_number_ticker;
 import '../examples/order_tracker.dart' as e_order_tracker;
@@ -49,10 +52,12 @@ import '../examples/progress.dart' as e_progress;
 import '../examples/progress_ring.dart' as e_progress_ring;
 import '../examples/radio_group.dart' as e_radio_group;
 import '../examples/rating.dart' as e_rating;
+import '../examples/relative_time.dart' as e_relative_time;
 import '../examples/search_input.dart' as e_search_input;
 import '../examples/segmented.dart' as e_segmented;
 import '../examples/select.dart' as e_select;
 import '../examples/separator.dart' as e_separator;
+import '../examples/shimmer_text.dart' as e_shimmer_text;
 import '../examples/skeleton.dart' as e_skeleton;
 import '../examples/slider.dart' as e_slider;
 import '../examples/spinner.dart' as e_spinner;
@@ -70,7 +75,9 @@ import '../examples/timer.dart' as e_timer;
 import '../examples/toast.dart' as e_toast;
 import '../examples/toggle.dart' as e_toggle;
 import '../examples/tooltip.dart' as e_tooltip;
+import '../examples/typewriter.dart' as e_typewriter;
 import '../examples/uptime_bar.dart' as e_uptime_bar;
+import '../examples/week_strip.dart' as e_week_strip;
 
 class GalleryEntry {
   const GalleryEntry(this.slug, this.name, this.category, this.description, this.example, [this.preview]);
@@ -176,6 +183,13 @@ final List<GalleryEntry> entries = [
     e_card.example,
   ),
   GalleryEntry(
+    'carousel',
+    'Carousel',
+    'Display',
+    'Scroll-snap slides with arrows and animated dots.',
+    e_carousel.example,
+  ),
+  GalleryEntry(
     'charts',
     'Charts',
     'Data',
@@ -190,6 +204,13 @@ final List<GalleryEntry> entries = [
     e_checkbox.example,
   ),
   GalleryEntry('chip', 'Chip', 'Inputs', 'Toggleable filter chips, single or multi select.', e_chip.example),
+  GalleryEntry(
+    'code-block',
+    'Code block',
+    'Display',
+    'Code with a title, optional line numbers and a copy button. No highlighter dependency.',
+    e_code_block.example,
+  ),
   GalleryEntry(
     'collapsible',
     'Collapsible',
@@ -312,6 +333,13 @@ final List<GalleryEntry> entries = [
     e_loader.example,
   ),
   GalleryEntry(
+    'marquee',
+    'Marquee',
+    'Display',
+    'Endless logo or tag scroll with edge fade. Pauses on hover.',
+    e_marquee.example,
+  ),
+  GalleryEntry(
     'number-stepper',
     'Number stepper',
     'Inputs',
@@ -398,6 +426,13 @@ final List<GalleryEntry> entries = [
     e_rating.example,
   ),
   GalleryEntry(
+    'relative-time',
+    'Relative time',
+    'Time',
+    '"3 minutes ago", kept live. Hover for the full date. Uses Intl, so it speaks your locale.',
+    e_relative_time.example,
+  ),
+  GalleryEntry(
     'search-input',
     'Search input',
     'Inputs',
@@ -419,6 +454,13 @@ final List<GalleryEntry> entries = [
     e_select.example,
   ),
   GalleryEntry('separator', 'Separator', 'Display', 'Horizontal or vertical divider.', e_separator.example),
+  GalleryEntry(
+    'shimmer-text',
+    'Shimmer text',
+    'Display',
+    'Text with a light sweep passing over it.',
+    e_shimmer_text.example,
+  ),
   GalleryEntry(
     'skeleton',
     'Skeleton',
@@ -533,10 +575,24 @@ final List<GalleryEntry> entries = [
     e_tooltip.example,
   ),
   GalleryEntry(
+    'typewriter',
+    'Typewriter',
+    'Display',
+    'Types, holds and deletes phrases in a loop. Static for reduced motion.',
+    e_typewriter.example,
+  ),
+  GalleryEntry(
     'uptime-bar',
     'Uptime bar',
     'Data',
     'Status-page strip with one tick per day in green, amber or red, the uptime percentage and an incident note on hover.',
     e_uptime_bar.example,
+  ),
+  GalleryEntry(
+    'week-strip',
+    'Week strip',
+    'Time',
+    'Seven day pills with previous and next week arrows, a selected day and dots under days that have something. Arrow keys move the day.',
+    e_week_strip.example,
   ),
 ];
