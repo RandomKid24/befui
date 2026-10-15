@@ -4,6 +4,7 @@ import { Accordion } from '@/components/ui/accordion';
 import { Badge } from '@/components/ui/badge';
 import { BorderBeam } from '@/components/ui/border-beam';
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Chip } from '@/components/ui/chip';
 import { CopyButton } from '@/components/ui/copy-button';
 import { Marquee } from '@/components/ui/marquee';
@@ -22,30 +23,65 @@ import { flutterSlugs } from './platform-lists';
 
 const INSTALL = 'npx befui add button';
 
-/** One labelled cell of the hero strip: a real component you can use, named in mono underneath. */
-function Cell({ name, children }: { name: string; children: React.ReactNode }) {
+/** A cell of the hero sheet. It fills in on load, diagonally from the top left, with a quick tint of the primary colour. */
+function Cell({ r, c, children }: { r: number; c: number; children: React.ReactNode }) {
   return (
-    <div className="grid min-h-28 content-between gap-6 bg-card p-5 transition-colors hover:bg-muted/40">
-      <div className="flex min-h-9 items-center justify-center">{children}</div>
-      <span className="text-center font-mono text-[11px] text-muted-foreground">{name}</span>
+    <div
+      className="hero-cell flex min-h-16 items-center justify-center bg-card px-3 py-4 transition-colors hover:bg-muted/40 [animation:hero-cell_0.7s_cubic-bezier(0.22,1,0.36,1)_both]"
+      style={{ animationDelay: `${650 + (r + c) * 90}ms` }}
+    >
+      {children}
     </div>
   );
 }
 
-/** Six real components in a hairline grid. No decoration: the library is the hero. */
-function HeroStrip() {
+/**
+ * The hero is the library: a sheet of real components in hairline cells that fills in diagonally, one row per family
+ * (buttons, badges, controls). Everything in it is usable. Plays once, nothing loops.
+ */
+function HeroSheet() {
   const [on, setOn] = React.useState(true);
+  const [checked, setChecked] = React.useState(true);
   const [vol, setVol] = React.useState(64);
   const [stars, setStars] = React.useState(4);
+  const rows: React.ReactNode[][] = [
+    [
+      <Button key="a" size="sm">Primary</Button>,
+      <Button key="b" size="sm" variant="secondary">Secondary</Button>,
+      <Button key="c" size="sm" variant="outline">Outline</Button>,
+      <Button key="d" size="sm" variant="ghost">Ghost</Button>,
+      <Button key="e" size="sm" variant="soft">Soft</Button>,
+      <Button key="f" size="sm" variant="destructive">Delete</Button>,
+    ],
+    [
+      <Badge key="a">Default</Badge>,
+      <Badge key="b" variant="primary">Primary</Badge>,
+      <Badge key="c" variant="success" dot>Active</Badge>,
+      <Badge key="d" variant="warning" dot>Pending</Badge>,
+      <Badge key="e" variant="danger" dot>Failed</Badge>,
+      <Badge key="f" variant="info">Info</Badge>,
+    ],
+    [
+      <Switch key="a" checked={on} onCheckedChange={setOn} aria-label="Demo switch" />,
+      <Checkbox key="b" checked={checked} onCheckedChange={(v) => setChecked(v === true)} aria-label="Demo checkbox" />,
+      <Slider key="c" aria-label="Demo slider" className="w-24" value={vol} onValueChange={setVol} showValue={false} />,
+      <Rating key="d" value={stars} onValueChange={setStars} />,
+      <ProgressRing key="e" value={72} size={60} />,
+      <Chip key="f" selected={on} onClick={() => setOn(!on)}>Design</Chip>,
+    ],
+  ];
   return (
     <div className="mx-auto mt-14 max-w-5xl overflow-hidden rounded-xl border bg-border">
+      <style>{`
+        @keyframes hero-cell {
+          0% { opacity: 0; transform: translateY(8px); background-color: color-mix(in srgb, var(--primary) 16%, var(--card)) }
+          60% { background-color: color-mix(in srgb, var(--primary) 8%, var(--card)) }
+          100% { opacity: 1; transform: none }
+        }
+        @media (prefers-reduced-motion: reduce) { .hero-cell { animation: none !important } }
+      `}</style>
       <div className="grid grid-cols-2 gap-px sm:grid-cols-3 lg:grid-cols-6">
-        <Cell name="button"><Button size="sm">Approve</Button></Cell>
-        <Cell name="switch"><Switch checked={on} onCheckedChange={setOn} aria-label="Demo switch" /></Cell>
-        <Cell name="badge"><Badge variant="success" dot>Active</Badge></Cell>
-        <Cell name="slider"><Slider aria-label="Demo slider" className="w-28" value={vol} onValueChange={setVol} showValue={false} /></Cell>
-        <Cell name="rating"><Rating value={stars} onValueChange={setStars} /></Cell>
-        <Cell name="progress-ring"><ProgressRing value={72} size={56} /></Cell>
+        {rows.map((row, r) => row.map((node, c) => <Cell key={`${r}-${c}`} r={r} c={c}>{node}</Cell>))}
       </div>
     </div>
   );
@@ -81,7 +117,7 @@ function Hero() {
           </div>
         </Reveal>
         <Reveal delay={450} y={24}>
-          <HeroStrip />
+          <HeroSheet />
         </Reveal>
       </div>
     </section>
