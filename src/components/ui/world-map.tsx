@@ -105,14 +105,25 @@ function Spike({ x, y, x2, y2, w, hot }: { x: number; y: number; x2: number; y2:
   );
 }
 
-/** A pin: a glossy ball on a needle. The needle is as long as the value is big. */
-function Pin({ gid, x, y, x2, y2, r, hot }: { gid: string; x: number; y: number; x2: number; y2: number; r: number; hot: boolean }) {
+/** A map pin: teardrop with a hole, lit from the top left, drops in and sends out a ring. Bigger pin = bigger value. */
+function Pin({ gid, x, y, r, hot, g, still }: { gid: string; x: number; y: number; r: number; hot: boolean; g: number; still: boolean }) {
+  const cy = y - r * 2.3;
+  const al = Math.asin(1 / 2.3);
+  const tx = r * Math.cos(al), ty = r * Math.sin(al);
+  const lift = (1 - g) * r * 4;
   return (
-    <g className="pointer-events-none" opacity={hot ? 1 : 0.95}>
-      <ellipse cx={x} cy={y} rx={r * 0.8} ry={r * 0.3} fill="#000" fillOpacity={0.35} />
-      <line x1={x} y1={y} x2={x2} y2={y2} stroke="currentColor" strokeOpacity={0.8} strokeWidth={r * 0.26} strokeLinecap="round" />
-      <circle cx={x2} cy={y2} r={r} fill="currentColor" />
-      <circle cx={x2} cy={y2} r={r} fill={`url(#${gid})`} />
+    <g className="pointer-events-none" opacity={g}>
+      <ellipse cx={x} cy={y} rx={r * 0.7} ry={r * 0.26} fill="#000" fillOpacity={0.4} />
+      <circle cx={x} cy={y} r={r * 0.5} fill="none" stroke="currentColor" strokeWidth={r * 0.1}>
+        {!still && <animate attributeName="r" values={`${r * 0.4};${r * 1.8}`} dur="2.4s" repeatCount="indefinite" />}
+        {!still && <animate attributeName="stroke-opacity" values="0.7;0" dur="2.4s" repeatCount="indefinite" />}
+      </circle>
+      <g transform={`translate(0 ${-lift}) scale(${hot ? 1.12 : 1})`} style={{ transformOrigin: `${x}px ${y}px` }}>
+        <path d={`M${x} ${y}L${x + tx} ${cy + ty}A${r} ${r} 0 1 0 ${x - tx} ${cy + ty}Z`} fill="currentColor" />
+        <path d={`M${x} ${y}L${x + tx} ${cy + ty}A${r} ${r} 0 1 0 ${x - tx} ${cy + ty}Z`} fill={`url(#${gid})`} />
+        <circle cx={x} cy={cy} r={r * 0.42} fill="#000" fillOpacity={0.35} />
+        <circle cx={x} cy={cy + r * 0.05} r={r * 0.38} fill="#fff" fillOpacity={0.92} />
+      </g>
     </g>
   );
 }
@@ -310,10 +321,10 @@ export function WorldMap({
     else setView((v) => ({ ...v, x: clamp(v.x - (dx * vw) / box.width, 0, FW - vw), y: clamp(v.y - (dy * vh) / (box.width * (FH / FW)), 0, FH - vh) }));
   };
 
-  const mark = (key: string, x: number, y: number, x2: number, y2: number, hot: boolean, o = 1) => (
+  const mark = (key: string, x: number, y: number, x2: number, y2: number, hot: boolean, v: number, g: number, o = 1) => (
     <g key={key} opacity={o}>
       {marker === 'pin' ? (
-        <Pin gid={gid} x={x} y={y} x2={x2} y2={y2} r={(hot ? 3.4 : 2.8) * ms} hot={hot} />
+        <Pin gid={gid} x={x} y={y} r={(2.2 + 2 * v) * ms} hot={hot} g={g} still={reduced} />
       ) : globe ? (
         <Spike x={x} y={y} x2={x2} y2={y2} w={(hot ? 4.4 : 3.6) * ms} hot={hot} />
       ) : (
@@ -374,7 +385,7 @@ export function WorldMap({
             .sort((a, b) => a.p.y - b.p.y)
             .map(({ d, c, i, p }) => {
               const h = 1 + ((d.value / max) * BAR * ms * grow(i)) / R;
-              return mark(c.name, p.x, p.y, p.x * h, p.y * h, c.name === hover, Math.min(p.z * 3, 1));
+              return mark(c.name, p.x, p.y, p.x * h, p.y * h, c.name === hover, d.value / max, grow(i), Math.min(p.z * 3, 1));
             })}
         </svg>
       ) : (
@@ -390,7 +401,7 @@ export function WorldMap({
           {list.map((c, i) => <path key={c.name} d={flatPaths()[i]} fillRule="evenodd" {...countryProps(c)} />)}
           {[...bars].sort((a, b) => b.c.c[1] - a.c.c[1]).map(({ d, c, i }) => {
             const x = c.c[0] + 180, y = 84 - c.c[1];
-            return mark(c.name, x, y, x, y - (d.value / max) * BAR * ms * grow(i), c.name === hover);
+            return mark(c.name, x, y, x, y - (d.value / max) * BAR * ms * grow(i), c.name === hover, d.value / max, grow(i));
           })}
         </svg>
       )}
