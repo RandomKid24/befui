@@ -444,17 +444,17 @@ export function WorldMap({
         </div>
       )}
     </div>
-      <ul className={cn(legend ? 'mt-3 flex flex-wrap gap-1.5' : 'sr-only')}>
+      <ul className={cn(legend ? 'mt-2.5 flex flex-wrap gap-1' : 'sr-only')}>
         {[...data].sort((a, b) => b.value - a.value).map((d) => (
           <li key={d.id}>
             <button
               type="button"
               aria-pressed={sel === d.id}
               onClick={() => pick(d.id)}
-              onPointerEnter={() => setHover(d.id)}
+              onPointerEnter={() => { setHover(d.id); setTip(null); }}
               onPointerLeave={() => setHover(null)}
               className={cn(
-                'inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
+                'inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] font-medium leading-5 text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
                 sel === d.id && 'border-primary bg-primary/10 text-primary',
               )}
             >
