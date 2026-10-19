@@ -18,10 +18,14 @@ const data = [
 
 export default function WorldMapDemo() {
   const [view, setView] = useState<'flat' | 'globe'>('flat');
+  const [marker, setMarker] = useState<'bar' | 'pin'>('bar');
   return (
     <div className="grid w-full gap-4">
-      <Segmented value={view} onValueChange={setView} options={[{ value: 'flat', label: 'Map' }, { value: 'globe', label: 'Globe' }]} className="justify-self-start" />
-      <WorldMap data={data} projection={view} format={(n) => `${n.toLocaleString('en-IN')} users`} />
+      <div className="flex flex-wrap gap-2">
+        <Segmented value={view} onValueChange={setView} options={[{ value: 'flat', label: 'Map' }, { value: 'globe', label: 'Globe' }]} />
+        <Segmented value={marker} onValueChange={setMarker} options={[{ value: 'bar', label: 'Bars' }, { value: 'pin', label: 'Pins' }]} />
+      </div>
+      <WorldMap data={data} projection={view} marker={marker} format={(n) => `${n.toLocaleString('en-IN')} users`} />
     </div>
   );
 }

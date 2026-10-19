@@ -105,20 +105,38 @@ function Spike({ x, y, x2, y2, w, hot }: { x: number; y: number; x2: number; y2:
   );
 }
 
+/** A pin: a glossy ball on a needle. The needle is as long as the value is big. */
+function Pin({ gid, x, y, x2, y2, r, hot }: { gid: string; x: number; y: number; x2: number; y2: number; r: number; hot: boolean }) {
+  return (
+    <g className="pointer-events-none" opacity={hot ? 1 : 0.95}>
+      <ellipse cx={x} cy={y} rx={r * 0.8} ry={r * 0.3} fill="#000" fillOpacity={0.35} />
+      <line x1={x} y1={y} x2={x2} y2={y2} stroke="currentColor" strokeOpacity={0.8} strokeWidth={r * 0.26} strokeLinecap="round" />
+      <circle cx={x2} cy={y2} r={r} fill="currentColor" />
+      <circle cx={x2} cy={y2} r={r} fill={`url(#${gid})`} />
+    </g>
+  );
+}
+
 function useReducedMotion() {
   const [r, setR] = React.useState(false);
   React.useEffect(() => setR(matchMedia('(prefers-reduced-motion: reduce)').matches), []);
   return r;
 }
 
+const FW = 360, FH = 142; // flat map size in map units
+const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v));
+
 /**
- * Countries on a flat map or a spinning globe, with a bar standing on every country in `data` (tall = bigger).
- * Countries with data are tinted by value. Drag the globe (or use the arrow keys) to turn it; hover for a readout.
+ * Countries on a flat map or a spinning globe, with a 3D bar or pin standing on every country in `data` (tall = bigger).
+ * Countries with data are tinted by value. Drag to pan the map or turn the globe (arrow keys work too), zoom with the
+ * + and - buttons, Ctrl/Cmd + scroll or a double click, hover for a readout.
  * Color it with a text-* class. `onSelect` fires with the country name when you click one that has data.
  */
 export function WorldMap({
   data,
   projection = 'flat',
+  marker = 'bar',
+  zoomable = true,
   spin = true,
   format = (n) => n.toLocaleString('en-IN'),
   onSelect,
@@ -127,6 +145,10 @@ export function WorldMap({
 }: {
   data: WorldMapDatum[];
   projection?: 'flat' | 'globe';
+  /** What stands on each country: a 3D column or a pin. */
+  marker?: 'bar' | 'pin';
+  /** Zoom buttons, Ctrl/Cmd + scroll, double click, and panning when zoomed in. */
+  zoomable?: boolean;
   /** Globe turns by itself until you touch it. */
   spin?: boolean;
   format?: (n: number) => string;
@@ -136,17 +158,47 @@ export function WorldMap({
 }) {
   const [ref, on] = useChartIn<HTMLDivElement>();
   const reduced = useReducedMotion();
+  const gid = 'pin' + React.useId().replace(/:/g, '');
   const globe = projection === 'globe';
   const [rot, setRot] = React.useState({ lon: 20, lat: 18 });
+  const [view, setView] = React.useState({ k: 1, x: 0, y: 0 }); // k = zoom; x, y = top-left of the flat view in map units
   const [t, setT] = React.useState(0);
   const [hover, setHover] = React.useState<string | null>(null);
   const [tip, setTip] = React.useState<{ x: number; y: number } | null>(null);
-  const drag = React.useRef<{ x: number; y: number } | null>(null);
+  const drag = React.useRef<{ x: number; y: number; sx: number; sy: number; el: Element; id: number; moved: boolean } | null>(null);
   const idle = React.useRef(false);
+  const k = view.k;
+  const ms = 1 / k ** 0.6; // markers shrink a little as you zoom in, so they do not swallow the map
 
   const list = countries();
   const byId = new Map(data.map((d) => [d.id, d]));
   const max = Math.max(...data.map((d) => d.value), 1);
+
+  // flat view box and zoom around a point given as 0..1 of the box
+  const vw = FW / k, vh = FH / k;
+  const maxK = globe ? 3 : 8;
+  React.useEffect(() => setView({ k: 1, x: 0, y: 0 }), [globe]);
+  const zoomTo = (nk: number, fx = 0.5, fy = 0.5) =>
+    setView((v) => {
+      nk = clamp(nk, 1, maxK);
+      const w = FW / nk, h = FH / nk;
+      return { k: nk, x: clamp(v.x + fx * (FW / v.k) - fx * w, 0, FW - w), y: clamp(v.y + fy * (FH / v.k) - fy * h, 0, FH - h) };
+    });
+
+  // Ctrl/Cmd + scroll (and trackpad pinch) zooms; plain scroll still scrolls the page
+  React.useEffect(() => {
+    const el = ref.current;
+    if (!zoomable || !el) return;
+    const wheel = (e: WheelEvent) => {
+      if (!e.ctrlKey && !e.metaKey) return;
+      e.preventDefault();
+      const b = el.getBoundingClientRect();
+      zoomTo(k * Math.exp(-e.deltaY * 0.01), (e.clientX - b.left) / b.width, (e.clientY - b.top) / b.height);
+    };
+    el.addEventListener('wheel', wheel, { passive: false });
+    return () => el.removeEventListener('wheel', wheel);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [zoomable, k]);
 
   // bars grow once the map scrolls into view
   React.useEffect(() => {
@@ -219,11 +271,12 @@ export function WorldMap({
       fill: 'currentColor',
       fillOpacity: tint(c.name),
       className: cn('stroke-background transition-[fill-opacity] duration-150', d && onSelect && 'cursor-pointer'),
-      strokeWidth: 0.35,
+      strokeWidth: 0.5,
+      vectorEffect: 'non-scaling-stroke' as const,
       strokeLinejoin: 'round' as const,
       onPointerEnter: () => setHover(c.name),
       onPointerLeave: () => setHover(null),
-      onClick: d && onSelect ? () => onSelect(c.name) : undefined,
+      onClick: d && onSelect && !drag.current?.moved ? () => onSelect(c.name) : undefined,
     };
   };
 
@@ -234,67 +287,119 @@ export function WorldMap({
   const hovered = hover ? byId.get(hover) : undefined;
   const tipText = hover ? `${hovered?.label ?? hover}${hovered ? `: ${format(hovered.value)}` : ''}` : '';
 
+  const down = (e: React.PointerEvent) => {
+    drag.current = { x: e.clientX, y: e.clientY, sx: e.clientX, sy: e.clientY, el: e.currentTarget, id: e.pointerId, moved: false };
+    idle.current = true;
+  };
+  const up = () => {
+    const d = drag.current;
+    // keep `moved` for one tick so the click that ends a drag does not count as a selection
+    setTimeout(() => { if (drag.current === d) drag.current = null; });
+  };
   const move = (e: React.PointerEvent) => {
     const box = e.currentTarget.getBoundingClientRect();
     setTip({ x: e.clientX - box.left, y: e.clientY - box.top });
-    if (drag.current) {
-      const dx = e.clientX - drag.current.x, dy = e.clientY - drag.current.y;
-      drag.current = { x: e.clientX, y: e.clientY };
-      setRot((r) => ({ lon: r.lon - dx * 0.4, lat: Math.max(-70, Math.min(70, r.lat + dy * 0.4)) }));
-    }
+    const d = drag.current;
+    if (!d) return;
+    if (!d.moved && Math.hypot(e.clientX - d.sx, e.clientY - d.sy) > 3) { d.moved = true; d.el.setPointerCapture(d.id); setHover(null); }
+    if (!d.moved) return;
+    const dx = e.clientX - d.x, dy = e.clientY - d.y;
+    d.x = e.clientX;
+    d.y = e.clientY;
+    if (globe) setRot((r) => ({ lon: r.lon - (dx * 0.4) / k, lat: clamp(r.lat + (dy * 0.4) / k, -70, 70) }));
+    else setView((v) => ({ ...v, x: clamp(v.x - (dx * vw) / box.width, 0, FW - vw), y: clamp(v.y - (dy * vh) / (box.width * (FH / FW)), 0, FH - vh) }));
   };
+
+  const mark = (key: string, x: number, y: number, x2: number, y2: number, hot: boolean, o = 1) => (
+    <g key={key} opacity={o}>
+      {marker === 'pin' ? (
+        <Pin gid={gid} x={x} y={y} x2={x2} y2={y2} r={(hot ? 3.4 : 2.8) * ms} hot={hot} />
+      ) : globe ? (
+        <Spike x={x} y={y} x2={x2} y2={y2} w={(hot ? 4.4 : 3.6) * ms} hot={hot} />
+      ) : (
+        <Column x={x} y={y} h={y - y2} w={(hot ? 4 : 3.2) * ms} hot={hot} />
+      )}
+    </g>
+  );
+
+  const defs = (
+    <defs>
+      <radialGradient id={gid} cx="0.35" cy="0.3" r="0.8">
+        <stop offset="0" stopColor="#fff" stopOpacity={0.9} />
+        <stop offset="0.35" stopColor="#fff" stopOpacity={0} />
+        <stop offset="0.7" stopColor="#000" stopOpacity={0} />
+        <stop offset="1" stopColor="#000" stopOpacity={0.5} />
+      </radialGradient>
+    </defs>
+  );
+
+  const btn = 'grid size-7 place-items-center rounded-md border bg-background/80 text-sm text-foreground backdrop-blur transition-colors hover:bg-accent disabled:opacity-40 disabled:hover:bg-background/80';
+  const zoomed = k > 1;
 
   return (
     <div
       ref={ref}
-      className={cn('relative text-primary', globe ? 'mx-auto aspect-square w-full max-w-md' : 'w-full', className)}
+      className={cn('relative text-primary', globe ? 'mx-auto aspect-square w-full max-w-md overflow-hidden' : 'w-full', className)}
       onPointerMove={move}
       onPointerLeave={() => setTip(null)}
+      onDoubleClick={(e) => {
+        if (!zoomable) return;
+        const b = e.currentTarget.getBoundingClientRect();
+        zoomTo(k * 1.8, (e.clientX - b.left) / b.width, (e.clientY - b.top) / b.height);
+      }}
     >
       {globe ? (
         <svg
-          viewBox="-112 -112 224 224"
+          viewBox={`${-112 / k} ${-112 / k} ${224 / k} ${224 / k}`}
           role="img"
           aria-label={label}
           tabIndex={0}
-          className="size-full touch-none select-none outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-full cursor-grab active:cursor-grabbing"
-          onPointerDown={(e) => { drag.current = { x: e.clientX, y: e.clientY }; idle.current = true; e.currentTarget.setPointerCapture(e.pointerId); }}
-          onPointerUp={() => { drag.current = null; }}
+          className="size-full cursor-grab touch-none select-none outline-none focus-visible:ring-2 focus-visible:ring-ring active:cursor-grabbing"
+          onPointerDown={down}
+          onPointerUp={up}
           onKeyDown={(e) => {
             const s = { ArrowLeft: [-10, 0], ArrowRight: [10, 0], ArrowUp: [0, 8], ArrowDown: [0, -8] }[e.key];
             if (!s) return;
             e.preventDefault();
             idle.current = true;
-            setRot((r) => ({ lon: r.lon + s[0]!, lat: Math.max(-70, Math.min(70, r.lat + s[1]!)) }));
+            setRot((r) => ({ lon: r.lon + s[0]!, lat: clamp(r.lat + s[1]!, -70, 70) }));
           }}
         >
-          <circle r={R} fill="currentColor" fillOpacity={0.05} stroke="currentColor" strokeOpacity={0.25} strokeWidth={0.5} />
+          {defs}
+          <circle r={R} fill="currentColor" fillOpacity={0.05} stroke="currentColor" strokeOpacity={0.25} strokeWidth={0.5} vectorEffect="non-scaling-stroke" />
           {list.map((c, i) => globePaths[i] && <path key={c.name} d={globePaths[i]} fillRule="evenodd" {...countryProps(c)} />)}
           {[...bars]
             .map((b) => ({ ...b, p: proj(b.c.c[0], b.c.c[1]) }))
             .filter((b) => b.p.z > 0.05)
             .sort((a, b) => a.p.y - b.p.y)
             .map(({ d, c, i, p }) => {
-              const k = 1 + ((d.value / max) * BAR * grow(i)) / R;
-              return (
-                <g key={c.name} opacity={Math.min(p.z * 3, 1)}>
-                  <Spike x={p.x} y={p.y} x2={p.x * k} y2={p.y * k} w={c.name === hover ? 4.4 : 3.6} hot={c.name === hover} />
-                </g>
-              );
+              const h = 1 + ((d.value / max) * BAR * ms * grow(i)) / R;
+              return mark(c.name, p.x, p.y, p.x * h, p.y * h, c.name === hover, Math.min(p.z * 3, 1));
             })}
         </svg>
       ) : (
-        <svg viewBox="0 0 360 142" role="img" aria-label={label} className="block h-auto w-full">
+        <svg
+          viewBox={`${view.x} ${view.y} ${vw} ${vh}`}
+          role="img"
+          aria-label={label}
+          className={cn('block h-auto w-full select-none', zoomed && 'cursor-grab touch-none active:cursor-grabbing')}
+          onPointerDown={zoomed ? down : undefined}
+          onPointerUp={up}
+        >
+          {defs}
           {list.map((c, i) => <path key={c.name} d={flatPaths()[i]} fillRule="evenodd" {...countryProps(c)} />)}
           {[...bars].sort((a, b) => b.c.c[1] - a.c.c[1]).map(({ d, c, i }) => {
             const x = c.c[0] + 180, y = 84 - c.c[1];
-            const h = (d.value / max) * BAR * grow(i);
-            const hot = c.name === hover;
-            return (
-              <Column key={c.name} x={x} y={y} h={h} w={hot ? 4 : 3.2} hot={hot} />
-            );
+            return mark(c.name, x, y, x, y - (d.value / max) * BAR * ms * grow(i), c.name === hover);
           })}
         </svg>
+      )}
+      {zoomable && (
+        <div className="absolute right-2 top-2 grid gap-1" onDoubleClick={(e) => e.stopPropagation()}>
+          <button type="button" aria-label="Zoom in" className={btn} disabled={k >= maxK} onClick={() => zoomTo(k * 1.6)}>+</button>
+          <button type="button" aria-label="Zoom out" className={btn} disabled={k <= 1} onClick={() => zoomTo(k / 1.6)}>−</button>
+          <button type="button" aria-label="Reset view" className={btn} disabled={!zoomed} onClick={() => setView({ k: 1, x: 0, y: 0 })}>⟲</button>
+        </div>
       )}
       {hover && tip && (
         <div

@@ -213,7 +213,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `waffle-chart` | A grid of 100 squares, each one percent of the whole. Squares pop in as a wave; hover a legend row to light up its squares. | ✓ |  |
 | `waterfall-chart` | How a start number becomes an end number: green adds, red subtracts, blue totals. Bars drop in one after another with connector lines. | ✓ |  |
 | `word-cloud` | Words sized by how often they appear, biggest in the middle. Words grow in; hover to focus one, or make them clickable filters. | ✓ |  |
-| `world-map` | Countries on a flat map or a draggable globe, with a bar standing on every country in your data. Bars grow on scroll; hover for the number. |  |  |
+| `world-map` | Countries on a flat map or a draggable globe, with a 3D bar or pin standing on every country in your data. Zoom, pan and spin it; hover for the number. |  |  |
 
 ## Feedback (11)
 
