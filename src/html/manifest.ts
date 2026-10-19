@@ -744,5 +744,6 @@ export const manifest: Record<string, [file: string, name: string]> = {
   "bef-waterfall-chart": [ "waterfall-chart", "WaterfallChart" ],
   "bef-week-strip": [ "week-strip", "WeekStrip" ],
   "bef-word-cloud": [ "word-cloud", "WordCloud" ],
-  "bef-world-clock": [ "world-clock", "WorldClock" ]
+  "bef-world-clock": [ "world-clock", "WorldClock" ],
+  "bef-world-map": [ "world-map", "WorldMap" ]
 };
