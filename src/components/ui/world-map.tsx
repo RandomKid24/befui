@@ -70,6 +70,41 @@ const R = 100;
 const BAR = 26; // tallest bar, in map units
 const rad = Math.PI / 180;
 
+/** A bar that reads as a solid: lit front, shaded side, bright top, soft shadow on the ground. */
+function Column({ x, y, h, w, hot }: { x: number; y: number; h: number; w: number; hot: boolean }) {
+  const d = w * 0.55; // depth, drawn as a slanted offset up and to the right
+  const e = d * 0.6;
+  const top = y - h;
+  const l = x - w / 2, r = x + w / 2;
+  return (
+    <g className="pointer-events-none" opacity={hot ? 1 : 0.92}>
+      <ellipse cx={x + d * 0.5} cy={y} rx={w * 1.1} ry={w * 0.4} fill="#000" fillOpacity={0.35} />
+      <path d={`M${l} ${y}V${top}H${r}V${y}Z`} fill="currentColor" />
+      <path d={`M${r} ${y}V${top}L${r + d} ${top - e}V${y - e}Z`} fill="currentColor" />
+      <path d={`M${r} ${y}V${top}L${r + d} ${top - e}V${y - e}Z`} fill="#000" fillOpacity={0.38} />
+      <path d={`M${l} ${top}L${l + d} ${top - e}H${r + d}L${r} ${top}Z`} fill="currentColor" />
+      <path d={`M${l} ${top}L${l + d} ${top - e}H${r + d}L${r} ${top}Z`} fill="#fff" fillOpacity={0.45} />
+      <path d={`M${l} ${y}V${top}`} stroke="#fff" strokeOpacity={0.25} strokeWidth={0.3} />
+    </g>
+  );
+}
+
+/** Same idea along a direction (the globe's bars lean away from the centre): two shaded halves and a lit cap. */
+function Spike({ x, y, x2, y2, w, hot }: { x: number; y: number; x2: number; y2: number; w: number; hot: boolean }) {
+  const len = Math.hypot(x2 - x, y2 - y) || 1;
+  const nx = (-(y2 - y) / len) * (w / 2), ny = ((x2 - x) / len) * (w / 2);
+  return (
+    <g className="pointer-events-none" opacity={hot ? 1 : 0.92}>
+      <circle cx={x} cy={y} r={w * 0.9} fill="#000" fillOpacity={0.3} />
+      <path d={`M${x - nx} ${y - ny}L${x2 - nx} ${y2 - ny}L${x2} ${y2}L${x} ${y}Z`} fill="currentColor" />
+      <path d={`M${x + nx} ${y + ny}L${x2 + nx} ${y2 + ny}L${x2} ${y2}L${x} ${y}Z`} fill="currentColor" />
+      <path d={`M${x + nx} ${y + ny}L${x2 + nx} ${y2 + ny}L${x2} ${y2}L${x} ${y}Z`} fill="#000" fillOpacity={0.38} />
+      <ellipse cx={x2} cy={y2} rx={w / 2} ry={w * 0.3} transform={`rotate(${(Math.atan2(y2 - y, x2 - x) * 180) / Math.PI + 90} ${x2} ${y2})`} fill="currentColor" />
+      <ellipse cx={x2} cy={y2} rx={w / 2} ry={w * 0.3} transform={`rotate(${(Math.atan2(y2 - y, x2 - x) * 180) / Math.PI + 90} ${x2} ${y2})`} fill="#fff" fillOpacity={0.45} />
+    </g>
+  );
+}
+
 function useReducedMotion() {
   const [r, setR] = React.useState(false);
   React.useEffect(() => setR(matchMedia('(prefers-reduced-motion: reduce)').matches), []);
@@ -242,9 +277,8 @@ export function WorldMap({
             .map(({ d, c, i, p }) => {
               const k = 1 + ((d.value / max) * BAR * grow(i)) / R;
               return (
-                <g key={c.name} className="pointer-events-none" opacity={Math.min(p.z * 3, 1)}>
-                  <line x1={p.x} y1={p.y} x2={p.x * k} y2={p.y * k} stroke="currentColor" strokeWidth={c.name === hover ? 2.6 : 1.8} strokeLinecap="round" />
-                  <circle cx={p.x * k} cy={p.y * k} r={c.name === hover ? 2.4 : 1.7} fill="currentColor" />
+                <g key={c.name} opacity={Math.min(p.z * 3, 1)}>
+                  <Spike x={p.x} y={p.y} x2={p.x * k} y2={p.y * k} w={c.name === hover ? 4.4 : 3.6} hot={c.name === hover} />
                 </g>
               );
             })}
@@ -252,16 +286,12 @@ export function WorldMap({
       ) : (
         <svg viewBox="0 0 360 142" role="img" aria-label={label} className="block h-auto w-full">
           {list.map((c, i) => <path key={c.name} d={flatPaths()[i]} fillRule="evenodd" {...countryProps(c)} />)}
-          {bars.map(({ d, c, i }) => {
+          {[...bars].sort((a, b) => b.c.c[1] - a.c.c[1]).map(({ d, c, i }) => {
             const x = c.c[0] + 180, y = 84 - c.c[1];
             const h = (d.value / max) * BAR * grow(i);
             const hot = c.name === hover;
             return (
-              <g key={c.name} className="pointer-events-none">
-                <line x1={x} y1={y} x2={x} y2={y - h} stroke="currentColor" strokeWidth={hot ? 2.4 : 1.6} strokeLinecap="round" />
-                <circle cx={x} cy={y - h} r={hot ? 2.2 : 1.5} fill="currentColor" />
-                <circle cx={x} cy={y} r={1} fill="currentColor" fillOpacity={0.6} />
-              </g>
+              <Column key={c.name} x={x} y={y} h={h} w={hot ? 4 : 3.2} hot={hot} />
             );
           })}
         </svg>
