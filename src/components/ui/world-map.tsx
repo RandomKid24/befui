@@ -148,6 +148,7 @@ export function WorldMap({
   projection = 'flat',
   marker = 'bar',
   zoomable = true,
+  legend = true,
   spin = true,
   format = (n) => n.toLocaleString('en-IN'),
   onSelect,
@@ -160,6 +161,8 @@ export function WorldMap({
   marker?: 'bar' | 'pin';
   /** Zoom buttons, Ctrl/Cmd + scroll, double click, and panning when zoomed in. */
   zoomable?: boolean;
+  /** Clickable list of the countries in `data` under the map. Click one to highlight it (and turn the globe or pan the map to it). */
+  legend?: boolean;
   /** Globe turns by itself until you touch it. */
   spin?: boolean;
   format?: (n: number) => string;
@@ -175,6 +178,7 @@ export function WorldMap({
   const [view, setView] = React.useState({ k: 1, x: 0, y: 0 }); // k = zoom; x, y = top-left of the flat view in map units
   const [t, setT] = React.useState(0);
   const [hover, setHover] = React.useState<string | null>(null);
+  const [sel, setSel] = React.useState<string | null>(null);
   const [tip, setTip] = React.useState<{ x: number; y: number } | null>(null);
   const drag = React.useRef<{ x: number; y: number; sx: number; sy: number; el: Element; id: number; moved: boolean } | null>(null);
   const idle = React.useRef(false);
@@ -273,7 +277,7 @@ export function WorldMap({
   const tint = (name: string) => {
     const d = byId.get(name);
     const base = d ? 0.28 + 0.4 * (d.value / max) : 0.1;
-    return name === hover ? Math.min(base + 0.22, 0.95) : base;
+    return name === hover || name === sel ? Math.min(base + 0.22, 0.95) : base;
   };
 
   const countryProps = (c: Country) => {
@@ -281,19 +285,36 @@ export function WorldMap({
     return {
       fill: 'currentColor',
       fillOpacity: tint(c.name),
-      className: cn('stroke-background transition-[fill-opacity] duration-150', d && onSelect && 'cursor-pointer'),
-      strokeWidth: 0.5,
+      className: cn(c.name === sel ? 'stroke-foreground' : 'stroke-background', 'transition-[fill-opacity] duration-150', d && 'cursor-pointer'),
+      strokeWidth: c.name === sel ? 1.4 : 0.5,
       vectorEffect: 'non-scaling-stroke' as const,
       strokeLinejoin: 'round' as const,
       onPointerEnter: () => setHover(c.name),
       onPointerLeave: () => setHover(null),
-      onClick: d && onSelect && !drag.current?.moved ? () => onSelect(c.name) : undefined,
+      onClick: d && !drag.current?.moved ? () => pick(c.name) : undefined,
     };
   };
 
   const bars = data
     .map((d, i) => ({ d, c: list.find((c) => c.name === d.id), i }))
     .filter((b): b is { d: WorldMapDatum; c: Country; i: number } => !!b.c);
+
+  const lit = (n: string) => n === hover || n === sel;
+  // click a country (map or list): highlight it, bring it into view, tell the parent. Click it again to clear.
+  const pick = (name: string) => {
+    const next = sel === name ? null : name;
+    setSel(next);
+    const c = next && list.find((x) => x.name === next);
+    if (c) {
+      idle.current = true;
+      if (globe) setRot({ lon: c.c[0], lat: clamp(c.c[1], -60, 60) });
+      else setView((v) => {
+        const nk = Math.max(v.k, 2.5), w = FW / nk, h = FH / nk;
+        return { k: nk, x: clamp(c.c[0] + 180 - w / 2, 0, FW - w), y: clamp(84 - c.c[1] - h / 2, 0, FH - h) };
+      });
+      onSelect?.(c.name);
+    }
+  };
 
   const hovered = hover ? byId.get(hover) : undefined;
   const tipText = hover ? `${hovered?.label ?? hover}${hovered ? `: ${format(hovered.value)}` : ''}` : '';
@@ -348,9 +369,10 @@ export function WorldMap({
   const zoomed = k > 1;
 
   return (
+    <div className={cn('text-primary', globe ? 'mx-auto w-full max-w-md' : 'w-full', className)}>
     <div
       ref={ref}
-      className={cn('relative text-primary', globe ? 'mx-auto aspect-square w-full max-w-md overflow-hidden' : 'w-full', className)}
+      className={cn('relative', globe && 'aspect-square overflow-hidden')}
       onPointerMove={move}
       onPointerLeave={() => setTip(null)}
       onDoubleClick={(e) => {
@@ -385,7 +407,7 @@ export function WorldMap({
             .sort((a, b) => a.p.y - b.p.y)
             .map(({ d, c, i, p }) => {
               const h = 1 + ((d.value / max) * BAR * ms * grow(i)) / R;
-              return mark(c.name, p.x, p.y, p.x * h, p.y * h, c.name === hover, d.value / max, grow(i), Math.min(p.z * 3, 1));
+              return mark(c.name, p.x, p.y, p.x * h, p.y * h, lit(c.name), d.value / max, grow(i), Math.min(p.z * 3, 1));
             })}
         </svg>
       ) : (
@@ -401,7 +423,7 @@ export function WorldMap({
           {list.map((c, i) => <path key={c.name} d={flatPaths()[i]} fillRule="evenodd" {...countryProps(c)} />)}
           {[...bars].sort((a, b) => b.c.c[1] - a.c.c[1]).map(({ d, c, i }) => {
             const x = c.c[0] + 180, y = 84 - c.c[1];
-            return mark(c.name, x, y, x, y - (d.value / max) * BAR * ms * grow(i), c.name === hover, d.value / max, grow(i));
+            return mark(c.name, x, y, x, y - (d.value / max) * BAR * ms * grow(i), lit(c.name), d.value / max, grow(i));
           })}
         </svg>
       )}
@@ -421,9 +443,25 @@ export function WorldMap({
           {tipText}
         </div>
       )}
-      <ul className="sr-only">
-        {data.map((d) => (
-          <li key={d.id}>{d.label ?? d.id}: {format(d.value)}</li>
+    </div>
+      <ul className={cn(legend ? 'mt-3 flex flex-wrap gap-1.5' : 'sr-only')}>
+        {[...data].sort((a, b) => b.value - a.value).map((d) => (
+          <li key={d.id}>
+            <button
+              type="button"
+              aria-pressed={sel === d.id}
+              onClick={() => pick(d.id)}
+              onPointerEnter={() => setHover(d.id)}
+              onPointerLeave={() => setHover(null)}
+              className={cn(
+                'inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
+                sel === d.id && 'border-primary bg-primary/10 text-primary',
+              )}
+            >
+              {d.label ?? d.id}
+              <span className="tabular-nums text-muted-foreground">{format(d.value)}</span>
+            </button>
+          </li>
         ))}
       </ul>
     </div>

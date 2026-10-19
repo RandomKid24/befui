@@ -6,7 +6,7 @@
     "entries": [
       {
         "kind": "added",
-        "text": "World map: countries on a flat map or a draggable, self-turning globe, with a 3D bar or a pin (marker prop) standing on every country in your data (tall and dark means bigger). Zoom with the buttons, Ctrl/Cmd + scroll or a double click, drag to pan or turn it, hover shows the number, click calls onSelect. No map library, about 57 KB of country shapes in the file.",
+        "text": "World map: countries on a flat map or a draggable, self-turning globe, with a 3D bar or a pin (marker prop) standing on every country in your data (tall and dark means bigger). Zoom with the buttons, Ctrl/Cmd + scroll or a double click, drag to pan or turn it, a clickable country list under the map highlights a country and flies the map or globe to it (click it again to clear), hover shows the number, click calls onSelect. No map library, about 57 KB of country shapes in the file.",
         "slugs": [
           "world-map"
         ]

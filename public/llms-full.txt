@@ -5579,7 +5579,7 @@ export default function WordCloudDemo() {
 ```
 
 ## World map (`world-map`)
-Countries on a flat map or a draggable globe, with a 3D bar or pin standing on every country in your data. Zoom, pan and spin it; hover for the number.
+Countries on a flat map or a draggable globe, with a 3D bar or pin standing on every country in your data. Zoom, pan and spin it; click a name in the list to highlight a country.
 - Group: Data
 - What it shows: The world as a flat map or a globe, with a bar standing on each country you have data for.
 - How to read it: A taller bar and a darker country mean a bigger number. Hover a country for its name and value. On the globe, drag or use the arrow keys to turn it.
