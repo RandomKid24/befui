@@ -13,7 +13,7 @@
       },
       {
         "kind": "added",
-        "text": "India map: India by state and union territory (36, official boundaries) with the same 3D bars or pins, zoom and pan, and a clickable state list as the world map. About 32 KB of shapes in the file, no map library.",
+        "text": "India map: India by state and union territory (36, official boundaries) with the same 3D bars or pins, zoom and pan, and a clickable state list as the world map, and a groups prop to merge states into your own named regions (for example { M1: ['Maharashtra', 'Goa'] }) that tint, outline, click and show one marker as one. About 32 KB of shapes in the file, no map library.",
         "slugs": [
           "india-map"
         ]

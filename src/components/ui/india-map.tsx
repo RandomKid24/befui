@@ -38,6 +38,30 @@ const regions = () =>
     return { name, c: [cx, cy] as [number, number], rings, d };
   }));
 
+interface Area { name: string; c: [number, number]; members: (Region & { d: string })[]; box: [number, number, number, number] }
+
+/** States merged into named regions (`groups`) become one area each; every other state is its own area. */
+function areasOf(groups: Record<string, string[]>): Area[] {
+  const all = regions();
+  const taken = new Set<string>();
+  const make = (name: string, members: (Region & { d: string })[]): Area => {
+    const xs = members.flatMap((m) => m.rings.flat().map(([lon]) => X(lon)));
+    const ys = members.flatMap((m) => m.rings.flat().map(([, lat]) => Y(lat)));
+    return {
+      name,
+      members,
+      c: [members.reduce((a, m) => a + m.c[0], 0) / members.length, members.reduce((a, m) => a + m.c[1], 0) / members.length],
+      box: [Math.min(...xs), Math.min(...ys), Math.max(...xs), Math.max(...ys)],
+    };
+  };
+  const grouped = Object.entries(groups).flatMap(([name, names]) => {
+    const members = all.filter((r) => names.includes(r.name) && !taken.has(r.name));
+    members.forEach((m) => taken.add(m.name));
+    return members.length ? [make(name, members)] : [];
+  });
+  return [...all.filter((r) => !taken.has(r.name)).map((r) => make(r.name, [r])), ...grouped];
+}
+
 /** Names accepted by `data[].id`. */
 export const indiaRegionNames = () => regions().map((r) => r.name);
 
@@ -97,6 +121,7 @@ export function IndiaMap({
   marker = 'bar',
   zoomable = true,
   legend = true,
+  groups,
   format = (n) => n.toLocaleString('en-IN'),
   onSelect,
   className,
@@ -108,6 +133,8 @@ export function IndiaMap({
   zoomable?: boolean;
   /** Clickable list of the states in `data` under the map. */
   legend?: boolean;
+  /** Merge states into named regions, e.g. `{ M1: ['Maharashtra', 'Goa'] }`. Use the region name as `id` in `data`; the merged states act as one: one tint, one outline, one marker, one click. */
+  groups?: Record<string, string[]>;
   format?: (n: number) => string;
   onSelect?: (id: string) => void;
   className?: string;
@@ -126,7 +153,8 @@ export function IndiaMap({
   const ms = 1 / k ** 0.6; // markers shrink a little as you zoom in
   const vw = FW / k, vh = FH / k;
 
-  const list = regions();
+  const gkey = JSON.stringify(groups ?? {});
+  const list = React.useMemo(() => areasOf(JSON.parse(gkey)), [gkey]);
   const byId = new Map(data.map((d) => [d.id, d]));
   const max = Math.max(...data.map((d) => d.value), 1);
 
@@ -179,10 +207,10 @@ export function IndiaMap({
     setSel(next);
     const c = next && list.find((x) => x.name === next);
     if (!c) return;
-    setView((v) => {
-      const nk = Math.max(v.k, 2.5), w = FW / nk, h = FH / nk;
-      return { k: nk, x: clamp(X(c.c[0]) - w / 2, 0, FW - w), y: clamp(Y(c.c[1]) - h / 2, 0, FH - h) };
-    });
+    const [x0, y0, x1, y1] = c.box;
+    const nk = clamp(Math.min(FW / (x1 - x0), FH / (y1 - y0)) * 0.75, 1.5, 8); // fit the whole area with some air around it
+    const w = FW / nk, h = FH / nk;
+    setView({ k: nk, x: clamp((x0 + x1) / 2 - w / 2, 0, FW - w), y: clamp((y0 + y1) / 2 - h / 2, 0, FH - h) });
     onSelect?.(c.name);
   };
 
@@ -193,7 +221,7 @@ export function IndiaMap({
 
   const bars = data
     .map((d, i) => ({ d, c: list.find((c) => c.name === d.id), i }))
-    .filter((b): b is { d: IndiaMapDatum; c: Region & { d: string }; i: number } => !!b.c)
+    .filter((b): b is { d: IndiaMapDatum; c: Area; i: number } => !!b.c)
     .sort((a, b) => b.c.c[1] - a.c.c[1]); // northern ones first, so southern ones draw in front
 
   const hovered = hover ? byId.get(hover) : undefined;
@@ -252,22 +280,42 @@ export function IndiaMap({
               <stop offset="1" stopColor="#000" stopOpacity={0.5} />
             </radialGradient>
           </defs>
-          {list.map((c) => (
-            <path
-              key={c.name}
-              d={c.d}
-              fillRule="evenodd"
-              fill="currentColor"
-              fillOpacity={tint(c.name)}
-              className={cn(c.name === sel ? 'stroke-foreground' : 'stroke-background', 'transition-[fill-opacity] duration-150', byId.has(c.name) && 'cursor-pointer')}
-              strokeWidth={c.name === sel ? 1.4 : 0.6}
-              vectorEffect="non-scaling-stroke"
-              strokeLinejoin="round"
-              onPointerEnter={() => setHover(c.name)}
-              onPointerLeave={() => setHover(null)}
-              onClick={byId.has(c.name) && !drag.current?.moved ? () => pick(c.name) : undefined}
-            />
-          ))}
+          {list.map((c) => {
+            const merged = c.members.length > 1;
+            const on = byId.has(c.name);
+            const shared = {
+              fillRule: 'evenodd' as const,
+              strokeLinejoin: 'round' as const,
+              vectorEffect: 'non-scaling-stroke' as const,
+            };
+            return (
+              <g
+                key={c.name}
+                onPointerEnter={() => setHover(c.name)}
+                onPointerLeave={() => setHover(null)}
+                onClick={on && !drag.current?.moved ? () => pick(c.name) : undefined}
+                className={cn(on && 'cursor-pointer')}
+              >
+                {/* a merged region draws its outlines first and the fills on top, so the borders between its states are covered and only the outer edge shows */}
+                {c.members.map((m) => (
+                  <path
+                    key={m.name}
+                    d={m.d}
+                    {...shared}
+                    fill="currentColor"
+                    fillOpacity={tint(c.name)}
+                    className={cn(c.name === sel ? 'stroke-foreground' : 'stroke-background', 'transition-[fill-opacity] duration-150')}
+                    strokeWidth={merged ? (c.name === sel ? 2.8 : 1.6) : c.name === sel ? 1.4 : 0.6}
+                    style={merged ? { fill: 'none' } : undefined}
+                  />
+                ))}
+                {merged &&
+                  c.members.map((m) => (
+                    <path key={m.name + 'f'} d={m.d} {...shared} fill="currentColor" fillOpacity={tint(c.name)} className="transition-[fill-opacity] duration-150" />
+                  ))}
+              </g>
+            );
+          })}
           {bars.map(({ d, c, i }) => {
             const x = X(c.c[0]), y = Y(c.c[1]), hot = lit(c.name), v = d.value / max;
             return marker === 'pin' ? (
