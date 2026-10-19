@@ -1,6 +1,6 @@
 # Components
 
-Every befui component and block. **213 React components**, **211 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **37 page blocks**.
+Every befui component and block. **214 React components**, **211 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **37 page blocks**.
 (Generated from the registry by `npm run registry:build`. Do not edit by hand.)
 
 Install a React component with `npx github:RandomKid24/befui add <name>`, the Flutter version with `npx github:RandomKid24/befui add <name> --flutter`.
@@ -148,7 +148,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `tool-call` | A card for one tool or function call an AI made: name, running, done or failed, how long it took, and its input and output to expand. | ✓ | ✓ |
 | `voice-wave` | Audio level bars for a voice input: they dance while listening and settle to a line when paused. Drive them with a real level or leave them idle. | ✓ | ✓ |
 
-## Data (62)
+## Data (63)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
@@ -176,6 +176,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `half-donut-chart` | A semicircle split into parts with a total under the arch. Half the height of a donut, so it fits dashboard cards. | ✓ |  |
 | `heatmap` | Contribution-style grid for daily activity. Cells pop in column by column. | ✓ |  |
 | `histogram-chart` | Counts how many values fall in each range from raw data, with a smooth curve over the bars. Bars rise in turn. | ✓ |  |
+| `india-map` | India by state and union territory, with a 3D bar or pin standing on every state in your data. Zoom and pan it; click a name in the list to highlight a state. |  |  |
 | `kanban` | Columns of draggable cards. Drag with the mouse or move a focused card with Alt and the arrow keys. Controlled, no drag library. | ✓ | ✓ |
 | `leaderboard` | Ranked people or teams with avatars, score bars, gold, silver and bronze badges and place changes. Sorted for you; bars fill in on scroll. | ✓ | ✓ |
 | `line-chart` | Multi-series line or area chart in plain SVG with grid, axis labels, legend and a hover readout. | ✓ | ✓ |

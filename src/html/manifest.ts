@@ -560,6 +560,7 @@ export const manifest: Record<string, [file: string, name: string]> = {
   "bef-reply-all-icon": [ "icons", "ReplyAllIcon" ],
   "bef-image-upload": [ "image-upload", "ImageUpload" ],
   "bef-image-viewer": [ "image-viewer", "ImageViewer" ],
+  "bef-india-map": [ "india-map", "IndiaMap" ],
   "bef-inline-edit": [ "inline-edit", "InlineEdit" ],
   "bef-input-group": [ "input-group", "InputGroup" ],
   "bef-input-group-input": [ "input-group", "InputGroupInput" ],

@@ -4,7 +4,7 @@
 
 **Interfaces people actually enjoy using.**
 
-213 copy-paste React components, 389 hand-drawn icons and 37 full-page blocks.<br/>
+214 copy-paste React components, 389 hand-drawn icons and 37 full-page blocks.<br/>
 Plus **121 Flutter widgets** for Android and iOS, and every component as a `<bef-*>` HTML tag.<br/>
 Built on Radix, Tailwind 4 and CSS variables. You own every file.
 
@@ -202,7 +202,7 @@ Add a `## x.y.z` section to `CHANGELOG.md`, then `npm version minor` (checks the
 Some components (loader, bottom sheet, toast...) need keyframes from `index.css`. After adding components, run `npx github:RandomKid24/befui update` to append any your project is missing (`--check` only reports, handy in CI). `add` also prints a warning when something is missing.
 
 <!-- components:start -->
-### Components (213)
+### Components (214)
 
 <details>
 <summary><b>Layout</b> (5)</summary>
@@ -240,9 +240,9 @@ Some components (loader, bottom sheet, toast...) need keyframes from `index.css`
 </details>
 
 <details>
-<summary><b>Data</b> (62)</summary>
+<summary><b>Data</b> (63)</summary>
 
-`area-chart` · `audit-log` · `bar-list` · `box-plot-chart` · `bullet-chart` · `bump-chart` · `butterfly-chart` · `candlestick-chart` · `charts` · `chord-chart` · `circle-pack-chart` · `comparison-table` · `countdown` · `data-table` · `dumbbell-chart` · `file-manager` · `filter-bar` · `forecast-chart` · `funnel-chart` · `gantt` · `gauge` · `half-donut-chart` · `heatmap` · `histogram-chart` · `kanban` · `leaderboard` · `line-chart` · `live-chart` · `lollipop-chart` · `marimekko-chart` · `matrix-heatmap` · `number-ticker` · `org-chart` · `pareto-chart` · `permission-matrix` · `pie-chart` · `pivot-table` · `progress` · `progress-ring` · `punch-card-chart` · `radar-chart` · `radial-bar-chart` · `radial-line-chart` · `ridgeline-chart` · `rose-chart` · `sankey-chart` · `saved-views` · `scatter-chart` · `slope-chart` · `stacked-bar-chart` · `stat-card` · `stream-chart` · `sunburst-chart` · `tree-table` · `treemap` · `uptime-bar` · `venn-chart` · `virtual-list` · `waffle-chart` · `waterfall-chart` · `word-cloud` · `world-map`
+`area-chart` · `audit-log` · `bar-list` · `box-plot-chart` · `bullet-chart` · `bump-chart` · `butterfly-chart` · `candlestick-chart` · `charts` · `chord-chart` · `circle-pack-chart` · `comparison-table` · `countdown` · `data-table` · `dumbbell-chart` · `file-manager` · `filter-bar` · `forecast-chart` · `funnel-chart` · `gantt` · `gauge` · `half-donut-chart` · `heatmap` · `histogram-chart` · `india-map` · `kanban` · `leaderboard` · `line-chart` · `live-chart` · `lollipop-chart` · `marimekko-chart` · `matrix-heatmap` · `number-ticker` · `org-chart` · `pareto-chart` · `permission-matrix` · `pie-chart` · `pivot-table` · `progress` · `progress-ring` · `punch-card-chart` · `radar-chart` · `radial-bar-chart` · `radial-line-chart` · `ridgeline-chart` · `rose-chart` · `sankey-chart` · `saved-views` · `scatter-chart` · `slope-chart` · `stacked-bar-chart` · `stat-card` · `stream-chart` · `sunburst-chart` · `tree-table` · `treemap` · `uptime-bar` · `venn-chart` · `virtual-list` · `waffle-chart` · `waterfall-chart` · `word-cloud` · `world-map`
 
 </details>
 

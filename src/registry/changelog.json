@@ -13,6 +13,13 @@
       },
       {
         "kind": "added",
+        "text": "India map: India by state and union territory (36, official boundaries) with the same 3D bars or pins, zoom and pan, and a clickable state list as the world map. About 32 KB of shapes in the file, no map library.",
+        "slugs": [
+          "india-map"
+        ]
+      },
+      {
+        "kind": "added",
         "text": "Recipes: six whole features built up step by step (sign-in form, settings page, overview dashboard, AI assistant, leave request, checkout). Scroll a recipe and a sticky live preview and the code grow with it, the lines each step adds are highlighted, every step is a real copy-paste file, and each recipe has an install command and a Copy for AI prompt."
       },
       {
