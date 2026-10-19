@@ -444,7 +444,7 @@ export function WorldMap({
         </div>
       )}
     </div>
-      <ul className={cn(legend ? 'mt-2.5 flex flex-wrap gap-1' : 'sr-only')}>
+      <ul className={cn(legend ? 'mt-3 grid gap-x-6 sm:grid-cols-2' : 'sr-only')}>
         {[...data].sort((a, b) => b.value - a.value).map((d) => (
           <li key={d.id}>
             <button
@@ -454,8 +454,8 @@ export function WorldMap({
               onPointerEnter={() => { setHover(d.id); setTip(null); }}
               onPointerLeave={() => setHover(null)}
               className={cn(
-                'inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] font-medium leading-5 text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
-                sel === d.id && 'border-primary bg-primary/10 text-primary',
+                'flex w-full items-center justify-between gap-3 rounded-md px-2 py-1 text-left text-xs font-medium text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring',
+                sel === d.id && 'bg-primary/10 text-primary',
               )}
             >
               {d.label ?? d.id}
