@@ -1,6 +1,6 @@
 # Components
 
-Every befui component and block. **214 React components**, **211 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **37 page blocks**.
+Every befui component and block. **215 React components**, **211 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **37 page blocks**.
 (Generated from the registry by `npm run registry:build`. Do not edit by hand.)
 
 Install a React component with `npx github:RandomKid24/befui add <name>`, the Flutter version with `npx github:RandomKid24/befui add <name> --flutter`.
@@ -148,7 +148,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `tool-call` | A card for one tool or function call an AI made: name, running, done or failed, how long it took, and its input and output to expand. | ✓ | ✓ |
 | `voice-wave` | Audio level bars for a voice input: they dance while listening and settle to a line when paused. Drive them with a real level or leave them idle. | ✓ | ✓ |
 
-## Data (63)
+## Data (64)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
@@ -186,6 +186,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `matrix-heatmap` | Rows by columns shaded by value: traffic by hour and weekday, cohort retention. Cells fade in as a wave; hover lights up the row and column. | ✓ |  |
 | `number-ticker` | Counts up to a value with easing once it scrolls into view. | ✓ | ✓ |
 | `org-chart` | Reporting tree with connector lines and collapsible teams. | ✓ |  |
+| `parallel-chart` | Many values per item in one chart: one vertical axis per measure, one line per item. Similar items run together, outliers jump. Lines draw in on scroll; hover to isolate one. |  |  |
 | `pareto-chart` | Causes sorted by size as bars plus a running-total line with an 80% mark. Shows which few causes matter most. | ✓ |  |
 | `permission-matrix` | Roles by permissions grid of checkboxes with per-column toggle and locked roles. | ✓ |  |
 | `pie-chart` | Slices of one whole that sweep around on scroll. Hover a slice or legend row and it pulls out. | ✓ |  |

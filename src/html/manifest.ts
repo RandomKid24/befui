@@ -617,6 +617,7 @@ export const manifest: Record<string, [file: string, name: string]> = {
   "bef-org-chart": [ "org-chart", "OrgChart" ],
   "bef-otp-input": [ "otp-input", "OtpInput" ],
   "bef-pagination": [ "pagination", "Pagination" ],
+  "bef-parallel-chart": [ "parallel-chart", "ParallelChart" ],
   "bef-pareto-chart": [ "pareto-chart", "ParetoChart" ],
   "bef-password-input": [ "password-input", "PasswordInput" ],
   "bef-permission-matrix": [ "permission-matrix", "PermissionMatrix" ],
