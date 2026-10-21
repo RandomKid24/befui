@@ -191,12 +191,6 @@
     "use": "Finding the few causes behind most defects, tickets or costs (the 80/20 rule).",
     "avoid": "Items that are not causes of one total, or fewer than five items."
   },
-  "parallel-chart": {
-    "what": "Many values per item in one chart: each vertical axis is one measure, each line is one item.",
-    "read": "Follow a line left to right to see one item across every measure. Each axis has its own scale, top is its highest value. Lines that run together are alike; a line that jumps against the others is an outlier. Hover a line to isolate it.",
-    "use": "Comparing a handful of items on four to eight different measures (products, cars, plans, teams).",
-    "avoid": "More than about 10 items (lines tangle), or measures that must share one scale. Use a line or bar chart."
-  },
   "slope-chart": {
     "what": "Each item is one line between two moments in time.",
     "read": "Left dots are the earlier value, right dots the later one. A steep line changed a lot, a flat line did not. Green went up, red went down. Crossing lines swapped places.",

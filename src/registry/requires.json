@@ -319,9 +319,6 @@
   "pagination": [
     "icons"
   ],
-  "parallel-chart": [
-    "charts"
-  ],
   "pareto-chart": [
     "area-chart",
     "charts"

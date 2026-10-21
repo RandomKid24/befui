@@ -4756,40 +4756,6 @@ export default function OrgChartDemo() {
 }
 ```
 
-## Parallel chart (`parallel-chart`)
-Many values per item in one chart: one vertical axis per measure, one line per item. Similar items run together, outliers jump. Lines draw in on scroll; hover to isolate one.
-- Group: Data
-- What it shows: Many values per item in one chart: each vertical axis is one measure, each line is one item.
-- How to read it: Follow a line left to right to see one item across every measure. Each axis has its own scale, top is its highest value. Lines that run together are alike; a line that jumps against the others is an outlier. Hover a line to isolate it.
-- Use it for: Comparing a handful of items on four to eight different measures (products, cars, plans, teams).
-- Skip it when: More than about 10 items (lines tangle), or measures that must share one scale. Use a line or bar chart.
-- Add: `npx github:RandomKid24/befui add parallel-chart`
-- Import: `import { ParallelChart } from '@/components/ui/parallel-chart'`
-- Also needs: charts
-
-Example:
-
-```tsx
-import { ParallelChart } from '@/components/ui/parallel-chart';
-
-/** Five measures per car in one chart. Each axis has its own scale (top = its max). */
-export default function ParallelChartDemo() {
-  return (
-    <ParallelChart
-      className="w-[36rem] max-w-full"
-      axes={['Power (hp)', 'Range (km)', 'Price ($k)', 'Boot (L)', 'Safety']}
-      rows={[
-        { name: 'City', values: [110, 320, 24, 380, 4.6] },
-        { name: 'Sport', values: [340, 410, 62, 280, 4.4] },
-        { name: 'Family', values: [180, 520, 41, 620, 4.9] },
-        { name: 'Budget', values: [90, 260, 18, 330, 4.1] },
-        { name: 'Luxury', values: [290, 580, 88, 500, 4.8] },
-      ]}
-    />
-  );
-}
-```
-
 ## Pareto chart (`pareto-chart`)
 Causes sorted by size as bars plus a running-total line with an 80% mark. Shows which few causes matter most.
 - Group: Data
