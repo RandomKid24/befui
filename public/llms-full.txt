@@ -4791,6 +4791,60 @@ export default function OrgChartDemo() {
 }
 ```
 
+## Outcome bar (`outcome-bar`)
+One thick rounded bar split green and red in proportion (won vs lost), a pale piece for what is still open, a big conversion number above and the counts under each part.
+- Group: Data
+- What it shows: One bar split into parts in proportion, such as won and lost, with a pale part for what is still open.
+- How to read it: The big number is the first part (won) out of the counted parts (won plus lost); the open part is not counted. Wider means more. Each count sits under its own part.
+- Use it for: Win rate, pass and fail, approved and rejected, with a count of what is still pending.
+- Skip it when: More than about four parts, or values that are not parts of one whole. Use a bar or pie chart.
+- Add: `npx github:RandomKid24/befui add outcome-bar`
+- Import: `import { OutcomeBar } from '@/components/ui/outcome-bar'`
+- Also needs: charts
+
+Example:
+
+```tsx
+import { OutcomeBar } from '@/components/ui/outcome-bar';
+
+/** 4 won, 17 lost, 51 still open: the headline is won out of closed (19%). */
+export default function OutcomeBarDemo() {
+  return (
+    <OutcomeBar
+      className="w-[26rem] max-w-full"
+      headlineLabel="conversion"
+      segments={[{ label: 'Won', value: 4 }, { label: 'Lost', value: 17 }]}
+      ghost={{ label: 'Open', value: 51 }}
+    />
+  );
+}
+```
+
+## Pace chart (`pace-chart`)
+Burn-up for a monthly target: running total, the straight line you should be on, a dashed projection to month end, the target line and an ahead or behind pace chip.
+- Group: Data
+- What it shows: A running total against a target for the month, with where you should be and where you are heading.
+- How to read it: The solid line is the total so far. The faint straight line is the pace needed to hit the target by month end. The dashed line carries today's daily rate to month end; if it ends below the target line you are behind. The chip says by how much.
+- Use it for: Monthly sales or revenue target, a budget burning down, any goal with a deadline.
+- Skip it when: Data that is not cumulative, or targets with no end date.
+- Add: `npx github:RandomKid24/befui add pace-chart`
+- Import: `import { PaceChart } from '@/components/ui/pace-chart'`
+- Also needs: charts
+
+Example:
+
+```tsx
+import { PaceChart } from '@/components/ui/pace-chart';
+
+/** Cumulative won value to day 17 of a 30 day month, against a target of 42.8 Cr. */
+export default function PaceChartDemo() {
+  const daily = [0.4, 0.4, 1.1, 0.9, 1.6, 0.8, 2.4, 1.2, 0.7, 0.7, 1.6, 1.0, 1.3, 0.8, 0.5, 0.3, 0.2];
+  let total = 0;
+  const points = daily.map((v, i) => ({ day: i + 1, value: +(total += v).toFixed(2) }));
+  return <PaceChart className="w-[34rem] max-w-full" points={points} target={42.8} daysInMonth={30} format={(n) => `₹${n.toFixed(2)} Cr`} />;
+}
+```
+
 ## Pareto chart (`pareto-chart`)
 Causes sorted by size as bars plus a running-total line with an 80% mark. Shows which few causes matter most.
 - Group: Data

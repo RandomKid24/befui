@@ -197,6 +197,18 @@
     "use": "Revenue bars with a conversion line, sales against a target, volume and rate over the same months.",
     "avoid": "More than about 4 series or 12 periods, or a right-hand scale that confuses readers. Split into two charts."
   },
+  "outcome-bar": {
+    "what": "One bar split into parts in proportion, such as won and lost, with a pale part for what is still open.",
+    "read": "The big number is the first part (won) out of the counted parts (won plus lost); the open part is not counted. Wider means more. Each count sits under its own part.",
+    "use": "Win rate, pass and fail, approved and rejected, with a count of what is still pending.",
+    "avoid": "More than about four parts, or values that are not parts of one whole. Use a bar or pie chart."
+  },
+  "pace-chart": {
+    "what": "A running total against a target for the month, with where you should be and where you are heading.",
+    "read": "The solid line is the total so far. The faint straight line is the pace needed to hit the target by month end. The dashed line carries today's daily rate to month end; if it ends below the target line you are behind. The chip says by how much.",
+    "use": "Monthly sales or revenue target, a budget burning down, any goal with a deadline.",
+    "avoid": "Data that is not cumulative, or targets with no end date."
+  },
   "slope-chart": {
     "what": "Each item is one line between two moments in time.",
     "read": "Left dots are the earlier value, right dots the later one. A steep line changed a lot, a flat line did not. Green went up, red went down. Crossing lines swapped places.",

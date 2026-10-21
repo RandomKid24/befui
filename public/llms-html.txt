@@ -1917,6 +1917,23 @@ Code boxes with paste, backspace, arrow keys, autofill and a shake on error.
 </script>
 ```
 
+## Outcome bar (outcome-bar)
+One thick rounded bar split green and red in proportion (won vs lost), a pale piece for what is still open, a big conversion number above and the counts under each part.
+```html
+<bef-outcome-bar class="w-[26rem] max-w-full" headline-label="conversion" :segments='[{"label":"Won","value":4},{"label":"Lost","value":17}]' :ghost='{"label":"Open","value":51}'></bef-outcome-bar>
+```
+
+## Pace chart (pace-chart)
+Burn-up for a monthly target: running total, the straight line you should be on, a dashed projection to month end, the target line and an ahead or behind pace chip.
+```html
+<bef-pace-chart class="w-[34rem] max-w-full" :points='[{"day":1,"value":0.4},{"day":2,"value":0.8},{"day":3,"value":1.9},{"day":4,"value":2.8},{"day":5,"value":4.4},{"day":6,"value":5.2},{"day":7,"value":7.6},{"day":8,"value":8.8},{"day":9,"value":9.5},{"day":10,"value":10.2},{"day":11,"value":11.8},{"day":12,"value":12.8},{"day":13,"value":14.1},{"day":14,"value":14.9},{"day":15,"value":15.4},{"day":16,"value":15.7},{"day":17,"value":15.9}]' :target="42.8" :days-in-month="30" id="g1"></bef-pace-chart>
+<script type="module">
+document.getElementById("g1").props = {
+  format: (n) => `₹${n.toFixed(2)} Cr`,
+};
+</script>
+```
+
 ## Pagination (pagination)
 Page buttons with ellipsis for long ranges.
 ```html
