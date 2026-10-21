@@ -7,6 +7,10 @@ All notable changes to befui. Versions follow [semver](https://semver.org): new 
 
 Flutter widgets for Android and iOS, a page per platform, a new hero
 
+- **Added:** Charts and data: sparkline table (a trend line and change chip on every row), heat calendar (a month tinted by day), ring chart (concentric goal rings), range gauge (speedometer in coloured bands), resizable table and chart skeletons (bar, line, pie, table). (Sparkline table, Heat calendar, Ring chart, Range gauge, Resizable table, Chart skeleton)
+- **Added:** Forms and actions: popconfirm (a small are-you-sure bubble), split button, form wizard (steps with validation), range slider (two handles), gradient picker and autocomplete (fixed list or async search). (Popconfirm, Split button, Form wizard, Range slider, Gradient picker, Autocomplete)
+- **Added:** Image gallery (masonry grid with hover zoom) and media player (video or audio with themed controls). (Image gallery, Media player)
+- **Changed:** Toast: an optional action button, like Undo (toast.success(title, description, { action: { label, onClick } })). (Toast)
 - **Added:** Outcome bar: one thick rounded bar split green and red in proportion (won vs lost) with a pale piece for open items, a big conversion number and the counts under each part. Tiny values stay a real chunk. (Outcome bar)
 - **Added:** Pace chart: burn-up for a monthly target. The running total, the straight line you should be on, a dashed projection to month end, the target line and an ahead or behind pace chip. (Pace chart)
 - **Added:** Drawer: a panel that slides in from the bottom, top, left or right and follows your finger. Drag the grip toward the edge to dismiss it; a bottom drawer can rest half open (snap points) and be pulled to full height. (Drawer)

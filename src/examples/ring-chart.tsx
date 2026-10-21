@@ -1,0 +1,13 @@
+import { RingChart } from '@/components/ui/ring-chart';
+
+export default function RingChartDemo() {
+  return (
+    <RingChart
+      rings={[
+        { label: 'Move', value: 420, max: 600, color: 'text-destructive' },
+        { label: 'Exercise', value: 24, max: 30, color: 'text-success' },
+        { label: 'Stand', value: 7, max: 12, color: 'text-info' },
+      ]}
+    />
+  );
+}

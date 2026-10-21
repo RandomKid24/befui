@@ -4,7 +4,7 @@
 
 **Interfaces people actually enjoy using.**
 
-218 copy-paste React components, 389 hand-drawn icons and 37 full-page blocks.<br/>
+232 copy-paste React components, 389 hand-drawn icons and 37 full-page blocks.<br/>
 Plus **121 Flutter widgets** for Android and iOS, and every component as a `<bef-*>` HTML tag.<br/>
 Built on Radix, Tailwind 4 and CSS variables. You own every file.
 
@@ -202,7 +202,7 @@ Add a `## x.y.z` section to `CHANGELOG.md`, then `npm version minor` (checks the
 Some components (loader, bottom sheet, toast...) need keyframes from `index.css`. After adding components, run `npx github:RandomKid24/befui update` to append any your project is missing (`--check` only reports, handy in CI). `add` also prints a warning when something is missing.
 
 <!-- components:start -->
-### Components (218)
+### Components (232)
 
 <details>
 <summary><b>Layout</b> (5)</summary>
@@ -219,16 +219,16 @@ Some components (loader, bottom sheet, toast...) need keyframes from `index.css`
 </details>
 
 <details>
-<summary><b>Inputs</b> (42)</summary>
+<summary><b>Inputs</b> (47)</summary>
 
-`avatar-upload` · `button` · `button-group` · `calendar` · `checkbox` · `chip` · `color-picker` · `combobox` · `copy-button` · `coupon-input` · `currency-input` · `date-picker` · `datetime-picker` · `dropzone` · `fab` · `file-uploader` · `image-upload` · `inline-edit` · `input` · `input-group` · `label` · `mention-input` · `notification-preferences` · `number-stepper` · `otp-input` · `password-input` · `phone-input` · `radio-group` · `rating` · `rich-text-editor` · `schema-form` · `search-bar` · `search-input` · `segmented` · `select` · `signature-pad` · `slider` · `switch` · `tag-input` · `theme-toggle` · `toggle` · `toggle-group`
+`autocomplete` · `avatar-upload` · `button` · `button-group` · `calendar` · `checkbox` · `chip` · `color-picker` · `combobox` · `copy-button` · `coupon-input` · `currency-input` · `date-picker` · `datetime-picker` · `dropzone` · `fab` · `file-uploader` · `form-wizard` · `gradient-picker` · `image-upload` · `inline-edit` · `input` · `input-group` · `label` · `mention-input` · `notification-preferences` · `number-stepper` · `otp-input` · `password-input` · `phone-input` · `radio-group` · `range-slider` · `rating` · `rich-text-editor` · `schema-form` · `search-bar` · `search-input` · `segmented` · `select` · `signature-pad` · `slider` · `split-button` · `switch` · `tag-input` · `theme-toggle` · `toggle` · `toggle-group`
 
 </details>
 
 <details>
-<summary><b>Display</b> (44)</summary>
+<summary><b>Display</b> (46)</summary>
 
-`accordion` · `activity-feed` · `approval-flow` · `avatar` · `badge` · `border-beam` · `brand-icons` · `card` · `carousel` · `changelog` · `chat` · `code-block` · `collapsible` · `comment-thread` · `compare` · `credit-card` · `description-list` · `diff-viewer` · `empty-state` · `format` · `invoice` · `kbd` · `marquee` · `onboarding-checklist` · `order-summary` · `pricing-card` · `product-card` · `profile-card` · `rating-breakdown` · `reveal` · `separator` · `shimmer-text` · `sortable-list` · `spotlight-card` · `status-dot` · `swipe-actions` · `table` · `tag-manager` · `terminal` · `testimonial-card` · `tilt-card` · `timeline` · `typewriter` · `version-log`
+`accordion` · `activity-feed` · `approval-flow` · `avatar` · `badge` · `border-beam` · `brand-icons` · `card` · `carousel` · `changelog` · `chat` · `code-block` · `collapsible` · `comment-thread` · `compare` · `credit-card` · `description-list` · `diff-viewer` · `empty-state` · `format` · `image-gallery` · `invoice` · `kbd` · `marquee` · `media-player` · `onboarding-checklist` · `order-summary` · `pricing-card` · `product-card` · `profile-card` · `rating-breakdown` · `reveal` · `separator` · `shimmer-text` · `sortable-list` · `spotlight-card` · `status-dot` · `swipe-actions` · `table` · `tag-manager` · `terminal` · `testimonial-card` · `tilt-card` · `timeline` · `typewriter` · `version-log`
 
 </details>
 
@@ -240,23 +240,23 @@ Some components (loader, bottom sheet, toast...) need keyframes from `index.css`
 </details>
 
 <details>
-<summary><b>Data</b> (66)</summary>
+<summary><b>Data</b> (71)</summary>
 
-`area-chart` · `audit-log` · `bar-list` · `box-plot-chart` · `bullet-chart` · `bump-chart` · `butterfly-chart` · `candlestick-chart` · `charts` · `chord-chart` · `circle-pack-chart` · `combo-chart` · `comparison-table` · `countdown` · `data-table` · `dumbbell-chart` · `file-manager` · `filter-bar` · `forecast-chart` · `funnel-chart` · `gantt` · `gauge` · `half-donut-chart` · `heatmap` · `histogram-chart` · `india-map` · `kanban` · `leaderboard` · `line-chart` · `live-chart` · `lollipop-chart` · `marimekko-chart` · `matrix-heatmap` · `number-ticker` · `org-chart` · `outcome-bar` · `pace-chart` · `pareto-chart` · `permission-matrix` · `pie-chart` · `pivot-table` · `progress` · `progress-ring` · `punch-card-chart` · `radar-chart` · `radial-bar-chart` · `radial-line-chart` · `ridgeline-chart` · `rose-chart` · `sankey-chart` · `saved-views` · `scatter-chart` · `slope-chart` · `stacked-bar-chart` · `stat-card` · `stream-chart` · `sunburst-chart` · `tree-table` · `treemap` · `uptime-bar` · `venn-chart` · `virtual-list` · `waffle-chart` · `waterfall-chart` · `word-cloud` · `world-map`
-
-</details>
-
-<details>
-<summary><b>Feedback</b> (11)</summary>
-
-`alert` · `banner` · `confetti` · `cookie-consent` · `error-state` · `loader` · `notification-center` · `pull-to-refresh` · `skeleton` · `spinner` · `toast`
+`area-chart` · `audit-log` · `bar-list` · `box-plot-chart` · `bullet-chart` · `bump-chart` · `butterfly-chart` · `candlestick-chart` · `charts` · `chord-chart` · `circle-pack-chart` · `combo-chart` · `comparison-table` · `countdown` · `data-table` · `dumbbell-chart` · `file-manager` · `filter-bar` · `forecast-chart` · `funnel-chart` · `gantt` · `gauge` · `half-donut-chart` · `heat-calendar` · `heatmap` · `histogram-chart` · `india-map` · `kanban` · `leaderboard` · `line-chart` · `live-chart` · `lollipop-chart` · `marimekko-chart` · `matrix-heatmap` · `number-ticker` · `org-chart` · `outcome-bar` · `pace-chart` · `pareto-chart` · `permission-matrix` · `pie-chart` · `pivot-table` · `progress` · `progress-ring` · `punch-card-chart` · `radar-chart` · `radial-bar-chart` · `radial-line-chart` · `range-gauge` · `resizable-table` · `ridgeline-chart` · `ring-chart` · `rose-chart` · `sankey-chart` · `saved-views` · `scatter-chart` · `slope-chart` · `sparkline-table` · `stacked-bar-chart` · `stat-card` · `stream-chart` · `sunburst-chart` · `tree-table` · `treemap` · `uptime-bar` · `venn-chart` · `virtual-list` · `waffle-chart` · `waterfall-chart` · `word-cloud` · `world-map`
 
 </details>
 
 <details>
-<summary><b>Overlays</b> (13)</summary>
+<summary><b>Feedback</b> (12)</summary>
 
-`alert-dialog` · `bottom-sheet` · `command` · `context-menu` · `dialog` · `drawer` · `dropdown-menu` · `hover-card` · `image-viewer` · `popover` · `shortcuts-dialog` · `tooltip` · `tour`
+`alert` · `banner` · `chart-skeleton` · `confetti` · `cookie-consent` · `error-state` · `loader` · `notification-center` · `pull-to-refresh` · `skeleton` · `spinner` · `toast`
+
+</details>
+
+<details>
+<summary><b>Overlays</b> (14)</summary>
+
+`alert-dialog` · `bottom-sheet` · `command` · `context-menu` · `dialog` · `drawer` · `dropdown-menu` · `hover-card` · `image-viewer` · `popconfirm` · `popover` · `shortcuts-dialog` · `tooltip` · `tour`
 
 </details>
 

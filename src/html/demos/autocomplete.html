@@ -1,0 +1,8 @@
+<bef-autocomplete class="w-80" value="" placeholder="Search a place" emit="value-change" id="g1"></bef-autocomplete>
+<script type="module">
+const places = ['Bandra, Mumbai', 'Bangalore, Karnataka', 'Banjara Hills, Hyderabad', 'Baner, Pune', 'Bhopal, Madhya Pradesh', 'Connaught Place, Delhi', 'Koramangala, Bangalore', 'Salt Lake, Kolkata'];
+
+document.getElementById("g1").props = {
+  onSearch: (q) => new Promise((r) => setTimeout(() => r(places.filter((p) => p.toLowerCase().includes(q.toLowerCase()))), 300)),
+};
+</script>

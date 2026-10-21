@@ -1,0 +1,14 @@
+<bef-split-button id="g1">Publish</bef-split-button>
+<script type="module">
+document.getElementById("g1").props = {
+  onClick: () => befui.toast.success("Published"),
+  actions: [
+    { label: "Save as draft", onSelect: () => befui.toast.info("Saved as draft") },
+    { label: "Schedule for later", onSelect: () => befui.toast.info("Scheduled") },
+    {
+      label: "Publish and share",
+      onSelect: () => befui.toast.success("Published and shared"),
+    },
+  ],
+};
+</script>

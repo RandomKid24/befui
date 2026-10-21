@@ -44,6 +44,9 @@
     "badge",
     "icons"
   ],
+  "autocomplete": [
+    "input"
+  ],
   "avatar": [],
   "avatar-upload": [
     "avatar",
@@ -89,6 +92,9 @@
   ],
   "changelog": [
     "badge"
+  ],
+  "chart-skeleton": [
+    "skeleton"
   ],
   "charts": [],
   "chat": [
@@ -220,11 +226,21 @@
     "area-chart",
     "charts"
   ],
+  "form-wizard": [
+    "button",
+    "stepper"
+  ],
   "format": [],
   "funnel-chart": [],
   "gantt": [],
   "gauge": [],
+  "gradient-picker": [
+    "copy-button"
+  ],
   "half-donut-chart": [
+    "charts"
+  ],
+  "heat-calendar": [
     "charts"
   ],
   "heatmap": [],
@@ -234,6 +250,7 @@
   ],
   "hover-card": [],
   "icons": [],
+  "image-gallery": [],
   "image-upload": [
     "icons"
   ],
@@ -276,6 +293,9 @@
   "marquee": [],
   "matrix-heatmap": [
     "charts"
+  ],
+  "media-player": [
+    "icons"
   ],
   "mention-input": [
     "avatar"
@@ -347,6 +367,10 @@
     "charts"
   ],
   "pivot-table": [],
+  "popconfirm": [
+    "button",
+    "popover"
+  ],
   "popover": [],
   "pricing-card": [
     "badge",
@@ -385,6 +409,10 @@
     "charts"
   ],
   "radio-group": [],
+  "range-gauge": [
+    "charts"
+  ],
+  "range-slider": [],
   "rating": [
     "icons"
   ],
@@ -393,10 +421,14 @@
     "icons"
   ],
   "relative-time": [],
+  "resizable-table": [],
   "reveal": [],
   "rich-text-editor": [],
   "ridgeline-chart": [
     "area-chart",
+    "charts"
+  ],
+  "ring-chart": [
     "charts"
   ],
   "rose-chart": [
@@ -456,7 +488,16 @@
   "sources": [
     "icons"
   ],
+  "sparkline-table": [
+    "charts",
+    "icons"
+  ],
   "spinner": [],
+  "split-button": [
+    "button",
+    "dropdown-menu",
+    "icons"
+  ],
   "split-pane": [],
   "spotlight-card": [],
   "stacked-bar-chart": [

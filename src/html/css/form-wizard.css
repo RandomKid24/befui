@@ -1,0 +1,21 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --text-sm: .875rem;
+  --text-sm--line-height: calc(1.25 / .875);
+}
+
+/* Utility rules */
+.flex {
+  display: flex;
+}
+.text-sm {
+  font-size: var(--text-sm);
+  line-height: var(--tw-leading,var(--text-sm--line-height));
+}
+
+@property --tw-leading {
+  syntax: "*";
+  inherits: false;
+}

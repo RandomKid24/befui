@@ -1,0 +1,17 @@
+import { SparklineTable } from '@/components/ui/sparkline-table';
+
+export default function SparklineTableDemo() {
+  return (
+    <SparklineTable
+      className="w-[36rem] max-w-full"
+      nameLabel="Team"
+      valueLabel="Revenue"
+      rows={[
+        { name: 'Enterprise', value: '₹18.2 Cr', trend: [8, 9, 9.5, 12, 13, 15, 17, 18.2] },
+        { name: 'Mid-market', value: '₹9.4 Cr', trend: [10, 9.8, 9.9, 9.6, 9.5, 9.2, 9.5, 9.4] },
+        { name: 'SMB', value: '₹4.1 Cr', trend: [6, 5.5, 5.2, 4.8, 4.6, 4.4, 4.2, 4.1] },
+        { name: 'Partners', value: '₹6.7 Cr', trend: [2, 2.8, 3.1, 4, 4.4, 5.6, 6, 6.7] },
+      ]}
+    />
+  );
+}

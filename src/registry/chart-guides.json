@@ -292,5 +292,29 @@
     "read": "A bigger word was used more. Position does not matter except that the biggest words sit near the middle. Hover a word for its count.",
     "use": "Survey answers, support topics, search terms: a quick feel for what people talk about.",
     "avoid": "Precise comparison (use a lollipop or bar chart) and long phrases. It also hides context, so do not use it for decisions alone."
+  },
+  "sparkline-table": {
+    "what": "A table where every row carries its own small trend line and a change chip.",
+    "read": "The line is the trend, oldest on the left. The chip is the change from the first point to the last: green is good news, red is bad. For things like churn or cost set higherIsBetter to false so a fall shows green.",
+    "use": "Comparing many metrics, teams or products at a glance with their direction.",
+    "avoid": "Trends with very few points, or when exact numbers matter more than direction."
+  },
+  "heat-calendar": {
+    "what": "One month as a calendar, each day tinted by its value.",
+    "read": "Darker days have more, empty grey days have no data. Hover or focus a day to read its number; click a day to select it.",
+    "use": "Daily sales, tickets, attendance or commits for a single month.",
+    "avoid": "More than one month at a time. Use the year heatmap."
+  },
+  "ring-chart": {
+    "what": "Concentric rings, each one a measure against its own goal.",
+    "read": "A full ring means the goal was reached. The outer ring is the first measure. Hover a legend row to isolate one ring.",
+    "use": "Daily activity goals, quota progress for two to four related measures.",
+    "avoid": "More than four measures, or measures that share one total. Use a bar chart."
+  },
+  "range-gauge": {
+    "what": "A speedometer split into coloured bands with a needle on the current value.",
+    "read": "The needle points at the value on the scale. The band it sits in (and the word under the number) tells you if that is poor, fair, good or excellent.",
+    "use": "Scores with known zones: credit score, health score, NPS, uptime.",
+    "avoid": "Values with no meaningful zones. Use the plain gauge or a progress ring."
   }
 }

@@ -6,6 +6,45 @@
     "entries": [
       {
         "kind": "added",
+        "text": "Charts and data: sparkline table (a trend line and change chip on every row), heat calendar (a month tinted by day), ring chart (concentric goal rings), range gauge (speedometer in coloured bands), resizable table and chart skeletons (bar, line, pie, table).",
+        "slugs": [
+          "sparkline-table",
+          "heat-calendar",
+          "ring-chart",
+          "range-gauge",
+          "resizable-table",
+          "chart-skeleton"
+        ]
+      },
+      {
+        "kind": "added",
+        "text": "Forms and actions: popconfirm (a small are-you-sure bubble), split button, form wizard (steps with validation), range slider (two handles), gradient picker and autocomplete (fixed list or async search).",
+        "slugs": [
+          "popconfirm",
+          "split-button",
+          "form-wizard",
+          "range-slider",
+          "gradient-picker",
+          "autocomplete"
+        ]
+      },
+      {
+        "kind": "added",
+        "text": "Image gallery (masonry grid with hover zoom) and media player (video or audio with themed controls).",
+        "slugs": [
+          "image-gallery",
+          "media-player"
+        ]
+      },
+      {
+        "kind": "changed",
+        "text": "Toast: an optional action button, like Undo (toast.success(title, description, { action: { label, onClick } })).",
+        "slugs": [
+          "toast"
+        ]
+      },
+      {
+        "kind": "added",
         "text": "Outcome bar: one thick rounded bar split green and red in proportion (won vs lost) with a pale piece for open items, a big conversion number and the counts under each part. Tiny values stay a real chunk.",
         "slugs": [
           "outcome-bar"

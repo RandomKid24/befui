@@ -2,6 +2,7 @@
   <bef-button variant="outline" id="g1">Success</bef-button>
   <bef-button variant="outline" id="g2">Error</bef-button>
   <bef-button variant="outline" id="g3">Info</bef-button>
+  <bef-button variant="outline" id="g4">With undo</bef-button>
 </div>
 <script type="module">
 document.getElementById("g1").props = {
@@ -12,5 +13,8 @@ document.getElementById("g2").props = {
 };
 document.getElementById("g3").props = {
   onClick: () => befui.toast.info("Heads up"),
+};
+document.getElementById("g4").props = {
+  onClick: () => befui.toast.success("Message deleted", void 0, { action: { label: "Undo", onClick: () => befui.toast.info("Restored") } }),
 };
 </script>

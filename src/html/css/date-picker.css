@@ -202,6 +202,10 @@ box-shadow\] {
 }
 
 @media (hover:hover) {
+  .group-hover\:translate-y-0:is(:where(.group):hover *) {
+    --tw-translate-y: 0px;
+    translate: var(--tw-translate-x) var(--tw-translate-y);
+  }
   .group-hover\:scale-105:is(:where(.group):hover *) {
     --tw-scale-x: 105%;
     --tw-scale-y: 105%;
@@ -222,6 +226,10 @@ box-shadow\] {
   }
 }
 
+.group-focus-visible\:translate-y-0:is(:where(.group):focus-visible *) {
+  --tw-translate-y: 0px;
+  translate: var(--tw-translate-x) var(--tw-translate-y);
+}
 .group-focus-visible\:bg-primary:is(:where(.group):focus-visible *) {
   background-color: var(--primary);
 }

@@ -228,6 +228,19 @@ Who changed what and when, with expandable before and after values.
 <bef-audit-log class="w-full max-w-xl" :entries='[{"id":"1","actor":"Meera Iyer","action":"updated","target":"Salary structure, Engineering","at":"~now-30m","ip":"10.0.4.21","changes":[{"field":"Basic","from":"₹60,000","to":"₹64,000"},{"field":"HRA","from":"₹24,000","to":"₹25,600"},{"field":"Effective from","from":"","to":"01 Nov 2026"}]},{"id":"2","actor":"Isha Nair","action":"created","target":"Employee EMP-0412","at":"~now-3h","ip":"10.0.4.18","changes":[{"field":"Name","to":"Ananya Kulkarni"},{"field":"Department","to":"Engineering"}]},{"id":"3","actor":"Kabir Shah","action":"exported","target":"Payroll report, September","at":"~now-20h","ip":"10.0.7.5"},{"id":"4","actor":"Rohan Das","action":"deleted","target":"Draft offer letter v1","at":"~now-30h","ip":"10.0.4.33"},{"id":"5","actor":"Aarav Mehta","action":"updated","target":"Leave policy 2026","at":"~now-2d","ip":"10.0.4.2","changes":[{"field":"Carry-forward cap","from":"10 days","to":"12 days"}]}]'></bef-audit-log>
 ```
 
+## Autocomplete (autocomplete)
+Text input that suggests as you type, from a fixed list or an async search (address, place). Keyboard friendly.
+```html
+<bef-autocomplete class="w-80" value="" placeholder="Search a place" emit="value-change" id="g1"></bef-autocomplete>
+<script type="module">
+const places = ['Bandra, Mumbai', 'Bangalore, Karnataka', 'Banjara Hills, Hyderabad', 'Baner, Pune', 'Bhopal, Madhya Pradesh', 'Connaught Place, Delhi', 'Koramangala, Bangalore', 'Salt Lake, Kolkata'];
+
+document.getElementById("g1").props = {
+  onSearch: (q) => new Promise((r) => setTimeout(() => r(places.filter((p) => p.toLowerCase().includes(q.toLowerCase()))), 300)),
+};
+</script>
+```
+
 ## Avatar upload (avatar-upload)
 Click-to-change profile picture with instant preview, size and type checks, and a Remove link.
 ```html
@@ -572,6 +585,17 @@ Scroll-snap slides with arrows and animated dots.
 Release notes: version and date on the left, tagged New, Improved, Fixed or Removed changes on the right.
 ```html
 <bef-changelog class="w-full max-w-2xl" :releases='[{"version":"1.4.0","date":"Oct 7, 2026","title":"Time components","changes":[{"type":"new","text":"Time picker, analog clock, world clock, stopwatch and timer."},{"type":"improved","text":"Heatmap cells now show a tooltip with the exact count."}]},{"version":"1.3.2","date":"Sep 21, 2026","changes":[{"type":"fixed","text":"Combobox kept the old highlight after the list was filtered."},{"type":"removed","text":"The deprecated \"ghost-outline\" button variant."}]}]'></bef-changelog>
+```
+
+## Chart skeleton (chart-skeleton)
+Loading placeholder shaped like a bar, line, pie chart or table so the page does not jump when data arrives.
+```html
+<div class="grid w-full gap-8 sm:grid-cols-2">
+  <bef-chart-skeleton variant="bar"></bef-chart-skeleton>
+  <bef-chart-skeleton variant="line"></bef-chart-skeleton>
+  <bef-chart-skeleton variant="pie"></bef-chart-skeleton>
+  <bef-chart-skeleton variant="table"></bef-chart-skeleton>
+</div>
 ```
 
 ## Charts (charts)
@@ -1290,6 +1314,27 @@ document.getElementById("g1").props = {
 </script>
 ```
 
+## Form wizard (form-wizard)
+A form split into steps: stepper on top, one step at a time, Back and Next with per-step validation.
+```html
+<bef-form-wizard id="wizard" class="w-[32rem] max-w-full" finish-label="Create account"></bef-form-wizard>
+<script type="module">
+  // each step's content is plain HTML; validate returns true to move on, or a message to show instead
+  const field = (name) => document.querySelector(`#wizard input[name=${name}]`)?.value ?? '';
+  const data = { name: '', email: '' };
+  document.getElementById('wizard').props = {
+    onFinish: () => befui.toast.success('Account created', data.name),
+    steps: [
+      { title: 'You', description: 'Who are you', content: '<bef-input name="name" aria-label="Name" placeholder="Full name"></bef-input>',
+        validate: () => ((data.name = field('name').trim()) ? true : 'Enter your name to continue.') },
+      { title: 'Contact', description: 'How to reach you', content: '<bef-input name="email" type="email" aria-label="Email" placeholder="you@company.com"></bef-input>',
+        validate: () => ((data.email = field('email')), true) },
+      { title: 'Review', content: '<p class="text-sm text-muted-foreground">Ready to create the account.</p>' },
+    ],
+  };
+</script>
+```
+
 ## Format helpers (format)
 formatCurrency, formatCompact, formatPercent, formatBytes, formatDuration and a signed Currency component. Indian rupees by default.
 ```html
@@ -1349,6 +1394,12 @@ Half-circle meter with a needle that swings to the value.
 </div>
 ```
 
+## Gradient picker (gradient-picker)
+Edit a linear gradient: colours, positions, angle, two to five stops, live preview and CSS to copy.
+```html
+<bef-gradient-picker :stops='[{"color":"#6366f1","at":0},{"color":"#ec4899","at":100}]' :angle="135" emit="change"></bef-gradient-picker>
+```
+
 ## Half donut chart (half-donut-chart)
 A semicircle split into parts with a total under the arch. Half the height of a donut, so it fits dashboard cards.
 ```html
@@ -1356,6 +1407,17 @@ A semicircle split into parts with a total under the arch. Half the height of a 
 <script type="module">
 document.getElementById("g1").props = {
   format: (n) => `${n} GB`,
+};
+</script>
+```
+
+## Heat calendar (heat-calendar)
+One month as a calendar grid, every day tinted by its value. Hover a day for its number; click to select.
+```html
+<bef-heat-calendar :year="2026" :month="10" :values="[20,79,35,76,50,null,null,57,72,44,78,29,null,null,78,42,73,55,64,null,null,75,38,79,22,80,null,null,47,69,60]" id="g1"></bef-heat-calendar>
+<script type="module">
+document.getElementById("g1").props = {
+  format: (n) => `${n} deals`,
 };
 </script>
 ```
@@ -1394,6 +1456,12 @@ Rich preview that opens when you hover or focus a link, for profiles and referen
     </div>
   </bef-hover-card-content>
 </bef-hover-card> and the team.</p>
+```
+
+## Image gallery (image-gallery)
+Masonry grid of images of different heights with a hover zoom and caption. onSelect gives the index.
+```html
+<bef-image-gallery class="w-[32rem] max-w-full" :images='[{"src":"data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20400%20500%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%236366f1%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ec4899%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22400%22%20height%3D%22500%22%20fill%3D%22url(%23g)%22%2F%3E%3C%2Fsvg%3E","alt":"Sunset","ratio":0.8,"caption":"Sunset"},{"src":"data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%2306b6d4%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%2310b981%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22url(%23g)%22%2F%3E%3C%2Fsvg%3E","alt":"Lagoon","ratio":1,"caption":"Lagoon"},{"src":"data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20400%20300%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23f59e0b%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ef4444%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22400%22%20height%3D%22300%22%20fill%3D%22url(%23g)%22%2F%3E%3C%2Fsvg%3E","alt":"Ember","ratio":1.3333333333333333,"caption":"Ember"},{"src":"data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20300%20400%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%238b5cf6%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%233b82f6%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22300%22%20height%3D%22400%22%20fill%3D%22url(%23g)%22%2F%3E%3C%2Fsvg%3E","alt":"Dusk","ratio":0.75,"caption":"Dusk"},{"src":"data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%2314b8a6%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%2384cc16%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22url(%23g)%22%2F%3E%3C%2Fsvg%3E","alt":"Meadow","ratio":1,"caption":"Meadow"},{"src":"data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20500%20400%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23f43f5e%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23f59e0b%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22500%22%20height%3D%22400%22%20fill%3D%22url(%23g)%22%2F%3E%3C%2Fsvg%3E","alt":"Spice","ratio":1.25,"caption":"Spice"}]'></bef-image-gallery>
 ```
 
 ## Image upload (image-upload)
@@ -1687,6 +1755,12 @@ document.getElementById("g1").props = {
   format: (n) => String(Math.max(0, n)),
 };
 </script>
+```
+
+## Media player (media-player)
+Video or audio player with themed controls: play, seek, time, mute and fullscreen.
+```html
+<bef-media-player class="w-96 max-w-full" type="audio" title="Morning chime" src="blob:nodedata:127c014e-5b01-4bc8-a491-fc2f527326db"></bef-media-player>
 ```
 
 ## Mention input (mention-input)
@@ -1993,6 +2067,19 @@ document.getElementById("g1").props = {
 </script>
 ```
 
+## Popconfirm (popconfirm)
+A small are-you-sure bubble anchored to the button that was pressed. Lighter than an alert dialog.
+```html
+<bef-popconfirm title="Delete this invoice?" description="This cannot be undone." confirm-label="Delete" destructive id="g1">
+  <bef-button variant="outline">Delete invoice</bef-button>
+</bef-popconfirm>
+<script type="module">
+document.getElementById("g1").props = {
+  onConfirm: () => befui.toast.success("Invoice deleted"),
+};
+</script>
+```
+
 ## Popover (popover)
 Floating panel anchored to a trigger.
 ```html
@@ -2180,6 +2267,23 @@ Native radios as selectable cards with descriptions.
 <bef-radio-group name="plan" class="w-full max-w-sm" value="growth" :options='[{"value":"starter","label":"Starter","description":"Up to 25 employees"},{"value":"growth","label":"Growth","description":"Payroll and attendance included"},{"value":"enterprise","label":"Enterprise","description":"SSO and audit logs","disabled":true}]' emit="value-change"></bef-radio-group>
 ```
 
+## Range gauge (range-gauge)
+Speedometer in coloured bands (poor, fair, good) with a needle that swings to the value and a big number.
+```html
+<bef-range-gauge :min="300" :value="712" label="Credit score" :bands='[{"to":580,"color":"text-destructive","label":"Poor"},{"to":670,"color":"text-warning","label":"Fair"},{"to":740,"color":"text-info","label":"Good"},{"to":850,"color":"text-success","label":"Excellent"}]'></bef-range-gauge>
+```
+
+## Range slider (range-slider)
+Slider with two handles for a range such as a price from 20 to 80. Drag or use the arrow keys; handles never cross.
+```html
+<bef-range-slider class="w-80" :value="[20,70]" emit="value-change" id="g1"></bef-range-slider>
+<script type="module">
+document.getElementById("g1").props = {
+  format: (n) => `₹${n}k`,
+};
+</script>
+```
+
 ## Rating breakdown (rating-breakdown)
 Review summary: big average, stars and a bar per star level. Rows can act as filters. Bars fill in on scroll.
 ```html
@@ -2225,6 +2329,12 @@ Star rating with hover preview. Read-only when no handler is given.
 </ul>
 ```
 
+## Resizable table (resizable-table)
+Table whose columns resize by dragging the header edge or with the arrow keys. Scrolls sideways when wider than the card.
+```html
+<bef-resizable-table class="w-[38rem] max-w-full" :columns='[{"key":"name","header":"Employee","width":180},{"key":"role","header":"Role","width":160},{"key":"city","header":"City","width":130},{"key":"salary","header":"CTC","width":110,"align":"right"}]' :rows='[{"name":"Aarav Mehta","role":"Senior Engineer","city":"Bengaluru","salary":"₹32.0L"},{"name":"Diya Nair","role":"Product Designer","city":"Mumbai","salary":"₹24.5L"},{"name":"Kabir Rao","role":"Engineering Manager","city":"Hyderabad","salary":"₹48.0L"},{"name":"Meera Iyer","role":"People Partner","city":"Pune","salary":"₹19.0L"}]'></bef-resizable-table>
+```
+
 ## Reveal (reveal)
 Scroll-in fade-up wrapper and a blur-in headline. One IntersectionObserver each.
 ```html
@@ -2251,6 +2361,12 @@ Small editor with bold, italic, underline, heading, lists, quote and link. Value
 One smooth curve per row, overlapping like mountain ridges on a shared scale. Ridges rise in turn; hover one to bring it forward.
 ```html
 <bef-ridgeline-chart class="w-[38rem] max-w-full" :labels='["0h","1h","2h","3h","4h","5h","6h","7h","8h","9h","10h","11h","12h","13h","14h","15h","16h","17h","18h","19h","20h","21h","22h","23h"]' :series='[{"name":"Support","data":[3,3,4,5,7,11,18,28,39,51,60,63,60,51,39,28,18,11,7,5,4,3,3,3]},{"name":"Sales","data":[3,3,3,3,3,3,3,5,7,14,25,42,61,77,83,77,61,42,25,14,7,5,3,3]},{"name":"Engineering","data":[3,3,3,3,4,4,5,7,10,14,19,26,33,41,47,51,53,51,47,41,33,26,19,14]},{"name":"Ops","data":[3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,4,6,12,26,45,65,73,65,45]}]'></bef-ridgeline-chart>
+```
+
+## Ring chart (ring-chart)
+Concentric progress rings, one per measure against its own goal (move, exercise, stand). Rings sweep in on scroll.
+```html
+<bef-ring-chart :rings='[{"label":"Move","value":420,"max":600,"color":"text-destructive"},{"label":"Exercise","value":24,"max":30,"color":"text-success"},{"label":"Stand","value":7,"max":12,"color":"text-info"}]'></bef-ring-chart>
 ```
 
 ## Rose chart (rose-chart)
@@ -2650,6 +2766,12 @@ Numbered citation chips (Cite) to drop inside an answer, and a SourceList of car
 <bef-source-list :sources='[{"id":"1","title":"Leave policy 2025: carry-forward and encashment","site":"handbook.acme.co","href":"#policy"},{"id":"2","title":"Leave FAQ: what lapses on 31 March","site":"help.acme.co","href":"#faq"},{"id":"3","title":"HR circular 14: changes to casual leave","site":"intranet.acme.co","href":"#circular"}]' class="w-full max-w-2xl"></bef-source-list>
 ```
 
+## Sparkline table (sparkline-table)
+A table where every row has its own trend line and a green or red change chip. Metrics by team, product or region.
+```html
+<bef-sparkline-table class="w-[36rem] max-w-full" name-label="Team" value-label="Revenue" :rows='[{"name":"Enterprise","value":"₹18.2 Cr","trend":[8,9,9.5,12,13,15,17,18.2]},{"name":"Mid-market","value":"₹9.4 Cr","trend":[10,9.8,9.9,9.6,9.5,9.2,9.5,9.4]},{"name":"SMB","value":"₹4.1 Cr","trend":[6,5.5,5.2,4.8,4.6,4.4,4.2,4.1]},{"name":"Partners","value":"₹6.7 Cr","trend":[2,2.8,3.1,4,4.4,5.6,6,6.7]}]'></bef-sparkline-table>
+```
+
 ## Spinner (spinner)
 Tiny CSS spinner that inherits text color.
 ```html
@@ -2658,6 +2780,25 @@ Tiny CSS spinner that inherits text color.
   <bef-spinner></bef-spinner>
   <bef-spinner class="size-6 border-[3px]"></bef-spinner>
 </div>
+```
+
+## Split button (split-button)
+A button with a menu of related actions attached: the main part runs the usual action, the arrow opens the others.
+```html
+<bef-split-button id="g1">Publish</bef-split-button>
+<script type="module">
+document.getElementById("g1").props = {
+  onClick: () => befui.toast.success("Published"),
+  actions: [
+    { label: "Save as draft", onSelect: () => befui.toast.info("Saved as draft") },
+    { label: "Schedule for later", onSelect: () => befui.toast.info("Scheduled") },
+    {
+      label: "Publish and share",
+      onSelect: () => befui.toast.success("Published and shared"),
+    },
+  ],
+};
+</script>
 ```
 
 ## Split pane (split-pane)
@@ -3156,6 +3297,7 @@ Call toast.success() from anywhere. No provider needed.
   <bef-button variant="outline" id="g1">Success</bef-button>
   <bef-button variant="outline" id="g2">Error</bef-button>
   <bef-button variant="outline" id="g3">Info</bef-button>
+  <bef-button variant="outline" id="g4">With undo</bef-button>
 </div>
 <script type="module">
 document.getElementById("g1").props = {
@@ -3166,6 +3308,9 @@ document.getElementById("g2").props = {
 };
 document.getElementById("g3").props = {
   onClick: () => befui.toast.info("Heads up"),
+};
+document.getElementById("g4").props = {
+  onClick: () => befui.toast.success("Message deleted", void 0, { action: { label: "Undo", onClick: () => befui.toast.info("Restored") } }),
 };
 </script>
 ```

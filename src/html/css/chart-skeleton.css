@@ -1,0 +1,110 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --animate-pulse: pulse 2s cubic-bezier(.4, 0, .6, 1) infinite;
+  --muted: #f8fafc;
+  --spacing: .25rem;
+}
+
+.dark {
+  --muted: #11141b;
+}
+
+/* Utility rules */
+.sr-only {
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border-width: 0;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  position: absolute;
+  overflow: hidden;
+}
+.flex {
+  display: flex;
+}
+.grid {
+  display: grid;
+}
+.table {
+  display: table;
+}
+.size-40 {
+  width: calc(var(--spacing) * 40);
+  height: calc(var(--spacing) * 40);
+}
+.h-3 {
+  height: calc(var(--spacing) * 3);
+}
+.h-4 {
+  height: calc(var(--spacing) * 4);
+}
+.h-48 {
+  height: calc(var(--spacing) * 48);
+}
+.w-1\/4 {
+  width: 25%;
+}
+.w-16 {
+  width: calc(var(--spacing) * 16);
+}
+.w-full {
+  width: 100%;
+}
+.flex-1 {
+  flex: 1;
+}
+.shrink-0 {
+  flex-shrink: 0;
+}
+.animate-pulse {
+  animation: var(--animate-pulse);
+}
+.items-center {
+  align-items: center;
+}
+.items-end {
+  align-items: flex-end;
+}
+.gap-3 {
+  gap: calc(var(--spacing) * 3);
+}
+.gap-4 {
+  gap: calc(var(--spacing) * 4);
+}
+.gap-6 {
+  gap: calc(var(--spacing) * 6);
+}
+.rounded-full {
+  border-radius: 3.40282e38px;
+}
+.rounded-b-none {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.border-b {
+  border-bottom-style: var(--tw-border-style);
+  border-bottom-width: 1px;
+}
+.px-2 {
+  padding-inline: calc(var(--spacing) * 2);
+}
+.text-muted {
+  color: var(--muted);
+}
+
+/* Animations */
+@keyframes pulse {
+  50% {
+    opacity: .5;
+  }
+}
+
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}

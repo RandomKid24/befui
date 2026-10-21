@@ -1,6 +1,6 @@
 # Components
 
-Every befui component and block. **218 React components**, **214 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **37 page blocks**.
+Every befui component and block. **232 React components**, **228 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **37 page blocks**.
 (Generated from the registry by `npm run registry:build`. Do not edit by hand.)
 
 Install a React component with `npx github:RandomKid24/befui add <name>`, the Flutter version with `npx github:RandomKid24/befui add <name> --flutter`.
@@ -35,10 +35,11 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `tree-view` | Nested expandable list with animated open and close. | ✓ | ✓ |
 | `user-menu` | Avatar button for the topbar that opens a menu with name, email, your links and Sign out. | ✓ | ✓ |
 
-## Inputs (42)
+## Inputs (47)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
+| `autocomplete` | Text input that suggests as you type, from a fixed list or an async search (address, place). Keyboard friendly. | ✓ |  |
 | `avatar-upload` | Click-to-change profile picture with instant preview, size and type checks, and a Remove link. | ✓ |  |
 | `button` | Thirteen variants from plain to glow, shine and 3D press, pill shape, five sizes, loading state, and asChild for links. | ✓ | ✓ |
 | `button-group` | Buttons joined into one row or column with shared borders and rounded outer corners. | ✓ | ✓ |
@@ -55,6 +56,8 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `dropzone` | Drag and drop file area with size check and removable file list. | ✓ |  |
 | `fab` | Round primary action, extended with a label, or a speed dial that fans out actions. | ✓ | ✓ |
 | `file-uploader` | Multi-file drop area with a progress bar per file, cancel, retry and a concurrency limit. You supply the upload function. | ✓ |  |
+| `form-wizard` | A form split into steps: stepper on top, one step at a time, Back and Next with per-step validation. | ✓ |  |
+| `gradient-picker` | Edit a linear gradient: colours, positions, angle, two to five stops, live preview and CSS to copy. | ✓ |  |
 | `image-upload` | Thumbnail grid with remove buttons, a cover label and a drop tile. Limits count, type and size. | ✓ |  |
 | `inline-edit` | Text that becomes a field on click. Enter saves, Escape cancels. | ✓ | ✓ |
 | `input` | Text input and textarea with icon, trailing slot, and invalid state. | ✓ | ✓ |
@@ -67,6 +70,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `password-input` | Show and hide toggle with an optional strength meter. | ✓ | ✓ |
 | `phone-input` | Phone field with a country picker. Groups digits as you type and hands back the E.164 number and whether it is complete. | ✓ | ✓ |
 | `radio-group` | Native radios as selectable cards with descriptions. | ✓ | ✓ |
+| `range-slider` | Slider with two handles for a range such as a price from 20 to 80. Drag or use the arrow keys; handles never cross. | ✓ |  |
 | `rating` | Star rating with hover preview. Read-only when no handler is given. | ✓ | ✓ |
 | `rich-text-editor` | Small editor with bold, italic, underline, heading, lists, quote and link. Value is HTML. Built on contentEditable, no dependency. | ✓ |  |
 | `schema-form` | Build a form from a description: text, email, number, date, select, textarea and checkbox fields, validation, and optional multi-step wizard with a stepper. | ✓ |  |
@@ -76,13 +80,14 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `select` | Styled dropdown with groups, built on Radix Select. | ✓ | ✓ |
 | `signature-pad` | Draw-your-signature canvas for mouse, touch and pen. Sharp on retina screens, exports a PNG. | ✓ | ✓ |
 | `slider` | Native range input with a filled track and floating value bubble. | ✓ | ✓ |
+| `split-button` | A button with a menu of related actions attached: the main part runs the usual action, the arrow opens the others. | ✓ |  |
 | `switch` | On/off toggle for settings that apply immediately. | ✓ | ✓ |
 | `tag-input` | Type and press Enter to add chips. Backspace removes the last. | ✓ | ✓ |
 | `theme-toggle` | Icon button that flips light and dark mode and remembers the choice. Also exports a useTheme hook. | ✓ | ✓ |
 | `toggle` | Two-state button for favourite, bold or mute. Announces its state to screen readers. | ✓ | ✓ |
 | `toggle-group` | A row of toggles where one or several can be pressed, for formatting toolbars. | ✓ | ✓ |
 
-## Display (44)
+## Display (46)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
@@ -106,9 +111,11 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `diff-viewer` | Before and after text as a unified diff: red removed lines, green added lines, line numbers, and unchanged stretches folded. | ✓ |  |
 | `empty-state` | Dashed placeholder with icon, text and an action. | ✓ | ✓ |
 | `format` | formatCurrency, formatCompact, formatPercent, formatBytes, formatDuration and a signed Currency component. Indian rupees by default. | ✓ |  |
+| `image-gallery` | Masonry grid of images of different heights with a hover zoom and caption. onSelect gives the index. | ✓ |  |
 | `invoice` | Printable invoice with number, status, from and bill-to, line items, tax and total computed from the lines. | ✓ |  |
 | `kbd` | Keyboard key hint. | ✓ |  |
 | `marquee` | Endless logo or tag scroll with edge fade. Pauses on hover. | ✓ | ✓ |
+| `media-player` | Video or audio player with themed controls: play, seek, time, mute and fullscreen. | ✓ |  |
 | `onboarding-checklist` | Getting-started card with a progress bar, tick-off items, short help text and actions. Collapsible. | ✓ | ✓ |
 | `order-summary` | Cart lines with subtotal, discount, shipping, tax and total computed for you. Slots for a coupon field and a checkout button. | ✓ | ✓ |
 | `pricing-card` | Plan card whose price counts to the new value. The highlighted plan gets a travelling border beam. | ✓ | ✓ |
@@ -148,7 +155,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `tool-call` | A card for one tool or function call an AI made: name, running, done or failed, how long it took, and its input and output to expand. | ✓ | ✓ |
 | `voice-wave` | Audio level bars for a voice input: they dance while listening and settle to a line when paused. Drive them with a real level or leave them idle. | ✓ | ✓ |
 
-## Data (66)
+## Data (71)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
@@ -175,6 +182,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `gantt` | Schedule view with a bar per task, progress fill, weekend shading and a today line. | ✓ |  |
 | `gauge` | Half-circle meter with a needle that swings to the value. | ✓ | ✓ |
 | `half-donut-chart` | A semicircle split into parts with a total under the arch. Half the height of a donut, so it fits dashboard cards. | ✓ |  |
+| `heat-calendar` | One month as a calendar grid, every day tinted by its value. Hover a day for its number; click to select. | ✓ |  |
 | `heatmap` | Contribution-style grid for daily activity. Cells pop in column by column. | ✓ |  |
 | `histogram-chart` | Counts how many values fall in each range from raw data, with a smooth curve over the bars. Bars rise in turn. | ✓ |  |
 | `india-map` | India by state and union territory, with a 3D bar or pin standing on every state in your data. Zoom and pan it; click a name in the list to highlight a state. |  |  |
@@ -199,12 +207,16 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `radar-chart` | Spider chart for several scores on the same axes: a pentagon with five, a hexagon with six. Shapes grow from the center on scroll; hover a legend name to highlight a series. | ✓ | ✓ |
 | `radial-bar-chart` | Concentric rings, one per goal, that sweep in on scroll. Legend hover highlights a ring; the middle takes any content. | ✓ |  |
 | `radial-line-chart` | A line chart bent into a circle for things that repeat: 24 hours, 12 months. A smooth closed shape grows from the middle. | ✓ |  |
+| `range-gauge` | Speedometer in coloured bands (poor, fair, good) with a needle that swings to the value and a big number. | ✓ |  |
+| `resizable-table` | Table whose columns resize by dragging the header edge or with the arrow keys. Scrolls sideways when wider than the card. | ✓ |  |
 | `ridgeline-chart` | One smooth curve per row, overlapping like mountain ridges on a shared scale. Ridges rise in turn; hover one to bring it forward. | ✓ |  |
+| `ring-chart` | Concentric progress rings, one per measure against its own goal (move, exercise, stand). Rings sweep in on scroll. | ✓ |  |
 | `rose-chart` | Polar area chart: equal-angle petals whose length is the value. Petals bloom from the center in turn; hover one to read it. | ✓ |  |
 | `sankey-chart` | Flow diagram where ribbon width is the amount: traffic to page to outcome, budget to team. Ribbons draw in; hover follows a flow. | ✓ |  |
 | `saved-views` | Menu of saved table setups: pick one, save the current one under a name, delete. | ✓ |  |
 | `scatter-chart` | Scatter and bubble chart with axis labels, groups by color and a nearest-point hover. Points pop in one by one on scroll. | ✓ |  |
 | `slope-chart` | One line per item between two moments. Steep means big change, crossing means swapped places. Green rose, red fell. | ✓ |  |
+| `sparkline-table` | A table where every row has its own trend line and a green or red change chip. Metrics by team, product or region. | ✓ |  |
 | `stacked-bar-chart` | Bars split into colored segments that grow in on scroll, with a hover breakdown and legend. Sessions by device, revenue by plan. | ✓ | ✓ |
 | `stat-card` | KPI tile with value, trend delta and a sparkline slot. | ✓ | ✓ |
 | `stream-chart` | Streamgraph: smooth stacked flows around a center line to show shifts in mix over time. Ripples in from the left; hover a flow to focus it. | ✓ |  |
@@ -219,12 +231,13 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `word-cloud` | Words sized by how often they appear, biggest in the middle. Words grow in; hover to focus one, or make them clickable filters. | ✓ |  |
 | `world-map` | Countries on a flat map or a draggable globe, with a 3D bar or pin standing on every country in your data. Zoom, pan and spin it; click a name in the list to highlight a country. |  |  |
 
-## Feedback (11)
+## Feedback (12)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
 | `alert` | Inline message in info, success, warning and danger. | ✓ | ✓ |
 | `banner` | Announcement bar that collapses smoothly when dismissed. | ✓ | ✓ |
+| `chart-skeleton` | Loading placeholder shaped like a bar, line, pie chart or table so the page does not jump when data arrives. | ✓ |  |
 | `confetti` | Burst of confetti from any button, or call fireConfetti(x, y) yourself. | ✓ |  |
 | `cookie-consent` | Bottom-left consent card that remembers Accept or Decline. | ✓ |  |
 | `error-state` | Full-section error or not found screen with a code or icon, explanation and retry actions. | ✓ | ✓ |
@@ -235,7 +248,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `spinner` | Tiny CSS spinner that inherits text color. | ✓ | ✓ |
 | `toast` | Call toast.success() from anywhere. No provider needed. | ✓ | ✓ |
 
-## Overlays (13)
+## Overlays (14)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
@@ -248,6 +261,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `dropdown-menu` | Action menu with checkbox items, shortcuts and destructive items. | ✓ | ✓ |
 | `hover-card` | Rich preview that opens when you hover or focus a link, for profiles and references. | ✓ |  |
 | `image-viewer` | Lightbox with arrows, click to zoom and keyboard control. | ✓ | ✓ |
+| `popconfirm` | A small are-you-sure bubble anchored to the button that was pressed. Lighter than an alert dialog. | ✓ |  |
 | `popover` | Floating panel anchored to a trigger. | ✓ | ✓ |
 | `shortcuts-dialog` | Keyboard cheat sheet that opens on ? and shows grouped shortcuts as keycaps. | ✓ |  |
 | `tooltip` | Hint on hover and focus. Optional title, keyboard shortcut, light style and arrow, plus an (i) InfoTip and a TruncatedText that only shows a tooltip when cut off. | ✓ | ✓ |

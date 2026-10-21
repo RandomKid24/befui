@@ -1,0 +1,6 @@
+<bef-range-slider class="w-80" :value="[20,70]" emit="value-change" id="g1"></bef-range-slider>
+<script type="module">
+document.getElementById("g1").props = {
+  format: (n) => `₹${n}k`,
+};
+</script>

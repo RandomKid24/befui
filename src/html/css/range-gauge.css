@@ -1,0 +1,119 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --background: #fff;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --foreground: #0f172a;
+  --muted-foreground: #64748b;
+  --spacing: .25rem;
+  --text-3xl: 1.875rem;
+  --text-3xl--line-height: 1.2 ;
+  --text-sm: .875rem;
+  --text-sm--line-height: calc(1.25 / .875);
+}
+
+.dark {
+  --background: #0a0c10;
+  --foreground: #e6e9ef;
+  --muted-foreground: #8b94a5;
+}
+
+/* Utility rules */
+.-mt-1 {
+  margin-top: calc(var(--spacing) * -1);
+}
+.inline-block {
+  display: inline-block;
+}
+.w-full {
+  width: 100%;
+}
+.transform {
+  transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
+}
+.overflow-visible {
+  overflow: visible;
+}
+.fill-foreground {
+  fill: var(--foreground);
+}
+.fill-muted-foreground,
+.fill-muted-foreground\/10 {
+  fill: var(--muted-foreground);
+}
+.stroke-background {
+  stroke: var(--background);
+}
+.text-center {
+  text-align: center;
+}
+.text-3xl {
+  font-size: var(--text-3xl);
+  line-height: var(--tw-leading,var(--text-3xl--line-height));
+}
+.text-sm {
+  font-size: var(--text-sm);
+  line-height: var(--tw-leading,var(--text-sm--line-height));
+}
+.text-\[10px\] {
+  font-size: 10px;
+}
+.font-medium {
+  --tw-font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-medium);
+}
+.font-semibold {
+  --tw-font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-semibold);
+}
+.tabular-nums {
+  --tw-numeric-spacing: tabular-nums;
+  font-variant-numeric: var(--tw-ordinal,) var(--tw-slashed-zero,) var(--tw-numeric-figure,) var(--tw-numeric-spacing,) var(--tw-numeric-fraction,);
+}
+
+@property --tw-rotate-x {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-rotate-y {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-rotate-z {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-skew-x {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-skew-y {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-leading {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ordinal {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-slashed-zero {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-figure {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-spacing {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-fraction {
+  syntax: "*";
+  inherits: false;
+}

@@ -10,6 +10,7 @@ interface ToastItem {
   type: ToastType;
   title: string;
   description?: string;
+  action?: { label: string; onClick: () => void };
 }
 
 let items: ToastItem[] = [];
@@ -17,9 +18,16 @@ let nextId = 1;
 const listeners = new Set<() => void>();
 const emit = () => listeners.forEach((l) => l());
 
-function push(type: ToastType, title: string, description?: string, duration = 4000) {
+export interface ToastOptions {
+  /** A button on the toast, like Undo. Clicking it runs `onClick` and dismisses the toast. */
+  action?: { label: string; onClick: () => void };
+  /** Milliseconds before it goes away; 0 keeps it until dismissed. */
+  duration?: number;
+}
+
+function push(type: ToastType, title: string, description?: string, { action, duration = action ? 6000 : 4000 }: ToastOptions = {}) {
   const id = nextId++;
-  items = [...items, { id, type, title, description }];
+  items = [...items, { id, type, title, description, action }];
   emit();
   if (duration > 0) setTimeout(() => dismiss(id), duration);
   return id;
@@ -31,9 +39,9 @@ function dismiss(id: number) {
 
 /** Call from anywhere: `toast.success('Saved')`. Render <Toaster /> once near the app root. */
 export const toast = {
-  success: (title: string, description?: string) => push('success', title, description),
-  error: (title: string, description?: string) => push('error', title, description),
-  info: (title: string, description?: string) => push('info', title, description),
+  success: (title: string, description?: string, options?: ToastOptions) => push('success', title, description, options),
+  error: (title: string, description?: string, options?: ToastOptions) => push('error', title, description, options),
+  info: (title: string, description?: string, options?: ToastOptions) => push('info', title, description, options),
   dismiss,
 };
 
@@ -64,6 +72,7 @@ export function Toaster() {
             <p className="text-[13px] font-medium">{t.title}</p>
             {t.description && <p className="text-xs text-muted-foreground">{t.description}</p>}
           </div>
+          {t.action && <button onClick={() => { t.action!.onClick(); dismiss(t.id); }} className="text-[13px] font-medium text-primary hover:underline">{t.action.label}</button>}
           <button onClick={() => dismiss(t.id)} className="text-muted-foreground transition-colors hover:text-foreground" aria-label="Dismiss">
             <XIcon className="size-3.5" />
           </button>

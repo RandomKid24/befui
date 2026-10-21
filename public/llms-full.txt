@@ -773,6 +773,28 @@ export default function UserMenuDemo() {
 }
 ```
 
+## Autocomplete (`autocomplete`)
+Text input that suggests as you type, from a fixed list or an async search (address, place). Keyboard friendly.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add autocomplete`
+- Import: `import { Autocomplete } from '@/components/ui/autocomplete'`
+- Also needs: input
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { Autocomplete } from '@/components/ui/autocomplete';
+
+const places = ['Bandra, Mumbai', 'Bangalore, Karnataka', 'Banjara Hills, Hyderabad', 'Baner, Pune', 'Bhopal, Madhya Pradesh', 'Connaught Place, Delhi', 'Koramangala, Bangalore', 'Salt Lake, Kolkata'];
+
+/** `onSearch` stands in for your geocoding API: it returns a promise of labels. Pass `options` instead for a fixed list. */
+export default function AutocompleteDemo() {
+  const [v, setV] = React.useState('');
+  return <Autocomplete className="w-80" value={v} onValueChange={setV} placeholder="Search a place" onSearch={(q) => new Promise((r) => setTimeout(() => r(places.filter((p) => p.toLowerCase().includes(q.toLowerCase()))), 300))} />;
+}
+```
+
 ## Avatar upload (`avatar-upload`)
 Click-to-change profile picture with instant preview, size and type checks, and a Remove link.
 - Group: Inputs
@@ -1218,6 +1240,60 @@ export default function FileUploaderDemo() {
 }
 ```
 
+## Form wizard (`form-wizard`)
+A form split into steps: stepper on top, one step at a time, Back and Next with per-step validation.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add form-wizard`
+- Import: `import { FormWizard } from '@/components/ui/form-wizard'`
+- Also needs: button, stepper
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { FormWizard } from '@/components/ui/form-wizard';
+import { Input } from '@/components/ui/input';
+import { toast } from '@/components/ui/toast';
+
+/** Three steps. The first will not let you on until the name is filled in. */
+export default function FormWizardDemo() {
+  const [name, setName] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  return (
+    <FormWizard
+      className="w-[32rem] max-w-full"
+      finishLabel="Create account"
+      onFinish={() => toast.success('Account created', name)}
+      steps={[
+        { title: 'You', description: 'Who are you', validate: () => (name.trim() ? true : 'Enter your name to continue.'), content: <Input aria-label="Name" placeholder="Full name" value={name} onChange={(e) => setName(e.target.value)} /> },
+        { title: 'Contact', description: 'How to reach you', content: <Input aria-label="Email" type="email" placeholder="you@company.com" value={email} onChange={(e) => setEmail(e.target.value)} /> },
+        { title: 'Review', content: <p className="text-sm text-muted-foreground">Creating an account for <b className="text-foreground">{name || '…'}</b>{email ? <> ({email})</> : null}.</p> },
+      ]}
+    />
+  );
+}
+```
+
+## Gradient picker (`gradient-picker`)
+Edit a linear gradient: colours, positions, angle, two to five stops, live preview and CSS to copy.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add gradient-picker`
+- Import: `import { gradientCss, GradientPicker } from '@/components/ui/gradient-picker'`
+- Also needs: copy-button
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { GradientPicker, type GradientStop } from '@/components/ui/gradient-picker';
+
+export default function GradientPickerDemo() {
+  const [stops, setStops] = React.useState<GradientStop[]>([{ color: '#6366f1', at: 0 }, { color: '#ec4899', at: 100 }]);
+  const [angle, setAngle] = React.useState(135);
+  return <GradientPicker stops={stops} angle={angle} onChange={(s, a) => { setStops(s); setAngle(a); }} />;
+}
+```
+
 ## Image upload (`image-upload`)
 Thumbnail grid with remove buttons, a cover label and a drop tile. Limits count, type and size.
 - Group: Inputs
@@ -1547,6 +1623,24 @@ export default function RadioGroupDemo() {
 }
 ```
 
+## Range slider (`range-slider`)
+Slider with two handles for a range such as a price from 20 to 80. Drag or use the arrow keys; handles never cross.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add range-slider`
+- Import: `import { RangeSlider } from '@/components/ui/range-slider'`
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { RangeSlider } from '@/components/ui/range-slider';
+
+export default function RangeSliderDemo() {
+  const [v, setV] = React.useState<[number, number]>([20, 70]);
+  return <RangeSlider className="w-80" value={v} onValueChange={setV} format={(n) => `₹${n}k`} />;
+}
+```
+
 ## Rating (`rating`)
 Star rating with hover preview. Read-only when no handler is given.
 - Group: Inputs
@@ -1784,6 +1878,35 @@ export default function SliderDemo() {
       <div className="mb-1 flex justify-between text-sm"><span className="font-medium">Monthly budget</span><span className="tabular-nums text-muted-foreground">₹{v}k</span></div>
       <Slider aria-label="Budget" value={v} onValueChange={setV} min={10} max={100} step={5} format={(n) => `₹${n}k`} />
     </div>
+  );
+}
+```
+
+## Split button (`split-button`)
+A button with a menu of related actions attached: the main part runs the usual action, the arrow opens the others.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add split-button`
+- Import: `import { SplitButton } from '@/components/ui/split-button'`
+- Also needs: button, dropdown-menu, icons
+
+Example:
+
+```tsx
+import { SplitButton } from '@/components/ui/split-button';
+import { toast } from '@/components/ui/toast';
+
+export default function SplitButtonDemo() {
+  return (
+    <SplitButton
+      onClick={() => toast.success('Published')}
+      actions={[
+        { label: 'Save as draft', onSelect: () => toast.info('Saved as draft') },
+        { label: 'Schedule for later', onSelect: () => toast.info('Scheduled') },
+        { label: 'Publish and share', onSelect: () => toast.success('Published and shared') },
+      ]}
+    >
+      Publish
+    </SplitButton>
   );
 }
 ```
@@ -2525,6 +2648,30 @@ export default function FormatDemo() {
 }
 ```
 
+## Image gallery (`image-gallery`)
+Masonry grid of images of different heights with a hover zoom and caption. onSelect gives the index.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add image-gallery`
+- Import: `import { ImageGallery } from '@/components/ui/image-gallery'`
+
+Example:
+
+```tsx
+import { ImageGallery } from '@/components/ui/image-gallery';
+
+/** Inline SVG pictures so the demo needs no network; use real photo URLs in your app. */
+const pic = (a: string, b: string, w: number, h: number) =>
+  `data:image/svg+xml;utf8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient></defs><rect width="${w}" height="${h}" fill="url(#g)"/></svg>`)}`;
+
+export default function ImageGalleryDemo() {
+  const data: [string, string, number, number, string][] = [
+    ['#6366f1', '#ec4899', 4, 5, 'Sunset'], ['#06b6d4', '#10b981', 1, 1, 'Lagoon'], ['#f59e0b', '#ef4444', 4, 3, 'Ember'],
+    ['#8b5cf6', '#3b82f6', 3, 4, 'Dusk'], ['#14b8a6', '#84cc16', 1, 1, 'Meadow'], ['#f43f5e', '#f59e0b', 5, 4, 'Spice'],
+  ];
+  return <ImageGallery className="w-[32rem] max-w-full" images={data.map(([a, b, w, h, c]) => ({ src: pic(a, b, w * 100, h * 100), alt: c, ratio: w / h, caption: c }))} />;
+}
+```
+
 ## Invoice (`invoice`)
 Printable invoice with number, status, from and bill-to, line items, tax and total computed from the lines.
 - Group: Display
@@ -2605,6 +2752,35 @@ export default function MarqueeDemo() {
       </Marquee>
     </div>
   );
+}
+```
+
+## Media player (`media-player`)
+Video or audio player with themed controls: play, seek, time, mute and fullscreen.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add media-player`
+- Import: `import { MediaPlayer } from '@/components/ui/media-player'`
+- Also needs: icons
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { MediaPlayer } from '@/components/ui/media-player';
+
+/** A few seconds of a soft tone, generated in the browser so the demo needs no file. Use your own mp3 or mp4 URL. */
+function tone(seconds = 12, rate = 8000) {
+  const n = seconds * rate, buf = new DataView(new ArrayBuffer(44 + n * 2));
+  const w = (o: number, s: string) => [...s].forEach((c, i) => buf.setUint8(o + i, c.charCodeAt(0)));
+  w(0, 'RIFF'); buf.setUint32(4, 36 + n * 2, true); w(8, 'WAVEfmt '); buf.setUint32(16, 16, true); buf.setUint16(20, 1, true); buf.setUint16(22, 1, true);
+  buf.setUint32(24, rate, true); buf.setUint32(28, rate * 2, true); buf.setUint16(32, 2, true); buf.setUint16(34, 16, true); w(36, 'data'); buf.setUint32(40, n * 2, true);
+  for (let i = 0; i < n; i++) buf.setInt16(44 + i * 2, Math.sin((2 * Math.PI * (330 + 110 * Math.floor(i / rate / 3)) * i) / rate) * 3000, true);
+  return URL.createObjectURL(new Blob([buf], { type: 'audio/wav' }));
+}
+
+export default function MediaPlayerDemo() {
+  const src = React.useMemo(() => tone(), []);
+  return <MediaPlayer className="w-96 max-w-full" type="audio" title="Morning chime" src={src} />;
 }
 ```
 
@@ -4390,6 +4566,29 @@ export default function HalfDonutChartDemo() {
 }
 ```
 
+## Heat calendar (`heat-calendar`)
+One month as a calendar grid, every day tinted by its value. Hover a day for its number; click to select.
+- Group: Data
+- What it shows: One month as a calendar, each day tinted by its value.
+- How to read it: Darker days have more, empty grey days have no data. Hover or focus a day to read its number; click a day to select it.
+- Use it for: Daily sales, tickets, attendance or commits for a single month.
+- Skip it when: More than one month at a time. Use the year heatmap.
+- Add: `npx github:RandomKid24/befui add heat-calendar`
+- Import: `import { HeatCalendar } from '@/components/ui/heat-calendar'`
+- Also needs: charts
+
+Example:
+
+```tsx
+import { HeatCalendar } from '@/components/ui/heat-calendar';
+
+/** October 2026, one number per day (leave a day out for no data). */
+export default function HeatCalendarDemo() {
+  const values = Array.from({ length: 31 }, (_, i) => (i % 7 === 5 || i % 7 === 6 ? undefined : Math.round(20 + 60 * Math.abs(Math.sin(i * 1.7)))));
+  return <HeatCalendar year={2026} month={10} values={values} format={(n) => `${n} deals`} />;
+}
+```
+
 ## Heatmap (`heatmap`)
 Contribution-style grid for daily activity. Cells pop in column by column.
 - Group: Data
@@ -5133,6 +5332,67 @@ export default function RadialLineChartDemo() {
 }
 ```
 
+## Range gauge (`range-gauge`)
+Speedometer in coloured bands (poor, fair, good) with a needle that swings to the value and a big number.
+- Group: Data
+- What it shows: A speedometer split into coloured bands with a needle on the current value.
+- How to read it: The needle points at the value on the scale. The band it sits in (and the word under the number) tells you if that is poor, fair, good or excellent.
+- Use it for: Scores with known zones: credit score, health score, NPS, uptime.
+- Skip it when: Values with no meaningful zones. Use the plain gauge or a progress ring.
+- Add: `npx github:RandomKid24/befui add range-gauge`
+- Import: `import { RangeGauge } from '@/components/ui/range-gauge'`
+- Also needs: charts
+
+Example:
+
+```tsx
+import { RangeGauge } from '@/components/ui/range-gauge';
+
+/** Credit score: poor up to 580, fair to 670, good to 740, excellent to 850. */
+export default function RangeGaugeDemo() {
+  return (
+    <RangeGauge
+      min={300}
+      value={712}
+      label="Credit score"
+      bands={[
+        { to: 580, color: 'text-destructive', label: 'Poor' },
+        { to: 670, color: 'text-warning', label: 'Fair' },
+        { to: 740, color: 'text-info', label: 'Good' },
+        { to: 850, color: 'text-success', label: 'Excellent' },
+      ]}
+    />
+  );
+}
+```
+
+## Resizable table (`resizable-table`)
+Table whose columns resize by dragging the header edge or with the arrow keys. Scrolls sideways when wider than the card.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add resizable-table`
+- Import: `import { ResizableTable } from '@/components/ui/resizable-table'`
+
+Example:
+
+```tsx
+import { ResizableTable } from '@/components/ui/resizable-table';
+
+export default function ResizableTableDemo() {
+  return (
+    <ResizableTable
+      className="w-[38rem] max-w-full"
+      columns={[{ key: 'name', header: 'Employee', width: 180 }, { key: 'role', header: 'Role', width: 160 }, { key: 'city', header: 'City', width: 130 }, { key: 'salary', header: 'CTC', width: 110, align: 'right' }]}
+      rows={[
+        { name: 'Aarav Mehta', role: 'Senior Engineer', city: 'Bengaluru', salary: '₹32.0L' },
+        { name: 'Diya Nair', role: 'Product Designer', city: 'Mumbai', salary: '₹24.5L' },
+        { name: 'Kabir Rao', role: 'Engineering Manager', city: 'Hyderabad', salary: '₹48.0L' },
+        { name: 'Meera Iyer', role: 'People Partner', city: 'Pune', salary: '₹19.0L' },
+      ]}
+    />
+  );
+}
+```
+
 ## Ridgeline chart (`ridgeline-chart`)
 One smooth curve per row, overlapping like mountain ridges on a shared scale. Ridges rise in turn; hover one to bring it forward.
 - Group: Data
@@ -5161,6 +5421,35 @@ export default function RidgelineChartDemo() {
         { name: 'Sales', data: peak(14, 2.5, 80) },
         { name: 'Engineering', data: peak(16, 4, 50) },
         { name: 'Ops', data: peak(21, 2, 70) },
+      ]}
+    />
+  );
+}
+```
+
+## Ring chart (`ring-chart`)
+Concentric progress rings, one per measure against its own goal (move, exercise, stand). Rings sweep in on scroll.
+- Group: Data
+- What it shows: Concentric rings, each one a measure against its own goal.
+- How to read it: A full ring means the goal was reached. The outer ring is the first measure. Hover a legend row to isolate one ring.
+- Use it for: Daily activity goals, quota progress for two to four related measures.
+- Skip it when: More than four measures, or measures that share one total. Use a bar chart.
+- Add: `npx github:RandomKid24/befui add ring-chart`
+- Import: `import { RingChart } from '@/components/ui/ring-chart'`
+- Also needs: charts
+
+Example:
+
+```tsx
+import { RingChart } from '@/components/ui/ring-chart';
+
+export default function RingChartDemo() {
+  return (
+    <RingChart
+      rings={[
+        { label: 'Move', value: 420, max: 600, color: 'text-destructive' },
+        { label: 'Exercise', value: 24, max: 30, color: 'text-success' },
+        { label: 'Stand', value: 7, max: 12, color: 'text-info' },
       ]}
     />
   );
@@ -5320,6 +5609,39 @@ export default function SlopeChartDemo() {
       rows={[
         { label: 'Engineering', from: 62, to: 78 }, { label: 'Sales', from: 71, to: 69 }, { label: 'Support', from: 55, to: 74 },
         { label: 'Marketing', from: 68, to: 81 }, { label: 'Finance', from: 80, to: 77 }, { label: 'People', from: 74, to: 74 },
+      ]}
+    />
+  );
+}
+```
+
+## Sparkline table (`sparkline-table`)
+A table where every row has its own trend line and a green or red change chip. Metrics by team, product or region.
+- Group: Data
+- What it shows: A table where every row carries its own small trend line and a change chip.
+- How to read it: The line is the trend, oldest on the left. The chip is the change from the first point to the last: green is good news, red is bad. For things like churn or cost set higherIsBetter to false so a fall shows green.
+- Use it for: Comparing many metrics, teams or products at a glance with their direction.
+- Skip it when: Trends with very few points, or when exact numbers matter more than direction.
+- Add: `npx github:RandomKid24/befui add sparkline-table`
+- Import: `import { SparklineTable } from '@/components/ui/sparkline-table'`
+- Also needs: charts, icons
+
+Example:
+
+```tsx
+import { SparklineTable } from '@/components/ui/sparkline-table';
+
+export default function SparklineTableDemo() {
+  return (
+    <SparklineTable
+      className="w-[36rem] max-w-full"
+      nameLabel="Team"
+      valueLabel="Revenue"
+      rows={[
+        { name: 'Enterprise', value: '₹18.2 Cr', trend: [8, 9, 9.5, 12, 13, 15, 17, 18.2] },
+        { name: 'Mid-market', value: '₹9.4 Cr', trend: [10, 9.8, 9.9, 9.6, 9.5, 9.2, 9.5, 9.4] },
+        { name: 'SMB', value: '₹4.1 Cr', trend: [6, 5.5, 5.2, 4.8, 4.6, 4.4, 4.2, 4.1] },
+        { name: 'Partners', value: '₹6.7 Cr', trend: [2, 2.8, 3.1, 4, 4.4, 5.6, 6, 6.7] },
       ]}
     />
   );
@@ -5807,6 +6129,30 @@ export default function BannerDemo() {
 }
 ```
 
+## Chart skeleton (`chart-skeleton`)
+Loading placeholder shaped like a bar, line, pie chart or table so the page does not jump when data arrives.
+- Group: Feedback
+- Add: `npx github:RandomKid24/befui add chart-skeleton`
+- Import: `import { ChartSkeleton } from '@/components/ui/chart-skeleton'`
+- Also needs: skeleton
+
+Example:
+
+```tsx
+import { ChartSkeleton } from '@/components/ui/chart-skeleton';
+
+export default function ChartSkeletonDemo() {
+  return (
+    <div className="grid w-full gap-8 sm:grid-cols-2">
+      <ChartSkeleton variant="bar" />
+      <ChartSkeleton variant="line" />
+      <ChartSkeleton variant="pie" />
+      <ChartSkeleton variant="table" />
+    </div>
+  );
+}
+```
+
 ## Confetti (`confetti`)
 Burst of confetti from any button, or call fireConfetti(x, y) yourself.
 - Group: Feedback
@@ -6045,6 +6391,7 @@ export default function ToastDemo() {
       <Button variant="outline" onClick={() => toast.success('Saved', 'Your changes are live.')}>Success</Button>
       <Button variant="outline" onClick={() => toast.error('Could not save', 'Check your connection.')}>Error</Button>
       <Button variant="outline" onClick={() => toast.info('Heads up')}>Info</Button>
+      <Button variant="outline" onClick={() => toast.success('Message deleted', undefined, { action: { label: 'Undo', onClick: () => toast.info('Restored') } })}>With undo</Button>
     </div>
   );
 }
@@ -6424,6 +6771,29 @@ export default function ImageViewerDemo() {
       </div>
       <ImageViewer images={images} index={index} onIndexChange={setIndex} />
     </>
+  );
+}
+```
+
+## Popconfirm (`popconfirm`)
+A small are-you-sure bubble anchored to the button that was pressed. Lighter than an alert dialog.
+- Group: Overlays
+- Add: `npx github:RandomKid24/befui add popconfirm`
+- Import: `import { Popconfirm } from '@/components/ui/popconfirm'`
+- Also needs: button, popover
+
+Example:
+
+```tsx
+import { Button } from '@/components/ui/button';
+import { Popconfirm } from '@/components/ui/popconfirm';
+import { toast } from '@/components/ui/toast';
+
+export default function PopconfirmDemo() {
+  return (
+    <Popconfirm title="Delete this invoice?" description="This cannot be undone." confirmLabel="Delete" destructive onConfirm={() => toast.success('Invoice deleted')}>
+      <Button variant="outline">Delete invoice</Button>
+    </Popconfirm>
   );
 }
 ```

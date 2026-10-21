@@ -1,0 +1,16 @@
+<bef-form-wizard id="wizard" class="w-[32rem] max-w-full" finish-label="Create account"></bef-form-wizard>
+<script type="module">
+  // each step's content is plain HTML; validate returns true to move on, or a message to show instead
+  const field = (name) => document.querySelector(`#wizard input[name=${name}]`)?.value ?? '';
+  const data = { name: '', email: '' };
+  document.getElementById('wizard').props = {
+    onFinish: () => befui.toast.success('Account created', data.name),
+    steps: [
+      { title: 'You', description: 'Who are you', content: '<bef-input name="name" aria-label="Name" placeholder="Full name"></bef-input>',
+        validate: () => ((data.name = field('name').trim()) ? true : 'Enter your name to continue.') },
+      { title: 'Contact', description: 'How to reach you', content: '<bef-input name="email" type="email" aria-label="Email" placeholder="you@company.com"></bef-input>',
+        validate: () => ((data.email = field('email')), true) },
+      { title: 'Review', content: '<p class="text-sm text-muted-foreground">Ready to create the account.</p>' },
+    ],
+  };
+</script>

@@ -10,6 +10,7 @@
   --info: #2563eb;
   --muted-foreground: #64748b;
   --popover: #fff;
+  --primary: #2563eb;
   --radius: .5rem;
   --spacing: .25rem;
   --success: #059669;
@@ -23,6 +24,7 @@
   --info: #60a5fa;
   --muted-foreground: #8b94a5;
   --popover: #0f1218;
+  --primary: #3b82f6;
   --success: #10b981;
 }
 
@@ -123,6 +125,9 @@
 .text-muted-foreground\/30 {
   color: var(--muted-foreground);
 }
+.text-primary {
+  color: var(--primary);
+}
 .text-success {
   color: var(--success);
 }
@@ -139,6 +144,9 @@
 @media (hover:hover) {
   .hover\:text-foreground:hover {
     color: var(--foreground);
+  }
+  .hover\:underline:hover {
+    text-decoration-line: underline;
   }
 }
 

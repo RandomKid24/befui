@@ -1,0 +1,8 @@
+<bef-popconfirm title="Delete this invoice?" description="This cannot be undone." confirm-label="Delete" destructive id="g1">
+  <bef-button variant="outline">Delete invoice</bef-button>
+</bef-popconfirm>
+<script type="module">
+document.getElementById("g1").props = {
+  onConfirm: () => befui.toast.success("Invoice deleted"),
+};
+</script>
