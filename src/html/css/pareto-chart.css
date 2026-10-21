@@ -75,6 +75,9 @@
   fill: var(--background);
 }
 .fill-muted-foreground,
+.fill-muted-foreground\/10 {
+  fill: var(--muted-foreground);
+}
 .fill-muted-foreground\/40 {
   fill: var(--muted-foreground);
 }

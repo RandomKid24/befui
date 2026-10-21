@@ -122,8 +122,7 @@
 .disabled\:pointer-events-none:disabled {
   pointer-events: none;
 }
-.disabled\:opacity-50:disabled,
-.has-\[\:disabled\]\:opacity-50:has(:disabled) {
+.disabled\:opacity-50:disabled {
   opacity: .5;
 }
 .aria-pressed\:border-primary[aria-pressed=true] {

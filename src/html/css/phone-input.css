@@ -169,7 +169,6 @@ box-shadow\] {
   }
 }
 
-.disabled\:opacity-50:disabled,
 .has-\[\:disabled\]\:opacity-50:has(:disabled) {
   opacity: .5;
 }

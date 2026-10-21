@@ -197,8 +197,7 @@ box-shadow\] {
 .disabled\:cursor-not-allowed:disabled {
   cursor: not-allowed;
 }
-.disabled\:opacity-50:disabled,
-.has-\[\:disabled\]\:opacity-50:has(:disabled) {
+.disabled\:opacity-50:disabled {
   opacity: .5;
 }
 .data-\[state\=open\]\:border-ring[data-state=open] {

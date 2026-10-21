@@ -1,6 +1,6 @@
 # Components
 
-Every befui component and block. **216 React components**, **211 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **37 page blocks**.
+Every befui component and block. **216 React components**, **212 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **37 page blocks**.
 (Generated from the registry by `npm run registry:build`. Do not edit by hand.)
 
 Install a React component with `npx github:RandomKid24/befui add <name>`, the Flutter version with `npx github:RandomKid24/befui add <name> --flutter`.
@@ -242,7 +242,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `command` | Searchable palette on cmdk. Bind it to Ctrl or Cmd K. | ✓ |  |
 | `context-menu` | Right-click menu with items, shortcuts, checkbox items, labels and nested submenus. | ✓ |  |
 | `dialog` | Centered modal and edge-docked sheet on Radix Dialog. | ✓ | ✓ |
-| `drawer` | Panel that slides in from any edge and follows your finger: drag the grip to dismiss. Bottom drawers can rest half open (snap points) and be pulled to full height. |  |  |
+| `drawer` | Panel that slides in from any edge and follows your finger: drag the grip to dismiss. Bottom drawers can rest half open (snap points) and be pulled to full height. | ✓ |  |
 | `dropdown-menu` | Action menu with checkbox items, shortcuts and destructive items. | ✓ | ✓ |
 | `hover-card` | Rich preview that opens when you hover or focus a link, for profiles and references. | ✓ |  |
 | `image-viewer` | Lightbox with arrows, click to zoom and keyboard control. | ✓ | ✓ |

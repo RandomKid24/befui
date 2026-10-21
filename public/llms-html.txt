@@ -1087,6 +1087,36 @@ Icons that grow toward the pointer, like the macOS dock.
 <bef-dock :items='[{"id":"home","label":"Home","icon":"<bef-home-icon></bef-home-icon>"},{"id":"people","label":"People","icon":"<bef-users-icon></bef-users-icon>"},{"id":"cal","label":"Calendar","icon":"<bef-calendar-icon></bef-calendar-icon>"},{"id":"mail","label":"Inbox","icon":"<bef-mail-icon></bef-mail-icon>"},{"id":"bell","label":"Alerts","icon":"<bef-bell-icon></bef-bell-icon>"},{"id":"set","label":"Settings","icon":"<bef-settings-icon></bef-settings-icon>"}]'></bef-dock>
 ```
 
+## Drawer (drawer)
+Panel that slides in from any edge and follows your finger: drag the grip to dismiss. Bottom drawers can rest half open (snap points) and be pulled to full height.
+```html
+<div class="flex flex-wrap gap-2" id="drawer-buttons">
+  <bef-button variant="outline" data-side="bottom" class="capitalize">Bottom</bef-button>
+  <bef-button variant="outline" data-side="right" class="capitalize">Right</bef-button>
+  <bef-button variant="outline" data-side="left" class="capitalize">Left</bef-button>
+  <bef-button variant="outline" data-side="top" class="capitalize">Top</bef-button>
+</div>
+<bef-drawer :open="false" side="bottom" :snap-points="[0.5,1]" title="Order #4821" description="Drag the grip toward the edge to dismiss." emit="open-change">
+  <ul class="grid gap-2 pb-4 text-sm">
+    <li class="flex justify-between rounded-lg border px-3 py-2.5"><span>Wireless keyboard</span><span class="text-muted-foreground">1 x</span></li>
+    <li class="flex justify-between rounded-lg border px-3 py-2.5"><span>USB-C hub</span><span class="text-muted-foreground">1 x</span></li>
+    <li class="flex justify-between rounded-lg border px-3 py-2.5"><span>Desk mat</span><span class="text-muted-foreground">1 x</span></li>
+    <li class="flex justify-between rounded-lg border px-3 py-2.5"><span>Monitor arm</span><span class="text-muted-foreground">1 x</span></li>
+    <li class="flex justify-between rounded-lg border px-3 py-2.5"><span>Laptop stand</span><span class="text-muted-foreground">1 x</span></li>
+  </ul>
+</bef-drawer>
+<script type="module">
+  const drawer = document.querySelector('bef-drawer');
+  // set the side first and keep it after closing, so the drawer leaves through the edge it came from
+  document.querySelectorAll('#drawer-buttons [data-side]').forEach((b) => b.addEventListener('click', () => {
+    const side = b.dataset.side;
+    drawer.setAttribute('side', side);
+    drawer.setAttribute(':snap-points', side === 'bottom' ? '[0.5,1]' : '[1]'); // snap points are for the bottom drawer
+    drawer.setAttribute(':open', 'true');
+  }));
+</script>
+```
+
 ## Dropdown menu (dropdown-menu)
 Action menu with checkbox items, shortcuts and destructive items.
 ```html

@@ -42,7 +42,7 @@
   fill: var(--foreground);
 }
 .fill-muted-foreground,
-.fill-muted-foreground\/40 {
+.fill-muted-foreground\/10 {
   fill: var(--muted-foreground);
 }
 .stroke-background {
