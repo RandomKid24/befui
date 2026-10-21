@@ -6,6 +6,7 @@ import { BorderBeam } from '@/components/ui/border-beam';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Chip } from '@/components/ui/chip';
+import { Drawer } from '@/components/ui/drawer';
 import { CopyButton } from '@/components/ui/copy-button';
 import { Marquee } from '@/components/ui/marquee';
 import { NumberTicker } from '@/components/ui/number-ticker';
@@ -44,6 +45,10 @@ function HeroSheet() {
   const [checked, setChecked] = React.useState(true);
   const [vol, setVol] = React.useState(64);
   const [stars, setStars] = React.useState(4);
+  // side is kept after closing so the drawer leaves through the edge it came from
+  const [side, setSide] = React.useState<'bottom' | 'top' | 'left' | 'right'>('bottom');
+  const [drawer, setDrawer] = React.useState(false);
+  const openDrawer = (s: typeof side) => { setSide(s); setDrawer(true); };
   const rows: React.ReactNode[][] = [
     [
       <Button key="a" size="sm">Primary</Button>,
@@ -69,6 +74,11 @@ function HeroSheet() {
       <ProgressRing key="e" value={72} size={60} />,
       <Chip key="f" selected={on} onClick={() => setOn(!on)}>Design</Chip>,
     ],
+    [
+      ...(['bottom', 'top', 'left', 'right'] as const).map((s) => <Button key={s} size="sm" variant="outline" className="capitalize" onClick={() => openDrawer(s)}>{s}</Button>),
+      <Badge key="g" variant="outline">Drag to dismiss</Badge>,
+      <Badge key="h" variant="outline">Snap points</Badge>,
+    ],
   ];
   return (
     <div className="mx-auto mt-14 max-w-5xl overflow-hidden rounded-xl border bg-border">
@@ -83,6 +93,10 @@ function HeroSheet() {
       <div className="grid grid-cols-2 gap-px sm:grid-cols-3 lg:grid-cols-6">
         {rows.map((row, r) => row.map((node, c) => <Cell key={`${r}-${c}`} r={r} c={c}>{node}</Cell>))}
       </div>
+      <Drawer open={drawer} onOpenChange={setDrawer} side={side} snapPoints={side === 'bottom' ? [0.5, 1] : undefined} title="Drawer" description="Drag the grip toward the edge to dismiss it.">
+        <p className="pb-4 text-sm text-muted-foreground">Slides in from any edge and follows your pointer. The bottom one rests half open; pull it up for full height.</p>
+        <Button className="mb-4 w-full" onClick={() => setDrawer(false)}>Done</Button>
+      </Drawer>
     </div>
   );
 }
