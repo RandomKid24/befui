@@ -134,7 +134,8 @@
 .bg-border {
   background-color: var(--border);
 }
-.bg-current {
+.bg-current,
+.bg-current\/20 {
   background-color: currentColor;
 }
 .bg-destructive,

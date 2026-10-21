@@ -2,7 +2,18 @@
   <bef-field label="Approver" for="appr">
     <bef-combobox id="appr" :options='[{"value":"aarav","label":"Aarav Mehta","description":"Engineering Manager"},{"value":"diya","label":"Diya Rao","description":"Product Designer"},{"value":"kabir","label":"Kabir Shah","description":"Account Executive"},{"value":"meera","label":"Meera Iyer","description":"HR Business Partner"},{"value":"rohan","label":"Rohan Das","description":"Backend Engineer"},{"value":"isha","label":"Isha Nair","description":"Marketing Lead"}]' placeholder="Choose a person" search-placeholder="Search people..." emit="value-change"></bef-combobox>
   </bef-field>
-  <bef-field label="Notify" for="notify" hint="Pick as many as you like.">
+  <bef-field label="Notify" for="notify" hint="Pick as many as you like, or type a new name and choose Create.">
     <bef-multi-combobox id="notify" :options='[{"value":"aarav","label":"Aarav Mehta","description":"Engineering Manager"},{"value":"diya","label":"Diya Rao","description":"Product Designer"},{"value":"kabir","label":"Kabir Shah","description":"Account Executive"},{"value":"meera","label":"Meera Iyer","description":"HR Business Partner"},{"value":"rohan","label":"Rohan Das","description":"Backend Engineer"},{"value":"isha","label":"Isha Nair","description":"Marketing Lead"}]' :value='["diya"]' placeholder="Add people" emit="value-change"></bef-multi-combobox>
   </bef-field>
 </div>
+<script type="module">
+  // onCreate is a function, so it is set as a prop: add the new option and select it
+  const multi = document.getElementById('notify');
+  multi.props = {
+    onCreate: (label) => {
+      const value = label.toLowerCase().replace(/\s+/g, '-');
+      multi.setAttribute(':options', JSON.stringify([...JSON.parse(multi.getAttribute(':options')), { value, label }]));
+      multi.setAttribute(':value', JSON.stringify([...JSON.parse(multi.getAttribute(':value') || '[]'), value]));
+    },
+  };
+</script>

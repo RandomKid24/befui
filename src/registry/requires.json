@@ -113,8 +113,14 @@
   "circle-pack-chart": [
     "charts"
   ],
+  "coachmark": [
+    "button"
+  ],
   "code-block": [
     "icons"
+  ],
+  "cohort-table": [
+    "charts"
   ],
   "collapsible": [
     "icons"
@@ -175,6 +181,13 @@
     "icons",
     "popover"
   ],
+  "date-preset-select": [
+    "button",
+    "calendar",
+    "date-picker",
+    "dropdown-menu",
+    "icons"
+  ],
   "datetime-picker": [
     "calendar",
     "icons",
@@ -221,6 +234,11 @@
     "button",
     "icons",
     "popover"
+  ],
+  "filter-builder": [
+    "button",
+    "icons",
+    "input"
   ],
   "forecast-chart": [
     "area-chart",
@@ -270,6 +288,9 @@
   ],
   "kanban": [],
   "kbd": [],
+  "kpi-strip": [
+    "icons"
+  ],
   "label": [],
   "landing-sections": [
     "accordion"
@@ -379,6 +400,9 @@
     "icons",
     "number-ticker"
   ],
+  "pricing-comparison": [
+    "icons"
+  ],
   "product-card": [
     "button",
     "icons",
@@ -421,6 +445,9 @@
     "icons"
   ],
   "relative-time": [],
+  "resizable-panels": [
+    "icons"
+  ],
   "resizable-table": [],
   "reveal": [],
   "rich-text-editor": [],
@@ -429,6 +456,9 @@
     "charts"
   ],
   "ring-chart": [
+    "charts"
+  ],
+  "roadmap-timeline": [
     "charts"
   ],
   "rose-chart": [
@@ -475,6 +505,10 @@
     "dialog",
     "icons",
     "tooltip"
+  ],
+  "signature-field": [
+    "input",
+    "signature-pad"
   ],
   "signature-pad": [
     "button"

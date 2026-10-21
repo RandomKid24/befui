@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Combobox, MultiCombobox, type ComboboxOption } from '@/components/ui/combobox';
 import { Field } from '@/components/ui/label';
 
-const people: ComboboxOption[] = [
+const seed: ComboboxOption[] = [
   { value: 'aarav', label: 'Aarav Mehta', description: 'Engineering Manager' },
   { value: 'diya', label: 'Diya Rao', description: 'Product Designer' },
   { value: 'kabir', label: 'Kabir Shah', description: 'Account Executive' },
@@ -12,6 +12,7 @@ const people: ComboboxOption[] = [
 ];
 
 export default function ComboboxDemo() {
+  const [people, setPeople] = React.useState(seed);
   const [approver, setApprover] = React.useState<string>();
   const [watchers, setWatchers] = React.useState<string[]>(['diya']);
   return (
@@ -19,8 +20,8 @@ export default function ComboboxDemo() {
       <Field label="Approver" htmlFor="appr">
         <Combobox id="appr" options={people} value={approver} onValueChange={setApprover} placeholder="Choose a person" searchPlaceholder="Search people..." />
       </Field>
-      <Field label="Notify" htmlFor="notify" hint="Pick as many as you like.">
-        <MultiCombobox id="notify" options={people} value={watchers} onValueChange={setWatchers} placeholder="Add people" />
+      <Field label="Notify" htmlFor="notify" hint="Pick as many as you like, or type a new name and choose Create.">
+        <MultiCombobox id="notify" options={people} value={watchers} onValueChange={setWatchers} placeholder="Add people" onCreate={(label) => { const value = label.toLowerCase().replace(/\s+/g, '-'); setPeople((p) => [...p, { value, label }]); setWatchers((w) => [...w, value]); }} />
       </Field>
     </div>
   );

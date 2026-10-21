@@ -7,6 +7,9 @@ All notable changes to befui. Versions follow [semver](https://semver.org): new 
 
 Flutter widgets for Android and iOS, a page per platform, a new hero
 
+- **Added:** Dashboard pieces: KPI strip (headline numbers in one bordered row), cohort table (retention triangle), roadmap timeline (bars by month with progress and today) and a compact date preset select (Last 7 days). (KPI strip, Cohort table, Roadmap timeline, Date preset select)
+- **Added:** Filter builder (field, operator, value rows with a matchesFilters helper), signature field (draw or type), coachmark (one-time hint on an element), resizable panels (three-panel layout) and pricing comparison (feature grid). (Filter builder, Signature field, Coachmark, Resizable panels, Pricing comparison)
+- **Changed:** Toast: toast.progress() shows a bar for an upload or export you update as it goes. Banner: persistKey keeps it dismissed across visits. Multi combobox: onCreate adds a Create row for new options. Funnel chart: dropoff shows what was lost between stages. Combo chart: stacked piles the bars. (Toast, Banner, Combobox, Funnel chart, Combo chart)
 - **Added:** Charts and data: sparkline table (a trend line and change chip on every row), heat calendar (a month tinted by day), ring chart (concentric goal rings), range gauge (speedometer in coloured bands), resizable table and chart skeletons (bar, line, pie, table). (Sparkline table, Heat calendar, Ring chart, Range gauge, Resizable table, Chart skeleton)
 - **Added:** Forms and actions: popconfirm (a small are-you-sure bubble), split button, form wizard (steps with validation), range slider (two handles), gradient picker and autocomplete (fixed list or async search). (Popconfirm, Split button, Form wizard, Range slider, Gradient picker, Autocomplete)
 - **Added:** Image gallery (masonry grid with hover zoom) and media player (video or audio with themed controls). (Image gallery, Media player)

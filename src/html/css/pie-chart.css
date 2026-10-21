@@ -78,7 +78,8 @@
 .rounded-full {
   border-radius: 3.40282e38px;
 }
-.bg-current {
+.bg-current,
+.bg-current\/20 {
   background-color: currentColor;
 }
 .fill-primary-foreground {

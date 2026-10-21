@@ -37,7 +37,8 @@
 .animate-pulse {
   animation: var(--animate-pulse);
 }
-.bg-current {
+.bg-current,
+.bg-current\/20 {
   background-color: currentColor;
 }
 

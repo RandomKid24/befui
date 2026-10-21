@@ -1,0 +1,197 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --destructive: #e11d48;
+  --font-weight-medium: 500;
+  --foreground: #0f172a;
+  --info: #2563eb;
+  --muted-foreground: #64748b;
+  --primary: #2563eb;
+  --radius: .5rem;
+  --spacing: .25rem;
+  --success: #059669;
+  --warning: #d97706;
+}
+
+.dark {
+  --destructive: #f43f5e;
+  --foreground: #e6e9ef;
+  --info: #60a5fa;
+  --muted-foreground: #8b94a5;
+  --primary: #3b82f6;
+  --success: #10b981;
+  --warning: #f59e0b;
+}
+
+/* Utility rules */
+.pointer-events-none {
+  pointer-events: none;
+}
+.absolute {
+  position: absolute;
+}
+.relative {
+  position: relative;
+}
+.inset-y-0 {
+  inset-block: 0;
+}
+.top-0 {
+  top: 0;
+}
+.top-1\.5 {
+  top: calc(var(--spacing) * 1.5);
+}
+.left-0 {
+  left: 0;
+}
+.z-10 {
+  z-index: 10;
+}
+.ml-36 {
+  margin-left: calc(var(--spacing) * 36);
+}
+.flex {
+  display: flex;
+}
+.h-6 {
+  height: calc(var(--spacing) * 6);
+}
+.h-9 {
+  height: calc(var(--spacing) * 9);
+}
+.w-36 {
+  width: calc(var(--spacing) * 36);
+}
+.w-full {
+  width: 100%;
+}
+.w-px {
+  width: 1px;
+}
+.flex-1 {
+  flex: 1;
+}
+.shrink-0 {
+  flex-shrink: 0;
+}
+.-translate-x-0 {
+  --tw-translate-x: 0px;
+  translate: var(--tw-translate-x) var(--tw-translate-y);
+}
+.items-center {
+  align-items: center;
+}
+.truncate {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.overflow-hidden {
+  overflow: hidden;
+}
+.rounded-md {
+  border-radius: var(--radius);
+}
+.border-b {
+  border-bottom-style: var(--tw-border-style);
+  border-bottom-width: 1px;
+}
+.border-dashed {
+  --tw-border-style: dashed;
+  border-style: dashed;
+}
+.bg-current,
+.bg-current\/20 {
+  background-color: currentColor;
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .bg-current\/20 {
+    background-color: color-mix(in oklab,currentcolor 20%,transparent);
+  }
+}
+
+.bg-destructive\/60 {
+  background-color: var(--destructive);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .bg-destructive\/60 {
+    background-color: color-mix(in oklab,var(--destructive) 60%,transparent);
+  }
+}
+
+.px-2 {
+  padding-inline: calc(var(--spacing) * 2);
+}
+.py-2\.5 {
+  padding-block: calc(var(--spacing) * 2.5);
+}
+.pr-3 {
+  padding-right: calc(var(--spacing) * 3);
+}
+.pl-1 {
+  padding-left: var(--spacing);
+}
+.text-\[11px\] {
+  font-size: 11px;
+}
+.text-\[13px\] {
+  font-size: 13px;
+}
+.leading-6 {
+  --tw-leading: calc(var(--spacing) * 6);
+  line-height: calc(var(--spacing) * 6);
+}
+.font-medium {
+  --tw-font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-medium);
+}
+.text-destructive {
+  color: var(--destructive);
+}
+.text-foreground,
+.text-foreground\/90 {
+  color: var(--foreground);
+}
+.text-info {
+  color: var(--info);
+}
+.text-muted-foreground,
+.text-muted-foreground\/30 {
+  color: var(--muted-foreground);
+}
+.text-primary {
+  color: var(--primary);
+}
+.text-success {
+  color: var(--success);
+}
+.text-warning {
+  color: var(--warning);
+}
+.opacity-70 {
+  opacity: .7;
+}
+.last\:border-0:last-child {
+  border-style: var(--tw-border-style);
+  border-width: 0;
+}
+
+@property --tw-translate-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-translate-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}

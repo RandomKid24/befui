@@ -1,0 +1,11 @@
+<script type="module">
+  // onCreate is a function, so it is set as a prop: add the new option and select it
+  const multi = document.getElementById('notify');
+  multi.props = {
+    onCreate: (label) => {
+      const value = label.toLowerCase().replace(/\s+/g, '-');
+      multi.setAttribute(':options', JSON.stringify([...JSON.parse(multi.getAttribute(':options')), { value, label }]));
+      multi.setAttribute(':value', JSON.stringify([...JSON.parse(multi.getAttribute(':value') || '[]'), value]));
+    },
+  };
+</script>

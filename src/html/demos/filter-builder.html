@@ -1,0 +1,34 @@
+<div class="grid w-[40rem] max-w-full gap-4">
+  <bef-filter-builder id="filters" :rules='[{"field":"team","op":"is","value":"Engineering"}]' :fields='[{"key":"name","label":"Name"},{"key":"team","label":"Team","type":"select","options":["Engineering","Design","Sales","People"]},{"key":"age","label":"Age","type":"number"}]' emit="change"></bef-filter-builder>
+  <p id="filter-result" class="text-sm text-muted-foreground"></p>
+</div>
+<script type="module">
+  const people = [
+    { name: 'Aarav Mehta', team: 'Engineering', age: 31 }, { name: 'Diya Rao', team: 'Design', age: 27 }, { name: 'Kabir Shah', team: 'Sales', age: 35 },
+    { name: 'Meera Iyer', team: 'People', age: 29 }, { name: 'Rohan Das', team: 'Engineering', age: 41 }, { name: 'Isha Nair', team: 'Sales', age: 26 },
+  ];
+  const builder = document.getElementById('filters');
+  // the same matching rules the React matchesFilters helper uses
+  const pass = (row, r) => {
+    if (r.value === '') return true;
+    const raw = row[r.field], v = String(raw ?? '').toLowerCase(), q = r.value.toLowerCase();
+    if (r.op === 'contains') return v.includes(q);
+    if (r.op === 'is') return v === q;
+    if (r.op === 'is not') return v !== q;
+    if (r.op === 'starts with') return v.startsWith(q);
+    if (r.op === '=') return Number(raw) === Number(r.value);
+    if (r.op === '>') return Number(raw) > Number(r.value);
+    if (r.op === '<') return Number(raw) < Number(r.value);
+    if (r.op === 'between') { const [a, b] = r.value.split('-').map(Number); return Number(raw) >= (a ?? -Infinity) && Number(raw) <= (b ?? Infinity); }
+    return true;
+  };
+  const show = (rules) => {
+    const rows = people.filter((p) => rules.every((r) => pass(p, r)));
+    document.getElementById('filter-result').textContent = `${rows.length} of ${people.length}: ${rows.map((r) => r.name).join(', ') || 'no matches'}`;
+  };
+  show(JSON.parse(builder.getAttribute(':rules')));
+  builder.addEventListener('bef:change', (e) => {
+    builder.setAttribute(':rules', JSON.stringify(e.detail)); // write the new rules back so the tag keeps them
+    show(e.detail);
+  });
+</script>

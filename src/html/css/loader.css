@@ -185,7 +185,8 @@
 .border-l-transparent {
   border-left-color: #0000;
 }
-.bg-current {
+.bg-current,
+.bg-current\/20 {
   background-color: currentColor;
 }
 .bg-primary {

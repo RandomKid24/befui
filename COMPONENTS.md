@@ -1,16 +1,17 @@
 # Components
 
-Every befui component and block. **232 React components**, **229 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **37 page blocks**.
+Every befui component and block. **241 React components**, **238 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **37 page blocks**.
 (Generated from the registry by `npm run registry:build`. Do not edit by hand.)
 
 Install a React component with `npx github:RandomKid24/befui add <name>`, the Flutter version with `npx github:RandomKid24/befui add <name> --flutter`.
 
-## Layout (5)
+## Layout (6)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
 | `app-shell` | Sidebar, topbar and scrolling content area, plus a page header. | ✓ |  |
 | `landing-sections` | Marketing page parts: Hero, LogoStrip, FeatureGrid, StatsStrip, Faq, CtaBanner and SiteFooter. Stack them with a Navbar. | ✓ |  |
+| `resizable-panels` | Three panels side by side: drag the left and right panels wider or narrower, or collapse them. For inbox and IDE layouts. | ✓ |  |
 | `settings-layout` | Settings page frame: vertical section list on the left, SettingsSection rows (title and help on the left, controls on the right). | ✓ |  |
 | `sidebar` | Collapsible nav with groups, nested links and badges. Icon rail on desktop, slide-over on mobile. | ✓ |  |
 | `split-pane` | Two resizable panels with a draggable divider. Keyboard resizable. Horizontal or vertical. | ✓ |  |
@@ -35,7 +36,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `tree-view` | Nested expandable list with animated open and close. | ✓ | ✓ |
 | `user-menu` | Avatar button for the topbar that opens a menu with name, email, your links and Sign out. | ✓ | ✓ |
 
-## Inputs (47)
+## Inputs (49)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
@@ -56,6 +57,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `dropzone` | Drag and drop file area with size check and removable file list. | ✓ |  |
 | `fab` | Round primary action, extended with a label, or a speed dial that fans out actions. | ✓ | ✓ |
 | `file-uploader` | Multi-file drop area with a progress bar per file, cancel, retry and a concurrency limit. You supply the upload function. | ✓ |  |
+| `filter-builder` | Field, operator and value rows that all must match, like the Notion or Linear filter, with a helper to filter an array. | ✓ |  |
 | `form-wizard` | A form split into steps: stepper on top, one step at a time, Back and Next with per-step validation. | ✓ |  |
 | `gradient-picker` | Edit a linear gradient: colours, positions, angle, two to five stops, live preview and CSS to copy. | ✓ |  |
 | `image-upload` | Thumbnail grid with remove buttons, a cover label and a drop tile. Limits count, type and size. | ✓ |  |
@@ -78,6 +80,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `search-input` | Search field with a clear button, Escape to clear and a slash shortcut to focus. | ✓ | ✓ |
 | `segmented` | Pick one of a few views or ranges. Smaller than tabs. | ✓ | ✓ |
 | `select` | Styled dropdown with groups, built on Radix Select. | ✓ | ✓ |
+| `signature-field` | A signature box that lets people draw it or type their name in a script font. Both give one PNG data URL. | ✓ |  |
 | `signature-pad` | Draw-your-signature canvas for mouse, touch and pen. Sharp on retina screens, exports a PNG. | ✓ | ✓ |
 | `slider` | Native range input with a filled track and floating value bubble. | ✓ | ✓ |
 | `split-button` | A button with a menu of related actions attached: the main part runs the usual action, the arrow opens the others. | ✓ |  |
@@ -87,7 +90,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `toggle` | Two-state button for favourite, bold or mute. Announces its state to screen readers. | ✓ | ✓ |
 | `toggle-group` | A row of toggles where one or several can be pressed, for formatting toolbars. | ✓ | ✓ |
 
-## Display (46)
+## Display (47)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
@@ -119,6 +122,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `onboarding-checklist` | Getting-started card with a progress bar, tick-off items, short help text and actions. Collapsible. | ✓ | ✓ |
 | `order-summary` | Cart lines with subtotal, discount, shipping, tax and total computed for you. Slots for a coupon field and a checkout button. | ✓ | ✓ |
 | `pricing-card` | Plan card whose price counts to the new value. The highlighted plan gets a travelling border beam. | ✓ | ✓ |
+| `pricing-comparison` | The feature grid under a pricing page: plans across the top, features down the side, checks and short text in the cells. | ✓ |  |
 | `product-card` | Product tile with image, rating, price with strike-through, discount tag, wishlist heart and Add button. Also exports Price. | ✓ | ✓ |
 | `profile-card` | Person card with banner, avatar, role, stats and an actions slot. | ✓ | ✓ |
 | `rating-breakdown` | Review summary: big average, stars and a bar per star level. Rows can act as filters. Bars fill in on scroll. | ✓ | ✓ |
@@ -155,7 +159,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `tool-call` | A card for one tool or function call an AI made: name, running, done or failed, how long it took, and its input and output to expand. | ✓ | ✓ |
 | `voice-wave` | Audio level bars for a voice input: they dance while listening and settle to a line when paused. Drive them with a real level or leave them idle. | ✓ | ✓ |
 
-## Data (71)
+## Data (74)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
@@ -170,6 +174,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `charts` | Sparkline, bar chart and donut in plain SVG. No chart library. | ✓ | ✓ |
 | `chord-chart` | Flow between every pair of items around a circle. Arcs sweep in, then ribbons fade in; hover an item to keep only its ribbons. | ✓ |  |
 | `circle-pack-chart` | One bubble per item, area by value, packed into a cluster. Bubbles pop out from the center biggest first; hover for the share. | ✓ |  |
+| `cohort-table` | Retention triangle: a row per signup group, a column per period, each cell the percent still active and tinted by it. | ✓ |  |
 | `combo-chart` | Bars, smooth lines and smooth areas on one chart, with an optional second scale on the right. Many values read together; hover a month for all of them. | ✓ |  |
 | `comparison-table` | Plans across the top, features down the side, a check, dash or text in each cell. For pricing pages. | ✓ |  |
 | `countdown` | Live countdown with flipping digits. | ✓ | ✓ |
@@ -187,6 +192,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `histogram-chart` | Counts how many values fall in each range from raw data, with a smooth curve over the bars. Bars rise in turn. | ✓ |  |
 | `india-map` | India by state and union territory, with a 3D bar or pin standing on every state in your data. Zoom and pan it; click a name in the list to highlight a state. |  |  |
 | `kanban` | Columns of draggable cards. Drag with the mouse or move a focused card with Alt and the arrow keys. Controlled, no drag library. | ✓ | ✓ |
+| `kpi-strip` | A row of headline numbers sharing one border with dividers between them, with change arrows. The strip at the top of a dashboard. | ✓ |  |
 | `leaderboard` | Ranked people or teams with avatars, score bars, gold, silver and bronze badges and place changes. Sorted for you; bars fill in on scroll. | ✓ | ✓ |
 | `line-chart` | Multi-series line or area chart in plain SVG with grid, axis labels, legend and a hover readout. | ✓ | ✓ |
 | `live-chart` | Streaming line chart that slides left as new values arrive. You give it a function for the next value; pause it any time. | ✓ |  |
@@ -211,6 +217,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `resizable-table` | Table whose columns resize by dragging the header edge or with the arrow keys. Scrolls sideways when wider than the card. | ✓ |  |
 | `ridgeline-chart` | One smooth curve per row, overlapping like mountain ridges on a shared scale. Ridges rise in turn; hover one to bring it forward. | ✓ |  |
 | `ring-chart` | Concentric progress rings, one per measure against its own goal (move, exercise, stand). Rings sweep in on scroll. | ✓ |  |
+| `roadmap-timeline` | A light roadmap: one bar per item along a month axis, coloured by group, with progress inside and a line for today. | ✓ |  |
 | `rose-chart` | Polar area chart: equal-angle petals whose length is the value. Petals bloom from the center in turn; hover one to read it. | ✓ |  |
 | `sankey-chart` | Flow diagram where ribbon width is the amount: traffic to page to outcome, budget to team. Ribbons draw in; hover follows a flow. | ✓ |  |
 | `saved-views` | Menu of saved table setups: pick one, save the current one under a name, delete. | ✓ |  |
@@ -248,12 +255,13 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `spinner` | Tiny CSS spinner that inherits text color. | ✓ | ✓ |
 | `toast` | Call toast.success() from anywhere. No provider needed. | ✓ | ✓ |
 
-## Overlays (14)
+## Overlays (15)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
 | `alert-dialog` | Confirm before something destructive. Cancel and confirm, controlled by you. | ✓ | ✓ |
 | `bottom-sheet` | Sheet that rises from the bottom, with a drag handle to dismiss. Radix Dialog underneath. | ✓ | ✓ |
+| `coachmark` | A single new-feature hint pinned to one element with a Got it button. Lighter than a tour; can remember it was dismissed. | ✓ |  |
 | `command` | Searchable palette on cmdk. Bind it to Ctrl or Cmd K. | ✓ |  |
 | `context-menu` | Right-click menu with items, shortcuts, checkbox items, labels and nested submenus. | ✓ |  |
 | `dialog` | Centered modal and edge-docked sheet on Radix Dialog. | ✓ | ✓ |
@@ -267,11 +275,12 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `tooltip` | Hint on hover and focus. Optional title, keyboard shortcut, light style and arrow, plus an (i) InfoTip and a TruncatedText that only shows a tooltip when cut off. | ✓ | ✓ |
 | `tour` | Spotlight a part of the page and step through it with a card, for product walkthroughs. | ✓ |  |
 
-## Time (9)
+## Time (10)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
 | `analog-clock` | SVG clock for any time zone, with a second hand that ticks with a small bounce. | ✓ |  |
+| `date-preset-select` | A compact Last 7 days dropdown for dashboards: pick a preset and get a from and to range. | ✓ |  |
 | `day-agenda` | One day as a time grid: events sit at their time, overlapping ones share the width, a red now-line marks the time. | ✓ | ✓ |
 | `event-calendar` | Month view with events on their days, multi-day spans, +n more overflow, locale-aware names and RTL arrows. | ✓ |  |
 | `relative-time` | "3 minutes ago", kept live. Hover for the full date. Uses Intl, so it speaks your locale. | ✓ | ✓ |

@@ -1,0 +1,344 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --background: #fff;
+  --card: #fff;
+  --font-weight-normal: 400;
+  --font-weight-semibold: 600;
+  --muted: #f8fafc;
+  --muted-foreground: #64748b;
+  --primary: #2563eb;
+  --radius: .5rem;
+  --spacing: .25rem;
+  --success: #059669;
+  --text-xl: 1.25rem;
+  --text-xl--line-height: calc(1.75 / 1.25);
+  --text-xs: .75rem;
+  --text-xs--line-height: calc(1 / .75);
+  --tracking-wide: .025em;
+}
+
+.dark {
+  --background: #0a0c10;
+  --card: #0f1218;
+  --muted: #11141b;
+  --muted-foreground: #8b94a5;
+  --primary: #3b82f6;
+  --success: #10b981;
+}
+
+/* Utility rules */
+.sr-only {
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border-width: 0;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  position: absolute;
+  overflow: hidden;
+}
+.sticky {
+  position: sticky;
+}
+.left-0 {
+  left: 0;
+}
+.z-10 {
+  z-index: 10;
+}
+.mx-auto {
+  margin-inline: auto;
+}
+.size-4 {
+  width: calc(var(--spacing) * 4);
+  height: calc(var(--spacing) * 4);
+}
+.w-full {
+  width: 100%;
+}
+.min-w-\[34rem\] {
+  min-width: 34rem;
+}
+.border-collapse {
+  border-collapse: collapse;
+}
+.overflow-x-auto {
+  overflow-x: auto;
+}
+.rounded-xl {
+  border-radius: calc(var(--radius) + 6px);
+}
+.border {
+  border-style: var(--tw-border-style);
+  border-width: 1px;
+}
+.border-t {
+  border-top-style: var(--tw-border-style);
+  border-top-width: 1px;
+}
+.bg-card,
+.bg-card\/80 {
+  background-color: var(--card);
+}
+.bg-muted\/50 {
+  background-color: var(--muted);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .bg-muted\/50 {
+    background-color: color-mix(in oklab,var(--muted) 50%,transparent);
+  }
+}
+
+.bg-primary\/5 {
+  background-color: var(--primary);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .bg-primary\/5 {
+    background-color: color-mix(in oklab,var(--primary) 5%,transparent);
+  }
+}
+
+.px-4 {
+  padding-inline: calc(var(--spacing) * 4);
+}
+.py-2 {
+  padding-block: calc(var(--spacing) * 2);
+}
+.py-3 {
+  padding-block: calc(var(--spacing) * 3);
+}
+.py-4 {
+  padding-block: calc(var(--spacing) * 4);
+}
+.text-center {
+  text-align: center;
+}
+.text-left {
+  text-align: left;
+}
+.align-bottom {
+  vertical-align: bottom;
+}
+.text-xl {
+  font-size: var(--text-xl);
+  line-height: var(--tw-leading,var(--text-xl--line-height));
+}
+.text-xs {
+  font-size: var(--text-xs);
+  line-height: var(--tw-leading,var(--text-xs--line-height));
+}
+.text-\[13px\] {
+  font-size: 13px;
+}
+.font-normal {
+  --tw-font-weight: var(--font-weight-normal);
+  font-weight: var(--font-weight-normal);
+}
+.font-semibold {
+  --tw-font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-semibold);
+}
+.tracking-wide {
+  --tw-tracking: var(--tracking-wide);
+  letter-spacing: var(--tracking-wide);
+}
+.text-muted-foreground,
+.text-muted-foreground\/30 {
+  color: var(--muted-foreground);
+}
+.text-muted-foreground\/50 {
+  color: var(--muted-foreground);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .text-muted-foreground\/50 {
+    color: color-mix(in oklab,var(--muted-foreground) 50%,transparent);
+  }
+}
+
+.text-success {
+  color: var(--success);
+}
+.uppercase {
+  text-transform: uppercase;
+}
+.tabular-nums {
+  --tw-numeric-spacing: tabular-nums;
+  font-variant-numeric: var(--tw-ordinal,) var(--tw-slashed-zero,) var(--tw-numeric-figure,) var(--tw-numeric-spacing,) var(--tw-numeric-fraction,);
+}
+.group-focus-within\:text-primary:is(:where(.group):focus-within *) {
+  color: var(--primary);
+}
+.group-focus-within\:opacity-100:is(:where(.group):focus-within *) {
+  opacity: 1;
+}
+
+@media (hover:hover) {
+  .group-hover\:translate-y-0:is(:where(.group):hover *) {
+    --tw-translate-y: 0px;
+    translate: var(--tw-translate-x) var(--tw-translate-y);
+  }
+  .group-hover\:scale-105:is(:where(.group):hover *) {
+    --tw-scale-x: 105%;
+    --tw-scale-y: 105%;
+    --tw-scale-z: 105%;
+    scale: var(--tw-scale-x) var(--tw-scale-y);
+  }
+  .group-hover\:bg-primary:is(:where(.group):hover *) {
+    background-color: var(--primary);
+  }
+  .group-hover\:text-primary:is(:where(.group):hover *) {
+    color: var(--primary);
+  }
+  .group-hover\:opacity-100:is(:where(.group):hover *) {
+    opacity: 1;
+  }
+  .group-hover\:\[animation-play-state\:paused\]:is(:where(.group):hover *) {
+    animation-play-state: paused;
+  }
+}
+
+.group-focus-visible\:translate-y-0:is(:where(.group):focus-visible *) {
+  --tw-translate-y: 0px;
+  translate: var(--tw-translate-x) var(--tw-translate-y);
+}
+.group-focus-visible\:bg-primary:is(:where(.group):focus-visible *) {
+  background-color: var(--primary);
+}
+.group-focus-visible\:opacity-100:is(:where(.group):focus-visible *) {
+  opacity: 1;
+}
+.group-data-\[state\=open\]\:rotate-180:is(:where(.group)[data-state=open] *) {
+  rotate: 180deg;
+}
+.group-data-\[variant\=pill\]\:rounded-md:is(:where(.group)[data-variant=pill] *) {
+  border-radius: var(--radius);
+}
+.group-data-\[variant\=pill\]\:px-3:is(:where(.group)[data-variant=pill] *) {
+  padding-inline: calc(var(--spacing) * 3);
+}
+.group-data-\[variant\=pill\]\:py-1:is(:where(.group)[data-variant=pill] *) {
+  padding-block: var(--spacing);
+}
+.group-data-\[variant\=underline\]\:-mb-px:is(:where(.group)[data-variant=underline] *) {
+  margin-bottom: -1px;
+}
+.group-data-\[variant\=underline\]\:border-b-2:is(:where(.group)[data-variant=underline] *) {
+  border-bottom-style: var(--tw-border-style);
+  border-bottom-width: 2px;
+}
+.group-data-\[variant\=underline\]\:border-transparent:is(:where(.group)[data-variant=underline] *) {
+  border-color: #0000;
+}
+.group-data-\[variant\=underline\]\:pb-2\.5:is(:where(.group)[data-variant=underline] *) {
+  padding-bottom: calc(var(--spacing) * 2.5);
+}
+.group-data-\[variant\=pill\]\:data-\[state\=active\]\:bg-background:is(:where(.group)[data-variant=pill] *)[data-state=active] {
+  background-color: var(--background);
+}
+.group-data-\[variant\=pill\]\:data-\[state\=active\]\:shadow-sm:is(:where(.group)[data-variant=pill] *)[data-state=active] {
+  --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color,#0000001a), 0 1px 2px -1px var(--tw-shadow-color,#0000001a);
+  box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
+}
+.group-data-\[variant\=underline\]\:data-\[state\=active\]\:border-primary:is(:where(.group)[data-variant=underline] *)[data-state=active] {
+  border-color: var(--primary);
+}
+.icon-draw:hover *,
+.group:hover .icon-draw * {
+  animation: icon-draw var(--icon-ms,.9s) cubic-bezier(.45,0,.2,1) backwards;
+  animation-delay: calc(var(--i,0) * .14s);
+}
+
+/* Animations */
+@keyframes icon-draw {
+  0% {
+    stroke-dashoffset: 1px;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@property --tw-translate-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-translate-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-scale-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+@property --tw-scale-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
+@property --tw-leading {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ordinal {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-slashed-zero {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-figure {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-spacing {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-fraction {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-shadow-color {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-inset-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-ring-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-inset-ring-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-ring-offset-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}

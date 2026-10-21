@@ -6,6 +6,38 @@
     "entries": [
       {
         "kind": "added",
+        "text": "Dashboard pieces: KPI strip (headline numbers in one bordered row), cohort table (retention triangle), roadmap timeline (bars by month with progress and today) and a compact date preset select (Last 7 days).",
+        "slugs": [
+          "kpi-strip",
+          "cohort-table",
+          "roadmap-timeline",
+          "date-preset-select"
+        ]
+      },
+      {
+        "kind": "added",
+        "text": "Filter builder (field, operator, value rows with a matchesFilters helper), signature field (draw or type), coachmark (one-time hint on an element), resizable panels (three-panel layout) and pricing comparison (feature grid).",
+        "slugs": [
+          "filter-builder",
+          "signature-field",
+          "coachmark",
+          "resizable-panels",
+          "pricing-comparison"
+        ]
+      },
+      {
+        "kind": "changed",
+        "text": "Toast: toast.progress() shows a bar for an upload or export you update as it goes. Banner: persistKey keeps it dismissed across visits. Multi combobox: onCreate adds a Create row for new options. Funnel chart: dropoff shows what was lost between stages. Combo chart: stacked piles the bars.",
+        "slugs": [
+          "toast",
+          "banner",
+          "combobox",
+          "funnel-chart",
+          "combo-chart"
+        ]
+      },
+      {
+        "kind": "added",
         "text": "Charts and data: sparkline table (a trend line and change chip on every row), heat calendar (a month tinted by day), ring chart (concentric goal rings), range gauge (speedometer in coloured bands), resizable table and chart skeletons (bar, line, pie, table).",
         "slugs": [
           "sparkline-table",

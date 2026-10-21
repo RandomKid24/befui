@@ -27,10 +27,11 @@ interface CommonProps {
   id?: string;
 }
 
-function List({ options, isSelected, toggle, searchPlaceholder, emptyText }: Pick<CommonProps, 'options' | 'searchPlaceholder' | 'emptyText'> & { isSelected: (v: string) => boolean; toggle: (v: string) => void }) {
+function List({ options, isSelected, toggle, searchPlaceholder, emptyText, onCreate }: Pick<CommonProps, 'options' | 'searchPlaceholder' | 'emptyText'> & { onCreate?: (label: string) => void; isSelected: (v: string) => boolean; toggle: (v: string) => void }) {
+  const [query, setQuery] = React.useState('');
   return (
     <Command>
-      <CommandInput placeholder={searchPlaceholder ?? 'Search...'} className="h-10" />
+      <CommandInput value={query} onValueChange={setQuery} placeholder={searchPlaceholder ?? 'Search...'} className="h-10" />
       <CommandList>
         <CommandEmpty>{emptyText ?? 'No results.'}</CommandEmpty>
         <CommandGroup>
@@ -43,6 +44,11 @@ function List({ options, isSelected, toggle, searchPlaceholder, emptyText }: Pic
               <CheckIcon className={cn('!text-primary', isSelected(o.value) ? 'opacity-100' : 'opacity-0')} />
             </CommandItem>
           ))}
+          {onCreate && query.trim() && !options.some((o) => o.label.toLowerCase() === query.trim().toLowerCase()) && (
+            <CommandItem value={`create-${query}`} forceMount onSelect={() => { onCreate(query.trim()); setQuery(''); }}>
+              <span className="truncate">Create “{query.trim()}”</span>
+            </CommandItem>
+          )}
         </CommandGroup>
       </CommandList>
     </Command>
@@ -101,7 +107,8 @@ export function MultiCombobox({
   className,
   id,
   maxBadges = 2,
-}: CommonProps & { value: string[]; onValueChange: (value: string[]) => void; maxBadges?: number }) {
+  onCreate,
+}: CommonProps & { value: string[]; onValueChange: (value: string[]) => void; maxBadges?: number; /** Show a "Create ..." row for text that matches no option. Add the new option to `options` and select it here. */ onCreate?: (label: string) => void }) {
   const picked = options.filter((o) => value.includes(o.value));
   return (
     <Popover>
@@ -122,6 +129,7 @@ export function MultiCombobox({
           options={options}
           searchPlaceholder={searchPlaceholder}
           emptyText={emptyText}
+          onCreate={onCreate}
           isSelected={(v) => value.includes(v)}
           toggle={(v) => onValueChange(value.includes(v) ? value.filter((x) => x !== v) : [...value, v])}
         />

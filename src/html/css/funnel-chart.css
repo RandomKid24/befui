@@ -64,12 +64,18 @@
 .bg-primary {
   background-color: var(--primary);
 }
+.text-center {
+  text-align: center;
+}
 .text-right {
   text-align: right;
 }
 .text-xs {
   font-size: var(--text-xs);
   line-height: var(--tw-leading,var(--text-xs--line-height));
+}
+.text-\[11px\] {
+  font-size: 11px;
 }
 .text-\[13px\] {
   font-size: 13px;

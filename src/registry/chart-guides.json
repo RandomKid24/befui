@@ -316,5 +316,17 @@
     "read": "The needle points at the value on the scale. The band it sits in (and the word under the number) tells you if that is poor, fair, good or excellent.",
     "use": "Scores with known zones: credit score, health score, NPS, uptime.",
     "avoid": "Values with no meaningful zones. Use the plain gauge or a progress ring."
+  },
+  "cohort-table": {
+    "what": "A triangle of percentages: one row per group of users by when they joined, one column per period since.",
+    "read": "Each cell is the percent of that group still active after that many periods; darker is better. Read across a row to see one group decay, down a column to see whether newer groups retain better than older ones. Hover a cell for the head count.",
+    "use": "Subscription and product retention by signup month, repeat purchases, class attendance.",
+    "avoid": "Fewer than four groups, or data with no clear start date per user."
+  },
+  "roadmap-timeline": {
+    "what": "One bar per item along a month axis showing when it starts and ends.",
+    "read": "Bar length is duration, colour is the group, the darker fill inside is progress, and the red line is today. Bars to the left of the line should be finishing or done.",
+    "use": "Product and project roadmaps, a quarter plan, release schedules.",
+    "avoid": "Tasks with dependencies or hours of effort. Use the Gantt."
   }
 }

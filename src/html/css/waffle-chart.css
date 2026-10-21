@@ -70,7 +70,8 @@
 .rounded-\[5px\] {
   border-radius: 5px;
 }
-.bg-current {
+.bg-current,
+.bg-current\/20 {
   background-color: currentColor;
 }
 .text-\[13px\] {

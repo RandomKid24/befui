@@ -64,7 +64,8 @@
   }
 }
 
-.bg-current {
+.bg-current,
+.bg-current\/20 {
   background-color: currentColor;
 }
 .pr-3 {

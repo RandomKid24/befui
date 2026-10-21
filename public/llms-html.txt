@@ -293,8 +293,8 @@ Status pill with semantic colors and an optional dot.
 Announcement bar that collapses smoothly when dismissed.
 ```html
 <div class="w-full overflow-hidden rounded-lg border">
-  <bef-banner :action='"<a href=\"#/\" class=\"underline underline-offset-2\">Read more</a>"'>Payroll 2.0 is live for everyone.</bef-banner>
-  <div class="p-6 text-sm text-muted-foreground">Dismiss the bar and the page slides up.</div>
+  <bef-banner persist-key="payroll-2" :action='"<a href=\"#/\" class=\"underline underline-offset-2\">Read more</a>"'>Payroll 2.0 is live for everyone.</bef-banner>
+  <div class="p-6 text-sm text-muted-foreground">Dismiss the bar and the page slides up. With persistKey it stays gone on your next visit (clear site data to see it again).</div>
 </div>
 ```
 
@@ -676,11 +676,27 @@ One bubble per item, area by value, packed into a cluster. Bubbles pop out from 
 <bef-circle-pack-chart class="w-[34rem] max-w-full" :items='[{"label":"India","value":4200},{"label":"USA","value":2600},{"label":"UAE","value":1500},{"label":"UK","value":1200},{"label":"Germany","value":800},{"label":"Singapore","value":700},{"label":"Canada","value":520},{"label":"Brazil","value":380},{"label":"Japan","value":300},{"label":"Kenya","value":160},{"label":"Chile","value":90}]'></bef-circle-pack-chart>
 ```
 
+## Coachmark (coachmark)
+A single new-feature hint pinned to one element with a Got it button. Lighter than a tour; can remember it was dismissed.
+```html
+<div class="py-24">
+  <bef-coachmark persist-key="demo-export" title="New: export to PDF" description="Send any report as a PDF from here.">
+    <bef-button variant="outline">Export</bef-button>
+  </bef-coachmark>
+</div>
+```
+
 ## Code block (code-block)
 Code with a title, optional line numbers and a copy button. No highlighter dependency.
 ```html
 <bef-code-block class="w-full max-w-lg" title="terminal" line-numbers code="npx github:RandomKid24/befui init
 npx github:RandomKid24/befui add button card"></bef-code-block>
+```
+
+## Cohort table (cohort-table)
+Retention triangle: a row per signup group, a column per period, each cell the percent still active and tinted by it.
+```html
+<bef-cohort-table class="w-[40rem] max-w-full" :cohorts='[{"label":"May 2026","size":1240,"retention":[100,62,48,41,37,34]},{"label":"Jun 2026","size":1410,"retention":[100,66,51,44,40]},{"label":"Jul 2026","size":1580,"retention":[100,64,50,43]},{"label":"Aug 2026","size":1722,"retention":[100,69,55]},{"label":"Sep 2026","size":1895,"retention":[100,71]},{"label":"Oct 2026","size":2010,"retention":[100]}]'></bef-cohort-table>
 ```
 
 ## Collapsible (collapsible)
@@ -703,7 +719,7 @@ Swatches, hex field and the native picker. Always returns a six-digit hex.
 ## Combo chart (combo-chart)
 Bars, smooth lines and smooth areas on one chart, with an optional second scale on the right. Many values read together; hover a month for all of them.
 ```html
-<bef-combo-chart class="w-[38rem] max-w-full" :labels='["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep"]' :series='[{"name":"Revenue","type":"bar","data":[42,48,45,58,63,60,72,78,85]},{"name":"Costs","type":"bar","data":[30,33,35,38,41,44,46,49,52],"color":"text-destructive"},{"name":"Target","type":"area","data":[40,45,50,55,60,65,70,75,80],"color":"text-warning"},{"name":"Conversion","type":"line","axis":"right","data":[2.1,2.4,2.2,2.9,3.1,3,3.6,3.9,4.3],"color":"text-success"}]' id="g1"></bef-combo-chart>
+<bef-combo-chart class="w-[38rem] max-w-full" stacked :labels='["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep"]' :series='[{"name":"Revenue","type":"bar","data":[42,48,45,58,63,60,72,78,85]},{"name":"Costs","type":"bar","data":[30,33,35,38,41,44,46,49,52],"color":"text-destructive"},{"name":"Target","type":"area","data":[70,78,84,92,100,106,114,122,130],"color":"text-warning"},{"name":"Conversion","type":"line","axis":"right","data":[2.1,2.4,2.2,2.9,3.1,3,3.6,3.9,4.3],"color":"text-success"}]' id="g1"></bef-combo-chart>
 <script type="module">
 document.getElementById("g1").props = {
   format: (n) => `$${n}k`,
@@ -719,10 +735,21 @@ Searchable select, single or multiple, with descriptions under each option.
   <bef-field label="Approver" for="appr">
     <bef-combobox id="appr" :options='[{"value":"aarav","label":"Aarav Mehta","description":"Engineering Manager"},{"value":"diya","label":"Diya Rao","description":"Product Designer"},{"value":"kabir","label":"Kabir Shah","description":"Account Executive"},{"value":"meera","label":"Meera Iyer","description":"HR Business Partner"},{"value":"rohan","label":"Rohan Das","description":"Backend Engineer"},{"value":"isha","label":"Isha Nair","description":"Marketing Lead"}]' placeholder="Choose a person" search-placeholder="Search people..." emit="value-change"></bef-combobox>
   </bef-field>
-  <bef-field label="Notify" for="notify" hint="Pick as many as you like.">
+  <bef-field label="Notify" for="notify" hint="Pick as many as you like, or type a new name and choose Create.">
     <bef-multi-combobox id="notify" :options='[{"value":"aarav","label":"Aarav Mehta","description":"Engineering Manager"},{"value":"diya","label":"Diya Rao","description":"Product Designer"},{"value":"kabir","label":"Kabir Shah","description":"Account Executive"},{"value":"meera","label":"Meera Iyer","description":"HR Business Partner"},{"value":"rohan","label":"Rohan Das","description":"Backend Engineer"},{"value":"isha","label":"Isha Nair","description":"Marketing Lead"}]' :value='["diya"]' placeholder="Add people" emit="value-change"></bef-multi-combobox>
   </bef-field>
 </div>
+<script type="module">
+  // onCreate is a function, so it is set as a prop: add the new option and select it
+  const multi = document.getElementById('notify');
+  multi.props = {
+    onCreate: (label) => {
+      const value = label.toLowerCase().replace(/\s+/g, '-');
+      multi.setAttribute(':options', JSON.stringify([...JSON.parse(multi.getAttribute(':options')), { value, label }]));
+      multi.setAttribute(':value', JSON.stringify([...JSON.parse(multi.getAttribute(':value') || '[]'), value]));
+    },
+  };
+</script>
 ```
 
 ## Command palette (command)
@@ -1005,6 +1032,12 @@ document.getElementById("leave").props = {
   disabledDays: (d) => d < addDays(today, 0),
 };
 </script>
+```
+
+## Date preset select (date-preset-select)
+A compact Last 7 days dropdown for dashboards: pick a preset and get a from and to range.
+```html
+<bef-date-preset-select value="Last 7 days" emit="change"></bef-date-preset-select>
 ```
 
 ## Date and time picker (datetime-picker)
@@ -1315,6 +1348,45 @@ Removable filter chips with an Add filter menu: pick a field, then a value.
 <bef-filter-bar :value='{"status":"Active"}' :fields='[{"key":"status","label":"Status","options":["Active","On leave","Exited"]},{"key":"dept","label":"Department","options":["Engineering","Sales","People","Finance"]},{"key":"type","label":"Type","options":["Full-time","Contract","Intern"]}]' emit="change"></bef-filter-bar>
 ```
 
+## Filter builder (filter-builder)
+Field, operator and value rows that all must match, like the Notion or Linear filter, with a helper to filter an array.
+```html
+<div class="grid w-[40rem] max-w-full gap-4">
+  <bef-filter-builder id="filters" :rules='[{"field":"team","op":"is","value":"Engineering"}]' :fields='[{"key":"name","label":"Name"},{"key":"team","label":"Team","type":"select","options":["Engineering","Design","Sales","People"]},{"key":"age","label":"Age","type":"number"}]' emit="change"></bef-filter-builder>
+  <p id="filter-result" class="text-sm text-muted-foreground"></p>
+</div>
+<script type="module">
+  const people = [
+    { name: 'Aarav Mehta', team: 'Engineering', age: 31 }, { name: 'Diya Rao', team: 'Design', age: 27 }, { name: 'Kabir Shah', team: 'Sales', age: 35 },
+    { name: 'Meera Iyer', team: 'People', age: 29 }, { name: 'Rohan Das', team: 'Engineering', age: 41 }, { name: 'Isha Nair', team: 'Sales', age: 26 },
+  ];
+  const builder = document.getElementById('filters');
+  // the same matching rules the React matchesFilters helper uses
+  const pass = (row, r) => {
+    if (r.value === '') return true;
+    const raw = row[r.field], v = String(raw ?? '').toLowerCase(), q = r.value.toLowerCase();
+    if (r.op === 'contains') return v.includes(q);
+    if (r.op === 'is') return v === q;
+    if (r.op === 'is not') return v !== q;
+    if (r.op === 'starts with') return v.startsWith(q);
+    if (r.op === '=') return Number(raw) === Number(r.value);
+    if (r.op === '>') return Number(raw) > Number(r.value);
+    if (r.op === '<') return Number(raw) < Number(r.value);
+    if (r.op === 'between') { const [a, b] = r.value.split('-').map(Number); return Number(raw) >= (a ?? -Infinity) && Number(raw) <= (b ?? Infinity); }
+    return true;
+  };
+  const show = (rules) => {
+    const rows = people.filter((p) => rules.every((r) => pass(p, r)));
+    document.getElementById('filter-result').textContent = `${rows.length} of ${people.length}: ${rows.map((r) => r.name).join(', ') || 'no matches'}`;
+  };
+  show(JSON.parse(builder.getAttribute(':rules')));
+  builder.addEventListener('bef:change', (e) => {
+    builder.setAttribute(':rules', JSON.stringify(e.detail)); // write the new rules back so the tag keeps them
+    show(e.detail);
+  });
+</script>
+```
+
 ## Forecast chart (forecast-chart)
 Solid line for what happened, dashed line inside a shaded band for what is expected. The band is the likely range.
 ```html
@@ -1388,7 +1460,7 @@ formatCurrency, formatCompact, formatPercent, formatBytes, formatDuration and a 
 ## Funnel chart (funnel-chart)
 Conversion funnel with a bar per stage and the step-to-step rate.
 ```html
-<bef-funnel-chart class="max-w-xl" :stages='[{"label":"Visitors","value":48200},{"label":"Sign-ups","value":9640},{"label":"Qualified","value":3120},{"label":"Demo booked","value":1210},{"label":"Won","value":340}]'></bef-funnel-chart>
+<bef-funnel-chart class="max-w-xl" dropoff :stages='[{"label":"Visitors","value":48200},{"label":"Sign-ups","value":9640},{"label":"Qualified","value":3120},{"label":"Demo booked","value":1210},{"label":"Won","value":340}]'></bef-funnel-chart>
 ```
 
 ## Gantt chart (gantt)
@@ -1582,6 +1654,12 @@ document.getElementById("g1").props = {
 Keyboard key hint.
 ```html
 <p class="flex items-center gap-1.5 text-[13px] text-muted-foreground">Press <bef-kbd>Ctrl</bef-kbd> <bef-kbd>K</bef-kbd> to search</p>
+```
+
+## KPI strip (kpi-strip)
+A row of headline numbers sharing one border with dividers between them, with change arrows. The strip at the top of a dashboard.
+```html
+<bef-kpi-strip class="w-[44rem] max-w-full" :items='[{"label":"Revenue","value":"₹48.2L","delta":12.5,"hint":"vs last month"},{"label":"Active users","value":"8,420","delta":4.1},{"label":"Churn","value":"2.3%","delta":-0.6,"inverse":true},{"label":"Open tickets","value":"64","delta":9,"inverse":true}]'></bef-kpi-strip>
 ```
 
 ## Label and Field (label)
@@ -2121,6 +2199,12 @@ Plan card whose price counts to the new value. The highlighted plan gets a trave
 </div>
 ```
 
+## Pricing comparison (pricing-comparison)
+The feature grid under a pricing page: plans across the top, features down the side, checks and short text in the cells.
+```html
+<bef-pricing-comparison class="w-[44rem] max-w-full" :plans='[{"name":"Starter","price":"₹0"},{"name":"Team","price":"₹499","note":"per seat, monthly","featured":true},{"name":"Business","price":"₹1,299","note":"per seat, monthly"}]' :features='[{"group":"Core"},{"label":"Projects","values":["3","Unlimited","Unlimited"]},{"label":"Team members","values":["2","25","250"]},{"label":"Activity history","values":["7 days","1 year","Forever"]},{"group":"Security"},{"label":"Single sign-on","values":[false,false,true]},{"label":"Audit log","values":[false,true,true]},{"label":"Priority support","values":[false,true,true]}]'></bef-pricing-comparison>
+```
+
 ## Product card (product-card)
 Product tile with image, rating, price with strike-through, discount tag, wishlist heart and Add button. Also exports Price.
 ```html
@@ -2341,6 +2425,12 @@ Star rating with hover preview. Read-only when no handler is given.
 </ul>
 ```
 
+## Resizable panels (resizable-panels)
+Three panels side by side: drag the left and right panels wider or narrower, or collapse them. For inbox and IDE layouts.
+```html
+<bef-resizable-panels class="w-[42rem] max-w-full" :left='"<ul class=\"grid gap-1 text-sm\"><li class=\"rounded-md px-2 py-1.5 hover:bg-secondary\">Inbox</li><li class=\"rounded-md px-2 py-1.5 hover:bg-secondary\">Starred</li><li class=\"rounded-md px-2 py-1.5 hover:bg-secondary\">Sent</li><li class=\"rounded-md px-2 py-1.5 hover:bg-secondary\">Drafts</li><li class=\"rounded-md px-2 py-1.5 hover:bg-secondary\">Archive</li></ul>"' :center='"<div class=\"text-sm\"><p class=\"font-medium\">Quarterly planning</p><p class=\"mt-1 text-muted-foreground\">Drag the thin lines to resize the side panels, or use the arrow buttons to collapse them.</p></div>"' :right='"<div class=\"text-sm text-muted-foreground\"><p class=\"font-medium text-foreground\">Details</p><p class=\"mt-1\">From: Aarav Mehta</p><p>Labels: Planning</p></div>"'></bef-resizable-panels>
+```
+
 ## Resizable table (resizable-table)
 Table whose columns resize by dragging the header edge or with the arrow keys. Scrolls sideways when wider than the card.
 ```html
@@ -2379,6 +2469,12 @@ One smooth curve per row, overlapping like mountain ridges on a shared scale. Ri
 Concentric progress rings, one per measure against its own goal (move, exercise, stand). Rings sweep in on scroll.
 ```html
 <bef-ring-chart :rings='[{"label":"Move","value":420,"max":600,"color":"text-destructive"},{"label":"Exercise","value":24,"max":30,"color":"text-success"},{"label":"Stand","value":7,"max":12,"color":"text-info"}]'></bef-ring-chart>
+```
+
+## Roadmap timeline (roadmap-timeline)
+A light roadmap: one bar per item along a month axis, coloured by group, with progress inside and a line for today.
+```html
+<bef-roadmap-timeline class="w-[42rem] max-w-full" ~today="2026-10-21T00:00:00.000Z" :items='[{"label":"Payroll 2.0","group":"Product","start":"2026-09-01","end":"2026-10-31","progress":80},{"label":"Mobile app beta","group":"Mobile","start":"2026-10-05","end":"2026-12-15","progress":35},{"label":"SOC 2 audit","group":"Security","start":"2026-10-15","end":"2026-12-05","progress":20},{"label":"Self-serve billing","group":"Product","start":"2026-11-01","end":"2027-01-20"},{"label":"Hiring plan Q1","group":"People","start":"2026-11-10","end":"2026-12-20"}]'></bef-roadmap-timeline>
 ```
 
 ## Rose chart (rose-chart)
@@ -2704,6 +2800,15 @@ Collapsible nav with groups, nested links and badges. Icon rail on desktop, slid
   };
   draw();
 </script>
+```
+
+## Signature field (signature-field)
+A signature box that lets people draw it or type their name in a script font. Both give one PNG data URL.
+```html
+<div class="grid w-96 max-w-full gap-2">
+  <bef-signature-field emit="change"></bef-signature-field>
+  <p class="text-xs text-muted-foreground">Nothing signed yet.</p>
+</div>
 ```
 
 ## Signature pad (signature-pad)
@@ -3309,7 +3414,8 @@ Call toast.success() from anywhere. No provider needed.
   <bef-button variant="outline" id="g1">Success</bef-button>
   <bef-button variant="outline" id="g2">Error</bef-button>
   <bef-button variant="outline" id="g3">Info</bef-button>
-  <bef-button variant="outline" id="g4">With undo</bef-button>
+  <bef-button variant="outline" id="g4">With progress</bef-button>
+  <bef-button variant="outline" id="g5">With undo</bef-button>
 </div>
 <script type="module">
 document.getElementById("g1").props = {
@@ -3322,6 +3428,20 @@ document.getElementById("g3").props = {
   onClick: () => befui.toast.info("Heads up"),
 };
 document.getElementById("g4").props = {
+  onClick: () => {
+        const t = befui.toast.progress("Exporting report.pdf", "0%");
+        let n = 0;
+        const timer = setInterval(() => {
+          n += 20;
+          t.update(n, `${n}%`);
+          if (n >= 100) {
+            clearInterval(timer);
+            t.success("Report ready", "report.pdf");
+          }
+        }, 500);
+      },
+};
+document.getElementById("g5").props = {
   onClick: () => befui.toast.success("Message deleted", void 0, { action: { label: "Undo", onClick: () => befui.toast.info("Restored") } }),
 };
 </script>

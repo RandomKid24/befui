@@ -151,6 +151,30 @@ export default function LandingSectionsDemo() {
 }
 ```
 
+## Resizable panels (`resizable-panels`)
+Three panels side by side: drag the left and right panels wider or narrower, or collapse them. For inbox and IDE layouts.
+- Group: Layout
+- Add: `npx github:RandomKid24/befui add resizable-panels`
+- Import: `import { ResizablePanels } from '@/components/ui/resizable-panels'`
+- Also needs: icons
+
+Example:
+
+```tsx
+import { ResizablePanels } from '@/components/ui/resizable-panels';
+
+export default function ResizablePanelsDemo() {
+  return (
+    <ResizablePanels
+      className="w-[42rem] max-w-full"
+      left={<ul className="grid gap-1 text-sm">{['Inbox', 'Starred', 'Sent', 'Drafts', 'Archive'].map((x) => <li key={x} className="rounded-md px-2 py-1.5 hover:bg-secondary">{x}</li>)}</ul>}
+      center={<div className="text-sm"><p className="font-medium">Quarterly planning</p><p className="mt-1 text-muted-foreground">Drag the thin lines to resize the side panels, or use the arrow buttons to collapse them.</p></div>}
+      right={<div className="text-sm text-muted-foreground"><p className="font-medium text-foreground">Details</p><p className="mt-1">From: Aarav Mehta</p><p>Labels: Planning</p></div>}
+    />
+  );
+}
+```
+
 ## Settings layout (`settings-layout`)
 Settings page frame: vertical section list on the left, SettingsSection rows (title and help on the left, controls on the right).
 - Group: Layout
@@ -992,7 +1016,7 @@ import * as React from 'react';
 import { Combobox, MultiCombobox, type ComboboxOption } from '@/components/ui/combobox';
 import { Field } from '@/components/ui/label';
 
-const people: ComboboxOption[] = [
+const seed: ComboboxOption[] = [
   { value: 'aarav', label: 'Aarav Mehta', description: 'Engineering Manager' },
   { value: 'diya', label: 'Diya Rao', description: 'Product Designer' },
   { value: 'kabir', label: 'Kabir Shah', description: 'Account Executive' },
@@ -1002,6 +1026,7 @@ const people: ComboboxOption[] = [
 ];
 
 export default function ComboboxDemo() {
+  const [people, setPeople] = React.useState(seed);
   const [approver, setApprover] = React.useState<string>();
   const [watchers, setWatchers] = React.useState<string[]>(['diya']);
   return (
@@ -1009,8 +1034,8 @@ export default function ComboboxDemo() {
       <Field label="Approver" htmlFor="appr">
         <Combobox id="appr" options={people} value={approver} onValueChange={setApprover} placeholder="Choose a person" searchPlaceholder="Search people..." />
       </Field>
-      <Field label="Notify" htmlFor="notify" hint="Pick as many as you like.">
-        <MultiCombobox id="notify" options={people} value={watchers} onValueChange={setWatchers} placeholder="Add people" />
+      <Field label="Notify" htmlFor="notify" hint="Pick as many as you like, or type a new name and choose Create.">
+        <MultiCombobox id="notify" options={people} value={watchers} onValueChange={setWatchers} placeholder="Add people" onCreate={(label) => { const value = label.toLowerCase().replace(/\s+/g, '-'); setPeople((p) => [...p, { value, label }]); setWatchers((w) => [...w, value]); }} />
       </Field>
     </div>
   );
@@ -1237,6 +1262,40 @@ const fakeUpload = (file: File, onProgress: (p: number) => void, signal: AbortSi
 
 export default function FileUploaderDemo() {
   return <FileUploader className="w-full max-w-md" upload={fakeUpload} />;
+}
+```
+
+## Filter builder (`filter-builder`)
+Field, operator and value rows that all must match, like the Notion or Linear filter, with a helper to filter an array.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add filter-builder`
+- Import: `import { matchesFilters, FilterBuilder } from '@/components/ui/filter-builder'`
+- Also needs: button, icons, input
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { FilterBuilder, matchesFilters, type FilterRule } from '@/components/ui/filter-builder';
+
+const people = [
+  { name: 'Aarav Mehta', team: 'Engineering', age: 31 }, { name: 'Diya Rao', team: 'Design', age: 27 }, { name: 'Kabir Shah', team: 'Sales', age: 35 },
+  { name: 'Meera Iyer', team: 'People', age: 29 }, { name: 'Rohan Das', team: 'Engineering', age: 41 }, { name: 'Isha Nair', team: 'Sales', age: 26 },
+];
+
+export default function FilterBuilderDemo() {
+  const [rules, setRules] = React.useState<FilterRule[]>([{ field: 'team', op: 'is', value: 'Engineering' }]);
+  const rows = people.filter((p) => matchesFilters(p, rules));
+  return (
+    <div className="grid w-[40rem] max-w-full gap-4">
+      <FilterBuilder
+        rules={rules}
+        onChange={setRules}
+        fields={[{ key: 'name', label: 'Name' }, { key: 'team', label: 'Team', type: 'select', options: ['Engineering', 'Design', 'Sales', 'People'] }, { key: 'age', label: 'Age', type: 'number' }]}
+      />
+      <p className="text-sm text-muted-foreground">{rows.length} of {people.length}: {rows.map((r) => r.name).join(', ') || 'no matches'}</p>
+    </div>
+  );
 }
 ```
 
@@ -1830,6 +1889,30 @@ export default function SelectDemo() {
           </SelectGroup>
         </SelectContent>
       </Select>
+    </div>
+  );
+}
+```
+
+## Signature field (`signature-field`)
+A signature box that lets people draw it or type their name in a script font. Both give one PNG data URL.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add signature-field`
+- Import: `import { SignatureField } from '@/components/ui/signature-field'`
+- Also needs: input, signature-pad
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { SignatureField } from '@/components/ui/signature-field';
+
+export default function SignatureFieldDemo() {
+  const [png, setPng] = React.useState<string | null>(null);
+  return (
+    <div className="grid w-96 max-w-full gap-2">
+      <SignatureField onChange={setPng} />
+      <p className="text-xs text-muted-foreground">{png ? `Captured a ${Math.round(png.length / 1024)} KB PNG.` : 'Nothing signed yet.'}</p>
     </div>
   );
 }
@@ -2870,6 +2953,38 @@ export default function PricingCardDemo() {
         <PricingCard highlighted name="Growth" description="Payroll included." price={y ? 399 : 499} features={['Everything in Starter', 'Payroll and payslips', 'Approvals workflow', 'Priority support']} />
       </div>
     </div>
+  );
+}
+```
+
+## Pricing comparison (`pricing-comparison`)
+The feature grid under a pricing page: plans across the top, features down the side, checks and short text in the cells.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add pricing-comparison`
+- Import: `import { PricingComparison } from '@/components/ui/pricing-comparison'`
+- Also needs: icons
+
+Example:
+
+```tsx
+import { PricingComparison } from '@/components/ui/pricing-comparison';
+
+export default function PricingComparisonDemo() {
+  return (
+    <PricingComparison
+      className="w-[44rem] max-w-full"
+      plans={[{ name: 'Starter', price: '₹0' }, { name: 'Team', price: '₹499', note: 'per seat, monthly', featured: true }, { name: 'Business', price: '₹1,299', note: 'per seat, monthly' }]}
+      features={[
+        { group: 'Core' },
+        { label: 'Projects', values: ['3', 'Unlimited', 'Unlimited'] },
+        { label: 'Team members', values: ['2', '25', '250'] },
+        { label: 'Activity history', values: ['7 days', '1 year', 'Forever'] },
+        { group: 'Security' },
+        { label: 'Single sign-on', values: [false, false, true] },
+        { label: 'Audit log', values: [false, true, true] },
+        { label: 'Priority support', values: [false, true, true] },
+      ]}
+    />
   );
 }
 ```
@@ -4158,6 +4273,39 @@ export default function CirclePackChartDemo() {
 }
 ```
 
+## Cohort table (`cohort-table`)
+Retention triangle: a row per signup group, a column per period, each cell the percent still active and tinted by it.
+- Group: Data
+- What it shows: A triangle of percentages: one row per group of users by when they joined, one column per period since.
+- How to read it: Each cell is the percent of that group still active after that many periods; darker is better. Read across a row to see one group decay, down a column to see whether newer groups retain better than older ones. Hover a cell for the head count.
+- Use it for: Subscription and product retention by signup month, repeat purchases, class attendance.
+- Skip it when: Fewer than four groups, or data with no clear start date per user.
+- Add: `npx github:RandomKid24/befui add cohort-table`
+- Import: `import { CohortTable } from '@/components/ui/cohort-table'`
+- Also needs: charts
+
+Example:
+
+```tsx
+import { CohortTable } from '@/components/ui/cohort-table';
+
+export default function CohortTableDemo() {
+  return (
+    <CohortTable
+      className="w-[40rem] max-w-full"
+      cohorts={[
+        { label: 'May 2026', size: 1240, retention: [100, 62, 48, 41, 37, 34] },
+        { label: 'Jun 2026', size: 1410, retention: [100, 66, 51, 44, 40] },
+        { label: 'Jul 2026', size: 1580, retention: [100, 64, 50, 43] },
+        { label: 'Aug 2026', size: 1722, retention: [100, 69, 55] },
+        { label: 'Sep 2026', size: 1895, retention: [100, 71] },
+        { label: 'Oct 2026', size: 2010, retention: [100] },
+      ]}
+    />
+  );
+}
+```
+
 ## Combo chart (`combo-chart`)
 Bars, smooth lines and smooth areas on one chart, with an optional second scale on the right. Many values read together; hover a month for all of them.
 - Group: Data
@@ -4174,18 +4322,19 @@ Example:
 ```tsx
 import { ComboChart } from '@/components/ui/combo-chart';
 
-/** Bars and smooth lines on one chart. The conversion line uses the right-hand scale. */
+/** Bars stacked (remove `stacked` for side by side) and smooth lines on one chart. The conversion line uses the right-hand scale. */
 export default function ComboChartDemo() {
   return (
     <ComboChart
       className="w-[38rem] max-w-full"
+      stacked
       labels={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep']}
       format={(n) => `$${n}k`}
       formatRight={(n) => `${n}%`}
       series={[
         { name: 'Revenue', type: 'bar', data: [42, 48, 45, 58, 63, 60, 72, 78, 85] },
         { name: 'Costs', type: 'bar', data: [30, 33, 35, 38, 41, 44, 46, 49, 52], color: 'text-destructive' },
-        { name: 'Target', type: 'area', data: [40, 45, 50, 55, 60, 65, 70, 75, 80], color: 'text-warning' },
+        { name: 'Target', type: 'area', data: [70, 78, 84, 92, 100, 106, 114, 122, 130], color: 'text-warning' },
         { name: 'Conversion', type: 'line', axis: 'right', data: [2.1, 2.4, 2.2, 2.9, 3.1, 3, 3.6, 3.9, 4.3], color: 'text-success' },
       ]}
     />
@@ -4482,7 +4631,7 @@ Example:
 import { FunnelChart } from '@/components/ui/funnel-chart';
 
 export default function FunnelChartDemo() {
-  return <FunnelChart className="max-w-xl" stages={[{ label: 'Visitors', value: 48200 }, { label: 'Sign-ups', value: 9640 }, { label: 'Qualified', value: 3120 }, { label: 'Demo booked', value: 1210 }, { label: 'Won', value: 340 }]} />;
+  return <FunnelChart className="max-w-xl" dropoff stages={[{ label: 'Visitors', value: 48200 }, { label: 'Sign-ups', value: 9640 }, { label: 'Qualified', value: 3120 }, { label: 'Demo booked', value: 1210 }, { label: 'Won', value: 340 }]} />;
 }
 ```
 
@@ -4746,6 +4895,33 @@ export default function KanbanDemo() {
           </div>
         </div>
       )}
+    />
+  );
+}
+```
+
+## KPI strip (`kpi-strip`)
+A row of headline numbers sharing one border with dividers between them, with change arrows. The strip at the top of a dashboard.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add kpi-strip`
+- Import: `import { KpiStrip } from '@/components/ui/kpi-strip'`
+- Also needs: icons
+
+Example:
+
+```tsx
+import { KpiStrip } from '@/components/ui/kpi-strip';
+
+export default function KpiStripDemo() {
+  return (
+    <KpiStrip
+      className="w-[44rem] max-w-full"
+      items={[
+        { label: 'Revenue', value: '₹48.2L', delta: 12.5, hint: 'vs last month' },
+        { label: 'Active users', value: '8,420', delta: 4.1 },
+        { label: 'Churn', value: '2.3%', delta: -0.6, inverse: true },
+        { label: 'Open tickets', value: '64', delta: 9.0, inverse: true },
+      ]}
     />
   );
 }
@@ -5456,6 +5632,39 @@ export default function RingChartDemo() {
 }
 ```
 
+## Roadmap timeline (`roadmap-timeline`)
+A light roadmap: one bar per item along a month axis, coloured by group, with progress inside and a line for today.
+- Group: Data
+- What it shows: One bar per item along a month axis showing when it starts and ends.
+- How to read it: Bar length is duration, colour is the group, the darker fill inside is progress, and the red line is today. Bars to the left of the line should be finishing or done.
+- Use it for: Product and project roadmaps, a quarter plan, release schedules.
+- Skip it when: Tasks with dependencies or hours of effort. Use the Gantt.
+- Add: `npx github:RandomKid24/befui add roadmap-timeline`
+- Import: `import { RoadmapTimeline } from '@/components/ui/roadmap-timeline'`
+- Also needs: charts
+
+Example:
+
+```tsx
+import { RoadmapTimeline } from '@/components/ui/roadmap-timeline';
+
+export default function RoadmapTimelineDemo() {
+  return (
+    <RoadmapTimeline
+      className="w-[42rem] max-w-full"
+      today={new Date('2026-10-21')}
+      items={[
+        { label: 'Payroll 2.0', group: 'Product', start: '2026-09-01', end: '2026-10-31', progress: 80 },
+        { label: 'Mobile app beta', group: 'Mobile', start: '2026-10-05', end: '2026-12-15', progress: 35 },
+        { label: 'SOC 2 audit', group: 'Security', start: '2026-10-15', end: '2026-12-05', progress: 20 },
+        { label: 'Self-serve billing', group: 'Product', start: '2026-11-01', end: '2027-01-20' },
+        { label: 'Hiring plan Q1', group: 'People', start: '2026-11-10', end: '2026-12-20' },
+      ]}
+    />
+  );
+}
+```
+
 ## Rose chart (`rose-chart`)
 Polar area chart: equal-angle petals whose length is the value. Petals bloom from the center in turn; hover one to read it.
 - Group: Data
@@ -6122,8 +6331,8 @@ import { Banner } from '@/components/ui/banner';
 export default function BannerDemo() {
   return (
     <div className="w-full overflow-hidden rounded-lg border">
-      <Banner action={<a href="#/" className="underline underline-offset-2">Read more</a>}>Payroll 2.0 is live for everyone.</Banner>
-      <div className="p-6 text-sm text-muted-foreground">Dismiss the bar and the page slides up.</div>
+      <Banner persistKey="payroll-2" action={<a href="#/" className="underline underline-offset-2">Read more</a>}>Payroll 2.0 is live for everyone.</Banner>
+      <div className="p-6 text-sm text-muted-foreground">Dismiss the bar and the page slides up. With persistKey it stays gone on your next visit (clear site data to see it again).</div>
     </div>
   );
 }
@@ -6391,6 +6600,16 @@ export default function ToastDemo() {
       <Button variant="outline" onClick={() => toast.success('Saved', 'Your changes are live.')}>Success</Button>
       <Button variant="outline" onClick={() => toast.error('Could not save', 'Check your connection.')}>Error</Button>
       <Button variant="outline" onClick={() => toast.info('Heads up')}>Info</Button>
+      <Button
+        variant="outline"
+        onClick={() => {
+          const t = toast.progress('Exporting report.pdf', '0%');
+          let n = 0;
+          const timer = setInterval(() => { n += 20; t.update(n, `${n}%`); if (n >= 100) { clearInterval(timer); t.success('Report ready', 'report.pdf'); } }, 500);
+        }}
+      >
+        With progress
+      </Button>
       <Button variant="outline" onClick={() => toast.success('Message deleted', undefined, { action: { label: 'Undo', onClick: () => toast.info('Restored') } })}>With undo</Button>
     </div>
   );
@@ -6462,6 +6681,32 @@ export default function BottomSheetDemo() {
         </ul>
       </BottomSheet>
     </>
+  );
+}
+```
+
+## Coachmark (`coachmark`)
+A single new-feature hint pinned to one element with a Got it button. Lighter than a tour; can remember it was dismissed.
+- Group: Overlays
+- Add: `npx github:RandomKid24/befui add coachmark`
+- Import: `import { Coachmark } from '@/components/ui/coachmark'`
+- Also needs: button
+- npm packages: @radix-ui/react-popover
+
+Example:
+
+```tsx
+import { Button } from '@/components/ui/button';
+import { Coachmark } from '@/components/ui/coachmark';
+
+/** Pinned beside the button. Dismiss it, then reload: with persistKey it stays gone (clear site data to see it again). */
+export default function CoachmarkDemo() {
+  return (
+    <div className="py-24">
+      <Coachmark persistKey="demo-export" title="New: export to PDF" description="Send any report as a PDF from here.">
+        <Button variant="outline">Export</Button>
+      </Coachmark>
+    </div>
   );
 }
 ```
@@ -6968,6 +7213,26 @@ export default function AnalogClockDemo() {
       ))}
     </div>
   );
+}
+```
+
+## Date preset select (`date-preset-select`)
+A compact Last 7 days dropdown for dashboards: pick a preset and get a from and to range.
+- Group: Time
+- Add: `npx github:RandomKid24/befui add date-preset-select`
+- Import: `import { DatePresetSelect } from '@/components/ui/date-preset-select'`
+- Also needs: button, calendar, date-picker, dropdown-menu, icons
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { DatePresetSelect } from '@/components/ui/date-preset-select';
+import { toast } from '@/components/ui/toast';
+
+export default function DatePresetSelectDemo() {
+  const [label, setLabel] = React.useState('Last 7 days');
+  return <DatePresetSelect value={label} onChange={(l, r) => { setLabel(l); toast.info(l, `${r.from?.toDateString()} to ${r.to?.toDateString()}`); }} />;
 }
 ```
 

@@ -29,14 +29,17 @@ const nice = (max: number) => {
  * Bars, smooth lines and smooth areas on one chart, so many values read together (revenue bars with a conversion line and a target area).
  * Series with `axis: 'right'` use their own scale. Bars grow and lines draw in on scroll; hover a month for every value; hover a legend name to isolate it.
  */
-export function ComboChart({ series, labels, format = (n) => String(n), formatRight = format, className }: { series: ComboSeries[]; labels: string[]; format?: (n: number) => string; formatRight?: (n: number) => string; className?: string }) {
+export function ComboChart({ series, labels, format = (n) => String(n), formatRight = format, stacked = false, className }: { series: ComboSeries[]; labels: string[]; format?: (n: number) => string; formatRight?: (n: number) => string; /** Pile the bar series on top of each other (left scale only) instead of side by side. */ stacked?: boolean; className?: string }) {
   const id = React.useId();
   const [ref, on] = useChartIn<SVGSVGElement>();
   const [hover, setHover] = React.useState<number | null>(null);
   const [focus, setFocus] = React.useState<number | null>(null);
   const n = labels.length;
   const right = (s: ComboSeries) => s.axis === 'right';
-  const maxOf = (r: boolean) => nice(Math.max(...series.filter((s) => right(s) === r).flatMap((s) => s.data), 0));
+  const stackedBars = (s: ComboSeries) => stacked && s.type === 'bar' && !right(s);
+  const maxOf = (r: boolean) => nice(Math.max(...series.filter((s) => right(s) === r && !stackedBars(s)).flatMap((s) => s.data), ...(r ? [] : labels.map((_, i) => series.filter(stackedBars).reduce((a, s) => a + (s.data[i] ?? 0), 0))), 0));
+  // height already used by earlier stacked bars at month i, so each bar sits on the one before it
+  const below = (si: number, i: number) => series.slice(0, si).filter(stackedBars).reduce((a, s) => a + (s.data[i] ?? 0), 0);
   const maxL = maxOf(false), maxR = maxOf(true);
   const hasRight = series.some(right);
   const plotW = W - pad.l - pad.r, plotH = H - pad.t - pad.b;
@@ -46,7 +49,7 @@ export function ComboChart({ series, labels, format = (n) => String(n), formatRi
   const base = pad.t + plotH;
   const color = (s: ComboSeries, i: number) => s.color ?? palette[i % palette.length];
   const bars = series.map((s, i) => [s, i] as const).filter(([s]) => s.type === 'bar');
-  const group = slot * 0.7, bw = group / (bars.length || 1);
+  const lanes = stacked ? 1 : bars.length, group = slot * 0.7, bw = group / (lanes || 1);
   const ticks = [0, 0.25, 0.5, 0.75, 1];
   const dim = (i: number) => focus !== null && focus !== i;
 
@@ -74,13 +77,16 @@ export function ComboChart({ series, labels, format = (n) => String(n), formatRi
             <path d={`${smoothPath(s.data.map((v, i) => [x(i), y(s, v)]))} L${x(n - 1)},${base} L${x(0)},${base} Z`} fill={`url(#${id}${si})`} style={{ opacity: on ? 1 : 0, transition: 'opacity 900ms ease-out' }} />
           </g>
         ))}
-        {bars.map(([s, si], bi) => (
+        {bars.map(([s, si], bi0) => {
+          const bi = stackedBars(s) ? 0 : bi0;
+          return (
           <g key={s.name} className={color(s, si)} style={{ opacity: dim(si) ? 0.15 : 1, transition: 'opacity 200ms' }}>
             {s.data.map((v, i) => (
-              <rect key={i} x={x(i) - group / 2 + bi * bw + 1} width={Math.max(bw - 2, 1)} y={y(s, v)} height={base - y(s, v)} rx={Math.min(4, bw / 2)} fill="currentColor" fillOpacity={hover === i ? 1 : 0.85} style={{ transformBox: 'fill-box', transformOrigin: 'bottom', transform: on ? 'scaleY(1)' : 'scaleY(0)', transition: `transform 700ms cubic-bezier(0.22,1,0.36,1) ${i * 40}ms` }} />
+              <rect key={i} x={x(i) - group / 2 + bi * bw + 1} width={Math.max(bw - 2, 1)} y={y(s, v + below(si, i)) } height={y(s, below(si, i)) - y(s, v + below(si, i))} rx={Math.min(4, bw / 2)} fill="currentColor" fillOpacity={hover === i ? 1 : 0.85} style={{ transformBox: 'fill-box', transformOrigin: 'bottom', transform: on ? 'scaleY(1)' : 'scaleY(0)', transition: `transform 700ms cubic-bezier(0.22,1,0.36,1) ${i * 40}ms` }} />
             ))}
           </g>
-        ))}
+          );
+        })}
         <g style={{ clipPath: on ? 'inset(-10% -10% -10% -10%)' : 'inset(-10% 100% -10% -10%)', transition: 'clip-path 1200ms cubic-bezier(0.22,1,0.36,1) 300ms' }}>
           {series.map((s, si) => s.type !== 'bar' && (
             <g key={s.name} className={color(s, si)} style={{ opacity: dim(si) ? 0.15 : 1, transition: 'opacity 200ms' }}>

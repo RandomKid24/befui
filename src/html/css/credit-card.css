@@ -156,7 +156,8 @@
 .bg-card\/80 {
   background-color: var(--card);
 }
-.bg-current {
+.bg-current,
+.bg-current\/20 {
   background-color: currentColor;
 }
 .bg-foreground,

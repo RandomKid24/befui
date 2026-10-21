@@ -82,7 +82,8 @@
   border-top-style: var(--tw-border-style);
   border-top-width: 1px;
 }
-.bg-current {
+.bg-current,
+.bg-current\/20 {
   background-color: currentColor;
 }
 .bg-destructive,

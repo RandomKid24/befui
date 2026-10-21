@@ -29,7 +29,7 @@ export function ResizableTable<T extends Record<string, React.ReactNode>>({ colu
               <th key={c.key} className={cn('relative truncate px-3 py-2.5 text-xs font-medium text-muted-foreground', c.align === 'right' ? 'text-right' : 'text-left')}>
                 {c.header}
                 <span
-                  role="separator" aria-orientation="vertical" aria-label={`Resize ${c.header}`} tabIndex={0}
+                  role="separator" aria-orientation="vertical" aria-valuenow={w[i]} aria-valuemin={60} aria-label={`Resize ${c.header}`} tabIndex={0}
                   className="absolute inset-y-0 right-0 w-2 cursor-col-resize touch-none select-none after:absolute after:inset-y-2 after:right-0.5 after:w-px after:bg-border hover:after:bg-primary focus-visible:after:bg-primary focus-visible:outline-none"
                   onPointerDown={(e) => { e.currentTarget.setPointerCapture(e.pointerId); drag.current = { i, x: e.clientX, w: w[i]! }; }}
                   onPointerMove={(e) => drag.current?.i === i && resize(i, drag.current.w + e.clientX - drag.current.x)}
