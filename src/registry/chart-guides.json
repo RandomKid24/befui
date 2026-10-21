@@ -191,6 +191,12 @@
     "use": "Finding the few causes behind most defects, tickets or costs (the 80/20 rule).",
     "avoid": "Items that are not causes of one total, or fewer than five items."
   },
+  "combo-chart": {
+    "what": "Bars, smooth lines and smooth areas drawn together on one chart.",
+    "read": "Bars show amounts per period, lines show a trend, a shaded area shows a target or range. A line marked with the right-hand scale uses that scale, not the left. Hover a period to read every value; hover a legend name to isolate one series.",
+    "use": "Revenue bars with a conversion line, sales against a target, volume and rate over the same months.",
+    "avoid": "More than about 4 series or 12 periods, or a right-hand scale that confuses readers. Split into two charts."
+  },
   "slope-chart": {
     "what": "Each item is one line between two moments in time.",
     "read": "Left dots are the earlier value, right dots the later one. A steep line changed a lot, a flat line did not. Green went up, red went down. Crossing lines swapped places.",

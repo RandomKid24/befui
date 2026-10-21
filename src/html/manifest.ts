@@ -95,6 +95,7 @@ export const manifest: Record<string, [file: string, name: string]> = {
   "bef-command-item": [ "command", "CommandItem" ],
   "bef-comment-thread": [ "comment-thread", "CommentThread" ],
   "bef-compare": [ "compare", "Compare" ],
+  "bef-combo-chart": [ "combo-chart", "ComboChart" ],
   "bef-comparison-table": [ "comparison-table", "ComparisonTable" ],
   "bef-confetti": [ "confetti", "Confetti" ],
   "bef-context-menu": [ "context-menu", "ContextMenu" ],

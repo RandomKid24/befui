@@ -116,6 +116,10 @@
   "color-picker": [
     "icons"
   ],
+  "combo-chart": [
+    "area-chart",
+    "charts"
+  ],
   "combobox": [
     "badge",
     "command",
