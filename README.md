@@ -4,7 +4,7 @@
 
 **Interfaces people actually enjoy using.**
 
-215 copy-paste React components, 389 hand-drawn icons and 37 full-page blocks.<br/>
+216 copy-paste React components, 389 hand-drawn icons and 37 full-page blocks.<br/>
 Plus **121 Flutter widgets** for Android and iOS, and every component as a `<bef-*>` HTML tag.<br/>
 Built on Radix, Tailwind 4 and CSS variables. You own every file.
 
@@ -202,7 +202,7 @@ Add a `## x.y.z` section to `CHANGELOG.md`, then `npm version minor` (checks the
 Some components (loader, bottom sheet, toast...) need keyframes from `index.css`. After adding components, run `npx github:RandomKid24/befui update` to append any your project is missing (`--check` only reports, handy in CI). `add` also prints a warning when something is missing.
 
 <!-- components:start -->
-### Components (215)
+### Components (216)
 
 <details>
 <summary><b>Layout</b> (5)</summary>
@@ -254,9 +254,9 @@ Some components (loader, bottom sheet, toast...) need keyframes from `index.css`
 </details>
 
 <details>
-<summary><b>Overlays</b> (12)</summary>
+<summary><b>Overlays</b> (13)</summary>
 
-`alert-dialog` · `bottom-sheet` · `command` · `context-menu` · `dialog` · `dropdown-menu` · `hover-card` · `image-viewer` · `popover` · `shortcuts-dialog` · `tooltip` · `tour`
+`alert-dialog` · `bottom-sheet` · `command` · `context-menu` · `dialog` · `drawer` · `dropdown-menu` · `hover-card` · `image-viewer` · `popover` · `shortcuts-dialog` · `tooltip` · `tour`
 
 </details>
 

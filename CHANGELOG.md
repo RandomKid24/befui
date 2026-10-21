@@ -7,6 +7,7 @@ All notable changes to befui. Versions follow [semver](https://semver.org): new 
 
 Flutter widgets for Android and iOS, a page per platform, a new hero
 
+- **Added:** Drawer: a panel that slides in from the bottom, top, left or right and follows your finger. Drag the grip toward the edge to dismiss it; a bottom drawer can rest half open (snap points) and be pulled to full height. (Drawer)
 - **Added:** Combo chart: bars, smooth lines and smooth areas on one chart, with an optional second scale on the right. Bars grow and lines draw in on scroll; hover a month for every value. (Combo chart)
 - **Added:** World map: countries on a flat map or a draggable, self-turning globe, with a 3D bar or a pin (marker prop) standing on every country in your data (tall and dark means bigger). Zoom with the buttons, Ctrl/Cmd + scroll or a double click, drag to pan or turn it, a clickable country list under the map highlights a country and flies the map or globe to it (click it again to clear), hover shows the number, click calls onSelect. No map library, about 57 KB of country shapes in the file. (World map)
 - **Added:** India map: India by state and union territory (36, official boundaries) with the same 3D bars or pins, zoom and pan, and a clickable state list as the world map, and a groups prop to merge states into your own named regions (for example { M1: ['Maharashtra', 'Goa'] }) that tint, outline, click and show one marker as one. About 32 KB of shapes in the file, no map library. (India map)

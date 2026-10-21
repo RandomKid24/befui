@@ -140,6 +140,7 @@ export const manifest: Record<string, [file: string, name: string]> = {
   "bef-sheet-description": [ "dialog", "SheetDescription" ],
   "bef-diff-viewer": [ "diff-viewer", "DiffViewer" ],
   "bef-dock": [ "dock", "Dock" ],
+  "bef-drawer": [ "drawer", "Drawer" ],
   "bef-dropdown-menu": [ "dropdown-menu", "DropdownMenu" ],
   "bef-dropdown-menu-trigger": [ "dropdown-menu", "DropdownMenuTrigger" ],
   "bef-dropdown-menu-group": [ "dropdown-menu", "DropdownMenuGroup" ],
