@@ -700,6 +700,18 @@ Swatches, hex field and the native picker. Always returns a six-digit hex.
 </div>
 ```
 
+## Combo chart (combo-chart)
+Bars, smooth lines and smooth areas on one chart, with an optional second scale on the right. Many values read together; hover a month for all of them.
+```html
+<bef-combo-chart class="w-[38rem] max-w-full" :labels='["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep"]' :series='[{"name":"Revenue","type":"bar","data":[42,48,45,58,63,60,72,78,85]},{"name":"Costs","type":"bar","data":[30,33,35,38,41,44,46,49,52],"color":"text-destructive"},{"name":"Target","type":"area","data":[40,45,50,55,60,65,70,75,80],"color":"text-warning"},{"name":"Conversion","type":"line","axis":"right","data":[2.1,2.4,2.2,2.9,3.1,3,3.6,3.9,4.3],"color":"text-success"}]' id="g1"></bef-combo-chart>
+<script type="module">
+document.getElementById("g1").props = {
+  format: (n) => `$${n}k`,
+  formatRight: (n) => `${n}%`,
+};
+</script>
+```
+
 ## Combobox (combobox)
 Searchable select, single or multiple, with descriptions under each option.
 ```html

@@ -1,6 +1,6 @@
 # Components
 
-Every befui component and block. **232 React components**, **228 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **37 page blocks**.
+Every befui component and block. **232 React components**, **229 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **37 page blocks**.
 (Generated from the registry by `npm run registry:build`. Do not edit by hand.)
 
 Install a React component with `npx github:RandomKid24/befui add <name>`, the Flutter version with `npx github:RandomKid24/befui add <name> --flutter`.
@@ -170,7 +170,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `charts` | Sparkline, bar chart and donut in plain SVG. No chart library. | ✓ | ✓ |
 | `chord-chart` | Flow between every pair of items around a circle. Arcs sweep in, then ribbons fade in; hover an item to keep only its ribbons. | ✓ |  |
 | `circle-pack-chart` | One bubble per item, area by value, packed into a cluster. Bubbles pop out from the center biggest first; hover for the share. | ✓ |  |
-| `combo-chart` | Bars, smooth lines and smooth areas on one chart, with an optional second scale on the right. Many values read together; hover a month for all of them. |  |  |
+| `combo-chart` | Bars, smooth lines and smooth areas on one chart, with an optional second scale on the right. Many values read together; hover a month for all of them. | ✓ |  |
 | `comparison-table` | Plans across the top, features down the side, a check, dash or text in each cell. For pricing pages. | ✓ |  |
 | `countdown` | Live countdown with flipping digits. | ✓ | ✓ |
 | `data-table` | Sortable columns, a search box and pagination, with optional row selection and bulk actions, column visibility menu, sticky header, toolbar slot, row action menus and clickable rows. You pass rows and column definitions. | ✓ |  |
