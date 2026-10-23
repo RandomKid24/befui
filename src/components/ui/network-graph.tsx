@@ -97,7 +97,7 @@ export function NetworkGraph({
           const a = pos[idx.get(l.source) ?? -1], b = pos[idx.get(l.target) ?? -1];
           if (!a || !b) return null;
           const lit = hover && (l.source === hover || l.target === hover);
-          return <line key={i} x1={a.x} y1={a.y} x2={b.x} y2={b.y} className="stroke-foreground" strokeWidth={0.75 + ((l.weight ?? 1) / wMax) * 2} opacity={on ? (hover ? (lit ? 0.6 : 0.06) : 0.2) : 0} style={{ transition: 'opacity 250ms' }} />;
+          return <line key={i} x1={a.x} y1={a.y} x2={b.x} y2={b.y} className="stroke-foreground" strokeWidth={0.75 + ((l.weight ?? 1) / wMax) * 2} opacity={on ? (hover ? (lit ? 0.7 : 0.08) : 0.3) : 0} style={{ transition: 'opacity 250ms' }} />;
         })}
         {nodes.map((nd, i) => {
           const p = pos[i]!;
@@ -118,8 +118,9 @@ export function NetworkGraph({
               opacity={dim ? 0.25 : 1}
               style={{ transformBox: 'fill-box', transformOrigin: 'center', transform: on ? 'scale(1)' : 'scale(0)', transition: `transform 500ms cubic-bezier(0.34,1.56,0.64,1) ${Math.min(i * 25, 700)}ms, opacity 200ms` }}
             >
-              <circle cx={p.x} cy={p.y} r={r(nd)} fill="currentColor" fillOpacity="0.25" stroke="currentColor" strokeWidth={hover === nd.id ? 3 : 1.75} />
-              <text x={p.x} y={p.y + r(nd) + 11} textAnchor="middle" className="pointer-events-none fill-foreground text-[10px]">{nd.label ?? nd.id}</text>
+              <circle cx={p.x} cy={p.y} r={r(nd)} className="fill-background" />
+              <circle cx={p.x} cy={p.y} r={r(nd)} fill="currentColor" fillOpacity="0.28" stroke="currentColor" strokeWidth={hover === nd.id ? 3 : 2} />
+              <text x={p.x} y={p.y + r(nd) + 11} textAnchor="middle" className="pointer-events-none fill-foreground text-[11px]">{nd.label ?? nd.id}</text>
             </g>
           );
         })}

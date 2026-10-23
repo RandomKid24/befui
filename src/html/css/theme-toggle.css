@@ -40,6 +40,10 @@
 .dark *) {
   color: var(--color-violet-300);
 }
+.dark\:\[color-scheme\:dark\]:where(.dark,
+.dark *) {
+  color-scheme: dark;
+}
 :root,
 .light {
   --background: #fff;

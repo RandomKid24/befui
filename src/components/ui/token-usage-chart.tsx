@@ -47,7 +47,7 @@ export function TokenUsageChart({
       <StackedBarChart
         height={170}
         format={compact}
-        keys={[{ key: 'input', label: 'Input' }, { key: 'output', label: 'Output', color: 'text-success' }, ...(tot.cached ? [{ key: 'cached', label: 'Cached', color: 'text-info' }] : [])]}
+        keys={[{ key: 'input', label: 'Input' }, { key: 'output', label: 'Output', color: 'text-success' }, ...(tot.cached ? [{ key: 'cached', label: 'Cached', color: 'text-warning' }] : [])]}
         data={days.map((d) => ({ label: d.label, values: { input: d.input, output: d.output, cached: d.cached ?? 0 } }))}
       />
     </div>

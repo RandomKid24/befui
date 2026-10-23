@@ -39,15 +39,20 @@ export function YearHeatmap({
   const month = new Intl.DateTimeFormat(undefined, { month: 'short' });
   const dayName = new Intl.DateTimeFormat(undefined, { weekday: 'short' });
   const full = new Intl.DateTimeFormat(undefined, { weekday: 'short', day: 'numeric', month: 'short' });
+  // name a month above the first week that starts it, once
+  let seen = -1;
   const labels = Array.from({ length: weeks }, (_, w) => {
     const d = cells.slice(w * 7, w * 7 + 7).find(Boolean);
-    return d && Number(d.slice(8)) <= 7 ? month.format(new Date(d)) : '';
+    const m = d ? Number(d.slice(5, 7)) : -1;
+    if (!d || m === seen || (w > 0 && Number(d.slice(8)) > 7)) return '';
+    seen = m;
+    return month.format(new Date(d));
   });
 
   return (
     <div ref={ref} className={cn('w-full overflow-x-auto', className)}>
       <p className="mb-2 text-sm"><span className="font-semibold tabular-nums">{total.toLocaleString()}</span> <span className="text-muted-foreground">{unit} in {year}</span></p>
-      <div className="grid min-w-[44rem] gap-1" style={{ gridTemplateColumns: `1.75rem repeat(${weeks}, minmax(0, 1fr))`, gridTemplateRows: 'auto repeat(7, 1fr)' }} role="group" aria-label={`${total} ${unit} in ${year}`}>
+      <div className="grid min-w-[52rem] gap-1" style={{ gridTemplateColumns: `1.75rem repeat(${weeks}, minmax(0, 1fr))`, gridTemplateRows: 'auto repeat(7, 1fr)' }} role="group" aria-label={`${total} ${unit} in ${year}`}>
         <span />
         {labels.map((l, w) => <span key={w} className="overflow-visible whitespace-nowrap text-[10px] text-muted-foreground">{l}</span>)}
         {Array.from({ length: 7 }, (_, r) => (

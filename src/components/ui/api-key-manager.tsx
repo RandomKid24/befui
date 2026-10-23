@@ -41,10 +41,10 @@ export function ApiKeyManager({
   const create = (e: React.FormEvent) => { e.preventDefault(); if (name.trim()) { onCreate?.(name.trim()); setName(''); } };
 
   return (
-    <div className={cn('grid gap-4', className)}>
+    <div className={cn('grid grid-cols-[minmax(0,1fr)] gap-4', className)}>
       <form onSubmit={create} className="flex gap-2">
         <label htmlFor={id} className="sr-only">Key name</label>
-        <Input id={id} value={name} onChange={(e) => setName(e.target.value)} placeholder="Key name, such as Production server" maxLength={60} />
+        <Input id={id} className="min-w-0 flex-1" value={name} onChange={(e) => setName(e.target.value)} placeholder="Key name, such as Production server" maxLength={60} />
         <Button type="submit" disabled={!name.trim()}><PlusIcon />Create key</Button>
       </form>
       <ul className="divide-y rounded-xl border bg-card">
@@ -67,7 +67,7 @@ function Row({ k, asking, ask, onRevoke }: { k: ApiKey; asking: boolean; ask: (v
   };
   const ico = 'grid size-8 place-items-center rounded-md text-muted-foreground outline-none transition-colors hover:bg-secondary hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50 [&_svg]:size-4';
   return (
-    <li className={cn('grid gap-2 px-4 py-3', k.revoked && 'opacity-60')}>
+    <li className={cn('grid grid-cols-[minmax(0,1fr)] gap-2 px-4 py-3', k.revoked && 'opacity-60')}>
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
         <KeyIcon className="size-4 text-muted-foreground" />
         <span className="text-sm font-medium">{k.name}</span>

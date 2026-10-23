@@ -63,9 +63,9 @@ export function BarRace({
             >
               <span className="w-20 shrink-0 truncate text-end text-[13px] font-medium">{n}</span>
               <div className="relative h-full flex-1">
-                <div className="h-full rounded-md motion-safe:transition-[width] motion-safe:duration-700" style={{ width: `${(v / max) * 100}%`, minWidth: 4, background: `oklch(0.68 0.14 ${hue(n)})` }} />
+                <div className="h-full rounded-md motion-safe:transition-[width] motion-safe:duration-700" style={{ width: `${(v / max) * 88}%`, minWidth: 4, background: `oklch(0.68 0.14 ${hue(n)})` }} />
+                <span className="absolute top-1/2 -translate-y-1/2 whitespace-nowrap text-[13px] tabular-nums text-muted-foreground motion-safe:transition-[inset-inline-start] motion-safe:duration-700" style={{ insetInlineStart: `calc(${(v / max) * 88}% + 8px)` }}>{format(v)}</span>
               </div>
-              <span className="w-16 shrink-0 text-[13px] tabular-nums text-muted-foreground">{format(v)}</span>
             </div>
           );
         })}

@@ -103,8 +103,8 @@
   font-size: var(--text-xs);
   line-height: var(--tw-leading,var(--text-xs--line-height));
 }
-.text-\[9px\] {
-  font-size: 9px;
+.text-\[10px\] {
+  font-size: 10px;
 }
 .text-\[11px\] {
   font-size: 11px;

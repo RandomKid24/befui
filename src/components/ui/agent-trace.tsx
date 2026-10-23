@@ -83,15 +83,16 @@ function Row({ span: s, depth, total }: { span: TraceSpan; depth: number; total:
           aria-expanded={detail ? open : undefined}
           aria-controls={detail ? panel : undefined}
           onClick={() => detail && setOpen(!open)}
-          className="flex min-w-0 flex-1 items-center gap-3 rounded-md py-1 text-start outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
+          className="flex min-w-0 flex-1 flex-wrap items-center gap-x-3 gap-y-1 rounded-md py-1 text-start outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
         >
-          <span className="flex w-52 min-w-0 shrink-0 items-center gap-2 max-sm:w-36">
+          <span className="flex w-full min-w-0 items-center gap-2 sm:w-60 sm:shrink-0">
             <Icon className="size-4 shrink-0 text-muted-foreground" />
             <span className="truncate font-mono text-[13px]">{s.name}</span>
             {s.status === 'running' && <LoaderIcon className="size-3.5 shrink-0 animate-spin text-primary" aria-label="Running" />}
             {s.status === 'error' && <AlertCircleIcon className="size-3.5 shrink-0 text-destructive" aria-label="Failed" />}
             {s.status === 'done' && <CheckCircleIcon className="size-3.5 shrink-0 text-success" aria-label="Done" />}
           </span>
+          <span className="flex min-w-0 basis-full items-center gap-3 sm:flex-1 sm:basis-0">
           <span className="relative h-4 flex-1 rounded bg-secondary" aria-hidden>
             <span
               className={cn('absolute inset-y-0 rounded', s.status === 'error' ? 'bg-destructive' : bar, s.status === 'running' && 'animate-pulse')}
@@ -99,6 +100,7 @@ function Row({ span: s, depth, total }: { span: TraceSpan; depth: number; total:
             />
           </span>
           <span className="w-16 shrink-0 text-end text-xs tabular-nums text-muted-foreground">{ms(s.duration)}</span>
+          </span>
         </button>
       </div>
       {detail && open && (

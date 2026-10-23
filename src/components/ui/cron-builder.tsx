@@ -98,7 +98,7 @@ export function CronBuilder({ value, onChange, className }: { value?: string; on
     : runs ? 'Custom schedule' : 'Not a valid cron expression';
   const fmt = new Intl.DateTimeFormat(undefined, { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
 
-  const num = 'h-9 w-20 rounded-md border border-input bg-background px-2.5 text-sm outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/15';
+  const num = '[color-scheme:light] dark:[color-scheme:dark] h-9 w-20 rounded-md border border-input bg-background px-2.5 text-sm outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/15';
   const modes: [Mode, string][] = [['minutes', 'Minutes'], ['hourly', 'Hourly'], ['daily', 'Daily'], ['weekly', 'Weekly'], ['monthly', 'Monthly'], ['custom', 'Custom']];
   const timeInput = <input type="time" value={time} onChange={(e) => e.target.value && setTime(e.target.value)} aria-label="Time" className={cn(num, 'w-32')} />;
 

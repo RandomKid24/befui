@@ -158,6 +158,9 @@
   --tw-numeric-spacing: tabular-nums;
   font-variant-numeric: var(--tw-ordinal,) var(--tw-slashed-zero,) var(--tw-numeric-figure,) var(--tw-numeric-spacing,) var(--tw-numeric-fraction,);
 }
+.\[color-scheme\:light\] {
+  color-scheme: light;
+}
 .transition-colors {
   transition-property: color,background-color,border-color,outline-color,text-decoration-color,fill,stroke,--tw-gradient-from,--tw-gradient-via,--tw-gradient-to;
   transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
@@ -304,6 +307,10 @@
 }
 .group-data-\[variant\=underline\]\:data-\[state\=active\]\:border-primary:is(:where(.group)[data-variant=underline] *)[data-state=active] {
   border-color: var(--primary);
+}
+.dark\:\[color-scheme\:dark\]:where(.dark,
+.dark *) {
+  color-scheme: dark;
 }
 .icon-draw:hover *,
 .group:hover .icon-draw * {

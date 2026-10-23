@@ -55,7 +55,7 @@ export function WebhookLog({ deliveries, onResend, className }: { deliveries: We
                   {d.duration !== undefined && <span className="hidden w-14 text-end text-xs tabular-nums text-muted-foreground sm:inline">{d.duration} ms</span>}
                   <span className="shrink-0 text-xs text-muted-foreground">{d.time}</span>
                 </button>
-                {!ok && onResend && <Button variant="outline" size="sm" onClick={() => onResend(d.id)}><RefreshIcon />Resend</Button>}
+                {!ok && onResend && <Button variant="outline" size="sm" aria-label="Resend" onClick={() => onResend(d.id)}><RefreshIcon /><span className="max-sm:hidden">Resend</span></Button>}
               </div>
               {isOpen && (
                 <div id={panel} className="grid gap-3 border-t bg-muted/30 px-4 py-3 text-xs lg:grid-cols-2">

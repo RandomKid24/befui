@@ -79,8 +79,8 @@ export function ParallelCoordinates({
           <g key={a.key}>
             <line x1={X(i)} x2={X(i)} y1={pad.t} y2={H - pad.b} className="stroke-border" strokeWidth="1.5" />
             <text x={X(i)} y={14} textAnchor="middle" className="fill-foreground text-[11px] font-medium">{a.label}</text>
-            <text x={X(i)} y={pad.t - 6} textAnchor="middle" className="fill-muted-foreground text-[9px]">{(a.format ?? String)(scale[i]!.max)}</text>
-            <text x={X(i)} y={H - 2} textAnchor="middle" className="fill-muted-foreground text-[9px]">{(a.format ?? String)(scale[i]!.min)}</text>
+            <text x={X(i)} y={pad.t - 6} textAnchor="middle" className="fill-muted-foreground text-[10px]">{(a.format ?? String)(scale[i]!.max)}</text>
+            <text x={X(i)} y={H - 2} textAnchor="middle" className="fill-muted-foreground text-[10px]">{(a.format ?? String)(scale[i]!.min)}</text>
             {hr && <circle cx={X(i)} cy={Y(i, hr.values[a.key] ?? 0)} r="4" className={cn('fill-background stroke-current', color(hr))} strokeWidth="2" />}
           </g>
         ))}

@@ -11,5 +11,5 @@ for (let i = 0; i < 365; i++) {
 }
 
 export default function YearHeatmapDemo() {
-  return <YearHeatmap className="w-[48rem] max-w-full" year={2026} values={values} unit="commits" />;
+  return <YearHeatmap className="w-[56rem] max-w-full" year={2026} values={values} unit="commits" />;
 }

@@ -23,7 +23,7 @@ const label = { investigating: 'Investigating', identified: 'Identified', monito
 
 /**
  * A public status page: one banner that says whether everything works (worked out from each service's latest day),
- * a 90-day uptime bar per service, and the incident history with its updates.
+ * an uptime bar per service, and the incident history with its updates.
  */
 export function StatusPage({ title = 'System status', services, incidents = [], className }: { title?: string; services: StatusService[]; incidents?: StatusIncident[]; className?: string }) {
   const latest = services.map((s) => s.days[s.days.length - 1]?.status ?? 'up');
@@ -49,7 +49,6 @@ export function StatusPage({ title = 'System status', services, incidents = [], 
             {s.description && <p className="mt-1 text-xs text-muted-foreground">{s.description}</p>}
           </div>
         ))}
-        <p className="flex justify-between text-xs text-muted-foreground"><span>{services[0]?.days.length ?? 0} days ago</span><span>Today</span></p>
       </section>
       {incidents.length > 0 && (
         <section aria-label="Incidents" className="grid gap-3">

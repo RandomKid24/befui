@@ -58,7 +58,7 @@ export function Markdown({ children, className }: { children: string; className?
     if (line.startsWith('>')) {
       const q: string[] = [];
       for (; i < lines.length && lines[i]!.startsWith('>'); i++) q.push(lines[i]!.replace(/^>\s?/, ''));
-      blocks.push(<blockquote key={key()} className="border-s-2 ps-3 text-muted-foreground">{inline(q.join(' '), `q${n}`)}</blockquote>);
+      blocks.push(<blockquote key={key()} className="border-s-2 border-primary/40 ps-3 text-muted-foreground">{inline(q.join(' '), `q${n}`)}</blockquote>);
       continue;
     }
     const li = line.match(/^(\s*)([-*]|\d+\.)\s+/);
