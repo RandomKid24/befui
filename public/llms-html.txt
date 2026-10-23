@@ -1523,34 +1523,34 @@ A form split into steps: stepper on top, one step at a time, Back and Next with 
 ## Format helpers (format)
 formatCurrency, formatCompact, formatPercent, formatBytes, formatDuration and a signed Currency component. Indian rupees by default.
 ```html
-<div class="grid w-full max-w-xl gap-4">
-  <dl class="grid gap-1.5 rounded-xl border bg-card p-4 font-mono text-xs">
+<div class="grid w-full max-w-xl grid-cols-[minmax(0,1fr)] gap-4">
+  <dl class="grid grid-cols-[minmax(0,1fr)] gap-1.5 rounded-xl border bg-card p-4 font-mono text-xs">
     <div class="flex justify-between gap-4">
-      <dt class="truncate text-muted-foreground">formatCurrency(1250000)</dt>
+      <dt class="min-w-0 truncate text-muted-foreground">formatCurrency(1250000)</dt>
       <dd class="shrink-0 font-semibold text-foreground">₹12,50,000</dd>
     </div>
     <div class="flex justify-between gap-4">
-      <dt class="truncate text-muted-foreground">formatCurrency(1250000, { compact: true })</dt>
+      <dt class="min-w-0 truncate text-muted-foreground">formatCurrency(1250000, { compact: true })</dt>
       <dd class="shrink-0 font-semibold text-foreground">₹12.5L</dd>
     </div>
     <div class="flex justify-between gap-4">
-      <dt class="truncate text-muted-foreground">formatCurrency(4999.5, { currency: &quot;USD&quot;, locale: &quot;en-US&quot; })</dt>
+      <dt class="min-w-0 truncate text-muted-foreground">formatCurrency(4999.5, { currency: &quot;USD&quot;, locale: &quot;en-US&quot; })</dt>
       <dd class="shrink-0 font-semibold text-foreground">$4,999.50</dd>
     </div>
     <div class="flex justify-between gap-4">
-      <dt class="truncate text-muted-foreground">formatCompact(48200)</dt>
+      <dt class="min-w-0 truncate text-muted-foreground">formatCompact(48200)</dt>
       <dd class="shrink-0 font-semibold text-foreground">48.2K</dd>
     </div>
     <div class="flex justify-between gap-4">
-      <dt class="truncate text-muted-foreground">formatPercent(0.1234)</dt>
+      <dt class="min-w-0 truncate text-muted-foreground">formatPercent(0.1234)</dt>
       <dd class="shrink-0 font-semibold text-foreground">12.3%</dd>
     </div>
     <div class="flex justify-between gap-4">
-      <dt class="truncate text-muted-foreground">formatBytes(1536000)</dt>
+      <dt class="min-w-0 truncate text-muted-foreground">formatBytes(1536000)</dt>
       <dd class="shrink-0 font-semibold text-foreground">1.5 MB</dd>
     </div>
     <div class="flex justify-between gap-4">
-      <dt class="truncate text-muted-foreground">formatDuration(3725)</dt>
+      <dt class="min-w-0 truncate text-muted-foreground">formatDuration(3725)</dt>
       <dd class="shrink-0 font-semibold text-foreground">1h 2m</dd>
     </div>
   </dl>

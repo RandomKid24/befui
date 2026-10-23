@@ -22,7 +22,7 @@ export function GradientPicker({ stops, angle, onChange, className }: { stops: G
   const css = gradientCss(stops, angle);
   const edit = (i: number, patch: Partial<GradientStop>) => onChange(stops.map((s, k) => (k === i ? { ...s, ...patch } : s)), angle);
   return (
-    <div className={cn('grid w-full max-w-sm gap-4', className)}>
+    <div className={cn('grid w-full max-w-sm grid-cols-[minmax(0,1fr)] gap-4', className)}>
       <div className="h-28 rounded-xl border" style={{ background: css }} role="img" aria-label="Gradient preview" />
       <label className="grid gap-1.5 text-xs text-muted-foreground">
         <span className="flex justify-between"><span>Angle</span><span className="tabular-nums text-foreground">{angle}°</span></span>
@@ -32,7 +32,7 @@ export function GradientPicker({ stops, angle, onChange, className }: { stops: G
         {stops.map((s, i) => (
           <li key={i} className="flex items-center gap-3">
             <input type="color" value={s.color} onChange={(e) => edit(i, { color: e.target.value })} aria-label={`Stop ${i + 1} colour`} className="size-8 shrink-0 cursor-pointer rounded-md border bg-transparent p-0.5" />
-            <input type="range" min={0} max={100} value={s.at} onChange={(e) => edit(i, { at: Number(e.target.value) })} aria-label={`Stop ${i + 1} position`} className="w-full accent-[var(--primary)]" />
+            <input type="range" min={0} max={100} value={s.at} onChange={(e) => edit(i, { at: Number(e.target.value) })} aria-label={`Stop ${i + 1} position`} className="min-w-0 flex-1 accent-[var(--primary)]" />
             <span className="w-9 text-right text-xs tabular-nums text-muted-foreground">{s.at}%</span>
             <button type="button" disabled={stops.length <= 2} onClick={() => onChange(stops.filter((_, k) => k !== i), angle)} aria-label={`Remove stop ${i + 1}`} className="text-muted-foreground hover:text-foreground disabled:opacity-30">×</button>
           </li>

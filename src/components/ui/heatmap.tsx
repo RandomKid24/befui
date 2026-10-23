@@ -25,8 +25,9 @@ export function Heatmap({
   const pad = day0.getDay();
   const cells: (number | null)[] = [...Array(pad).fill(null), ...values.map((_, i) => i)];
   return (
-    <div className={cn('inline-grid gap-2', className)}>
-      <div className="grid grid-flow-col grid-rows-7 gap-[3px]" role="img" aria-label={`${values.reduce((a, b) => a + b, 0)} ${unit} in the last ${values.length} days`}>
+    <div className={cn('inline-grid max-w-full gap-2', className)}>
+      <div className="overflow-x-auto pb-1">
+      <div className="grid w-max grid-flow-col grid-rows-7 gap-[3px]" role="img" aria-label={`${values.reduce((a, b) => a + b, 0)} ${unit} in the last ${values.length} days`}>
         {cells.map((i, k) =>
           i === null ? <span key={`p${k}`} className="size-3" /> : (
             <span
@@ -37,6 +38,7 @@ export function Heatmap({
             />
           ),
         )}
+      </div>
       </div>
       <div className="flex items-center justify-between text-[11px] text-muted-foreground">
         <span>{weeks} weeks</span>

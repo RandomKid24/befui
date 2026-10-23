@@ -140,7 +140,7 @@ export function VersionLog({ releases, openCount = 2, showFilter = true, classNa
   };
 
   return (
-    <div className={cn('grid gap-8', className)}>
+    <div className={cn('grid grid-cols-[minmax(0,1fr)] gap-8', className)}>
       <div className="sticky top-14 z-10 -mx-1 flex flex-wrap items-center gap-3 bg-background/85 px-1 py-2 backdrop-blur">
         <nav aria-label="Versions" className="flex max-w-full gap-1 overflow-x-auto">
           {releases.filter((r) => kind === 'all' || r.entries.some((e) => e.kind === kind)).map((r) => (
@@ -149,7 +149,7 @@ export function VersionLog({ releases, openCount = 2, showFilter = true, classNa
         </nav>
         {showFilter && present.length > 1 && (
           <Segmented<'all' | VersionKind>
-            className="ml-auto"
+            className="ml-auto max-w-full overflow-x-auto"
             value={kind}
             onValueChange={setKind}
             options={[{ value: 'all', label: 'Everything' }, ...present.map((k) => ({ value: k, label: k[0].toUpperCase() + k.slice(1) }))]}

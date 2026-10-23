@@ -36,7 +36,7 @@ export function TagManager({ tags, onChange, usage = {}, className }: { tags: Ta
   const patch = (id: string, p: Partial<Tag>) => onChange(tags.map((t) => (t.id === id ? { ...t, ...p } : t)));
 
   return (
-    <div className={cn('grid w-full max-w-md gap-3 rounded-xl border bg-card p-4', className)}>
+    <div className={cn('grid w-full max-w-md grid-cols-[minmax(0,1fr)] gap-3 rounded-xl border bg-card p-4', className)}>
       <form onSubmit={add} className="flex items-center gap-2">
         <div className="flex gap-1" role="radiogroup" aria-label="New tag color">
           {keys.map((k) => <button key={k} type="button" role="radio" aria-checked={color === k} aria-label={k} onClick={() => setColor(k)} className={cn('size-5 rounded-full outline-none ring-offset-2 ring-offset-card transition-shadow focus-visible:ring-2 focus-visible:ring-ring', swatch[k], color === k && 'ring-2 ring-foreground/70')} />)}

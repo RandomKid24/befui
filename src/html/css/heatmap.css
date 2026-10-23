@@ -34,6 +34,12 @@
   width: calc(var(--spacing) * 3);
   height: calc(var(--spacing) * 3);
 }
+.w-max {
+  width: max-content;
+}
+.max-w-full {
+  max-width: 100%;
+}
 .animate-pop {
   animation: .15s ease-out pop;
 }
@@ -57,6 +63,9 @@
 }
 .gap-\[3px\] {
   gap: 3px;
+}
+.overflow-x-auto {
+  overflow-x: auto;
 }
 .rounded-\[2px\] {
   border-radius: 2px;
@@ -99,6 +108,9 @@
 
 .bg-secondary {
   background-color: var(--secondary);
+}
+.pb-1 {
+  padding-bottom: var(--spacing);
 }
 .text-\[11px\] {
   font-size: 11px;
