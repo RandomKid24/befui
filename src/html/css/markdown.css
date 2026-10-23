@@ -1,0 +1,163 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --font-weight-semibold: 600;
+  --leading-relaxed: 1.625;
+  --muted: #f8fafc;
+  --muted-foreground: #64748b;
+  --radius: .5rem;
+  --spacing: .25rem;
+  --text-2xl: 1.5rem;
+  --text-2xl--line-height: calc(2 / 1.5);
+  --text-base: 1rem;
+  --text-base--line-height: 1.5 ;
+  --text-lg: 1.125rem;
+  --text-lg--line-height: calc(1.75 / 1.125);
+  --text-sm: .875rem;
+  --text-sm--line-height: calc(1.25 / .875);
+  --text-xl: 1.25rem;
+  --text-xl--line-height: calc(1.75 / 1.25);
+  --tracking-tight: -.025em;
+}
+
+.dark {
+  --muted: #11141b;
+  --muted-foreground: #8b94a5;
+}
+
+/* Utility rules */
+.relative {
+  position: relative;
+}
+.my-4 {
+  margin-block: calc(var(--spacing) * 4);
+}
+.ms-5 {
+  margin-inline-start: calc(var(--spacing) * 5);
+}
+.mt-5 {
+  margin-top: calc(var(--spacing) * 5);
+}
+.grid {
+  display: grid;
+}
+.inline {
+  display: inline;
+}
+.list-decimal {
+  list-style-type: decimal;
+}
+.list-disc {
+  list-style-type: disc;
+}
+.gap-1 {
+  gap: var(--spacing);
+}
+.gap-3 {
+  gap: calc(var(--spacing) * 3);
+}
+.overflow-x-auto {
+  overflow-x: auto;
+}
+.rounded-lg {
+  border-radius: calc(var(--radius) + 2px);
+}
+.border {
+  border-style: var(--tw-border-style);
+  border-width: 1px;
+}
+.border-s-2 {
+  border-inline-start-style: var(--tw-border-style);
+  border-inline-start-width: 2px;
+}
+.bg-muted {
+  background-color: var(--muted);
+}
+.bg-muted\/50 {
+  background-color: var(--muted);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .bg-muted\/50 {
+    background-color: color-mix(in oklab,var(--muted) 50%,transparent);
+  }
+}
+
+.p-3 {
+  padding: calc(var(--spacing) * 3);
+}
+.px-1\.5 {
+  padding-inline: calc(var(--spacing) * 1.5);
+}
+.py-0\.5 {
+  padding-block: calc(var(--spacing) * .5);
+}
+.ps-3 {
+  padding-inline-start: calc(var(--spacing) * 3);
+}
+.font-mono {
+  font-family: JetBrains Mono,ui-monospace,monospace;
+}
+.text-2xl {
+  font-size: var(--text-2xl);
+  line-height: var(--tw-leading,var(--text-2xl--line-height));
+}
+.text-base {
+  font-size: var(--text-base);
+  line-height: var(--tw-leading,var(--text-base--line-height));
+}
+.text-lg {
+  font-size: var(--text-lg);
+  line-height: var(--tw-leading,var(--text-lg--line-height));
+}
+.text-sm {
+  font-size: var(--text-sm);
+  line-height: var(--tw-leading,var(--text-sm--line-height));
+}
+.text-xl {
+  font-size: var(--text-xl);
+  line-height: var(--tw-leading,var(--text-xl--line-height));
+}
+.text-\[13px\] {
+  font-size: 13px;
+}
+.leading-7 {
+  --tw-leading: calc(var(--spacing) * 7);
+  line-height: calc(var(--spacing) * 7);
+}
+.leading-relaxed {
+  --tw-leading: var(--leading-relaxed);
+  line-height: var(--leading-relaxed);
+}
+.font-semibold {
+  --tw-font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-semibold);
+}
+.tracking-tight {
+  --tw-tracking: var(--tracking-tight);
+  letter-spacing: var(--tracking-tight);
+}
+.text-muted-foreground,
+.text-muted-foreground\/30 {
+  color: var(--muted-foreground);
+}
+.underline {
+  text-decoration-line: underline;
+}
+.underline-offset-2 {
+  text-underline-offset: 2px;
+}
+.first\:mt-0:first-child {
+  margin-top: 0;
+}
+
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
+@property --tw-leading {
+  syntax: "*";
+  inherits: false;
+}

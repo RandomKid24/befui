@@ -6,6 +6,24 @@
     "entries": [
       {
         "kind": "added",
+        "text": "Developer inputs: key value editor (env variables, paste a .env file), shortcut recorder (press keys, get Mod+K), duration input (1h 30m to seconds) and a log viewer with level filters, search and follow.",
+        "slugs": [
+          "kv-editor",
+          "shortcut-recorder",
+          "duration-input",
+          "log-viewer"
+        ]
+      },
+      {
+        "kind": "added",
+        "text": "Markdown (safe renderer for AI answers and notes, no HTML injection) and NPS survey (0 to 10 with a follow-up that depends on the score).",
+        "slugs": [
+          "markdown",
+          "nps-survey"
+        ]
+      },
+      {
+        "kind": "added",
         "text": "Developer tools: cron builder (schedule in words, with the next three runs), JSON tree (collapsible, copy path), feature flag table (switch and rollout slider) and timezone picker (search any zone with the time there now).",
         "slugs": [
           "cron-builder",

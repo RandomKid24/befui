@@ -238,6 +238,7 @@
   "dumbbell-chart": [
     "charts"
   ],
+  "duration-input": [],
   "empty-state": [],
   "error-state": [
     "icons"
@@ -331,6 +332,10 @@
   "kpi-strip": [
     "icons"
   ],
+  "kv-editor": [
+    "button",
+    "icons"
+  ],
   "label": [],
   "landing-sections": [
     "accordion"
@@ -345,12 +350,16 @@
   ],
   "live-chart": [],
   "loader": [],
+  "log-viewer": [
+    "icons"
+  ],
   "lollipop-chart": [
     "charts"
   ],
   "marimekko-chart": [
     "charts"
   ],
+  "markdown": [],
   "marquee": [],
   "matrix-heatmap": [
     "charts"
@@ -388,6 +397,10 @@
   ],
   "notification-preferences": [
     "switch"
+  ],
+  "nps-survey": [
+    "button",
+    "icons"
   ],
   "number-stepper": [
     "icons"
@@ -552,6 +565,10 @@
   "separator": [],
   "settings-layout": [],
   "shimmer-text": [],
+  "shortcut-recorder": [
+    "icons",
+    "kbd"
+  ],
   "shortcuts-dialog": [
     "dialog",
     "kbd"

@@ -1,0 +1,257 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --background: #fff;
+  --default-transition-duration: .15s;
+  --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  --foreground: #0f172a;
+  --input: #e2e8f0;
+  --muted-foreground: #64748b;
+  --primary: #2563eb;
+  --radius: .5rem;
+  --ring: #3b82f6;
+  --secondary: #f1f5f9;
+  --spacing: .25rem;
+  --text-sm: .875rem;
+  --text-sm--line-height: calc(1.25 / .875);
+  --text-xs: .75rem;
+  --text-xs--line-height: calc(1 / .75);
+}
+
+.dark {
+  --background: #0a0c10;
+  --foreground: #e6e9ef;
+  --input: #272d3a;
+  --muted-foreground: #8b94a5;
+  --primary: #3b82f6;
+  --secondary: #171b23;
+}
+
+/* Utility rules */
+.flex {
+  display: flex;
+}
+.grid {
+  display: grid;
+}
+.size-4 {
+  width: calc(var(--spacing) * 4);
+  height: calc(var(--spacing) * 4);
+}
+.size-8 {
+  width: calc(var(--spacing) * 8);
+  height: calc(var(--spacing) * 8);
+}
+.h-9 {
+  height: calc(var(--spacing) * 9);
+}
+.min-h-4 {
+  min-height: calc(var(--spacing) * 4);
+}
+.w-64 {
+  width: calc(var(--spacing) * 64);
+}
+.max-w-full {
+  max-width: 100%;
+}
+.min-w-0 {
+  min-width: 0;
+}
+.flex-1 {
+  flex: 1;
+}
+.place-items-center {
+  place-items: center;
+}
+.items-center {
+  align-items: center;
+}
+.gap-1 {
+  gap: var(--spacing);
+}
+.gap-1\.5 {
+  gap: calc(var(--spacing) * 1.5);
+}
+.rounded-md {
+  border-radius: var(--radius);
+}
+.border {
+  border-style: var(--tw-border-style);
+  border-width: 1px;
+}
+.border-input {
+  border-color: var(--input);
+}
+.border-primary,
+.border-primary\/30 {
+  border-color: var(--primary);
+}
+.bg-background,
+.bg-background\/15 {
+  background-color: var(--background);
+}
+.px-3 {
+  padding-inline: calc(var(--spacing) * 3);
+}
+.text-sm {
+  font-size: var(--text-sm);
+  line-height: var(--tw-leading,var(--text-sm--line-height));
+}
+.text-xs {
+  font-size: var(--text-xs);
+  line-height: var(--tw-leading,var(--text-xs--line-height));
+}
+.text-muted-foreground,
+.text-muted-foreground\/30 {
+  color: var(--muted-foreground);
+}
+.text-muted-foreground\/70 {
+  color: var(--muted-foreground);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .text-muted-foreground\/70 {
+    color: color-mix(in oklab,var(--muted-foreground) 70%,transparent);
+  }
+}
+
+.text-primary {
+  color: var(--primary);
+}
+.ring-3 {
+  --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--tw-ring-color,currentcolor);
+  box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
+}
+.ring-primary\/20 {
+  --tw-ring-color: var(--primary);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .ring-primary\/20 {
+    --tw-ring-color: color-mix(in oklab, var(--primary) 20%, transparent);
+  }
+}
+
+.transition-\[border\,
+box-shadow\] {
+  transition-property: border,box-shadow;
+  transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
+  transition-duration: var(--tw-duration,var(--default-transition-duration));
+}
+.outline-none {
+  --tw-outline-style: none;
+  outline-style: none;
+}
+
+@media (hover:hover) {
+  .hover\:border-muted-foreground\/40:hover {
+    border-color: var(--muted-foreground);
+  }
+}
+
+@media (hover:hover) {
+  @supports (color:color-mix(in lab,red,red)) {
+    .hover\:border-muted-foreground\/40:hover {
+      border-color: color-mix(in oklab,var(--muted-foreground) 40%,transparent);
+    }
+  }
+}
+
+@media (hover:hover) {
+  .hover\:bg-secondary:hover,
+  .hover\:bg-secondary\/40:hover {
+    background-color: var(--secondary);
+  }
+  .hover\:text-foreground:hover {
+    color: var(--foreground);
+  }
+}
+
+.focus-visible\:border-ring:focus-visible {
+  border-color: var(--ring);
+}
+.focus-visible\:ring-2:focus-visible {
+  --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color,currentcolor);
+  box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
+}
+.focus-visible\:ring-3:focus-visible {
+  --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--tw-ring-color,currentcolor);
+  box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
+}
+.focus-visible\:ring-ring:focus-visible,
+.focus-visible\:ring-ring\/15:focus-visible {
+  --tw-ring-color: var(--ring);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .focus-visible\:ring-ring\/15:focus-visible {
+    --tw-ring-color: color-mix(in oklab, var(--ring) 15%, transparent);
+  }
+}
+
+.focus-visible\:ring-ring\/50:focus-visible {
+  --tw-ring-color: var(--ring);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .focus-visible\:ring-ring\/50:focus-visible {
+    --tw-ring-color: color-mix(in oklab, var(--ring) 50%, transparent);
+  }
+}
+
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
+@property --tw-leading {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-inset-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-ring-color {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ring-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-inset-ring-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-ring-inset {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ring-offset-width {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-ring-offset-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-duration {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ease {
+  syntax: "*";
+  inherits: false;
+}

@@ -7,6 +7,8 @@ All notable changes to befui. Versions follow [semver](https://semver.org): new 
 
 Flutter widgets for Android and iOS, a page per platform, a new hero
 
+- **Added:** Developer inputs: key value editor (env variables, paste a .env file), shortcut recorder (press keys, get Mod+K), duration input (1h 30m to seconds) and a log viewer with level filters, search and follow. (Key value editor, Shortcut recorder, Duration input, Log viewer)
+- **Added:** Markdown (safe renderer for AI answers and notes, no HTML injection) and NPS survey (0 to 10 with a follow-up that depends on the score). (Markdown, NPS survey)
 - **Added:** Developer tools: cron builder (schedule in words, with the next three runs), JSON tree (collapsible, copy path), feature flag table (switch and rollout slider) and timezone picker (search any zone with the time there now). (Cron builder, JSON tree, Feature flag table, Timezone picker)
 - **Added:** Token usage chart (AI tokens per day with estimated cost), org switcher (workspace dropdown for a sidebar) and year heatmap (a whole year, one square per day). (Token usage chart, Org switcher, Year heatmap)
 - **Added:** Inputs: autosize textarea (grows with the text, with a counter), transfer list (move items between two lists), cascader (nested select by columns), team invite (paste a list of emails into chips) and API key manager (create, show once, revoke). (Autosize textarea, Transfer list, Cascader, Team invite, API key manager)

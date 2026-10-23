@@ -1,0 +1,19 @@
+import { LogViewer, type LogLine } from '@/components/ui/log-viewer';
+
+const lines: LogLine[] = [
+  { time: '10:42:01', level: 'info', source: 'api', message: 'Server listening on :8080' },
+  { time: '10:42:03', level: 'debug', source: 'db', message: 'Pool opened with 10 connections' },
+  { time: '10:42:09', level: 'info', source: 'api', message: 'GET /orders 200 42ms' },
+  { time: '10:42:11', level: 'warn', source: 'cache', message: 'Redis latency 310ms, above the 200ms budget' },
+  { time: '10:42:14', level: 'info', source: 'api', message: 'POST /orders 201 118ms' },
+  { time: '10:42:20', level: 'error', source: 'payments', message: 'Charge failed for order 4471: card_declined' },
+  { time: '10:42:20', level: 'warn', source: 'payments', message: 'Retrying charge in 30s (attempt 2 of 3)' },
+  { time: '10:42:31', level: 'info', source: 'api', message: 'GET /orders/4471 200 31ms' },
+  { time: '10:42:50', level: 'debug', source: 'queue', message: 'Worker picked job email.receipt' },
+  { time: '10:42:51', level: 'error', source: 'mailer', message: 'SMTP timeout after 5000ms' },
+  { time: '10:43:02', level: 'info', source: 'api', message: 'GET /health 200 2ms' },
+];
+
+export default function LogViewerDemo() {
+  return <LogViewer className="w-[44rem] max-w-full" lines={lines} height={260} />;
+}

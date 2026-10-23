@@ -1348,6 +1348,29 @@ export default function DropzoneDemo() {
 }
 ```
 
+## Duration input (`duration-input`)
+Type lengths of time the way people say them (1h 30m, 90m, 2d) and get seconds back, with min and max messages. Tidies the text on blur.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add duration-input`
+- Import: `import { parseDuration, formatDuration, DurationInput } from '@/components/ui/duration-input'`
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { DurationInput } from '@/components/ui/duration-input';
+
+export default function DurationInputDemo() {
+  const [s, setS] = React.useState<number | undefined>(5400);
+  return (
+    <div className="grid gap-2">
+      <DurationInput value={s} onChange={setS} min={60} max={604800} />
+      <p className="text-xs text-muted-foreground">{s === undefined ? 'No duration' : `${s} seconds`}. Try 90m, 2d or 1h30m.</p>
+    </div>
+  );
+}
+```
+
 ## Floating action button (`fab`)
 Round primary action, extended with a label, or a speed dial that fans out actions.
 - Group: Inputs
@@ -1605,6 +1628,29 @@ export default function InputGroupDemo() {
       </InputGroup>
     </div>
   );
+}
+```
+
+## Key value editor (`kv-editor`)
+Environment variables or headers as key and value rows: values hidden until shown, duplicate keys flagged, and paste a .env file to fill many rows.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add kv-editor`
+- Import: `import { parseEnv, KvEditor } from '@/components/ui/kv-editor'`
+- Also needs: button, icons
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { KvEditor, type KvPair } from '@/components/ui/kv-editor';
+
+export default function KvEditorDemo() {
+  const [pairs, setPairs] = React.useState<KvPair[]>([
+    { key: 'DATABASE_URL', value: 'postgres://app:s3cret@db.acme.co/prod' },
+    { key: 'STRIPE_KEY', value: 'sk_live_51Hxyz' },
+    { key: 'LOG_LEVEL', value: 'info' },
+  ]);
+  return <KvEditor className="w-[38rem] max-w-full" pairs={pairs} onChange={setPairs} />;
 }
 ```
 
@@ -2036,6 +2082,25 @@ export default function SelectDemo() {
       </Select>
     </div>
   );
+}
+```
+
+## Shortcut recorder (`shortcut-recorder`)
+A field that records a keyboard shortcut as keycaps: press the keys, Esc cancels, Backspace clears. Saved as Mod+Shift+K so it works on Mac and Windows.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add shortcut-recorder`
+- Import: `import { ShortcutRecorder } from '@/components/ui/shortcut-recorder'`
+- Also needs: icons, kbd
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { ShortcutRecorder } from '@/components/ui/shortcut-recorder';
+
+export default function ShortcutRecorderDemo() {
+  const [combo, setCombo] = React.useState<string | undefined>('Mod+K');
+  return <ShortcutRecorder value={combo} onChange={setCombo} />;
 }
 ```
 
@@ -3022,6 +3087,43 @@ export default function KbdDemo() {
       Press <Kbd>Ctrl</Kbd> <Kbd>K</Kbd> to search
     </p>
   );
+}
+```
+
+## Markdown (`markdown`)
+Renders Markdown text as styled elements with no HTML injection: headings, bold, italic, code, code blocks, lists, quotes and safe links. For AI answers and notes.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add markdown`
+- Import: `import { Markdown } from '@/components/ui/markdown'`
+
+Example:
+
+```tsx
+import { Markdown } from '@/components/ui/markdown';
+
+const text = `# Release notes
+
+Version **2.4** ships today. It adds *offline mode* and fixes the \`sync\` bug reported in [issue 482](https://example.com/issues/482).
+
+## What changed
+- Faster startup, about **40%** quicker
+- New \`--watch\` flag for the CLI
+- Dark mode follows the system
+
+1. Update the package
+2. Run the migration
+3. Restart the app
+
+> Heads up: the old config format is read-only from now on.
+
+\`\`\`bash
+npm install acme@2.4
+acme migrate --dry-run
+\`\`\`
+`;
+
+export default function MarkdownDemo() {
+  return <Markdown className="w-[36rem] max-w-full">{text}</Markdown>;
 }
 ```
 
@@ -5472,6 +5574,37 @@ export default function LiveChartDemo() {
 }
 ```
 
+## Log viewer (`log-viewer`)
+Terminal-style log pane: coloured levels with counts as filters, search with marked matches, and a Follow switch that tracks new lines.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add log-viewer`
+- Import: `import { LogViewer } from '@/components/ui/log-viewer'`
+- Also needs: icons
+
+Example:
+
+```tsx
+import { LogViewer, type LogLine } from '@/components/ui/log-viewer';
+
+const lines: LogLine[] = [
+  { time: '10:42:01', level: 'info', source: 'api', message: 'Server listening on :8080' },
+  { time: '10:42:03', level: 'debug', source: 'db', message: 'Pool opened with 10 connections' },
+  { time: '10:42:09', level: 'info', source: 'api', message: 'GET /orders 200 42ms' },
+  { time: '10:42:11', level: 'warn', source: 'cache', message: 'Redis latency 310ms, above the 200ms budget' },
+  { time: '10:42:14', level: 'info', source: 'api', message: 'POST /orders 201 118ms' },
+  { time: '10:42:20', level: 'error', source: 'payments', message: 'Charge failed for order 4471: card_declined' },
+  { time: '10:42:20', level: 'warn', source: 'payments', message: 'Retrying charge in 30s (attempt 2 of 3)' },
+  { time: '10:42:31', level: 'info', source: 'api', message: 'GET /orders/4471 200 31ms' },
+  { time: '10:42:50', level: 'debug', source: 'queue', message: 'Worker picked job email.receipt' },
+  { time: '10:42:51', level: 'error', source: 'mailer', message: 'SMTP timeout after 5000ms' },
+  { time: '10:43:02', level: 'info', source: 'api', message: 'GET /health 200 2ms' },
+];
+
+export default function LogViewerDemo() {
+  return <LogViewer className="w-[44rem] max-w-full" lines={lines} height={260} />;
+}
+```
+
 ## Lollipop chart (`lollipop-chart`)
 A bar chart as a thin stick with a dot on the end, sorted largest first. Lighter than bars when there are many items.
 - Group: Data
@@ -7149,6 +7282,23 @@ export default function NotificationCenterDemo() {
     { id: '3', title: 'New hire: Arjun joins Monday', time: '3h', read: true },
   ]);
   return <NotificationCenter notices={notices} onChange={setNotices} />;
+}
+```
+
+## NPS survey (`nps-survey`)
+The 0 to 10 recommend question with a follow-up that changes for detractors, passives and promoters. Arrow keys move the score.
+- Group: Feedback
+- Add: `npx github:RandomKid24/befui add nps-survey`
+- Import: `import { NpsSurvey } from '@/components/ui/nps-survey'`
+- Also needs: button, icons
+
+Example:
+
+```tsx
+import { NpsSurvey } from '@/components/ui/nps-survey';
+
+export default function NpsSurveyDemo() {
+  return <NpsSurvey className="w-[34rem] max-w-full" onSubmit={() => {}} />;
 }
 ```
 

@@ -1,0 +1,190 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --background: #fff;
+  --default-transition-duration: .15s;
+  --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  --destructive: #e11d48;
+  --input: #e2e8f0;
+  --muted-foreground: #64748b;
+  --radius: .5rem;
+  --ring: #3b82f6;
+  --spacing: .25rem;
+  --text-sm: .875rem;
+  --text-sm--line-height: calc(1.25 / .875);
+  --text-xs: .75rem;
+  --text-xs--line-height: calc(1 / .75);
+}
+
+.dark {
+  --background: #0a0c10;
+  --destructive: #f43f5e;
+  --input: #272d3a;
+  --muted-foreground: #8b94a5;
+}
+
+/* Utility rules */
+.grid {
+  display: grid;
+}
+.h-9 {
+  height: calc(var(--spacing) * 9);
+}
+.w-48 {
+  width: calc(var(--spacing) * 48);
+}
+.max-w-full {
+  max-width: 100%;
+}
+.gap-1 {
+  gap: var(--spacing);
+}
+.rounded-md {
+  border-radius: var(--radius);
+}
+.border {
+  border-style: var(--tw-border-style);
+  border-width: 1px;
+}
+.border-input {
+  border-color: var(--input);
+}
+.bg-background,
+.bg-background\/15 {
+  background-color: var(--background);
+}
+.px-3 {
+  padding-inline: calc(var(--spacing) * 3);
+}
+.text-sm {
+  font-size: var(--text-sm);
+  line-height: var(--tw-leading,var(--text-sm--line-height));
+}
+.text-xs {
+  font-size: var(--text-xs);
+  line-height: var(--tw-leading,var(--text-xs--line-height));
+}
+.text-destructive {
+  color: var(--destructive);
+}
+.transition-\[border\,
+box-shadow\] {
+  transition-property: border,box-shadow;
+  transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
+  transition-duration: var(--tw-duration,var(--default-transition-duration));
+}
+.outline-none {
+  --tw-outline-style: none;
+  outline-style: none;
+}
+.placeholder\:text-muted-foreground\/70::placeholder {
+  color: var(--muted-foreground);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .placeholder\:text-muted-foreground\/70::placeholder {
+    color: color-mix(in oklab,var(--muted-foreground) 70%,transparent);
+  }
+}
+
+@media (hover:hover) {
+  .hover\:border-muted-foreground\/40:hover {
+    border-color: var(--muted-foreground);
+  }
+}
+
+@media (hover:hover) {
+  @supports (color:color-mix(in lab,red,red)) {
+    .hover\:border-muted-foreground\/40:hover {
+      border-color: color-mix(in oklab,var(--muted-foreground) 40%,transparent);
+    }
+  }
+}
+
+.focus-visible\:border-ring:focus-visible {
+  border-color: var(--ring);
+}
+.focus-visible\:ring-3:focus-visible {
+  --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--tw-ring-color,currentcolor);
+  box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
+}
+.focus-visible\:ring-ring:focus-visible,
+.focus-visible\:ring-ring\/15:focus-visible {
+  --tw-ring-color: var(--ring);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .focus-visible\:ring-ring\/15:focus-visible {
+    --tw-ring-color: color-mix(in oklab, var(--ring) 15%, transparent);
+  }
+}
+
+.aria-\[invalid\=true\]\:border-destructive[aria-invalid=true] {
+  border-color: var(--destructive);
+}
+.aria-\[invalid\=true\]\:ring-destructive\/15[aria-invalid=true] {
+  --tw-ring-color: var(--destructive);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .aria-\[invalid\=true\]\:ring-destructive\/15[aria-invalid=true] {
+    --tw-ring-color: color-mix(in oklab, var(--destructive) 15%, transparent);
+  }
+}
+
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
+@property --tw-leading {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-inset-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-ring-color {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ring-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-inset-ring-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-ring-inset {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ring-offset-width {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-ring-offset-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-duration {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ease {
+  syntax: "*";
+  inherits: false;
+}

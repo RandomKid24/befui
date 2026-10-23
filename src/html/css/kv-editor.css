@@ -1,0 +1,159 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --destructive: #e11d48;
+  --foreground: #0f172a;
+  --muted-foreground: #64748b;
+  --radius: .5rem;
+  --secondary: #f1f5f9;
+  --spacing: .25rem;
+  --text-xs: .75rem;
+  --text-xs--line-height: calc(1 / .75);
+}
+
+.dark {
+  --destructive: #f43f5e;
+  --foreground: #e6e9ef;
+  --muted-foreground: #8b94a5;
+  --secondary: #171b23;
+}
+
+/* Utility rules */
+.end-1\.5 {
+  inset-inline-end: calc(var(--spacing) * 1.5);
+}
+.top-1\/2 {
+  top: 50%;
+}
+.-mt-1 {
+  margin-top: calc(var(--spacing) * -1);
+}
+.grid {
+  display: grid;
+}
+.hidden {
+  display: none;
+}
+.size-6 {
+  width: calc(var(--spacing) * 6);
+  height: calc(var(--spacing) * 6);
+}
+.size-8 {
+  width: calc(var(--spacing) * 8);
+  height: calc(var(--spacing) * 8);
+}
+.-translate-y-1\/2 {
+  --tw-translate-y: -50% ;
+  translate: var(--tw-translate-x) var(--tw-translate-y);
+}
+.grid-cols-\[1fr_1fr_auto\] {
+  grid-template-columns: 1fr 1fr auto;
+}
+.place-items-center {
+  place-items: center;
+}
+.items-center {
+  align-items: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.gap-2 {
+  gap: calc(var(--spacing) * 2);
+}
+.rounded {
+  border-radius: .25rem;
+}
+.rounded-md {
+  border-radius: var(--radius);
+}
+.text-xs {
+  font-size: var(--text-xs);
+  line-height: var(--tw-leading,var(--text-xs--line-height));
+}
+.text-muted-foreground,
+.text-muted-foreground\/30 {
+  color: var(--muted-foreground);
+}
+.outline-none {
+  --tw-outline-style: none;
+  outline-style: none;
+}
+
+@media (hover:hover) {
+  .hover\:bg-secondary:hover,
+  .hover\:bg-secondary\/40:hover {
+    background-color: var(--secondary);
+  }
+  .hover\:text-destructive:hover {
+    color: var(--destructive);
+  }
+  .hover\:text-foreground:hover {
+    color: var(--foreground);
+  }
+}
+
+.focus-visible\:ring-2:focus-visible {
+  --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color,currentcolor);
+  box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
+}
+
+@media not all and (min-width:40rem) {
+  .max-sm\:order-3 {
+    order: 3;
+  }
+}
+
+@property --tw-translate-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-translate-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-leading {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-inset-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-ring-color {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ring-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-inset-ring-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-ring-inset {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ring-offset-width {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-ring-offset-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}

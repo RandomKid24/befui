@@ -1294,6 +1294,15 @@ document.getElementById("g1").props = {
 </script>
 ```
 
+## Duration input (duration-input)
+Type lengths of time the way people say them (1h 30m, 90m, 2d) and get seconds back, with min and max messages. Tidies the text on blur.
+```html
+<div class="grid gap-2">
+  <bef-duration-input :value="5400" :min="60" :max="604800" emit="change"></bef-duration-input>
+  <p class="text-xs text-muted-foreground">5400 seconds. Try 90m, 2d or 1h30m.</p>
+</div>
+```
+
 ## Empty state (empty-state)
 Dashed placeholder with icon, text and an action.
 ```html
@@ -1760,6 +1769,12 @@ A row of headline numbers sharing one border with dividers between them, with ch
 <bef-kpi-strip class="w-[44rem] max-w-full" :items='[{"label":"Revenue","value":"₹48.2L","delta":12.5,"hint":"vs last month"},{"label":"Active users","value":"8,420","delta":4.1},{"label":"Churn","value":"2.3%","delta":-0.6,"inverse":true},{"label":"Open tickets","value":"64","delta":9,"inverse":true}]'></bef-kpi-strip>
 ```
 
+## Key value editor (kv-editor)
+Environment variables or headers as key and value rows: values hidden until shown, duplicate keys flagged, and paste a .env file to fill many rows.
+```html
+<bef-kv-editor class="w-[38rem] max-w-full" :pairs='[{"key":"DATABASE_URL","value":"postgres://app:s3cret@db.acme.co/prod"},{"key":"STRIPE_KEY","value":"sk_live_51Hxyz"},{"key":"LOG_LEVEL","value":"info"}]' emit="change"></bef-kv-editor>
+```
+
 ## Label and Field (label)
 Label with required marker, plus Field for label, control and hint or error.
 ```html
@@ -1892,6 +1907,12 @@ Six loading animations (ring, dots, bars, pulse, orbit, dual), an indeterminate 
 </script>
 ```
 
+## Log viewer (log-viewer)
+Terminal-style log pane: coloured levels with counts as filters, search with marked matches, and a Follow switch that tracks new lines.
+```html
+<bef-log-viewer class="w-[44rem] max-w-full" :lines='[{"time":"10:42:01","level":"info","source":"api","message":"Server listening on :8080"},{"time":"10:42:03","level":"debug","source":"db","message":"Pool opened with 10 connections"},{"time":"10:42:09","level":"info","source":"api","message":"GET /orders 200 42ms"},{"time":"10:42:11","level":"warn","source":"cache","message":"Redis latency 310ms, above the 200ms budget"},{"time":"10:42:14","level":"info","source":"api","message":"POST /orders 201 118ms"},{"time":"10:42:20","level":"error","source":"payments","message":"Charge failed for order 4471: card_declined"},{"time":"10:42:20","level":"warn","source":"payments","message":"Retrying charge in 30s (attempt 2 of 3)"},{"time":"10:42:31","level":"info","source":"api","message":"GET /orders/4471 200 31ms"},{"time":"10:42:50","level":"debug","source":"queue","message":"Worker picked job email.receipt"},{"time":"10:42:51","level":"error","source":"mailer","message":"SMTP timeout after 5000ms"},{"time":"10:43:02","level":"info","source":"api","message":"GET /health 200 2ms"}]' :height="260"></bef-log-viewer>
+```
+
 ## Lollipop chart (lollipop-chart)
 A bar chart as a thin stick with a dot on the end, sorted largest first. Lighter than bars when there are many items.
 ```html
@@ -1907,6 +1928,31 @@ document.getElementById("g1").props = {
   format: (n) => `₹${n}L`,
 };
 </script>
+```
+
+## Markdown (markdown)
+Renders Markdown text as styled elements with no HTML injection: headings, bold, italic, code, code blocks, lists, quotes and safe links. For AI answers and notes.
+```html
+<bef-markdown class="w-[36rem] max-w-full"># Release notes
+
+Version **2.4** ships today. It adds *offline mode* and fixes the `sync` bug reported in [issue 482](https://example.com/issues/482).
+
+## What changed
+- Faster startup, about **40%** quicker
+- New `--watch` flag for the CLI
+- Dark mode follows the system
+
+1. Update the package
+2. Run the migration
+3. Restart the app
+
+&gt; Heads up: the old config format is read-only from now on.
+
+```bash
+npm install acme@2.4
+acme migrate --dry-run
+```
+</bef-markdown>
 ```
 
 ## Marquee (marquee)
@@ -2085,6 +2131,18 @@ Bell with an unread count and a popover list. Click marks read, Mark all read cl
 Grid of events by channel (email, push, SMS, in-app) with a switch per cell and a switch per channel.
 ```html
 <bef-notification-preferences class="max-w-2xl" :value='{"leave":["email","push","app"],"payroll":["email"],"mention":["push","app"],"digest":["email"],"security":["email","sms","push","app"]}' :channels='[{"id":"email","label":"Email"},{"id":"push","label":"Push"},{"id":"sms","label":"SMS"},{"id":"app","label":"In-app"}]' :events='[{"id":"leave","label":"Leave requests","description":"Submitted, approved or rejected"},{"id":"payroll","label":"Payslips","description":"When a new payslip is ready"},{"id":"mention","label":"Mentions and comments"},{"id":"digest","label":"Weekly digest","description":"Monday summary of your team"},{"id":"security","label":"Security alerts","description":"New sign-ins and password changes"}]' emit="change"></bef-notification-preferences>
+```
+
+## NPS survey (nps-survey)
+The 0 to 10 recommend question with a follow-up that changes for detractors, passives and promoters. Arrow keys move the score.
+```html
+<bef-nps-survey class="w-[34rem] max-w-full" id="g1"></bef-nps-survey>
+<script type="module">
+document.getElementById("g1").props = {
+  onSubmit: () => {
+  },
+};
+</script>
 ```
 
 ## Number stepper (number-stepper)
@@ -2865,6 +2923,12 @@ Settings page frame: vertical section list on the left, SettingsSection rows (ti
 Text with a light sweep passing over it.
 ```html
 <bef-shimmer-text class="text-2xl font-semibold">Generating your report…</bef-shimmer-text>
+```
+
+## Shortcut recorder (shortcut-recorder)
+A field that records a keyboard shortcut as keycaps: press the keys, Esc cancels, Backspace clears. Saved as Mod+Shift+K so it works on Mac and Windows.
+```html
+<bef-shortcut-recorder value="Mod+K" emit="change"></bef-shortcut-recorder>
 ```
 
 ## Shortcuts dialog (shortcuts-dialog)

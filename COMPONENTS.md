@@ -1,6 +1,6 @@
 # Components
 
-Every befui component and block. **266 React components**, **263 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **37 page blocks**.
+Every befui component and block. **272 React components**, **269 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **37 page blocks**.
 (Generated from the registry by `npm run registry:build`. Do not edit by hand.)
 
 Install a React component with `npx github:RandomKid24/befui add <name>`, the Flutter version with `npx github:RandomKid24/befui add <name> --flutter`.
@@ -38,7 +38,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `tree-view` | Nested expandable list with animated open and close. | ✓ | ✓ |
 | `user-menu` | Avatar button for the topbar that opens a menu with name, email, your links and Sign out. | ✓ | ✓ |
 
-## Inputs (54)
+## Inputs (57)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
@@ -60,6 +60,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `date-picker` | Date and date range fields that open a calendar. The range picker has optional quick presets (Last 7 days, This month...) and a day count. Closes on pick. | ✓ | ✓ |
 | `datetime-picker` | One field for a day and a time: calendar on top, time picker below. | ✓ | ✓ |
 | `dropzone` | Drag and drop file area with size check and removable file list. | ✓ |  |
+| `duration-input` | Type lengths of time the way people say them (1h 30m, 90m, 2d) and get seconds back, with min and max messages. Tidies the text on blur. | ✓ |  |
 | `fab` | Round primary action, extended with a label, or a speed dial that fans out actions. | ✓ | ✓ |
 | `file-uploader` | Multi-file drop area with a progress bar per file, cancel, retry and a concurrency limit. You supply the upload function. | ✓ |  |
 | `filter-builder` | Field, operator and value rows that all must match, like the Notion or Linear filter, with a helper to filter an array. | ✓ |  |
@@ -69,6 +70,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `inline-edit` | Text that becomes a field on click. Enter saves, Escape cancels. | ✓ | ✓ |
 | `input` | Text input and textarea with icon, trailing slot, and invalid state. | ✓ | ✓ |
 | `input-group` | One field with text, icons or buttons attached at the start or end, like https:// or .com. | ✓ | ✓ |
+| `kv-editor` | Environment variables or headers as key and value rows: values hidden until shown, duplicate keys flagged, and paste a .env file to fill many rows. | ✓ |  |
 | `label` | Label with required marker, plus Field for label, control and hint or error. | ✓ | ✓ |
 | `mention-input` | Textarea that suggests people when you type @. Arrow keys and Enter pick. | ✓ |  |
 | `notification-preferences` | Grid of events by channel (email, push, SMS, in-app) with a switch per cell and a switch per channel. | ✓ | ✓ |
@@ -85,6 +87,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `search-input` | Search field with a clear button, Escape to clear and a slash shortcut to focus. | ✓ | ✓ |
 | `segmented` | Pick one of a few views or ranges. Smaller than tabs. | ✓ | ✓ |
 | `select` | Styled dropdown with groups, built on Radix Select. | ✓ | ✓ |
+| `shortcut-recorder` | A field that records a keyboard shortcut as keycaps: press the keys, Esc cancels, Backspace clears. Saved as Mod+Shift+K so it works on Mac and Windows. | ✓ |  |
 | `signature-field` | A signature box that lets people draw it or type their name in a script font. Both give one PNG data URL. | ✓ |  |
 | `signature-pad` | Draw-your-signature canvas for mouse, touch and pen. Sharp on retina screens, exports a PNG. | ✓ | ✓ |
 | `slider` | Native range input with a filled track and floating value bubble. | ✓ | ✓ |
@@ -97,7 +100,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `toggle-group` | A row of toggles where one or several can be pressed, for formatting toolbars. | ✓ | ✓ |
 | `transfer-list` | Two lists with arrows between them: tick items and move them across, each side with search and select all. For roles, columns or members. | ✓ |  |
 
-## Display (50)
+## Display (51)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
@@ -125,6 +128,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `invoice` | Printable invoice with number, status, from and bill-to, line items, tax and total computed from the lines. | ✓ |  |
 | `json-tree` | Collapsible JSON viewer with colour-coded values, counts on closed branches, expand and collapse all, and copy path or copy JSON. | ✓ |  |
 | `kbd` | Keyboard key hint. | ✓ |  |
+| `markdown` | Renders Markdown text as styled elements with no HTML injection: headings, bold, italic, code, code blocks, lists, quotes and safe links. For AI answers and notes. | ✓ |  |
 | `marquee` | Endless logo or tag scroll with edge fade. Pauses on hover. | ✓ | ✓ |
 | `media-player` | Video or audio player with themed controls: play, seek, time, mute and fullscreen. | ✓ |  |
 | `onboarding-checklist` | Getting-started card with a progress bar, tick-off items, short help text and actions. Collapsible. | ✓ | ✓ |
@@ -174,7 +178,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `tool-call` | A card for one tool or function call an AI made: name, running, done or failed, how long it took, and its input and output to expand. | ✓ | ✓ |
 | `voice-wave` | Audio level bars for a voice input: they dance while listening and settle to a line when paused. Drive them with a real level or leave them idle. | ✓ | ✓ |
 
-## Data (82)
+## Data (83)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
@@ -213,6 +217,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `leaderboard` | Ranked people or teams with avatars, score bars, gold, silver and bronze badges and place changes. Sorted for you; bars fill in on scroll. | ✓ | ✓ |
 | `line-chart` | Multi-series line or area chart in plain SVG with grid, axis labels, legend and a hover readout. | ✓ | ✓ |
 | `live-chart` | Streaming line chart that slides left as new values arrive. You give it a function for the next value; pause it any time. | ✓ |  |
+| `log-viewer` | Terminal-style log pane: coloured levels with counts as filters, search with marked matches, and a Follow switch that tracks new lines. | ✓ |  |
 | `lollipop-chart` | A bar chart as a thin stick with a dot on the end, sorted largest first. Lighter than bars when there are many items. | ✓ |  |
 | `marimekko-chart` | Stacked 100% bars whose widths also mean something: column width is group size, block height is mix. Columns grow up on scroll. | ✓ |  |
 | `matrix-heatmap` | Rows by columns shaded by value: traffic by hour and weekday, cohort retention. Cells fade in as a wave; hover lights up the row and column. | ✓ |  |
@@ -261,7 +266,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `world-map` | Countries on a flat map or a draggable globe, with a 3D bar or pin standing on every country in your data. Zoom, pan and spin it; click a name in the list to highlight a country. |  |  |
 | `year-heatmap` | A whole year as small squares, one per day, columns are weeks (the GitHub contributions graph), tinted in five steps by value. | ✓ |  |
 
-## Feedback (12)
+## Feedback (13)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
@@ -273,6 +278,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `error-state` | Full-section error or not found screen with a code or icon, explanation and retry actions. | ✓ | ✓ |
 | `loader` | Six loading animations (ring, dots, bars, pulse, orbit, dual), an indeterminate or determinate bar loader, and a loading overlay. | ✓ | ✓ |
 | `notification-center` | Bell with an unread count and a popover list. Click marks read, Mark all read clears it. | ✓ | ✓ |
+| `nps-survey` | The 0 to 10 recommend question with a follow-up that changes for detractors, passives and promoters. Arrow keys move the score. | ✓ |  |
 | `pull-to-refresh` | Scroll area you pull down from the top to refresh, with a spinner until your promise settles. | ✓ | ✓ |
 | `skeleton` | Shimmering placeholder for content that is loading. | ✓ | ✓ |
 | `spinner` | Tiny CSS spinner that inherits text color. | ✓ | ✓ |
