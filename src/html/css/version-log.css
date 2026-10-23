@@ -233,7 +233,8 @@
   }
 }
 
-.bg-border {
+.bg-border,
+.bg-border\/60 {
   background-color: var(--border);
 }
 .bg-destructive,
@@ -347,6 +348,9 @@
   letter-spacing: var(--tracking-wider);
 }
 .text-foreground,
+.text-foreground\/10 {
+  color: var(--foreground);
+}
 .text-foreground\/90 {
   color: var(--foreground);
 }

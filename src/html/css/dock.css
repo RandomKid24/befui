@@ -119,7 +119,7 @@
   color: var(--background);
 }
 .text-foreground,
-.text-foreground\/90 {
+.text-foreground\/10 {
   color: var(--foreground);
 }
 .opacity-0 {

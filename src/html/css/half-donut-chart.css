@@ -98,7 +98,7 @@
   font-weight: var(--font-weight-semibold);
 }
 .text-foreground,
-.text-foreground\/90 {
+.text-foreground\/10 {
   color: var(--foreground);
 }
 .text-info {

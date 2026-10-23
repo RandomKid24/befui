@@ -4,7 +4,7 @@
 
 **Interfaces people actually enjoy using.**
 
-241 copy-paste React components, 389 hand-drawn icons and 37 full-page blocks.<br/>
+259 copy-paste React components, 389 hand-drawn icons and 37 full-page blocks.<br/>
 Plus **121 Flutter widgets** for Android and iOS, and every component as a `<bef-*>` HTML tag.<br/>
 Built on Radix, Tailwind 4 and CSS variables. You own every file.
 
@@ -202,7 +202,7 @@ Add a `## x.y.z` section to `CHANGELOG.md`, then `npm version minor` (checks the
 Some components (loader, bottom sheet, toast...) need keyframes from `index.css`. After adding components, run `npx github:RandomKid24/befui update` to append any your project is missing (`--check` only reports, handy in CI). `add` also prints a warning when something is missing.
 
 <!-- components:start -->
-### Components (241)
+### Components (259)
 
 <details>
 <summary><b>Layout</b> (6)</summary>
@@ -212,37 +212,37 @@ Some components (loader, bottom sheet, toast...) need keyframes from `index.css`
 </details>
 
 <details>
-<summary><b>Navigation</b> (15)</summary>
+<summary><b>Navigation</b> (16)</summary>
 
-`bottom-nav` · `breadcrumb` · `dock` · `menubar` · `navbar` · `navigation-menu` · `onboarding-carousel` · `order-tracker` · `pagination` · `scroll-progress` · `stepper` · `table-of-contents` · `tabs` · `tree-view` · `user-menu`
-
-</details>
-
-<details>
-<summary><b>Inputs</b> (49)</summary>
-
-`autocomplete` · `avatar-upload` · `button` · `button-group` · `calendar` · `checkbox` · `chip` · `color-picker` · `combobox` · `copy-button` · `coupon-input` · `currency-input` · `date-picker` · `datetime-picker` · `dropzone` · `fab` · `file-uploader` · `filter-builder` · `form-wizard` · `gradient-picker` · `image-upload` · `inline-edit` · `input` · `input-group` · `label` · `mention-input` · `notification-preferences` · `number-stepper` · `otp-input` · `password-input` · `phone-input` · `radio-group` · `range-slider` · `rating` · `rich-text-editor` · `schema-form` · `search-bar` · `search-input` · `segmented` · `select` · `signature-field` · `signature-pad` · `slider` · `split-button` · `switch` · `tag-input` · `theme-toggle` · `toggle` · `toggle-group`
+`bottom-nav` · `breadcrumb` · `dock` · `file-tree` · `menubar` · `navbar` · `navigation-menu` · `onboarding-carousel` · `order-tracker` · `pagination` · `scroll-progress` · `stepper` · `table-of-contents` · `tabs` · `tree-view` · `user-menu`
 
 </details>
 
 <details>
-<summary><b>Display</b> (47)</summary>
+<summary><b>Inputs</b> (54)</summary>
 
-`accordion` · `activity-feed` · `approval-flow` · `avatar` · `badge` · `border-beam` · `brand-icons` · `card` · `carousel` · `changelog` · `chat` · `code-block` · `collapsible` · `comment-thread` · `compare` · `credit-card` · `description-list` · `diff-viewer` · `empty-state` · `format` · `image-gallery` · `invoice` · `kbd` · `marquee` · `media-player` · `onboarding-checklist` · `order-summary` · `pricing-card` · `pricing-comparison` · `product-card` · `profile-card` · `rating-breakdown` · `reveal` · `separator` · `shimmer-text` · `sortable-list` · `spotlight-card` · `status-dot` · `swipe-actions` · `table` · `tag-manager` · `terminal` · `testimonial-card` · `tilt-card` · `timeline` · `typewriter` · `version-log`
-
-</details>
-
-<details>
-<summary><b>AI</b> (12)</summary>
-
-`ai-chat` · `ai-message` · `attachment` · `model-picker` · `prompt-input` · `prompt-suggestions` · `sources` · `streaming-text` · `thinking` · `token-meter` · `tool-call` · `voice-wave`
+`api-key-manager` · `autocomplete` · `autosize-textarea` · `avatar-upload` · `button` · `button-group` · `calendar` · `cascader` · `checkbox` · `chip` · `color-picker` · `combobox` · `copy-button` · `coupon-input` · `currency-input` · `date-picker` · `datetime-picker` · `dropzone` · `fab` · `file-uploader` · `filter-builder` · `form-wizard` · `gradient-picker` · `image-upload` · `inline-edit` · `input` · `input-group` · `label` · `mention-input` · `notification-preferences` · `number-stepper` · `otp-input` · `password-input` · `phone-input` · `radio-group` · `range-slider` · `rating` · `rich-text-editor` · `schema-form` · `search-bar` · `search-input` · `segmented` · `select` · `signature-field` · `signature-pad` · `slider` · `split-button` · `switch` · `tag-input` · `team-invite` · `theme-toggle` · `toggle` · `toggle-group` · `transfer-list`
 
 </details>
 
 <details>
-<summary><b>Data</b> (74)</summary>
+<summary><b>Display</b> (49)</summary>
 
-`area-chart` · `audit-log` · `bar-list` · `box-plot-chart` · `bullet-chart` · `bump-chart` · `butterfly-chart` · `candlestick-chart` · `charts` · `chord-chart` · `circle-pack-chart` · `cohort-table` · `combo-chart` · `comparison-table` · `countdown` · `data-table` · `dumbbell-chart` · `file-manager` · `filter-bar` · `forecast-chart` · `funnel-chart` · `gantt` · `gauge` · `half-donut-chart` · `heat-calendar` · `heatmap` · `histogram-chart` · `india-map` · `kanban` · `kpi-strip` · `leaderboard` · `line-chart` · `live-chart` · `lollipop-chart` · `marimekko-chart` · `matrix-heatmap` · `number-ticker` · `org-chart` · `outcome-bar` · `pace-chart` · `pareto-chart` · `permission-matrix` · `pie-chart` · `pivot-table` · `progress` · `progress-ring` · `punch-card-chart` · `radar-chart` · `radial-bar-chart` · `radial-line-chart` · `range-gauge` · `resizable-table` · `ridgeline-chart` · `ring-chart` · `roadmap-timeline` · `rose-chart` · `sankey-chart` · `saved-views` · `scatter-chart` · `slope-chart` · `sparkline-table` · `stacked-bar-chart` · `stat-card` · `stream-chart` · `sunburst-chart` · `tree-table` · `treemap` · `uptime-bar` · `venn-chart` · `virtual-list` · `waffle-chart` · `waterfall-chart` · `word-cloud` · `world-map`
+`accordion` · `activity-feed` · `approval-flow` · `avatar` · `badge` · `border-beam` · `brand-icons` · `card` · `carousel` · `changelog` · `chat` · `code-block` · `collapsible` · `comment-thread` · `compare` · `credit-card` · `description-list` · `diff-viewer` · `empty-state` · `format` · `image-gallery` · `invoice` · `kbd` · `marquee` · `media-player` · `onboarding-checklist` · `order-summary` · `pricing-card` · `pricing-comparison` · `product-card` · `profile-card` · `rating-breakdown` · `reveal` · `separator` · `shimmer-text` · `sortable-list` · `spotlight-card` · `status-dot` · `status-page` · `swipe-actions` · `table` · `tag-manager` · `terminal` · `testimonial-card` · `tilt-card` · `timeline` · `typewriter` · `usage-meter` · `version-log`
+
+</details>
+
+<details>
+<summary><b>AI</b> (17)</summary>
+
+`agent-trace` · `ai-chat` · `ai-message` · `artifact-panel` · `attachment` · `citation-popover` · `eval-table` · `message-feedback` · `model-picker` · `prompt-input` · `prompt-suggestions` · `sources` · `streaming-text` · `thinking` · `token-meter` · `tool-call` · `voice-wave`
+
+</details>
+
+<details>
+<summary><b>Data</b> (79)</summary>
+
+`area-chart` · `audit-log` · `bar-list` · `bar-race` · `box-plot-chart` · `bullet-chart` · `bump-chart` · `butterfly-chart` · `candlestick-chart` · `charts` · `chord-chart` · `circle-pack-chart` · `cohort-table` · `combo-chart` · `comparison-table` · `countdown` · `data-table` · `dumbbell-chart` · `file-manager` · `filter-bar` · `forecast-chart` · `funnel-chart` · `gantt` · `gauge` · `half-donut-chart` · `heat-calendar` · `heatmap` · `histogram-chart` · `india-map` · `kanban` · `kpi-strip` · `leaderboard` · `line-chart` · `live-chart` · `lollipop-chart` · `marimekko-chart` · `matrix-heatmap` · `network-graph` · `number-ticker` · `org-chart` · `outcome-bar` · `pace-chart` · `parallel-coordinates` · `pareto-chart` · `permission-matrix` · `pie-chart` · `pivot-table` · `progress` · `progress-ring` · `punch-card-chart` · `radar-chart` · `radial-bar-chart` · `radial-line-chart` · `range-gauge` · `resizable-table` · `ridgeline-chart` · `ring-chart` · `roadmap-timeline` · `rose-chart` · `sankey-chart` · `saved-views` · `scatter-chart` · `slope-chart` · `sparkline-table` · `stacked-bar-chart` · `stat-card` · `stream-chart` · `sunburst-chart` · `swimlane-timeline` · `tree-table` · `treemap` · `uptime-bar` · `venn-chart` · `virtual-list` · `waffle-chart` · `waterfall-chart` · `webhook-log` · `word-cloud` · `world-map`
 
 </details>
 

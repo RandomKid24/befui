@@ -133,7 +133,7 @@
   font-weight: var(--font-weight-normal);
 }
 .text-foreground,
-.text-foreground\/90 {
+.text-foreground\/10 {
   color: var(--foreground);
 }
 .text-muted-foreground,

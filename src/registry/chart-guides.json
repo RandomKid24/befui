@@ -328,5 +328,29 @@
     "read": "Bar length is duration, colour is the group, the darker fill inside is progress, and the red line is today. Bars to the left of the line should be finishing or done.",
     "use": "Product and project roadmaps, a quarter plan, release schedules.",
     "avoid": "Tasks with dependencies or hours of effort. Use the Gantt."
+  },
+  "parallel-coordinates": {
+    "what": "One vertical axis for each measure, and one line per item that crosses every axis at its value.",
+    "read": "Lines that run side by side are alike on those measures; lines that cross between two axes are opposites there. Hover a line to isolate it and read its exact values.",
+    "use": "Comparing items on four to eight measures at once: products, cars, candidates, regions.",
+    "avoid": "Fewer than three measures (use a scatter) or more than about 30 lines (they turn to noise)."
+  },
+  "network-graph": {
+    "what": "Dots for things and lines for the links between them.",
+    "read": "A bigger dot has more links. Dots drawn close together are tightly connected. Hover a dot to light up what it touches.",
+    "use": "Service dependencies, who talks to whom, related topics.",
+    "avoid": "More than about 60 nodes or dense links, which become a hairball. Use a chord or sankey chart instead."
+  },
+  "swimlane-timeline": {
+    "what": "A row per person, team or machine, with bars along a shared date axis.",
+    "read": "Bar length is how long it lasts and its position is when. Bars that overlap in the same row are stacked. The red line is today.",
+    "use": "Who is doing what this month, resource planning, shift cover.",
+    "avoid": "Work with dependencies or effort in hours. Use the Gantt."
+  },
+  "bar-race": {
+    "what": "Horizontal bars ranked by value that re-sort and grow from one moment to the next.",
+    "read": "The top bar is the leader at that moment. Press play to watch who overtakes whom, or drag the scrubber to a date to stop on it.",
+    "use": "Rankings that change over time: cities, brands, teams, repositories.",
+    "avoid": "Anything that must be read precisely, or only two moments (use a slope chart)."
   }
 }

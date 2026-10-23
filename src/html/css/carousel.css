@@ -122,7 +122,8 @@
   }
 }
 
-.bg-border {
+.bg-border,
+.bg-border\/60 {
   background-color: var(--border);
 }
 .bg-primary {

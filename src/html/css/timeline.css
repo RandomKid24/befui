@@ -83,7 +83,8 @@
 .rounded-full {
   border-radius: 3.40282e38px;
 }
-.bg-border {
+.bg-border,
+.bg-border\/60 {
   background-color: var(--border);
 }
 .bg-current,

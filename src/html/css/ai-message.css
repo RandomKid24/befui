@@ -143,7 +143,7 @@
   white-space: pre-wrap;
 }
 .text-foreground,
-.text-foreground\/90 {
+.text-foreground\/10 {
   color: var(--foreground);
 }
 .text-muted-foreground,

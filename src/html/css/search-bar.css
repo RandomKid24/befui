@@ -198,7 +198,7 @@
   letter-spacing: var(--tracking-wide);
 }
 .text-foreground,
-.text-foreground\/90 {
+.text-foreground\/10 {
   color: var(--foreground);
 }
 .text-muted-foreground,

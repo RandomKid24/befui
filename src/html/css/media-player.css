@@ -146,7 +146,8 @@
   --tw-numeric-spacing: tabular-nums;
   font-variant-numeric: var(--tw-ordinal,) var(--tw-slashed-zero,) var(--tw-numeric-figure,) var(--tw-numeric-spacing,) var(--tw-numeric-fraction,);
 }
-.accent-\[var\(--primary\)\] {
+.accent-\[var\(--primary\)\],
+.accent-primary {
   accent-color: var(--primary);
 }
 .transition-transform {

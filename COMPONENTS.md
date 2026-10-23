@@ -1,6 +1,6 @@
 # Components
 
-Every befui component and block. **241 React components**, **238 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **37 page blocks**.
+Every befui component and block. **259 React components**, **256 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **37 page blocks**.
 (Generated from the registry by `npm run registry:build`. Do not edit by hand.)
 
 Install a React component with `npx github:RandomKid24/befui add <name>`, the Flutter version with `npx github:RandomKid24/befui add <name> --flutter`.
@@ -16,13 +16,14 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `sidebar` | Collapsible nav with groups, nested links and badges. Icon rail on desktop, slide-over on mobile. | ✓ |  |
 | `split-pane` | Two resizable panels with a draggable divider. Keyboard resizable. Horizontal or vertical. | ✓ |  |
 
-## Navigation (15)
+## Navigation (16)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
 | `bottom-nav` | Mobile tab bar with icons, labels, an active pill and count badges. | ✓ | ✓ |
 | `breadcrumb` | Trail of parent pages. | ✓ |  |
 | `dock` | Icons that grow toward the pointer, like the macOS dock. | ✓ |  |
+| `file-tree` | Folder and file tree like an editor sidebar: folders first, file-type icons, open and close, arrow-key navigation, full path on select. | ✓ |  |
 | `menubar` | Desktop-app style bar of menus (File, Edit, View) with shortcuts and checkable items. | ✓ |  |
 | `navbar` | Top bar with brand, links and actions that folds into a menu on small screens. | ✓ | ✓ |
 | `navigation-menu` | Desktop top-bar menu whose items open mega-menu panels, with keyboard and focus handled. | ✓ |  |
@@ -36,15 +37,18 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `tree-view` | Nested expandable list with animated open and close. | ✓ | ✓ |
 | `user-menu` | Avatar button for the topbar that opens a menu with name, email, your links and Sign out. | ✓ | ✓ |
 
-## Inputs (49)
+## Inputs (54)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
+| `api-key-manager` | List, create and revoke API keys. A new key shows once with Show and Copy; stored keys show only their start. Revoke asks first. | ✓ |  |
 | `autocomplete` | Text input that suggests as you type, from a fixed list or an async search (address, place). Keyboard friendly. | ✓ |  |
+| `autosize-textarea` | A textarea that grows with the text up to a set number of lines, then scrolls, with an optional live character counter. | ✓ |  |
 | `avatar-upload` | Click-to-change profile picture with instant preview, size and type checks, and a Remove link. | ✓ |  |
 | `button` | Thirteen variants from plain to glow, shine and 3D press, pill shape, five sizes, loading state, and asChild for links. | ✓ | ✓ |
 | `button-group` | Buttons joined into one row or column with shared borders and rounded outer corners. | ✓ | ✓ |
 | `calendar` | Month grid for one day or a range. Arrow keys, Page Up/Down, Home and End work. | ✓ | ✓ |
+| `cascader` | A select with a column per level for nested choices like country, state, city. Keyboard friendly; gives the full path. | ✓ |  |
 | `checkbox` | Checked, unchecked and indeterminate. Works for select-all rows. | ✓ | ✓ |
 | `chip` | Toggleable filter chips, single or multi select. | ✓ | ✓ |
 | `color-picker` | Swatches, hex field and the native picker. Always returns a six-digit hex. | ✓ | ✓ |
@@ -86,11 +90,13 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `split-button` | A button with a menu of related actions attached: the main part runs the usual action, the arrow opens the others. | ✓ |  |
 | `switch` | On/off toggle for settings that apply immediately. | ✓ | ✓ |
 | `tag-input` | Type and press Enter to add chips. Backspace removes the last. | ✓ | ✓ |
+| `team-invite` | Invite people by email: type or paste a list, each address becomes a chip, bad ones are flagged, one role for all, then Send. | ✓ |  |
 | `theme-toggle` | Icon button that flips light and dark mode and remembers the choice. Also exports a useTheme hook. | ✓ | ✓ |
 | `toggle` | Two-state button for favourite, bold or mute. Announces its state to screen readers. | ✓ | ✓ |
 | `toggle-group` | A row of toggles where one or several can be pressed, for formatting toolbars. | ✓ | ✓ |
+| `transfer-list` | Two lists with arrows between them: tick items and move them across, each side with search and select all. For roles, columns or members. | ✓ |  |
 
-## Display (47)
+## Display (49)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
@@ -132,6 +138,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `sortable-list` | Reorder rows by dragging, or with arrow keys on the grip. Controlled, no drag library. | ✓ | ✓ |
 | `spotlight-card` | Card with a glow and border highlight that follow the cursor. | ✓ |  |
 | `status-dot` | Small status light with an optional pulse and label. | ✓ | ✓ |
+| `status-page` | A public status page: an all-systems banner worked out from each service, 90-day uptime bars and incident history with updates. | ✓ |  |
 | `swipe-actions` | List row you swipe left to reveal action buttons. Touch, mouse drag and keyboard. | ✓ | ✓ |
 | `table` | Dense table parts with hover rows, a selected state, footer and caption. | ✓ | ✓ |
 | `tag-manager` | Create, rename, recolor and delete labels, with usage counts. | ✓ |  |
@@ -140,15 +147,21 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `tilt-card` | 3D card that tilts toward the cursor with a moving sheen. | ✓ |  |
 | `timeline` | Vertical activity feed with tone-colored markers. | ✓ | ✓ |
 | `typewriter` | Types, holds and deletes phrases in a loop. Static for reduced motion. | ✓ | ✓ |
+| `usage-meter` | Plan usage rows for a billing page: used of limit, percent, blue to amber to red as it fills, overage spelled out, unlimited rows. | ✓ |  |
 | `version-log` | Animated version history: the rail draws and dots pop as releases scroll in, entries slide in one by one, releases fold open, with a version jump strip and a kind filter. | ✓ |  |
 
-## AI (12)
+## AI (17)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
+| `agent-trace` | An AI agent run as a tree of model calls, tool calls and lookups, each with a bar on a shared time scale. Click a step for its input and output. | ✓ |  |
 | `ai-chat` | A whole AI chat in one piece: a conversation that follows the newest message with a Latest button, a greeting and starter prompts while empty, a thinking row and the prompt box pinned below. | ✓ | ✓ |
 | `ai-message` | One message in an AI chat: a right-aligned user bubble, or an assistant answer with copy, regenerate and thumbs actions and a blinking caret while it streams. | ✓ | ✓ |
+| `artifact-panel` | The side panel next to a chat for what the AI made: Preview and Code tabs, copy, download, expand and close. | ✓ |  |
 | `attachment` | A file attached to a prompt: icon or thumbnail, name, size, an upload progress line, an error state and a remove button. | ✓ | ✓ |
+| `citation-popover` | A numbered citation inside an answer that opens a card with the site, title and quote on hover or focus. The number is a real link. | ✓ |  |
+| `eval-table` | Test questions run against several models or prompt versions side by side: pass rate per column, pass or fail per cell, open a row for every answer. | ✓ |  |
+| `message-feedback` | Thumbs up or down for an AI answer, then reasons and an optional note. Sends once, only when the person presses Send. | ✓ |  |
 | `model-picker` | Compact button that opens a list of models with a description, context size and tags such as Fast or Vision. | ✓ | ✓ |
 | `prompt-input` | The box you type a prompt into: grows with the text, Enter sends, Shift+Enter adds a line, and the send button turns into Stop while a reply streams. | ✓ | ✓ |
 | `prompt-suggestions` | Starter prompts for an empty chat, as two-line cards or compact chips. Selecting one fills the prompt box. | ✓ | ✓ |
@@ -159,13 +172,14 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `tool-call` | A card for one tool or function call an AI made: name, running, done or failed, how long it took, and its input and output to expand. | ✓ | ✓ |
 | `voice-wave` | Audio level bars for a voice input: they dance while listening and settle to a line when paused. Drive them with a real level or leave them idle. | ✓ | ✓ |
 
-## Data (74)
+## Data (79)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
 | `area-chart` | Smooth gradient areas, stacked or overlapping, that wipe in on scroll. Hover for a readout across series. | ✓ |  |
 | `audit-log` | Who changed what and when, with expandable before and after values. | ✓ |  |
 | `bar-list` | Ranked list with a bar behind each row: top pages, products, sources, countries. | ✓ | ✓ |
+| `bar-race` | Bars that re-sort and grow as time moves, frame by frame, with play and a scrubber. Shows who overtakes whom. | ✓ |  |
 | `box-plot-chart` | Spread per group: box for the middle half, median line, whiskers and outlier dots. Boxes open from the median; hover for the five numbers. | ✓ |  |
 | `bullet-chart` | A KPI against its target in one thin row, with shaded bands for poor, ok and good. The bar slides in on scroll. | ✓ |  |
 | `bump-chart` | Rank over time as smooth lines that swap places. Lines draw in one by one; hover a line or name to follow it. | ✓ |  |
@@ -199,10 +213,12 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `lollipop-chart` | A bar chart as a thin stick with a dot on the end, sorted largest first. Lighter than bars when there are many items. | ✓ |  |
 | `marimekko-chart` | Stacked 100% bars whose widths also mean something: column width is group size, block height is mix. Columns grow up on scroll. | ✓ |  |
 | `matrix-heatmap` | Rows by columns shaded by value: traffic by hour and weekday, cohort retention. Cells fade in as a wave; hover lights up the row and column. | ✓ |  |
+| `network-graph` | Dots joined by lines for services, people or links. Settled layout (no jitter); hover lights up neighbours, click selects. | ✓ |  |
 | `number-ticker` | Counts up to a value with easing once it scrolls into view. | ✓ | ✓ |
 | `org-chart` | Reporting tree with connector lines and collapsible teams. | ✓ |  |
 | `outcome-bar` | One thick rounded bar split green and red in proportion (won vs lost), a pale piece for what is still open, a big conversion number above and the counts under each part. | ✓ |  |
 | `pace-chart` | Burn-up for a monthly target: running total, the straight line you should be on, a dashed projection to month end, the target line and an ahead or behind pace chip. | ✓ |  |
+| `parallel-coordinates` | One vertical axis per measure and one line per item crossing each at its value. Compare many measures at once; hover to isolate a line. | ✓ |  |
 | `pareto-chart` | Causes sorted by size as bars plus a running-total line with an 80% mark. Shows which few causes matter most. | ✓ |  |
 | `permission-matrix` | Roles by permissions grid of checkboxes with per-column toggle and locked roles. | ✓ |  |
 | `pie-chart` | Slices of one whole that sweep around on scroll. Hover a slice or legend row and it pulls out. | ✓ |  |
@@ -228,6 +244,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `stat-card` | KPI tile with value, trend delta and a sparkline slot. | ✓ | ✓ |
 | `stream-chart` | Streamgraph: smooth stacked flows around a center line to show shifts in mix over time. Ripples in from the left; hover a flow to focus it. | ✓ |  |
 | `sunburst-chart` | A hierarchy as concentric rings: each ring splits its parent. Rings sweep outward; hover a slice to light up its parents and children. | ✓ |  |
+| `swimlane-timeline` | Rows for people, teams or machines with bars on a shared day axis. Overlapping bars stack; a line marks today. | ✓ |  |
 | `tree-table` | Table whose rows have child rows. Expand and collapse branches by click or arrow keys. | ✓ |  |
 | `treemap` | Tiles sized by value, packed to stay square. Budget by team, revenue by product. Spring in on scroll; hover lifts one tile and dims the rest. | ✓ |  |
 | `uptime-bar` | Status-page strip with one tick per day in green, amber or red, the uptime percentage and an incident note on hover. | ✓ | ✓ |
@@ -235,6 +252,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `virtual-list` | Windowed list that renders only the visible rows. 100,000 items stay smooth. | ✓ |  |
 | `waffle-chart` | A grid of 100 squares, each one percent of the whole. Squares pop in as a wave; hover a legend row to light up its squares. | ✓ |  |
 | `waterfall-chart` | How a start number becomes an end number: green adds, red subtracts, blue totals. Bars drop in one after another with connector lines. | ✓ |  |
+| `webhook-log` | Recent webhook deliveries with status, time and duration. Open one for request and response bodies; failed ones can be resent. | ✓ |  |
 | `word-cloud` | Words sized by how often they appear, biggest in the middle. Words grow in; hover to focus one, or make them clickable filters. | ✓ |  |
 | `world-map` | Countries on a flat map or a draggable globe, with a 3D bar or pin standing on every country in your data. Zoom, pan and spin it; click a name in the list to highlight a country. |  |  |
 

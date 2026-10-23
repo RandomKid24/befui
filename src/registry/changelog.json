@@ -6,6 +6,48 @@
     "entries": [
       {
         "kind": "added",
+        "text": "Inputs: autosize textarea (grows with the text, with a counter), transfer list (move items between two lists), cascader (nested select by columns), team invite (paste a list of emails into chips) and API key manager (create, show once, revoke).",
+        "slugs": [
+          "autosize-textarea",
+          "transfer-list",
+          "cascader",
+          "team-invite",
+          "api-key-manager"
+        ]
+      },
+      {
+        "kind": "added",
+        "text": "Charts and data: parallel coordinates, network graph, swimlane timeline, bar race and a webhook log with request and response bodies and resend.",
+        "slugs": [
+          "parallel-coordinates",
+          "network-graph",
+          "swimlane-timeline",
+          "bar-race",
+          "webhook-log"
+        ]
+      },
+      {
+        "kind": "added",
+        "text": "AI blocks: agent trace (a run as a timed tree of steps), citation popover, message feedback (thumbs then reasons), eval table (models side by side) and artifact panel (preview and code beside a chat).",
+        "slugs": [
+          "agent-trace",
+          "citation-popover",
+          "message-feedback",
+          "eval-table",
+          "artifact-panel"
+        ]
+      },
+      {
+        "kind": "added",
+        "text": "File tree (editor-style folders and files with arrow-key navigation), status page (banner, uptime bars and incidents) and usage meter (plan usage with overage).",
+        "slugs": [
+          "file-tree",
+          "status-page",
+          "usage-meter"
+        ]
+      },
+      {
+        "kind": "added",
         "text": "Dashboard pieces: KPI strip (headline numbers in one bordered row), cohort table (retention triangle), roadmap timeline (bars by month with progress and today) and a compact date preset select (Last 7 days).",
         "slugs": [
           "kpi-strip",

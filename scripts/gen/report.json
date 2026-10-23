@@ -1,17 +1,1 @@
-{
- "streaming-text": [
-  "dropped onClick (uses setRun)"
- ],
- "ai-chat": [
-  "dropped onSubmit (uses n, setValue, setMessages, setThinking, timers, setStreaming)",
-  "dropped onStop (uses timers, setThinking, setStreaming, setMessages)",
-  "dropped onSuggestion (uses send)"
- ],
- "voice-wave": [
-  "dropped onClick (uses setOn, on)"
- ],
- "attachment": [
-  "dropped onRemove (uses setFiles, f)",
-  "dropped onRemove (uses setFiles, f)"
- ]
-}
+{}

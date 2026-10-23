@@ -65,7 +65,7 @@ Add the block with `add block:<name>`; it pulls in everything it uses. Layout fr
 Import from `@/components/ui/icons`. Use only these names; do not guess or add an icon package. Props: className (size-4 default, e.g. size-5), weight, draw.
 SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, ChevronRightIcon, SunIcon, MoonIcon, SparkleIcon, ZapIcon, ComponentsIcon, BlocksIcon, LayersIcon, PackageIcon, PaletteIcon, BookIcon, CommandKeyIcon, MonitorIcon, TabletIcon, PhoneIcon, UploadIcon, ChevronLeftIcon, ChevronDownIcon, ChevronUpIcon, ArrowLeftIcon, ArrowUpIcon, ArrowDownIcon, SortIcon, MinusIcon, MoreIcon, RefreshIcon, InfoIcon, AlertIcon, AlertCircleIcon, CheckCircleIcon, XCircleIcon, LoaderIcon, ShieldIcon, UserIcon, UsersIcon, MailIcon, BellIcon, CalendarIcon, ClockIcon, HomeIcon, SettingsIcon, LockIcon, GlobeIcon, StarIcon, HeartIcon, BookmarkIcon, EditIcon, TrashIcon, DownloadIcon, FilterIcon, EyeIcon, EyeOffIcon, LinkIcon, ExternalLinkIcon, LogOutIcon, ListIcon, FileIcon, FolderIcon, ImageIcon, PlayIcon, PauseIcon, BarChartIcon, TrendingIcon, CodeIcon, TerminalIcon, ArchiveIcon, CakeIcon, CreditCardIcon, FolderInputIcon, GitMergeIcon, InboxIcon, IndianRupeeIcon, LayoutDashboardIcon, LayoutGridIcon, MegaphoneIcon, MessageSquareIcon, MousePointerClickIcon, PanelLeftIcon, SaveIcon, Share2Icon, TargetIcon, UserCircleIcon, UserMinusIcon, UserPlusIcon, WalletIcon, ArrowUpRightIcon, ArrowDownRightIcon, PrinterIcon, CallIcon, MapPinIcon, CameraIcon, MicIcon, VideoIcon, WifiIcon, BatteryIcon, BluetoothIcon, ShareIcon, SendIcon, PaperclipIcon, TagIcon, FlagIcon, PinIcon, ThumbsUpIcon, SmileIcon, KeyIcon, UnlockIcon, TableIcon, DatabaseIcon, ServerIcon, CloudIcon, CloudUploadIcon, PieChartIcon, LineChartIcon, ActivityIcon, PercentIcon, CalculatorIcon, ReceiptIcon, TruckIcon, ShoppingCartIcon, ShoppingBagIcon, GiftIcon, BriefcaseIcon, BuildingIcon, GraduationCapIcon, AwardIcon, TrophyIcon, RocketIcon, LightbulbIcon, FlameIcon, DropletIcon, LeafIcon, MoreVerticalIcon, GripIcon, MaximizeIcon, MinimizeIcon, ZoomInIcon, ZoomOutIcon, UndoIcon, RedoIcon, BoldIcon, ItalicIcon, UnderlineIcon, AlignLeftIcon, AlignCenterIcon, QuoteIcon, HashIcon, AtSignIcon, GitBranchIcon, HelpCircleIcon, ShieldCheckIcon, BanIcon, LifeBuoyIcon, PowerIcon, TimerIcon, HourglassIcon, CompassIcon, MapIcon, NavigationIcon, BoxIcon, CornerDownRightIcon, ChevronsLeftIcon, ChevronsRightIcon, PlusCircleIcon, MinusCircleIcon, UserCheckIcon, FileTextIcon, FileSpreadsheetIcon, FolderPlusIcon, FolderOpenIcon, KanbanIcon, PanelRightIcon, ColumnsIcon, TextIcon, ClipboardIcon, ClipboardCheckIcon, CheckSquareIcon, SquareIcon, CircleIcon, VolumeIcon, VolumeOffIcon, SkipForwardIcon, SkipBackIcon, ChevronsUpDownIcon, ArrowUpLeftIcon, ArrowDownLeftIcon, ReplyIcon, ForwardIcon, RepeatIcon, ShuffleIcon, MoveIcon, RotateCwIcon, RotateCcwIcon, HistoryIcon, LogInIcon, SlidersIcon, ToggleIcon, GaugeIcon, ChartAreaIcon, BarChartHorizontalIcon, TrendingDownIcon, ListChecksIcon, LayoutListIcon, PanelTopIcon, PanelBottomIcon, RowsIcon, GridIcon, SidebarLeftIcon, WorkflowIcon, NetworkIcon, DiamondIcon, TriangleIcon, HexagonIcon, CircleDotIcon, AsteriskIcon, BellOffIcon, BellRingIcon, MailOpenIcon, MessageCircleIcon, IdCardIcon, UserXIcon, BadgeCheckIcon, CrownIcon, GemIcon, MedalIcon, WandIcon, BotIcon, MehIcon, FrownIcon, BanknoteIcon, CoinsIcon, DollarSignIcon, LandmarkIcon, StoreIcon, TicketIcon, WarehouseIcon, Building2Icon, ScaleIcon, FileCodeIcon, FilePlusIcon, FileCheckIcon, ClipboardListIcon, StickyNoteIcon, NewspaperIcon, RssIcon, FilmIcon, MusicIcon, HeadphonesIcon, CpuIcon, HardDriveIcon, LaptopIcon, PlugIcon, CloudDownloadIcon, WifiOffIcon, ScanIcon, QrCodeIcon, BugIcon, FlaskIcon, ShieldAlertIcon, OctagonAlertIcon, TriangleAlertIcon, CalendarCheckIcon, AlarmClockIcon, ThermometerIcon, CoffeeIcon, CarIcon, PillIcon, TypeIcon, StrikethroughIcon, AlignRightIcon, TranslateIcon, ContrastIcon, ScissorsIcon, CropIcon, RulerIcon, StethoscopeIcon, SyringeIcon, HeartPulseIcon, BrainIcon, BandageIcon, DnaIcon, MicroscopeIcon, AmbulanceIcon, HospitalIcon, ToothIcon, MedicalCrossIcon, BedIcon, EuroIcon, PoundIcon, YenIcon, BitcoinIcon, PiggyBankIcon, SafeIcon, HandshakeIcon, InvoiceIcon, ScatterChartIcon, FunnelIcon, SigmaIcon, RadarChartIcon, CandlestickChartIcon, DonutChartIcon, StackedBarIcon, HistogramIcon, CloudRainIcon, CloudSnowIcon, CloudLightningIcon, CloudSunIcon, CloudFogIcon, WindIcon, SunriseIcon, SunsetIcon, UmbrellaIcon, SnowflakeIcon, BusIcon, TrainIcon, BikeIcon, ShipIcon, PlaneIcon, FuelIcon, ParkingIcon, AnchorIcon, ScooterIcon, RoadIcon, KeyboardIcon, SignalBarsIcon, BatteryChargingIcon, CastIcon, FingerprintIcon, ArrowLeftRightIcon, ArrowUpDownIcon, ChevronsUpIcon, ChevronsDownIcon, CornerUpLeftIcon, CornerUpRightIcon, CornerDownLeftIcon, ArrowDownToLineIcon, ArrowUpFromLineIcon, PanelLeftCloseIcon, PanelLeftOpenIcon, ExpandIcon, ShrinkIcon, FullscreenIcon, SidebarRightIcon, LayoutTemplateIcon, AlignJustifyIcon, ListOrderedIcon, Heading1Icon, Heading2Icon, Heading3Icon, IndentIcon, OutdentIcon, HighlighterIcon, PilcrowIcon, FileImageIcon, FileVideoIcon, FileAudioIcon, FileXIcon, FileDownIcon, FileUpIcon, FileArchiveIcon, FileJsonIcon, BracesIcon, BracketsIcon, WebhookIcon, PuzzleIcon, GitCommitIcon, GitPullRequestIcon, GitForkIcon, BinaryIcon, UnlinkIcon, PinOffIcon, ThumbsDownIcon, GripVerticalIcon, GripHorizontalIcon, ToggleRightIcon, CrosshairIcon, DotIcon, EqualIcon, UserCogIcon, CalendarPlusIcon, CalendarDaysIcon, CalendarXIcon, ReplyAllIcon
 
-## Components (241)
+## Components (259)
 
 ### Layout (6)
 - `app-shell`: Sidebar, topbar and scrolling content area, plus a page header. Exports: AppShell, Topbar, AppContent, PageHeader. Needs: sidebar.
@@ -75,10 +75,11 @@ SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, Chev
 - `sidebar`: Collapsible nav with groups, nested links and badges. Icon rail on desktop, slide-over on mobile. Exports: useSidebar, SidebarProvider, SidebarTrigger, Sidebar, SidebarHeader, SidebarContent, SidebarFooter, SidebarGroup, .... Needs: dialog, icons, tooltip.
 - `split-pane`: Two resizable panels with a draggable divider. Keyboard resizable. Horizontal or vertical. Exports: SplitPane.
 
-### Navigation (15)
+### Navigation (16)
 - `bottom-nav`: Mobile tab bar with icons, labels, an active pill and count badges. Exports: BottomNav.
 - `breadcrumb`: Trail of parent pages. Exports: Breadcrumb. Needs: icons.
 - `dock`: Icons that grow toward the pointer, like the macOS dock. Exports: Dock.
+- `file-tree`: Folder and file tree like an editor sidebar: folders first, file-type icons, open and close, arrow-key navigation, full path on select. Exports: FileTree. Needs: icons.
 - `menubar`: Desktop-app style bar of menus (File, Edit, View) with shortcuts and checkable items. Exports: MenubarMenu, Menubar, MenubarTrigger, MenubarContent, MenubarItem, MenubarCheckboxItem, MenubarSeparator, MenubarShortcut. Needs: icons.
 - `navbar`: Top bar with brand, links and actions that folds into a menu on small screens. Exports: Navbar. Needs: icons.
 - `navigation-menu`: Desktop top-bar menu whose items open mega-menu panels, with keyboard and focus handled. Exports: NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuTrigger, NavigationMenuContent, NavigationMenuLink, navigationMenuTriggerStyle. Needs: icons.
@@ -92,12 +93,15 @@ SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, Chev
 - `tree-view`: Nested expandable list with animated open and close. Exports: TreeView. Needs: icons.
 - `user-menu`: Avatar button for the topbar that opens a menu with name, email, your links and Sign out. Exports: UserMenu. Needs: avatar, dropdown-menu, icons.
 
-### Inputs (49)
+### Inputs (54)
+- `api-key-manager`: List, create and revoke API keys. A new key shows once with Show and Copy; stored keys show only their start. Revoke asks first. Exports: ApiKeyManager. Needs: badge, button, icons, input.
 - `autocomplete`: Text input that suggests as you type, from a fixed list or an async search (address, place). Keyboard friendly. Exports: Autocomplete. Needs: input.
+- `autosize-textarea`: A textarea that grows with the text up to a set number of lines, then scrolls, with an optional live character counter. Exports: AutosizeTextarea. Needs: input.
 - `avatar-upload`: Click-to-change profile picture with instant preview, size and type checks, and a Remove link. Exports: AvatarUpload. Needs: avatar, icons.
 - `button`: Thirteen variants from plain to glow, shine and 3D press, pill shape, five sizes, loading state, and asChild for links. Exports: Button. Needs: icons.
 - `button-group`: Buttons joined into one row or column with shared borders and rounded outer corners. Exports: ButtonGroup.
 - `calendar`: Month grid for one day or a range. Arrow keys, Page Up/Down, Home and End work. Exports: startOfDay, addDays, addMonths, isSameDay, Calendar. Needs: icons.
+- `cascader`: A select with a column per level for nested choices like country, state, city. Keyboard friendly; gives the full path. Exports: Cascader. Needs: icons, popover.
 - `checkbox`: Checked, unchecked and indeterminate. Works for select-all rows. Exports: Checkbox. Needs: icons.
 - `chip`: Toggleable filter chips, single or multi select. Exports: Chip, ChipGroup. Needs: icons.
 - `color-picker`: Swatches, hex field and the native picker. Always returns a six-digit hex. Exports: ColorPicker. Needs: icons.
@@ -139,11 +143,13 @@ SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, Chev
 - `split-button`: A button with a menu of related actions attached: the main part runs the usual action, the arrow opens the others. Exports: SplitButton. Needs: button, dropdown-menu, icons.
 - `switch`: On/off toggle for settings that apply immediately. Exports: Switch.
 - `tag-input`: Type and press Enter to add chips. Backspace removes the last. Exports: TagInput. Needs: icons.
+- `team-invite`: Invite people by email: type or paste a list, each address becomes a chip, bad ones are flagged, one role for all, then Send. Exports: TeamInvite. Needs: button, icons.
 - `theme-toggle`: Icon button that flips light and dark mode and remembers the choice. Also exports a useTheme hook. Exports: useTheme, ThemeToggle. Needs: button, icons.
 - `toggle`: Two-state button for favourite, bold or mute. Announces its state to screen readers. Exports: Toggle.
 - `toggle-group`: A row of toggles where one or several can be pressed, for formatting toolbars. Exports: ToggleGroup, ToggleGroupItem.
+- `transfer-list`: Two lists with arrows between them: tick items and move them across, each side with search and select all. For roles, columns or members. Exports: TransferList. Needs: button, checkbox, icons.
 
-### Display (47)
+### Display (49)
 - `accordion`: Collapsible sections with a smooth height animation. Single or multiple open. Exports: Accordion. Needs: icons.
 - `activity-feed`: Who did what and when, grouped under Today and Yesterday, with live relative times and an optional quoted detail. Exports: ActivityFeed. Needs: avatar, relative-time.
 - `approval-flow`: Chain of approvers with decisions, comments and times. The current approver gets Approve and Reject buttons. Exports: ApprovalFlow. Needs: avatar, button, icons.
@@ -182,6 +188,7 @@ SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, Chev
 - `sortable-list`: Reorder rows by dragging, or with arrow keys on the grip. Controlled, no drag library. Exports: SortableList.
 - `spotlight-card`: Card with a glow and border highlight that follow the cursor. Exports: SpotlightCard.
 - `status-dot`: Small status light with an optional pulse and label. Exports: StatusDot.
+- `status-page`: A public status page: an all-systems banner worked out from each service, 90-day uptime bars and incident history with updates. Exports: StatusPage. Needs: icons, uptime-bar.
 - `swipe-actions`: List row you swipe left to reveal action buttons. Touch, mouse drag and keyboard. Exports: SwipeActions.
 - `table`: Dense table parts with hover rows, a selected state, footer and caption. Exports: Table, TableHeader, TableBody, TableRow, TableHead, TableCell, TableFooter, TableCaption.
 - `tag-manager`: Create, rename, recolor and delete labels, with usage counts. Exports: tagColors, TagManager. Needs: icons.
@@ -190,12 +197,18 @@ SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, Chev
 - `tilt-card`: 3D card that tilts toward the cursor with a moving sheen. Exports: TiltCard.
 - `timeline`: Vertical activity feed with tone-colored markers. Exports: Timeline.
 - `typewriter`: Types, holds and deletes phrases in a loop. Static for reduced motion. Exports: Typewriter.
+- `usage-meter`: Plan usage rows for a billing page: used of limit, percent, blue to amber to red as it fills, overage spelled out, unlimited rows. Exports: UsageMeter. Needs: icons.
 - `version-log`: Animated version history: the rail draws and dots pop as releases scroll in, entries slide in one by one, releases fold open, with a version jump strip and a kind filter. Exports: VersionLog. Needs: badge, icons, segmented.
 
-### AI (12)
+### AI (17)
+- `agent-trace`: An AI agent run as a tree of model calls, tool calls and lookups, each with a bar on a shared time scale. Click a step for its input and output. Exports: AgentTrace. Needs: icons.
 - `ai-chat`: A whole AI chat in one piece: a conversation that follows the newest message with a Latest button, a greeting and starter prompts while empty, a thinking row and the prompt box pinned below. Exports: AiChat. Needs: ai-message, icons, prompt-input, prompt-suggestions, thinking.
 - `ai-message`: One message in an AI chat: a right-aligned user bubble, or an assistant answer with copy, regenerate and thumbs actions and a blinking caret while it streams. Exports: AiMessage. Needs: icons.
+- `artifact-panel`: The side panel next to a chat for what the AI made: Preview and Code tabs, copy, download, expand and close. Exports: ArtifactPanel. Needs: icons.
 - `attachment`: A file attached to a prompt: icon or thumbnail, name, size, an upload progress line, an error state and a remove button. Exports: Attachment. Needs: icons.
+- `citation-popover`: A numbered citation inside an answer that opens a card with the site, title and quote on hover or focus. The number is a real link. Exports: CitationPopover. Needs: hover-card, icons.
+- `eval-table`: Test questions run against several models or prompt versions side by side: pass rate per column, pass or fail per cell, open a row for every answer. Exports: EvalTable. Needs: icons.
+- `message-feedback`: Thumbs up or down for an AI answer, then reasons and an optional note. Sends once, only when the person presses Send. Exports: MessageFeedback. Needs: button, icons.
 - `model-picker`: Compact button that opens a list of models with a description, context size and tags such as Fast or Vision. Exports: ModelPicker. Needs: icons, popover.
 - `prompt-input`: The box you type a prompt into: grows with the text, Enter sends, Shift+Enter adds a line, and the send button turns into Stop while a reply streams. Exports: PromptInput. Needs: icons.
 - `prompt-suggestions`: Starter prompts for an empty chat, as two-line cards or compact chips. Selecting one fills the prompt box. Exports: PromptSuggestions.
@@ -206,10 +219,11 @@ SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, Chev
 - `tool-call`: A card for one tool or function call an AI made: name, running, done or failed, how long it took, and its input and output to expand. Exports: ToolCall. Needs: icons.
 - `voice-wave`: Audio level bars for a voice input: they dance while listening and settle to a line when paused. Drive them with a real level or leave them idle. Exports: VoiceWave.
 
-### Data (74)
+### Data (79)
 - `area-chart`: Smooth gradient areas, stacked or overlapping, that wipe in on scroll. Hover for a readout across series. Exports: smoothPath, AreaChart. Needs: charts.
 - `audit-log`: Who changed what and when, with expandable before and after values. Exports: AuditLog. Needs: avatar, badge, icons.
 - `bar-list`: Ranked list with a bar behind each row: top pages, products, sources, countries. Exports: BarList.
+- `bar-race`: Bars that re-sort and grow as time moves, frame by frame, with play and a scrubber. Shows who overtakes whom. Exports: BarRace.
 - `box-plot-chart`: Spread per group: box for the middle half, median line, whiskers and outlier dots. Boxes open from the median; hover for the five numbers. Exports: BoxPlotChart. Needs: charts.
 - `bullet-chart`: A KPI against its target in one thin row, with shaded bands for poor, ok and good. The bar slides in on scroll. Exports: BulletChart. Needs: charts.
 - `bump-chart`: Rank over time as smooth lines that swap places. Lines draw in one by one; hover a line or name to follow it. Exports: BumpChart. Needs: charts.
@@ -243,10 +257,12 @@ SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, Chev
 - `lollipop-chart`: A bar chart as a thin stick with a dot on the end, sorted largest first. Lighter than bars when there are many items. Exports: LollipopChart. Needs: charts.
 - `marimekko-chart`: Stacked 100% bars whose widths also mean something: column width is group size, block height is mix. Columns grow up on scroll. Exports: MarimekkoChart. Needs: charts.
 - `matrix-heatmap`: Rows by columns shaded by value: traffic by hour and weekday, cohort retention. Cells fade in as a wave; hover lights up the row and column. Exports: MatrixHeatmap. Needs: charts.
+- `network-graph`: Dots joined by lines for services, people or links. Settled layout (no jitter); hover lights up neighbours, click selects. Exports: NetworkGraph. Needs: charts.
 - `number-ticker`: Counts up to a value with easing once it scrolls into view. Exports: NumberTicker.
 - `org-chart`: Reporting tree with connector lines and collapsible teams. Exports: OrgChart. Needs: avatar, icons.
 - `outcome-bar`: One thick rounded bar split green and red in proportion (won vs lost), a pale piece for what is still open, a big conversion number above and the counts under each part. Exports: OutcomeBar. Needs: charts.
 - `pace-chart`: Burn-up for a monthly target: running total, the straight line you should be on, a dashed projection to month end, the target line and an ahead or behind pace chip. Exports: PaceChart. Needs: charts.
+- `parallel-coordinates`: One vertical axis per measure and one line per item crossing each at its value. Compare many measures at once; hover to isolate a line. Exports: ParallelCoordinates. Needs: charts.
 - `pareto-chart`: Causes sorted by size as bars plus a running-total line with an 80% mark. Shows which few causes matter most. Exports: ParetoChart. Needs: area-chart, charts.
 - `permission-matrix`: Roles by permissions grid of checkboxes with per-column toggle and locked roles. Exports: PermissionMatrix. Needs: checkbox, table.
 - `pie-chart`: Slices of one whole that sweep around on scroll. Hover a slice or legend row and it pulls out. Exports: PieChart. Needs: charts.
@@ -272,6 +288,7 @@ SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, Chev
 - `stat-card`: KPI tile with value, trend delta and a sparkline slot. Exports: StatCard. Needs: card, icons.
 - `stream-chart`: Streamgraph: smooth stacked flows around a center line to show shifts in mix over time. Ripples in from the left; hover a flow to focus it. Exports: StreamChart. Needs: area-chart, charts.
 - `sunburst-chart`: A hierarchy as concentric rings: each ring splits its parent. Rings sweep outward; hover a slice to light up its parents and children. Exports: SunburstChart. Needs: charts.
+- `swimlane-timeline`: Rows for people, teams or machines with bars on a shared day axis. Overlapping bars stack; a line marks today. Exports: SwimlaneTimeline. Needs: charts.
 - `tree-table`: Table whose rows have child rows. Expand and collapse branches by click or arrow keys. Exports: TreeTable. Needs: icons.
 - `treemap`: Tiles sized by value, packed to stay square. Budget by team, revenue by product. Spring in on scroll; hover lifts one tile and dims the rest. Exports: Treemap. Needs: charts.
 - `uptime-bar`: Status-page strip with one tick per day in green, amber or red, the uptime percentage and an incident note on hover. Exports: UptimeBar. Needs: charts.
@@ -279,6 +296,7 @@ SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, Chev
 - `virtual-list`: Windowed list that renders only the visible rows. 100,000 items stay smooth. Exports: VirtualList.
 - `waffle-chart`: A grid of 100 squares, each one percent of the whole. Squares pop in as a wave; hover a legend row to light up its squares. Exports: WaffleChart. Needs: charts.
 - `waterfall-chart`: How a start number becomes an end number: green adds, red subtracts, blue totals. Bars drop in one after another with connector lines. Exports: WaterfallChart. Needs: charts.
+- `webhook-log`: Recent webhook deliveries with status, time and duration. Open one for request and response bodies; failed ones can be resent. Exports: WebhookLog. Needs: badge, button, icons.
 - `word-cloud`: Words sized by how often they appear, biggest in the middle. Words grow in; hover to focus one, or make them clickable filters. Exports: WordCloud. Needs: charts.
 - `world-map`: Countries on a flat map or a draggable globe, with a 3D bar or pin standing on every country in your data. Zoom, pan and spin it; click a name in the list to highlight a country. Exports: worldCountryNames, WorldMap. Needs: charts.
 

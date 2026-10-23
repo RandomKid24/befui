@@ -25,6 +25,7 @@
 .shrink-0 {
   flex-shrink: 0;
 }
-.bg-border {
+.bg-border,
+.bg-border\/60 {
   background-color: var(--border);
 }

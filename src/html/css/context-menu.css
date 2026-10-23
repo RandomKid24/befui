@@ -95,7 +95,8 @@
   border-style: var(--tw-border-style);
   border-width: 1px;
 }
-.bg-border {
+.bg-border,
+.bg-border\/60 {
   background-color: var(--border);
 }
 .bg-popover {

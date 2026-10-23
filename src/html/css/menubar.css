@@ -108,7 +108,8 @@
 .bg-background\/15 {
   background-color: var(--background);
 }
-.bg-border {
+.bg-border,
+.bg-border\/60 {
   background-color: var(--border);
 }
 .bg-popover {

@@ -104,7 +104,7 @@
   font-weight: var(--font-weight-medium);
 }
 .text-foreground,
-.text-foreground\/90 {
+.text-foreground\/10 {
   color: var(--foreground);
 }
 .text-muted-foreground,
@@ -227,7 +227,7 @@ opacity\] {
 }
 
 .focus-visible\:bg-muted:focus-visible,
-.focus-visible\:bg-muted\/50:focus-visible {
+.focus-visible\:bg-muted\/40:focus-visible {
   background-color: var(--muted);
 }
 .group-data-\[variant\=pill\]\:data-\[state\=active\]\:bg-background:is(:where(.group)[data-variant=pill] *)[data-state=active] {

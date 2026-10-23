@@ -1,0 +1,11 @@
+<bef-parallel-coordinates class="w-[42rem] max-w-full" :groups='[{"name":"Petrol"},{"name":"Diesel SUV"},{"name":"Electric"}]' :rows='[{"name":"Sedan A","group":0,"values":{"mpg":28,"top":210,"acc":6.1,"price":14.2}},{"name":"Sedan B","group":0,"values":{"mpg":31,"top":190,"acc":7.4,"price":13.1}},{"name":"Hatch C","group":0,"values":{"mpg":38,"top":160,"acc":9.8,"price":11.4}},{"name":"Hatch D","group":0,"values":{"mpg":36,"top":170,"acc":9.1,"price":11.9}},{"name":"SUV E","group":1,"values":{"mpg":22,"top":230,"acc":8.2,"price":21.5}},{"name":"SUV F","group":1,"values":{"mpg":24,"top":215,"acc":8.9,"price":19.8}},{"name":"SUV G","group":1,"values":{"mpg":20,"top":250,"acc":7.1,"price":26}},{"name":"EV H","group":2,"values":{"mpg":0,"top":260,"acc":4.6,"price":38}},{"name":"EV I","group":2,"values":{"mpg":0,"top":220,"acc":6.2,"price":31.5}},{"name":"EV J","group":2,"values":{"mpg":0,"top":190,"acc":7.8,"price":24.9}}]' id="g1"></bef-parallel-coordinates>
+<script type="module">
+document.getElementById("g1").props = {
+  axes: [
+    { key: "mpg", label: "Mileage", format: (n) => `${n} km/l` },
+    { key: "top", label: "Top speed", format: (n) => `${n} km/h` },
+    { key: "acc", label: "0-100 s", format: (n) => `${n}s` },
+    { key: "price", label: "Price", format: (n) => `₹${n}L` },
+  ],
+};
+</script>

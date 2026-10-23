@@ -6,6 +6,9 @@
     "avatar",
     "relative-time"
   ],
+  "agent-trace": [
+    "icons"
+  ],
   "ai-chat": [
     "ai-message",
     "icons",
@@ -25,6 +28,12 @@
     "icons"
   ],
   "analog-clock": [],
+  "api-key-manager": [
+    "badge",
+    "button",
+    "icons",
+    "input"
+  ],
   "app-shell": [
     "sidebar"
   ],
@@ -35,6 +44,9 @@
   ],
   "area-chart": [
     "charts"
+  ],
+  "artifact-panel": [
+    "icons"
   ],
   "attachment": [
     "icons"
@@ -47,6 +59,9 @@
   "autocomplete": [
     "input"
   ],
+  "autosize-textarea": [
+    "input"
+  ],
   "avatar": [],
   "avatar-upload": [
     "avatar",
@@ -57,6 +72,7 @@
     "icons"
   ],
   "bar-list": [],
+  "bar-race": [],
   "border-beam": [],
   "bottom-nav": [],
   "bottom-sheet": [],
@@ -90,6 +106,10 @@
   "carousel": [
     "icons"
   ],
+  "cascader": [
+    "icons",
+    "popover"
+  ],
   "changelog": [
     "badge"
   ],
@@ -112,6 +132,10 @@
   ],
   "circle-pack-chart": [
     "charts"
+  ],
+  "citation-popover": [
+    "hover-card",
+    "icons"
   ],
   "coachmark": [
     "button"
@@ -215,6 +239,9 @@
   "error-state": [
     "icons"
   ],
+  "eval-table": [
+    "icons"
+  ],
   "event-calendar": [
     "button",
     "calendar",
@@ -224,6 +251,9 @@
     "icons"
   ],
   "file-manager": [
+    "icons"
+  ],
+  "file-tree": [
     "icons"
   ],
   "file-uploader": [
@@ -324,6 +354,10 @@
   "menubar": [
     "icons"
   ],
+  "message-feedback": [
+    "button",
+    "icons"
+  ],
   "model-picker": [
     "icons",
     "popover"
@@ -333,6 +367,9 @@
   ],
   "navigation-menu": [
     "icons"
+  ],
+  "network-graph": [
+    "charts"
   ],
   "notification-center": [
     "button",
@@ -370,6 +407,9 @@
   ],
   "pagination": [
     "icons"
+  ],
+  "parallel-coordinates": [
+    "charts"
   ],
   "pareto-chart": [
     "area-chart",
@@ -542,6 +582,10 @@
     "icons"
   ],
   "status-dot": [],
+  "status-page": [
+    "icons",
+    "uptime-bar"
+  ],
   "stepper": [
     "icons"
   ],
@@ -557,6 +601,9 @@
   "sunburst-chart": [
     "charts"
   ],
+  "swimlane-timeline": [
+    "charts"
+  ],
   "swipe-actions": [],
   "switch": [],
   "table": [],
@@ -566,6 +613,10 @@
     "icons"
   ],
   "tag-manager": [
+    "icons"
+  ],
+  "team-invite": [
+    "button",
     "icons"
   ],
   "terminal": [],
@@ -606,6 +657,11 @@
     "button",
     "popover"
   ],
+  "transfer-list": [
+    "button",
+    "checkbox",
+    "icons"
+  ],
   "tree-table": [
     "icons"
   ],
@@ -618,6 +674,9 @@
   "typewriter": [],
   "uptime-bar": [
     "charts"
+  ],
+  "usage-meter": [
+    "icons"
   ],
   "user-menu": [
     "avatar",
@@ -639,6 +698,11 @@
   ],
   "waterfall-chart": [
     "charts"
+  ],
+  "webhook-log": [
+    "badge",
+    "button",
+    "icons"
   ],
   "week-strip": [
     "icons"

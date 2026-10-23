@@ -195,7 +195,6 @@
   }
 }
 
-.focus-visible\:bg-muted:focus-visible,
 .focus-visible\:bg-muted\/50:focus-visible {
   background-color: var(--muted);
 }
