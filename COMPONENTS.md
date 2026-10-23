@@ -1,6 +1,6 @@
 # Components
 
-Every befui component and block. **259 React components**, **256 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **37 page blocks**.
+Every befui component and block. **266 React components**, **263 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **37 page blocks**.
 (Generated from the registry by `npm run registry:build`. Do not edit by hand.)
 
 Install a React component with `npx github:RandomKid24/befui add <name>`, the Flutter version with `npx github:RandomKid24/befui add <name> --flutter`.
@@ -16,7 +16,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `sidebar` | Collapsible nav with groups, nested links and badges. Icon rail on desktop, slide-over on mobile. | ✓ |  |
 | `split-pane` | Two resizable panels with a draggable divider. Keyboard resizable. Horizontal or vertical. | ✓ |  |
 
-## Navigation (16)
+## Navigation (17)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
@@ -29,6 +29,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `navigation-menu` | Desktop top-bar menu whose items open mega-menu panels, with keyboard and focus handled. | ✓ |  |
 | `onboarding-carousel` | Mobile first-run intro with swipeable slides, dots, Skip and a final Get started button. | ✓ | ✓ |
 | `order-tracker` | Delivery progress as steps joined by a line that fills up to the current one. Horizontal on wide screens, vertical on phones. | ✓ | ✓ |
+| `org-switcher` | The workspace dropdown at the top of a sidebar: current workspace and plan, a menu to switch, and a Create workspace row. | ✓ |  |
 | `pagination` | Page buttons with ellipsis for long ranges. | ✓ | ✓ |
 | `scroll-progress` | Thin bar that fills as you scroll the page or a container. | ✓ |  |
 | `stepper` | Horizontal steps for multi-step forms and onboarding. | ✓ | ✓ |
@@ -96,7 +97,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `toggle-group` | A row of toggles where one or several can be pressed, for formatting toolbars. | ✓ | ✓ |
 | `transfer-list` | Two lists with arrows between them: tick items and move them across, each side with search and select all. For roles, columns or members. | ✓ |  |
 
-## Display (49)
+## Display (50)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
@@ -122,6 +123,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `format` | formatCurrency, formatCompact, formatPercent, formatBytes, formatDuration and a signed Currency component. Indian rupees by default. | ✓ |  |
 | `image-gallery` | Masonry grid of images of different heights with a hover zoom and caption. onSelect gives the index. | ✓ |  |
 | `invoice` | Printable invoice with number, status, from and bill-to, line items, tax and total computed from the lines. | ✓ |  |
+| `json-tree` | Collapsible JSON viewer with colour-coded values, counts on closed branches, expand and collapse all, and copy path or copy JSON. | ✓ |  |
 | `kbd` | Keyboard key hint. | ✓ |  |
 | `marquee` | Endless logo or tag scroll with edge fade. Pauses on hover. | ✓ | ✓ |
 | `media-player` | Video or audio player with themed controls: play, seek, time, mute and fullscreen. | ✓ |  |
@@ -172,7 +174,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `tool-call` | A card for one tool or function call an AI made: name, running, done or failed, how long it took, and its input and output to expand. | ✓ | ✓ |
 | `voice-wave` | Audio level bars for a voice input: they dance while listening and settle to a line when paused. Drive them with a real level or leave them idle. | ✓ | ✓ |
 
-## Data (79)
+## Data (82)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
@@ -194,6 +196,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `countdown` | Live countdown with flipping digits. | ✓ | ✓ |
 | `data-table` | Sortable columns, a search box and pagination, with optional row selection and bulk actions, column visibility menu, sticky header, toolbar slot, row action menus and clickable rows. You pass rows and column definitions. | ✓ |  |
 | `dumbbell-chart` | Change per item as two dots joined by a line: before and after, plan and actual. Green when good, red when bad. | ✓ |  |
+| `feature-flag-table` | Flags with a switch, key, environments and a rollout slider (percent of users) that dims while off. Searchable, controlled. | ✓ |  |
 | `file-manager` | Folder browser with breadcrumb, list and grid views, selection and double-click or Enter to open. | ✓ |  |
 | `filter-bar` | Removable filter chips with an Add filter menu: pick a field, then a value. | ✓ |  |
 | `forecast-chart` | Solid line for what happened, dashed line inside a shaded band for what is expected. The band is the likely range. | ✓ |  |
@@ -245,6 +248,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `stream-chart` | Streamgraph: smooth stacked flows around a center line to show shifts in mix over time. Ripples in from the left; hover a flow to focus it. | ✓ |  |
 | `sunburst-chart` | A hierarchy as concentric rings: each ring splits its parent. Rings sweep outward; hover a slice to light up its parents and children. | ✓ |  |
 | `swimlane-timeline` | Rows for people, teams or machines with bars on a shared day axis. Overlapping bars stack; a line marks today. | ✓ |  |
+| `token-usage-chart` | AI spend at a glance: tokens per day split into input, output and cached, with totals and an estimated cost from your prices. | ✓ |  |
 | `tree-table` | Table whose rows have child rows. Expand and collapse branches by click or arrow keys. | ✓ |  |
 | `treemap` | Tiles sized by value, packed to stay square. Budget by team, revenue by product. Spring in on scroll; hover lifts one tile and dims the rest. | ✓ |  |
 | `uptime-bar` | Status-page strip with one tick per day in green, amber or red, the uptime percentage and an incident note on hover. | ✓ | ✓ |
@@ -255,6 +259,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `webhook-log` | Recent webhook deliveries with status, time and duration. Open one for request and response bodies; failed ones can be resent. | ✓ |  |
 | `word-cloud` | Words sized by how often they appear, biggest in the middle. Words grow in; hover to focus one, or make them clickable filters. | ✓ |  |
 | `world-map` | Countries on a flat map or a draggable globe, with a 3D bar or pin standing on every country in your data. Zoom, pan and spin it; click a name in the list to highlight a country. |  |  |
+| `year-heatmap` | A whole year as small squares, one per day, columns are weeks (the GitHub contributions graph), tinted in five steps by value. | ✓ |  |
 
 ## Feedback (12)
 
@@ -293,11 +298,12 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `tooltip` | Hint on hover and focus. Optional title, keyboard shortcut, light style and arrow, plus an (i) InfoTip and a TruncatedText that only shows a tooltip when cut off. | ✓ | ✓ |
 | `tour` | Spotlight a part of the page and step through it with a card, for product walkthroughs. | ✓ |  |
 
-## Time (10)
+## Time (12)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
 | `analog-clock` | SVG clock for any time zone, with a second hand that ticks with a small bounce. | ✓ |  |
+| `cron-builder` | Pick a schedule in words (every N minutes, daily, weekly, monthly) and get the cron expression, a plain sentence and the next three runs. Custom mode checks your own. | ✓ |  |
 | `date-preset-select` | A compact Last 7 days dropdown for dashboards: pick a preset and get a from and to range. | ✓ |  |
 | `day-agenda` | One day as a time grid: events sit at their time, overlapping ones share the width, a red now-line marks the time. | ✓ | ✓ |
 | `event-calendar` | Month view with events on their days, multi-day spans, +n more overflow, locale-aware names and RTL arrows. | ✓ |  |
@@ -305,6 +311,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `stopwatch` | Start, pause, lap and reset, down to hundredths of a second. | ✓ | ✓ |
 | `time-picker` | Hour, minute and AM/PM segments you type into or step with arrow keys. 12 or 24 hour. | ✓ | ✓ |
 | `timer` | Countdown with a ring that drains smoothly, presets and an onDone callback. | ✓ | ✓ |
+| `timezone-picker` | Search every time zone by city or region and see its offset and the time there now. Starts on your own zone. | ✓ |  |
 | `week-strip` | Seven day pills with previous and next week arrows, a selected day and dots under days that have something. Arrow keys move the day. | ✓ | ✓ |
 | `world-clock` | Cities with live local time, a day or night icon and the hour difference from you. | ✓ |  |
 

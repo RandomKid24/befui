@@ -6,6 +6,25 @@
     "entries": [
       {
         "kind": "added",
+        "text": "Developer tools: cron builder (schedule in words, with the next three runs), JSON tree (collapsible, copy path), feature flag table (switch and rollout slider) and timezone picker (search any zone with the time there now).",
+        "slugs": [
+          "cron-builder",
+          "json-tree",
+          "feature-flag-table",
+          "timezone-picker"
+        ]
+      },
+      {
+        "kind": "added",
+        "text": "Token usage chart (AI tokens per day with estimated cost), org switcher (workspace dropdown for a sidebar) and year heatmap (a whole year, one square per day).",
+        "slugs": [
+          "token-usage-chart",
+          "org-switcher",
+          "year-heatmap"
+        ]
+      },
+      {
+        "kind": "added",
         "text": "Inputs: autosize textarea (grows with the text, with a counter), transfer list (move items between two lists), cascader (nested select by columns), team invite (paste a list of emails into chips) and API key manager (create, show once, revoke).",
         "slugs": [
           "autosize-textarea",

@@ -638,6 +638,31 @@ export default function OrderTrackerDemo() {
 }
 ```
 
+## Org switcher (`org-switcher`)
+The workspace dropdown at the top of a sidebar: current workspace and plan, a menu to switch, and a Create workspace row.
+- Group: Navigation
+- Add: `npx github:RandomKid24/befui add org-switcher`
+- Import: `import { OrgSwitcher } from '@/components/ui/org-switcher'`
+- Also needs: avatar, dropdown-menu, icons
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { OrgSwitcher } from '@/components/ui/org-switcher';
+
+const orgs = [
+  { id: 'acme', name: 'Acme Inc', plan: 'Pro plan' },
+  { id: 'side', name: 'Side Project', plan: 'Free plan' },
+  { id: 'studio', name: 'Studio 24', plan: 'Team plan' },
+];
+
+export default function OrgSwitcherDemo() {
+  const [id, setId] = React.useState('acme');
+  return <OrgSwitcher orgs={orgs} value={id} onChange={setId} onCreate={() => {}} />;
+}
+```
+
 ## Pagination (`pagination`)
 Page buttons with ellipsis for long ranges.
 - Group: Navigation
@@ -2949,6 +2974,37 @@ export default function InvoiceDemo() {
 }
 ```
 
+## JSON tree (`json-tree`)
+Collapsible JSON viewer with colour-coded values, counts on closed branches, expand and collapse all, and copy path or copy JSON.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add json-tree`
+- Import: `import { JsonTree } from '@/components/ui/json-tree'`
+- Also needs: icons
+
+Example:
+
+```tsx
+import { JsonTree } from '@/components/ui/json-tree';
+
+const data = {
+  id: 'ord_4471',
+  status: 'shipped',
+  total: 4999.5,
+  paid: true,
+  coupon: null,
+  customer: { name: 'Aarav Mehta', email: 'aarav@acme.co', address: { city: 'Pune', pin: '411001' } },
+  items: [
+    { sku: 'TEE-BLK-M', qty: 2, price: 799 },
+    { sku: 'CAP-NVY', qty: 1, price: 1200 },
+  ],
+  tags: ['gift', 'priority'],
+};
+
+export default function JsonTreeDemo() {
+  return <JsonTree className="w-[32rem] max-w-full" data={data} defaultDepth={2} />;
+}
+```
+
 ## Kbd (`kbd`)
 Keyboard key hint.
 - Group: Display
@@ -4876,6 +4932,30 @@ export default function DumbbellChartDemo() {
 }
 ```
 
+## Feature flag table (`feature-flag-table`)
+Flags with a switch, key, environments and a rollout slider (percent of users) that dims while off. Searchable, controlled.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add feature-flag-table`
+- Import: `import { FeatureFlagTable } from '@/components/ui/feature-flag-table'`
+- Also needs: badge, switch
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { FeatureFlagTable, type FeatureFlag } from '@/components/ui/feature-flag-table';
+
+export default function FeatureFlagTableDemo() {
+  const [flags, setFlags] = React.useState<FeatureFlag[]>([
+    { key: 'new-checkout', name: 'New checkout', description: 'One-page checkout', enabled: true, rollout: 25, environments: ['Production', 'Staging'], owner: 'Payments' },
+    { key: 'ai-search', name: 'AI search', description: 'Semantic results', enabled: true, rollout: 100, environments: ['Staging'], owner: 'Search' },
+    { key: 'dark-mode', name: 'Dark mode', enabled: false, rollout: 0, environments: ['Production'], owner: 'Design' },
+    { key: 'bulk-export', name: 'Bulk export', description: 'CSV of everything', enabled: true, rollout: 50, environments: ['Production'], owner: 'Data' },
+  ]);
+  return <FeatureFlagTable className="w-[44rem] max-w-full" flags={flags} onChange={setFlags} />;
+}
+```
+
 ## File manager (`file-manager`)
 Folder browser with breadcrumb, list and grid views, selection and double-click or Enter to open.
 - Group: Data
@@ -6454,6 +6534,40 @@ export default function SwimlaneTimelineDemo() {
 }
 ```
 
+## Token usage chart (`token-usage-chart`)
+AI spend at a glance: tokens per day split into input, output and cached, with totals and an estimated cost from your prices.
+- Group: Data
+- What it shows: Bars of AI tokens per day, split into input, output and cached, with the total and an estimated cost above.
+- How to read it: Taller bars are heavier days. Output tokens cost more than input, and cached tokens cost least, so a day with many cached tokens is cheaper than its height suggests. Hover a bar for the split.
+- Use it for: Watching LLM spend, finding expensive days, showing customers their usage.
+- Skip it when: Billing-exact numbers: the cost is an estimate from the prices you pass in.
+- Add: `npx github:RandomKid24/befui add token-usage-chart`
+- Import: `import { TokenUsageChart } from '@/components/ui/token-usage-chart'`
+- Also needs: stacked-bar-chart
+
+Example:
+
+```tsx
+import { TokenUsageChart } from '@/components/ui/token-usage-chart';
+
+export default function TokenUsageChartDemo() {
+  return (
+    <TokenUsageChart
+      className="w-[36rem] max-w-full"
+      days={[
+        { label: 'Mon', input: 820000, output: 210000, cached: 400000 },
+        { label: 'Tue', input: 940000, output: 260000, cached: 520000 },
+        { label: 'Wed', input: 760000, output: 190000, cached: 610000 },
+        { label: 'Thu', input: 1210000, output: 340000, cached: 480000 },
+        { label: 'Fri', input: 1100000, output: 300000, cached: 700000 },
+        { label: 'Sat', input: 380000, output: 90000, cached: 150000 },
+        { label: 'Sun', input: 290000, output: 70000, cached: 120000 },
+      ]}
+    />
+  );
+}
+```
+
 ## Tree table (`tree-table`)
 Table whose rows have child rows. Expand and collapse branches by click or arrow keys.
 - Group: Data
@@ -6791,6 +6905,37 @@ export default function WorldMapDemo() {
       <WorldMap data={data} projection={view} marker={marker} format={(n) => `${n.toLocaleString('en-IN')} users`} />
     </div>
   );
+}
+```
+
+## Year heatmap (`year-heatmap`)
+A whole year as small squares, one per day, columns are weeks (the GitHub contributions graph), tinted in five steps by value.
+- Group: Data
+- What it shows: One small square per day of the year, laid out in columns of weeks, tinted by how much happened.
+- How to read it: Darker means more. Read across to see busy and quiet stretches, down a column for the shape of one week. Hover a square for the day and its number.
+- Use it for: Activity, contributions, habits, support load or sales across a whole year.
+- Skip it when: Short ranges (use the heat calendar for one month) or values that need exact reading.
+- Add: `npx github:RandomKid24/befui add year-heatmap`
+- Import: `import { YearHeatmap } from '@/components/ui/year-heatmap'`
+- Also needs: charts
+
+Example:
+
+```tsx
+import { YearHeatmap } from '@/components/ui/year-heatmap';
+
+// Deterministic pseudo-random so the demo looks the same every time.
+const rnd = (i: number) => { const x = Math.sin(i * 12.9898) * 43758.5453; return x - Math.floor(x); };
+const values: Record<string, number> = {};
+for (let i = 0; i < 365; i++) {
+  const d = new Date(2026, 0, 1 + i);
+  const weekend = d.getDay() === 0 || d.getDay() === 6;
+  const v = Math.floor(rnd(i) ** 2 * (weekend ? 4 : 14));
+  if (v) values[`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`] = v;
+}
+
+export default function YearHeatmapDemo() {
+  return <YearHeatmap className="w-[48rem] max-w-full" year={2026} values={values} unit="commits" />;
 }
 ```
 
@@ -7718,6 +7863,25 @@ export default function AnalogClockDemo() {
 }
 ```
 
+## Cron builder (`cron-builder`)
+Pick a schedule in words (every N minutes, daily, weekly, monthly) and get the cron expression, a plain sentence and the next three runs. Custom mode checks your own.
+- Group: Time
+- Add: `npx github:RandomKid24/befui add cron-builder`
+- Import: `import { nextRuns, CronBuilder } from '@/components/ui/cron-builder'`
+- Also needs: copy-button
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { CronBuilder } from '@/components/ui/cron-builder';
+
+export default function CronBuilderDemo() {
+  const [cron, setCron] = React.useState('0 9 * * 1');
+  return <CronBuilder className="w-[34rem] max-w-full" value={cron} onChange={setCron} />;
+}
+```
+
 ## Date preset select (`date-preset-select`)
 A compact Last 7 days dropdown for dashboards: pick a preset and get a from and to range.
 - Group: Time
@@ -7887,6 +8051,25 @@ import { toast } from '@/components/ui/toast';
 
 export default function TimerDemo() {
   return <Timer onDone={() => toast.success('Time is up')} />;
+}
+```
+
+## Timezone picker (`timezone-picker`)
+Search every time zone by city or region and see its offset and the time there now. Starts on your own zone.
+- Group: Time
+- Add: `npx github:RandomKid24/befui add timezone-picker`
+- Import: `import { TimezonePicker } from '@/components/ui/timezone-picker'`
+- Also needs: icons, popover
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { TimezonePicker } from '@/components/ui/timezone-picker';
+
+export default function TimezonePickerDemo() {
+  const [tz, setTz] = React.useState('Asia/Kolkata');
+  return <TimezonePicker value={tz} onChange={setTz} />;
 }
 ```
 

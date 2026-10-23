@@ -994,6 +994,12 @@ Payment card preview that flips in 3D to show the CVV. Formats as the user types
 </script>
 ```
 
+## Cron builder (cron-builder)
+Pick a schedule in words (every N minutes, daily, weekly, monthly) and get the cron expression, a plain sentence and the next three runs. Custom mode checks your own.
+```html
+<bef-cron-builder class="w-[34rem] max-w-full" value="0 9 * * 1" emit="change"></bef-cron-builder>
+```
+
 ## Currency input (currency-input)
 Money field that groups digits as you type (1,25,000) and hands you a plain number.
 ```html
@@ -1359,6 +1365,12 @@ document.getElementById("g2").props = {
 </script>
 ```
 
+## Feature flag table (feature-flag-table)
+Flags with a switch, key, environments and a rollout slider (percent of users) that dims while off. Searchable, controlled.
+```html
+<bef-feature-flag-table class="w-[44rem] max-w-full" :flags='[{"key":"new-checkout","name":"New checkout","description":"One-page checkout","enabled":true,"rollout":25,"environments":["Production","Staging"],"owner":"Payments"},{"key":"ai-search","name":"AI search","description":"Semantic results","enabled":true,"rollout":100,"environments":["Staging"],"owner":"Search"},{"key":"dark-mode","name":"Dark mode","enabled":false,"rollout":0,"environments":["Production"],"owner":"Design"},{"key":"bulk-export","name":"Bulk export","description":"CSV of everything","enabled":true,"rollout":50,"environments":["Production"],"owner":"Data"}]' emit="change"></bef-feature-flag-table>
+```
+
 ## File manager (file-manager)
 Folder browser with breadcrumb, list and grid views, selection and double-click or Enter to open.
 ```html
@@ -1711,6 +1723,12 @@ Text input and textarea with icon, trailing slot, and invalid state.
 Printable invoice with number, status, from and bill-to, line items, tax and total computed from the lines.
 ```html
 <bef-invoice class="w-full max-w-2xl" number="INV-2026-0142" status="unpaid" issued="1 Oct 2026" due="15 Oct 2026" :tax-rate="0.18" :from='{"name":"Acme Industries Pvt Ltd","lines":["12 MG Road, Pune 411001","GSTIN 27AAACA1234A1Z9"]}' :to='{"name":"Northwind Traders","lines":["44 Park Street, Kolkata 700016","accounts@northwind.in"]}' :lines='[{"description":"Business plan, 12 seats, October","qty":12,"price":1299},{"description":"Extra storage (100 GB)","qty":2,"price":500}]' notes="Pay by bank transfer within 14 days. Late payments add 1.5% a month." :actions='"<bef-button size=\"sm\" variant=\"outline\"><bef-download-icon></bef-download-icon> PDF</bef-button>"'></bef-invoice>
+```
+
+## JSON tree (json-tree)
+Collapsible JSON viewer with colour-coded values, counts on closed branches, expand and collapse all, and copy path or copy JSON.
+```html
+<bef-json-tree class="w-[32rem] max-w-full" :data='{"id":"ord_4471","status":"shipped","total":4999.5,"paid":true,"coupon":null,"customer":{"name":"Aarav Mehta","email":"aarav@acme.co","address":{"city":"Pune","pin":"411001"}},"items":[{"sku":"TEE-BLK-M","qty":2,"price":799},{"sku":"CAP-NVY","qty":1,"price":1200}],"tags":["gift","priority"]}' :default-depth="2"></bef-json-tree>
 ```
 
 ## Kanban board (kanban)
@@ -2151,6 +2169,18 @@ Delivery progress as steps joined by a line that fills up to the current one. Ho
 Reporting tree with connector lines and collapsible teams.
 ```html
 <bef-org-chart :root='{"id":"ceo","name":"Meera Iyer","title":"CEO","children":[{"id":"cto","name":"Aarav Mehta","title":"CTO","children":[{"id":"e1","name":"Rohan Das","title":"Backend lead","children":[{"id":"e1a","name":"Ananya K.","title":"Engineer"},{"id":"e1b","name":"Arjun Reddy","title":"Engineer"}]},{"id":"e2","name":"Diya Rao","title":"Design lead"}]},{"id":"cfo","name":"Kabir Shah","title":"CFO","children":[{"id":"f1","name":"Nikhil Patil","title":"Accounts"}]},{"id":"chro","name":"Isha Nair","title":"Head of People","children":[{"id":"h1","name":"Pooja Desai","title":"Recruiter"},{"id":"h2","name":"Tara Menon","title":"HR partner"}]}]}' :open-levels="2"></bef-org-chart>
+```
+
+## Org switcher (org-switcher)
+The workspace dropdown at the top of a sidebar: current workspace and plan, a menu to switch, and a Create workspace row.
+```html
+<bef-org-switcher :orgs='[{"id":"acme","name":"Acme Inc","plan":"Pro plan"},{"id":"side","name":"Side Project","plan":"Free plan"},{"id":"studio","name":"Studio 24","plan":"Team plan"}]' value="acme" emit="change" id="g1"></bef-org-switcher>
+<script type="module">
+document.getElementById("g1").props = {
+  onCreate: () => {
+  },
+};
+</script>
 ```
 
 ## OTP input (otp-input)
@@ -3539,6 +3569,12 @@ document.getElementById("g1").props = {
 </script>
 ```
 
+## Timezone picker (timezone-picker)
+Search every time zone by city or region and see its offset and the time there now. Starts on your own zone.
+```html
+<bef-timezone-picker value="Asia/Kolkata" emit="change"></bef-timezone-picker>
+```
+
 ## Toast (toast)
 Call toast.success() from anywhere. No provider needed.
 ```html
@@ -3631,6 +3667,12 @@ How much of a model context window is used: a bar that turns amber and red as it
   <bef-token-meter :used="196500" :limit="200000"></bef-token-meter>
   <bef-token-meter :used="88000" :limit="200000" :segments='[{"label":"Prompt","tokens":12000},{"label":"Files","tokens":61000},{"label":"Reply","tokens":15000}]'></bef-token-meter>
 </div>
+```
+
+## Token usage chart (token-usage-chart)
+AI spend at a glance: tokens per day split into input, output and cached, with totals and an estimated cost from your prices.
+```html
+<bef-token-usage-chart class="w-[36rem] max-w-full" :days='[{"label":"Mon","input":820000,"output":210000,"cached":400000},{"label":"Tue","input":940000,"output":260000,"cached":520000},{"label":"Wed","input":760000,"output":190000,"cached":610000},{"label":"Thu","input":1210000,"output":340000,"cached":480000},{"label":"Fri","input":1100000,"output":300000,"cached":700000},{"label":"Sat","input":380000,"output":90000,"cached":150000},{"label":"Sun","input":290000,"output":70000,"cached":120000}]'></bef-token-usage-chart>
 ```
 
 ## Tool call (tool-call)
@@ -3901,4 +3943,10 @@ Words sized by how often they appear, biggest in the middle. Words grow in; hove
 Cities with live local time, a day or night icon and the hour difference from you.
 ```html
 <bef-world-clock class="w-80" :zones='[{"city":"Mumbai","timeZone":"Asia/Kolkata"},{"city":"London","timeZone":"Europe/London"},{"city":"San Francisco","timeZone":"America/Los_Angeles"},{"city":"Singapore","timeZone":"Asia/Singapore"},{"city":"Sydney","timeZone":"Australia/Sydney"}]'></bef-world-clock>
+```
+
+## Year heatmap (year-heatmap)
+A whole year as small squares, one per day, columns are weeks (the GitHub contributions graph), tinted in five steps by value.
+```html
+<bef-year-heatmap class="w-[48rem] max-w-full" :year="2026" :values='{"2026-01-02":11,"2026-01-04":1,"2026-01-05":1,"2026-01-06":2,"2026-01-07":5,"2026-01-09":1,"2026-01-10":1,"2026-01-11":3,"2026-01-12":9,"2026-01-14":13,"2026-01-15":9,"2026-01-16":2,"2026-01-17":3,"2026-01-19":5,"2026-01-20":1,"2026-01-21":8,"2026-01-22":4,"2026-01-23":6,"2026-01-26":1,"2026-01-27":3,"2026-01-30":2,"2026-01-31":3,"2026-02-01":2,"2026-02-02":1,"2026-02-03":2,"2026-02-05":4,"2026-02-06":13,"2026-02-07":3,"2026-02-09":8,"2026-02-10":4,"2026-02-11":12,"2026-02-12":2,"2026-02-14":1,"2026-02-15":2,"2026-02-16":1,"2026-02-17":3,"2026-02-20":1,"2026-02-22":2,"2026-02-23":4,"2026-02-24":2,"2026-02-25":10,"2026-02-26":3,"2026-03-04":9,"2026-03-08":1,"2026-03-10":2,"2026-03-11":1,"2026-03-12":1,"2026-03-13":3,"2026-03-17":4,"2026-03-19":6,"2026-03-22":2,"2026-03-23":2,"2026-03-25":1,"2026-03-27":1,"2026-03-30":2,"2026-03-31":12,"2026-04-01":9,"2026-04-03":3,"2026-04-04":2,"2026-04-05":2,"2026-04-06":7,"2026-04-07":12,"2026-04-10":3,"2026-04-12":3,"2026-04-15":3,"2026-04-16":11,"2026-04-17":1,"2026-04-18":1,"2026-04-19":2,"2026-04-20":12,"2026-04-22":5,"2026-04-27":3,"2026-04-28":11,"2026-04-29":2,"2026-04-30":13,"2026-05-01":1,"2026-05-02":2,"2026-05-03":3,"2026-05-06":7,"2026-05-07":1,"2026-05-09":3,"2026-05-11":2,"2026-05-12":9,"2026-05-13":8,"2026-05-15":4,"2026-05-16":2,"2026-05-18":9,"2026-05-19":9,"2026-05-21":2,"2026-05-22":8,"2026-05-23":2,"2026-05-24":2,"2026-05-26":7,"2026-05-27":9,"2026-05-28":12,"2026-05-29":5,"2026-05-31":3,"2026-06-03":7,"2026-06-04":3,"2026-06-05":11,"2026-06-06":3,"2026-06-07":1,"2026-06-09":1,"2026-06-10":11,"2026-06-11":4,"2026-06-13":1,"2026-06-15":2,"2026-06-16":7,"2026-06-17":7,"2026-06-18":3,"2026-06-19":6,"2026-06-21":2,"2026-06-22":10,"2026-06-23":8,"2026-06-24":3,"2026-06-25":5,"2026-06-28":3,"2026-06-29":1,"2026-06-30":13,"2026-07-01":3,"2026-07-02":6,"2026-07-03":9,"2026-07-06":11,"2026-07-07":7,"2026-07-08":2,"2026-07-10":5,"2026-07-12":1,"2026-07-14":13,"2026-07-15":5,"2026-07-16":1,"2026-07-17":8,"2026-07-20":4,"2026-07-22":3,"2026-07-23":1,"2026-07-24":10,"2026-07-25":1,"2026-07-27":11,"2026-07-28":13,"2026-07-29":2,"2026-07-30":1,"2026-08-01":2,"2026-08-02":2,"2026-08-03":4,"2026-08-05":13,"2026-08-07":10,"2026-08-09":1,"2026-08-10":3,"2026-08-11":1,"2026-08-12":7,"2026-08-13":3,"2026-08-14":3,"2026-08-17":9,"2026-08-18":2,"2026-08-19":10,"2026-08-20":4,"2026-08-21":7,"2026-08-24":5,"2026-08-26":2,"2026-08-27":5,"2026-08-28":2,"2026-08-29":1,"2026-08-30":1,"2026-08-31":3,"2026-09-02":1,"2026-09-03":1,"2026-09-04":7,"2026-09-05":3,"2026-09-06":1,"2026-09-07":4,"2026-09-08":8,"2026-09-09":1,"2026-09-10":5,"2026-09-12":3,"2026-09-13":3,"2026-09-14":10,"2026-09-15":1,"2026-09-17":1,"2026-09-18":5,"2026-09-20":1,"2026-09-21":13,"2026-09-22":11,"2026-09-23":3,"2026-09-26":1,"2026-09-27":1,"2026-09-28":2,"2026-09-30":4,"2026-10-01":1,"2026-10-02":3,"2026-10-05":9,"2026-10-06":2,"2026-10-08":2,"2026-10-12":1,"2026-10-13":10,"2026-10-14":3,"2026-10-15":1,"2026-10-18":1,"2026-10-19":3,"2026-10-20":11,"2026-10-21":7,"2026-10-22":4,"2026-10-23":1,"2026-10-24":3,"2026-10-26":1,"2026-10-27":10,"2026-10-29":1,"2026-10-30":11,"2026-11-01":1,"2026-11-02":7,"2026-11-04":1,"2026-11-05":7,"2026-11-06":12,"2026-11-08":1,"2026-11-09":2,"2026-11-10":1,"2026-11-11":5,"2026-11-12":12,"2026-11-15":3,"2026-11-16":11,"2026-11-17":9,"2026-11-18":11,"2026-11-19":8,"2026-11-20":1,"2026-11-21":1,"2026-11-23":7,"2026-11-24":7,"2026-11-25":5,"2026-11-26":9,"2026-11-27":11,"2026-11-29":2,"2026-11-30":10,"2026-12-01":1,"2026-12-02":12,"2026-12-03":1,"2026-12-04":13,"2026-12-05":1,"2026-12-06":3,"2026-12-07":10,"2026-12-08":7,"2026-12-09":1,"2026-12-10":9,"2026-12-11":2,"2026-12-12":1,"2026-12-13":1,"2026-12-16":5,"2026-12-17":6,"2026-12-18":2,"2026-12-19":2,"2026-12-21":1,"2026-12-22":2,"2026-12-23":10,"2026-12-24":7,"2026-12-28":10,"2026-12-29":3,"2026-12-31":8}' unit="commits"></bef-year-heatmap>
 ```

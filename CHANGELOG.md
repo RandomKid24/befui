@@ -7,6 +7,8 @@ All notable changes to befui. Versions follow [semver](https://semver.org): new 
 
 Flutter widgets for Android and iOS, a page per platform, a new hero
 
+- **Added:** Developer tools: cron builder (schedule in words, with the next three runs), JSON tree (collapsible, copy path), feature flag table (switch and rollout slider) and timezone picker (search any zone with the time there now). (Cron builder, JSON tree, Feature flag table, Timezone picker)
+- **Added:** Token usage chart (AI tokens per day with estimated cost), org switcher (workspace dropdown for a sidebar) and year heatmap (a whole year, one square per day). (Token usage chart, Org switcher, Year heatmap)
 - **Added:** Inputs: autosize textarea (grows with the text, with a counter), transfer list (move items between two lists), cascader (nested select by columns), team invite (paste a list of emails into chips) and API key manager (create, show once, revoke). (Autosize textarea, Transfer list, Cascader, Team invite, API key manager)
 - **Added:** Charts and data: parallel coordinates, network graph, swimlane timeline, bar race and a webhook log with request and response bodies and resend. (Parallel coordinates, Network graph, Swimlane timeline, Bar race, Webhook log)
 - **Added:** AI blocks: agent trace (a run as a timed tree of steps), citation popover, message feedback (thumbs then reasons), eval table (models side by side) and artifact panel (preview and code beside a chat). (Agent trace, Citation popover, Message feedback, Eval table, Artifact panel)

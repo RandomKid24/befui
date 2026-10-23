@@ -191,6 +191,9 @@
     "input"
   ],
   "credit-card": [],
+  "cron-builder": [
+    "copy-button"
+  ],
   "currency-input": [],
   "data-table": [
     "button",
@@ -249,6 +252,10 @@
   ],
   "fab": [
     "icons"
+  ],
+  "feature-flag-table": [
+    "badge",
+    "switch"
   ],
   "file-manager": [
     "icons"
@@ -315,6 +322,9 @@
   "input-group": [],
   "invoice": [
     "badge"
+  ],
+  "json-tree": [
+    "icons"
   ],
   "kanban": [],
   "kbd": [],
@@ -396,6 +406,11 @@
   ],
   "org-chart": [
     "avatar",
+    "icons"
+  ],
+  "org-switcher": [
+    "avatar",
+    "dropdown-menu",
     "icons"
   ],
   "otp-input": [],
@@ -640,12 +655,19 @@
     "button",
     "icons"
   ],
+  "timezone-picker": [
+    "icons",
+    "popover"
+  ],
   "toast": [
     "icons"
   ],
   "toggle": [],
   "toggle-group": [],
   "token-meter": [],
+  "token-usage-chart": [
+    "stacked-bar-chart"
+  ],
   "tool-call": [
     "icons"
   ],
@@ -714,6 +736,9 @@
     "icons"
   ],
   "world-map": [
+    "charts"
+  ],
+  "year-heatmap": [
     "charts"
   ]
 }

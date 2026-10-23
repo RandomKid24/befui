@@ -352,5 +352,17 @@
     "read": "The top bar is the leader at that moment. Press play to watch who overtakes whom, or drag the scrubber to a date to stop on it.",
     "use": "Rankings that change over time: cities, brands, teams, repositories.",
     "avoid": "Anything that must be read precisely, or only two moments (use a slope chart)."
+  },
+  "year-heatmap": {
+    "what": "One small square per day of the year, laid out in columns of weeks, tinted by how much happened.",
+    "read": "Darker means more. Read across to see busy and quiet stretches, down a column for the shape of one week. Hover a square for the day and its number.",
+    "use": "Activity, contributions, habits, support load or sales across a whole year.",
+    "avoid": "Short ranges (use the heat calendar for one month) or values that need exact reading."
+  },
+  "token-usage-chart": {
+    "what": "Bars of AI tokens per day, split into input, output and cached, with the total and an estimated cost above.",
+    "read": "Taller bars are heavier days. Output tokens cost more than input, and cached tokens cost least, so a day with many cached tokens is cheaper than its height suggests. Hover a bar for the split.",
+    "use": "Watching LLM spend, finding expensive days, showing customers their usage.",
+    "avoid": "Billing-exact numbers: the cost is an estimate from the prices you pass in."
   }
 }
