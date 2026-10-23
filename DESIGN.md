@@ -28,6 +28,21 @@ Tokens live in `src/index.css` (`:root` for light, `.dark` for dark). Ten ready 
 | `--ring` | `#3b82f6` | `#3b82f6` | focus ring |
 | `--destructive` / `--success` / `--warning` / `--info` | rose, emerald, amber, blue | brighter | status |
 
+Full token list (from `src/index.css`):
+
+| Token | Light | Dark |
+|---|---|---|
+| `--primary-foreground` | `#ffffff` | `#0a0c10` |
+| `--card-foreground` / `--popover` / `--popover-foreground` | `#ffffff`, `#0f172a` | `#0f1218`, `#e6e9ef` |
+| `--secondary-foreground` | `#0f172a` | `#e6e9ef` |
+| `--accent-foreground` | `#1d4ed8` | `#93c5fd` |
+| `--destructive` | `#e11d48` | `#f43f5e` |
+| `--success` | `#059669` | `#10b981` |
+| `--warning` | `#d97706` | `#f59e0b` |
+| `--info` | `#2563eb` | `#60a5fa` |
+
+The blue family is Tailwind blue: 50 `#eff6ff` (accent), 300 `#93c5fd`, 400 `#60a5fa`, 500 `#3b82f6` (ring, dark primary), 600 `#2563eb` (primary), 700 `#1d4ed8`. Neutrals are slate, with a slightly blue-black in dark (`#0a0c10`, `#0f1218`, `#171b23`).
+
 Rules: text on `--primary` is `--primary-foreground`; status colours always come with an icon or label, never colour alone; primary text on the page background must pass 4.5:1 (the tests check this for every palette).
 
 ## Type
