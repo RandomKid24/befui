@@ -147,7 +147,7 @@ const ComponentCard = React.memo(function ComponentCard({ c }: { c: (typeof comp
           <p className="flex items-center gap-2 text-sm font-semibold">{c.name}{c.isNew && <Badge variant="primary">New</Badge>}</p>
           <ArrowRightIcon className="size-4 text-muted-foreground/0 transition-all group-hover:translate-x-0.5 group-hover:text-muted-foreground" />
         </div>
-        <p className="mt-1 text-[13px] text-muted-foreground">{c.description}</p>
+        <p className="mt-1 line-clamp-2 text-[13px] text-muted-foreground">{c.description}</p>
       </SpotlightCard>
     </Link>
   );
@@ -161,28 +161,39 @@ export function ComponentsIndex() {
     (!cat.length || cat.includes(c.category)) &&
     (!term || `${c.name} ${c.description} ${c.keywords.join(' ')}`.toLowerCase().includes(term));
   const shown = components.filter(match);
+  const [allNew, setAllNew] = React.useState(false);
+  const fresh = shown.filter((c) => c.isNew);
+  const filtering = !!term || cat.length > 0;
+  const freshShown = allNew || filtering ? fresh : fresh.slice(0, 6); // the full list is already under its categories
   return (
     <div>
       <h1 className={h1}>Components <Badge variant="outline" className="ml-2 align-middle">{shown.length}</Badge></h1>
       <p className="mt-3 max-w-2xl text-muted-foreground">Each is a single file with a live example.</p>
-      <div className="mt-6 grid gap-3">
+      <div className="sticky top-14 z-10 -mx-1 mt-6 grid gap-3 bg-background/85 px-1 py-3 backdrop-blur supports-[backdrop-filter]:bg-background/70">
         <Input leftIcon={<SearchIcon />} placeholder="Filter by name or keyword" value={q} onChange={(e) => setQ(e.target.value)} className="max-w-sm" />
         <ChipGroup options={categories} value={cat} onValueChange={setCat} />
       </div>
       {shown.length === 0 && (
         <EmptyState className="mt-10" icon={<SearchIcon />} title="Nothing matches" description="Try a different word, or clear the category filters." action={<Button variant="outline" size="sm" onClick={() => { setQ(''); setCat([]); }}>Clear filters</Button>} />
       )}
-      {shown.some((c) => c.isNew) && (
-        <section className="mt-10">
-          <h2 className="mb-3 flex items-center gap-2 text-sm font-semibold text-muted-foreground">Newly added <Badge variant="primary">{shown.filter((c) => c.isNew).length}</Badge></h2>
+      {fresh.length > 0 && (
+        <section className="mt-6">
+          <h2 className="mb-3 flex items-center gap-2 text-sm font-semibold">
+            Newly added <Badge variant="primary">{fresh.length}</Badge>
+            {!filtering && fresh.length > 6 && (
+              <button type="button" onClick={() => setAllNew((v) => !v)} className="ms-auto rounded text-xs font-medium text-primary outline-none hover:underline focus-visible:ring-2 focus-visible:ring-ring/50">
+                {allNew ? 'Show fewer' : `Show all ${fresh.length}`}
+              </button>
+            )}
+          </h2>
           <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-            {shown.filter((c) => c.isNew).map((c, i) => <ComponentCard key={c.slug} c={c} />)}
+            {freshShown.map((c) => <ComponentCard key={c.slug} c={c} />)}
           </div>
         </section>
       )}
       {categories.filter((k) => shown.some((c) => c.category === k)).map((k) => (
         <section key={k} className="mt-10">
-          <h2 className="mb-3 text-sm font-semibold text-muted-foreground">{k}</h2>
+          <h2 className="mb-3 flex items-center gap-2 border-b pb-2 text-sm font-semibold">{k} <span className="text-xs font-normal text-muted-foreground">{shown.filter((c) => c.category === k).length}</span></h2>
           <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
             {shown.filter((c) => c.category === k).map((c, i) => <ComponentCard key={c.slug} c={c} />)}
           </div>
