@@ -16,6 +16,8 @@ interface PickerProps<V> {
   onChange?: (value: V | undefined) => void;
   placeholder?: string;
   disabled?: boolean;
+  /** Marks the field invalid (aria-invalid) and draws the error border. */
+  invalid?: boolean;
   /** Return true for days that cannot be picked. */
   disabledDays?: (date: Date) => boolean;
   clearable?: boolean;
@@ -30,6 +32,7 @@ function Shell({
   empty,
   onClear,
   disabled,
+  invalid,
   className,
   id,
   children,
@@ -40,6 +43,7 @@ function Shell({
   empty: boolean;
   onClear?: () => void;
   disabled?: boolean;
+  invalid?: boolean;
   className?: string;
   id?: string;
   children: React.ReactNode;
@@ -50,7 +54,7 @@ function Shell({
     <Popover open={open} onOpenChange={setOpen}>
       <div className="relative">
         <PopoverTrigger asChild>
-          <button id={id} type="button" disabled={disabled} className={cn(trigger, onClear && !empty && 'pe-9', className)}>
+          <button id={id} type="button" disabled={disabled} aria-invalid={invalid || undefined} className={cn(trigger, onClear && !empty && 'pe-9', className)}>
             <CalendarIcon className="size-4 shrink-0 text-muted-foreground" />
             <span className={cn('flex-1 truncate', empty && 'text-muted-foreground/70')}>{label}</span>
           </button>
@@ -73,7 +77,7 @@ function Shell({
   );
 }
 
-export function DatePicker({ value, onChange, placeholder = 'Pick a date', disabled, disabledDays, clearable, locale, className, id }: PickerProps<Date>) {
+export function DatePicker({ value, onChange, placeholder = 'Pick a date', disabled, invalid, disabledDays, clearable, locale, className, id }: PickerProps<Date>) {
   const [open, setOpen] = React.useState(false);
   return (
     <Shell
@@ -81,6 +85,7 @@ export function DatePicker({ value, onChange, placeholder = 'Pick a date', disab
       setOpen={setOpen}
       id={id}
       disabled={disabled}
+      invalid={invalid}
       className={className}
       empty={!value}
       label={value ? formatDate(value, locale) : placeholder}
@@ -118,7 +123,7 @@ export const defaultRangePresets: RangePreset[] = [
 const dayCount = (r: DateRange) => (r.from && r.to ? Math.round((r.to.getTime() - r.from.getTime()) / 86400000) + 1 : 0);
 
 /** Pick a start and end date. `presets` adds quick ranges beside the calendar (true for the defaults, or your own list). */
-export function DateRangePicker({ value, onChange, placeholder = 'Pick a date range', disabled, disabledDays, clearable, presets, locale, className, id }: PickerProps<DateRange> & { presets?: boolean | RangePreset[] }) {
+export function DateRangePicker({ value, onChange, placeholder = 'Pick a date range', disabled, invalid, disabledDays, clearable, presets, locale, className, id }: PickerProps<DateRange> & { presets?: boolean | RangePreset[] }) {
   const [open, setOpen] = React.useState(false);
   const list = presets === true ? defaultRangePresets : presets || [];
   const label = value?.from ? (value.to ? `${formatDate(value.from, locale)} to ${formatDate(value.to, locale)}` : `${formatDate(value.from, locale)} to ...`) : placeholder;
@@ -129,6 +134,7 @@ export function DateRangePicker({ value, onChange, placeholder = 'Pick a date ra
       setOpen={setOpen}
       id={id}
       disabled={disabled}
+      invalid={invalid}
       className={className}
       empty={!value?.from}
       label={label}

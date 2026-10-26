@@ -15,7 +15,7 @@ export interface ComboboxOption {
 }
 
 const trigger =
-  'flex min-h-9 w-full items-center justify-between gap-2 rounded-md border border-input bg-background px-3 py-1 text-left text-sm outline-none transition-[border,box-shadow] hover:border-muted-foreground/40 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/15 disabled:cursor-not-allowed disabled:opacity-50 data-[state=open]:border-ring data-[state=open]:ring-3 data-[state=open]:ring-ring/15';
+  'flex min-h-9 w-full items-center justify-between gap-2 rounded-md border border-input bg-background px-3 py-1 text-left text-sm outline-none transition-[border,box-shadow] hover:border-muted-foreground/40 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/15 disabled:cursor-not-allowed disabled:opacity-50 aria-[invalid=true]:border-destructive aria-[invalid=true]:ring-destructive/15 data-[state=open]:border-ring data-[state=open]:ring-3 data-[state=open]:ring-ring/15';
 
 interface CommonProps {
   options: ComboboxOption[];
@@ -23,6 +23,8 @@ interface CommonProps {
   searchPlaceholder?: string;
   emptyText?: string;
   disabled?: boolean;
+  /** Marks the field invalid (aria-invalid) and draws the error border. */
+  invalid?: boolean;
   className?: string;
   id?: string;
 }
@@ -66,6 +68,7 @@ export function Combobox({
   searchPlaceholder,
   emptyText,
   disabled,
+  invalid,
   className,
   id,
 }: CommonProps & { value?: string; onValueChange?: (value: string | undefined) => void }) {
@@ -74,7 +77,7 @@ export function Combobox({
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <button id={id} type="button" role="combobox" aria-expanded={open} disabled={disabled} className={cn(trigger, className)}>
+        <button id={id} type="button" role="combobox" aria-expanded={open} disabled={disabled} aria-invalid={invalid || undefined} className={cn(trigger, className)}>
           <span className={cn('truncate', !current && 'text-muted-foreground/70')}>{current?.label ?? placeholder}</span>
           <SortIcon className="size-4 shrink-0 text-muted-foreground" />
         </button>
@@ -104,6 +107,7 @@ export function MultiCombobox({
   searchPlaceholder,
   emptyText,
   disabled,
+  invalid,
   className,
   id,
   maxBadges = 2,
@@ -113,7 +117,7 @@ export function MultiCombobox({
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <button id={id} type="button" role="combobox" disabled={disabled} className={cn(trigger, className)}>
+        <button id={id} type="button" role="combobox" disabled={disabled} aria-invalid={invalid || undefined} className={cn(trigger, className)}>
           <span className="flex min-w-0 flex-1 flex-wrap items-center gap-1">
             {picked.length === 0 && <span className="text-muted-foreground/70">{placeholder}</span>}
             {picked.slice(0, maxBadges).map((o) => (

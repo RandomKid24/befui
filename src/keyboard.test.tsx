@@ -71,3 +71,25 @@ describe('focus visibility', () => {
     expect(bad).toEqual([]);
   });
 });
+
+describe('field state contract', () => {
+  it('invalid is exposed as aria-invalid and loading as aria-busy', async () => {
+    const { Input } = await import('@/components/ui/input');
+    const { Combobox } = await import('@/components/ui/combobox');
+    const { TagInput } = await import('@/components/ui/tag-input');
+    const { NumberStepper } = await import('@/components/ui/number-stepper');
+    const { container } = render(
+      <div>
+        <Input aria-label="a" aria-invalid loading readOnly />
+        <Combobox options={[{ value: 'x', label: 'X' }]} invalid />
+        <TagInput value={[]} onValueChange={() => {}} invalid />
+        <NumberStepper value={1} onValueChange={() => {}} invalid />
+      </div>,
+    );
+    const a = screen.getByLabelText('a');
+    expect(a).toHaveAttribute('aria-busy', 'true');
+    expect(a).toHaveAttribute('readonly');
+    expect(screen.getByRole('combobox')).toHaveAttribute('aria-invalid', 'true');
+    expect(container.querySelectorAll('[aria-invalid="true"]').length).toBe(4);
+  });
+});

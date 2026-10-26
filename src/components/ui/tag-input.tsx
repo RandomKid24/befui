@@ -10,12 +10,14 @@ export function TagInput({
   onValueChange,
   placeholder = 'Add a tag',
   className,
+  invalid,
   'aria-label': ariaLabel,
 }: {
   value: string[];
   onValueChange: (v: string[]) => void;
   placeholder?: string;
   className?: string;
+  invalid?: boolean;
   /** Name of the text field. Defaults to the placeholder, which disappears once there are tags. */
   'aria-label'?: string;
 }) {
@@ -26,7 +28,7 @@ export function TagInput({
     setText('');
   };
   return (
-    <div className={cn('flex min-h-10 flex-wrap items-center gap-1.5 rounded-md border bg-background px-2 py-1.5 transition-shadow focus-within:border-ring focus-within:ring-4 focus-within:ring-ring/15', className)}>
+    <div aria-invalid={invalid || undefined} className={cn('aria-[invalid=true]:border-destructive flex min-h-10 flex-wrap items-center gap-1.5 rounded-md border bg-background px-2 py-1.5 transition-shadow focus-within:border-ring focus-within:ring-4 focus-within:ring-ring/15', className)}>
       {value.map((t) => (
         <span key={t} className="inline-flex animate-pop items-center gap-1 rounded-full bg-secondary py-0.5 pl-2.5 pr-1 text-xs font-medium">
           {t}
