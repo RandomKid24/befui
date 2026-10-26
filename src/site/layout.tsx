@@ -9,6 +9,7 @@ import { Sheet, SheetContent, SheetTitle } from '@/components/ui/dialog';
 import { ScrollProgress } from '@/components/ui/scroll-progress';
 import { SearchInput } from '@/components/ui/search-input';
 import { Toaster } from '@/components/ui/toast';
+import './site.css';
 import { Tooltip, TooltipProvider } from '@/components/ui/tooltip';
 import { blocks, categories, components, NEW_SLUGS } from '@/registry';
 import { cn } from '@/lib/utils';
@@ -19,7 +20,7 @@ export const REPO = 'https://github.com/RandomKid24/befui';
 
 export function Logo() {
   return (
-    <Link to="/" className="flex items-center gap-2 font-semibold tracking-tight">
+    <Link to="/" className="font-display flex items-center gap-2 text-[17px] font-bold tracking-tight">
       <span className="grid size-6 place-items-center rounded-md bg-primary text-primary-foreground">
 <BefMark weight={3} className="size-3.5" />
       </span>
@@ -314,7 +315,7 @@ export function Shell({ path, docs, children }: { path: string; docs: boolean; c
   const navLink = (to: string, label: string, match: string) => (
     <Link
       to={to}
-      className={cn('rounded-md px-2.5 py-1.5 text-[13px] font-medium transition-colors hover:text-foreground', path.startsWith(match) ? 'text-foreground' : 'text-muted-foreground')}
+      className={cn('font-display rounded-md px-2.5 py-1.5 text-sm font-medium transition-colors hover:text-foreground', path.startsWith(match) ? 'text-foreground' : 'text-muted-foreground')}
     >
       {label}
     </Link>
@@ -325,11 +326,11 @@ export function Shell({ path, docs, children }: { path: string; docs: boolean; c
       <ScrollProgress />
       <header className="sticky top-0 z-40 border-b bg-background/80 backdrop-blur-md">
         <div className="mx-auto flex h-14 max-w-[88rem] items-center gap-4 px-4 sm:px-6">
-          <Button variant="ghost" size="icon-sm" className={docs ? 'lg:hidden' : 'md:hidden'} onClick={() => setMenuOpen(true)} aria-label="Open navigation">
+          <Button variant="ghost" size="icon-sm" className="xl:hidden" onClick={() => setMenuOpen(true)} aria-label="Open navigation">
             <MenuIcon />
           </Button>
           <Logo />
-          <nav className="ml-4 hidden items-center gap-1 md:flex">
+          <nav className="ml-4 hidden items-center gap-1 xl:flex">
             {navLink('/docs', 'Docs', '/docs')}
             {navLink('/components', 'Components', '/components')}
             {navLink('/blocks', 'Blocks', '/blocks')}
@@ -370,7 +371,7 @@ export function Shell({ path, docs, children }: { path: string; docs: boolean; c
         <SheetContent side="left" className="max-w-xs overflow-y-auto" aria-describedby={undefined}>
           <SheetTitle className="sr-only">Navigation</SheetTitle>
           <Logo />
-          <nav className={cn('mt-4 grid gap-1 md:hidden', docs && 'border-b pb-4')}>
+          <nav className={cn('mt-4 grid gap-1 xl:hidden', docs && 'border-b pb-4')}>
             {[['/docs', 'Docs'], ['/components', 'Components'], ['/blocks', 'Blocks'], ['/icons', 'Icons'], ['/ai', 'Use with AI'], ['/html', 'HTML and htmx'], ['/flutter', 'Flutter'], ['/changelog', 'Changelog']].map(([to, label]) => (
               <Link key={to} to={to} onClick={() => setMenuOpen(false)} className="rounded-md px-2.5 py-2 text-sm font-medium hover:bg-secondary">{label}</Link>
             ))}

@@ -42,7 +42,7 @@ export function CurrencyInput({
         onFocus={() => { focused.current = true; }}
         onBlur={() => { focused.current = false; setText(fmt(value)); }}
         onChange={(e) => change(e.target.value)}
-        className="h-9 w-full rounded-md border border-input bg-background ps-8 pe-3 text-end text-sm tabular-nums outline-none transition-[border,box-shadow] placeholder:text-muted-foreground/70 hover:border-muted-foreground/40 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/15 disabled:opacity-50 aria-[invalid=true]:border-destructive"
+        className="h-9 w-full rounded-md border border-input bg-background ps-8 pe-3 text-end text-sm tabular-nums outline-none transition-[border,box-shadow] placeholder:text-muted-foreground hover:border-muted-foreground/40 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/15 disabled:opacity-50 aria-[invalid=true]:border-destructive"
       />
     </div>
   );

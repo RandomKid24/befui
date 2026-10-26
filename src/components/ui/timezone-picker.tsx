@@ -41,7 +41,7 @@ export function TimezonePicker({ value, onChange, className }: { value?: string;
       <PopoverContent align="start" className="w-80 max-w-[calc(100vw-2rem)] p-0">
         <div className="relative border-b">
           <SearchIcon className="pointer-events-none absolute start-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-          <input autoFocus value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search city or region" aria-label="Search time zones" className="h-10 w-full bg-transparent ps-9 pe-3 text-sm outline-none placeholder:text-muted-foreground/70" />
+          <input autoFocus value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search city or region" aria-label="Search time zones" className="h-10 w-full bg-transparent ps-9 pe-3 text-sm outline-none placeholder:text-muted-foreground" />
         </div>
         <ul role="listbox" aria-label="Time zones" className="max-h-64 overflow-y-auto p-1">
           {hits.map((z) => (

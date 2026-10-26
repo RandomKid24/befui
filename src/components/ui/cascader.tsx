@@ -80,7 +80,7 @@ export function Cascader({
           aria-haspopup="listbox"
           className={cn('flex h-9 w-64 max-w-full items-center justify-between gap-2 rounded-md border border-input bg-background px-3 text-sm outline-none transition-[border,box-shadow] hover:border-muted-foreground/40 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/15 data-[state=open]:border-ring', className)}
         >
-          <span className={cn('truncate', !label && 'text-muted-foreground/70')}>{label || placeholder}</span>
+          <span className={cn('truncate', !label && 'text-muted-foreground')}>{label || placeholder}</span>
           <ChevronDownIcon className="size-4 shrink-0 text-muted-foreground" />
         </button>
       </PopoverTrigger>

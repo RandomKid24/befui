@@ -5,12 +5,12 @@ import * as AvatarPrimitive from '@radix-ui/react-avatar';
 import { cn } from '@/lib/utils';
 
 const tones = [
-  'bg-blue-500/15 text-blue-600 dark:text-blue-300',
-  'bg-emerald-500/15 text-emerald-600 dark:text-emerald-300',
-  'bg-violet-500/15 text-violet-600 dark:text-violet-300',
-  'bg-amber-500/15 text-amber-600 dark:text-amber-300',
-  'bg-rose-500/15 text-rose-600 dark:text-rose-300',
-  'bg-cyan-500/15 text-cyan-600 dark:text-cyan-300',
+  'bg-blue-500/15 text-blue-800 dark:text-blue-300',
+  'bg-emerald-500/15 text-emerald-800 dark:text-emerald-300',
+  'bg-violet-500/15 text-violet-800 dark:text-violet-300',
+  'bg-amber-500/15 text-amber-800 dark:text-amber-300',
+  'bg-rose-500/15 text-rose-800 dark:text-rose-300',
+  'bg-cyan-500/15 text-cyan-800 dark:text-cyan-300',
 ];
 
 function toneFor(name: string) {

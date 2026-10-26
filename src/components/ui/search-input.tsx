@@ -42,7 +42,7 @@ export function SearchInput({
         placeholder={placeholder}
         onChange={(e) => onValueChange(e.target.value)}
         onKeyDown={(e) => e.key === 'Escape' && (value ? onValueChange('') : ref.current?.blur())}
-        className="h-9 w-full rounded-md border border-input bg-background pl-9 pr-9 text-sm outline-none transition-[border,box-shadow] placeholder:text-muted-foreground/70 hover:border-muted-foreground/40 focus-visible:border-ring focus-visible:ring-4 focus-visible:ring-ring/15 [&::-webkit-search-cancel-button]:hidden"
+        className="h-9 w-full rounded-md border border-input bg-background pl-9 pr-9 text-sm outline-none transition-[border,box-shadow] placeholder:text-muted-foreground hover:border-muted-foreground/40 focus-visible:border-ring focus-visible:ring-4 focus-visible:ring-ring/15 [&::-webkit-search-cancel-button]:hidden"
       />
       {value ? (
         <button type="button" aria-label="Clear" onClick={() => { onValueChange(''); ref.current?.focus(); }} className="absolute right-2 grid size-5 animate-pop place-items-center rounded-full text-muted-foreground hover:bg-secondary hover:text-foreground">

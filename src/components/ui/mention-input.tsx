@@ -68,7 +68,7 @@ export function MentionInput({
           else if (e.key === 'Enter' || e.key === 'Tab') { e.preventDefault(); pick(list[active] ?? list[0]); }
           else if (e.key === 'Escape') { e.preventDefault(); setDismissed(true); }
         }}
-        className="w-full resize-none rounded-md border bg-background px-3 py-2 text-sm outline-none transition-[border,box-shadow] placeholder:text-muted-foreground/70 focus-visible:border-ring focus-visible:ring-4 focus-visible:ring-ring/15"
+        className="w-full resize-none rounded-md border bg-background px-3 py-2 text-sm outline-none transition-[border,box-shadow] placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-4 focus-visible:ring-ring/15"
       />
       {open && (
         <ul role="listbox" id={listId} aria-label="Mention suggestions" className="absolute left-0 top-full z-20 mt-1 w-64 overflow-hidden rounded-lg border bg-popover p-1 shadow-lg animate-pop">

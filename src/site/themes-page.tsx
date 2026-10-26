@@ -1,35 +1,12 @@
 import * as React from 'react';
-import themesJson from '@/registry/themes.json';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { CopyButton } from '@/components/ui/copy-button';
 import { Progress } from '@/components/ui/progress';
 import { Reveal } from '@/components/ui/reveal';
+import { STYLE_ID, applyTheme, themeCss, themes, type Tokens } from './theme-apply';
 
-type Tokens = Record<string, string>;
-type Preset = { label: string; light: Tokens; dark: Tokens };
-const themes = themesJson as unknown as Record<string, Preset>;
-const STYLE_ID = 'befui-theme';
-
-/** The CSS a project pastes into index.css for a preset: one block for light, one for dark. */
-export function themeCss(name: string): string {
-  const preset = themes[name];
-  const block = (selector: string, tokens: Tokens) => `${selector} {\n${Object.entries(tokens).map(([k, v]) => `  --${k}: ${v};`).join('\n')}\n}`;
-  return `${block(':root, .light', preset.light)}\n\n${block('.dark', preset.dark)}\n`;
-}
-
-/** Switches the whole docs site by appending a style tag after the stylesheet; null removes it. */
-function applyTheme(name: string | null) {
-  let tag = document.getElementById(STYLE_ID);
-  if (!name) { tag?.remove(); return; }
-  if (!tag) {
-    tag = document.createElement('style');
-    tag.id = STYLE_ID;
-    document.head.appendChild(tag);
-  }
-  tag.dataset.theme = name;
-  tag.textContent = themeCss(name);
-}
+export { themeCss };
 
 function useDark() {
   const [dark, setDark] = React.useState(() => document.documentElement.classList.contains('dark'));

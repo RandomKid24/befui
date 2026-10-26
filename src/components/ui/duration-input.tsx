@@ -54,7 +54,7 @@ export function DurationInput({ value, onChange, min, max, placeholder = 'e.g. 1
         aria-invalid={!!err}
         aria-describedby={err ? id : undefined}
         spellCheck={false}
-        className="h-9 rounded-md border border-input bg-background px-3 text-sm outline-none transition-[border,box-shadow] placeholder:text-muted-foreground/70 hover:border-muted-foreground/40 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/15 aria-[invalid=true]:border-destructive aria-[invalid=true]:ring-destructive/15"
+        className="h-9 rounded-md border border-input bg-background px-3 text-sm outline-none transition-[border,box-shadow] placeholder:text-muted-foreground hover:border-muted-foreground/40 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/15 aria-[invalid=true]:border-destructive aria-[invalid=true]:ring-destructive/15"
       />
       {err && <p id={id} role="alert" className="text-xs text-destructive">{err}</p>}
     </div>

@@ -20,7 +20,7 @@ export const InputGroupInput = React.forwardRef<HTMLInputElement, React.InputHTM
     <input
       ref={ref}
       type={type}
-      className={cn('min-w-0 flex-1 bg-transparent px-3 outline-none placeholder:text-muted-foreground/70 disabled:cursor-not-allowed', className)}
+      className={cn('min-w-0 flex-1 bg-transparent px-3 outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed', className)}
       {...props}
     />
   ),

@@ -78,7 +78,7 @@ export function Combobox({
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <button id={id} type="button" role="combobox" aria-expanded={open} disabled={disabled} aria-invalid={invalid || undefined} className={cn(trigger, className)}>
-          <span className={cn('truncate', !current && 'text-muted-foreground/70')}>{current?.label ?? placeholder}</span>
+          <span className={cn('truncate', !current && 'text-muted-foreground')}>{current?.label ?? placeholder}</span>
           <SortIcon className="size-4 shrink-0 text-muted-foreground" />
         </button>
       </PopoverTrigger>
@@ -119,7 +119,7 @@ export function MultiCombobox({
       <PopoverTrigger asChild>
         <button id={id} type="button" role="combobox" disabled={disabled} aria-invalid={invalid || undefined} className={cn(trigger, className)}>
           <span className="flex min-w-0 flex-1 flex-wrap items-center gap-1">
-            {picked.length === 0 && <span className="text-muted-foreground/70">{placeholder}</span>}
+            {picked.length === 0 && <span className="text-muted-foreground">{placeholder}</span>}
             {picked.slice(0, maxBadges).map((o) => (
               <Badge key={o.value} className="max-w-32 truncate">{o.label}</Badge>
             ))}

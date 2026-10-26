@@ -37,7 +37,7 @@ export function CodeBlock({
         <code>
           {lines.map((l, i) => (
             <span key={i} className="block">
-              {lineNumbers && <span className="mr-4 inline-block w-5 select-none text-right text-muted-foreground/50">{i + 1}</span>}
+              {lineNumbers && <span aria-hidden className="mr-4 inline-block w-5 select-none text-right text-muted-foreground/50">{i + 1}</span>}
               {l || ' '}
             </span>
           ))}

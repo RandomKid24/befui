@@ -50,7 +50,7 @@ export const CommandInput = React.forwardRef<
     <SearchIcon className="size-4 shrink-0 text-muted-foreground" />
     <Cmdk.Input
       ref={ref}
-      className={cn('h-12 flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground/70', className)}
+      className={cn('h-12 flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground', className)}
       {...props}
     />
   </div>

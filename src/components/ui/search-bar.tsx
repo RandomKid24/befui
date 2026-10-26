@@ -74,7 +74,7 @@ export function SearchBar({
           onChange={(e) => { setQ(e.target.value); setActive(0); setOpen(true); }}
           onFocus={() => setOpen(true)}
           onKeyDown={onKey}
-          className="h-10 w-full rounded-lg border border-input bg-background pl-9 pr-9 text-sm outline-none transition-[border,box-shadow] placeholder:text-muted-foreground/70 hover:border-muted-foreground/40 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/15"
+          className="h-10 w-full rounded-lg border border-input bg-background pl-9 pr-9 text-sm outline-none transition-[border,box-shadow] placeholder:text-muted-foreground hover:border-muted-foreground/40 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/15"
         />
         {q && (
           <button type="button" aria-label="Clear" onClick={() => { setQ(''); setActive(0); }} className="absolute right-2 grid size-6 place-items-center rounded text-muted-foreground hover:bg-secondary hover:text-foreground">

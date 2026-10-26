@@ -75,7 +75,7 @@ function Pane({ title, list, ticked, toggle, setAll, searchable }: { title: stri
       {searchable && (
         <div className="relative border-b">
           <SearchIcon className="pointer-events-none absolute start-3 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground" />
-          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search" aria-label={`Search ${title}`} className="h-9 w-full bg-transparent ps-9 pe-3 text-sm outline-none placeholder:text-muted-foreground/70 focus-visible:bg-muted/50" />
+          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search" aria-label={`Search ${title}`} className="h-9 w-full bg-transparent ps-9 pe-3 text-sm outline-none placeholder:text-muted-foreground focus-visible:bg-muted/50" />
         </div>
       )}
       <ul className="max-h-64 flex-1 overflow-y-auto p-1">

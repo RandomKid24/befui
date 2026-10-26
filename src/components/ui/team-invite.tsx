@@ -84,7 +84,7 @@ export function TeamInvite({
           onBlur={() => add(text)}
           onKeyDown={(e) => { if (e.key === 'Enter' && text.trim()) { e.preventDefault(); add(text); } else if (e.key === 'Backspace' && !text && emails.length) setEmails(emails.slice(0, -1)); }}
           placeholder={emails.length ? '' : 'name@company.com, paste a list'}
-          className="min-w-40 flex-1 bg-transparent px-1.5 text-sm outline-none placeholder:text-muted-foreground/70"
+          className="min-w-40 flex-1 bg-transparent px-1.5 text-sm outline-none placeholder:text-muted-foreground"
         />
       </div>
       {bad.length > 0 && <p role="alert" className="text-xs text-destructive">Fix or remove: {bad.join(', ')}</p>}

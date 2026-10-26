@@ -91,7 +91,7 @@ export function PhoneInput({
         value={group(v.national)}
         placeholder={group('9'.repeat(c.digits))}
         onChange={(e) => emit(c, e.target.value)}
-        className="min-w-0 flex-1 bg-transparent px-3 tabular-nums outline-none placeholder:text-muted-foreground/60"
+        className="min-w-0 flex-1 bg-transparent px-3 tabular-nums outline-none placeholder:text-muted-foreground"
       />
     </div>
   );

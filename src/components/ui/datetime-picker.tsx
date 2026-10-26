@@ -42,7 +42,7 @@ export function DateTimePicker({
           className={cn('flex h-9 w-full items-center gap-2 rounded-md border border-input bg-background px-3 text-left text-sm outline-none transition-[border,box-shadow] hover:border-muted-foreground/40 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/15 data-[state=open]:border-ring data-[state=open]:ring-3 data-[state=open]:ring-ring/15', className)}
         >
           <CalendarIcon className="size-4 shrink-0 text-muted-foreground" />
-          <span className={cn('flex-1 truncate', !value && 'text-muted-foreground/70')}>{value ? fmt.format(value) : placeholder}</span>
+          <span className={cn('flex-1 truncate', !value && 'text-muted-foreground')}>{value ? fmt.format(value) : placeholder}</span>
         </button>
       </PopoverTrigger>
       <PopoverContent align="start" className="grid w-auto gap-3 p-3">

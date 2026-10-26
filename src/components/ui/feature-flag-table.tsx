@@ -28,7 +28,7 @@ export function FeatureFlagTable({ flags, onChange, className }: { flags: Featur
   return (
     <div className={cn('overflow-hidden rounded-xl border bg-card text-sm', className)}>
       <div className="flex items-center justify-between gap-3 border-b px-3 py-2">
-        <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search flags" aria-label="Search flags" className="h-8 min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground/70" />
+        <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search flags" aria-label="Search flags" className="h-8 min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground" />
         <span className="text-xs text-muted-foreground tabular-nums">{flags.filter((f) => f.enabled).length} of {flags.length} on</span>
       </div>
       <ul className="divide-y">

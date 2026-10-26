@@ -56,7 +56,7 @@ function Shell({
         <PopoverTrigger asChild>
           <button id={id} type="button" disabled={disabled} aria-invalid={invalid || undefined} className={cn(trigger, onClear && !empty && 'pe-9', className)}>
             <CalendarIcon className="size-4 shrink-0 text-muted-foreground" />
-            <span className={cn('flex-1 truncate', empty && 'text-muted-foreground/70')}>{label}</span>
+            <span className={cn('flex-1 truncate', empty && 'text-muted-foreground')}>{label}</span>
           </button>
         </PopoverTrigger>
         {onClear && !empty && (

@@ -25,7 +25,7 @@ export function KvEditor({ pairs, onChange, secret = true, keyPlaceholder = 'KEY
   const [shown, setShown] = React.useState<Set<number>>(new Set());
   const set = (i: number, p: Partial<KvPair>) => onChange(pairs.map((x, k) => (k === i ? { ...x, ...p } : x)));
   const dupes = new Set(pairs.map((p) => p.key).filter((k, i, a) => k && a.indexOf(k) !== i));
-  const input = 'h-9 min-w-0 rounded-md border border-input bg-background px-2.5 font-mono text-[13px] outline-none placeholder:text-muted-foreground/60 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/15 aria-[invalid=true]:border-destructive';
+  const input = 'h-9 min-w-0 rounded-md border border-input bg-background px-2.5 font-mono text-[13px] outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/15 aria-[invalid=true]:border-destructive';
 
   const paste = (i: number, e: React.ClipboardEvent<HTMLInputElement>) => {
     const text = e.clipboardData.getData('text');
