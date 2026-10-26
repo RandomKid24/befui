@@ -55,7 +55,7 @@ export function AiChat({
   const toEnd = (smooth = true) => {
     const el = scroller.current;
     if (!el) return;
-    if (typeof el.scrollTo === 'function') el.scrollTo({ top: el.scrollHeight, behavior: smooth ? 'smooth' : 'auto' });
+    if (typeof el.scrollTo === 'function') el.scrollTo({ top: el.scrollHeight, behavior: smooth && !window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ? 'smooth' : 'auto' });
     else el.scrollTop = el.scrollHeight;
   };
   // keep following the conversation while you are at the bottom; leave it alone once you scroll up to read
@@ -72,7 +72,7 @@ export function AiChat({
           stick.current = near;
           setAway(!near);
         }}
-        className="min-h-0 flex-1 overflow-y-auto scroll-smooth px-4 py-5"
+        className="min-h-0 flex-1 overflow-y-auto scroll-smooth motion-reduce:scroll-auto px-4 py-5"
       >
         {messages.length === 0 && !thinking ? (
           <div className="mx-auto grid h-full max-w-md content-center justify-items-center gap-5 text-center">

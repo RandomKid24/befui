@@ -33,7 +33,7 @@ export function TableOfContents({ items, className }: { items: TocItem[]; classN
           <li key={i.id}>
             <a
               href={`#${i.id}`}
-              onClick={(e) => { e.preventDefault(); document.getElementById(i.id)?.scrollIntoView({ behavior: 'smooth' }); setActive(i.id); }}
+              onClick={(e) => { e.preventDefault(); document.getElementById(i.id)?.scrollIntoView({ behavior: (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth') }); setActive(i.id); }}
               aria-current={active === i.id ? 'location' : undefined}
               className={cn('-ml-px block border-l py-1 pr-2 transition-colors', i.level === 2 ? 'pl-6' : 'pl-3', active === i.id ? 'border-primary font-medium text-primary' : 'border-transparent text-muted-foreground hover:text-foreground')}
             >

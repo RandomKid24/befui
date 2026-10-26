@@ -15,3 +15,13 @@ describe('motion tokens', () => {
     expect(bad).toEqual([]);
   });
 });
+
+describe('reduced motion', () => {
+  it("JS smooth scrolling checks prefers-reduced-motion (CSS media query cannot reach it)", () => {
+    const bad = walk('src/components').filter((f) => {
+      const s = readFileSync(f, 'utf8');
+      return /behavior:\s*'smooth'/.test(s) && !/prefers-reduced-motion/.test(s);
+    });
+    expect(bad).toEqual([]);
+  });
+});

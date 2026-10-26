@@ -11,7 +11,7 @@ export function Carousel({ children, className }: { children: React.ReactNode; c
   const slides = React.Children.toArray(children);
   const go = (n: number) => {
     const el = ref.current;
-    if (el) el.scrollTo({ left: Math.max(0, Math.min(slides.length - 1, n)) * el.clientWidth, behavior: 'smooth' });
+    if (el) el.scrollTo({ left: Math.max(0, Math.min(slides.length - 1, n)) * el.clientWidth, behavior: (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth') });
   };
   const arrow = 'absolute top-1/2 z-10 grid size-8 -translate-y-1/2 place-items-center rounded-full border bg-background/90 shadow-sm backdrop-blur transition-[color,background-color,border-color,box-shadow,transform,opacity] hover:scale-110 disabled:pointer-events-none disabled:opacity-0';
   return (
