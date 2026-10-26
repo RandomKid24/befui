@@ -1,5 +1,53 @@
 [
   {
+    "version": "1.11.0",
+    "date": "2026-10-26",
+    "title": "Motion, depth and density tokens, a tidier components page",
+    "entries": [
+      {
+        "kind": "added",
+        "text": "Motion tokens (--dur-fast, --dur-base, --dur-medium, --dur-slow, --dur-long, --dur-spring, --ease-out, --ease-spring). Components use them instead of hard-coded durations, and a test fails if a hard-coded duration or transition-all comes back."
+      },
+      {
+        "kind": "added",
+        "text": "Layered shadows (--elev-1 to --elev-3, with an inner highlight in dark mode), --primary-soft and --primary-ring accent steps, and a press scale token (--press, 0.97) used by buttons, toggles and switches."
+      },
+      {
+        "kind": "added",
+        "text": "Density: data-density=\"compact\" or \"comfortable\" on any ancestor resizes buttons, inputs and selects. Flutter has BefDensityScope.",
+        "slugs": [
+          "button",
+          "input",
+          "select"
+        ]
+      },
+      {
+        "kind": "added",
+        "text": "Loading: the spinner waits 150ms before it shows (React and Flutter), and SkeletonText, SkeletonAvatar and SkeletonCard match real layouts. useOptimistic flips a switch or like at once and rolls back if the save fails.",
+        "slugs": [
+          "skeleton",
+          "spinner"
+        ]
+      },
+      {
+        "kind": "changed",
+        "text": "Bottom sheet is now a bottom Drawer underneath: it slides out as well as in, and closing it mid-slide reverses smoothly.",
+        "slugs": [
+          "bottom-sheet",
+          "drawer"
+        ]
+      },
+      {
+        "kind": "changed",
+        "text": "Components page: the six newest components with a Show all link, two-line cards, sticky filters, category counts and a live example on hover. The New badge now marks only the latest releases."
+      },
+      {
+        "kind": "fixed",
+        "text": "Muted text in light mode was 4.3:1 on secondary surfaces; it is now 5:1 or better in both modes, with a test. Redrew the PinOff, Fingerprint and Wand icons."
+      }
+    ]
+  },
+  {
     "version": "1.10.0",
     "date": "2026-10-15",
     "title": "Flutter widgets for Android and iOS, a page per platform, a new hero",

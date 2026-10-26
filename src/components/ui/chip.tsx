@@ -11,13 +11,13 @@ export function Chip({ selected, className, children, ...props }: React.ButtonHT
       type="button"
       aria-pressed={selected}
       className={cn(
-        'inline-flex h-8 items-center gap-1.5 rounded-full border px-3 text-[13px] font-medium outline-none transition-all duration-(--dur-base) focus-visible:ring-2 focus-visible:ring-ring/50 active:scale-95',
+        'inline-flex h-8 items-center gap-1.5 rounded-full border px-3 text-[13px] font-medium outline-none transition-[color,background-color,border-color,box-shadow,transform,opacity] duration-(--dur-base) focus-visible:ring-2 focus-visible:ring-ring/50 active:scale-95',
         selected ? 'border-primary bg-primary text-primary-foreground shadow-sm' : 'text-muted-foreground hover:border-foreground/30 hover:text-foreground',
         className,
       )}
       {...props}
     >
-      <span className={cn('grid overflow-hidden transition-all duration-(--dur-base)', selected ? 'w-3.5 opacity-100' : 'w-0 opacity-0')}><CheckIcon className="size-3.5" /></span>
+      <span className={cn('grid overflow-hidden transition-[width,background-color,opacity] duration-(--dur-base)', selected ? 'w-3.5 opacity-100' : 'w-0 opacity-0')}><CheckIcon className="size-3.5" /></span>
       {children}
     </button>
   );

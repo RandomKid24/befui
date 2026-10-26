@@ -59,7 +59,7 @@ export function DayAgenda({ events, startHour = 8, endHour = 19, hourHeight = 56
               type="button"
               disabled={!onSelect}
               onClick={() => onSelect?.(e)}
-              className={cn('absolute overflow-hidden rounded-lg border bg-card p-0 text-left outline-none transition-[opacity,transform,box-shadow] duration-500 focus-visible:ring-2 focus-visible:ring-ring/50', onSelect ? 'cursor-pointer hover:shadow-md' : 'cursor-default', e.color ?? 'text-primary')}
+              className={cn('absolute overflow-hidden rounded-lg border bg-card p-0 text-left outline-none transition-[opacity,transform,box-shadow] duration-(--dur-medium) focus-visible:ring-2 focus-visible:ring-ring/50', onSelect ? 'cursor-pointer hover:shadow-md' : 'cursor-default', e.color ?? 'text-primary')}
               style={{ top: top(s) + 1, height: Math.max(top(end) - top(s) - 2, 20), left: `calc(${(c / n) * 100}% + 2px)`, width: `calc(${100 / n}% - 4px)`, opacity: on ? 1 : 0, transform: on ? 'none' : 'translateY(8px)', transitionDelay: `${i * 60}ms` }}
             >
               <span aria-hidden className="absolute inset-0 bg-current opacity-10" />

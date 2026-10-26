@@ -3,6 +3,18 @@
 All notable changes to befui. Versions follow [semver](https://semver.org): new components are minor releases, breaking prop changes are major. The same list, with links to each component, is on the docs site under Changelog.
 (Generated from src/registry/changelog.json by `npm run registry:build`. Edit the JSON, not this file.)
 
+## 1.11.0 - 2026-10-26
+
+Motion, depth and density tokens, a tidier components page
+
+- **Added:** Motion tokens (--dur-fast, --dur-base, --dur-medium, --dur-slow, --dur-long, --dur-spring, --ease-out, --ease-spring). Components use them instead of hard-coded durations, and a test fails if a hard-coded duration or transition-all comes back.
+- **Added:** Layered shadows (--elev-1 to --elev-3, with an inner highlight in dark mode), --primary-soft and --primary-ring accent steps, and a press scale token (--press, 0.97) used by buttons, toggles and switches.
+- **Added:** Density: data-density="compact" or "comfortable" on any ancestor resizes buttons, inputs and selects. Flutter has BefDensityScope. (Button, Input, Select)
+- **Added:** Loading: the spinner waits 150ms before it shows (React and Flutter), and SkeletonText, SkeletonAvatar and SkeletonCard match real layouts. useOptimistic flips a switch or like at once and rolls back if the save fails. (Skeleton, Spinner)
+- **Changed:** Bottom sheet is now a bottom Drawer underneath: it slides out as well as in, and closing it mid-slide reverses smoothly. (Bottom sheet, Drawer)
+- **Changed:** Components page: the six newest components with a Show all link, two-line cards, sticky filters, category counts and a live example on hover. The New badge now marks only the latest releases.
+- **Fixed:** Muted text in light mode was 4.3:1 on secondary surfaces; it is now 5:1 or better in both modes, with a test. Redrew the PinOff, Fingerprint and Wand icons.
+
 ## 1.10.0 - 2026-10-15
 
 Flutter widgets for Android and iOS, a page per platform, a new hero

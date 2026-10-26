@@ -103,7 +103,9 @@
   --ease-spring: linear(0, 0.4 8%, 0.85 20%, 1.06 32%, 1.02 46%, 1 60%, 1);
   --dur-fast: 150ms;
   --dur-base: 250ms;
+  --dur-medium: 500ms;
   --dur-slow: 700ms;
+  --dur-long: 1000ms;
   --dur-spring: 400ms;
   --animate-in: fade-in var(--dur-fast) ease-out;
   --animate-pop: pop var(--dur-spring) var(--ease-spring);

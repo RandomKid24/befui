@@ -26,7 +26,7 @@ export function Progress({
   return (
     <ProgressPrimitive.Root value={value} aria-label={ariaLabel} className={cn('relative h-1.5 w-full overflow-hidden rounded-full bg-secondary', className)}>
       <ProgressPrimitive.Indicator
-        className={cn('h-full rounded-full transition-[width] duration-500 ease-out', tones[tone])}
+        className={cn('h-full rounded-full transition-[width] duration-(--dur-medium) ease-out', tones[tone])}
         style={{ width: `${Math.min(100, Math.max(0, value))}%` }}
       />
     </ProgressPrimitive.Root>

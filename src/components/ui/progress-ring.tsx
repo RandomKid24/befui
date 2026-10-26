@@ -24,7 +24,7 @@ export function ProgressRing({
     <div className={cn('relative inline-grid place-items-center text-primary', className)} style={{ width: size, height: size }} role="progressbar" aria-label={ariaLabel} aria-valuenow={v} aria-valuemin={0} aria-valuemax={100}>
       <svg width={size} height={size} className="-rotate-90">
         <circle cx={size / 2} cy={size / 2} r={r} fill="none" strokeWidth={stroke} className="stroke-secondary" />
-        <circle cx={size / 2} cy={size / 2} r={r} fill="none" strokeWidth={stroke} strokeLinecap="round" stroke="currentColor" strokeDasharray={c} strokeDashoffset={c * (1 - v / 100)} className="transition-[stroke-dashoffset] duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)]" />
+        <circle cx={size / 2} cy={size / 2} r={r} fill="none" strokeWidth={stroke} strokeLinecap="round" stroke="currentColor" strokeDasharray={c} strokeDashoffset={c * (1 - v / 100)} className="transition-[stroke-dashoffset] duration-(--dur-long) ease-[cubic-bezier(0.22,1,0.36,1)]" />
       </svg>
       <span className="absolute text-lg font-semibold tabular-nums text-foreground">{children ?? `${Math.round(v)}%`}</span>
     </div>

@@ -321,13 +321,13 @@ SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, Chev
 - `notification-center`: Bell with an unread count and a popover list. Click marks read, Mark all read clears it. Exports: NotificationCenter. Needs: button, icons, popover.
 - `nps-survey`: The 0 to 10 recommend question with a follow-up that changes for detractors, passives and promoters. Arrow keys move the score. Exports: NpsSurvey. Needs: button, icons.
 - `pull-to-refresh`: Scroll area you pull down from the top to refresh, with a spinner until your promise settles. Exports: PullToRefresh. Needs: icons.
-- `skeleton`: Shimmering placeholder for content that is loading. Exports: Skeleton.
+- `skeleton`: Shimmering placeholder for content that is loading. Exports: Skeleton, SkeletonText, SkeletonAvatar, SkeletonCard.
 - `spinner`: Tiny CSS spinner that inherits text color. Exports: Spinner.
 - `toast`: Call toast.success() from anywhere. No provider needed. Exports: toast, Toaster. Needs: icons.
 
 ### Overlays (15)
 - `alert-dialog`: Confirm before something destructive. Cancel and confirm, controlled by you. Exports: AlertDialog. Needs: button, dialog, icons.
-- `bottom-sheet`: Sheet that rises from the bottom, with a drag handle to dismiss. Radix Dialog underneath. Exports: BottomSheet.
+- `bottom-sheet`: Sheet that rises from the bottom, with a drag handle to dismiss. Radix Dialog underneath. Exports: BottomSheet. Needs: drawer.
 - `coachmark`: A single new-feature hint pinned to one element with a Got it button. Lighter than a tour; can remember it was dismissed. Exports: Coachmark. Needs: button.
 - `command`: Searchable palette on cmdk. Bind it to Ctrl or Cmd K. Exports: Command, CommandDialog, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem. Needs: icons.
 - `context-menu`: Right-click menu with items, shortcuts, checkbox items, labels and nested submenus. Exports: ContextMenu, ContextMenuTrigger, ContextMenuGroup, ContextMenuSub, ContextMenuContent, ContextMenuItem, ContextMenuCheckboxItem, ContextMenuSubTrigger, .... Needs: icons.

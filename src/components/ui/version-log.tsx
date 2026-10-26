@@ -55,8 +55,8 @@ function Release({ r, latest, open, onToggle, kind, active, id }: { r: VersionRe
   return (
     <li ref={ref} id={id} className="relative scroll-mt-24 pl-8 sm:pl-10">
       {/* the rail: draws downward when the release appears */}
-      <span aria-hidden className={cn('absolute bottom-[-2.5rem] left-[11px] top-3 w-px origin-top bg-border transition-transform duration-1000 motion-reduce:transition-none', ease)} style={{ transform: seen ? 'scaleY(1)' : 'scaleY(0)' }} />
-      <span aria-hidden className={cn('absolute left-0 top-1.5 grid size-6 place-items-center rounded-full border-2 bg-background transition-[transform,opacity,border-color] duration-500 motion-reduce:transition-none', ease, active || latest ? 'border-primary' : 'border-border')} style={{ transform: seen ? 'scale(1)' : 'scale(0.3)', opacity: seen ? 1 : 0 }}>
+      <span aria-hidden className={cn('absolute bottom-[-2.5rem] left-[11px] top-3 w-px origin-top bg-border transition-transform duration-(--dur-long) motion-reduce:transition-none', ease)} style={{ transform: seen ? 'scaleY(1)' : 'scaleY(0)' }} />
+      <span aria-hidden className={cn('absolute left-0 top-1.5 grid size-6 place-items-center rounded-full border-2 bg-background transition-[transform,opacity,border-color] duration-(--dur-medium) motion-reduce:transition-none', ease, active || latest ? 'border-primary' : 'border-border')} style={{ transform: seen ? 'scale(1)' : 'scale(0.3)', opacity: seen ? 1 : 0 }}>
         <span className={cn('size-2 rounded-full transition-colors', active || latest ? 'bg-primary' : 'bg-muted-foreground/40')} />
         {latest && <span className="absolute inset-0 animate-ping rounded-full border border-primary/40 [animation-duration:2.4s] motion-reduce:hidden" />}
       </span>
@@ -72,7 +72,7 @@ function Release({ r, latest, open, onToggle, kind, active, id }: { r: VersionRe
       </button>
       {r.title && <p className="text-base font-medium">{r.title}</p>}
 
-      <div className={cn('grid transition-[grid-template-rows] duration-500 motion-reduce:transition-none', ease)} style={{ gridTemplateRows: open ? '1fr' : '0fr' }}>
+      <div className={cn('grid transition-[grid-template-rows] duration-(--dur-medium) motion-reduce:transition-none', ease)} style={{ gridTemplateRows: open ? '1fr' : '0fr' }}>
         <div className="overflow-hidden">
           <div className="grid gap-6 pb-2 pt-5">
             {kinds.map((k) => {
@@ -89,7 +89,7 @@ function Release({ r, latest, open, onToggle, kind, active, id }: { r: VersionRe
                     {group.map((e, i) => (
                       <li
                         key={`${kind}-${k}-${i}`}
-                        className="grid gap-2 transition-[opacity,transform] duration-600 motion-reduce:transition-none"
+                        className="grid gap-2 transition-[opacity,transform] duration-(--dur-medium) motion-reduce:transition-none"
                         style={{ opacity: seen && open ? 1 : 0, transform: seen && open ? 'none' : 'translateX(-12px)', transitionDelay: `${Math.min(before + i, 10) * 70 + 150}ms`, transitionTimingFunction: 'cubic-bezier(0.22, 1, 0.36, 1)' }}
                       >
                         <p className="text-[15px] leading-relaxed">{lead(e.text)}</p>

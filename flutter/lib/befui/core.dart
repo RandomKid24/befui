@@ -7,7 +7,7 @@ import 'theme.dart';
 /// Builds the child for the current interaction [states] (hovered, focused, pressed, disabled).
 typedef BefPressBuilder = Widget Function(BuildContext context, Set<WidgetState> states);
 
-/// A tappable surface without Material's ink: it reports hover / press / focus and scales slightly while pressed, like `active:scale-[0.98]` in the CSS.
+/// A tappable surface without Material's ink: it reports hover / press / focus and scales slightly while pressed, like `active:scale-(--press)` (0.97) in the CSS.
 class BefPressable extends StatefulWidget {
   const BefPressable({
     super.key,
@@ -15,7 +15,7 @@ class BefPressable extends StatefulWidget {
     this.onPressed,
     this.onLongPress,
     this.enabled = true,
-    this.pressScale = 0.98,
+    this.pressScale = 0.97,
     this.semanticLabel,
     this.focusNode,
     this.autofocus = false,
@@ -186,4 +186,27 @@ class _DashedPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_DashedPainter old) => old.color != color || old.radius != radius;
+}
+
+/// Control height steps, like `data-density` on the web. Wrap a subtree in [BefDensityScope] and buttons follow.
+enum BefDensity {
+  compact(-4),
+  standard(0),
+  comfortable(4);
+
+  const BefDensity(this.delta);
+
+  /// Added to a control's standard height, in logical pixels.
+  final double delta;
+
+  static BefDensity of(BuildContext context) =>
+      context.dependOnInheritedWidgetOfExactType<BefDensityScope>()?.density ?? BefDensity.standard;
+}
+
+class BefDensityScope extends InheritedWidget {
+  const BefDensityScope({super.key, required this.density, required super.child});
+  final BefDensity density;
+
+  @override
+  bool updateShouldNotify(BefDensityScope old) => old.density != density;
 }

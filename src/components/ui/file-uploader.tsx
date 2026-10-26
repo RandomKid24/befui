@@ -76,7 +76,7 @@ export function FileUploader({
         onDragOver={(e) => { e.preventDefault(); setOver(true); }}
         onDragLeave={() => setOver(false)}
         onDrop={(e) => { e.preventDefault(); setOver(false); add(e.dataTransfer.files); }}
-        className={cn('flex flex-col items-center gap-2 rounded-xl border-2 border-dashed px-6 py-8 text-center outline-none transition-all duration-(--dur-base) hover:border-primary/50 hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring/50', over && 'scale-[1.01] border-primary bg-accent')}
+        className={cn('flex flex-col items-center gap-2 rounded-xl border-2 border-dashed px-6 py-8 text-center outline-none transition-[color,background-color,border-color,box-shadow,transform,opacity] duration-(--dur-base) hover:border-primary/50 hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring/50', over && 'scale-[1.01] border-primary bg-accent')}
       >
         <span className={cn('grid size-10 place-items-center rounded-full bg-secondary text-muted-foreground transition-transform duration-(--dur-base)', over && '-translate-y-1 bg-primary text-primary-foreground')}><UploadIcon className="size-5" /></span>
         <span className="text-sm font-medium">{hint}</span>

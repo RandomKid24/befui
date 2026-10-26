@@ -91,7 +91,7 @@ export function AiChat({
         <button
           type="button"
           onClick={() => { stick.current = true; toEnd(); }}
-          className="absolute bottom-24 left-1/2 inline-flex -translate-x-1/2 items-center gap-1.5 rounded-full border bg-background/95 px-3 py-1.5 text-xs font-medium shadow-md outline-none transition-all animate-pop hover:bg-secondary focus-visible:ring-2 focus-visible:ring-ring/50"
+          className="absolute bottom-24 left-1/2 inline-flex -translate-x-1/2 items-center gap-1.5 rounded-full border bg-background/95 px-3 py-1.5 text-xs font-medium shadow-md outline-none transition-[color,background-color,border-color,box-shadow,transform,opacity] animate-pop hover:bg-secondary focus-visible:ring-2 focus-visible:ring-ring/50"
         >
           <ArrowDownIcon className="size-3.5" /> Latest
         </button>

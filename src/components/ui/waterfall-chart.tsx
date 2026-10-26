@@ -50,7 +50,7 @@ export function WaterfallChart({ steps, height = 260, format = (n) => n.toLocale
           return (
             <React.Fragment key={b.label}>
               {i < n - 1 && (
-                <div className="absolute h-px bg-muted-foreground/50 transition-[width] duration-500 ease-out" style={{ top: `${pos(b.end)}%`, left: `${colW * i + colW * 0.82}%`, width: on ? `${colW * 0.36}%` : 0, transitionDelay: `${delay + 350}ms` }} />
+                <div className="absolute h-px bg-muted-foreground/50 transition-[width] duration-(--dur-medium) ease-out" style={{ top: `${pos(b.end)}%`, left: `${colW * i + colW * 0.82}%`, width: on ? `${colW * 0.36}%` : 0, transitionDelay: `${delay + 350}ms` }} />
               )}
               <div className="absolute flex justify-center" style={{ left: `${colW * i}%`, width: `${colW}%`, top: `${pos(b.hi)}%`, height: `${Math.max(((b.hi - b.lo) / span) * 100, 0.6)}%` }} onMouseEnter={() => setHover(i)}>
                 <div

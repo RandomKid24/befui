@@ -41,7 +41,7 @@ export function OrderTracker({ steps, current, orientation = 'auto', className }
             )}
             <span className="relative grid size-8 shrink-0 place-items-center">
               {active && <span aria-hidden className="absolute inset-0 animate-ping rounded-full bg-primary/30" />}
-              <span className={cn('relative grid size-8 place-items-center rounded-full border-2 text-xs font-semibold transition-colors duration-500 [&_svg]:size-4', done ? 'border-primary bg-primary text-primary-foreground' : active ? 'border-primary bg-background text-primary' : 'border-border bg-background text-muted-foreground')} style={{ transitionDelay: `${i * 220}ms` }}>
+              <span className={cn('relative grid size-8 place-items-center rounded-full border-2 text-xs font-semibold transition-colors duration-(--dur-medium) [&_svg]:size-4', done ? 'border-primary bg-primary text-primary-foreground' : active ? 'border-primary bg-background text-primary' : 'border-border bg-background text-muted-foreground')} style={{ transitionDelay: `${i * 220}ms` }}>
                 {done ? <CheckIcon /> : s.icon ?? i + 1}
               </span>
             </span>

@@ -72,6 +72,7 @@ class BefButton extends StatelessWidget {
       BefButtonSize.icon => (36.0, 0.0, 14.0),
       BefButtonSize.iconSm => (32.0, 0.0, 14.0),
     };
+    final h = height + BefDensity.of(context).delta;
     final isIcon = size == BefButtonSize.icon || size == BefButtonSize.iconSm;
     final r = Radius.circular(shape == BefButtonShape.pill ? BefRadius.full : BefRadius.md);
     final radius = switch (join) {
@@ -131,8 +132,8 @@ class BefButton extends StatelessWidget {
           opacity: onPressed == null || loading ? 0.5 : 1,
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 150),
-            height: isLink ? null : height,
-            width: isIcon ? height : null,
+            height: isLink ? null : h,
+            width: isIcon ? h : null,
             padding: EdgeInsets.symmetric(horizontal: isLink ? 0 : padX),
             decoration: BoxDecoration(
               color: look.bg,

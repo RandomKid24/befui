@@ -140,15 +140,27 @@ export function GettingStarted() {
 
 const ComponentCard = React.memo(function ComponentCard({ c }: { c: (typeof components)[number]; i?: number }) {
   // no per-card observer or entrance animation: 199 of them made this page slow, and the browser skips drawing cards that are off screen
+  // The live example mounts only after the pointer rests on a card (or it gets keyboard focus) for a moment, one at a time.
+  const [peek, setPeek] = React.useState(false);
+  const timer = React.useRef<ReturnType<typeof setTimeout>>(undefined);
+  const arm = () => { clearTimeout(timer.current); timer.current = setTimeout(() => setPeek(true), 350); };
+  const disarm = () => { clearTimeout(timer.current); setPeek(false); };
   return (
-    <Link to={`/components/${c.slug}`} className="group block h-full rounded-xl outline-none [contain-intrinsic-size:auto_96px] [content-visibility:auto] focus-visible:ring-2 focus-visible:ring-ring/50">
+    <Link to={`/components/${c.slug}`} onMouseEnter={arm} onMouseLeave={disarm} onFocus={arm} onBlur={disarm} className={cn('group relative block h-full rounded-xl outline-none [contain-intrinsic-size:auto_96px] focus-visible:ring-2 focus-visible:ring-ring/50', peek ? 'z-20' : '[content-visibility:auto]')}>
       <SpotlightCard className="h-full p-4 hover:translate-y-0">
         <div className="flex items-center justify-between">
           <p className="flex items-center gap-2 text-sm font-semibold">{c.name}{c.isNew && <Badge variant="primary">New</Badge>}</p>
-          <ArrowRightIcon className="size-4 text-muted-foreground/0 transition-all group-hover:translate-x-0.5 group-hover:text-muted-foreground" />
+          <ArrowRightIcon className="size-4 text-muted-foreground/0 transition-[color,transform] group-hover:translate-x-0.5 group-hover:text-muted-foreground" />
         </div>
         <p className="mt-1 line-clamp-2 text-[13px] text-muted-foreground">{c.description}</p>
       </SpotlightCard>
+      {peek && (
+        <div aria-hidden className="pointer-events-none absolute inset-x-2 top-full z-20 mt-1 h-44 animate-pop overflow-hidden rounded-xl border bg-card shadow-lg">
+          <div className="grid h-[200%] w-[200%] origin-top-left scale-50 place-items-center p-6">
+            <React.Suspense fallback={<div className="h-16 w-1/2 animate-pulse rounded-lg bg-muted/60" />}><c.Demo /></React.Suspense>
+          </div>
+        </div>
+      )}
     </Link>
   );
 });

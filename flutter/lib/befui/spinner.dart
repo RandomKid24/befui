@@ -16,13 +16,20 @@ class BefSpinner extends StatelessWidget {
         DefaultTextStyle.of(context).style.color ??
         IconTheme.of(context).color ??
         const Color(0xFF000000);
+    // Hidden for the first 150ms (like `animate-delayed-in` on the web) so quick loads never flash a spinner.
     return Semantics(
       label: 'Loading',
-      child: BefSpin(
-        child: SizedBox(
-          width: size,
-          height: size,
-          child: CustomPaint(painter: _RingPainter(c, strokeWidth)),
+      child: TweenAnimationBuilder<double>(
+        tween: Tween(begin: 0, end: 1),
+        duration: const Duration(milliseconds: 300),
+        curve: const Interval(0.5, 1),
+        builder: (context, t, child) => Opacity(opacity: t, child: child),
+        child: BefSpin(
+          child: SizedBox(
+            width: size,
+            height: size,
+            child: CustomPaint(painter: _RingPainter(c, strokeWidth)),
+          ),
         ),
       ),
     );

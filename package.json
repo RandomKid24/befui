@@ -36,7 +36,7 @@
     "build-storybook": "npm run stories:gen && storybook build -o dist-storybook",
     "registry:build": "node scripts/build-registry.mjs",
     "prepublishOnly": "npm run build",
-    "version": "node scripts/changelog-check.mjs",
+    "version": "node scripts/changelog-check.mjs && npm run build:html && git add cdn",
     "test": "vitest run",
     "test:visual": "playwright test",
     "flutter:gen": "node scripts/gen-flutter-theme.mjs && node scripts/gen-flutter-icons.mjs && node scripts/gen-flutter-gallery.mjs && cd flutter && dart format lib >/dev/null",

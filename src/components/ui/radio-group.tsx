@@ -30,7 +30,7 @@ export function RadioGroup({
         <label
           key={o.value}
           className={cn(
-            'flex cursor-pointer items-start gap-3 rounded-lg border p-3 transition-all duration-(--dur-base) hover:bg-muted has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring/50',
+            'flex cursor-pointer items-start gap-3 rounded-lg border p-3 transition-[color,background-color,border-color,box-shadow,transform,opacity] duration-(--dur-base) hover:bg-muted has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring/50',
             value === o.value && 'border-primary bg-accent shadow-sm',
             o.disabled && 'pointer-events-none opacity-50',
           )}

@@ -68,7 +68,7 @@ export function PromptInput({
           aria-label={streaming ? 'Stop generating' : 'Send'}
           disabled={streaming ? !onStop : empty || disabled}
           onClick={streaming ? onStop : send}
-          className="grid size-8 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground outline-none transition-all hover:opacity-90 focus-visible:ring-2 focus-visible:ring-ring/50 active:scale-95 disabled:pointer-events-none disabled:bg-secondary disabled:text-muted-foreground"
+          className="grid size-8 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground outline-none transition-[color,background-color,border-color,box-shadow,transform,opacity] hover:opacity-90 focus-visible:ring-2 focus-visible:ring-ring/50 active:scale-95 disabled:pointer-events-none disabled:bg-secondary disabled:text-muted-foreground"
         >
           {streaming ? <SquareIcon className="size-3.5 fill-current" /> : <ArrowUpIcon className="size-4" />}
         </button>

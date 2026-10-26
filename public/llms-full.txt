@@ -7336,7 +7336,7 @@ export default function PullToRefreshDemo() {
 Shimmering placeholder for content that is loading.
 - Group: Feedback
 - Add: `npx github:RandomKid24/befui add skeleton`
-- Import: `import { Skeleton } from '@/components/ui/skeleton'`
+- Import: `import { Skeleton, SkeletonText, SkeletonAvatar, SkeletonCard } from '@/components/ui/skeleton'`
 
 Example:
 
@@ -7453,7 +7453,7 @@ Sheet that rises from the bottom, with a drag handle to dismiss. Radix Dialog un
 - Group: Overlays
 - Add: `npx github:RandomKid24/befui add bottom-sheet`
 - Import: `import { BottomSheet } from '@/components/ui/bottom-sheet'`
-- npm packages: @radix-ui/react-dialog
+- Also needs: drawer
 
 Example:
 

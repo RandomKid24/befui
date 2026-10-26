@@ -47,7 +47,7 @@ export function ProductCard({
   return (
     <div className={cn('group w-60 overflow-hidden rounded-xl border bg-card text-card-foreground shadow-sm', className)}>
       <div className="relative aspect-square overflow-hidden bg-muted">
-        {image ? <img src={image} alt={name} className="size-full object-cover transition-transform duration-500 group-hover:scale-105" /> : <ImageIcon className="absolute left-1/2 top-1/2 size-8 -translate-x-1/2 -translate-y-1/2 text-muted-foreground" />}
+        {image ? <img src={image} alt={name} className="size-full object-cover transition-transform duration-(--dur-medium) group-hover:scale-105" /> : <ImageIcon className="absolute left-1/2 top-1/2 size-8 -translate-x-1/2 -translate-y-1/2 text-muted-foreground" />}
         {off > 0 && <span className="absolute left-2.5 top-2.5 rounded-full bg-destructive px-2 py-0.5 text-[11px] font-semibold text-white">-{off}%</span>}
         {onWishlist && (
           <button

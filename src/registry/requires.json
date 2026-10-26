@@ -75,7 +75,9 @@
   "bar-race": [],
   "border-beam": [],
   "bottom-nav": [],
-  "bottom-sheet": [],
+  "bottom-sheet": [
+    "drawer"
+  ],
   "box-plot-chart": [
     "charts"
   ],

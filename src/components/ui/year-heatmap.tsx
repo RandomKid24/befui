@@ -63,7 +63,7 @@ export function YearHeatmap({
               if (!d) return <span key={w} />;
               const v = values[d] ?? 0;
               const label = `${v.toLocaleString()} ${unit} on ${full.format(new Date(d))}`;
-              const cls = cn('aspect-square w-full rounded-[3px] outline-none transition-opacity duration-500 focus-visible:ring-2 focus-visible:ring-ring', shade[level(v)], on ? 'opacity-100' : 'opacity-0');
+              const cls = cn('aspect-square w-full rounded-[3px] outline-none transition-opacity duration-(--dur-medium) focus-visible:ring-2 focus-visible:ring-ring', shade[level(v)], on ? 'opacity-100' : 'opacity-0');
               const delay = { transitionDelay: on ? `${w * 8}ms` : '0ms' };
               // clickable only when onSelect is given, so a plain chart has no hundreds of tab stops
               return onSelect ? (

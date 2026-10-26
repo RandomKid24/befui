@@ -156,7 +156,7 @@ BefButton(label: 'Export', variant: BefButtonVariant.soft, onPressed: () {});
 
 ### Use from plain HTML or htmx
 
-Every component page on the docs site has a **Use from HTML** section with the live tags, the HTML and the CSS that component uses (run `npm run dev` to browse it). No React in your app. The built files are committed in [`cdn/`](cdn), so any page can load them from jsDelivr (above). For production pin a commit or tag instead of `@main` (jsDelivr caches `@main` for up to 12 hours), or copy the two files into your project. `npm run build:html` rebuilds them. Every component is a `<bef-*>` tag (`DataTable` is `<bef-data-table>`, `DialogTrigger` is `<bef-dialog-trigger>`).
+Every component page on the docs site has a **Use from HTML** section with the live tags, the HTML and the CSS that component uses (run `npm run dev` to browse it). No React in your app. The built files are committed in [`cdn/`](cdn), so any page can load them from jsDelivr (above). For production pin a commit or tag instead of `@main` (jsDelivr caches `@main` for up to 12 hours), or copy the two files into your project. `npm run build:html` rebuilds them, and `npm version` does it for you, so `cdn/` is only guaranteed current at a release tag. Every component is a `<bef-*>` tag (`DataTable` is `<bef-data-table>`, `DialogTrigger` is `<bef-dialog-trigger>`).
 
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/RandomKid24/befui@main/cdn/befui.css">

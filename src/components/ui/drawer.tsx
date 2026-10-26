@@ -70,10 +70,10 @@ export function Drawer({ open, onOpenChange, side = 'bottom', title, description
   return (
     <D.Root open={mounted} onOpenChange={(o) => !o && onOpenChange(false)}>
       <D.Portal>
-        <D.Overlay className="fixed inset-0 z-50 bg-black/40 backdrop-blur-[2px]" style={{ opacity: progress, transition: drag === null ? 'opacity 300ms' : 'none' }} />
+        <D.Overlay className="fixed inset-0 z-50 bg-black/40 backdrop-blur-[2px]" style={{ opacity: progress, transition: drag === null ? 'opacity var(--dur-base)' : 'none' }} />
         <D.Content
           {...(description ? {} : { 'aria-describedby': undefined })}
-          style={{ transform: `${move}(calc(${pct * sign[side]}% + ${(drag ?? 0) * sign[side]}px))`, transition: drag === null ? 'transform 300ms cubic-bezier(0.22,1,0.36,1)' : 'none', ...(side === 'bottom' && snapPoints.length > 1 ? { height: '85dvh' } : null) }}
+          style={{ transform: `${move}(calc(${pct * sign[side]}% + ${(drag ?? 0) * sign[side]}px))`, transition: drag === null ? 'transform var(--dur-base) var(--ease-out)' : 'none', ...(side === 'bottom' && snapPoints.length > 1 ? { height: '85dvh' } : null) }}
           className={cn('fixed z-50 flex flex-col border bg-popover shadow-xl outline-none', vertical ? 'pb-[max(1rem,env(safe-area-inset-bottom))]' : 'pt-4', place[side], className)}
         >
           {side === 'top' ? null : <Grip side={side} start={start} active={drag !== null} onDrag={onDrag} setDrag={setDrag} end={end} />}
@@ -81,7 +81,7 @@ export function Drawer({ open, onOpenChange, side = 'bottom', title, description
             <D.Title className="text-base font-semibold">{title}</D.Title>
             {description ? <D.Description className="text-[13px] text-muted-foreground">{description}</D.Description> : null}
           </div>
-          <div className="min-h-0 flex-1 overflow-y-auto px-5" style={side === 'bottom' && snapPoints.length > 1 ? { maxHeight: `calc(${snaps[snap]} * 85dvh - 6rem)`, transition: 'max-height 300ms' } : undefined}>{children}</div>
+          <div className="min-h-0 flex-1 overflow-y-auto px-5" style={side === 'bottom' && snapPoints.length > 1 ? { maxHeight: `calc(${snaps[snap]} * 85dvh - 6rem)`, transition: 'max-height var(--dur-base)' } : undefined}>{children}</div>
           {side === 'top' ? <Grip side={side} start={start} active={drag !== null} onDrag={onDrag} setDrag={setDrag} end={end} /> : null}
         </D.Content>
       </D.Portal>

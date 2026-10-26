@@ -39,7 +39,7 @@ export function ColorPicker({
             style={{ background: c }}
             className="grid size-8 place-items-center rounded-full outline-none ring-offset-2 ring-offset-background transition-transform duration-(--dur-fast) hover:scale-110 focus-visible:ring-2 focus-visible:ring-ring aria-checked:scale-110 aria-checked:ring-2 aria-checked:ring-foreground/60"
           >
-            <CheckIcon weight={3} className={cn('size-3.5 text-white transition-all', value === c ? 'scale-100 opacity-100' : 'scale-50 opacity-0')} />
+            <CheckIcon weight={3} className={cn('size-3.5 text-white transition-[color,background-color,border-color,box-shadow,transform,opacity]', value === c ? 'scale-100 opacity-100' : 'scale-50 opacity-0')} />
           </button>
         ))}
       </div>

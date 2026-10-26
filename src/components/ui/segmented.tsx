@@ -31,7 +31,7 @@ export function Segmented<T extends string>({
         <ToggleGroup.Item
           key={o.value}
           value={o.value}
-          className="inline-flex h-7 items-center gap-1.5 rounded-md px-3 text-[13px] font-medium text-muted-foreground outline-none transition-all hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/40 data-[state=on]:bg-background data-[state=on]:text-foreground data-[state=on]:shadow-sm [&_svg]:size-3.5"
+          className="inline-flex h-7 items-center gap-1.5 rounded-md px-3 text-[13px] font-medium text-muted-foreground outline-none transition-[color,background-color,border-color,box-shadow,transform,opacity] hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/40 data-[state=on]:bg-background data-[state=on]:text-foreground data-[state=on]:shadow-sm [&_svg]:size-3.5"
         >
           {o.label}
         </ToggleGroup.Item>
