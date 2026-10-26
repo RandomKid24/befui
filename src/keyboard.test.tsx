@@ -93,3 +93,18 @@ describe('field state contract', () => {
     expect(container.querySelectorAll('[aria-invalid="true"]').length).toBe(4);
   });
 });
+
+describe('refs (React 19 passes ref as a prop)', () => {
+  it('reach the underlying element of wrapper components', async () => {
+    const { Chip } = await import('@/components/ui/chip');
+    const { Slider } = await import('@/components/ui/slider');
+    const { PasswordInput } = await import('@/components/ui/password-input');
+    const chip = React.createRef<HTMLButtonElement>();
+    const slider = React.createRef<HTMLInputElement>();
+    const pw = React.createRef<HTMLInputElement>();
+    render(<><Chip ref={chip}>c</Chip><Slider ref={slider} aria-label="s" value={1} onValueChange={() => {}} /><PasswordInput ref={pw} aria-label="p" /></>);
+    expect(chip.current?.tagName).toBe('BUTTON');
+    expect(slider.current?.tagName).toBe('INPUT');
+    expect(pw.current?.type).toBe('password');
+  });
+});

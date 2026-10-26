@@ -18,7 +18,7 @@ const toggleVariants = cva(
   },
 );
 
-export interface ToggleProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'onChange'>, VariantProps<typeof toggleVariants> {
+export interface ToggleProps extends Omit<React.ComponentProps<'button'>, 'onChange'>, VariantProps<typeof toggleVariants> {
   pressed: boolean;
   onPressedChange: (pressed: boolean) => void;
 }

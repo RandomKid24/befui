@@ -20,7 +20,7 @@ const labels = ['', 'Weak', 'Fair', 'Good', 'Strong'];
 const colors = ['', 'bg-destructive', 'bg-warning', 'bg-info', 'bg-success'];
 
 /** Input with a show/hide toggle and an optional strength meter. */
-export function PasswordInput({ meter, className, ...props }: Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> & { meter?: boolean }) {
+export function PasswordInput({ meter, className, ...props }: Omit<React.ComponentProps<'input'>, 'type'> & { meter?: boolean }) {
   const [show, setShow] = React.useState(false);
   const score = passwordScore(String(props.value ?? ''));
   return (

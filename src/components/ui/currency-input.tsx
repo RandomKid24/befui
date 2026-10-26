@@ -12,7 +12,7 @@ export function CurrencyInput({
   placeholder = '0',
   className,
   ...props
-}: Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange' | 'type'> & {
+}: Omit<React.ComponentProps<'input'>, 'value' | 'onChange' | 'type'> & {
   value: number | null;
   onValueChange: (v: number | null) => void;
   currency?: string;

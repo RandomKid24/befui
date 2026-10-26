@@ -5,7 +5,7 @@ import { CheckIcon, CopyIcon } from './icons';
 import { cn } from '@/lib/utils';
 
 /** Icon button that copies `value` and morphs to a check for two seconds. */
-export function CopyButton({ value, className, ...props }: { value: string } & React.ButtonHTMLAttributes<HTMLButtonElement>) {
+export function CopyButton({ value, className, ...props }: { value: string } & React.ComponentProps<'button'>) {
   const [done, setDone] = React.useState(false);
   React.useEffect(() => {
     if (!done) return;

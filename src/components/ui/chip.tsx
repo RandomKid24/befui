@@ -5,7 +5,7 @@ import { CheckIcon } from './icons';
 import { cn } from '@/lib/utils';
 
 /** Toggleable filter chip. Use `ChipGroup` for single or multi select. */
-export function Chip({ selected, className, children, ...props }: React.ButtonHTMLAttributes<HTMLButtonElement> & { selected?: boolean }) {
+export function Chip({ selected, className, children, ...props }: React.ComponentProps<'button'> & { selected?: boolean }) {
   return (
     <button
       type="button"
