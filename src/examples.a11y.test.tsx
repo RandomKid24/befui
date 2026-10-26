@@ -59,6 +59,17 @@ describe('examples', () => {
     expect(Object.keys(known).filter((slug) => !slugs.includes(slug))).toEqual([]);
   });
 
+  it.skipIf(update)('every component has an example, so none escapes the axe run', () => {
+    const files = Object.keys(import.meta.glob('/src/components/ui/*.tsx')).map((p) => name(p, '/src/components/ui/'));
+    const exempt = ['icons', 'index'];
+    expect(files.filter((f) => !exempt.includes(f) && !slugs.includes(f))).toEqual([]);
+  });
+
+  it.skipIf(update)('the harness really fails an unlabeled button', async () => {
+    const reason = await check(async () => ({ default: () => <button type="button" /> }));
+    expect(reason).toMatch(/axe: .*button-name/);
+  });
+
   afterAll(() => {
     if (!update) return;
     const sorted = Object.fromEntries(Object.entries(failing).sort(([a], [b]) => a.localeCompare(b)));
