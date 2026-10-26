@@ -89,7 +89,7 @@ export function TruncatedText({ children, className, side = 'top' }: { children:
   return (
     <TooltipPrimitive.Root open={cut ? undefined : false}>
       <TooltipPrimitive.Trigger asChild>
-        <span ref={ref} onPointerEnter={check} onFocus={check} tabIndex={0} className={cn('block truncate outline-none', className)}>{children}</span>
+        <span ref={ref} onPointerEnter={check} onFocus={check} tabIndex={0} className={cn('block truncate rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-ring/50', className)}>{children}</span>
       </TooltipPrimitive.Trigger>
       <TooltipPrimitive.Portal>
         <TooltipPrimitive.Content side={side} sideOffset={6} className="z-50 max-w-72 break-words rounded-md bg-foreground px-2 py-1 text-xs font-medium text-background shadow-md animate-in">

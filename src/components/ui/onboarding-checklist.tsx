@@ -39,7 +39,7 @@ export function OnboardingChecklist({ title = 'Get started', items, onToggle, cl
                   {it.done && <CheckIcon className="size-3" />}
                 </button>
                 <div className="min-w-0 flex-1">
-                  <button type="button" onClick={() => setFocus(focus === it.id ? null : it.id)} className={cn('text-left text-[13px] font-medium outline-none', it.done && 'text-muted-foreground line-through')}>{it.title}</button>
+                  <button type="button" onClick={() => setFocus(focus === it.id ? null : it.id)} className={cn('rounded-sm text-left text-[13px] font-medium outline-none focus-visible:ring-2 focus-visible:ring-ring/50', it.done && 'text-muted-foreground line-through')}>{it.title}</button>
                   {focus === it.id && !it.done && (
                     <div className="mt-1 grid gap-2 animate-in">
                       {it.description && <p className="text-xs text-muted-foreground">{it.description}</p>}

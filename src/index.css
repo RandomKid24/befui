@@ -209,6 +209,11 @@
     * { scrollbar-width: thin; scrollbar-color: color-mix(in srgb, var(--foreground) 25%, transparent) transparent; }
   }
   button:not(:disabled), [role='button']:not([aria-disabled='true']) { cursor: pointer; }
+  /* Keyboard focus ring for anything focusable. :where() keeps specificity at zero, so a component's own ring or outline-none still wins. */
+  :where(a[href], button, summary, input, select, textarea, [role='button'], [role='tab'], [role='switch'], [role='option'], [role='menuitem'], [tabindex]:not([tabindex='-1'])):focus-visible {
+    outline: 2px solid color-mix(in srgb, var(--ring) 70%, transparent);
+    outline-offset: 2px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

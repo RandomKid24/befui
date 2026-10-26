@@ -50,3 +50,24 @@ describe('keyboard', () => {
     expect(onValueChange).toHaveBeenCalledWith('b');
   });
 });
+
+// Keyboard focus must stay visible: jsdom cannot compute styles, so guard the source instead.
+describe('focus visibility', () => {
+  it('base layer draws a ring on every focusable element', async () => {
+    const { readFileSync } = await import('node:fs');
+    const css = readFileSync('src/index.css', 'utf8');
+    expect(css).toMatch(/:where\([^{]*button[^{]*\):focus-visible\s*\{[^}]*outline: 2px/);
+  });
+
+  it('no button, link or tabbable element hides its outline without a replacement', async () => {
+    const { readdirSync, readFileSync } = await import('node:fs');
+    const dir = 'src/components/ui';
+    const bad: string[] = [];
+    for (const f of readdirSync(dir).filter((n) => n.endsWith('.tsx'))) {
+      readFileSync(`${dir}/${f}`, 'utf8').split('\n').forEach((line, i) => {
+        if (/<(button|a|span)\b[^>]*(tabIndex|onClick|href)/.test(line) && /outline-none/.test(line) && !/focus-visible|focus:|ring/.test(line)) bad.push(`${f}:${i + 1}`);
+      });
+    }
+    expect(bad).toEqual([]);
+  });
+});

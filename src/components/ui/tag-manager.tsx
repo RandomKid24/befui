@@ -52,7 +52,7 @@ export function TagManager({ tags, onChange, usage = {}, className }: { tags: Ta
             {editing === t.id ? (
               <input autoFocus defaultValue={t.name} aria-label={`Rename ${t.name}`} onBlur={(e) => { const v = e.target.value.trim(); if (v && !dup(v, t.id)) patch(t.id, { name: v }); setEditing(null); }} onKeyDown={(e) => { if (e.key === 'Enter') e.currentTarget.blur(); if (e.key === 'Escape') { e.currentTarget.value = t.name; e.currentTarget.blur(); } }} className="h-7 min-w-0 flex-1 rounded border bg-background px-2 text-[13px] outline-none focus-visible:border-ring" />
             ) : (
-              <button type="button" onClick={() => setEditing(t.id)} className="flex min-w-0 flex-1 items-center text-left outline-none"><span className={cn('truncate rounded-full px-2 py-0.5 text-xs font-medium', tagColors[t.color])}>{t.name}</span></button>
+              <button type="button" onClick={() => setEditing(t.id)} className="flex min-w-0 flex-1 items-center rounded-full text-left outline-none focus-visible:ring-2 focus-visible:ring-ring/50"><span className={cn('truncate rounded-full px-2 py-0.5 text-xs font-medium', tagColors[t.color])}>{t.name}</span></button>
             )}
             {usage[t.id] !== undefined && <span className="text-xs tabular-nums text-muted-foreground">{usage[t.id]}</span>}
             <button type="button" aria-label={`Delete ${t.name}`} onClick={() => onChange(tags.filter((x) => x.id !== t.id))} className="grid size-6 place-items-center rounded text-muted-foreground opacity-0 outline-none hover:text-destructive focus-visible:opacity-100 group-hover:opacity-100"><TrashIcon className="size-3.5" /></button>
