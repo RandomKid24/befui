@@ -625,7 +625,7 @@ class BefIcons {
   ]);
   static const wand = BefIconData([
     BefShape.path(
-      "M5 19L17 7M14 4l1 2.5 2.5 1-2.5 1L14 11l-1-2.5L10.5 7.5 13 6.5zM19 13l.7 1.8 1.8.7-1.8.7L19 18l-.7-1.8-1.8-.7 1.8-.7z",
+      "M4 20l10-10M13 7l4 4M18 2.5l1 2.5 2.5 1-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1zM19 14.5l.6 1.4 1.4.6-1.4.6-.6 1.4-.6-1.4-1.4-.6 1.4-.6z",
     ),
   ]);
   static const bot = BefIconData([
@@ -999,7 +999,7 @@ class BefIcons {
   ]);
   static const fingerprint = BefIconData([
     BefShape.path(
-      "M12 4a8 8 0 0 0-8 8M12 4a8 8 0 0 1 8 8v2M8 20c.5-2 1-4 1-8a3 3 0 0 1 6 0c0 3 .5 6 2 8M12 12c0 4-.5 6-1.5 9M7 14c0-1 .2-2 .4-3",
+      "M5 12a7 7 0 0 1 14 0c0 2.2-.3 4.2-.9 6M8 12.5a4 4 0 0 1 8 0c0 3-.5 5.5-1.5 8M12 12.5V14c0 2.5-.4 4.5-1.2 6.5M8 16.5c-.2 1.3-.5 2.5-1 3.5",
     ),
   ]);
   static const arrowLeftRight = BefIconData([BefShape.path("M3 8h18M17 4l4 4-4 4M21 16H3M7 12l-4 4 4 4")]);
@@ -1130,7 +1130,9 @@ class BefIcons {
     BefShape.path("M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"),
     BefShape.path("M3 3l18 18"),
   ]);
-  static const pinOff = BefIconData([BefShape.path("M9 4h6M10 4v5.5L7 14h8M12 14v8M3 3l18 18")]);
+  static const pinOff = BefIconData([
+    BefShape.path("M9 3h6M10 3v6l-3 4h5M14 3v3M12 13v8M18 13h-3M3 3l18 18"),
+  ]);
   static const thumbsDown = BefIconData([
     BefShape.path(
       "M7 13v-9H4v9zM7 13l4 7a2 2 0 0 0 2.5-2.4L13 14h5.5a2 2 0 0 0 2-2.4l-1.3-6A2 2 0 0 0 17.3 4H7",
