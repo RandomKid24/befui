@@ -28,9 +28,9 @@ export function Thinking({ label = 'Thinking', steps, done = false, took, classN
     <div role="status" className={className}>
       <button type="button" aria-expanded={open} onClick={() => setOpen(!open)} className="inline-flex items-center gap-1.5 rounded-md outline-none focus-visible:ring-2 focus-visible:ring-ring/40">
         {head}
-        <ChevronDownIcon className={cn('size-3.5 text-muted-foreground transition-transform duration-200', open && 'rotate-180')} />
+        <ChevronDownIcon className={cn('size-3.5 text-muted-foreground transition-transform duration-(--dur-base)', open && 'rotate-180')} />
       </button>
-      <div className={cn('grid transition-[grid-template-rows] duration-300', open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]')}>
+      <div className={cn('grid transition-[grid-template-rows] duration-(--dur-base)', open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]')}>
         <ul className="overflow-hidden">
           <li className="mt-2 ms-[3px] grid gap-1.5 border-s ps-4 text-[13px]">
             {steps.map((s) => (

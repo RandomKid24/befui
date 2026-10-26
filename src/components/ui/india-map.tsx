@@ -304,14 +304,14 @@ export function IndiaMap({
                     {...shared}
                     fill="currentColor"
                     fillOpacity={tint(c.name)}
-                    className={cn(c.name === sel ? 'stroke-foreground' : 'stroke-background', 'transition-[fill-opacity] duration-150')}
+                    className={cn(c.name === sel ? 'stroke-foreground' : 'stroke-background', 'transition-[fill-opacity] duration-(--dur-fast)')}
                     strokeWidth={merged ? (c.name === sel ? 2.8 : 1.6) : c.name === sel ? 1.4 : 0.6}
                     style={merged ? { fill: 'none' } : undefined}
                   />
                 ))}
                 {merged &&
                   c.members.map((m) => (
-                    <path key={m.name + 'f'} d={m.d} {...shared} fill="currentColor" fillOpacity={tint(c.name)} className="transition-[fill-opacity] duration-150" />
+                    <path key={m.name + 'f'} d={m.d} {...shared} fill="currentColor" fillOpacity={tint(c.name)} className="transition-[fill-opacity] duration-(--dur-fast)" />
                   ))}
               </g>
             );

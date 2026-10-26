@@ -61,7 +61,7 @@ export function OtpInput({
             focus(t.length);
           }}
           className={cn(
-            'size-11 rounded-lg border bg-background text-center text-lg font-semibold tabular-nums outline-none transition-[border-color,box-shadow,transform] duration-150 focus:scale-105 focus:border-ring focus:ring-4 focus:ring-ring/15',
+            'size-11 rounded-lg border bg-background text-center text-lg font-semibold tabular-nums outline-none transition-[border-color,box-shadow,transform] duration-(--dur-fast) focus:scale-105 focus:border-ring focus:ring-4 focus:ring-ring/15',
             value[i] && 'border-primary/50 bg-accent',
             invalid && 'border-destructive focus:border-destructive focus:ring-destructive/15',
           )}

@@ -44,7 +44,7 @@ export function Attachment({
       )}
       {status === 'uploading' && (
         <span role="progressbar" aria-label={`Uploading ${name}`} aria-valuenow={Math.round(progress ?? 0)} aria-valuemin={0} aria-valuemax={100} className="absolute inset-x-0 bottom-0 h-0.5 bg-secondary">
-          <span className="block h-full bg-primary transition-[width] duration-300" style={{ width: `${progress ?? 0}%` }} />
+          <span className="block h-full bg-primary transition-[width] duration-(--dur-base)" style={{ width: `${progress ?? 0}%` }} />
         </span>
       )}
     </div>

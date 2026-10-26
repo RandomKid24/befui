@@ -33,7 +33,7 @@ export function Heatmap({
             <span
               key={i}
               title={`${values[i]} ${unit}, ${date(i).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}`}
-              className={cn('size-3 animate-pop rounded-[3px] transition-transform duration-150 hover:scale-150', LEVELS[level(values[i])])}
+              className={cn('size-3 animate-pop rounded-[3px] transition-transform duration-(--dur-fast) hover:scale-150', LEVELS[level(values[i])])}
               style={{ animationDelay: `${Math.floor(k / 7) * 18}ms`, animationFillMode: 'backwards' }}
             />
           ),

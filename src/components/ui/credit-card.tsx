@@ -51,7 +51,7 @@ export function CreditCard({
         aria-label={back ? 'Show card front' : 'Show card back'}
         onClick={flip}
         onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), flip())}
-        className="relative size-full cursor-pointer rounded-2xl outline-none transition-transform duration-700 ease-[cubic-bezier(0.34,1.2,0.64,1)] [transform-style:preserve-3d] focus-visible:ring-2 focus-visible:ring-ring/50"
+        className="relative size-full cursor-pointer rounded-2xl outline-none transition-transform duration-(--dur-slow) ease-[cubic-bezier(0.34,1.2,0.64,1)] [transform-style:preserve-3d] focus-visible:ring-2 focus-visible:ring-ring/50"
         style={{ transform: back ? 'rotateY(180deg)' : 'rotateY(0)' }}
       >
         <div className={cn('absolute inset-0 grid grid-rows-[auto_1fr_auto] rounded-2xl p-5 shadow-lg [backface-visibility:hidden]', look[theme])}>

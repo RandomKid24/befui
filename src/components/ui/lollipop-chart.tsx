@@ -20,7 +20,7 @@ export function LollipopChart({ items, sort = true, format = (n) => n.toLocaleSt
           <span className="truncate text-[13px]">{d.label}</span>
           <div className="relative h-4">
             <span className="absolute left-0 top-1/2 h-[2px] -translate-y-1/2 rounded-full bg-primary/50" style={{ width: on ? `${(d.value / max) * 96}%` : 0, transition: `width 800ms cubic-bezier(0.22,1,0.36,1) ${i * 60}ms` }} />
-            <span className={cn('absolute top-1/2 size-3.5 -translate-y-1/2 rounded-full bg-primary transition-transform duration-200', hover === i && 'scale-125')} style={{ left: `${on ? (d.value / max) * 96 : 0}%`, marginLeft: '-0.1rem', transition: `left 800ms cubic-bezier(0.22,1,0.36,1) ${i * 60}ms, transform 200ms` }} />
+            <span className={cn('absolute top-1/2 size-3.5 -translate-y-1/2 rounded-full bg-primary transition-transform duration-(--dur-base)', hover === i && 'scale-125')} style={{ left: `${on ? (d.value / max) * 96 : 0}%`, marginLeft: '-0.1rem', transition: `left 800ms cubic-bezier(0.22,1,0.36,1) ${i * 60}ms, transform 200ms` }} />
           </div>
           <span className="text-right text-xs font-medium tabular-nums">{format(d.value)}</span>
         </div>

@@ -52,7 +52,7 @@ function Row({ it }: { it: UsageItem }) {
         aria-valuetext={it.limit ? `${n(it.used)} of ${n(it.limit)}${unit}` : `${n(it.used)}${unit}, unlimited`}
         className="h-2 overflow-hidden rounded-full bg-secondary"
       >
-        <div className={cn('h-full rounded-full motion-safe:transition-[width] motion-safe:duration-700 motion-safe:ease-out', it.limit ? tone : 'bg-primary/40')} style={{ width: on ? `${it.limit ? Math.min(ratio, 1) * 100 : 100}%` : '0%' }} />
+        <div className={cn('h-full rounded-full motion-safe:transition-[width] motion-safe:duration-(--dur-slow) motion-safe:ease-out', it.limit ? tone : 'bg-primary/40')} style={{ width: on ? `${it.limit ? Math.min(ratio, 1) * 100 : 100}%` : '0%' }} />
       </div>
       {over > 0 && (
         <p className="mt-1.5 flex items-center gap-1 text-xs text-destructive"><AlertCircleIcon className="size-3.5" />{n(over)}{unit} over the limit{it.overage !== undefined ? `, up to ${n(it.overage)}${unit} extra is billed` : ''}.</p>

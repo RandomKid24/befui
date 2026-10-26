@@ -36,7 +36,7 @@ export function Dock({ items, className }: { items: DockItem[]; className?: stri
           aria-label={it.label}
           onClick={it.onClick}
           style={{ transform: `scale(${scale(i)})`, transformOrigin: 'bottom' }}
-          className="group relative grid size-10 place-items-center rounded-xl bg-secondary text-foreground outline-none transition-[transform,background] duration-150 ease-out hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring [&_svg]:size-5"
+          className="group relative grid size-10 place-items-center rounded-xl bg-secondary text-foreground outline-none transition-[transform,background] duration-(--dur-fast) ease-out hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring [&_svg]:size-5"
         >
           {it.icon}
           <span className="pointer-events-none absolute -top-8 whitespace-nowrap rounded-md bg-foreground px-2 py-0.5 text-[11px] font-medium text-background opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">{it.label}</span>

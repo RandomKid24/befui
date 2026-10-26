@@ -71,7 +71,7 @@ export function Sidebar({ children, className }: { children: React.ReactNode; cl
       <aside
         data-collapsed={collapsed}
         className={cn(
-          'hidden shrink-0 flex-col border-r bg-card transition-[width] duration-200 ease-out lg:flex',
+          'hidden shrink-0 flex-col border-r bg-card transition-[width] duration-(--dur-base) ease-out lg:flex',
           collapsed ? 'w-[3.75rem]' : 'w-60',
           className,
         )}

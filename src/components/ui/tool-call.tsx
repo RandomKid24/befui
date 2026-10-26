@@ -47,10 +47,10 @@ export function ToolCall({
         <span className="min-w-0 flex-1 truncate font-mono text-[13px] font-medium">{name}</span>
         {duration && <span className="text-xs tabular-nums text-muted-foreground">{duration}</span>}
         <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground" role="status">{t.icon}{t.text}</span>
-        {has && <ChevronDownIcon className={cn('size-4 text-muted-foreground transition-transform duration-200', open && 'rotate-180')} />}
+        {has && <ChevronDownIcon className={cn('size-4 text-muted-foreground transition-transform duration-(--dur-base)', open && 'rotate-180')} />}
       </button>
       {has && (
-        <div className={cn('grid transition-[grid-template-rows] duration-300', open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]')}>
+        <div className={cn('grid transition-[grid-template-rows] duration-(--dur-base)', open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]')}>
           <div className="overflow-hidden">
             <div className="grid gap-3 border-t p-3">
               {input !== undefined && <Block label="Input">{input}</Block>}

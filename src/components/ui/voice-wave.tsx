@@ -17,7 +17,7 @@ export function VoiceWave({ active = true, level, bars = 24, label, className }:
         return (
           <span
             key={i}
-            className={cn('w-[3px] rounded-full bg-primary transition-colors', active ? (level === undefined ? 'animate-wave motion-reduce:animate-none' : 'transition-[height] duration-100') : 'bg-muted-foreground/40')}
+            className={cn('w-[3px] rounded-full bg-primary transition-colors', active ? (level === undefined ? 'animate-wave motion-reduce:animate-none' : 'transition-[height] duration-(--dur-fast)') : 'bg-muted-foreground/40')}
             style={{
               height: active ? `${live * 100}%` : '10%',
               animationDelay: level === undefined ? `${-seed * 1.1}s` : undefined,

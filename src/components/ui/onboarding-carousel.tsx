@@ -67,7 +67,7 @@ export function OnboardingCarousel({
       <div className="grid gap-5 p-6">
         <div className="flex justify-center gap-1.5" role="tablist" aria-label="Slides">
           {slides.map((s, n) => (
-            <button key={s.title} role="tab" aria-selected={n === i} aria-label={`Slide ${n + 1}`} onClick={() => go(n)} className={cn('h-1.5 rounded-full outline-none transition-all duration-300 focus-visible:ring-2 focus-visible:ring-ring/50', n === i ? 'w-6 bg-primary' : 'w-1.5 bg-muted-foreground/30')} />
+            <button key={s.title} role="tab" aria-selected={n === i} aria-label={`Slide ${n + 1}`} onClick={() => go(n)} className={cn('h-1.5 rounded-full outline-none transition-all duration-(--dur-base) focus-visible:ring-2 focus-visible:ring-ring/50', n === i ? 'w-6 bg-primary' : 'w-1.5 bg-muted-foreground/30')} />
           ))}
         </div>
         <Button size="lg" onClick={() => (last ? onFinish?.() : go(i + 1))}>{last ? finishLabel : 'Next'}</Button>

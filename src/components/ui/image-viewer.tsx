@@ -37,7 +37,7 @@ export function ImageViewer({ images, index, onIndexChange }: { images: ViewerIm
               src={img.src}
               alt={img.alt}
               onClick={() => setZoom(!zoom)}
-              className={cn('select-none rounded-lg object-contain transition-[max-width,max-height] duration-200', zoom ? 'max-h-none max-w-none cursor-zoom-out' : 'max-h-full max-w-full cursor-zoom-in')}
+              className={cn('select-none rounded-lg object-contain transition-[max-width,max-height] duration-(--dur-base)', zoom ? 'max-h-none max-w-none cursor-zoom-out' : 'max-h-full max-w-full cursor-zoom-in')}
               style={zoom ? { width: '170%' } : undefined}
             />
           </div>

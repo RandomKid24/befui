@@ -12,7 +12,7 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, leftIcon, rightSlot, type = 'text', ...props }, ref) => {
     if (!leftIcon && !rightSlot) {
-      return <input ref={ref} type={type} className={cn(field, 'h-9', className)} {...props} />;
+      return <input ref={ref} type={type} className={cn(field, 'h-(--control-h)', className)} {...props} />;
     }
     return (
       <div className="relative flex items-center">
@@ -22,7 +22,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         <input
           ref={ref}
           type={type}
-          className={cn(field, 'h-9', leftIcon && 'pl-9', rightSlot && 'pr-12', className)}
+          className={cn(field, 'h-(--control-h)', leftIcon && 'pl-9', rightSlot && 'pr-12', className)}
           {...props}
         />
         {rightSlot && <span className="absolute right-2 flex items-center">{rightSlot}</span>}

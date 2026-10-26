@@ -50,7 +50,7 @@ export function SwipeActions({ actions, children, className }: { actions: SwipeA
         onClickCapture={(e) => { if (x !== 0 && !drag) { e.stopPropagation(); e.preventDefault(); setX(0); } }}
         onKeyDown={(e) => { if (e.key === 'ArrowLeft') setX(-max); else if (e.key === 'ArrowRight' || e.key === 'Escape') setX(0); }}
         style={{ transform: `translateX(${x}px)` }}
-        className={cn('relative touch-pan-y select-none bg-card outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring/40', !drag && 'transition-transform duration-200')}
+        className={cn('relative touch-pan-y select-none bg-card outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring/40', !drag && 'transition-transform duration-(--dur-base)')}
       >
         {children}
       </div>

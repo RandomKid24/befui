@@ -22,7 +22,7 @@ export function Carousel({ children, className }: { children: React.ReactNode; c
       <button type="button" aria-label="Previous" disabled={i === 0} onClick={() => go(i - 1)} className={cn(arrow, 'left-2')}><ChevronLeftIcon className="size-4" /></button>
       <button type="button" aria-label="Next" disabled={i === slides.length - 1} onClick={() => go(i + 1)} className={cn(arrow, 'right-2')}><ChevronRightIcon className="size-4" /></button>
       <div className="mt-3 flex justify-center gap-1.5">
-        {slides.map((_, n) => <button key={n} type="button" aria-label={`Slide ${n + 1}`} onClick={() => go(n)} className={cn('h-1.5 rounded-full bg-border transition-all duration-300', n === i ? 'w-5 bg-primary' : 'w-1.5 hover:bg-muted-foreground')} />)}
+        {slides.map((_, n) => <button key={n} type="button" aria-label={`Slide ${n + 1}`} onClick={() => go(n)} className={cn('h-1.5 rounded-full bg-border transition-all duration-(--dur-base)', n === i ? 'w-5 bg-primary' : 'w-1.5 hover:bg-muted-foreground')} />)}
       </div>
     </div>
   );

@@ -12,7 +12,7 @@ export function Banner({ children, action, onDismiss, persistKey, className }: {
     try { if (store && localStorage.getItem(store)) setOpen(false); } catch { /* storage blocked: show it every time */ }
   }, [store]);
   return (
-    <div className={cn('grid transition-[grid-template-rows,opacity] duration-300', open ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0', className)}>
+    <div className={cn('grid transition-[grid-template-rows,opacity] duration-(--dur-base)', open ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0', className)}>
       <div className="overflow-hidden">
         <div className="relative flex items-center justify-center gap-3 bg-primary px-10 py-2 text-center text-[13px] font-medium text-primary-foreground">
           <span>{children}</span>

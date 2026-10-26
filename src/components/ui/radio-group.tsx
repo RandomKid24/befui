@@ -30,14 +30,14 @@ export function RadioGroup({
         <label
           key={o.value}
           className={cn(
-            'flex cursor-pointer items-start gap-3 rounded-lg border p-3 transition-all duration-200 hover:bg-muted has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring/50',
+            'flex cursor-pointer items-start gap-3 rounded-lg border p-3 transition-all duration-(--dur-base) hover:bg-muted has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring/50',
             value === o.value && 'border-primary bg-accent shadow-sm',
             o.disabled && 'pointer-events-none opacity-50',
           )}
         >
           <input type="radio" name={name} value={o.value} checked={value === o.value} disabled={o.disabled} onChange={() => onValueChange(o.value)} className="peer sr-only" />
           <span className="mt-0.5 grid size-4 shrink-0 place-items-center rounded-full border-2 transition-colors peer-checked:border-primary">
-            <span className={cn('size-2 rounded-full bg-primary transition-transform duration-200', value === o.value ? 'scale-100' : 'scale-0')} />
+            <span className={cn('size-2 rounded-full bg-primary transition-transform duration-(--dur-base)', value === o.value ? 'scale-100' : 'scale-0')} />
           </span>
           <span className="grid gap-0.5">
             <span className="text-sm font-medium leading-4">{o.label}</span>

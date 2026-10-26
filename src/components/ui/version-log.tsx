@@ -68,7 +68,7 @@ function Release({ r, latest, open, onToggle, kind, active, id }: { r: VersionRe
         <span className="ml-auto hidden items-center gap-1.5 sm:flex">
           {counts.map(([k, n]) => <Badge key={k} variant={badge[k]} className="capitalize">{n} {k}</Badge>)}
         </span>
-        <ChevronDownIcon className={cn('size-4 text-muted-foreground transition-transform duration-300', open && 'rotate-180')} />
+        <ChevronDownIcon className={cn('size-4 text-muted-foreground transition-transform duration-(--dur-base)', open && 'rotate-180')} />
       </button>
       {r.title && <p className="text-base font-medium">{r.title}</p>}
 

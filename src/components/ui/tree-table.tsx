@@ -80,7 +80,7 @@ export function TreeTable<T extends TreeRow>({
                       <span className="flex items-center gap-1.5" style={{ paddingInlineStart: depth * 20 }}>
                         {branch ? (
                           <button type="button" tabIndex={-1} aria-label={isOpen ? 'Collapse' : 'Expand'} onClick={(e) => { e.stopPropagation(); flip(row.id); }} className="grid size-5 shrink-0 place-items-center rounded text-muted-foreground hover:bg-secondary">
-                            <ChevronRightIcon className={cn('size-3.5 transition-transform duration-200 rtl:-scale-x-100', isOpen && 'rotate-90')} />
+                            <ChevronRightIcon className={cn('size-3.5 transition-transform duration-(--dur-base) rtl:-scale-x-100', isOpen && 'rotate-90')} />
                           </button>
                         ) : <span className="size-5 shrink-0" />}
                         {c.render ? c.render(row, depth) : String(row[c.key] ?? '')}

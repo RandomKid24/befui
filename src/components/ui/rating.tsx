@@ -22,7 +22,7 @@ export function Rating({
     <div className={cn('inline-flex gap-0.5', className)} role={onValueChange ? 'radiogroup' : 'img'} aria-label={`${value} of ${max} stars`} onMouseLeave={() => setHover(0)}>
       {Array.from({ length: max }, (_, i) => {
         const n = i + 1;
-        const star = <StarIcon className={cn('size-5 transition-all duration-150', n <= shown ? 'fill-warning text-warning' : 'text-border', onValueChange && n === hover && 'scale-125')} />;
+        const star = <StarIcon className={cn('size-5 transition-all duration-(--dur-fast)', n <= shown ? 'fill-warning text-warning' : 'text-border', onValueChange && n === hover && 'scale-125')} />;
         return onValueChange ? (
           <button key={n} type="button" role="radio" aria-checked={n === value} aria-label={`${n} star${n > 1 ? 's' : ''}`} onMouseEnter={() => setHover(n)} onClick={() => onValueChange(n === value ? 0 : n)} className="rounded outline-none focus-visible:ring-2 focus-visible:ring-ring/50">
             {star}

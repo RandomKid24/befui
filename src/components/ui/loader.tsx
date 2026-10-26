@@ -43,7 +43,7 @@ export function BarLoader({ value, className }: { value?: number; className?: st
   return (
     <div role="progressbar" aria-label="Loading" aria-valuenow={known ? value : undefined} className={cn('relative h-1 w-full overflow-hidden rounded-full bg-primary/15', className)}>
       <div
-        className={cn('h-full rounded-full bg-primary', known ? 'transition-[width] duration-300' : 'w-2/5 animate-loader-bar')}
+        className={cn('h-full rounded-full bg-primary', known ? 'transition-[width] duration-(--dur-base)' : 'w-2/5 animate-loader-bar')}
         style={known ? { width: `${Math.min(100, Math.max(0, value))}%` } : undefined}
       />
     </div>
@@ -54,7 +54,7 @@ export function BarLoader({ value, className }: { value?: number; className?: st
 export function LoadingOverlay({ loading, label, variant = 'ring', className, children }: { loading: boolean; label?: string; variant?: LoaderVariant; className?: string; children: React.ReactNode }) {
   return (
     <div className={cn('relative', className)} aria-busy={loading}>
-      <div className={cn('transition-opacity duration-200', loading && 'pointer-events-none opacity-40 blur-[1px]')} inert={loading || undefined}>{children}</div>
+      <div className={cn('transition-opacity duration-(--dur-base)', loading && 'pointer-events-none opacity-40 blur-[1px]')} inert={loading || undefined}>{children}</div>
       {loading && (
         <div className="absolute inset-0 z-10 grid place-content-center justify-items-center gap-2 animate-in">
           <Loader variant={variant} size="lg" label={label ?? 'Loading'} />

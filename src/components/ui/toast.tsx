@@ -87,7 +87,7 @@ export function Toaster() {
           <div className="grid flex-1 gap-0.5">
             <p className="text-[13px] font-medium">{t.title}</p>
             {t.description && <p className="text-xs text-muted-foreground">{t.description}</p>}
-            {t.progress !== undefined && <div role="progressbar" aria-valuenow={Math.round(t.progress)} aria-valuemin={0} aria-valuemax={100} className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-secondary"><div className="h-full rounded-full bg-primary transition-[width] duration-300" style={{ width: `${t.progress}%` }} /></div>}
+            {t.progress !== undefined && <div role="progressbar" aria-valuenow={Math.round(t.progress)} aria-valuemin={0} aria-valuemax={100} className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-secondary"><div className="h-full rounded-full bg-primary transition-[width] duration-(--dur-base)" style={{ width: `${t.progress}%` }} /></div>}
           </div>
           {t.action && <button onClick={() => { t.action!.onClick(); dismiss(t.id); }} className="text-[13px] font-medium text-primary hover:underline">{t.action.label}</button>}
           <button onClick={() => dismiss(t.id)} className="text-muted-foreground transition-colors hover:text-foreground" aria-label="Dismiss">

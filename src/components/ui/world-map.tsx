@@ -285,7 +285,7 @@ export function WorldMap({
     return {
       fill: 'currentColor',
       fillOpacity: tint(c.name),
-      className: cn(c.name === sel ? 'stroke-foreground' : 'stroke-background', 'transition-[fill-opacity] duration-150', d && 'cursor-pointer'),
+      className: cn(c.name === sel ? 'stroke-foreground' : 'stroke-background', 'transition-[fill-opacity] duration-(--dur-fast)', d && 'cursor-pointer'),
       strokeWidth: c.name === sel ? 1.4 : 0.5,
       vectorEffect: 'non-scaling-stroke' as const,
       strokeLinejoin: 'round' as const,

@@ -34,9 +34,9 @@ export function TokenMeter({
       </div>
       <div role="meter" aria-label="Context used" aria-valuenow={used} aria-valuemin={0} aria-valuemax={limit} className="flex h-2 overflow-hidden rounded-full bg-secondary">
         {segments ? (
-          segments.map((s, i) => <span key={s.label} className={cn('h-full transition-[width] duration-700 ease-out', shades[i % shades.length])} style={{ width: `${(s.tokens / limit) * 100}%` }} title={`${s.label}: ${compact(s.tokens)}`} />)
+          segments.map((s, i) => <span key={s.label} className={cn('h-full transition-[width] duration-(--dur-slow) ease-out', shades[i % shades.length])} style={{ width: `${(s.tokens / limit) * 100}%` }} title={`${s.label}: ${compact(s.tokens)}`} />)
         ) : (
-          <span className={cn('h-full rounded-full transition-[width,background-color] duration-700 ease-out', tone)} style={{ width: `${pct}%` }} />
+          <span className={cn('h-full rounded-full transition-[width,background-color] duration-(--dur-slow) ease-out', tone)} style={{ width: `${pct}%` }} />
         )}
       </div>
       {segments && (

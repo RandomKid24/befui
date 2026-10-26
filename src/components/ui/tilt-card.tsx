@@ -20,10 +20,10 @@ export function TiltCard({ className, children, max = 10, ...props }: React.HTML
       ref={ref}
       onPointerMove={move}
       onPointerLeave={() => { ref.current!.style.transform = ''; }}
-      className={cn('group relative overflow-hidden rounded-xl border bg-card p-5 shadow-sm transition-transform duration-200 ease-out will-change-transform', className)}
+      className={cn('group relative overflow-hidden rounded-xl border bg-card p-5 shadow-sm transition-transform duration-(--dur-base) ease-out will-change-transform', className)}
       {...props}
     >
-      <div aria-hidden className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" style={{ background: 'radial-gradient(400px circle at var(--sx,50%) var(--sy,50%), rgb(255 255 255 / 0.18), transparent 60%)' }} />
+      <div aria-hidden className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-(--dur-base) group-hover:opacity-100" style={{ background: 'radial-gradient(400px circle at var(--sx,50%) var(--sy,50%), rgb(255 255 255 / 0.18), transparent 60%)' }} />
       <div className="relative">{children}</div>
     </div>
   );

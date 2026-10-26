@@ -14,17 +14,17 @@ export function SpotlightCard({ className, children, onMouseMove, ...props }: Re
   return (
     <div
       onMouseMove={move}
-      className={cn('group relative overflow-hidden rounded-xl border bg-card p-5 transition-transform duration-300 hover:-translate-y-0.5', className)}
+      className={cn('group relative overflow-hidden rounded-xl border bg-card p-5 transition-transform duration-(--dur-base) hover:-translate-y-0.5', className)}
       {...props}
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-(--dur-base) group-hover:opacity-100"
         style={{ background: 'radial-gradient(260px circle at var(--x,50%) var(--y,50%), color-mix(in srgb, var(--primary) 14%, transparent), transparent 70%)' }}
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 rounded-[inherit] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        className="pointer-events-none absolute inset-0 rounded-[inherit] opacity-0 transition-opacity duration-(--dur-base) group-hover:opacity-100"
         style={{
           padding: 1,
           background: 'radial-gradient(180px circle at var(--x,50%) var(--y,50%), var(--primary), transparent 70%)',

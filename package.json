@@ -38,6 +38,7 @@
     "prepublishOnly": "npm run build",
     "version": "node scripts/changelog-check.mjs",
     "test": "vitest run",
+    "test:visual": "playwright test",
     "flutter:gen": "node scripts/gen-flutter-theme.mjs && node scripts/gen-flutter-icons.mjs && node scripts/gen-flutter-gallery.mjs && cd flutter && dart format lib >/dev/null",
     "flutter:previews": "cd flutter && BEFUI_PREVIEWS=1 flutter test test/previews_test.dart && cd ../public/flutter && for f in *.png; do cwebp -quiet -q 80 -m 6 \"$f\" -o \"${f%.png}.webp\" && rm \"$f\"; done",
     "flutter:test": "cd flutter && flutter analyze && flutter test test/smoke_test.dart"
@@ -71,6 +72,7 @@
     "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.64.1",
     "@storybook/addon-a11y": "^10.6.1",
     "@storybook/addon-docs": "^10.6.1",
     "@storybook/addon-themes": "^10.6.1",

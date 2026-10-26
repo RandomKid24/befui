@@ -58,13 +58,13 @@ export function BarRace({
             <div
               key={n}
               aria-hidden
-              className="absolute inset-x-0 flex items-center gap-3 motion-safe:transition-[transform,opacity] motion-safe:duration-700"
+              className="absolute inset-x-0 flex items-center gap-3 motion-safe:transition-[transform,opacity] motion-safe:duration-(--dur-slow)"
               style={{ height: ROW - 6, transform: `translateY(${k * ROW}px)`, opacity: k < top ? 1 : 0 }}
             >
               <span className="w-20 shrink-0 truncate text-end text-[13px] font-medium">{n}</span>
               <div className="relative h-full flex-1">
-                <div className="h-full rounded-md motion-safe:transition-[width] motion-safe:duration-700" style={{ width: `${(v / max) * 88}%`, minWidth: 4, background: `oklch(0.68 0.14 ${hue(n)})` }} />
-                <span className="absolute top-1/2 -translate-y-1/2 whitespace-nowrap text-[13px] tabular-nums text-muted-foreground motion-safe:transition-[inset-inline-start] motion-safe:duration-700" style={{ insetInlineStart: `calc(${(v / max) * 88}% + 8px)` }}>{format(v)}</span>
+                <div className="h-full rounded-md motion-safe:transition-[width] motion-safe:duration-(--dur-slow)" style={{ width: `${(v / max) * 88}%`, minWidth: 4, background: `oklch(0.68 0.14 ${hue(n)})` }} />
+                <span className="absolute top-1/2 -translate-y-1/2 whitespace-nowrap text-[13px] tabular-nums text-muted-foreground motion-safe:transition-[inset-inline-start] motion-safe:duration-(--dur-slow)" style={{ insetInlineStart: `calc(${(v / max) * 88}% + 8px)` }}>{format(v)}</span>
               </div>
             </div>
           );

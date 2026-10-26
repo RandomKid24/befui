@@ -36,7 +36,7 @@ export function OrderTracker({ steps, current, orientation = 'auto', className }
           <li key={s.label} aria-current={active ? 'step' : undefined} className={cn('relative flex', L.li)}>
             {i < steps.length - 1 && (
               <span aria-hidden className={cn('absolute bg-border', L.seg)}>
-                <span className={cn('block size-full bg-primary transition-transform duration-700 ease-out', done && on ? L.on : L.off)} style={{ transitionDelay: `${i * 220}ms` }} />
+                <span className={cn('block size-full bg-primary transition-transform duration-(--dur-slow) ease-out', done && on ? L.on : L.off)} style={{ transitionDelay: `${i * 220}ms` }} />
               </span>
             )}
             <span className="relative grid size-8 shrink-0 place-items-center">

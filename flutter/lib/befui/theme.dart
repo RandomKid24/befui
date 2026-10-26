@@ -145,7 +145,7 @@ class BefPalette {
       secondary: Color(0xFFF1F5F9),
       secondaryForeground: Color(0xFF0F172A),
       muted: Color(0xFFF8FAFC),
-      mutedForeground: Color(0xFF64748B),
+      mutedForeground: Color(0xFF5B6B80),
       accent: Color(0xFFEFF6FF),
       accentForeground: Color(0xFF1D4ED8),
       border: Color(0xFFE2E8F0),

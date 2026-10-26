@@ -51,7 +51,7 @@ export function Fab({ icon, label, onClick, actions, className }: { icon?: React
         onClick={() => (actions ? setOpen(!open) : onClick?.())}
         className={cn('inline-flex h-14 items-center justify-center gap-2 rounded-full bg-primary text-primary-foreground shadow-lg outline-none transition-[transform,box-shadow] hover:shadow-xl focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:ring-offset-2 active:scale-95 [&_svg]:size-5', label ? 'px-5 text-sm font-medium' : 'w-14')}
       >
-        <span className={cn('grid transition-transform duration-200', open && 'rotate-45')}>{icon ?? <PlusIcon />}</span>
+        <span className={cn('grid transition-transform duration-(--dur-base)', open && 'rotate-45')}>{icon ?? <PlusIcon />}</span>
         {label}
       </button>
     </div>

@@ -28,7 +28,7 @@ export function Reveal({
   return (
     <div
       ref={ref}
-      className={cn('transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none', className)}
+      className={cn('transition-[opacity,transform] duration-(--dur-slow) ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none', className)}
       style={{ opacity: seen ? 1 : 0, transform: seen ? 'none' : `translateY(${y}px)`, transitionDelay: `${delay}ms`, ...style }}
       {...props}
     />
@@ -45,7 +45,7 @@ export function TextReveal({ text, className, step = 60 }: { text: string; class
         <span
           key={i}
           aria-hidden
-          className="inline-block transition-[opacity,transform,filter] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
+          className="inline-block transition-[opacity,transform,filter] duration-(--dur-slow) ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
           style={{
             opacity: seen ? 1 : 0,
             filter: seen ? 'none' : 'blur(8px)',

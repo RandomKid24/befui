@@ -22,7 +22,7 @@ Tokens live in `src/index.css` (`:root` for light, `.dark` for dark). Ten ready 
 | `--card` | `#ffffff` | `#0f1218` | raised surfaces |
 | `--primary` | `#2563eb` | `#3b82f6` | the one accent: buttons, links, focus, active |
 | `--secondary` | `#f1f5f9` | `#171b23` | quiet fills, hover |
-| `--muted` / `--muted-foreground` | `#f8fafc` / `#64748b` | `#11141b` / `#8b94a5` | backgrounds and secondary text |
+| `--muted` / `--muted-foreground` | `#f8fafc` / `#5b6b80` | `#11141b` / `#8b94a5` | backgrounds and secondary text |
 | `--accent` | `#eff6ff` | `#14213d` | selected rows, soft highlights |
 | `--border` / `--input` | `#e2e8f0` | `#1f2430` / `#272d3a` | hairlines and field borders |
 | `--ring` | `#3b82f6` | `#3b82f6` | focus ring |
@@ -97,3 +97,13 @@ The same tokens, as a `BefTheme` extension (`context.bef.primary`). Widgets use 
 3. Add an example in `src/examples/<name>.tsx` with the empty/loading/error states that apply.
 4. Run `npm run registry:build` (updates the catalog, `llms.txt`, README counts and `COMPONENTS.md`) and `npm test`.
 5. If it makes sense on a phone, add the Flutter widget and example (see `flutter/`).
+
+## Tokens added for motion, depth and density
+
+- **Motion:** `--dur-fast` 150ms, `--dur-base` 250ms, `--dur-spring` 400ms, `--dur-slow` 700ms; `--ease-out`, `--ease-spring` (a `linear()` curve with a small overshoot, for toasts, pops and the switch thumb). Use `duration-(--dur-base)` and `ease-spring`; `src/motion-tokens.test.ts` fails on hard-coded `duration-150/200/300/700`. Transitions (not keyframes) are what stay interruptible, so prefer them for anything the user can reverse mid-flight.
+- **Elevation:** `--elev-1..3` are layered shadows; dark mode adds a 1px inner highlight. Tailwind's `shadow-xs/sm/md/lg/xl` map to them.
+- **Accent steps:** `bg-primary-soft` (10%) and `ring-primary-ring` (35%) follow `--primary`.
+- **Press:** `--press` (0.97) on buttons, toggles and switches; hoverable cards use 0.99.
+- **Density:** `--control-h`, `-sm`, `-lg` drive buttons, inputs and selects. Set `data-density="compact"` or `"comfortable"` on any ancestor.
+- **Loading:** `Spinner` appears after 150ms; `SkeletonText`, `SkeletonAvatar` and `SkeletonCard` match real layouts.
+- **Checks:** `src/contrast.test.ts` (muted text >= 4.5:1 on every surface, both modes) and `npm run test:visual` (Playwright screenshots: light, dark, RTL, custom palette; baselines are per platform).

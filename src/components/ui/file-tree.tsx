@@ -94,7 +94,7 @@ export function FileTree({
             style={{ paddingInlineStart: `${r.depth * 14 + 6}px` }}
             className={cn('flex cursor-pointer select-none items-center gap-1.5 rounded-md py-1 pe-2 outline-none hover:bg-secondary focus-visible:ring-2 focus-visible:ring-ring/50', r.path === selected && 'bg-accent text-accent-foreground')}
           >
-            <ChevronRightIcon className={cn('size-3.5 shrink-0 text-muted-foreground transition-transform duration-150 rtl:-scale-x-100', isOpen && 'rotate-90 rtl:rotate-90', !isDir && 'invisible')} />
+            <ChevronRightIcon className={cn('size-3.5 shrink-0 text-muted-foreground transition-transform duration-(--dur-fast) rtl:-scale-x-100', isOpen && 'rotate-90 rtl:rotate-90', !isDir && 'invisible')} />
             <Icon className={cn('size-4 shrink-0', isDir ? 'text-primary' : 'text-muted-foreground')} />
             <span className="truncate">{r.node.name}</span>
           </li>

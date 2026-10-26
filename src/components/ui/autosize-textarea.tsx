@@ -47,7 +47,7 @@ export const AutosizeTextarea = React.forwardRef<
         defaultValue={defaultValue}
         maxLength={maxLength}
         onChange={(e) => { setLen(e.target.value.length); fit(); onChange?.(e); }}
-        className={cn('resize-none transition-[height] duration-100', count && 'pb-7', className)}
+        className={cn('resize-none transition-[height] duration-(--dur-fast)', count && 'pb-7', className)}
         {...props}
       />
       {count && (

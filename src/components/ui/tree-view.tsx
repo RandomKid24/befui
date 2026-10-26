@@ -22,12 +22,12 @@ function Node({ node, depth, selected, onSelect }: { node: TreeNode; depth: numb
         className={cn('flex w-full items-center gap-1.5 rounded-md py-1 pr-2 text-left text-sm outline-none transition-colors hover:bg-secondary focus-visible:bg-secondary', selected === node.id && 'bg-accent text-accent-foreground')}
         style={{ paddingLeft: depth * 16 + 6 }}
       >
-        <ChevronRightIcon className={cn('size-3.5 text-muted-foreground transition-transform duration-200', open && 'rotate-90', !isDir && 'invisible')} />
+        <ChevronRightIcon className={cn('size-3.5 text-muted-foreground transition-transform duration-(--dur-base)', open && 'rotate-90', !isDir && 'invisible')} />
         <Icon className={cn('size-4', isDir ? 'text-primary' : 'text-muted-foreground')} />
         {node.label}
       </button>
       {isDir && (
-        <div className={cn('grid transition-[grid-template-rows] duration-200', open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]')}>
+        <div className={cn('grid transition-[grid-template-rows] duration-(--dur-base)', open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]')}>
           <ul role="group" className="overflow-hidden">
             {node.children!.map((c) => <Node key={c.id} node={c} depth={depth + 1} selected={selected} onSelect={onSelect} />)}
           </ul>

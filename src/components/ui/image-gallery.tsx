@@ -21,7 +21,7 @@ export function ImageGallery({ images, onSelect, className }: { images: GalleryI
       {images.map((im, i) => (
         <button key={im.src + i} type="button" onClick={() => onSelect?.(i)} className="group relative block w-full overflow-hidden rounded-xl bg-muted outline-none focus-visible:ring-2 focus-visible:ring-ring" style={{ breakInside: 'avoid' }}>
           <img src={im.src} alt={im.caption === im.alt ? '' : im.alt} loading="lazy" style={{ aspectRatio: im.ratio ?? 1 }} className="w-full object-cover transition-transform duration-500 group-hover:scale-105" />
-          {im.caption ? <span className="absolute inset-x-0 bottom-0 translate-y-full bg-gradient-to-t from-black/70 to-transparent p-3 text-left text-xs font-medium text-white transition-transform duration-300 group-hover:translate-y-0 group-focus-visible:translate-y-0">{im.caption}</span> : null}
+          {im.caption ? <span className="absolute inset-x-0 bottom-0 translate-y-full bg-gradient-to-t from-black/70 to-transparent p-3 text-left text-xs font-medium text-white transition-transform duration-(--dur-base) group-hover:translate-y-0 group-focus-visible:translate-y-0">{im.caption}</span> : null}
         </button>
       ))}
     </div>

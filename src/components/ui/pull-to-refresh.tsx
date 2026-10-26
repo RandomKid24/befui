@@ -64,7 +64,7 @@ export function PullToRefresh({ onRefresh, children, threshold = 64, className }
           <RefreshIcon className={cn('size-4', busy && 'animate-spin')} style={busy ? undefined : { transform: `rotate(${Math.min(pull / threshold, 1) * 270}deg)` }} />
         </span>
       </div>
-      <div className={cn(!live.current.active && 'transition-transform duration-200')} style={{ transform: `translateY(${pull}px)` }}>{children}</div>
+      <div className={cn(!live.current.active && 'transition-transform duration-(--dur-base)')} style={{ transform: `translateY(${pull}px)` }}>{children}</div>
     </div>
   );
 }

@@ -27,7 +27,7 @@ export function WorldClock({ zones, className }: { zones: Zone[]; className?: st
         const diff = t.offset === 0 ? 'Same time' : `${t.offset > 0 ? '+' : ''}${t.offset}h`;
         return (
           <li key={z.timeZone} className="flex items-center gap-3 px-4 py-3">
-            <span className={cn('grid size-8 place-items-center rounded-full transition-colors duration-700', day ? 'bg-warning/15 text-warning' : 'bg-info/15 text-info')}>
+            <span className={cn('grid size-8 place-items-center rounded-full transition-colors duration-(--dur-slow)', day ? 'bg-warning/15 text-warning' : 'bg-info/15 text-info')}>
               {day ? <SunIcon className="size-4" /> : <MoonIcon className="size-4" />}
             </span>
             <div className="min-w-0 flex-1">

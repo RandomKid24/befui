@@ -13,7 +13,7 @@ export const NavigationMenu = React.forwardRef<
   <NavigationMenuPrimitive.Root ref={ref} className={cn('relative z-10 flex max-w-max flex-1 items-center justify-center self-center', className)} {...props}>
     {children}
     <div className="absolute start-0 top-full flex w-full justify-center">
-      <NavigationMenuPrimitive.Viewport className="relative mt-2 h-[var(--radix-navigation-menu-viewport-height)] w-full origin-top overflow-hidden rounded-xl border bg-popover text-popover-foreground shadow-lg transition-[width,height] duration-200 md:w-[var(--radix-navigation-menu-viewport-width)]" />
+      <NavigationMenuPrimitive.Viewport className="relative mt-2 h-[var(--radix-navigation-menu-viewport-height)] w-full origin-top overflow-hidden rounded-xl border bg-popover text-popover-foreground shadow-lg transition-[width,height] duration-(--dur-base) md:w-[var(--radix-navigation-menu-viewport-width)]" />
     </div>
   </NavigationMenuPrimitive.Root>
 ));
@@ -38,7 +38,7 @@ export const NavigationMenuTrigger = React.forwardRef<
 >(({ className, children, ...props }, ref) => (
   <NavigationMenuPrimitive.Trigger ref={ref} className={cn(triggerStyle, className)} {...props}>
     {children}
-    <ChevronDownIcon className="size-3.5 transition-transform duration-200 group-data-[state=open]:rotate-180" aria-hidden />
+    <ChevronDownIcon className="size-3.5 transition-transform duration-(--dur-base) group-data-[state=open]:rotate-180" aria-hidden />
   </NavigationMenuPrimitive.Trigger>
 ));
 NavigationMenuTrigger.displayName = 'NavigationMenuTrigger';
