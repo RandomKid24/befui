@@ -5,7 +5,7 @@ Every befui component and block. **272 React components**, **269 with an HTML ta
 
 Install a React component with `npx github:RandomKid24/befui add <name>`, the Flutter version with `npx github:RandomKid24/befui add <name> --flutter`.
 
-## Layout (6)
+## Layout (6, 0 on Flutter)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
@@ -16,7 +16,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `sidebar` | Collapsible nav with groups, nested links and badges. Icon rail on desktop, slide-over on mobile. | ✓ |  |
 | `split-pane` | Two resizable panels with a draggable divider. Keyboard resizable. Horizontal or vertical. | ✓ |  |
 
-## Navigation (17)
+## Navigation (17, 9 on Flutter)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
@@ -38,7 +38,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `tree-view` | Nested expandable list with animated open and close. | ✓ | ✓ |
 | `user-menu` | Avatar button for the topbar that opens a menu with name, email, your links and Sign out. | ✓ | ✓ |
 
-## Inputs (57)
+## Inputs (57, 34 on Flutter)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
@@ -100,7 +100,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `toggle-group` | A row of toggles where one or several can be pressed, for formatting toolbars. | ✓ | ✓ |
 | `transfer-list` | Two lists with arrows between them: tick items and move them across, each side with search and select all. For roles, columns or members. | ✓ |  |
 
-## Display (51)
+## Display (51, 29 on Flutter)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
@@ -156,7 +156,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `usage-meter` | Plan usage rows for a billing page: used of limit, percent, blue to amber to red as it fills, overage spelled out, unlimited rows. | ✓ |  |
 | `version-log` | Animated version history: the rail draws and dots pop as releases scroll in, entries slide in one by one, releases fold open, with a version jump strip and a kind filter. | ✓ |  |
 
-## AI (17)
+## AI (17, 12 on Flutter)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
@@ -178,7 +178,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `tool-call` | A card for one tool or function call an AI made: name, running, done or failed, how long it took, and its input and output to expand. | ✓ | ✓ |
 | `voice-wave` | Audio level bars for a voice input: they dance while listening and settle to a line when paused. Drive them with a real level or leave them idle. | ✓ | ✓ |
 
-## Data (83)
+## Data (83, 15 on Flutter)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
@@ -266,7 +266,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `world-map` | Countries on a flat map or a draggable globe, with a 3D bar or pin standing on every country in your data. Zoom, pan and spin it; click a name in the list to highlight a country. |  |  |
 | `year-heatmap` | A whole year as small squares, one per day, columns are weeks (the GitHub contributions graph), tinted in five steps by value. | ✓ |  |
 
-## Feedback (13)
+## Feedback (13, 9 on Flutter)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
@@ -284,7 +284,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `spinner` | Tiny CSS spinner that inherits text color. | ✓ | ✓ |
 | `toast` | Call toast.success() from anywhere. No provider needed. | ✓ | ✓ |
 
-## Overlays (15)
+## Overlays (15, 7 on Flutter)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
@@ -304,7 +304,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `tooltip` | Hint on hover and focus. Optional title, keyboard shortcut, light style and arrow, plus an (i) InfoTip and a TruncatedText that only shows a tooltip when cut off. | ✓ | ✓ |
 | `tour` | Spotlight a part of the page and step through it with a card, for product walkthroughs. | ✓ |  |
 
-## Time (12)
+## Time (12, 6 on Flutter)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
@@ -321,7 +321,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `week-strip` | Seven day pills with previous and next week arrows, a selected day and dots under days that have something. Arrow keys move the day. | ✓ | ✓ |
 | `world-clock` | Cities with live local time, a day or night icon and the hour difference from you. | ✓ |  |
 
-## Other (1)
+## Other (1, 0 on Flutter)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|

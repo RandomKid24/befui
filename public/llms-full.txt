@@ -1564,6 +1564,7 @@ Text input and textarea with icon, trailing slot, and invalid state.
 - Group: Inputs
 - Add: `npx github:RandomKid24/befui add input`
 - Import: `import { Input, Textarea } from '@/components/ui/input'`
+- Also needs: spinner
 
 Example:
 

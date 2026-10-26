@@ -235,7 +235,7 @@ if (readmeNew !== readmeOld) writeFileSync('README.md', readmeNew);
       const list = byGroup.filter((d) => d.group === g);
       if (!list.length) return [];
       return [
-        `## ${ORDER.includes(g) ? g : 'Other'} (${list.length})`,
+        `## ${ORDER.includes(g) ? g : 'Other'} (${list.length}, ${list.filter((d) => fl.has(d.name)).length} on Flutter)`,
         '',
         '| Component | What it is | HTML | Flutter |',
         '|---|---|:-:|:-:|',

@@ -121,7 +121,7 @@ SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, Chev
 - `gradient-picker`: Edit a linear gradient: colours, positions, angle, two to five stops, live preview and CSS to copy. Exports: gradientCss, GradientPicker. Needs: copy-button.
 - `image-upload`: Thumbnail grid with remove buttons, a cover label and a drop tile. Limits count, type and size. Exports: ImageUpload. Needs: icons.
 - `inline-edit`: Text that becomes a field on click. Enter saves, Escape cancels. Exports: InlineEdit. Needs: icons.
-- `input`: Text input and textarea with icon, trailing slot, and invalid state. Exports: Input, Textarea.
+- `input`: Text input and textarea with icon, trailing slot, and invalid state. Exports: Input, Textarea. Needs: spinner.
 - `input-group`: One field with text, icons or buttons attached at the start or end, like https:// or .com. Exports: InputGroup, InputGroupInput, InputAddon.
 - `kv-editor`: Environment variables or headers as key and value rows: values hidden until shown, duplicate keys flagged, and paste a .env file to fill many rows. Exports: parseEnv, KvEditor. Needs: button, icons.
 - `label`: Label with required marker, plus Field for label, control and hint or error. Exports: Label, Field.
