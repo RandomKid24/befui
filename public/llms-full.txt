@@ -5745,7 +5745,7 @@ export default function NumberTickerDemo() {
         { v: 4.2, l: 'Revenue', p: '₹', s: 'Cr', d: 1 },
       ].map((x) => (
         <div key={x.l}>
-          <NumberTicker value={x.v} prefix={x.p} suffix={x.s} decimals={x.d} className="text-4xl font-semibold tracking-tight" />
+          <NumberTicker countUp value={x.v} prefix={x.p} suffix={x.s} decimals={x.d} className="text-4xl font-semibold tracking-tight" />
           <p className="mt-1 text-sm text-muted-foreground">{x.l}</p>
         </div>
       ))}

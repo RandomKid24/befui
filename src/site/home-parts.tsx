@@ -47,18 +47,18 @@ export function HeroCollage() {
   );
 }
 
-/** Renders its children once it is within 400px of the screen, and keeps them after that. Block previews are whole pages, so they should not all mount at once. */
-function WhenNear({ children, className }: { children: React.ReactNode; className?: string }) {
+/** Renders its children once it is within 1200px of the screen, and keeps them after that. Block previews are whole pages, so they should not all mount at once. */
+function WhenNear({ children, fallback, className }: { children: React.ReactNode; fallback?: React.ReactNode; className?: string }) {
   const ref = React.useRef<HTMLDivElement>(null);
   const [near, setNear] = React.useState(false);
   React.useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const io = new IntersectionObserver(([e]) => { if (e?.isIntersecting) { setNear(true); io.disconnect(); } }, { rootMargin: '400px' });
+    const io = new IntersectionObserver(([e]) => { if (e?.isIntersecting) { setNear(true); io.disconnect(); } }, { rootMargin: '1200px' });
     io.observe(el);
     return () => io.disconnect();
   }, []);
-  return <div ref={ref} className={className}>{near ? children : null}</div>;
+  return <div ref={ref} className={className}>{near ? children : fallback}</div>;
 }
 
 export function BlockGrid({ items }: { items: typeof blocks }) {
@@ -69,7 +69,7 @@ export function BlockGrid({ items }: { items: typeof blocks }) {
         <div key={b.slug} className="group relative rounded-xl focus-within:ring-2 focus-within:ring-ring/50">
           <Card hoverable className="overflow-hidden">
             <div className="pointer-events-none relative h-56 overflow-hidden border-b bg-muted/50" aria-hidden>
-              <WhenNear className="absolute left-0 top-0 w-[200%] origin-top-left scale-50 p-6"><React.Suspense fallback={null}><b.Demo /></React.Suspense></WhenNear>
+              <WhenNear fallback={<span className="block p-6 text-3xl font-semibold text-muted-foreground/60">{b.name}</span>} className="absolute left-0 top-0 w-[200%] origin-top-left scale-50 p-6"><React.Suspense fallback={<span className="block p-6 text-3xl font-semibold text-muted-foreground/60">{b.name}</span>}><b.Demo /></React.Suspense></WhenNear>
               <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-card to-transparent" />
             </div>
             <div className="flex items-start justify-between gap-3 p-4">

@@ -2,11 +2,12 @@
 
 import * as React from 'react';
 
-/** Counts from 0 (or the previous value) to `value` with an ease-out curve. Starts when scrolled into view. */
+/** Shows `value` from the first paint and eases to the new number when it changes. Pass `countUp` to also count from 0 once it scrolls into view. */
 export function NumberTicker({
   value,
   duration = 1200,
   decimals = 0,
+  countUp = false,
   prefix = '',
   suffix = '',
   className,
@@ -14,25 +15,26 @@ export function NumberTicker({
   value: number;
   duration?: number;
   decimals?: number;
+  countUp?: boolean;
   prefix?: string;
   suffix?: string;
   className?: string;
 }) {
   const ref = React.useRef<HTMLSpanElement>(null);
-  const from = React.useRef(0);
-  const [shown, setShown] = React.useState(0);
-  const [seen, setSeen] = React.useState(false);
+  const from = React.useRef(countUp ? 0 : value);
+  const [shown, setShown] = React.useState(countUp ? 0 : value);
+  const [seen, setSeen] = React.useState(!countUp);
 
   React.useEffect(() => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || !countUp) return;
     const io = new IntersectionObserver(([e]) => e.isIntersecting && (setSeen(true), io.disconnect()));
     io.observe(el);
     return () => io.disconnect();
-  }, []);
+  }, [countUp]);
 
   React.useEffect(() => {
-    if (!seen) return;
+    if (!seen || from.current === value) return;
     const start = from.current;
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const t0 = performance.now();

@@ -317,3 +317,11 @@ it('InputGroup dims only when its input is disabled, not when an addon button is
   expect(classes).toContain('has-[input:disabled]:opacity-50');
   expect(classes).not.toContain('has-[:disabled]');
 });
+
+it('NumberTicker shows the real value on first render, and 0 only when countUp is asked for', async () => {
+  const { NumberTicker } = await import('@/components/ui/number-ticker');
+  const { container } = render(<><NumberTicker value={271} /><NumberTicker value={271} countUp /></>);
+  const [a, b] = Array.from(container.querySelectorAll('span'));
+  expect(a.textContent).toBe('271');
+  expect(b.textContent).toBe('0');
+});
