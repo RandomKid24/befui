@@ -191,9 +191,21 @@
     font-feature-settings: 'cv11', 'ss01';
   }
   ::selection { background: color-mix(in srgb, var(--primary) 25%, transparent); }
-  *::-webkit-scrollbar { width: 8px; height: 8px; }
-  *::-webkit-scrollbar-thumb { background: var(--border); border-radius: 8px; }
-  *::-webkit-scrollbar-thumb:hover { background: var(--input); }
+  /* Scrollbar: a floating pill that is faint at rest, darker on hover, primary while dragged */
+  *::-webkit-scrollbar { width: 12px; height: 12px; }
+  *::-webkit-scrollbar-track, *::-webkit-scrollbar-corner { background: transparent; }
+  *::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--foreground) 18%, transparent);
+    background-clip: padding-box;
+    border: 3px solid transparent;
+    border-radius: 999px;
+    transition: background-color var(--dur-fast);
+  }
+  *::-webkit-scrollbar-thumb:hover { background: color-mix(in srgb, var(--foreground) 38%, transparent); background-clip: padding-box; }
+  *::-webkit-scrollbar-thumb:active { background: var(--primary); background-clip: padding-box; }
+  @supports not selector(::-webkit-scrollbar) {
+    * { scrollbar-width: thin; scrollbar-color: color-mix(in srgb, var(--foreground) 25%, transparent) transparent; }
+  }
   button:not(:disabled), [role='button']:not([aria-disabled='true']) { cursor: pointer; }
 }
 

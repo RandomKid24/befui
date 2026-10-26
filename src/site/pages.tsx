@@ -16,7 +16,7 @@ import { StatCard } from '@/components/ui/stat-card';
 import { Avatar } from '@/components/ui/avatar';
 import { Progress } from '@/components/ui/progress';
 import { Users, IndianRupee } from 'lucide-react';
-import { blocks, categories, components, globalCss, useSource, utilsSource, type ChartGuide } from '@/registry';
+import { blocks, categories, NEW_SLUGS, components, globalCss, useSource, utilsSource, type ChartGuide } from '@/registry';
 import { cn } from '@/lib/utils';
 import { Command, CodeBlock } from './code';
 import { Link } from './router';
@@ -162,7 +162,8 @@ export function ComponentsIndex() {
     (!term || `${c.name} ${c.description} ${c.keywords.join(' ')}`.toLowerCase().includes(term));
   const shown = components.filter(match);
   const [allNew, setAllNew] = React.useState(false);
-  const fresh = shown.filter((c) => c.isNew);
+  const order = [...NEW_SLUGS];
+  const fresh = shown.filter((c) => c.isNew).sort((a, b) => order.indexOf(a.slug) - order.indexOf(b.slug));
   const filtering = !!term || cat.length > 0;
   const freshShown = allNew || filtering ? fresh : fresh.slice(0, 6); // the full list is already under its categories
   return (
