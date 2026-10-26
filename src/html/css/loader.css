@@ -5,8 +5,10 @@
   --animate-spin: spin 1s linear infinite;
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  --dur-base: .25s;
+  --dur-fast: .15s;
   --font-weight-medium: 500;
-  --muted-foreground: #64748b;
+  --muted-foreground: #5b6b80;
   --primary: #2563eb;
   --spacing: .25rem;
   --text-xs: .75rem;
@@ -117,7 +119,7 @@
   translate: var(--tw-translate-x) var(--tw-translate-y);
 }
 .animate-in {
-  animation: .15s ease-out fade-in;
+  animation: fade-in var(--dur-fast) ease-out;
 }
 .animate-loader-bar {
   animation: 1.4s cubic-bezier(.65,0,.35,1) infinite loader-bar;
@@ -242,13 +244,9 @@
   transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
   transition-duration: var(--tw-duration,var(--default-transition-duration));
 }
-.duration-200 {
-  --tw-duration: .2s;
-  transition-duration: .2s;
-}
-.duration-300 {
-  --tw-duration: .3s;
-  transition-duration: .3s;
+.duration-\(--dur-base\) {
+  --tw-duration: var(--dur-base);
+  transition-duration: var(--dur-base);
 }
 .\[animation-direction\:reverse\] {
   animation-direction: reverse;

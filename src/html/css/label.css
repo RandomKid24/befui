@@ -4,7 +4,7 @@
 :root {
   --destructive: #e11d48;
   --font-weight-medium: 500;
-  --muted-foreground: #64748b;
+  --muted-foreground: #5b6b80;
   --spacing: .25rem;
   --text-xs: .75rem;
   --text-xs--line-height: calc(1 / .75);

@@ -4,8 +4,11 @@
 :root {
   --color-black: #000;
   --container-xl: 36rem;
+  --dur-fast: .15s;
+  --dur-spring: .4s;
+  --ease-spring: linear(0, .4 8%, .85 20%, 1.06 32%, 1.02 46%, 1 60%, 1);
   --font-weight-medium: 500;
-  --muted-foreground: #64748b;
+  --muted-foreground: #5b6b80;
   --popover: #fff;
   --popover-foreground: #0f172a;
   --radius: .5rem;
@@ -86,10 +89,10 @@
   translate: var(--tw-translate-x) var(--tw-translate-y);
 }
 .animate-in {
-  animation: .15s ease-out fade-in;
+  animation: fade-in var(--dur-fast) ease-out;
 }
 .animate-pop {
-  animation: .15s ease-out pop;
+  animation: pop var(--dur-spring) var(--ease-spring);
 }
 .cursor-pointer {
   cursor: pointer;

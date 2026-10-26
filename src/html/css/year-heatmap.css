@@ -5,8 +5,9 @@
   --background: #fff;
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  --elev-1: 0 1px 2px #0f172a0a, 0 1px 1px #0f172a08;
   --font-weight-semibold: 600;
-  --muted-foreground: #64748b;
+  --muted-foreground: #5b6b80;
   --primary: #2563eb;
   --radius: .5rem;
   --ring: #3b82f6;
@@ -18,6 +19,7 @@
 
 .dark {
   --background: #0a0c10;
+  --elev-1: 0 1px 2px #0006, inset 0 1px 0 #ffffff0a;
   --muted-foreground: #8b94a5;
   --primary: #3b82f6;
   --secondary: #171b23;
@@ -230,7 +232,7 @@
   background-color: var(--background);
 }
 .group-data-\[variant\=pill\]\:data-\[state\=active\]\:shadow-sm:is(:where(.group)[data-variant=pill] *)[data-state=active] {
-  --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color,#0000001a), 0 1px 2px -1px var(--tw-shadow-color,#0000001a);
+  --tw-shadow: var(--elev-1);
   box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
 }
 .group-data-\[variant\=underline\]\:data-\[state\=active\]\:border-primary:is(:where(.group)[data-variant=underline] *)[data-state=active] {
@@ -305,10 +307,6 @@
   syntax: "*";
   inherits: false;
   initial-value: 0 0 #0000;
-}
-@property --tw-shadow-color {
-  syntax: "*";
-  inherits: false;
 }
 @property --tw-inset-shadow {
   syntax: "*";

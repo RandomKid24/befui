@@ -7,6 +7,9 @@
   --container-md: 28rem;
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  --dur-spring: .4s;
+  --ease-spring: linear(0, .4 8%, .85 20%, 1.06 32%, 1.02 46%, 1 60%, 1);
+  --elev-2: 0 1px 2px #0f172a0d, 0 4px 8px -2px #0f172a12, 0 2px 4px -2px #0f172a0a;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --primary: #2563eb;
@@ -23,6 +26,7 @@
 
 .dark {
   --background: #0a0c10;
+  --elev-2: 0 1px 2px #0006, 0 4px 10px -2px #00000073, inset 0 1px 0 #ffffff0d;
   --primary: #3b82f6;
   --secondary: #171b23;
 }
@@ -90,7 +94,7 @@
   translate: var(--tw-translate-x) var(--tw-translate-y);
 }
 .animate-pop {
-  animation: .15s ease-out pop;
+  animation: pop var(--dur-spring) var(--ease-spring);
 }
 .flex-col {
   flex-direction: column;
@@ -221,7 +225,7 @@
   color: var(--primary);
 }
 .shadow-md {
-  --tw-shadow: 0 4px 6px -1px var(--tw-shadow-color,#0000001a), 0 2px 4px -2px var(--tw-shadow-color,#0000001a);
+  --tw-shadow: var(--elev-2);
   box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
 }
 .transition-all {
@@ -290,10 +294,6 @@
   syntax: "*";
   inherits: false;
   initial-value: 0 0 #0000;
-}
-@property --tw-shadow-color {
-  syntax: "*";
-  inherits: false;
 }
 @property --tw-inset-shadow {
   syntax: "*";

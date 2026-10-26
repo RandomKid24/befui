@@ -3,12 +3,13 @@
 /* Theme variables it reads (set them on :root, or .dark for dark mode) */
 :root {
   --background: #fff;
+  --control-h: 2.25rem;
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
   --destructive: #e11d48;
   --input: #e2e8f0;
   --leading-relaxed: 1.625;
-  --muted-foreground: #64748b;
+  --muted-foreground: #5b6b80;
   --radius: .5rem;
   --ring: #3b82f6;
   --spacing: .25rem;
@@ -42,8 +43,8 @@
 .flex {
   display: flex;
 }
-.h-9 {
-  height: calc(var(--spacing) * 9);
+.h-\(--control-h\) {
+  height: var(--control-h);
 }
 .min-h-20 {
   min-height: calc(var(--spacing) * 20);

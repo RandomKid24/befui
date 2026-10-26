@@ -4,10 +4,11 @@
 :root {
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  --dur-slow: .7s;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --foreground: #0f172a;
-  --muted-foreground: #64748b;
+  --muted-foreground: #5b6b80;
   --primary: #2563eb;
   --radius: .5rem;
   --ring: #3b82f6;
@@ -194,9 +195,9 @@
     transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
     transition-duration: var(--tw-duration,var(--default-transition-duration));
   }
-  .motion-safe\:duration-700 {
-    --tw-duration: .7s;
-    transition-duration: .7s;
+  .motion-safe\:duration-\(--dur-slow\) {
+    --tw-duration: var(--dur-slow);
+    transition-duration: var(--dur-slow);
   }
 }
 

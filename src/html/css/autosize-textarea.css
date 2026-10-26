@@ -5,7 +5,8 @@
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
   --destructive: #e11d48;
-  --muted-foreground: #64748b;
+  --dur-fast: .15s;
+  --muted-foreground: #5b6b80;
   --spacing: .25rem;
   --text-xs: .75rem;
   --text-xs--line-height: calc(1 / .75);
@@ -61,9 +62,9 @@
   transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
   transition-duration: var(--tw-duration,var(--default-transition-duration));
 }
-.duration-100 {
-  --tw-duration: .1s;
-  transition-duration: .1s;
+.duration-\(--dur-fast\) {
+  --tw-duration: var(--dur-fast);
+  transition-duration: var(--dur-fast);
 }
 
 @property --tw-leading {

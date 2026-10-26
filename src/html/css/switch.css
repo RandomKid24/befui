@@ -5,7 +5,9 @@
   --color-white: #fff;
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  --dur-spring: .4s;
   --input: #e2e8f0;
+  --press: .97;
   --primary: #2563eb;
   --ring: #3b82f6;
   --spacing: .25rem;
@@ -69,6 +71,14 @@
   transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
   transition-duration: var(--tw-duration,var(--default-transition-duration));
 }
+.duration-\(--dur-spring\) {
+  --tw-duration: var(--dur-spring);
+  transition-duration: var(--dur-spring);
+}
+.ease-spring {
+  --tw-ease: linear(0, .4 8%, .85 20%, 1.06 32%, 1.02 46%, 1 60%, 1);
+  transition-timing-function: linear(0,.4 8%,.85 20%,1.06 32%,1.02 46%,1 60%,1);
+}
 .outline-none {
   --tw-outline-style: none;
   outline-style: none;
@@ -93,6 +103,9 @@
   }
 }
 
+.active\:scale-\(--press\):active {
+  scale: var(--press);
+}
 .disabled\:opacity-50:disabled {
   opacity: .5;
 }

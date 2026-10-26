@@ -3,9 +3,8 @@
 /* Theme variables it reads (set them on :root, or .dark for dark mode) */
 :root {
   --border: #e2e8f0;
-  --ease-out: cubic-bezier(0, 0, .2, 1);
   --info: #2563eb;
-  --muted-foreground: #64748b;
+  --muted-foreground: #5b6b80;
   --primary: #2563eb;
   --ring: #3b82f6;
   --spacing: .25rem;
@@ -109,8 +108,8 @@
   opacity: .2;
 }
 .ease-out {
-  --tw-ease: var(--ease-out);
-  transition-timing-function: var(--ease-out);
+  --tw-ease: cubic-bezier(.22, 1, .36, 1);
+  transition-timing-function: cubic-bezier(.22,1,.36,1);
 }
 .outline-none {
   --tw-outline-style: none;

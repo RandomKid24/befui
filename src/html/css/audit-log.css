@@ -6,9 +6,10 @@
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
   --destructive: #e11d48;
+  --dur-fast: .15s;
   --font-weight-medium: 500;
   --muted: #f8fafc;
-  --muted-foreground: #64748b;
+  --muted-foreground: #5b6b80;
   --radius: .5rem;
   --ring: #3b82f6;
   --secondary: #f1f5f9;
@@ -57,7 +58,7 @@
   rotate: 180deg;
 }
 .animate-in {
-  animation: .15s ease-out fade-in;
+  animation: fade-in var(--dur-fast) ease-out;
 }
 .flex-wrap {
   flex-wrap: wrap;

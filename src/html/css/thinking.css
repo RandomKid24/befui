@@ -5,9 +5,10 @@
   --animate-pulse: pulse 2s cubic-bezier(.4, 0, .6, 1) infinite;
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  --dur-base: .25s;
   --font-weight-medium: 500;
   --foreground: #0f172a;
-  --muted-foreground: #64748b;
+  --muted-foreground: #5b6b80;
   --primary: #2563eb;
   --radius: .5rem;
   --ring: #3b82f6;
@@ -176,13 +177,9 @@ var\(--muted-foreground\)_60\%\)\] {
   transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
   transition-duration: var(--tw-duration,var(--default-transition-duration));
 }
-.duration-200 {
-  --tw-duration: .2s;
-  transition-duration: .2s;
-}
-.duration-300 {
-  --tw-duration: .3s;
-  transition-duration: .3s;
+.duration-\(--dur-base\) {
+  --tw-duration: var(--dur-base);
+  transition-duration: var(--dur-base);
 }
 .outline-none {
   --tw-outline-style: none;

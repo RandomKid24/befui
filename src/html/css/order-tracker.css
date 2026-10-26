@@ -3,7 +3,7 @@
 /* Theme variables it reads (set them on :root, or .dark for dark mode) */
 :root {
   --animate-ping: ping 1s cubic-bezier(0, 0, .2, 1) infinite;
-  --muted-foreground: #64748b;
+  --muted-foreground: #5b6b80;
   --spacing: .25rem;
   --text-xs: .75rem;
   --text-xs--line-height: calc(1 / .75);

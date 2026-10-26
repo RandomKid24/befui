@@ -4,8 +4,9 @@
 :root {
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  --dur-base: .25s;
   --font-weight-medium: 500;
-  --muted-foreground: #64748b;
+  --muted-foreground: #5b6b80;
   --radius: .5rem;
   --ring: #3b82f6;
   --spacing: .25rem;
@@ -92,9 +93,9 @@ opacity\] {
   transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
   transition-duration: var(--tw-duration,var(--default-transition-duration));
 }
-.duration-300 {
-  --tw-duration: .3s;
-  transition-duration: .3s;
+.duration-\(--dur-base\) {
+  --tw-duration: var(--dur-base);
+  transition-duration: var(--dur-base);
 }
 .ease-\[cubic-bezier\(0\.22\,
 1\,

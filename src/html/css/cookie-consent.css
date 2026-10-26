@@ -2,8 +2,11 @@
 
 /* Theme variables it reads (set them on :root, or .dark for dark mode) */
 :root {
+  --dur-spring: .4s;
+  --ease-spring: linear(0, .4 8%, .85 20%, 1.06 32%, 1.02 46%, 1 60%, 1);
+  --elev-3: 0 2px 4px #0f172a0d, 0 12px 24px -6px #0f172a1f, 0 4px 8px -4px #0f172a0f;
   --font-weight-semibold: 600;
-  --muted-foreground: #64748b;
+  --muted-foreground: #5b6b80;
   --popover: #fff;
   --popover-foreground: #0f172a;
   --radius: .5rem;
@@ -13,6 +16,7 @@
 }
 
 .dark {
+  --elev-3: 0 2px 4px #0006, 0 14px 28px -6px #0009, 0 4px 8px -4px #0006, inset 0 1px 0 #ffffff0f;
   --muted-foreground: #8b94a5;
   --popover: #0f1218;
   --popover-foreground: #e6e9ef;
@@ -45,7 +49,7 @@ calc\(100vw-2rem\)\)\] {
   width: min(22rem,100vw - 2rem);
 }
 .animate-pop {
-  animation: .15s ease-out pop;
+  animation: pop var(--dur-spring) var(--ease-spring);
 }
 .gap-2 {
   gap: calc(var(--spacing) * 2);
@@ -82,7 +86,7 @@ calc\(100vw-2rem\)\)\] {
   color: var(--popover-foreground);
 }
 .shadow-lg {
-  --tw-shadow: 0 10px 15px -3px var(--tw-shadow-color,#0000001a), 0 4px 6px -4px var(--tw-shadow-color,#0000001a);
+  --tw-shadow: var(--elev-3);
   box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
 }
 .outline {
@@ -115,10 +119,6 @@ calc\(100vw-2rem\)\)\] {
   syntax: "*";
   inherits: false;
   initial-value: 0 0 #0000;
-}
-@property --tw-shadow-color {
-  syntax: "*";
-  inherits: false;
 }
 @property --tw-inset-shadow {
   syntax: "*";

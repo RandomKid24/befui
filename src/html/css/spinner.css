@@ -3,6 +3,7 @@
 /* Theme variables it reads (set them on :root, or .dark for dark mode) */
 :root {
   --animate-spin: spin 1s linear infinite;
+  --dur-fast: .15s;
   --spacing: .25rem;
 }
 
@@ -10,9 +11,15 @@
 .inline-block {
   display: inline-block;
 }
+.inline-flex {
+  display: inline-flex;
+}
 .size-4 {
   width: calc(var(--spacing) * 4);
   height: calc(var(--spacing) * 4);
+}
+.animate-delayed-in {
+  animation: fade-in var(--dur-fast) ease-out .15s both;
 }
 .animate-spin {
   animation: var(--animate-spin);
@@ -33,6 +40,15 @@
 }
 
 /* Animations */
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);

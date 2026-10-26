@@ -3,11 +3,10 @@
 /* Theme variables it reads (set them on :root, or .dark for dark mode) */
 :root {
   --destructive: #e11d48;
-  --ease-out: cubic-bezier(0, 0, .2, 1);
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --info: #2563eb;
-  --muted-foreground: #64748b;
+  --muted-foreground: #5b6b80;
   --primary: #2563eb;
   --primary-foreground: #fff;
   --spacing: .25rem;
@@ -123,8 +122,8 @@
   font-variant-numeric: var(--tw-ordinal,) var(--tw-slashed-zero,) var(--tw-numeric-figure,) var(--tw-numeric-spacing,) var(--tw-numeric-fraction,);
 }
 .ease-out {
-  --tw-ease: var(--ease-out);
-  transition-timing-function: var(--ease-out);
+  --tw-ease: cubic-bezier(.22, 1, .36, 1);
+  transition-timing-function: cubic-bezier(.22,1,.36,1);
 }
 
 @property --tw-rotate-x {

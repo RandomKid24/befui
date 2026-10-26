@@ -3,7 +3,7 @@
 /* Theme variables it reads (set them on :root, or .dark for dark mode) */
 :root {
   --font-weight-medium: 500;
-  --muted-foreground: #64748b;
+  --muted-foreground: #5b6b80;
   --radius: .5rem;
   --spacing: .25rem;
   --text-xs: .75rem;

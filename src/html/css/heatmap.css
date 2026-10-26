@@ -4,7 +4,10 @@
 :root {
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
-  --muted-foreground: #64748b;
+  --dur-fast: .15s;
+  --dur-spring: .4s;
+  --ease-spring: linear(0, .4 8%, .85 20%, 1.06 32%, 1.02 46%, 1 60%, 1);
+  --muted-foreground: #5b6b80;
   --primary: #2563eb;
   --secondary: #f1f5f9;
   --spacing: .25rem;
@@ -41,7 +44,7 @@
   max-width: 100%;
 }
 .animate-pop {
-  animation: .15s ease-out pop;
+  animation: pop var(--dur-spring) var(--ease-spring);
 }
 .grid-flow-col {
   grid-auto-flow: column;
@@ -124,9 +127,9 @@
   transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
   transition-duration: var(--tw-duration,var(--default-transition-duration));
 }
-.duration-150 {
-  --tw-duration: .15s;
-  transition-duration: .15s;
+.duration-\(--dur-fast\) {
+  --tw-duration: var(--dur-fast);
+  transition-duration: var(--dur-fast);
 }
 
 @media (hover:hover) {

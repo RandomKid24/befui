@@ -5,9 +5,10 @@
   --background: #fff;
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  --elev-1: 0 1px 2px #0f172a0a, 0 1px 1px #0f172a08;
   --font-weight-medium: 500;
   --foreground: #0f172a;
-  --muted-foreground: #64748b;
+  --muted-foreground: #5b6b80;
   --radius: .5rem;
   --ring: #3b82f6;
   --secondary: #f1f5f9;
@@ -16,6 +17,7 @@
 
 .dark {
   --background: #0a0c10;
+  --elev-1: 0 1px 2px #0006, inset 0 1px 0 #ffffff0a;
   --foreground: #e6e9ef;
   --muted-foreground: #8b94a5;
   --secondary: #171b23;
@@ -100,7 +102,7 @@
   color: var(--foreground);
 }
 .data-\[state\=on\]\:shadow-sm[data-state=on] {
-  --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color,#0000001a), 0 1px 2px -1px var(--tw-shadow-color,#0000001a);
+  --tw-shadow: var(--elev-1);
   box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
 }
 .\[\&_svg\]\:size-3\.5 svg {
@@ -112,10 +114,6 @@
   syntax: "*";
   inherits: false;
   initial-value: 0 0 #0000;
-}
-@property --tw-shadow-color {
-  syntax: "*";
-  inherits: false;
 }
 @property --tw-inset-shadow {
   syntax: "*";

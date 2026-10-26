@@ -12,11 +12,14 @@
   --color-violet-300: oklch(81.1% .111 293.571);
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  --dur-fast: .15s;
+  --elev-2: 0 1px 2px #0f172a0d, 0 4px 8px -2px #0f172a12, 0 2px 4px -2px #0f172a0a;
+  --elev-3: 0 2px 4px #0f172a0d, 0 12px 24px -6px #0f172a1f, 0 4px 8px -4px #0f172a0f;
   --font-weight-medium: 500;
   --font-weight-normal: 400;
   --font-weight-semibold: 600;
   --foreground: #0f172a;
-  --muted-foreground: #64748b;
+  --muted-foreground: #5b6b80;
   --popover: #fff;
   --popover-foreground: #0f172a;
   --radius: .5rem;
@@ -28,6 +31,8 @@
 
 .dark {
   --background: #0a0c10;
+  --elev-2: 0 1px 2px #0006, 0 4px 10px -2px #00000073, inset 0 1px 0 #ffffff0d;
+  --elev-3: 0 2px 4px #0006, 0 14px 28px -6px #0009, 0 4px 8px -4px #0006, inset 0 1px 0 #ffffff0f;
   --foreground: #e6e9ef;
   --muted-foreground: #8b94a5;
   --popover: #0f1218;
@@ -71,7 +76,7 @@
   min-width: calc(var(--spacing) * 4);
 }
 .animate-in {
-  animation: .15s ease-out fade-in;
+  animation: fade-in var(--dur-fast) ease-out;
 }
 .place-items-center {
   place-items: center;
@@ -182,11 +187,11 @@
   opacity: .8;
 }
 .shadow-lg {
-  --tw-shadow: 0 10px 15px -3px var(--tw-shadow-color,#0000001a), 0 4px 6px -4px var(--tw-shadow-color,#0000001a);
+  --tw-shadow: var(--elev-3);
   box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
 }
 .shadow-md {
-  --tw-shadow: 0 4px 6px -1px var(--tw-shadow-color,#0000001a), 0 2px 4px -2px var(--tw-shadow-color,#0000001a);
+  --tw-shadow: var(--elev-2);
   box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
 }
 .transition-colors {
@@ -264,7 +269,7 @@
   --secondary: #f1f5f9;
   --secondary-foreground: #0f172a;
   --muted: #f8fafc;
-  --muted-foreground: #64748b;
+  --muted-foreground: #5b6b80;
   --accent: #eff6ff;
   --accent-foreground: #1d4ed8;
   --border: #e2e8f0;
@@ -275,6 +280,13 @@
   --warning: #d97706;
   --info: #2563eb;
   --radius: .5rem;
+  --control-h: 2.25rem;
+  --control-h-sm: 2rem;
+  --control-h-lg: 2.75rem;
+  --press: .97;
+  --elev-1: 0 1px 2px #0f172a0a, 0 1px 1px #0f172a08;
+  --elev-2: 0 1px 2px #0f172a0d, 0 4px 8px -2px #0f172a12, 0 2px 4px -2px #0f172a0a;
+  --elev-3: 0 2px 4px #0f172a0d, 0 12px 24px -6px #0f172a1f, 0 4px 8px -4px #0f172a0f;
 }
 .dark {
   --background: #0a0c10;
@@ -298,6 +310,9 @@
   --success: #10b981;
   --warning: #f59e0b;
   --info: #60a5fa;
+  --elev-1: 0 1px 2px #0006, inset 0 1px 0 #ffffff0a;
+  --elev-2: 0 1px 2px #0006, 0 4px 10px -2px #00000073, inset 0 1px 0 #ffffff0d;
+  --elev-3: 0 2px 4px #0006, 0 14px 28px -6px #0009, 0 4px 8px -4px #0006, inset 0 1px 0 #ffffff0f;
 }
 
 /* Animations */
@@ -323,10 +338,6 @@
   syntax: "*";
   inherits: false;
   initial-value: 0 0 #0000;
-}
-@property --tw-shadow-color {
-  syntax: "*";
-  inherits: false;
 }
 @property --tw-inset-shadow {
   syntax: "*";

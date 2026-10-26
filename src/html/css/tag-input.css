@@ -5,9 +5,11 @@
   --background: #fff;
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  --dur-spring: .4s;
+  --ease-spring: linear(0, .4 8%, .85 20%, 1.06 32%, 1.02 46%, 1 60%, 1);
   --font-weight-medium: 500;
   --foreground: #0f172a;
-  --muted-foreground: #64748b;
+  --muted-foreground: #5b6b80;
   --radius: .5rem;
   --ring: #3b82f6;
   --secondary: #f1f5f9;
@@ -53,7 +55,7 @@
   flex: 1;
 }
 .animate-pop {
-  animation: .15s ease-out pop;
+  animation: pop var(--dur-spring) var(--ease-spring);
 }
 .flex-wrap {
   flex-wrap: wrap;

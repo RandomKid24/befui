@@ -7,11 +7,12 @@
   --container-md: 28rem;
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  --dur-fast: .15s;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --input: #e2e8f0;
   --muted: #f8fafc;
-  --muted-foreground: #64748b;
+  --muted-foreground: #5b6b80;
   --primary: #2563eb;
   --radius: .5rem;
   --ring: #3b82f6;
@@ -75,7 +76,7 @@
   rotate: 180deg;
 }
 .animate-in {
-  animation: .15s ease-out fade-in;
+  animation: fade-in var(--dur-fast) ease-out;
 }
 .place-items-center {
   place-items: center;

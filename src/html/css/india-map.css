@@ -7,9 +7,11 @@
   --container-md: 28rem;
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  --dur-fast: .15s;
+  --elev-1: 0 1px 2px #0f172a0a, 0 1px 1px #0f172a08;
   --font-weight-medium: 500;
   --foreground: #0f172a;
-  --muted-foreground: #64748b;
+  --muted-foreground: #5b6b80;
   --popover: #fff;
   --popover-foreground: #0f172a;
   --primary: #2563eb;
@@ -25,6 +27,7 @@
 .dark {
   --accent: #14213d;
   --background: #0a0c10;
+  --elev-1: 0 1px 2px #0006, inset 0 1px 0 #ffffff0a;
   --foreground: #e6e9ef;
   --muted-foreground: #8b94a5;
   --popover: #0f1218;
@@ -205,7 +208,7 @@
   font-variant-numeric: var(--tw-ordinal,) var(--tw-slashed-zero,) var(--tw-numeric-figure,) var(--tw-numeric-spacing,) var(--tw-numeric-fraction,);
 }
 .shadow-sm {
-  --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color,#0000001a), 0 1px 2px -1px var(--tw-shadow-color,#0000001a);
+  --tw-shadow: var(--elev-1);
   box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
 }
 .backdrop-blur {
@@ -223,9 +226,9 @@
   transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
   transition-duration: var(--tw-duration,var(--default-transition-duration));
 }
-.duration-150 {
-  --tw-duration: .15s;
-  transition-duration: .15s;
+.duration-\(--dur-fast\) {
+  --tw-duration: var(--dur-fast);
+  transition-duration: var(--dur-fast);
 }
 .select-none {
   -webkit-user-select: none;
@@ -321,10 +324,6 @@
   syntax: "*";
   inherits: false;
   initial-value: 0 0 #0000;
-}
-@property --tw-shadow-color {
-  syntax: "*";
-  inherits: false;
 }
 @property --tw-inset-shadow {
   syntax: "*";

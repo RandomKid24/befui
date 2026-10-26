@@ -3,7 +3,7 @@
 /* Theme variables it reads (set them on :root, or .dark for dark mode) */
 :root {
   --font-weight-semibold: 600;
-  --muted-foreground: #64748b;
+  --muted-foreground: #5b6b80;
   --spacing: .25rem;
   --text-xl: 1.25rem;
   --text-xl--line-height: calc(1.75 / 1.25);

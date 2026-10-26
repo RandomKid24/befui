@@ -7,6 +7,8 @@
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
   --destructive: #e11d48;
+  --dur-fast: .15s;
+  --elev-1: 0 1px 2px #0f172a0a, 0 1px 1px #0f172a08;
   --font-weight-semibold: 600;
   --primary: #2563eb;
   --radius: .5rem;
@@ -20,6 +22,7 @@
   --accent: #14213d;
   --background: #0a0c10;
   --destructive: #f43f5e;
+  --elev-1: 0 1px 2px #0006, inset 0 1px 0 #ffffff0a;
   --primary: #3b82f6;
 }
 
@@ -88,9 +91,9 @@ transform\] {
   transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
   transition-duration: var(--tw-duration,var(--default-transition-duration));
 }
-.duration-150 {
-  --tw-duration: .15s;
-  transition-duration: .15s;
+.duration-\(--dur-fast\) {
+  --tw-duration: var(--dur-fast);
+  transition-duration: var(--dur-fast);
 }
 .outline-none {
   --tw-outline-style: none;
@@ -203,7 +206,7 @@ transform\] {
   background-color: var(--background);
 }
 .group-data-\[variant\=pill\]\:data-\[state\=active\]\:shadow-sm:is(:where(.group)[data-variant=pill] *)[data-state=active] {
-  --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color,#0000001a), 0 1px 2px -1px var(--tw-shadow-color,#0000001a);
+  --tw-shadow: var(--elev-1);
   box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
 }
 .group-data-\[variant\=underline\]\:data-\[state\=active\]\:border-primary:is(:where(.group)[data-variant=underline] *)[data-state=active] {
@@ -298,10 +301,6 @@ transform\] {
   syntax: "*";
   inherits: false;
   initial-value: 0 0 #0000;
-}
-@property --tw-shadow-color {
-  syntax: "*";
-  inherits: false;
 }
 @property --tw-inset-shadow {
   syntax: "*";

@@ -2,22 +2,66 @@
 
 /* Theme variables it reads (set them on :root, or .dark for dark mode) */
 :root {
+  --card: #fff;
   --muted: #f8fafc;
   --radius: .5rem;
   --secondary: #f1f5f9;
+  --spacing: .25rem;
 }
 
 .dark {
+  --card: #0f1218;
   --muted: #11141b;
   --secondary: #171b23;
 }
 
 /* Utility rules */
+.flex {
+  display: flex;
+}
+.size-10 {
+  width: calc(var(--spacing) * 10);
+  height: calc(var(--spacing) * 10);
+}
+.h-3\.5 {
+  height: calc(var(--spacing) * 3.5);
+}
+.w-2\/3 {
+  width: 66.6667%;
+}
+.w-full {
+  width: 100%;
+}
+.flex-1 {
+  flex: 1;
+}
 .animate-shimmer {
   animation: 1.6s linear infinite shimmer;
 }
+.gap-3 {
+  gap: calc(var(--spacing) * 3);
+}
+:where(.space-y-2>:not(:last-child)) {
+  --tw-space-y-reverse: 0;
+  margin-block-start: calc(calc(var(--spacing) * 2) * var(--tw-space-y-reverse));
+  margin-block-end: calc(calc(var(--spacing) * 2) * calc(1 - var(--tw-space-y-reverse)));
+}
+.rounded-full {
+  border-radius: 3.40282e38px;
+}
 .rounded-md {
   border-radius: var(--radius);
+}
+.rounded-xl {
+  border-radius: calc(var(--radius) + 6px);
+}
+.border {
+  border-style: var(--tw-border-style);
+  border-width: 1px;
+}
+.bg-card,
+.bg-card\/80 {
+  background-color: var(--card);
 }
 .bg-\[linear-gradient\(90deg\,
 var\(--secondary\)_25\%\,
@@ -28,6 +72,9 @@ var\(--secondary\)_75\%\)\] {
 .bg-\[length\:200\%_100\%\] {
   background-size: 200% 100%;
 }
+.p-5 {
+  padding: calc(var(--spacing) * 5);
+}
 
 /* Animations */
 @keyframes shimmer {
@@ -37,4 +84,15 @@ var\(--secondary\)_75\%\)\] {
   to {
     background-position: -200% 0;
   }
+}
+
+@property --tw-space-y-reverse {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
 }

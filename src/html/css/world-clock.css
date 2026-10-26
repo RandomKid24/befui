@@ -5,10 +5,11 @@
   --card: #fff;
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  --dur-slow: .7s;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --info: #2563eb;
-  --muted-foreground: #64748b;
+  --muted-foreground: #5b6b80;
   --radius: .5rem;
   --spacing: .25rem;
   --text-lg: 1.125rem;
@@ -154,9 +155,9 @@
   transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
   transition-duration: var(--tw-duration,var(--default-transition-duration));
 }
-.duration-700 {
-  --tw-duration: .7s;
-  transition-duration: .7s;
+.duration-\(--dur-slow\) {
+  --tw-duration: var(--dur-slow);
+  transition-duration: var(--dur-slow);
 }
 
 @property --tw-border-style {

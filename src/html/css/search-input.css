@@ -5,10 +5,13 @@
   --background: #fff;
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  --dur-spring: .4s;
+  --ease-spring: linear(0, .4 8%, .85 20%, 1.06 32%, 1.02 46%, 1 60%, 1);
+  --elev-1: 0 1px 2px #0f172a0a, 0 1px 1px #0f172a08;
   --foreground: #0f172a;
   --input: #e2e8f0;
   --muted: #f8fafc;
-  --muted-foreground: #64748b;
+  --muted-foreground: #5b6b80;
   --primary: #2563eb;
   --radius: .5rem;
   --ring: #3b82f6;
@@ -20,6 +23,7 @@
 
 .dark {
   --background: #0a0c10;
+  --elev-1: 0 1px 2px #0006, inset 0 1px 0 #ffffff0a;
   --foreground: #e6e9ef;
   --input: #272d3a;
   --muted: #11141b;
@@ -71,7 +75,7 @@
   min-width: calc(var(--spacing) * 5);
 }
 .animate-pop {
-  animation: .15s ease-out pop;
+  animation: pop var(--dur-spring) var(--ease-spring);
 }
 .place-items-center {
   place-items: center;
@@ -263,7 +267,7 @@ box-shadow\] {
   background-color: var(--background);
 }
 .group-data-\[variant\=pill\]\:data-\[state\=active\]\:shadow-sm:is(:where(.group)[data-variant=pill] *)[data-state=active] {
-  --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color,#0000001a), 0 1px 2px -1px var(--tw-shadow-color,#0000001a);
+  --tw-shadow: var(--elev-1);
   box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
 }
 .group-data-\[variant\=underline\]\:data-\[state\=active\]\:border-primary:is(:where(.group)[data-variant=underline] *)[data-state=active] {
@@ -332,10 +336,6 @@ box-shadow\] {
   syntax: "*";
   inherits: false;
   initial-value: 0 0 #0000;
-}
-@property --tw-shadow-color {
-  syntax: "*";
-  inherits: false;
 }
 @property --tw-inset-shadow {
   syntax: "*";

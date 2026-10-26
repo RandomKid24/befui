@@ -4,8 +4,9 @@
 :root {
   --color-black: #000;
   --container-lg: 32rem;
+  --elev-3: 0 2px 4px #0f172a0d, 0 12px 24px -6px #0f172a1f, 0 4px 8px -4px #0f172a0f;
   --font-weight-semibold: 600;
-  --muted-foreground: #64748b;
+  --muted-foreground: #5b6b80;
   --popover: #fff;
   --radius-2xl: 1rem;
   --spacing: .25rem;
@@ -14,6 +15,7 @@
 }
 
 .dark {
+  --elev-3: 0 2px 4px #0006, 0 14px 28px -6px #0009, 0 4px 8px -4px #0006, inset 0 1px 0 #ffffff0f;
   --muted-foreground: #8b94a5;
   --popover: #0f1218;
 }
@@ -210,7 +212,7 @@ env\(safe-area-inset-bottom\)\)\] {
   color: var(--muted-foreground);
 }
 .shadow-xl {
-  --tw-shadow: 0 20px 25px -5px var(--tw-shadow-color,#0000001a), 0 8px 10px -6px var(--tw-shadow-color,#0000001a);
+  --tw-shadow: var(--elev-3);
   box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
 }
 .backdrop-blur-\[2px\] {
@@ -259,10 +261,6 @@ env\(safe-area-inset-bottom\)\)\] {
   syntax: "*";
   inherits: false;
   initial-value: 0 0 #0000;
-}
-@property --tw-shadow-color {
-  syntax: "*";
-  inherits: false;
 }
 @property --tw-inset-shadow {
   syntax: "*";

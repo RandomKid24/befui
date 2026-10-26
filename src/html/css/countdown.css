@@ -3,9 +3,10 @@
 /* Theme variables it reads (set them on :root, or .dark for dark mode) */
 :root {
   --card: #fff;
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
-  --muted-foreground: #64748b;
+  --muted-foreground: #5b6b80;
   --radius: .5rem;
   --spacing: .25rem;
   --text-2xl: 1.5rem;
@@ -29,7 +30,7 @@
   width: calc(var(--spacing) * 16);
 }
 .animate-flip {
-  animation: .35s cubic-bezier(.22,1,.36,1) flip;
+  animation: flip .35s var(--ease-out);
 }
 .justify-items-center {
   justify-items: center;

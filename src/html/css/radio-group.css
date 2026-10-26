@@ -5,9 +5,11 @@
   --accent: #eff6ff;
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  --dur-base: .25s;
+  --elev-1: 0 1px 2px #0f172a0a, 0 1px 1px #0f172a08;
   --font-weight-medium: 500;
   --muted: #f8fafc;
-  --muted-foreground: #64748b;
+  --muted-foreground: #5b6b80;
   --primary: #2563eb;
   --radius: .5rem;
   --ring: #3b82f6;
@@ -20,6 +22,7 @@
 
 .dark {
   --accent: #14213d;
+  --elev-1: 0 1px 2px #0006, inset 0 1px 0 #ffffff0a;
   --muted: #11141b;
   --muted-foreground: #8b94a5;
   --primary: #3b82f6;
@@ -142,7 +145,7 @@
   opacity: .5;
 }
 .shadow-sm {
-  --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color,#0000001a), 0 1px 2px -1px var(--tw-shadow-color,#0000001a);
+  --tw-shadow: var(--elev-1);
   box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
 }
 .transition-all {
@@ -160,9 +163,9 @@
   transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
   transition-duration: var(--tw-duration,var(--default-transition-duration));
 }
-.duration-200 {
-  --tw-duration: .2s;
-  transition-duration: .2s;
+.duration-\(--dur-base\) {
+  --tw-duration: var(--dur-base);
+  transition-duration: var(--dur-base);
 }
 .peer-checked\:border-primary:is(:where(.peer):checked~*) {
   border-color: var(--primary);
@@ -214,10 +217,6 @@
   syntax: "*";
   inherits: false;
   initial-value: 0 0 #0000;
-}
-@property --tw-shadow-color {
-  syntax: "*";
-  inherits: false;
 }
 @property --tw-inset-shadow {
   syntax: "*";

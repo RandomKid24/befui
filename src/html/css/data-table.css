@@ -7,9 +7,10 @@
   --container-xs: 20rem;
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  --dur-fast: .15s;
   --font-weight-medium: 500;
   --foreground: #0f172a;
-  --muted-foreground: #64748b;
+  --muted-foreground: #5b6b80;
   --radius: .5rem;
   --ring: #3b82f6;
   --spacing: .25rem;
@@ -98,7 +99,7 @@
   translate: var(--tw-translate-x) var(--tw-translate-y);
 }
 .animate-in {
-  animation: .15s ease-out fade-in;
+  animation: fade-in var(--dur-fast) ease-out;
 }
 .cursor-pointer {
   cursor: pointer;

@@ -8,12 +8,14 @@
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
   --destructive: #e11d48;
+  --dur-base: .25s;
+  --elev-1: 0 1px 2px #0f172a0a, 0 1px 1px #0f172a08;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --foreground: #0f172a;
   --info: #2563eb;
   --leading-relaxed: 1.625;
-  --muted-foreground: #64748b;
+  --muted-foreground: #5b6b80;
   --primary: #2563eb;
   --primary-foreground: #fff;
   --radius: .5rem;
@@ -37,6 +39,7 @@
   --background: #0a0c10;
   --border: #1f2430;
   --destructive: #f43f5e;
+  --elev-1: 0 1px 2px #0006, inset 0 1px 0 #ffffff0a;
   --foreground: #e6e9ef;
   --info: #60a5fa;
   --muted-foreground: #8b94a5;
@@ -419,9 +422,9 @@ border-color\] {
   transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
   transition-duration: var(--tw-duration,var(--default-transition-duration));
 }
-.duration-300 {
-  --tw-duration: .3s;
-  transition-duration: .3s;
+.duration-\(--dur-base\) {
+  --tw-duration: var(--dur-base);
+  transition-duration: var(--dur-base);
 }
 .duration-500 {
   --tw-duration: .5s;
@@ -545,7 +548,7 @@ border-color\] {
   background-color: var(--background);
 }
 .group-data-\[variant\=pill\]\:data-\[state\=active\]\:shadow-sm:is(:where(.group)[data-variant=pill] *)[data-state=active] {
-  --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color,#0000001a), 0 1px 2px -1px var(--tw-shadow-color,#0000001a);
+  --tw-shadow: var(--elev-1);
   box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
 }
 .group-data-\[variant\=underline\]\:data-\[state\=active\]\:border-primary:is(:where(.group)[data-variant=underline] *)[data-state=active] {
@@ -647,10 +650,6 @@ border-color\] {
   syntax: "*";
   inherits: false;
   initial-value: 0 0 #0000;
-}
-@property --tw-shadow-color {
-  syntax: "*";
-  inherits: false;
 }
 @property --tw-inset-shadow {
   syntax: "*";

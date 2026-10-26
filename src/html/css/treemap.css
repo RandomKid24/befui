@@ -4,7 +4,6 @@
 :root {
   --color-black: #000;
   --color-white: #fff;
-  --ease-out: cubic-bezier(0, 0, .2, 1);
   --font-weight-medium: 500;
   --info: #2563eb;
   --primary: #2563eb;
@@ -144,8 +143,8 @@
   opacity: .8;
 }
 .ease-out {
-  --tw-ease: var(--ease-out);
-  transition-timing-function: var(--ease-out);
+  --tw-ease: cubic-bezier(.22, 1, .36, 1);
+  transition-timing-function: cubic-bezier(.22,1,.36,1);
 }
 
 @property --tw-rotate-x {

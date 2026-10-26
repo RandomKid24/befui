@@ -8,11 +8,11 @@
   --card: #fff;
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
-  --ease-out: cubic-bezier(0, 0, .2, 1);
+  --dur-base: .25s;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --foreground: #0f172a;
-  --muted-foreground: #64748b;
+  --muted-foreground: #5b6b80;
   --primary: #2563eb;
   --radius: .5rem;
   --ring: #3b82f6;
@@ -301,13 +301,13 @@
   transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
   transition-duration: var(--tw-duration,var(--default-transition-duration));
 }
-.duration-200 {
-  --tw-duration: .2s;
-  transition-duration: .2s;
+.duration-\(--dur-base\) {
+  --tw-duration: var(--dur-base);
+  transition-duration: var(--dur-base);
 }
 .ease-out {
-  --tw-ease: var(--ease-out);
-  transition-timing-function: var(--ease-out);
+  --tw-ease: cubic-bezier(.22, 1, .36, 1);
+  transition-timing-function: cubic-bezier(.22,1,.36,1);
 }
 .outline-none {
   --tw-outline-style: none;

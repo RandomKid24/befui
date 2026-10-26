@@ -14,9 +14,14 @@
   --color-red-400: oklch(70.4% .191 22.216);
   --color-red-500: oklch(63.7% .237 25.331);
   --container-xl: 36rem;
+  --elev-3: 0 2px 4px #0f172a0d, 0 12px 24px -6px #0f172a1f, 0 4px 8px -4px #0f172a0f;
   --leading-relaxed: 1.625;
   --radius: .5rem;
   --spacing: .25rem;
+}
+
+.dark {
+  --elev-3: 0 2px 4px #0006, 0 14px 28px -6px #0009, 0 4px 8px -4px #0006, inset 0 1px 0 #ffffff0f;
 }
 
 /* Utility rules */
@@ -164,7 +169,7 @@
   color: var(--color-red-400);
 }
 .shadow-lg {
-  --tw-shadow: 0 10px 15px -3px var(--tw-shadow-color,#0000001a), 0 4px 6px -4px var(--tw-shadow-color,#0000001a);
+  --tw-shadow: var(--elev-3);
   box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
 }
 .select-none {
@@ -198,10 +203,6 @@
   syntax: "*";
   inherits: false;
   initial-value: 0 0 #0000;
-}
-@property --tw-shadow-color {
-  syntax: "*";
-  inherits: false;
 }
 @property --tw-inset-shadow {
   syntax: "*";

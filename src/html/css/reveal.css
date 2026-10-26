@@ -4,6 +4,7 @@
 :root {
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  --dur-slow: .7s;
 }
 
 /* Utility rules */
@@ -34,9 +35,9 @@ transform\] {
   transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
   transition-duration: var(--tw-duration,var(--default-transition-duration));
 }
-.duration-700 {
-  --tw-duration: .7s;
-  transition-duration: .7s;
+.duration-\(--dur-slow\) {
+  --tw-duration: var(--dur-slow);
+  transition-duration: var(--dur-slow);
 }
 .ease-\[cubic-bezier\(0\.22\,
 1\,

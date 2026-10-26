@@ -4,10 +4,9 @@
 :root {
   --border: #e2e8f0;
   --destructive: #e11d48;
-  --ease-out: cubic-bezier(0, 0, .2, 1);
   --font-weight-medium: 500;
   --foreground: #0f172a;
-  --muted-foreground: #64748b;
+  --muted-foreground: #5b6b80;
   --success: #059669;
 }
 
@@ -53,6 +52,6 @@
   color: var(--success);
 }
 .ease-out {
-  --tw-ease: var(--ease-out);
-  transition-timing-function: var(--ease-out);
+  --tw-ease: cubic-bezier(.22, 1, .36, 1);
+  transition-timing-function: cubic-bezier(.22,1,.36,1);
 }

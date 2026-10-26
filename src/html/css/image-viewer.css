@@ -6,6 +6,8 @@
   --color-white: #fff;
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  --dur-base: .25s;
+  --dur-fast: .15s;
   --radius: .5rem;
   --spacing: .25rem;
   --text-xs: .75rem;
@@ -100,7 +102,7 @@
   translate: var(--tw-translate-x) var(--tw-translate-y);
 }
 .animate-in {
-  animation: .15s ease-out fade-in;
+  animation: fade-in var(--dur-fast) ease-out;
 }
 .cursor-zoom-in {
   cursor: zoom-in;
@@ -191,9 +193,9 @@ max-height\] {
   transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
   transition-duration: var(--tw-duration,var(--default-transition-duration));
 }
-.duration-200 {
-  --tw-duration: .2s;
-  transition-duration: .2s;
+.duration-\(--dur-base\) {
+  --tw-duration: var(--dur-base);
+  transition-duration: var(--dur-base);
 }
 .outline-none {
   --tw-outline-style: none;

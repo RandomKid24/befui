@@ -5,7 +5,8 @@
   --card: #fff;
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
-  --muted-foreground: #64748b;
+  --elev-1: 0 1px 2px #0f172a0a, 0 1px 1px #0f172a08;
+  --muted-foreground: #5b6b80;
   --primary: #2563eb;
   --primary-foreground: #fff;
   --radius-2xl: 1rem;
@@ -20,6 +21,7 @@
 
 .dark {
   --card: #0f1218;
+  --elev-1: 0 1px 2px #0006, inset 0 1px 0 #ffffff0a;
   --muted-foreground: #8b94a5;
   --primary: #3b82f6;
   --primary-foreground: #0a0c10;
@@ -144,7 +146,7 @@
   opacity: .6;
 }
 .shadow-sm {
-  --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color,#0000001a), 0 1px 2px -1px var(--tw-shadow-color,#0000001a);
+  --tw-shadow: var(--elev-1);
   box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
 }
 .transition-\[border-color\,
@@ -262,10 +264,6 @@ box-shadow\] {
   syntax: "*";
   inherits: false;
   initial-value: 0 0 #0000;
-}
-@property --tw-shadow-color {
-  syntax: "*";
-  inherits: false;
 }
 @property --tw-inset-shadow {
   syntax: "*";

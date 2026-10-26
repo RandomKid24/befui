@@ -5,10 +5,10 @@
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
   --destructive: #e11d48;
-  --ease-out: cubic-bezier(0, 0, .2, 1);
+  --dur-slow: .7s;
   --font-weight-medium: 500;
   --foreground: #0f172a;
-  --muted-foreground: #64748b;
+  --muted-foreground: #5b6b80;
   --primary: #2563eb;
   --secondary: #f1f5f9;
   --spacing: .25rem;
@@ -133,13 +133,13 @@
     transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
     transition-duration: var(--tw-duration,var(--default-transition-duration));
   }
-  .motion-safe\:duration-700 {
-    --tw-duration: .7s;
-    transition-duration: .7s;
+  .motion-safe\:duration-\(--dur-slow\) {
+    --tw-duration: var(--dur-slow);
+    transition-duration: var(--dur-slow);
   }
   .motion-safe\:ease-out {
-    --tw-ease: var(--ease-out);
-    transition-timing-function: var(--ease-out);
+    --tw-ease: cubic-bezier(.22, 1, .36, 1);
+    transition-timing-function: cubic-bezier(.22,1,.36,1);
   }
 }
 

@@ -3,6 +3,7 @@
 /* Theme variables it reads (set them on :root, or .dark for dark mode) */
 :root {
   --animate-pulse: pulse 2s cubic-bezier(.4, 0, .6, 1) infinite;
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
   --primary: #2563eb;
   --spacing: .25rem;
 }
@@ -43,7 +44,7 @@
   animation: var(--animate-pulse);
 }
 .animate-stream-in {
-  animation: .45s cubic-bezier(.22,1,.36,1) both stream-in;
+  animation: stream-in .45s var(--ease-out) both;
 }
 .bg-primary {
   background-color: var(--primary);

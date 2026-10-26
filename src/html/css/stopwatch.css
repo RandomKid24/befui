@@ -2,8 +2,10 @@
 
 /* Theme variables it reads (set them on :root, or .dark for dark mode) */
 :root {
+  --dur-spring: .4s;
+  --ease-spring: linear(0, .4 8%, .85 20%, 1.06 32%, 1.02 46%, 1 60%, 1);
   --font-weight-semibold: 600;
-  --muted-foreground: #64748b;
+  --muted-foreground: #5b6b80;
   --radius: .5rem;
   --spacing: .25rem;
   --text-4xl: 2.25rem;
@@ -36,7 +38,7 @@
   width: calc(var(--spacing) * 64);
 }
 .animate-pop {
-  animation: .15s ease-out pop;
+  animation: pop var(--dur-spring) var(--ease-spring);
 }
 .justify-between {
   justify-content: space-between;

@@ -5,7 +5,6 @@
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
   --destructive: #e11d48;
-  --ease-out: cubic-bezier(0, 0, .2, 1);
   --primary: #2563eb;
   --secondary: #f1f5f9;
   --spacing: .25rem;
@@ -68,8 +67,8 @@
   transition-duration: .5s;
 }
 .ease-out {
-  --tw-ease: var(--ease-out);
-  transition-timing-function: var(--ease-out);
+  --tw-ease: cubic-bezier(.22, 1, .36, 1);
+  transition-timing-function: cubic-bezier(.22,1,.36,1);
 }
 
 @property --tw-duration {
