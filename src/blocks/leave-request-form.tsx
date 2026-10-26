@@ -63,7 +63,7 @@ export default function LeaveRequestForm() {
               </Select>
             </Field>
             <Field label="Dates" htmlFor="dates" required error={errors.range}>
-              <DateRangePicker id="dates" value={range} onChange={(r) => { setRange(r); if (r?.from && r.to) setErrors((e) => ({ ...e, range: undefined })); }} disabledDays={(d) => d < today} />
+              <DateRangePicker id="dates" invalid={!!errors.range} value={range} onChange={(r) => { setRange(r); if (r?.from && r.to) setErrors((e) => ({ ...e, range: undefined })); }} disabledDays={(d) => d < today} />
             </Field>
             {days > 0 && (
               <Alert variant={days > 5 ? 'warning' : 'info'} title={`${days} working day${days === 1 ? '' : 's'}`}>
@@ -71,7 +71,7 @@ export default function LeaveRequestForm() {
               </Alert>
             )}
             <Field label="Approver" htmlFor="approver" required error={errors.approver}>
-              <Combobox id="approver" options={people} value={approver} onValueChange={(v) => { setApprover(v); if (v) setErrors((e) => ({ ...e, approver: undefined })); }} placeholder="Choose a person" />
+              <Combobox id="approver" invalid={!!errors.approver} options={people} value={approver} onValueChange={(v) => { setApprover(v); if (v) setErrors((e) => ({ ...e, approver: undefined })); }} placeholder="Choose a person" />
             </Field>
             <Field label="Also notify" htmlFor="notify">
               <MultiCombobox id="notify" options={people.filter((p) => p.value !== approver)} value={notify} onValueChange={setNotify} placeholder="Optional" />
