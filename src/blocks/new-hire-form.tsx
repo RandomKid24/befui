@@ -70,7 +70,7 @@ export default function NewHireForm() {
         </CardHeader>
         <CardContent>
           <form onSubmit={submit} noValidate className="grid gap-6">
-            <fieldset className="grid gap-4 sm:grid-cols-2">
+            <fieldset className="grid items-start gap-4 sm:grid-cols-2">
               <legend className="mb-3 text-sm font-medium">Person</legend>
               <Field label="Full name" htmlFor="nh-name" required error={errors.name}>
                 <Input id="nh-name" aria-invalid={!!errors.name || undefined} value={v.name ?? ''} onChange={(e) => set('name')(e.target.value)} placeholder="Ananya Kulkarni" />
@@ -86,7 +86,7 @@ export default function NewHireForm() {
               </Field>
             </fieldset>
 
-            <fieldset className="grid gap-4 sm:grid-cols-2">
+            <fieldset className="grid items-start gap-4 sm:grid-cols-2">
               <legend className="mb-3 text-sm font-medium">Role</legend>
               <Field label="Department" htmlFor="nh-dept" required error={errors.department}>
                 <Pick id="nh-dept" invalid={!!errors.department} value={v.department} onChange={set('department')} items={departments} />
@@ -102,7 +102,7 @@ export default function NewHireForm() {
               </Field>
             </fieldset>
 
-            <fieldset className="grid gap-4 sm:grid-cols-2">
+            <fieldset className="grid items-start gap-4 sm:grid-cols-2">
               <legend className="mb-3 text-sm font-medium">Where and when</legend>
               <Field label="Office" htmlFor="nh-office">
                 <Combobox id="nh-office" options={offices} value={v.office} onValueChange={set('office')} placeholder="Choose an office" />
