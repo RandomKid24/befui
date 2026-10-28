@@ -1,6 +1,6 @@
 # Components
 
-Every befui component and block. **272 React components**, **269 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **37 page blocks**.
+Every befui component and block. **272 React components**, **269 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **38 page blocks**.
 (Generated from the registry by `npm run registry:build`. Do not edit by hand.)
 
 Install a React component with `npx github:RandomKid24/befui add <name>`, the Flutter version with `npx github:RandomKid24/befui add <name> --flutter`.
@@ -327,7 +327,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 |---|---|:-:|:-:|
 | `icons` |  |  |  |
 
-## Blocks (37)
+## Blocks (38)
 
 Full screens built from the components, with mock data you swap for your own API.
 
@@ -353,6 +353,7 @@ Full screens built from the components, with mock data you swap for your own API
 | `lead-pipeline` | Marketing | Drag-and-drop board with column totals and a keyboard-friendly move button. |
 | `leave-approvals` | HRMS | Manager inbox with tabs, balance bars and approve or reject toasts. |
 | `leave-request-form` | HRMS | Date range, approver combobox, multi-select notify list, working-day count and field validation. |
+| `new-hire-form` | HRMS | Sectioned onboarding form with ten dropdowns: selects, searchable comboboxes and a multi-select, plus required-field validation. |
 | `not-found-page` | Layout | Full-page 404 with search and two ways out. Reuse for 403 and 500. |
 | `notifications-page` | Account | Full-page inbox with All and Unread tabs, mark as read and mark all read. |
 | `onboarding-wizard` | Account | Four-step setup (profile, team, preferences, done) with a stepper, validation and values kept when you go back. |

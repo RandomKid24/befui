@@ -380,6 +380,7 @@ SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, Chev
 - `block:lead-pipeline`: Drag-and-drop board with column totals and a keyboard-friendly move button. Uses: avatar, badge, button, card, icons, toast.
 - `block:leave-approvals`: Manager inbox with tabs, balance bars and approve or reject toasts. Uses: avatar, badge, button, card, empty-state, icons, progress, tabs, toast.
 - `block:leave-request-form`: Date range, approver combobox, multi-select notify list, working-day count and field validation. Uses: alert, button, calendar, card, combobox, date-picker, input, label, select, toast.
+- `block:new-hire-form`: Sectioned onboarding form with ten dropdowns: selects, searchable comboboxes and a multi-select, plus required-field validation. Uses: button, card, combobox, input, label, select, toast.
 - `block:not-found-page`: Full-page 404 with search and two ways out. Reuse for 403 and 500. Uses: button, error-state, icons, search-input.
 - `block:notifications-page`: Full-page inbox with All and Unread tabs, mark as read and mark all read. Uses: avatar, button, card, empty-state, icons, tabs.
 - `block:onboarding-wizard`: Four-step setup (profile, team, preferences, done) with a stepper, validation and values kept when you go back. Uses: button, card, icons, input, label, segmented, stepper, switch.

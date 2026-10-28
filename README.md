@@ -4,7 +4,7 @@
 
 **Interfaces people actually enjoy using.**
 
-272 copy-paste React components, 389 hand-drawn icons and 37 full-page blocks.<br/>
+272 copy-paste React components, 389 hand-drawn icons and 38 full-page blocks.<br/>
 Plus **121 Flutter widgets** for Android and iOS, and every component as a `<bef-*>` HTML tag.<br/>
 Built on Radix, Tailwind 4 and CSS variables. You own every file.
 
@@ -289,7 +289,7 @@ Browse them live with search at the docs site, or run `npx github:RandomKid24/be
 More in `docs/images/block-*.png`: project overview, profile, billing, API keys, invoice, top-nav layout and 404.
 
 <!-- blocks:start -->
-### Blocks (37)
+### Blocks (38)
 
 Full screens built from the components, with mock data you swap for your own API.
 
@@ -315,6 +315,7 @@ Full screens built from the components, with mock data you swap for your own API
 | `block:lead-pipeline` | Marketing | Drag-and-drop board with column totals and a keyboard-friendly move button. |
 | `block:leave-approvals` | HRMS | Manager inbox with tabs, balance bars and approve or reject toasts. |
 | `block:leave-request-form` | HRMS | Date range, approver combobox, multi-select notify list, working-day count and field validation. |
+| `block:new-hire-form` | HRMS | Sectioned onboarding form with ten dropdowns: selects, searchable comboboxes and a multi-select, plus required-field validation. |
 | `block:not-found-page` | Layout | Full-page 404 with search and two ways out. Reuse for 403 and 500. |
 | `block:notifications-page` | Account | Full-page inbox with All and Unread tabs, mark as read and mark all read. |
 | `block:onboarding-wizard` | Account | Four-step setup (profile, team, preferences, done) with a stepper, validation and values kept when you go back. |
