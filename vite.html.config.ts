@@ -6,12 +6,12 @@ import tailwindcss from '@tailwindcss/vite';
 
 // Tailwind's preflight, but only inside bef-* roots (marked data-bef) and Radix portals (menus, dialogs), so the host page keeps its own styles.
 const S = ':where([data-bef], .pv, [data-radix-popper-content-wrapper], [data-radix-portal], [role=dialog], [role=alertdialog])';
-// The React site gets Geist from Google Fonts in index.html and sets it on <body>; here the components carry the font themselves.
-const FONT_URL = 'https://fonts.googleapis.com/css2?family=Geist:wght@400..700&family=Geist+Mono:wght@400..600&display=swap';
+// The React site gets Onest from Google Fonts in index.html and sets it on <body>; here the components carry the font themselves.
+const FONT_URL = 'https://fonts.googleapis.com/css2?family=Onest:wght@400..700&family=JetBrains+Mono:wght@400;500&display=swap';
 const scoped = `@layer base {
   [data-bef] { display: contents; }
-  ${S} { font-family: 'Geist', ui-sans-serif, system-ui, sans-serif; line-height: 1.5; -webkit-font-smoothing: antialiased; }
-  ${S} :where(code, kbd, samp, pre) { font-family: 'Geist Mono', ui-monospace, monospace; }
+  ${S} { font-family: 'Onest', ui-sans-serif, system-ui, sans-serif; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  ${S} :where(code, kbd, samp, pre) { font-family: 'JetBrains Mono', ui-monospace, monospace; }
   [data-bef][style] { display: block; }
   ${S} :where(*, ::before, ::after) { box-sizing: border-box; border: 0 solid; border-color: var(--border); margin: 0; padding: 0; }
   ${S} :where(button, input, select, textarea, optgroup) { font: inherit; letter-spacing: inherit; color: inherit; background: transparent; border-radius: 0; opacity: 1; }

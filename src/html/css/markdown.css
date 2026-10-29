@@ -109,7 +109,7 @@
   padding-inline-start: calc(var(--spacing) * 3);
 }
 .font-mono {
-  font-family: Geist Mono,ui-monospace,monospace;
+  font-family: JetBrains Mono,ui-monospace,monospace;
 }
 .text-2xl {
   font-size: var(--text-2xl);

@@ -131,7 +131,7 @@
   text-align: end;
 }
 .font-mono {
-  font-family: Geist Mono,ui-monospace,monospace;
+  font-family: JetBrains Mono,ui-monospace,monospace;
 }
 .text-sm {
   font-size: var(--text-sm);

@@ -125,7 +125,7 @@
   padding-left: calc(var(--spacing) * 8);
 }
 .font-mono {
-  font-family: Geist Mono,ui-monospace,monospace;
+  font-family: JetBrains Mono,ui-monospace,monospace;
 }
 .text-\[11px\] {
   font-size: 11px;

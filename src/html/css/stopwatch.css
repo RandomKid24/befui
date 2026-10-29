@@ -79,7 +79,7 @@
   text-align: center;
 }
 .font-mono {
-  font-family: Geist Mono,ui-monospace,monospace;
+  font-family: JetBrains Mono,ui-monospace,monospace;
 }
 .text-4xl {
   font-size: var(--text-4xl);

@@ -15,7 +15,7 @@ Motion, depth and density tokens, a tidier components page
 - **Changed:** Components page: the six newest components with a Show all link, two-line cards, sticky filters, category counts and a live example on hover. The New badge now marks only the latest releases.
 - **Fixed:** Muted text in light mode was 4.3:1 on secondary surfaces; it is now 5:1 or better in both modes, with a test. Redrew the PinOff, Fingerprint and Wand icons.
 - **Added:** Orderlane kanban: a board in three levels with collapsible status groups, fixed-width status columns and cards you drag between them. The board scrolls sideways when you drag near its edge, won and lost cards stay put, and onMove lets you ask for an attachment before a move is saved. (Orderlane kanban, Kanban board)
-- **Changed:** One font family: Geist for text and headings, Geist Mono for code, replacing Inter, JetBrains Mono and Bricolage Grotesque. It reads clearly at small sizes and the two are drawn to match. --font-sans and --font-mono in index.css and the HTML components change with it.
+- **Changed:** Fonts: Onest for text and headings, JetBrains Mono for code, replacing Inter and Bricolage Grotesque. Onest has more character than Inter and still reads clearly at small sizes. --font-sans and --font-mono in index.css and the HTML components change with it.
 
 ## 1.10.0 - 2026-10-15
 

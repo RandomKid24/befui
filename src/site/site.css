@@ -1,6 +1,6 @@
 /* Site-only styles. Kept out of index.css because that file is what the CLI copies into a user's project. */
 .font-display {
-  font-family: 'Geist', ui-sans-serif, system-ui, sans-serif;
+  font-family: 'Onest', ui-sans-serif, system-ui, sans-serif;
 
 }
 
