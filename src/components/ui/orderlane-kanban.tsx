@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { ChevronLeftIcon, ChevronRightIcon } from './icons';
+import { ChevronLeftIcon, ChevronRightIcon, PlusIcon } from './icons';
 import { cn } from '@/lib/utils';
 
 export interface OrderlaneStatus {
@@ -59,10 +59,12 @@ export function OrderlaneKanban<T extends { id: string }>({
   onMove,
   renderCard,
   onCardClick,
+  onAdd,
   isLocked,
   savingId,
   hideEmpty,
   noStatusLabel = 'No status',
+  unit = 'orders',
   className,
 }: {
   groups: OrderlaneGroup[];
@@ -70,6 +72,8 @@ export function OrderlaneKanban<T extends { id: string }>({
   onMove: (id: string, from: string, to: string) => void;
   renderCard: (item: T) => React.ReactNode;
   onCardClick?: (item: T) => void;
+  /** Shows a + in each column header. */
+  onAdd?: (statusKey: string) => void;
   /** Locked cards (won or lost) can't be dragged. */
   isLocked?: (item: T) => boolean;
   /** The card showing a saving pulse after a drop. */
@@ -77,6 +81,8 @@ export function OrderlaneKanban<T extends { id: string }>({
   /** Hide columns with no cards, and groups whose columns are all empty. */
   hideEmpty?: boolean;
   noStatusLabel?: string;
+  /** What the cards are called in a group header, as in "7 leads". */
+  unit?: string;
   className?: string;
 }) {
   const [drag, setDrag] = React.useState<{ id: string; from: string } | null>(null);
@@ -116,7 +122,14 @@ export function OrderlaneKanban<T extends { id: string }>({
           style={s.color ? { backgroundColor: s.color, color: inkFor(s.color) } : undefined}
         >
           <span>{s.label}</span>
-          <span className="text-xs opacity-80">({cards.length})</span>
+          <span className="flex items-center gap-2">
+            <span className="text-xs opacity-80">({cards.length})</span>
+            {onAdd && (
+              <button type="button" aria-label={`Add to ${s.label}`} onClick={() => onAdd(s.key)} className="grid size-6 place-items-center rounded opacity-80 transition-opacity hover:opacity-100">
+                <PlusIcon className="size-4" />
+              </button>
+            )}
+          </span>
         </div>
         <div className={cn('min-h-0 flex-1 space-y-2 overflow-y-auto overflow-x-hidden p-2', noScrollbar)}>
           {cards.map((item) => {
@@ -171,7 +184,7 @@ export function OrderlaneKanban<T extends { id: string }>({
               <>
                 <button type="button" onClick={toggle} aria-label={`Collapse ${g.label}`} className="mb-3 flex w-full items-center gap-2 border-b border-slate-200 pb-2 text-left">
                   <span className="text-sm font-semibold text-slate-700">{g.label}</span>
-                  <span className="text-xs text-slate-400">({g.statuses.length} statuses • {count} orders)</span>
+                  <span className="text-xs text-slate-400">({g.statuses.length} {g.statuses.length === 1 ? 'status' : 'statuses'} • {count} {unit})</span>
                   <ChevronRightIcon className="ml-auto size-4 text-slate-400" />
                 </button>
                 <div onDragOver={edgeScroll} className={cn('flex gap-4 overflow-x-auto pb-2', noScrollbar)}>

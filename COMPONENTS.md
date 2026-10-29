@@ -223,7 +223,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `matrix-heatmap` | Rows by columns shaded by value: traffic by hour and weekday, cohort retention. Cells fade in as a wave; hover lights up the row and column. | ✓ |  |
 | `network-graph` | Dots joined by lines for services, people or links. Settled layout (no jitter); hover lights up neighbours, click selects. | ✓ |  |
 | `number-ticker` | Counts up to a value with easing once it scrolls into view. | ✓ | ✓ |
-| `orderlane-kanban` | Kanban in three levels: collapsible status groups, fixed-width status columns and cards you drag between them. Edge auto-scroll, locked cards and a hook for gating a move on an attachment. Controlled, no drag library. |  |  |
+| `orderlane-kanban` | Kanban in three levels: collapsible status groups, fixed-width status columns and cards you drag between them. Edge auto-scroll, locked cards, a + on each column and a hook for gating a move on an attachment. Controlled, no drag library. |  |  |
 | `org-chart` | Reporting tree with connector lines and collapsible teams. | ✓ |  |
 | `outcome-bar` | One thick rounded bar split green and red in proportion (won vs lost), a pale piece for what is still open, a big conversion number above and the counts under each part. | ✓ |  |
 | `pace-chart` | Burn-up for a monthly target: running total, the straight line you should be on, a dashed projection to month end, the target line and an ahead or behind pace chip. | ✓ |  |

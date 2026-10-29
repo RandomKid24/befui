@@ -1,104 +1,111 @@
 'use client';
 
 import * as React from 'react';
-import { CalendarIcon, ChevronLeftIcon, ChevronRightIcon, MailIcon, PhoneIcon, TrashIcon } from '@/components/ui/icons';
+import { BuildingIcon, EyeIcon, MailIcon, PhoneIcon, TrophyIcon, UserIcon, XCircleIcon } from '@/components/ui/icons';
 import { Button } from '@/components/ui/button';
-import { OrderlaneKanban, ORDERLANE_NONE, type OrderlaneGroup } from '@/components/ui/orderlane-kanban';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Segmented } from '@/components/ui/segmented';
+import { OrderlaneKanban, type OrderlaneGroup } from '@/components/ui/orderlane-kanban';
 
-interface Status { key: string; label: string; color?: string; final?: 'won' | 'lost'; attachmentRequired?: boolean }
-interface Group extends Omit<OrderlaneGroup, 'statuses'> { statuses: Status[] }
-interface Order {
-  id: string; series: string; status: string | null; name: string; company: string; quotes: string[];
-  phone: string; email: string; value: number; wonDate?: string; delivery?: string; assignedTo?: string;
-  created?: string; lastInquiry?: string; notes?: string;
+interface Lead {
+  id: string; name: string; company: string; plant?: string; owner: string; phone: string; email: string;
+  tags: string[]; followUp?: string; quotes: number; quoted?: number; estimate?: number; status: string;
 }
 
-const NONE = ORDERLANE_NONE;
+const groups: OrderlaneGroup[] = [
+  { id: 'initialize', label: 'Initialize', statuses: [{ key: 'new', label: 'New' }, { key: 'quote_generated', label: 'Quote generated' }] },
+  { id: 'a', label: 'A', statuses: [{ key: 'a', label: 'A' }] },
+  { id: 'aplus', label: 'A+', statuses: [{ key: 'aplus', label: 'A+' }] },
+  { id: 'c', label: 'C', statuses: [{ key: 'quotation_submitted', label: 'Quotation submitted' }, { key: 'technical_review', label: 'Technical review' }] },
+  { id: 'closed', label: 'Closed', statuses: [{ key: 'won', label: 'Won' }, { key: 'lost', label: 'Lost' }] },
+];
+const needsAttachment = 'quotation_submitted';
+const locked = new Set(['won', 'lost']);
 
-const groups: Group[] = [
-  { id: 'enquiry', label: 'Enquiry', color: '#3B82F6', statuses: [{ key: 'new', label: 'New' }, { key: 'quoted', label: 'Quotation submitted', color: '#6366F1' }] },
-  { id: 'production', label: 'Production', color: '#F59E0B', statuses: [{ key: 'confirmed', label: 'Confirmed' }, { key: 'in_production', label: 'In production' }] },
-  { id: 'dispatch', label: 'Dispatch', color: '#10B981', statuses: [{ key: 'shipped', label: 'Shipped', attachmentRequired: true }, { key: 'delivered', label: 'Delivered', final: 'won' }] },
-  { id: 'closed', label: 'Closed', statuses: [{ key: 'cancelled', label: 'Cancelled', final: 'lost' }] },
+const seed: Lead[] = [
+  { id: 'l1', name: 'Shweta Pillai', company: 'Tata Consultancy Services', plant: 'Siruseri Campus', owner: 'ritu.banerjee', phone: '+91-98765-50502', email: 'shweta.pillai@tcs.example', tags: ['Domestic', 'East 1'], quotes: 0, estimate: 6100000, status: 'new' },
+  { id: 'l2', name: 'Sachin Pawar', company: 'Bajaj Auto Ltd', plant: 'Chakan Plant', owner: 'sunita.rao', phone: '+91-98765-40401', email: 'sachin.pawar@bajaj.example', tags: ['Domestic', 'South 1'], quotes: 0, estimate: 38050000, status: 'new' },
+  { id: 'l3', name: 'Divya Shetty', company: 'JSW Steel Ltd', plant: 'Vijayanagar Works', owner: 'neha.gupta', phone: '+91-98765-10102', email: 'divya.shetty@jsw.example', tags: ['Domestic', 'North 1'], quotes: 1, quoted: 222250000, status: 'quote_generated' },
+  { id: 'l4', name: 'Priya Iyer', company: 'Infosys Ltd', plant: 'Bengaluru Campus', owner: 'neha.gupta', phone: '+91-98765-22201', email: 'priya.iyer@infosys.example', tags: ['Domestic', 'South 2'], quotes: 0, estimate: 12480000, status: 'quote_generated' },
+  { id: 'l5', name: 'Rahul Verma', company: 'Reliance Industries Ltd', plant: 'Jamnagar Refinery', owner: 'vivek.joshi', phone: '+91-98765-55502', email: 'rahul.verma@ril.example', tags: ['Domestic', 'West 1'], quotes: 1, quoted: 453500000, status: 'a' },
+  { id: 'l6', name: 'Aarav Sharma', company: 'Tata Steel Ltd', plant: 'Jamshedpur Plant', owner: 'lakshmi.iyer', phone: '+91-98765-11101', email: 'aarav.sharma@tata.example', tags: ['Domestic', 'South 2'], quotes: 1, quoted: 91200000, status: 'a' },
+  { id: 'l7', name: 'Priya Iyer', company: 'Infosys Ltd', plant: 'Bengaluru Campus', owner: 'aditya', phone: '+91-98765-22201', email: 'priya.iyer@infosys.example', tags: ['Domestic', 'North 1'], quotes: 1, quoted: 43500000, status: 'aplus' },
+  { id: 'l8', name: 'Sachin Pawar', company: 'Bajaj Auto Ltd', plant: 'Chakan Plant', owner: 'kavya.menon', phone: '+91-98765-40401', email: 'sachin.pawar@bajaj.example', tags: ['Domestic', 'South 1'], quotes: 1, quoted: 62000000, status: 'aplus' },
+  { id: 'l9', name: 'Harish Tyagi', company: 'NTPC Ltd', plant: 'Dadri Power Station', owner: 'simran.kaur', phone: '+91-98765-20201', email: 'harish.tyagi@ntpc.example', tags: ['Domestic', 'North 1'], quotes: 1, quoted: 211850000, status: 'quotation_submitted' },
+  { id: 'l10', name: 'Sneha Kapoor', company: 'Bharat Heavy Electricals Ltd', owner: 'ritu.banerjee', phone: '+91-98765-66601', email: 'sneha.kapoor@bhel.example', tags: ['Domestic', 'East 1'], quotes: 0, estimate: 90350000, status: 'quotation_submitted' },
+  { id: 'l11', name: 'Meera Chatterjee', company: 'Infosys Ltd', owner: 'kavya.menon', phone: '+91-98765-22202', email: 'meera.chatterjee@infosys.example', tags: ['Domestic', 'South 1'], quotes: 1, quoted: 15800000, status: 'technical_review' },
+  { id: 'l12', name: 'Rohan Mehta', company: 'Mahindra Logistics', plant: 'Pune Hub', owner: 'sunita.rao', phone: '+91-98765-44420', email: 'rohan.mehta@mahindra.example', tags: ['Domestic', 'West 1'], quotes: 1, quoted: 31500000, status: 'won' },
 ];
 
-const seed: Order[] = [
-  { id: 'o1', series: 'SO-2041', status: null, name: 'Meera Chatterjee', company: 'Infosys Ltd', quotes: [], phone: '+91-98765-22202', email: 'meera.c@infosys.example', value: 0, created: '2025-03-02T10:00:00' },
-  { id: 'o2', series: 'SO-2042', status: 'new', name: 'Sachin Pawar', company: 'Bajaj Auto Ltd', quotes: [], phone: '+91-98765-40401', email: 'sachin.pawar@bajaj.example', value: 8050000, created: '2025-03-04T09:30:00', assignedTo: 'Sunita Rao', lastInquiry: '2025-03-05T16:10:00' },
-  { id: 'o3', series: 'SO-2043', status: 'new', name: 'Shweta Pillai', company: 'Tata Consultancy Services', quotes: [], phone: '+91-98765-50502', email: 'shweta.pillai@tcs.example', value: 6100000, created: '2025-03-04T11:45:00', assignedTo: 'Ritu Banerjee', notes: 'Wants delivery split across two campuses.' },
-  { id: 'o4', series: 'SO-2044', status: 'quoted', name: 'Divya Shetty', company: 'JSW Steel Ltd', quotes: ['QTN-7781', 'QTN-7790'], phone: '+91-98765-10102', email: 'divya.shetty@jsw.example', value: 22250000, created: '2025-02-26T14:00:00', assignedTo: 'Neha Gupta', delivery: '2025-04-18T00:00:00' },
-  { id: 'o5', series: 'SO-2045', status: 'quoted', name: 'Harish Tyagi', company: 'NTPC Ltd', quotes: ['QTN-7802'], phone: '+91-98765-20201', email: 'harish.tyagi@ntpc.example', value: 21185000, created: '2025-02-27T08:20:00', assignedTo: 'Simran Kaur', lastInquiry: '2025-03-03T12:05:00' },
-  { id: 'o6', series: 'SO-2046', status: 'confirmed', name: 'Priya Iyer', company: 'Infosys Ltd', quotes: ['QTN-7655'], phone: '+91-98765-22201', email: 'priya.iyer@infosys.example', value: 12480000, created: '2025-02-14T10:10:00', assignedTo: 'Neha Gupta', delivery: '2025-05-02T00:00:00' },
-  { id: 'o7', series: 'SO-2047', status: 'in_production', name: 'Sneha Kapoor', company: 'Bharat Heavy Electricals Ltd', quotes: ['QTN-7590', 'QTN-7611', 'QTN-7620'], phone: '+91-98765-66601', email: 'sneha.kapoor@bhel.example', value: 90350000, created: '2025-01-30T15:00:00', assignedTo: 'Ritu Banerjee', delivery: '2025-04-30T00:00:00', notes: 'Second batch waits on casting approval from the plant.' },
-  { id: 'o8', series: 'SO-2048', status: 'shipped', name: 'Kabir Anand', company: 'Larsen & Toubro', quotes: ['QTN-7401'], phone: '+91-98765-31310', email: 'kabir.anand@lt.example', value: 4720000, created: '2025-01-12T09:00:00', assignedTo: 'Lakshmi Iyer', delivery: '2025-03-10T00:00:00' },
-  { id: 'o9', series: 'SO-2049', status: 'delivered', name: 'Rohan Mehta', company: 'Mahindra Logistics', quotes: ['QTN-7288'], phone: '+91-98765-44420', email: 'rohan.mehta@mahindra.example', value: 3150000, wonDate: '2025-02-21T00:00:00', created: '2024-12-18T09:00:00', assignedTo: 'Sunita Rao' },
-  { id: 'o10', series: 'SO-2050', status: 'cancelled', name: 'Anaya Desai', company: 'Reliance Retail', quotes: ['QTN-7012'], phone: '+91-98765-70071', email: 'anaya.desai@reliance.example', value: 1900000, created: '2024-12-02T13:30:00', notes: 'Buyer moved the project to next financial year.' },
-];
+const rupees = (n: number) => `₹${n.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+const label = (key: string) => groups.flatMap((g) => g.statuses).find((s) => s.key === key)?.label ?? key;
 
-const fmt = (iso: string, o: Intl.DateTimeFormatOptions) => new Date(iso).toLocaleString('en-IN', o);
-const medium = (iso: string) => fmt(iso, { dateStyle: 'medium' });
-const shortDate = (iso: string) => fmt(iso, { dateStyle: 'short' });
-const shortTime = (iso: string) => fmt(iso, { timeStyle: 'short' });
-const rupees = (n: number) => `₹${n.toLocaleString('en-IN')}`;
+function Row({ icon, children, muted }: { icon: React.ReactNode; children: React.ReactNode; muted?: boolean }) {
+  return (
+    <div className={`mt-1 flex items-center gap-2 text-[13px] ${muted ? 'italic text-slate-400' : 'text-slate-500'}`}>
+      <span className="text-slate-400">{icon}</span>
+      <span className="truncate">{children}</span>
+    </div>
+  );
+}
 
-function OrderCardBody({ order, onDelete }: { order: Order; onDelete: () => void }) {
+function LeadCardBody({ lead, onWon, onLost, onDelete }: { lead: Lead; onWon: () => void; onLost: () => void; onDelete: () => void }) {
+  const stop = (fn: () => void) => (e: React.MouseEvent) => { e.stopPropagation(); fn(); };
+  const done = locked.has(lead.status);
   return (
     <>
-    <div className="flex items-start justify-between gap-1">
-      <div className="truncate text-base font-semibold text-blue-600">{order.series}</div>
-      <button
-        type="button"
-        aria-label={`Delete ${order.series}`}
-        onClick={(e) => { e.stopPropagation(); onDelete(); }}
-        className="rounded p-0.5 text-slate-400 hover:bg-rose-100 hover:text-rose-600"
-      >
-        <TrashIcon className="size-[14px]" />
-      </button>
-    </div>
-    <div className="mt-1">
-      <span className="inline-block rounded bg-slate-100 px-1.5 py-0.5 text-xs text-slate-600">
-        {order.status ? groups.flatMap((g) => g.statuses).find((s) => s.key === order.status)?.label : 'No status'}
-      </span>
-    </div>
-    <div className="mt-1.5 truncate text-sm text-slate-700">{order.name}</div>
-    <div className="mt-0.5 truncate text-xs text-slate-500">{order.company}</div>
-    {order.quotes.length > 0 && (
-      <div className="mt-1 truncate text-xs text-slate-600">
-        Quote: <span className="font-medium">{order.quotes[0]}</span>
-        {order.quotes.length > 1 && <span className="text-slate-400"> +{order.quotes.length - 1} more</span>}
+      <div className="text-base font-medium text-slate-900">{lead.name}</div>
+      <div className="text-sm text-slate-500">{lead.company}</div>
+      <Row icon={<BuildingIcon className="size-3.5" />} muted={!lead.plant}>{lead.plant ?? 'No plant'}</Row>
+      <Row icon={<UserIcon className="size-3.5" />}>Owner: {lead.owner}</Row>
+      <div className="mt-1 grid grid-cols-2 gap-x-2 text-[13px] font-medium text-slate-800">
+        <span className="flex min-w-0 items-center gap-2"><PhoneIcon className="size-3.5 shrink-0 text-slate-400" /><span className="truncate">{lead.phone}</span></span>
+        <span className="flex min-w-0 items-center gap-2"><MailIcon className="size-3.5 shrink-0 text-slate-400" /><span className="truncate">{lead.email}</span></span>
       </div>
-    )}
-    <div className="mt-1.5 grid grid-cols-2 gap-x-2">
-      <div className="flex min-w-0 items-center gap-1.5 text-xs font-medium text-slate-700">
-        <PhoneIcon className="size-[11px] shrink-0 text-slate-400" />
-        <span className="truncate">{order.phone}</span>
+      <div className="mt-2 flex flex-wrap gap-1.5">
+        {lead.tags.map((t, i) => (
+          <span key={t} className={`rounded-full border px-2.5 py-0.5 text-xs font-medium ${i === 0 ? 'border-blue-100 bg-blue-50 text-blue-700' : 'border-slate-200 bg-slate-100 text-slate-600'}`}>{t}</span>
+        ))}
       </div>
-      <div className="flex min-w-0 items-center gap-1.5 text-xs font-medium text-slate-700">
-        <MailIcon className="size-[11px] shrink-0 text-slate-400" />
-        <span className="truncate">{order.email}</span>
+      <div className="mt-3 text-[13px] text-slate-400">Next follow-up</div>
+      <div className="text-[13px] italic text-slate-400">{lead.followUp ?? 'Not scheduled'}</div>
+      {lead.quotes > 0 ? (
+        <>
+          <div className="mt-3 flex items-center gap-2 text-[13px] text-slate-800">
+            {lead.quotes} quotation uploaded <EyeIcon className="size-3.5 text-blue-600" />
+          </div>
+          <div className="mt-1.5 flex items-center gap-2 text-sm font-semibold text-blue-600">
+            <span className="rounded bg-blue-50 px-1.5 py-0.5 text-[10px] font-semibold tracking-wider">QUOTE</span>
+            {lead.quotes} quote · {rupees(lead.quoted ?? 0)}
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="mt-3 text-[13px] italic text-slate-400">No quotation yet</div>
+          {lead.estimate ? (
+            <div className="mt-1.5 flex items-center gap-2 text-sm text-slate-800">
+              <span className="rounded bg-slate-100 px-1.5 py-0.5 text-[10px] font-semibold tracking-wider text-slate-500">EST</span>
+              {rupees(lead.estimate)}
+            </div>
+          ) : null}
+        </>
+      )}
+      <div className="mt-4 flex items-center gap-5 text-sm font-medium">
+        {!done && (
+          <>
+            <button type="button" onClick={stop(onWon)} className="flex items-center gap-1 text-emerald-600 hover:text-emerald-700"><TrophyIcon className="size-4" />Won</button>
+            <button type="button" onClick={stop(onLost)} className="flex items-center gap-1 text-rose-600 hover:text-rose-700"><XCircleIcon className="size-4" />Lost</button>
+          </>
+        )}
+        <button type="button" onClick={stop(onDelete)} className="text-slate-500 hover:text-rose-600">Delete</button>
       </div>
-    </div>
-    {order.value > 0 && <div className="mt-1.5 text-sm font-semibold text-slate-800">{rupees(order.value)}</div>}
-    {order.wonDate && (
-      <div className="mt-1.5 flex w-fit items-center gap-1.5 rounded border border-emerald-200 bg-emerald-50 px-2 py-1 text-xs text-emerald-700">
-        <CalendarIcon className="size-3 text-emerald-600" />
-        <span>Won: <b>{medium(order.wonDate)}</b></span>
-      </div>
-    )}
-    {order.delivery && <div className="mt-0.5 text-xs text-slate-500">Delivery: {shortDate(order.delivery)}</div>}
-    {order.assignedTo && <div className="mt-0.5 text-xs text-slate-500">Assigned: {order.assignedTo}</div>}
-    {order.created && <div className="mt-0.5 text-xs text-slate-400">Created: {shortDate(order.created)}</div>}
-    {order.lastInquiry && <div className="mt-1 text-xs text-slate-500">Last inquiry: {shortDate(order.lastInquiry)} {shortTime(order.lastInquiry)}</div>}
-    {order.notes && <div className="mt-1 truncate text-xs text-slate-500" title={order.notes}>{order.notes}</div>}
     </>
   );
 }
 
-/** Orders board built on OrderlaneKanban: collapsible status groups, drag between columns, an attachment gate on Shipped and a paginated table view. */
+/** Leads board built on OrderlaneKanban: groups that collapse, drag between columns, an attachment gate on Quotation submitted, a + on each column and a paginated table view. */
 export default function OrderlaneKanbanDemo() {
-  const [orders, setOrders] = React.useState(seed);
+  const [leads, setLeads] = React.useState(seed);
   const [loading, setLoading] = React.useState(true);
   const [view, setView] = React.useState<'kanban' | 'table'>('kanban');
   const [hideEmpty, setHideEmpty] = React.useState(false);
@@ -110,31 +117,29 @@ export default function OrderlaneKanbanDemo() {
 
   React.useEffect(() => { const t = setTimeout(() => setLoading(false), 500); return () => clearTimeout(t); }, []);
 
-  const statusOf = (key: string) => groups.flatMap((g) => g.statuses).find((s) => s.key === key);
-  const keyOf = (o: Order) => (o.status && statusOf(o.status) ? o.status : NONE);
   const value = React.useMemo(() => {
-    const v: Record<string, Order[]> = {};
-    for (const o of orders) (v[keyOf(o)] ??= []).push(o);
+    const v: Record<string, Lead[]> = {};
+    for (const l of leads) (v[l.status] ??= []).push(l);
     return v;
-  }, [orders]);
+  }, [leads]);
 
   const commit = (id: string, to: string) => {
-    const s = statusOf(to);
-    setOrders((os) => os.map((o) => o.id === id ? { ...o, status: to === NONE ? null : to, wonDate: s?.final === 'won' ? new Date().toISOString() : o.wonDate } : o));
+    setLeads((ls) => ls.map((l) => (l.id === id ? { ...l, status: to } : l)));
     setSavingId(id);
     setTimeout(() => setSavingId(null), 700);
   };
   const onMove = (id: string, _from: string, to: string) => {
-    if (statusOf(to)?.attachmentRequired) { setFiles([]); setPending({ id, to }); } else commit(id, to);
+    if (to === needsAttachment) { setFiles([]); setPending({ id, to }); } else commit(id, to);
   };
+  const add = (status: string) =>
+    setLeads((ls) => [{ id: `n${Date.now()}`, name: 'New lead', company: 'Company name', owner: 'unassigned', phone: '+91-00000-00000', email: 'lead@example.com', tags: ['Domestic'], quotes: 0, status }, ...ls]);
 
-  const open = orders.find((o) => o.id === openId);
+  const open = leads.find((l) => l.id === openId);
   const perPage = 5;
-  const pages = Math.max(1, Math.ceil(orders.length / perPage));
+  const pages = Math.max(1, Math.ceil(leads.length / perPage));
 
   return (
-    <div className="rounded-xl bg-white py-3 font-[Outfit,sans-serif] text-slate-800">
-      <style>{"@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap');"}</style>
+    <div className="rounded-xl bg-slate-50 py-3 font-[Geist,Inter,sans-serif] text-slate-800">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-3 px-4">
         <Segmented value={view} onValueChange={setView} options={[{ value: 'kanban', label: 'Kanban' }, { value: 'table', label: 'Table' }]} />
         {view === 'kanban' && (
@@ -146,39 +151,48 @@ export default function OrderlaneKanbanDemo() {
       </div>
 
       {loading ? (
-        <div className="py-24 text-center text-slate-500">Loading orders...</div>
-      ) : orders.length === 0 ? (
+        <div className="py-24 text-center text-slate-500">Loading leads...</div>
+      ) : leads.length === 0 ? (
         <div className="py-24 text-center">
-          <div className="font-bold text-slate-900">No orders yet</div>
-          <div className="mt-1 text-sm text-slate-500">Create your first order to see it on the board.</div>
-          <Button className="mt-4" onClick={() => setOrders(seed)}>New</Button>
+          <div className="font-bold text-slate-900">No leads yet</div>
+          <div className="mt-1 text-sm text-slate-500">Create your first lead to see it on the board.</div>
+          <Button className="mt-4" onClick={() => setLeads(seed)}>New</Button>
         </div>
       ) : view === 'kanban' ? (
-        <OrderlaneKanban<Order>
+        <OrderlaneKanban<Lead>
           groups={groups}
           value={value}
+          unit="leads"
           onMove={onMove}
+          onAdd={add}
           hideEmpty={hideEmpty}
           savingId={savingId}
-          isLocked={(o) => !!(o.status && statusOf(o.status)?.final)}
-          onCardClick={(o) => setOpenId(o.id)}
-          renderCard={(o) => <OrderCardBody order={o} onDelete={() => setOrders((os) => os.filter((x) => x.id !== o.id))} />}
+          isLocked={(l) => locked.has(l.status)}
+          onCardClick={(l) => setOpenId(l.id)}
+          renderCard={(l) => (
+            <LeadCardBody
+              lead={l}
+              onWon={() => commit(l.id, 'won')}
+              onLost={() => commit(l.id, 'lost')}
+              onDelete={() => setLeads((ls) => ls.filter((x) => x.id !== l.id))}
+            />
+          )}
         />
       ) : (
         <div className="px-4">
           <div className="overflow-x-auto rounded-xl border border-slate-200 bg-white">
             <table className="w-full text-left text-sm text-slate-700">
               <thead className="border-b border-slate-200 bg-slate-50 text-xs uppercase tracking-wide text-slate-500">
-                <tr>{['Order', 'Customer', 'Company', 'Status', 'Value'].map((h) => <th key={h} className="px-3 py-2.5 font-semibold">{h}</th>)}</tr>
+                <tr>{['Lead', 'Company', 'Owner', 'Status', 'Quote'].map((h) => <th key={h} className="px-3 py-2.5 font-semibold">{h}</th>)}</tr>
               </thead>
               <tbody>
-                {orders.slice(page * perPage, (page + 1) * perPage).map((o) => (
-                  <tr key={o.id} onClick={() => setOpenId(o.id)} className="cursor-pointer border-b border-slate-100 last:border-0 hover:bg-slate-50">
-                    <td className="px-3 py-2.5 font-semibold text-blue-600">{o.series}</td>
-                    <td className="px-3 py-2.5">{o.name}</td>
-                    <td className="px-3 py-2.5 text-slate-500">{o.company}</td>
-                    <td className="px-3 py-2.5">{o.status ? statusOf(o.status)?.label : 'No status'}</td>
-                    <td className="px-3 py-2.5 font-semibold">{o.value ? rupees(o.value) : '-'}</td>
+                {leads.slice(page * perPage, (page + 1) * perPage).map((l) => (
+                  <tr key={l.id} onClick={() => setOpenId(l.id)} className="cursor-pointer border-b border-slate-100 last:border-0 hover:bg-slate-50">
+                    <td className="px-3 py-2.5 font-medium text-slate-900">{l.name}</td>
+                    <td className="px-3 py-2.5 text-slate-500">{l.company}</td>
+                    <td className="px-3 py-2.5 text-slate-500">{l.owner}</td>
+                    <td className="px-3 py-2.5">{label(l.status)}</td>
+                    <td className="px-3 py-2.5 font-semibold text-blue-600">{l.quoted ? rupees(l.quoted) : '-'}</td>
                   </tr>
                 ))}
               </tbody>
@@ -196,7 +210,7 @@ export default function OrderlaneKanbanDemo() {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Attachment required</DialogTitle>
-            <DialogDescription>Moving to {pending ? statusOf(pending.to)?.label : ''} needs at least one attachment.</DialogDescription>
+            <DialogDescription>Moving to {pending ? label(pending.to) : ''} needs at least one attachment.</DialogDescription>
           </DialogHeader>
           <input type="file" multiple aria-label="Attachments" onChange={(e) => setFiles(Array.from(e.target.files ?? []))} className="text-sm" />
           <div className="flex justify-end gap-2">
@@ -211,16 +225,15 @@ export default function OrderlaneKanbanDemo() {
           {open && (
             <>
               <DialogHeader>
-                <DialogTitle>{open.series}</DialogTitle>
-                <DialogDescription>{open.name}, {open.company}</DialogDescription>
+                <DialogTitle>{open.name}</DialogTitle>
+                <DialogDescription>{open.company}{open.plant ? `, ${open.plant}` : ''}</DialogDescription>
               </DialogHeader>
               <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5 text-sm">
-                <dt className="text-slate-500">Status</dt><dd>{open.status ? statusOf(open.status)?.label : 'No status'}</dd>
+                <dt className="text-slate-500">Status</dt><dd>{label(open.status)}</dd>
+                <dt className="text-slate-500">Owner</dt><dd>{open.owner}</dd>
                 <dt className="text-slate-500">Phone</dt><dd>{open.phone}</dd>
                 <dt className="text-slate-500">Email</dt><dd>{open.email}</dd>
-                {open.value > 0 && <><dt className="text-slate-500">Value</dt><dd>{rupees(open.value)}</dd></>}
-                {open.assignedTo && <><dt className="text-slate-500">Assigned</dt><dd>{open.assignedTo}</dd></>}
-                {open.notes && <><dt className="text-slate-500">Notes</dt><dd>{open.notes}</dd></>}
+                {open.quoted ? <><dt className="text-slate-500">Quote</dt><dd>{rupees(open.quoted)}</dd></> : null}
               </dl>
             </>
           )}
