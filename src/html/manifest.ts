@@ -647,6 +647,7 @@ export const manifest: Record<string, [file: string, name: string]> = {
   "bef-onboarding-checklist": [ "onboarding-checklist", "OnboardingChecklist" ],
   "bef-order-summary": [ "order-summary", "OrderSummary" ],
   "bef-order-tracker": [ "order-tracker", "OrderTracker" ],
+  "bef-orderlane-kanban": [ "orderlane-kanban", "OrderlaneKanban" ],
   "bef-org-chart": [ "org-chart", "OrgChart" ],
   "bef-org-switcher": [ "org-switcher", "OrgSwitcher" ],
   "bef-otp-input": [ "otp-input", "OtpInput" ],

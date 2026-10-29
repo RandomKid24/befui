@@ -1,6 +1,6 @@
 # Components
 
-Every befui component and block. **272 React components**, **269 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **38 page blocks**.
+Every befui component and block. **273 React components**, **269 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **38 page blocks**.
 (Generated from the registry by `npm run registry:build`. Do not edit by hand.)
 
 Install a React component with `npx github:RandomKid24/befui add <name>`, the Flutter version with `npx github:RandomKid24/befui add <name> --flutter`.
@@ -178,7 +178,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `tool-call` | A card for one tool or function call an AI made: name, running, done or failed, how long it took, and its input and output to expand. | ✓ | ✓ |
 | `voice-wave` | Audio level bars for a voice input: they dance while listening and settle to a line when paused. Drive them with a real level or leave them idle. | ✓ | ✓ |
 
-## Data (83, 15 on Flutter)
+## Data (84, 15 on Flutter)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
@@ -223,6 +223,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `matrix-heatmap` | Rows by columns shaded by value: traffic by hour and weekday, cohort retention. Cells fade in as a wave; hover lights up the row and column. | ✓ |  |
 | `network-graph` | Dots joined by lines for services, people or links. Settled layout (no jitter); hover lights up neighbours, click selects. | ✓ |  |
 | `number-ticker` | Counts up to a value with easing once it scrolls into view. | ✓ | ✓ |
+| `orderlane-kanban` | Kanban in three levels: collapsible status groups, fixed-width status columns and cards you drag between them. Edge auto-scroll, locked cards and a hook for gating a move on an attachment. Controlled, no drag library. |  |  |
 | `org-chart` | Reporting tree with connector lines and collapsible teams. | ✓ |  |
 | `outcome-bar` | One thick rounded bar split green and red in proportion (won vs lost), a pale piece for what is still open, a big conversion number above and the counts under each part. | ✓ |  |
 | `pace-chart` | Burn-up for a monthly target: running total, the straight line you should be on, a dashed projection to month end, the target line and an ahead or behind pace chip. | ✓ |  |
