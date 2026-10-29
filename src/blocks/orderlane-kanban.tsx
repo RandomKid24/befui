@@ -137,7 +137,7 @@ function OrderCard({ order, draggable, dragging, saving, onOpen, onDelete, onDra
 }
 
 /** Orders board in three levels: status groups that collapse, fixed-width status columns, and draggable cards. Orderlane keeps the board scrolling sideways. */
-export default function OrderlaneBoard() {
+export default function OrderlaneKanban() {
   const [orders, setOrders] = React.useState(seed);
   const [loading, setLoading] = React.useState(true);
   const [view, setView] = React.useState<'kanban' | 'table'>('kanban');
