@@ -95,7 +95,7 @@
   padding-block: calc(var(--spacing) * 2);
 }
 .font-mono {
-  font-family: JetBrains Mono,ui-monospace,monospace;
+  font-family: Geist Mono,ui-monospace,monospace;
 }
 .text-xs {
   font-size: var(--text-xs);

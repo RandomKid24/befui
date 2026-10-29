@@ -139,7 +139,7 @@ export default function OrderlaneKanbanDemo() {
   const pages = Math.max(1, Math.ceil(leads.length / perPage));
 
   return (
-    <div className="rounded-xl bg-slate-50 py-3 font-[Geist,Inter,sans-serif] text-slate-800">
+    <div className="rounded-xl bg-slate-50 py-3 font-sans text-slate-800">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-3 px-4">
         <Segmented value={view} onValueChange={setView} options={[{ value: 'kanban', label: 'Kanban' }, { value: 'table', label: 'Table' }]} />
         {view === 'kanban' && (

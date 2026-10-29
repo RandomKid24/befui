@@ -55,7 +55,7 @@
       },
       {
         "kind": "changed",
-        "text": "Site headings use Geist instead of Bricolage Grotesque, which had odd letter shapes at large sizes."
+        "text": "One font family: Geist for text and headings, Geist Mono for code, replacing Inter, JetBrains Mono and Bricolage Grotesque. It reads clearly at small sizes and the two are drawn to match. --font-sans and --font-mono in index.css and the HTML components change with it."
       }
     ]
   },

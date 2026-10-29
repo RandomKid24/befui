@@ -47,7 +47,7 @@ Rules: text on `--primary` is `--primary-foreground`; status colours always come
 
 ## Type
 
-Inter for text, JetBrains Mono for code and keys. The scale follows Tailwind: 11 (labels, uppercase with tracking), 12, 13 (dense UI), 14 (default), 16, 18, 20, 24, 30, 36+. Weights: 400 body, 500 labels and buttons, 600 titles. Headlines use tight tracking (`-0.02em` and up). Numbers in tables and stats use tabular figures.
+Geist for text and headings, Geist Mono for code and keys. The scale follows Tailwind: 11 (labels, uppercase with tracking), 12, 13 (dense UI), 14 (default), 16, 18, 20, 24, 30, 36+. Weights: 400 body, 500 labels and buttons, 600 titles. Headlines use tight tracking (`-0.02em` and up). Numbers in tables and stats use tabular figures.
 
 ## Shape and space
 
