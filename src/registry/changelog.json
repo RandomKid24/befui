@@ -44,6 +44,18 @@
       {
         "kind": "fixed",
         "text": "Muted text in light mode was 4.3:1 on secondary surfaces; it is now 5:1 or better in both modes, with a test. Redrew the PinOff, Fingerprint and Wand icons."
+      },
+      {
+        "kind": "added",
+        "text": "Orderlane kanban: a board in three levels with collapsible status groups, fixed-width status columns and cards you drag between them. The board scrolls sideways when you drag near its edge, won and lost cards stay put, and onMove lets you ask for an attachment before a move is saved.",
+        "slugs": [
+          "orderlane-kanban",
+          "kanban"
+        ]
+      },
+      {
+        "kind": "changed",
+        "text": "Site headings use Geist instead of Bricolage Grotesque, which had odd letter shapes at large sizes."
       }
     ]
   },

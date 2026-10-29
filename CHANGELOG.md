@@ -13,6 +13,8 @@ Motion, depth and density tokens, a tidier components page
 - **Added:** Loading: the spinner waits 150ms before it shows (React and Flutter), and SkeletonText, SkeletonAvatar and SkeletonCard match real layouts. useOptimistic flips a switch or like at once and rolls back if the save fails. (Skeleton, Spinner)
 - **Changed:** Bottom sheet is now a bottom Drawer underneath: it slides out as well as in, and closing it mid-slide reverses smoothly. (Bottom sheet, Drawer)
 - **Changed:** Components page: the six newest components with a Show all link, two-line cards, sticky filters, category counts and a live example on hover. The New badge now marks only the latest releases.
+- **Added:** Orderlane kanban: a board in three levels with collapsible status groups, fixed-width status columns and cards you drag between them. The board scrolls sideways when you drag near its edge, won and lost cards stay put, and onMove lets you ask for an attachment before a move is saved. (Orderlane kanban, Kanban board)
+- **Changed:** Site headings use Geist instead of Bricolage Grotesque, which had odd letter shapes at large sizes.
 - **Fixed:** Muted text in light mode was 4.3:1 on secondary surfaces; it is now 5:1 or better in both modes, with a test. Redrew the PinOff, Fingerprint and Wand icons.
 
 ## 1.10.0 - 2026-10-15
