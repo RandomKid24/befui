@@ -296,7 +296,7 @@ export function Footer() {
   );
 }
 
-export function Shell({ path, docs, children }: { path: string; docs: boolean; children: React.ReactNode }) {
+export function Shell({ path, docs, wide, children }: { path: string; docs: boolean; wide?: boolean; children: React.ReactNode }) {
   const { dark, toggle } = useTheme();
   const [searchOpen, setSearchOpen] = React.useState(false);
   const [menuOpen, setMenuOpen] = React.useState(false);
@@ -334,6 +334,7 @@ export function Shell({ path, docs, children }: { path: string; docs: boolean; c
             {navLink('/docs', 'Docs', '/docs')}
             {navLink('/components', 'Components', '/components')}
             {navLink('/blocks', 'Blocks', '/blocks')}
+            {navLink('/dashboards', 'Dashboards', '/dashboards')}
             {navLink('/recipes', 'Recipes', '/recipes')}
             {navLink('/icons', 'Icons', '/icons')}
             {navLink('/ai', 'AI', '/ai')}
@@ -372,7 +373,7 @@ export function Shell({ path, docs, children }: { path: string; docs: boolean; c
           <SheetTitle className="sr-only">Navigation</SheetTitle>
           <Logo />
           <nav className={cn('mt-4 grid gap-1 xl:hidden', docs && 'border-b pb-4')}>
-            {[['/docs', 'Docs'], ['/components', 'Components'], ['/blocks', 'Blocks'], ['/icons', 'Icons'], ['/ai', 'Use with AI'], ['/html', 'HTML and htmx'], ['/flutter', 'Flutter'], ['/changelog', 'Changelog']].map(([to, label]) => (
+            {[['/docs', 'Docs'], ['/components', 'Components'], ['/blocks', 'Blocks'], ['/dashboards', 'Dashboards'], ['/icons', 'Icons'], ['/ai', 'Use with AI'], ['/html', 'HTML and htmx'], ['/flutter', 'Flutter'], ['/changelog', 'Changelog']].map(([to, label]) => (
               <Link key={to} to={to} onClick={() => setMenuOpen(false)} className="rounded-md px-2.5 py-2 text-sm font-medium hover:bg-secondary">{label}</Link>
             ))}
           </nav>
@@ -381,12 +382,12 @@ export function Shell({ path, docs, children }: { path: string; docs: boolean; c
       </Sheet>
 
       {docs ? (
-        <div className="mx-auto flex max-w-[90rem] gap-10 px-4 sm:px-6">
+        <div className={cn('mx-auto flex gap-10 px-4 sm:px-6', wide ? 'max-w-none gap-8 2xl:px-10' : 'max-w-[90rem]')}>
           <aside className="sticky top-14 hidden h-[calc(100vh-3.5rem)] w-64 shrink-0 overflow-y-auto py-6 pr-3 lg:block">
             <SidebarNav path={path} />
           </aside>
           <main className="min-w-0 flex-1 py-8 pb-24">{children}</main>
-          <aside className="sticky top-14 hidden h-[calc(100vh-3.5rem)] w-48 shrink-0 overflow-y-auto py-10 xl:block">
+          <aside className={cn('sticky top-14 hidden h-[calc(100vh-3.5rem)] w-48 shrink-0 overflow-y-auto py-10 xl:block', wide && 'xl:hidden')}>
             <Toc path={path} />
           </aside>
         </div>

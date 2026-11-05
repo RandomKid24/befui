@@ -4,7 +4,8 @@ import { CopyButton } from '@/components/ui/copy-button';
 import { ArrowRightIcon } from '@/components/ui/icons';
 import { Reveal } from '@/components/ui/reveal';
 import { TokenControls, TokenReadout, useBench } from './bench';
-import { Close, Faq, BlocksViewer, Families, OpenTheFile } from './home-sections';
+import { Close, Faq, BlocksViewer, OpenTheFile } from './home-sections';
+import { Shelf } from './shelf';
 import { HeroWorkspace } from './hero-workspace';
 import { Link } from './router';
 import './site.css';
@@ -69,8 +70,8 @@ export function Home() {
   return (
     <>
       <Hero />
+      <Shelf />
       <OpenTheFile />
-      <Families />
       <BlocksViewer />
       <Faq />
       <Close />

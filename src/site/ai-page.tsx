@@ -16,7 +16,7 @@ const prompts = [
 
 function UrlRow({ label, url }: { label: string; url: string }) {
   return (
-    <div className="flex items-center gap-2 rounded-lg border bg-muted/60 py-1.5 pl-3 pr-1.5">
+    <div className="flex min-w-0 items-center gap-2 rounded-lg border bg-muted/60 py-1.5 pl-3 pr-1.5">
       <span className="w-24 shrink-0 text-xs font-medium text-muted-foreground">{label}</span>
       <code className="min-w-0 flex-1 overflow-x-auto whitespace-nowrap font-mono text-[12.5px]">{url}</code>
       <CopyButton value={url} className="size-7 shrink-0 border-transparent bg-transparent" />

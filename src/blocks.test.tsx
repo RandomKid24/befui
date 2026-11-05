@@ -116,11 +116,16 @@ it('TeamPage shows at least six members, each with a name and a role', () => {
   }
 });
 
-it('FinanceDashboard shows the balance and at least five transactions', () => {
+it('FinanceDashboard shows the balance, five activity rows and sends a transfer', () => {
   render(<FinanceDashboard />);
-  expect(screen.getByText('Balance')).toBeInTheDocument();
-  const rows = within(screen.getByRole('table', { name: 'Recent transactions' })).getAllByRole('row');
-  expect(rows.length).toBeGreaterThanOrEqual(6); // header + five
+  expect(screen.getByText(/total balance/i)).toBeInTheDocument();
+  const rows = within(screen.getByRole('main')).getAllByRole('listitem');
+  expect(rows.length).toBeGreaterThanOrEqual(5);
+  const send = screen.getByRole('button', { name: 'Send' });
+  expect(send).toBeDisabled();
+  fireEvent.click(screen.getByRole('button', { name: 'Diya Rao' }));
+  fireEvent.click(send);
+  expect(screen.getByText(/sent to Diya Rao/)).toBeInTheDocument();
 });
 
 it('KanbanBoardPage moves a card with Alt+Arrow, updates the column totals, and filters by priority', () => {

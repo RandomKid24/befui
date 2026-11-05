@@ -12,6 +12,8 @@ const ComponentPage = named(pages, 'ComponentPage');
 const BlocksIndex = named(pages, 'BlocksIndex');
 const BlockPage = named(pages, 'BlockPage');
 const NotFound = named(pages, 'NotFound');
+const DashboardsIndex = named(pages, 'DashboardsIndex');
+const DashboardPage = named(pages, 'DashboardPage');
 const IconsPage = named(() => import('@/site/icons-page'), 'IconsPage');
 const ThemesPage = named(() => import('@/site/themes-page'), 'ThemesPage');
 const AiPage = named(() => import('@/site/ai-page'), 'AiPage');
@@ -46,11 +48,12 @@ export default function App() {
   else if (section === 'changelog') page = <ChangelogPage />;
   else if (section === 'icons') page = <IconsPage />;
   else if (section === 'themes') page = <ThemesPage />;
+  else if (section === 'dashboards') page = slug ? <DashboardPage slug={slug} /> : <DashboardsIndex />;
   else if (section === 'blocks') page = slug ? <BlockPage slug={slug} /> : <BlocksIndex />;
   else page = <NotFound />;
 
   return (
-    <Shell path={path} docs={!home && section !== 'icons' && section !== 'themes' && section !== 'recipes'}>
+    <Shell path={path} wide={section === 'blocks' && !!slug} docs={!home && section !== 'icons' && section !== 'themes' && section !== 'recipes' && section !== 'dashboards'}>
       <style>{`
         @keyframes rise { from { opacity: 0; transform: translateY(10px) scale(0.995) } to { opacity: 1; transform: none } }
         /* a page's sections rise in one after the other, and a demo fades up when it has loaded */

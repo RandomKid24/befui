@@ -5,7 +5,7 @@ import { CodeBlock } from '@/components/ui/code-block';
 import { CopyButton } from '@/components/ui/copy-button';
 import { ArrowRightIcon } from '@/components/ui/icons';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { blocks, components, type Category } from '@/registry';
+import { blocks, components } from '@/registry';
 import { examples as flutterExamples } from './flutter-docs';
 import { demos as htmlDemos } from './html-docs';
 import { Link } from './router';
@@ -117,42 +117,6 @@ export function OpenTheFile() {
   );
 }
 
-// ---- Every family ----------------------------------------------------------------------------------------------
-
-const FAMILY_ORDER: Category[] = ['Inputs', 'Data', 'Display', 'Navigation', 'AI', 'Feedback', 'Overlays', 'Time', 'Layout'];
-
-/** The library as type: each family with its true counts and the first names in it. */
-export function Families() {
-  return (
-    <section className={`${wrap} border-t py-20`} aria-labelledby="families">
-      <h2 id="families" className={h2}>{components.length} components in {FAMILY_ORDER.length} families</h2>
-      <p className={lede}>{flutterSlugs.length} of them also exist as Flutter widgets. Counts below are read from the registry, so they cannot drift.</p>
-      <div className="mt-12 grid gap-x-14 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-        {FAMILY_ORDER.map((cat) => {
-          const items = components.filter((c) => c.category === cat);
-          const inFlutter = items.filter((c) => hasFlutter(c.slug)).length;
-          const shown = items.slice(0, 14);
-          return (
-            <div key={cat} className="border-t pt-4">
-              <div className="flex items-baseline justify-between gap-4">
-                <h3 className="font-display text-xl font-semibold tracking-tight">{cat}</h3>
-                <p className="text-xs tabular-nums text-muted-foreground">{items.length} components, {inFlutter} in Flutter</p>
-              </div>
-              <div className="mt-2 h-0.5 bg-border" aria-hidden><div className="h-full bg-primary" style={{ width: `${(inFlutter / items.length) * 100}%` }} /></div>
-              <ul className="mt-3 flex flex-wrap gap-x-3.5 gap-y-1 text-[13px] leading-relaxed">
-                {shown.map((c, i) => (
-                  <li key={c.slug} className={i >= 8 ? 'max-sm:hidden' : undefined}><Link to={`/components/${c.slug}`} className="text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline">{c.name}</Link></li>
-                ))}
-                {items.length > shown.length && <li><Link to="/components" className="font-medium underline underline-offset-4">and {items.length - shown.length} more</Link></li>}
-              </ul>
-            </div>
-          );
-        })}
-      </div>
-    </section>
-  );
-}
-
 // ---- Blocks ----------------------------------------------------------------------------------------------------
 
 /** Renders children at a laptop width and scales the frame to fit when the page is wide enough; on a phone it renders at its own width. */
@@ -182,7 +146,7 @@ function ScaledFrame({ children, height }: { children: React.ReactNode; height: 
   );
 }
 
-const FEATURED = ['billing-page', 'checkout-page', 'user-management', 'profile-page', 'api-keys-page', 'inbox', 'project-overview', 'analytics-dashboard', 'ecommerce-dashboard', 'invoice-page'];
+const FEATURED = ['analytics-dashboard', 'sales-dashboard', 'project-overview', 'finance-dashboard', 'ecommerce-dashboard', 'hrms-overview', 'campaign-performance', 'lead-pipeline', 'billing-page', 'checkout-page'];
 
 /** A list of whole screens with the chosen one running live beside it. */
 export function BlocksViewer() {
@@ -218,7 +182,7 @@ export function BlocksViewer() {
             <p className="max-w-xl text-[13px] leading-relaxed text-muted-foreground"><span className="font-medium text-foreground">{b.name}.</span> {b.description} <span className="text-muted-foreground">Built from {list(b.uses)}.</span></p>
             <Link to={`/blocks/${b.slug}`} className="text-[13px] font-medium underline underline-offset-4">Open the block</Link>
           </div>
-          <ScaledFrame height={520}>
+          <ScaledFrame height={640}>
             <React.Suspense fallback={<p className="p-6 text-sm text-muted-foreground">Loading {b.name}.</p>}>
               <b.Demo key={b.slug} />
             </React.Suspense>

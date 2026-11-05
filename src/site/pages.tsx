@@ -16,7 +16,7 @@ import { StatCard } from '@/components/ui/stat-card';
 import { Avatar } from '@/components/ui/avatar';
 import { Progress } from '@/components/ui/progress';
 import { Users, IndianRupee } from 'lucide-react';
-import { blocks, categories, NEW_SLUGS, components, globalCss, useSource, utilsSource, type ChartGuide } from '@/registry';
+import { blocks, dashboards, categories, NEW_SLUGS, components, globalCss, useSource, utilsSource, type ChartGuide } from '@/registry';
 import { cn } from '@/lib/utils';
 import { Command, CodeBlock } from './code';
 import { Link } from './router';
@@ -339,6 +339,32 @@ export function BlocksIndex() {
       <p className="mt-3 max-w-2xl text-muted-foreground">Full screens for HR and marketing tools. They use mock data, so swap in your own API calls.</p>
       <div className="mt-8"><BlockGrid items={blocks} /></div>
     </div>
+  );
+}
+
+/* ------------------------------------------------------------ dashboards */
+
+export function DashboardsIndex() {
+  return (
+    <div className="mx-auto max-w-[88rem] px-4 py-10 sm:px-6">
+      <h1 className={h1}>Dashboards</h1>
+      <p className="mt-3 max-w-2xl text-muted-foreground">Whole screens, each with its own layout and its own way of reading the data. Open one to use it, then copy the source.</p>
+      <div className="mt-8"><BlockGrid items={dashboards} base="/dashboards" /></div>
+    </div>
+  );
+}
+
+export function DashboardPage({ slug }: { slug: string }) {
+  const d = dashboards.find((x) => x.slug === slug);
+  if (!d) return <NotFound />;
+  return (
+    <article className="mx-auto max-w-[120rem] px-4 py-8 pb-24 sm:px-6">
+      <Breadcrumb className="mb-4" items={[{ label: 'Dashboards', href: '#/dashboards' }, { label: d.name }]} />
+      <h1 className={h1}>{d.name}</h1>
+      <p className="mt-3 max-w-2xl text-muted-foreground">{d.description}</p>
+      <div className="mt-8"><LazyPreview bleed title={d.path} load={d.loadSource}><React.Suspense fallback={demoFallback}><d.Demo /></React.Suspense></LazyPreview></div>
+      <PrevNext list={dashboards} slug={slug} base="/dashboards" />
+    </article>
   );
 }
 
