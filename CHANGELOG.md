@@ -5,9 +5,9 @@ All notable changes to befui. Versions follow [semver](https://semver.org): new 
 
 ## 1.11.1 - 2026-11-10
 
-A home page drawn like a parts sheet, and smoother page changes
+Try any component on the home page, and smoother page changes
 
-- **Changed:** Home page: the first screen is now a working approvals screen taken apart in 3D. The faces, actions, badge and chart each slide off the plate along their own axis, with a line back to the file that draws them. Point at a file to pick out its part, or switch to Assembled and use the screen.
+- **Changed:** Home page: the first screen is the install command with the component name left open. Type any of the components and it runs right there, with its file, line count, the library files it also adds and its npm packages. Until you type, it plays through a short tour.
 - **Changed:** Home page: every section is a numbered sheet. The theme section draws the corner radius and control height as you change them, each file gets a parts list (lines, other library files, npm packages), the block frame shows its real width and scale, and the page ends on a title block counted from the registry.
 - **Changed:** Docs site: the top bar marks the page you are on, and moving between pages keeps the old page on screen until the new one is ready instead of flashing a loader.
 - **Fixed:** Docs site: the Recipes pages had no side margin on wide screens, and focus rings were cut off in the home page demos (for example the first box of the OTP input).

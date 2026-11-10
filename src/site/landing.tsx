@@ -7,14 +7,14 @@ import { TokenControls, TokenDetails, TokenReadout, useBench } from './bench';
 import { SheetHead } from './sheet';
 import { Agents, Close, Faq, BlocksViewer, OpenTheFile } from './home-sections';
 import { Shelf } from './shelf';
-import { Exploded } from './hero-workspace';
+import { TryIt } from './hero-workspace';
 import { flutterSlugs } from './platform-lists';
 import { Link } from './router';
 import './site.css';
 
 /**
- * The first frame is a parts drawing. The headline runs the full width, and under it a working screen is pulled apart
- * into the files that draw it. The counts are read from the registry, so they are never out of date.
+ * The first frame is the headline and the install command with the name left open: type any component and it runs
+ * underneath. The counts are read from the registry, so they are never out of date.
  */
 function Hero() {
   const facts: [number, string, string][] = [
@@ -27,11 +27,11 @@ function Hero() {
       <div className="relative mx-auto max-w-[88rem] px-4 pb-10 pt-10 sm:px-6 sm:pt-14">
         <div className="hero-in grid gap-x-16 gap-y-8 lg:grid-cols-[minmax(0,1fr)_24rem] lg:items-end">
           <h1 id="hero-title" className="font-display text-[2.75rem] font-bold leading-[0.94] tracking-[-0.035em] sm:text-7xl xl:text-[6.25rem]">
-            One file per component.
+            Try it here.
             <br />
-            The file is{' '}
+            Then own the{' '}
             <span className="relative inline-block text-primary">
-              yours
+              file
               <svg aria-hidden viewBox="0 0 200 14" preserveAspectRatio="none" className="hero-stroke absolute -bottom-1 left-0 h-3 w-full overflow-visible">
                 <path pathLength={1} d="M2 9 C 30 3, 52 12, 84 7 S 140 3, 198 8" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
               </svg>
@@ -39,7 +39,7 @@ function Hero() {
           </h1>
           <div className="min-w-0 lg:pb-2">
             <p className="font-display text-pretty text-lg text-muted-foreground">
-              befui is {components.length} React components with real motion, built on Radix and Tailwind. One command copies a component into your project as plain source, so nothing in it is closed to you.
+              befui is {components.length} React components with real motion, built on Radix and Tailwind. Type a name below and the real component runs on this page. One command then copies its source into your project.
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-3">
               <Button asChild size="lg"><Link to="/docs">Get started <ArrowRightIcon draw /></Link></Button>
@@ -47,10 +47,10 @@ function Hero() {
             </div>
           </div>
         </div>
-        <div className="hero-in mt-10 [animation-delay:120ms] sm:mt-4">
-          <Exploded />
+        <div className="hero-in mt-10 [animation-delay:120ms] sm:mt-12">
+          <TryIt />
         </div>
-        <dl className="mt-2 grid max-w-xl grid-cols-3 border-t pt-6">
+        <dl className="mt-12 grid max-w-xl grid-cols-3 border-t pt-6">
           {facts.map(([n, label, to]) => (
             <Link key={label} to={to} className="group pe-3 outline-none focus-visible:ring-2 focus-visible:ring-ring/50 [&+&]:border-s [&+&]:ps-4 sm:[&+&]:ps-6">
               <dd className="font-display text-3xl font-bold tabular-nums leading-none tracking-tight">{n}</dd>

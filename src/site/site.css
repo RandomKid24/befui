@@ -28,42 +28,12 @@
   opacity: 0.7;
 }
 
-/*
- * The exploded screen. Every box between the screen and a part keeps 3D. Each part slides off the plate along one
- * axis (faces left, actions right, badge up, chart down), so nothing lands on top of anything else.
- * Opening: the plate tilts first, then the parts leave one after another. Closing runs the other way round.
- */
-.xp-stage { perspective: 2600px; --xp-scale: 0.4; --px: 0; --py: 0; }
-@media (min-width: 640px) { .xp-stage { --xp-scale: 0.7; } }
-@media (min-width: 1280px) { .xp-stage { --xp-scale: 0.82; } }
-.xp-tilt, .xp-screen, .xp-screen * { transform-style: preserve-3d; }
-.xp-tilt { transform: rotateX(calc(var(--py) * -7deg)) rotateY(calc(var(--px) * 9deg)); transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
-.xp-screen { transition: transform 0.9s cubic-bezier(0.65, 0, 0.35, 1) 0.4s, margin 0.9s cubic-bezier(0.65, 0, 0.35, 1) 0.4s; }
-.xp-screen[data-open] { transform: translate(-3%, -12%) rotateX(52deg) rotateZ(-24deg) scale(var(--xp-scale)); transition-delay: 0s; }
-@media (max-width: 639px) { .xp-screen[data-open] { margin-block: -4rem -6rem; } }
-
-.xp-slot { position: relative; display: inline-block; border-radius: var(--radius); outline: 1px dashed transparent; outline-offset: 2px; transition: outline-color 0.4s; }
-.xp-screen[data-open] .xp-slot { outline-color: color-mix(in srgb, var(--foreground) 30%, transparent); transition-delay: calc(0.75s + var(--i) * 0.11s); }
-/* the centre line each part travels along */
-.xp-slot::before { content: ''; position: absolute; opacity: 0; transition: opacity 0.3s; border: 0 dashed color-mix(in srgb, var(--primary) 70%, transparent); }
-.xp-slot[data-axis='left']::before { right: 100%; top: 50%; width: calc(var(--dx) * -1); border-top-width: 1px; }
-.xp-slot[data-axis='right']::before { left: 100%; top: 50%; width: var(--dx); border-top-width: 1px; }
-.xp-slot[data-axis='up']::before { bottom: 100%; left: 2rem; height: calc(var(--dy) * -1); border-left-width: 1px; }
-.xp-slot[data-axis='down']::before { top: 100%; left: 50%; height: var(--dy); border-left-width: 1px; }
-.xp-screen[data-open] .xp-slot::before { opacity: 1; transition-delay: calc(1.1s + var(--i) * 0.11s); }
-
-.xp-screen [data-part] { display: block; transition: transform 0.55s cubic-bezier(0.65, 0, 0.35, 1), filter 0.5s, opacity 0.3s; }
-.xp-screen[data-open] .xp-slot [data-part] {
-  transform: translate3d(var(--dx), var(--dy), 26px);
-  filter: drop-shadow(-8px 12px 9px rgb(0 0 0 / 0.14));
-  transition: transform 0.85s cubic-bezier(0.3, 1.25, 0.4, 1) calc(0.7s + var(--i) * 0.11s), filter 0.5s 0.7s, opacity 0.3s;
-}
-.xp-screen[data-open] .xp-slot [data-part][data-hot] { transform: translate3d(var(--dx), var(--dy), 70px); transition-delay: 0s; transition-duration: 0.4s; }
-.xp-screen [data-part][data-dim] { opacity: 0.3; }
-.xp-screen [data-part][data-hot] { outline: 2px solid var(--primary); outline-offset: 4px; border-radius: var(--radius); }
+/* A component arrives on the hero stage. */
+@keyframes try-in { from { opacity: 0; transform: translateY(8px) scale(0.985); } to { opacity: 1; transform: none; } }
+.try-in { animation: try-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both; }
 
 @media (prefers-reduced-motion: reduce) {
-  .xp-tilt, .xp-screen, .xp-slot, .xp-slot::before, .xp-screen [data-part], .xp-screen[data-open] .xp-slot [data-part] { transition: none; }
+  .try-in { animation: none; }
   .hero-in { animation: none; }
   .bench-flash { animation: none; }
   .hero-stroke path { animation: none; stroke-dashoffset: 0; }
