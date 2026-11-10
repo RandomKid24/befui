@@ -296,36 +296,36 @@ Full screens built from the components, with mock data you swap for your own API
 | Block | Module | What it is |
 |---|---|---|
 | `block:admin-shell` | Layout | Full app frame: grouped sidebar with nested links, topbar with search, alerts and user menu, and a dashboard page. |
-| `block:analytics-dashboard` | Dashboard | Visitors, page views, session time and conversion KPIs, a traffic area chart, device donut, top pages bar list and weekday bars. |
+| `block:analytics-dashboard` | Dashboard | Full app screen: grouped sidebar, date-range switch, four KPI tiles with change chips, an AI insight strip, a total-profit chart you can scrub, a most-active-day bar chart and customer and repeat-rate panels. |
 | `block:api-keys-page` | Account | Create, reveal, copy and revoke keys, with a masked secret and an empty state. |
 | `block:billing-page` | Account | Current plan with seat and storage usage bars, payment method card and an invoice history table. |
 | `block:calendar-app` | Productivity | Month and week calendar where you click a day or press New event to add an event in a dialog. |
-| `block:campaign-performance` | Marketing | Channel KPIs, weekly leads chart and a campaign budget table. |
+| `block:campaign-performance` | Marketing | Campaign overview: owner profile, goal tiles with gradient fills, a reach and leads chart you can scrub by month, upcoming sends and channel goals. |
 | `block:chat-app` | Messaging | Conversation list with unread badges beside a thread with a composer and a typing indicator. |
 | `block:checkout-page` | Commerce | Delivery address form with validation, shipping options, coupon code and a live order summary. |
 | `block:contact-page` | Marketing | Contact form with validation and a confirmation, beside an FAQ accordion. |
-| `block:ecommerce-dashboard` | Commerce | Sales, orders, customers and to-ship KPIs, revenue chart, top products and a recent orders table with status badges. |
+| `block:ecommerce-dashboard` | Commerce | Marketing-style dashboard: KPI tiles, a best-seller tile, sales overview as stacked monthly bars you can pick, a channel donut that follows the pick, recent orders and top products. |
 | `block:employee-directory` | HRMS | Searchable table with status filter, row selection, actions and pagination. |
-| `block:finance-dashboard` | Dashboard | Balance, income, spending and savings rate, a cash-flow chart, spending by category and recent transactions. |
-| `block:hrms-overview` | HRMS | Headcount, attendance, department split and activity feed. |
+| `block:finance-dashboard` | Dashboard | Money overview: a balance card, income against spending bars with a 6 or 12 month switch, recent activity, a working quick transfer, a tip tile that moves money to a goal and savings goals. |
+| `block:hrms-overview` | HRMS | People dashboard: a planned-absences timeline with weekends hatched and pending leave you approve in place, upcoming events, onboarding progress and an assistant that answers HR questions. |
 | `block:inbox` | Layout | Two-pane mail view: searchable list with unread dots, message reader with reply, archive and delete. Single pane on mobile. |
 | `block:invoice-page` | Commerce | A full invoice with print, download and send actions. |
 | `block:kanban-board-page` | Dashboard | Full-page board with search, a priority filter, column totals and a dialog for each task. Drag a card or move it with Alt and the arrow keys. |
 | `block:landing-page` | Landing | Whole marketing page: navbar, hero, logos, feature grid, stats, FAQ, call to action and footer. |
-| `block:lead-pipeline` | Marketing | Drag-and-drop board with column totals and a keyboard-friendly move button. |
+| `block:lead-pipeline` | Marketing | CRM inbox: a searchable deal list, a conversation with AI suggested replies, and a deal panel where you move the stage from New to Won. |
 | `block:leave-approvals` | HRMS | Manager inbox with tabs, balance bars and approve or reject toasts. |
 | `block:leave-request-form` | HRMS | Date range, approver combobox, multi-select notify list, working-day count and field validation. |
 | `block:new-hire-form` | HRMS | Sectioned onboarding form with ten dropdowns: selects, searchable comboboxes and a multi-select, plus required-field validation. |
-| `block:not-found-page` | Layout | Full-page 404 with search and two ways out. Reuse for 403 and 500. |
+| `block:not-found-page` | Layout | A terminal-style 404: block-letter ASCII art with a flickering zero, and a working prompt that searches your routes and suggests close matches. Swap the route list and reuse it for 403 and 500. |
 | `block:notifications-page` | Account | Full-page inbox with All and Unread tabs, mark as read and mark all read. |
 | `block:onboarding-wizard` | Account | Four-step setup (profile, team, preferences, done) with a stepper, validation and values kept when you go back. |
 | `block:otp-verify` | Auth | Six-digit code entry with a resend countdown, an error state and a success screen. |
 | `block:pricing-page` | Marketing | Headline, monthly or yearly switch, three plan cards with a highlighted one, and an FAQ. |
 | `block:profile-page` | Account | Cover and avatar header with actions, then About (details list) and Activity (timeline) tabs. |
-| `block:project-overview` | Dashboard | Project header with status and team, progress ring with phase bars, task list and a milestone timeline. |
+| `block:project-overview` | Dashboard | Task management screen: a filled total tile, project analytics with hatched day bars, a reminder, team collaboration, a progress ring and a working time tracker. |
 | `block:reports-table` | Reports | Searchable, filterable, sortable reports table with row action menus and a details drawer. |
 | `block:reset-password` | Auth | Four steps: ask for email, check your inbox with a resend timer, choose a new password, done. |
-| `block:sales-dashboard` | Marketing | KPI cards, revenue line chart against target, pipeline funnel and a top deals table. |
+| `block:sales-dashboard` | Marketing | Revenue-first sales report: one large total with change chips, a dark best-deal tile, revenue by rep, a sales streak, deals by source that drive a hatched monthly chart, and weekly sales dynamics. |
 | `block:server-error-page` | Layout | A 500 page with a retry that loads, a status link and a short incident timeline. |
 | `block:settings-page` | Account | Profile form with photo and phone number, notification switches and language and time zone, in tabs. |
 | `block:sign-in` | Auth | Login card with validation, loading button and an error alert. |
@@ -483,7 +483,7 @@ Until the package is published to npm, run it as `npx github:RandomKid24/befui .
 The library is set up so a coding agent (Claude Code, Cursor, Copilot) uses it correctly without hand-holding.
 
 1. Run `npx github:RandomKid24/befui init`. It writes a marked block into `AGENTS.md` telling agents to reuse befui components, add missing ones with the CLI and use the theme tokens. Re-running refreshes only that block.
-2. `init` also registers the **MCP server** in `.mcp.json` (restart your AI tool). Agents then get `list_components`, `get_component` (exact source, import, example; `format: "html"` for the `<bef-*>` tags and an HTML example), `get_html_rules` and `add_components` (use `all` for the whole library). Without `init`: `claude mcp add befui -- npx -y github:RandomKid24/befui mcp`.
+2. `init` also registers the **MCP server** in `.mcp.json` (restart your AI tool). Agents then get `list_components`, `get_component` (exact source, import, example; `format: "html"` for the `<bef-*>` tags and an HTML example), `get_html_rules`, `get_design_rules` (how to compose a screen that does not look bland) and `add_components` (use `all` for the whole library). Without `init`: `claude mcp add befui -- npx -y github:RandomKid24/befui mcp`.
 3. **Claude Code** reads `CLAUDE.md`, so add the line `@AGENTS.md` to it. Cursor and Copilot read `AGENTS.md` directly.
 4. Just ask: *"Build a leave-approvals page with befui. Check llms-full.txt first."*
 

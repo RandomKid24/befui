@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { components, type Category } from '@/registry';
 import { flutterSlugs, hasFlutter } from './platform-lists';
+import { Skeleton } from '@/components/ui/skeleton';
 import { Link } from './router';
 
 const SHELF: Record<Category, string[]> = {
@@ -29,7 +30,7 @@ function WhenNear({ children, label }: { children: React.ReactNode; label: strin
   }, [near]);
   return (
     <div ref={ref} className="min-h-24">
-      {near ? <React.Suspense fallback={<p className="text-xs text-muted-foreground">Loading {label}.</p>}>{children}</React.Suspense> : null}
+      {near ? <React.Suspense fallback={<Skeleton className="h-24 w-full max-w-sm" aria-label={`Loading ${label}`} />}>{children}</React.Suspense> : null}
     </div>
   );
 }
@@ -76,7 +77,7 @@ export function Shelf() {
             </p>
             <Link to="/components" className="text-[13px] font-medium underline underline-offset-4">All {components.length} components</Link>
           </div>
-          <div key={cat} className="gap-x-12 pt-2 xl:columns-2" data-stage>
+          <div key={cat} className="gap-x-12 pt-2 md:columns-2" data-stage>
             {picks.map((p) => (
               <figure key={p.slug} className="mb-8 break-inside-avoid border-t pt-3">
                 <figcaption className="mb-4 flex items-baseline justify-between gap-4">

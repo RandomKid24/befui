@@ -7,12 +7,31 @@
 - Add: `npx github:RandomKid24/befui add <name> [name...]` or `add all`; blocks are `block:<name>`. It also installs npm packages and any befui files a component imports. (There is no `befui` package on npm: `npx befui` will fail, always use the `github:` form.)
 - CLI blocked or GitHub unreachable? Do not retype components and never swap in another icon package. Fetch the JSON for the component (https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/<name>.json, or the same `/r/<name>.json` path on the docs site), write every `files[].content` to `src/<path>`, do the same for every name in its `requires` (`icons` is the common one: r/icons.json, it holds every icon), `npm i` its `deps`, and merge `r/init.json` (cn helper, theme CSS) once.
 - Exact source of any component as JSON (files, npm deps, requires, example): https://raw.githubusercontent.com/RandomKid24/befui/main/public/r/<name>.json (blocks: block-<name>.json). Every name below works in that URL.
-- MCP: `npx github:RandomKid24/befui mcp` gives tools list_components, get_component (format "html" for plain HTML/htmx), get_html_rules, add_components
+- MCP: `npx github:RandomKid24/befui mcp` gives tools list_components, get_component (format "html" for plain HTML/htmx), get_html_rules, get_design_rules (read before composing a page), add_components
 - Icons: our own set in `@/components/ui/icons`, e.g. `import { SearchIcon } from '@/components/ui/icons'`; no icon package needed
 - Theme: CSS variables in index.css (--primary, --ring, --accent...). Dark mode = `dark` class on <html>. Use tokens (`bg-primary`, `text-muted-foreground`, `border`), never hard-coded colors.
 - Full catalog with a working example per component: https://raw.githubusercontent.com/RandomKid24/befui/main/public/llms-full.txt
 - Building a mobile app in Flutter (Android and iOS)? The same components exist as Flutter widgets, copy-paste with `npx github:RandomKid24/befui add <name> --flutter`. Rules and an example for every widget: https://raw.githubusercontent.com/RandomKid24/befui/main/public/llms-flutter.txt
 - Not using React (plain HTML, htmx, Django, Rails, PHP)? Every component is also a custom element, `<bef-button>`, `<bef-dialog>`... Rules and an HTML example for every component: https://raw.githubusercontent.com/RandomKid24/befui/main/public/llms-html.txt
+
+## Making the screen look designed (read before composing a page)
+
+Components alone do not make a good screen. A page of headings, rules and grey sentences on one flat background is the usual failure, and it reads as unfinished even when every part works. Before writing a page:
+
+- Start from a block when one is close (`block:analytics-dashboard`, `block:admin-shell`, the Page recipes list). Editing a composed screen beats assembling one from primitives.
+- Pick one thing the screen is for and make it the largest, most contrasting element. Everything else is smaller and quieter. Four equal numbers in a row plus five equal sections is a list, not a hierarchy.
+- Use the surfaces. `bg-background` is the page, `bg-card` with `border` lifts the working area, `bg-muted` sits behind secondary or inactive areas. A screen that uses only `bg-background` looks blank.
+- Use colour for meaning, not only on the main button: `text-success` and `bg-success/10` for paid, done, up; `text-warning` for due or low; `text-destructive` for overdue or failed; `bg-primary-soft text-primary` for the selected or current thing. Put state in a `badge` or `status-dot`, never in a bare sentence.
+- Numbers get context. Use `stat-card` or `kpi-strip` with a change against last period, a `Sparkline`, or a `progress` or `progress-ring` toward a target. Format with `format` (formatCurrency, formatCompact). A lone figure with a label says nothing.
+- Show at least one real chart or visual reading of the data on an overview screen (`area-chart`, `bar-list`, `heatmap`, `gauge`), and give people a face with `avatar` wherever a row is about a person.
+- Design the empty account first, because that is what the user sees on day one. Never render a dashboard of zeros with "No one arrives today." under each heading. When there is no data: collapse the empty sections into one `empty-state` with an icon, one sentence on what will appear here, and the primary action (for example New booking); hide totals that would all read 0; keep any part that is still true and useful (for example the list of free rooms).
+- Within a populated screen, an empty section still uses `empty-state` (compact) with its action, not a grey line of text.
+- Rows are objects. A booking, guest, order or task row has a leading `avatar` or icon, a strong title, a muted second line, a trailing `badge` and an action. Use `data-table`, `activity-feed`, `description-list` or `timeline` before hand-writing `div` rows.
+- Vary density on purpose: tight inside tables and lists, generous around the page title and between regions. The same gap everywhere flattens the page.
+- Every icon-only button gets a `tooltip`. Navigation shows where you are with `bg-secondary` or `bg-primary-soft`, not weight alone.
+- Give loading a `skeleton` shaped like the content and errors an `error-state` with a retry.
+- Seed realistic demo data when the backend is empty in development, and say it is demo data. A design cannot be judged, by you or the user, on a screen with nothing in it.
+- Before you call it done, look at the result: one clear focal point, at least two surface levels, colour carrying status, no section that is only a sentence, and it holds up at phone width.
 
 ## Rules that save a debugging round
 - Wrap the app once in `<TooltipProvider>` (tooltip) and render `<Toaster />` once, then call `toast.success('Saved')` anywhere (toast).
@@ -362,36 +381,36 @@ SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, Chev
 
 ## Blocks
 - `block:admin-shell`: Full app frame: grouped sidebar with nested links, topbar with search, alerts and user menu, and a dashboard page. Uses: app-shell, avatar, breadcrumb, button, calendar, card, charts, date-picker, dropdown-menu, icons, kbd, sidebar, stat-card, timeline.
-- `block:analytics-dashboard`: Visitors, page views, session time and conversion KPIs, a traffic area chart, device donut, top pages bar list and weekday bars. Uses: area-chart, bar-list, card, charts, icons, live-chart, radial-bar-chart, stacked-bar-chart, stat-card.
+- `block:analytics-dashboard`: Full app screen: grouped sidebar, date-range switch, four KPI tiles with change chips, an AI insight strip, a total-profit chart you can scrub, a most-active-day bar chart and customer and repeat-rate panels. Uses: app-shell, avatar, button, icons, segmented, sidebar.
 - `block:api-keys-page`: Create, reveal, copy and revoke keys, with a masked secret and an empty state. Uses: badge, button, card, copy-button, empty-state, icons, input, toast.
 - `block:billing-page`: Current plan with seat and storage usage bars, payment method card and an invoice history table. Uses: badge, button, card, icons, progress, table, toast.
 - `block:calendar-app`: Month and week calendar where you click a day or press New event to add an event in a dialog. Uses: button, dialog, event-calendar, icons, input, label, segmented.
-- `block:campaign-performance`: Channel KPIs, weekly leads chart and a campaign budget table. Uses: badge, card, charts, icons, progress, stat-card, table.
+- `block:campaign-performance`: Campaign overview: owner profile, goal tiles with gradient fills, a reach and leads chart you can scrub by month, upcoming sends and channel goals. Uses: app-shell, avatar, button, icons, segmented, sidebar.
 - `block:chat-app`: Conversation list with unread badges beside a thread with a composer and a typing indicator. Uses: avatar, badge, chat.
 - `block:checkout-page`: Delivery address form with validation, shipping options, coupon code and a live order summary. Uses: button, card, coupon-input, input, label, order-summary, radio-group, toast.
 - `block:contact-page`: Contact form with validation and a confirmation, beside an FAQ accordion. Uses: accordion, button, card, icons, input, label.
-- `block:ecommerce-dashboard`: Sales, orders, customers and to-ship KPIs, revenue chart, top products and a recent orders table with status badges. Uses: avatar, badge, bar-list, card, charts, format, icons, line-chart, stat-card, table.
+- `block:ecommerce-dashboard`: Marketing-style dashboard: KPI tiles, a best-seller tile, sales overview as stacked monthly bars you can pick, a channel donut that follows the pick, recent orders and top products. Uses: app-shell, avatar, badge, button, icons, segmented, sidebar.
 - `block:employee-directory`: Searchable table with status filter, row selection, actions and pagination. Uses: avatar, badge, button, card, checkbox, dropdown-menu, icons, input, pagination, segmented, table.
-- `block:finance-dashboard`: Balance, income, spending and savings rate, a cash-flow chart, spending by category and recent transactions. Uses: badge, bar-list, card, charts, format, icons, line-chart, stat-card, table.
-- `block:hrms-overview`: Headcount, attendance, department split and activity feed. Uses: avatar, card, charts, icons, stat-card, timeline.
+- `block:finance-dashboard`: Money overview: a balance card, income against spending bars with a 6 or 12 month switch, recent activity, a working quick transfer, a tip tile that moves money to a goal and savings goals. Uses: app-shell, avatar, button, icons, segmented, sidebar.
+- `block:hrms-overview`: People dashboard: a planned-absences timeline with weekends hatched and pending leave you approve in place, upcoming events, onboarding progress and an assistant that answers HR questions. Uses: app-shell, avatar, button, icons, sidebar.
 - `block:inbox`: Two-pane mail view: searchable list with unread dots, message reader with reply, archive and delete. Single pane on mobile. Uses: avatar, button, empty-state, icons, search-input.
 - `block:invoice-page`: A full invoice with print, download and send actions. Uses: button, icons, invoice, toast.
 - `block:kanban-board-page`: Full-page board with search, a priority filter, column totals and a dialog for each task. Drag a card or move it with Alt and the arrow keys. Uses: avatar, badge, dialog, icons, input, kanban, segmented.
 - `block:landing-page`: Whole marketing page: navbar, hero, logos, feature grid, stats, FAQ, call to action and footer. Uses: button, icons, landing-sections, navbar.
-- `block:lead-pipeline`: Drag-and-drop board with column totals and a keyboard-friendly move button. Uses: avatar, badge, button, card, icons, toast.
+- `block:lead-pipeline`: CRM inbox: a searchable deal list, a conversation with AI suggested replies, and a deal panel where you move the stage from New to Won. Uses: app-shell, avatar, button, icons, sidebar, toast.
 - `block:leave-approvals`: Manager inbox with tabs, balance bars and approve or reject toasts. Uses: avatar, badge, button, card, empty-state, icons, progress, tabs, toast.
 - `block:leave-request-form`: Date range, approver combobox, multi-select notify list, working-day count and field validation. Uses: alert, button, calendar, card, combobox, date-picker, input, label, select, toast.
 - `block:new-hire-form`: Sectioned onboarding form with ten dropdowns: selects, searchable comboboxes and a multi-select, plus required-field validation. Uses: button, card, combobox, input, label, select, toast.
-- `block:not-found-page`: Full-page 404 with search and two ways out. Reuse for 403 and 500. Uses: button, error-state, icons, search-input.
+- `block:not-found-page`: A terminal-style 404: block-letter ASCII art with a flickering zero, and a working prompt that searches your routes and suggests close matches. Swap the route list and reuse it for 403 and 500. Uses: button, icons.
 - `block:notifications-page`: Full-page inbox with All and Unread tabs, mark as read and mark all read. Uses: avatar, button, card, empty-state, icons, tabs.
 - `block:onboarding-wizard`: Four-step setup (profile, team, preferences, done) with a stepper, validation and values kept when you go back. Uses: button, card, icons, input, label, segmented, stepper, switch.
 - `block:otp-verify`: Six-digit code entry with a resend countdown, an error state and a success screen. Uses: button, card, icons, otp-input.
 - `block:pricing-page`: Headline, monthly or yearly switch, three plan cards with a highlighted one, and an FAQ. Uses: accordion, pricing-card, reveal, segmented, toast.
 - `block:profile-page`: Cover and avatar header with actions, then About (details list) and Activity (timeline) tabs. Uses: avatar, badge, button, card, description-list, icons, tabs, timeline.
-- `block:project-overview`: Project header with status and team, progress ring with phase bars, task list and a milestone timeline. Uses: avatar, badge, button, card, icons, progress, progress-ring, timeline.
+- `block:project-overview`: Task management screen: a filled total tile, project analytics with hatched day bars, a reminder, team collaboration, a progress ring and a working time tracker. Uses: app-shell, avatar, button, icons, sidebar.
 - `block:reports-table`: Searchable, filterable, sortable reports table with row action menus and a details drawer. Uses: badge, button, charts, data-table, dialog, dropdown-menu, filter-bar, icons, toast.
 - `block:reset-password`: Four steps: ask for email, check your inbox with a resend timer, choose a new password, done. Uses: button, card, icons, input, label, password-input.
-- `block:sales-dashboard`: KPI cards, revenue line chart against target, pipeline funnel and a top deals table. Uses: avatar, badge, card, charts, format, funnel-chart, line-chart, stat-card, table.
+- `block:sales-dashboard`: Revenue-first sales report: one large total with change chips, a dark best-deal tile, revenue by rep, a sales streak, deals by source that drive a hatched monthly chart, and weekly sales dynamics. Uses: app-shell, avatar, button, icons, segmented, sidebar.
 - `block:server-error-page`: A 500 page with a retry that loads, a status link and a short incident timeline. Uses: button, card, error-state, icons, timeline.
 - `block:settings-page`: Profile form with photo and phone number, notification switches and language and time zone, in tabs. Uses: avatar, button, card, input, label, phone-input, select, switch, tabs, toast.
 - `block:sign-in`: Login card with validation, loading button and an error alert. Uses: alert, brand-icons, button, card, checkbox, icons, input, label.

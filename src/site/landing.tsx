@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Button } from '@/components/ui/button';
 import { CopyButton } from '@/components/ui/copy-button';
 import { ArrowRightIcon } from '@/components/ui/icons';
-import { Reveal } from '@/components/ui/reveal';
 import { TokenControls, TokenReadout, useBench } from './bench';
 import { Close, Faq, BlocksViewer, OpenTheFile } from './home-sections';
 import { Shelf } from './shelf';
@@ -10,7 +9,7 @@ import { HeroWorkspace } from './hero-workspace';
 import { Link } from './router';
 import './site.css';
 
-const INSTALL = 'npx befui add button';
+const INSTALL = 'npx github:RandomKid24/befui add button';
 
 /**
  * The first frame is the theme. Three CSS lines rebrand the library, and everything on this page reads them, so the
@@ -23,7 +22,6 @@ function Hero() {
     <section className="mx-auto max-w-[88rem] px-4 pb-20 pt-10 sm:px-6 sm:pt-14" aria-labelledby="hero-title">
       <div className="grid gap-x-16 gap-y-10 lg:grid-cols-[minmax(0,1fr)_26rem] lg:items-end">
         <div>
-          <Reveal>
             <h1 id="hero-title" className="font-display text-balance text-5xl font-bold leading-[0.98] tracking-[-0.03em] sm:text-6xl">
               Interfaces people
               <br />
@@ -36,7 +34,6 @@ function Hero() {
               </span>{' '}
               using
             </h1>
-          </Reveal>
           <div>
             <p className="font-display mt-7 max-w-lg text-pretty text-lg text-muted-foreground">
               Copy-paste React components with real motion, built on Radix and Tailwind. The CLI drops each one into your project as a single file, and from then on it is yours.

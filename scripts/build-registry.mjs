@@ -120,6 +120,7 @@ writeFileSync(`${out}/init.json`, JSON.stringify({
 const RAW = 'https://raw.githubusercontent.com/RandomKid24/befui/main/public';
 const ui = docs.filter((d) => d.kind === 'ui');
 const bl = docs.filter((d) => d.kind === 'blocks');
+const DESIGN = readFileSync('scripts/design-rules.md', 'utf8').trim();
 const head = `# befui
 
 > Copy-paste React components (Radix + Tailwind 4 + CSS variables) with real motion, plus HRMS and marketing blocks. You own the files: add them with the CLI, then import from \`@/components/ui/<name>\`.
@@ -129,12 +130,14 @@ const head = `# befui
 - Add: \`npx github:RandomKid24/befui add <name> [name...]\` or \`add all\`; blocks are \`block:<name>\`. It also installs npm packages and any befui files a component imports. (There is no \`befui\` package on npm: \`npx befui\` will fail, always use the \`github:\` form.)
 - CLI blocked or GitHub unreachable? Do not retype components and never swap in another icon package. Fetch the JSON for the component (${RAW}/r/<name>.json, or the same \`/r/<name>.json\` path on the docs site), write every \`files[].content\` to \`src/<path>\`, do the same for every name in its \`requires\` (\`icons\` is the common one: r/icons.json, it holds every icon), \`npm i\` its \`deps\`, and merge \`r/init.json\` (cn helper, theme CSS) once.
 - Exact source of any component as JSON (files, npm deps, requires, example): ${RAW}/r/<name>.json (blocks: block-<name>.json). Every name below works in that URL.
-- MCP: \`npx github:RandomKid24/befui mcp\` gives tools list_components, get_component (format "html" for plain HTML/htmx), get_html_rules, add_components
+- MCP: \`npx github:RandomKid24/befui mcp\` gives tools list_components, get_component (format "html" for plain HTML/htmx), get_html_rules, get_design_rules (read before composing a page), add_components
 - Icons: our own set in \`@/components/ui/icons\`, e.g. \`import { SearchIcon } from '@/components/ui/icons'\`; no icon package needed
 - Theme: CSS variables in index.css (--primary, --ring, --accent...). Dark mode = \`dark\` class on <html>. Use tokens (\`bg-primary\`, \`text-muted-foreground\`, \`border\`), never hard-coded colors.
 - Full catalog with a working example per component: ${RAW}/llms-full.txt
 - Building a mobile app in Flutter (Android and iOS)? The same components exist as Flutter widgets, copy-paste with \`npx github:RandomKid24/befui add <name> --flutter\`. Rules and an example for every widget: ${RAW}/llms-flutter.txt
 - Not using React (plain HTML, htmx, Django, Rails, PHP)? Every component is also a custom element, \`<bef-button>\`, \`<bef-dialog>\`... Rules and an HTML example for every component: ${RAW}/llms-html.txt
+
+${DESIGN}
 
 ## Rules that save a debugging round
 - Wrap the app once in \`<TooltipProvider>\` (tooltip) and render \`<Toaster />\` once, then call \`toast.success('Saved')\` anywhere (toast).
@@ -331,5 +334,6 @@ Rules:
 - If a befui MCP server is connected, use \`get_component\` with \`format: "flutter"\` and \`get_flutter_rules\` instead of guessing.
 - Edit the copied files freely; they belong to this app. \`add <name> --flutter --force\` overwrites local edits.
 `);
-writeFileSync(`${out}/agents.md`, readFileSync('scripts/agents-snippet.md', 'utf8'));
+writeFileSync(`${out}/agents.md`, `${readFileSync('scripts/agents-snippet.md', 'utf8').trim()}\n\n#${DESIGN}\n`);
+writeFileSync(`${out}/design.md`, `${DESIGN}\n`);
 console.log(`registry: ${items.length} items, llms.txt for ${ui.length} components`);

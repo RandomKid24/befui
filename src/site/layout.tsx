@@ -326,11 +326,11 @@ export function Shell({ path, docs, wide, children }: { path: string; docs: bool
       <ScrollProgress />
       <header className="sticky top-0 z-40 border-b bg-background/80 backdrop-blur-md">
         <div className="mx-auto flex h-14 max-w-[88rem] items-center gap-4 px-4 sm:px-6">
-          <Button variant="ghost" size="icon-sm" className="xl:hidden" onClick={() => setMenuOpen(true)} aria-label="Open navigation">
+          <Button variant="ghost" size="icon-sm" className="lg:hidden" onClick={() => setMenuOpen(true)} aria-label="Open navigation">
             <MenuIcon />
           </Button>
           <Logo />
-          <nav className="ml-4 hidden items-center gap-1 xl:flex">
+          <nav className="ml-4 hidden items-center gap-1 lg:flex">
             {navLink('/docs', 'Docs', '/docs')}
             {navLink('/components', 'Components', '/components')}
             {navLink('/blocks', 'Blocks', '/blocks')}
@@ -345,12 +345,12 @@ export function Shell({ path, docs, wide, children }: { path: string; docs: bool
           <div className="ml-auto flex items-center gap-1.5">
             <button
               onClick={() => setSearchOpen(true)}
-              className="hidden h-8 w-56 items-center gap-2 rounded-md border bg-muted/60 px-2.5 text-[13px] text-muted-foreground transition-colors hover:bg-secondary sm:flex"
+              className="hidden h-8 w-56 items-center gap-2 rounded-md border bg-muted/60 px-2.5 text-[13px] text-muted-foreground transition-colors hover:bg-secondary sm:flex lg:hidden xl:flex"
             >
               <SearchIcon className="size-3.5" /> Search
               <span className="ml-auto flex gap-0.5"><Kbd>Ctrl</Kbd><Kbd>K</Kbd></span>
             </button>
-            <Button variant="ghost" size="icon-sm" className="sm:hidden" onClick={() => setSearchOpen(true)} aria-label="Search">
+            <Button variant="ghost" size="icon-sm" className="sm:hidden lg:inline-flex xl:hidden" onClick={() => setSearchOpen(true)} aria-label="Search">
               <SearchIcon />
             </Button>
             <Tooltip content="GitHub">
@@ -372,7 +372,7 @@ export function Shell({ path, docs, wide, children }: { path: string; docs: bool
         <SheetContent side="left" className="max-w-xs overflow-y-auto" aria-describedby={undefined}>
           <SheetTitle className="sr-only">Navigation</SheetTitle>
           <Logo />
-          <nav className={cn('mt-4 grid gap-1 xl:hidden', docs && 'border-b pb-4')}>
+          <nav className={cn('mt-4 grid gap-1 lg:hidden', docs && 'border-b pb-4')}>
             {[['/docs', 'Docs'], ['/components', 'Components'], ['/blocks', 'Blocks'], ['/dashboards', 'Dashboards'], ['/icons', 'Icons'], ['/ai', 'Use with AI'], ['/html', 'HTML and htmx'], ['/flutter', 'Flutter'], ['/changelog', 'Changelog']].map(([to, label]) => (
               <Link key={to} to={to} onClick={() => setMenuOpen(false)} className="rounded-md px-2.5 py-2 text-sm font-medium hover:bg-secondary">{label}</Link>
             ))}

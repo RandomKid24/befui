@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { CodeBlock } from '@/components/ui/code-block';
 import { CopyButton } from '@/components/ui/copy-button';
 import { ArrowRightIcon } from '@/components/ui/icons';
+import { Skeleton } from '@/components/ui/skeleton';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { blocks, components } from '@/registry';
 import { examples as flutterExamples } from './flutter-docs';
@@ -97,7 +98,7 @@ export function OpenTheFile() {
                 This file could not be loaded. <Link to={`/components/${slug}`} className="font-medium text-foreground underline underline-offset-4">Open the {entry.name} page</Link> to read it there.
               </p>
             ) : loading ? (
-              <p className="py-10 text-sm text-muted-foreground">Loading {title}.</p>
+              <Skeleton className="h-[26rem] w-full" aria-label={`Loading ${title}`} />
             ) : (
               <CodeBlock code={text} title={title} lineNumbers maxHeight={420} />
             )}
@@ -108,8 +109,8 @@ export function OpenTheFile() {
             {entry.deps.length > 0 ? `npm packages: ${list(entry.deps)}.` : 'No extra npm packages.'}
           </p>
           <div className="mt-4 flex w-fit items-center gap-2 rounded-md border bg-background py-1 pl-3.5 pr-1">
-            <code className="font-mono text-[13px] text-muted-foreground"><span className="text-primary">$</span> npx befui add {slug}</code>
-            <CopyButton value={`npx befui add ${slug}`} className="size-7" />
+            <code className="font-mono text-[13px] text-muted-foreground"><span className="text-primary">$</span> npx github:RandomKid24/befui add {slug}</code>
+            <CopyButton value={`npx github:RandomKid24/befui add ${slug}`} className="size-7" />
           </div>
         </div>
       </div>
@@ -183,7 +184,7 @@ export function BlocksViewer() {
             <Link to={`/blocks/${b.slug}`} className="text-[13px] font-medium underline underline-offset-4">Open the block</Link>
           </div>
           <ScaledFrame height={640}>
-            <React.Suspense fallback={<p className="p-6 text-sm text-muted-foreground">Loading {b.name}.</p>}>
+            <React.Suspense fallback={<Skeleton className="h-[36rem] w-full" aria-label={`Loading ${b.name}`} />}>
               <b.Demo key={b.slug} />
             </React.Suspense>
           </ScaledFrame>
@@ -203,7 +204,7 @@ export function Faq() {
         <Accordion
           defaultOpen={['own']}
           items={[
-            { id: 'own', title: 'Is this an npm package?', content: 'No. You copy the file you need into your project, or let the CLI do it: npx befui add button. Nothing to version-lock.' },
+            { id: 'own', title: 'Is this an npm package?', content: 'No. You copy the file you need into your project, or let the CLI do it: npx github:RandomKid24/befui add button. Nothing to version-lock.' },
             { id: 'deps', title: 'What does it depend on?', content: 'React, Tailwind 4, Radix primitives for behaviour, and our own icon set. The animated pieces use plain CSS and pointer events.' },
             { id: 'theme', title: 'How do I match my brand?', content: 'Paste a palette block into your CSS, as the controls at the top of this page show, and set --radius and data-density if you want them. Light and dark both follow.' },
             { id: 'platforms', title: 'Is there more than React?', content: `Every component also has a <bef-*> HTML tag, and ${flutterSlugs.length} of them are Flutter widgets for Android and iOS.` },
@@ -224,8 +225,8 @@ export function Close() {
       <div className="mt-8 flex flex-wrap items-center gap-4">
         <Button asChild size="lg"><Link to="/docs">Read the setup guide <ArrowRightIcon draw /></Link></Button>
         <div className="flex items-center gap-2 rounded-md border bg-background py-1 pl-3.5 pr-1">
-          <code className="font-mono text-[13px] text-muted-foreground"><span className="text-primary">$</span> npx befui add button</code>
-          <CopyButton value="npx befui add button" className="size-7" />
+          <code className="font-mono text-[13px] text-muted-foreground"><span className="text-primary">$</span> npx github:RandomKid24/befui add button</code>
+          <CopyButton value="npx github:RandomKid24/befui add button" className="size-7" />
         </div>
       </div>
     </section>

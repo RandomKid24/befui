@@ -245,6 +245,15 @@ async function mcp() {
         } catch (e) { return { ...text(`Could not load the HTML rules: ${e.message}`), isError: true }; }
       },
     },
+    get_design_rules: {
+      description: 'How to compose a befui screen that looks designed, not bland: hierarchy, surfaces, colour for status, empty states, rows, demo data. Read once before building any page or dashboard.',
+      schema: { type: 'object', properties: {} },
+      run: async () => {
+        try {
+          return text(/^https?:/.test(from) ? await (await fetch(`${from}/design.md`)).text() : readFileSync(join(from, 'design.md'), 'utf8'));
+        } catch (e) { return { ...text(`Could not load the design rules: ${e.message}`), isError: true }; }
+      },
+    },
     get_flutter_rules: {
       description: 'How to use befui in a Flutter app (Android and iOS): copy-paste widgets, the theme setup, colours, text and icons. Read once before writing Flutter UI.',
       schema: { type: 'object', properties: {} },

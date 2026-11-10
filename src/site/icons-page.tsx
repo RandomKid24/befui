@@ -119,7 +119,7 @@ export function IconsPage() {
       <section className="mt-14 max-w-3xl">
         <h2 className="mb-3 text-xl font-semibold tracking-tight">Use them</h2>
         <p className="mb-3 text-[13px] text-muted-foreground">One file, no dependencies besides the <code className="rounded bg-secondary px-1 py-0.5 font-mono text-xs">cn</code> helper. Without <code className="rounded bg-secondary px-1 py-0.5 font-mono text-xs">draw</code> the icons are plain SVG, so the theme CSS is only needed if you want the animation. It also switches off for people who ask for reduced motion.</p>
-        <Command>npx befui add icons</Command>
+        <Command>npx github:RandomKid24/befui add icons</Command>
         <pre className="mt-3 overflow-auto rounded-lg border bg-muted/60 p-4 font-mono text-[12.5px] leading-relaxed">{`import { SearchIcon } from '@/components/ui/icons';\n\n<SearchIcon />                      // 16px, follows text color\n<SearchIcon className="size-6" />      // static, the default\n<SearchIcon draw />                    // redraws on hover\n<SearchIcon draw speed={1500} />       // slower\n<SearchIcon weight={2.5} />            // heavier stroke`}</pre>
       </section>
     </div>
