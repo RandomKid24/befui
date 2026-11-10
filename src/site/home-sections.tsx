@@ -153,7 +153,9 @@ const FEATURED = ['analytics-dashboard', 'sales-dashboard', 'project-overview', 
 export function BlocksViewer() {
   const featured = FEATURED.map((s) => blocks.find((x) => x.slug === s)).filter((x): x is NonNullable<typeof x> => !!x);
   const [slug, setSlug] = React.useState(featured[0]!.slug);
-  const b = featured.find((x) => x.slug === slug)!;
+  // the screen on show stays (dimmed) until the next one has loaded
+  const shown = React.useDeferredValue(slug);
+  const b = featured.find((x) => x.slug === shown)!;
   return (
     <section className={`${wrap} border-t py-20`} aria-labelledby="blocks">
       <div className="flex flex-wrap items-end justify-between gap-4">
@@ -183,11 +185,57 @@ export function BlocksViewer() {
             <p className="max-w-xl text-[13px] leading-relaxed text-muted-foreground"><span className="font-medium text-foreground">{b.name}.</span> {b.description} <span className="text-muted-foreground">Built from {list(b.uses)}.</span></p>
             <Link to={`/blocks/${b.slug}`} className="text-[13px] font-medium underline underline-offset-4">Open the block</Link>
           </div>
+          <div className={shown === slug ? 'transition-opacity duration-200' : 'opacity-50 transition-opacity delay-150 duration-200'} aria-busy={shown !== slug}>
           <ScaledFrame height={640}>
             <React.Suspense fallback={<Skeleton className="h-[36rem] w-full" aria-label={`Loading ${b.name}`} />}>
               <b.Demo key={b.slug} />
             </React.Suspense>
           </ScaledFrame>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ---- Agents ------------------------------------------------------------------------------------------------------
+
+const TOOLS = [
+  ['list_components', 'Browse or search every component and block.'],
+  ['get_component', 'The exact source, import path, npm packages and a working example.'],
+  ['add_components', 'Copy components, and what they need, into the project.'],
+  ['get_design_rules', 'How to compose a screen so it looks designed, not assembled.'],
+];
+const INIT = 'npx github:RandomKid24/befui init';
+
+/** What an AI agent gets: one command, then real tools instead of guessed props. */
+export function Agents() {
+  return (
+    <section className="border-y bg-muted/40" aria-labelledby="agents">
+      <div className={`${wrap} grid gap-x-16 gap-y-10 py-20 lg:grid-cols-[minmax(0,1fr)_minmax(0,34rem)] lg:items-center`}>
+        <div className="min-w-0">
+          <h2 id="agents" className={h2}>Your coding agent reads the real source</h2>
+          <p className={lede}>
+            One command writes the befui rules into AGENTS.md and connects an MCP server. After that Claude Code, Cursor and Copilot reuse what exists and add what is missing, instead of retyping a button from memory.
+          </p>
+          <div className="mt-7 flex flex-wrap items-center gap-4">
+            <div className="flex max-w-full items-center gap-2 rounded-md border bg-card py-1 pl-3.5 pr-1">
+              <code className="min-w-0 overflow-x-auto whitespace-nowrap font-mono text-[13px] text-muted-foreground"><span className="text-primary">$</span> {INIT}</code>
+              <CopyButton value={INIT} className="size-8 shrink-0" />
+            </div>
+            <Link to="/ai" className="text-sm font-medium underline underline-offset-4">How it works with AI</Link>
+          </div>
+        </div>
+        <div className="rounded-xl border bg-card">
+          <p className="border-b px-5 py-2.5 font-mono text-xs text-muted-foreground">befui mcp, {TOOLS.length} tools</p>
+          <dl className="divide-y px-5">
+            {TOOLS.map(([name, what]) => (
+              <div key={name} className="grid gap-x-6 gap-y-1 py-3.5 sm:grid-cols-[11rem_minmax(0,1fr)] sm:items-baseline">
+                <dt className="font-mono text-[13px] font-medium text-accent-foreground">{name}</dt>
+                <dd className="text-sm text-muted-foreground">{what}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </div>
     </section>
@@ -198,7 +246,7 @@ export function BlocksViewer() {
 
 export function Faq() {
   return (
-    <section className={`${wrap} border-t py-20`} aria-labelledby="faq">
+    <section className={`${wrap} py-20`} aria-labelledby="faq">
       <div className="grid gap-x-16 gap-y-8 lg:grid-cols-[minmax(0,22rem)_minmax(0,1fr)]">
         <h2 id="faq" className={h2}>Questions</h2>
         <Accordion

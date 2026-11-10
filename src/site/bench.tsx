@@ -108,7 +108,7 @@ export function TokenReadout({ bench, className }: { bench: Bench; className?: s
         </code>
       </pre>
       <p className="font-display mt-3 text-[15px] leading-snug text-muted-foreground">
-        These lines are the whole theme. Use the controls below and the nav, the form, the list and the chart all follow, in the same frame.
+        Change a control and the line it writes tints here. The nav, the form beside this and the approvals at the top of the page all follow in the same frame.
       </p>
     </div>
   );

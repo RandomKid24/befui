@@ -17,34 +17,45 @@ const SHELF: Record<Category, string[]> = {
 };
 const ORDER: Category[] = ['Inputs', 'Data', 'Display', 'Navigation', 'AI', 'Feedback', 'Overlays', 'Time', 'Layout'];
 
-/** Mounts its children when it nears the viewport so a family's demos load as it is opened, not all at once. */
-function WhenNear({ children, label }: { children: React.ReactNode; label: string }) {
-  const ref = React.useRef<HTMLDivElement>(null);
+/** True once the element has come near the viewport, and it stays true. */
+function useNear<T extends Element>() {
+  const ref = React.useRef<T>(null);
   const [near, setNear] = React.useState(false);
   React.useEffect(() => {
     const el = ref.current;
-    if (!el || near) return;
-    const io = new IntersectionObserver(([e]) => e?.isIntersecting && setNear(true), { rootMargin: '400px' });
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => { if (e?.isIntersecting) { setNear(true); io.disconnect(); } }, { rootMargin: '600px' });
     io.observe(el);
     return () => io.disconnect();
-  }, [near]);
-  return (
-    <div ref={ref} className="min-h-24">
-      {near ? <React.Suspense fallback={<Skeleton className="h-24 w-full max-w-sm" aria-label={`Loading ${label}`} />}>{children}</React.Suspense> : null}
-    </div>
-  );
+  }, []);
+  return [ref, near] as const;
 }
+
+/** Stands in for a family while its code loads, shaped like the specimens that replace it. */
+const Placeholders = () => (
+  <div className="gap-x-12 pt-2 md:columns-2" aria-label="Loading components">
+    {[28, 20, 24, 20, 28, 24].map((h, i) => (
+      <div key={i} className="mb-8 break-inside-avoid border-t pt-3">
+        <Skeleton className="mb-4 h-4 w-28" />
+        <Skeleton className="w-full max-w-sm" style={{ height: `${h / 4}rem` }} />
+      </div>
+    ))}
+  </div>
+);
 
 /**
  * The library as a shelf: the nine families run down the left as type with their real counts, and the chosen family
  * lays out live components on the right, set like a specimen sheet with a rule and a name over each one.
  */
 export function Shelf() {
-  const [cat, setCat] = React.useState<Category>('Inputs');
+  const [picked, setCat] = React.useState<Category>('Inputs');
+  // the list answers at once, and the family on show stays put (dimmed) until the next one's code has arrived
+  const cat = React.useDeferredValue(picked);
+  const [ref, near] = useNear<HTMLElement>();
   const picks = SHELF[cat].map((s) => components.find((c) => c.slug === s)).filter((c): c is NonNullable<typeof c> => !!c);
   const count = components.filter((c) => c.category === cat).length;
   return (
-    <section className="mx-auto max-w-[88rem] border-t px-4 py-20 sm:px-6" aria-labelledby="shelf">
+    <section ref={ref} className="mx-auto max-w-[88rem] px-4 py-20 sm:px-6" aria-labelledby="shelf">
       <h2 id="shelf" className="font-display text-3xl font-bold leading-[1.05] tracking-[-0.025em] sm:text-4xl">
         {components.length} components, running
       </h2>
@@ -59,7 +70,7 @@ export function Shelf() {
               <li key={c} className="max-lg:shrink-0">
                 <button
                   type="button"
-                  aria-pressed={c === cat}
+                  aria-pressed={c === picked}
                   onClick={() => setCat(c)}
                   className="relative flex w-full items-baseline justify-between gap-4 whitespace-nowrap px-1 py-2.5 text-start text-sm text-muted-foreground outline-none transition-[color,padding] duration-(--dur-fast) before:absolute before:start-0 before:top-1/2 before:h-4 before:w-0.5 before:-translate-y-1/2 before:bg-primary before:opacity-0 before:transition-opacity hover:text-foreground focus-visible:bg-muted aria-pressed:font-semibold aria-pressed:text-foreground aria-pressed:before:opacity-100 max-lg:px-3 max-lg:before:hidden lg:border-b lg:aria-pressed:ps-3"
                 >
@@ -77,18 +88,22 @@ export function Shelf() {
             </p>
             <Link to="/components" className="text-[13px] font-medium underline underline-offset-4">All {components.length} components</Link>
           </div>
-          <div key={cat} className="gap-x-12 pt-2 md:columns-2" data-stage>
-            {picks.map((p) => (
-              <figure key={p.slug} className="mb-8 break-inside-avoid border-t pt-3">
-                <figcaption className="mb-4 flex items-baseline justify-between gap-4">
-                  <span className="text-sm font-semibold">{p.name}</span>
-                  <Link to={`/components/${p.slug}`} className="font-mono text-xs text-muted-foreground underline-offset-4 hover:text-foreground hover:underline">{p.slug}</Link>
-                </figcaption>
-                <div className="lg:max-h-[22rem] lg:overflow-auto">
-                  <WhenNear label={p.name}><p.Demo /></WhenNear>
+          <div className={cat === picked ? 'transition-opacity duration-200' : 'opacity-50 transition-opacity delay-150 duration-200'} aria-busy={cat !== picked}>
+            <React.Suspense fallback={<Placeholders />}>
+              {near ? (
+                <div key={cat} className="gap-x-12 pt-2 md:columns-2" data-stage>
+                  {picks.map((p) => (
+                    <figure key={p.slug} className="mb-8 break-inside-avoid border-t pt-3">
+                      <figcaption className="mb-4 flex items-baseline justify-between gap-4">
+                        <span className="text-sm font-semibold">{p.name}</span>
+                        <Link to={`/components/${p.slug}`} className="font-mono text-xs text-muted-foreground underline-offset-4 hover:text-foreground hover:underline">{p.slug}</Link>
+                      </figcaption>
+                      <div className="lg:max-h-[22rem] lg:overflow-auto"><p.Demo /></div>
+                    </figure>
+                  ))}
                 </div>
-              </figure>
-            ))}
+              ) : <Placeholders />}
+            </React.Suspense>
           </div>
         </div>
       </div>

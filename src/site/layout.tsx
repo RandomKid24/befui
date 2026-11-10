@@ -312,10 +312,12 @@ export function Shell({ path, docs, wide, children }: { path: string; docs: bool
     return () => window.removeEventListener('keydown', onKey);
   }, []);
 
+  // the section you are in gets a filled tab and a bar in the brand colour on the header's bottom edge
   const navLink = (to: string, label: string, match: string) => (
     <Link
       to={to}
-      className={cn('font-display rounded-md px-2.5 py-1.5 text-sm font-medium transition-colors hover:text-foreground', path.startsWith(match) ? 'text-foreground' : 'text-muted-foreground')}
+      aria-current={path.startsWith(match) ? 'page' : undefined}
+      className="font-display relative rounded-md px-2.5 py-1.5 text-sm font-medium text-muted-foreground transition-colors after:absolute after:inset-x-2.5 after:-bottom-[0.6875rem] after:h-0.5 after:origin-center after:scale-x-0 after:rounded-full after:bg-primary after:transition-transform after:duration-300 hover:bg-secondary/60 hover:text-foreground aria-[current=page]:bg-secondary aria-[current=page]:text-foreground aria-[current=page]:after:scale-x-100"
     >
       {label}
     </Link>
@@ -373,8 +375,8 @@ export function Shell({ path, docs, wide, children }: { path: string; docs: bool
           <SheetTitle className="sr-only">Navigation</SheetTitle>
           <Logo />
           <nav className={cn('mt-4 grid gap-1 lg:hidden', docs && 'border-b pb-4')}>
-            {[['/docs', 'Docs'], ['/components', 'Components'], ['/blocks', 'Blocks'], ['/dashboards', 'Dashboards'], ['/icons', 'Icons'], ['/ai', 'Use with AI'], ['/html', 'HTML and htmx'], ['/flutter', 'Flutter'], ['/changelog', 'Changelog']].map(([to, label]) => (
-              <Link key={to} to={to} onClick={() => setMenuOpen(false)} className="rounded-md px-2.5 py-2 text-sm font-medium hover:bg-secondary">{label}</Link>
+            {[['/docs', 'Docs'], ['/components', 'Components'], ['/blocks', 'Blocks'], ['/dashboards', 'Dashboards'], ['/recipes', 'Recipes'], ['/icons', 'Icons'], ['/ai', 'Use with AI'], ['/html', 'HTML and htmx'], ['/flutter', 'Flutter'], ['/changelog', 'Changelog']].map(([to, label]) => (
+              <Link key={to} to={to} onClick={() => setMenuOpen(false)} aria-current={path.startsWith(to!) ? 'page' : undefined} className="rounded-md px-2.5 py-2 text-sm font-medium hover:bg-secondary aria-[current=page]:bg-primary-soft aria-[current=page]:text-accent-foreground">{label}</Link>
             ))}
           </nav>
           {docs && <div className="mt-4"><SidebarNav path={path} onNavigate={() => setMenuOpen(false)} /></div>}

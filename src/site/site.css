@@ -15,7 +15,12 @@
 .hero-stroke path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: hero-draw 0.9s 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
 @keyframes hero-draw { to { stroke-dashoffset: 0; } }
 
+/* The two halves of the hero settle in, the panel a beat after the words. */
+@keyframes hero-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.hero-in { animation: hero-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
 @media (prefers-reduced-motion: reduce) {
+  .hero-in { animation: none; }
   .bench-flash { animation: none; }
   .hero-stroke path { animation: none; stroke-dashoffset: 0; }
 }

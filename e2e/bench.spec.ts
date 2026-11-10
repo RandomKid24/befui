@@ -36,5 +36,6 @@ test('leaving the home page restores the site theme', async ({ page }) => {
   await page.goto('/#/');
   await page.getByRole('radio', { name: 'Rose' }).check({ force: true });
   await page.goto('/#/docs');
-  expect(await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue('--primary').trim())).toBe('#2563eb');
+  // the home page stays on screen until the docs page has loaded, so wait for the swap
+  await expect.poll(() => page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue('--primary').trim())).toBe('#2563eb');
 });

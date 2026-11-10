@@ -1,5 +1,4 @@
 import * as React from 'react';
-import LeaveRequestForm from '@/blocks/leave-request-form';
 import { Avatar } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { BarChart } from '@/components/ui/charts';
@@ -16,23 +15,24 @@ const MONTHS = [
 ];
 
 /**
- * A working screen made only of library parts: the leave request block, an approvals list and a chart. It is the page's
- * proof that the theme controls above change real components, so every control here is live.
+ * The live panel beside the headline: an approvals list and a chart made only of library parts. Every control works,
+ * and it follows the theme controls in the band below, which is the page's proof that three CSS lines restyle real parts.
  */
-export function HeroWorkspace() {
+export function ApprovalsPanel() {
   const [status, setStatus] = React.useState<Record<string, Status>>({});
   const open = REQUESTS.filter((r) => !status[r.id] || status[r.id] === 'open').length;
   const set = (id: string, s: Status) => setStatus((x) => ({ ...x, [id]: s }));
   return (
-    <div className="grid gap-10 lg:grid-cols-[minmax(0,30rem)_minmax(0,1fr)] lg:gap-14">
-      <figure className="min-w-0">
-        <LeaveRequestForm />
-      </figure>
-      <div className="min-w-0">
+    <figure className="rounded-xl border bg-card shadow-xl shadow-black/[0.06] dark:shadow-black/40">
+      <figcaption className="flex items-center justify-between gap-4 border-b px-5 py-2.5 text-xs text-muted-foreground">
+        <span className="flex items-center gap-2"><span className="size-1.5 rounded-full bg-success" aria-hidden />Running here, built from befui parts</span>
+        <span>Demo data</span>
+      </figcaption>
+      <div className="px-5 pb-5 pt-4">
         <header className="flex items-end justify-between gap-6 border-b pb-4">
           <div>
-            <h3 className="font-display text-2xl font-semibold tracking-tight">Approvals</h3>
-            <p className="mt-0.5 text-[13px] text-muted-foreground">{open === 0 ? 'Nothing waiting for you' : `${open} waiting for you`}</p>
+            <h2 className="font-display text-2xl font-semibold tracking-tight">Approvals</h2>
+            <p className="mt-0.5 text-[13px] text-muted-foreground" aria-live="polite">{open === 0 ? 'Nothing waiting for you' : `${open} waiting for you`}</p>
           </div>
           <p className="text-right">
             <span className="font-display text-4xl font-semibold tabular-nums leading-none">142</span>
@@ -43,7 +43,7 @@ export function HeroWorkspace() {
           {REQUESTS.map((r) => {
             const s = status[r.id] ?? 'open';
             return (
-              <li key={r.id} className="flex flex-wrap items-center gap-x-4 gap-y-2 py-3.5">
+              <li key={r.id} className="flex flex-wrap items-center gap-x-4 gap-y-2 py-3">
                 <Avatar name={r.name} size="sm" />
                 <div className="grid min-w-0 flex-1 leading-tight">
                   <span className="truncate text-sm font-medium">{r.name}</span>
@@ -64,14 +64,11 @@ export function HeroWorkspace() {
             );
           })}
         </ul>
-        <section className="mt-8" aria-labelledby="leave-months">
-          <h4 id="leave-months" className="mb-3 text-[13px] font-medium">Leave days per month</h4>
-          <BarChart height={130} data={MONTHS} />
+        <section className="mt-4 border-t pt-4" aria-labelledby="leave-months">
+          <h3 id="leave-months" className="mb-3 text-[13px] font-medium">Leave days per month</h3>
+          <BarChart height={120} data={MONTHS} />
         </section>
-        <p className="mt-6 text-[13px] leading-relaxed text-muted-foreground">
-          Demo data. The form validates for real, the approvals respond, and the chart reads the same <code className="font-mono text-[12px]">--primary</code> as the nav above.
-        </p>
       </div>
-    </div>
+    </figure>
   );
 }

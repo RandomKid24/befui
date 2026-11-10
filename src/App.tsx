@@ -26,6 +26,12 @@ const FlutterPage = named(() => import('@/site/flutter-page'), 'FlutterPage');
 const FlutterComponentPage = named(() => import('@/site/platform'), 'FlutterComponentPage');
 const HtmlComponentPage = named(() => import('@/site/platform'), 'HtmlComponentPage');
 
+const chunks: Record<string, () => Promise<unknown>> = {
+  icons: () => import('@/site/icons-page'), themes: () => import('@/site/themes-page'), ai: () => import('@/site/ai-page'),
+  changelog: () => import('@/site/changelog-page'), html: () => import('@/site/html-page'), recipes: () => import('@/site/recipes-page'),
+  flutter: () => import('@/site/flutter-page'),
+};
+
 const fallback = <div className="h-64 animate-pulse rounded-xl bg-muted/50" aria-hidden />;
 
 export default function App() {
@@ -34,6 +40,14 @@ export default function App() {
   React.useEffect(() => {
     const idle = window.requestIdleCallback ?? ((f: () => void) => setTimeout(f, 1500));
     idle(() => { void pages(); });
+    // and fetch a section's code as soon as the pointer or focus reaches a link to it
+    const warm = (e: Event) => {
+      const to = (e.target as Element).closest?.('a[href^="#/"]')?.getAttribute('href')?.split('/')[1];
+      if (to) void (chunks[to] ?? pages)();
+    };
+    document.addEventListener('pointerover', warm, { passive: true });
+    document.addEventListener('focusin', warm);
+    return () => { document.removeEventListener('pointerover', warm); document.removeEventListener('focusin', warm); };
   }, []);
   const [, section, slug] = path.split('/');
   const home = path === '/';
@@ -66,9 +80,14 @@ export default function App() {
         [data-page] article > :nth-child(4) { animation-delay: 120ms } [data-page] article > :nth-child(5) { animation-delay: 160ms }
         [data-page] article > :nth-child(n+6) { animation-delay: 200ms }
         [data-stage] > * { animation: rise 0.45s cubic-bezier(0.22, 1, 0.36, 1) both }
+        @keyframes page-in { from { opacity: 0 } to { opacity: 1 } }
+        [data-page] { animation: page-in 0.28s ease-out both }
+        /* a slow page shows a thin bar under the header after a short wait, and nothing at all when it is quick */
+        @keyframes routing { 0% { transform: scaleX(0); opacity: 1 } 60% { transform: scaleX(0.7) } 100% { transform: scaleX(0.92); opacity: 1 } }
+        html[data-routing]::before { content: ''; position: fixed; inset: 0 0 auto 0; z-index: 60; height: 2px; background: var(--primary); transform-origin: left; opacity: 0; animation: routing 2.4s 0.18s cubic-bezier(0.22, 1, 0.36, 1) forwards }
         @media (prefers-reduced-motion: reduce) { [data-page], [data-page] article > *, [data-stage] > * { animation: none !important } }
       `}</style>
-      <div data-page key={path}><React.Suspense fallback={fallback}>{page}</React.Suspense></div>
+      <React.Suspense fallback={fallback}><div data-page key={path}>{page}</div></React.Suspense>
     </Shell>
   );
 }
