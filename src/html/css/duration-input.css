@@ -9,7 +9,7 @@
   --input: #e2e8f0;
   --muted-foreground: #5b6b80;
   --radius: .5rem;
-  --ring: #1593b6;
+  --ring: #3b82f6;
   --spacing: .25rem;
   --text-sm: .875rem;
   --text-sm--line-height: calc(1.25 / .875);
@@ -18,11 +18,10 @@
 }
 
 .dark {
-  --background: #080c0e;
+  --background: #0a0c10;
   --destructive: #f43f5e;
-  --input: #253137;
-  --muted-foreground: #8a979d;
-  --ring: #1c9dbd;
+  --input: #272d3a;
+  --muted-foreground: #8b94a5;
 }
 
 /* Utility rules */

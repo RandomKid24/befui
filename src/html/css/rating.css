@@ -6,14 +6,13 @@
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
   --dur-fast: .15s;
-  --ring: #1593b6;
+  --ring: #3b82f6;
   --spacing: .25rem;
   --warning: #d97706;
 }
 
 .dark {
-  --border: #1c262b;
-  --ring: #1c9dbd;
+  --border: #1f2430;
   --warning: #f59e0b;
 }
 

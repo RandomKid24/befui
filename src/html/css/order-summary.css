@@ -21,12 +21,12 @@
 }
 
 .dark {
-  --background: #080c0e;
-  --card: #0d1316;
-  --card-foreground: #e6eaec;
-  --foreground: #e6eaec;
-  --muted: #0f1518;
-  --muted-foreground: #8a979d;
+  --background: #0a0c10;
+  --card: #0f1218;
+  --card-foreground: #e6e9ef;
+  --foreground: #e6e9ef;
+  --muted: #11141b;
+  --muted-foreground: #8b94a5;
   --success: #10b981;
 }
 

@@ -8,7 +8,7 @@
   --font-weight-medium: 500;
   --info: #2563eb;
   --muted-foreground: #5b6b80;
-  --primary: #0a6f8c;
+  --primary: #2563eb;
   --primary-foreground: #fff;
   --radius: .5rem;
   --spacing: .25rem;
@@ -17,13 +17,13 @@
 }
 
 .dark {
-  --border: #1c262b;
-  --card: #0d1316;
+  --border: #1f2430;
+  --card: #0f1218;
   --destructive: #f43f5e;
   --info: #60a5fa;
-  --muted-foreground: #8a979d;
-  --primary: #2fb1d1;
-  --primary-foreground: #071013;
+  --muted-foreground: #8b94a5;
+  --primary: #3b82f6;
+  --primary-foreground: #0a0c10;
   --success: #10b981;
   --warning: #f59e0b;
 }

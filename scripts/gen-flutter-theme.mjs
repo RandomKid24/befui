@@ -85,7 +85,7 @@ class BefTheme extends ThemeExtension<BefTheme> {
       other is BefTheme ? BefTheme(colors: BefColors.lerp(colors, other.colors, t), fontFamily: fontFamily, monoFamily: monoFamily) : this;
 
   /// A full [ThemeData] for [brightness] with the befui extension and Material defaults tuned to match (ripple, text selection, scaffold colour).
-  static ThemeData data({Brightness brightness = Brightness.light, BefPalette palette = BefPalette.petrol, String fontFamily = 'Inter'}) {
+  static ThemeData data({Brightness brightness = Brightness.light, BefPalette palette = BefPalette.blue, String fontFamily = 'Inter'}) {
     final c = palette.of(brightness);
     final scheme = ColorScheme(
       brightness: brightness,
@@ -114,7 +114,7 @@ class BefTheme extends ThemeExtension<BefTheme> {
   }
 
   static BefTheme of(BuildContext context) =>
-      Theme.of(context).extension<BefTheme>() ?? BefTheme(colors: BefPalette.petrol.of(Theme.of(context).brightness));
+      Theme.of(context).extension<BefTheme>() ?? BefTheme(colors: BefPalette.blue.of(Theme.of(context).brightness));
 }
 
 extension BefContext on BuildContext {

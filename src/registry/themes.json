@@ -1,21 +1,4 @@
 {
-  "petrol": {
-    "label": "Petrol",
-    "light": {
-      "primary": "#0a6f8c",
-      "primary-foreground": "#ffffff",
-      "accent": "#e4f4f8",
-      "accent-foreground": "#0a5a72",
-      "ring": "#1593b6"
-    },
-    "dark": {
-      "primary": "#2fb1d1",
-      "primary-foreground": "#071013",
-      "accent": "#0e2a33",
-      "accent-foreground": "#8ad8ea",
-      "ring": "#1c9dbd"
-    }
-  },
   "blue": {
     "label": "Blue",
     "light": {
@@ -184,6 +167,23 @@
       "accent": "#1e2533",
       "accent-foreground": "#e2e8f0",
       "ring": "#64748b"
+    }
+  },
+  "petrol": {
+    "label": "Petrol",
+    "light": {
+      "primary": "#0a6f8c",
+      "primary-foreground": "#ffffff",
+      "accent": "#e4f4f8",
+      "accent-foreground": "#0a5a72",
+      "ring": "#1593b6"
+    },
+    "dark": {
+      "primary": "#2fb1d1",
+      "primary-foreground": "#071013",
+      "accent": "#0e2a33",
+      "accent-foreground": "#8ad8ea",
+      "ring": "#1c9dbd"
     }
   }
 }

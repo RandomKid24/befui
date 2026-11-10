@@ -2,7 +2,7 @@
 
 /* Theme variables it reads (set them on :root, or .dark for dark mode) */
 :root {
-  --accent: #e4f4f8;
+  --accent: #eff6ff;
   --background: #fff;
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
@@ -12,24 +12,23 @@
   --foreground: #0f172a;
   --muted: #f8fafc;
   --muted-foreground: #5b6b80;
-  --primary: #0a6f8c;
+  --primary: #2563eb;
   --radius: .5rem;
-  --ring: #1593b6;
+  --ring: #3b82f6;
   --spacing: .25rem;
   --text-xs: .75rem;
   --text-xs--line-height: calc(1 / .75);
 }
 
 .dark {
-  --accent: #0e2a33;
-  --background: #080c0e;
+  --accent: #14213d;
+  --background: #0a0c10;
   --destructive: #f43f5e;
   --elev-1: 0 1px 2px #0006, inset 0 1px 0 #ffffff0a;
-  --foreground: #e6eaec;
-  --muted: #0f1518;
-  --muted-foreground: #8a979d;
-  --primary: #2fb1d1;
-  --ring: #1c9dbd;
+  --foreground: #e6e9ef;
+  --muted: #11141b;
+  --muted-foreground: #8b94a5;
+  --primary: #3b82f6;
 }
 
 /* Utility rules */

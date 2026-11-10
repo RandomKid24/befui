@@ -12,7 +12,7 @@
   --leading-relaxed: 1.625;
   --muted: #f8fafc;
   --muted-foreground: #5b6b80;
-  --primary: #0a6f8c;
+  --primary: #2563eb;
   --radius: .5rem;
   --spacing: .25rem;
   --text-sm: .875rem;
@@ -23,13 +23,13 @@
 }
 
 .dark {
-  --background: #080c0e;
-  --card: #0d1316;
+  --background: #0a0c10;
+  --card: #0f1218;
   --destructive: #f43f5e;
-  --foreground: #e6eaec;
-  --muted: #0f1518;
-  --muted-foreground: #8a979d;
-  --primary: #2fb1d1;
+  --foreground: #e6e9ef;
+  --muted: #11141b;
+  --muted-foreground: #8b94a5;
+  --primary: #3b82f6;
 }
 
 /* Utility rules */

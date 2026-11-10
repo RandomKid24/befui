@@ -22,9 +22,9 @@
 }
 
 .dark {
-  --card: #0d1316;
+  --card: #0f1218;
   --info: #60a5fa;
-  --muted-foreground: #8a979d;
+  --muted-foreground: #8b94a5;
   --warning: #f59e0b;
 }
 

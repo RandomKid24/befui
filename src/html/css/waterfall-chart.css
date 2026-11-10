@@ -11,19 +11,19 @@
   --muted-foreground: #5b6b80;
   --popover: #fff;
   --popover-foreground: #0f172a;
-  --primary: #0a6f8c;
+  --primary: #2563eb;
   --radius: .5rem;
   --spacing: .25rem;
   --success: #047857;
 }
 
 .dark {
-  --border: #1c262b;
+  --border: #1f2430;
   --destructive: #f43f5e;
-  --muted-foreground: #8a979d;
-  --popover: #0d1316;
-  --popover-foreground: #e6eaec;
-  --primary: #2fb1d1;
+  --muted-foreground: #8b94a5;
+  --popover: #0f1218;
+  --popover-foreground: #e6e9ef;
+  --primary: #3b82f6;
   --success: #10b981;
 }
 

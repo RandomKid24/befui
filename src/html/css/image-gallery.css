@@ -12,20 +12,19 @@
   --elev-1: 0 1px 2px #0f172a0a, 0 1px 1px #0f172a08;
   --font-weight-medium: 500;
   --muted: #f8fafc;
-  --primary: #0a6f8c;
+  --primary: #2563eb;
   --radius: .5rem;
-  --ring: #1593b6;
+  --ring: #3b82f6;
   --spacing: .25rem;
   --text-xs: .75rem;
   --text-xs--line-height: calc(1 / .75);
 }
 
 .dark {
-  --background: #080c0e;
+  --background: #0a0c10;
   --elev-1: 0 1px 2px #0006, inset 0 1px 0 #ffffff0a;
-  --muted: #0f1518;
-  --primary: #2fb1d1;
-  --ring: #1c9dbd;
+  --muted: #11141b;
+  --primary: #3b82f6;
 }
 
 /* Utility rules */

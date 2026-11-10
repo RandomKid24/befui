@@ -9,9 +9,9 @@
   --font-weight-medium: 500;
   --foreground: #0f172a;
   --muted-foreground: #5b6b80;
-  --primary: #0a6f8c;
+  --primary: #2563eb;
   --radius: .5rem;
-  --ring: #1593b6;
+  --ring: #3b82f6;
   --spacing: .25rem;
   --success: #047857;
   --text-sm: .875rem;
@@ -19,10 +19,9 @@
 }
 
 .dark {
-  --foreground: #e6eaec;
-  --muted-foreground: #8a979d;
-  --primary: #2fb1d1;
-  --ring: #1c9dbd;
+  --foreground: #e6e9ef;
+  --muted-foreground: #8b94a5;
+  --primary: #3b82f6;
   --success: #10b981;
 }
 

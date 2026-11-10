@@ -8,20 +8,19 @@
   --destructive: #e11d48;
   --input: #e2e8f0;
   --muted-foreground: #5b6b80;
-  --primary: #0a6f8c;
+  --primary: #2563eb;
   --primary-foreground: #fff;
-  --ring: #1593b6;
+  --ring: #3b82f6;
   --spacing: .25rem;
 }
 
 .dark {
-  --background: #080c0e;
+  --background: #0a0c10;
   --destructive: #f43f5e;
-  --input: #253137;
-  --muted-foreground: #8a979d;
-  --primary: #2fb1d1;
-  --primary-foreground: #071013;
-  --ring: #1c9dbd;
+  --input: #272d3a;
+  --muted-foreground: #8b94a5;
+  --primary: #3b82f6;
+  --primary-foreground: #0a0c10;
 }
 
 /* Utility rules */

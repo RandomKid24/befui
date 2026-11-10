@@ -12,9 +12,9 @@
 }
 
 .dark {
-  --background: #080c0e;
-  --foreground: #e6eaec;
-  --muted-foreground: #8a979d;
+  --background: #0a0c10;
+  --foreground: #e6e9ef;
+  --muted-foreground: #8b94a5;
 }
 
 /* Utility rules */

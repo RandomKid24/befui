@@ -7,17 +7,16 @@
   --popover: #fff;
   --popover-foreground: #0f172a;
   --radius: .5rem;
-  --ring: #1593b6;
+  --ring: #3b82f6;
   --spacing: .25rem;
   --text-xs: .75rem;
   --text-xs--line-height: calc(1 / .75);
 }
 
 .dark {
-  --muted-foreground: #8a979d;
-  --popover: #0d1316;
-  --popover-foreground: #e6eaec;
-  --ring: #1c9dbd;
+  --muted-foreground: #8b94a5;
+  --popover: #0f1218;
+  --popover-foreground: #e6e9ef;
 }
 
 /* Utility rules */

@@ -21,11 +21,11 @@
 }
 
 .dark {
-  --background: #080c0e;
+  --background: #0a0c10;
   --elev-1: 0 1px 2px #0006, inset 0 1px 0 #ffffff0a;
-  --foreground: #e6eaec;
-  --muted-foreground: #8a979d;
-  --secondary: #151c20;
+  --foreground: #e6e9ef;
+  --muted-foreground: #8b94a5;
+  --secondary: #171b23;
 }
 
 /* Utility rules */

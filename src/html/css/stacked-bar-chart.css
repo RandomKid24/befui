@@ -9,7 +9,7 @@
   --info: #2563eb;
   --muted-foreground: #5b6b80;
   --popover: #fff;
-  --primary: #0a6f8c;
+  --primary: #2563eb;
   --radius: .5rem;
   --spacing: .25rem;
   --success: #047857;
@@ -21,9 +21,9 @@
 .dark {
   --elev-3: 0 2px 4px #0006, 0 14px 28px -6px #0009, 0 4px 8px -4px #0006, inset 0 1px 0 #ffffff0f;
   --info: #60a5fa;
-  --muted-foreground: #8a979d;
-  --popover: #0d1316;
-  --primary: #2fb1d1;
+  --muted-foreground: #8b94a5;
+  --popover: #0f1218;
+  --primary: #3b82f6;
   --success: #10b981;
   --warning: #f59e0b;
 }

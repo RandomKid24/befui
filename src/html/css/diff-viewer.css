@@ -17,10 +17,10 @@
 }
 
 .dark {
-  --card: #0d1316;
+  --card: #0f1218;
   --destructive: #f43f5e;
-  --muted: #0f1518;
-  --muted-foreground: #8a979d;
+  --muted: #11141b;
+  --muted-foreground: #8b94a5;
   --success: #10b981;
 }
 

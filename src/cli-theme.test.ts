@@ -31,11 +31,11 @@ describe('befui init --theme', () => {
     expect(token(r.css!, ':root, .light {', 'primary')).not.toBe(themes.blue.light.primary);
   });
 
-  it('keeps the default (petrol) when no theme is given', () => {
+  it('keeps the default (blue) when no theme is given', () => {
     const r = init([]);
     expect(r.status).toBe(0);
-    expect(token(r.css!, ':root, .light {', 'primary')).toBe(themes.petrol.light.primary);
-    expect(token(r.css!, '.dark {', 'primary-foreground')).toBe(themes.petrol.dark['primary-foreground']);
+    expect(token(r.css!, ':root, .light {', 'primary')).toBe(themes.blue.light.primary);
+    expect(token(r.css!, '.dark {', 'primary-foreground')).toBe(themes.blue.dark['primary-foreground']);
   });
 
   it('rejects an unknown name, lists the valid ones and writes nothing', () => {

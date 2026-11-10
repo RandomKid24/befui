@@ -35,8 +35,8 @@ const h2 = 'mt-12 mb-4 scroll-mt-20 text-xl font-semibold tracking-tight';
 /* ----------------------------------------------------------- getting started */
 
 const ACCENTS = [
-  { name: 'Petrol', value: '#0a6f8c', ring: '#1593b6', tint: '#e4f4f8', fg: '#0a5a72' },
   { name: 'Blue', value: '#2563eb', ring: '#3b82f6', tint: '#eff6ff', fg: '#1d4ed8' },
+  { name: 'Petrol', value: '#0a6f8c', ring: '#1593b6', tint: '#e4f4f8', fg: '#0a5a72' },
   { name: 'Violet', value: '#7c3aed', ring: '#8b5cf6', tint: '#f5f3ff', fg: '#6d28d9' },
   { name: 'Emerald', value: '#059669', ring: '#10b981', tint: '#ecfdf5', fg: '#047857' },
   { name: 'Rose', value: '#e11d48', ring: '#f43f5e', tint: '#fff1f2', fg: '#be123c' },
@@ -44,11 +44,11 @@ const ACCENTS = [
 ];
 
 function AccentPicker() {
-  const [active, setActive] = React.useState('Petrol');
+  const [active, setActive] = React.useState('Blue');
   const apply = (a: (typeof ACCENTS)[number]) => {
     setActive(a.name);
     const s = document.documentElement.style;
-    if (a.name === 'Petrol') ['--primary', '--ring', '--accent', '--accent-foreground'].forEach((k) => s.removeProperty(k));
+    if (a.name === 'Blue') ['--primary', '--ring', '--accent', '--accent-foreground'].forEach((k) => s.removeProperty(k));
     else {
       s.setProperty('--primary', a.value);
       s.setProperty('--ring', a.ring);

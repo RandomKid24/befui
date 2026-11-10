@@ -20,10 +20,10 @@
 }
 
 .dark {
-  --muted-foreground: #8a979d;
-  --popover: #0d1316;
-  --popover-foreground: #e6eaec;
-  --secondary: #151c20;
+  --muted-foreground: #8b94a5;
+  --popover: #0f1218;
+  --popover-foreground: #e6e9ef;
+  --secondary: #171b23;
 }
 
 /* Utility rules */

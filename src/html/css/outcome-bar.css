@@ -5,7 +5,7 @@
   --destructive: #e11d48;
   --font-weight-semibold: 600;
   --muted-foreground: #5b6b80;
-  --primary: #0a6f8c;
+  --primary: #2563eb;
   --spacing: .25rem;
   --success: #047857;
   --text-lg: 1.125rem;
@@ -18,8 +18,8 @@
 
 .dark {
   --destructive: #f43f5e;
-  --muted-foreground: #8a979d;
-  --primary: #2fb1d1;
+  --muted-foreground: #8b94a5;
+  --primary: #3b82f6;
   --success: #10b981;
   --warning: #f59e0b;
 }

@@ -6,7 +6,7 @@
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
   --destructive: #e11d48;
   --dur-medium: .5s;
-  --primary: #0a6f8c;
+  --primary: #2563eb;
   --secondary: #f1f5f9;
   --spacing: .25rem;
   --success: #047857;
@@ -15,8 +15,8 @@
 
 .dark {
   --destructive: #f43f5e;
-  --primary: #2fb1d1;
-  --secondary: #151c20;
+  --primary: #3b82f6;
+  --secondary: #171b23;
   --success: #10b981;
   --warning: #f59e0b;
 }

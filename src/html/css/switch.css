@@ -9,16 +9,15 @@
   --dur-spring: .4s;
   --input: #e2e8f0;
   --press: .97;
-  --primary: #0a6f8c;
-  --ring: #1593b6;
+  --primary: #2563eb;
+  --ring: #3b82f6;
   --spacing: .25rem;
 }
 
 .dark {
   --destructive: #f43f5e;
-  --input: #253137;
-  --primary: #2fb1d1;
-  --ring: #1c9dbd;
+  --input: #272d3a;
+  --primary: #3b82f6;
 }
 
 /* Utility rules */

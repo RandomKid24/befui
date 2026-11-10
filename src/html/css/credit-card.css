@@ -13,11 +13,11 @@
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --foreground: #0f172a;
-  --primary: #0a6f8c;
+  --primary: #2563eb;
   --primary-foreground: #fff;
   --radius: .5rem;
   --radius-2xl: 1rem;
-  --ring: #1593b6;
+  --ring: #3b82f6;
   --spacing: .25rem;
   --text-sm: .875rem;
   --text-sm--line-height: calc(1.25 / .875);
@@ -28,14 +28,13 @@
 }
 
 .dark {
-  --background: #080c0e;
-  --card: #0d1316;
-  --card-foreground: #e6eaec;
+  --background: #0a0c10;
+  --card: #0f1218;
+  --card-foreground: #e6e9ef;
   --elev-3: 0 2px 4px #0006, 0 14px 28px -6px #0009, 0 4px 8px -4px #0006, inset 0 1px 0 #ffffff0f;
-  --foreground: #e6eaec;
-  --primary: #2fb1d1;
-  --primary-foreground: #071013;
-  --ring: #1c9dbd;
+  --foreground: #e6e9ef;
+  --primary: #3b82f6;
+  --primary-foreground: #0a0c10;
 }
 
 /* Utility rules */

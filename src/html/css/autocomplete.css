@@ -2,8 +2,8 @@
 
 /* Theme variables it reads (set them on :root, or .dark for dark mode) */
 :root {
-  --accent: #e4f4f8;
-  --accent-foreground: #0a5a72;
+  --accent: #eff6ff;
+  --accent-foreground: #1d4ed8;
   --dur-spring: .4s;
   --ease-spring: linear(0, .4 8%, .85 20%, 1.06 32%, 1.02 46%, 1 60%, 1);
   --elev-3: 0 2px 4px #0f172a0d, 0 12px 24px -6px #0f172a1f, 0 4px 8px -4px #0f172a0f;
@@ -16,11 +16,11 @@
 }
 
 .dark {
-  --accent: #0e2a33;
-  --accent-foreground: #8ad8ea;
+  --accent: #14213d;
+  --accent-foreground: #93c5fd;
   --elev-3: 0 2px 4px #0006, 0 14px 28px -6px #0009, 0 4px 8px -4px #0006, inset 0 1px 0 #ffffff0f;
-  --muted-foreground: #8a979d;
-  --popover: #0d1316;
+  --muted-foreground: #8b94a5;
+  --popover: #0f1218;
 }
 
 /* Utility rules */

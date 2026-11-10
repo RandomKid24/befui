@@ -7,7 +7,7 @@
   --font-weight-semibold: 600;
   --info: #2563eb;
   --muted-foreground: #5b6b80;
-  --primary: #0a6f8c;
+  --primary: #2563eb;
   --success: #047857;
   --text-lg: 1.125rem;
   --text-lg--line-height: calc(1.75 / 1.125);
@@ -15,11 +15,11 @@
 }
 
 .dark {
-  --border: #1c262b;
+  --border: #1f2430;
   --destructive: #f43f5e;
   --info: #60a5fa;
-  --muted-foreground: #8a979d;
-  --primary: #2fb1d1;
+  --muted-foreground: #8b94a5;
+  --primary: #3b82f6;
   --success: #10b981;
   --warning: #f59e0b;
 }

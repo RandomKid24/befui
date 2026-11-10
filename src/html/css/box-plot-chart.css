@@ -8,7 +8,7 @@
   --foreground: #0f172a;
   --muted-foreground: #5b6b80;
   --popover: #fff;
-  --primary: #0a6f8c;
+  --primary: #2563eb;
   --radius: .5rem;
   --spacing: .25rem;
   --text-xs: .75rem;
@@ -16,12 +16,12 @@
 }
 
 .dark {
-  --border: #1c262b;
+  --border: #1f2430;
   --elev-3: 0 2px 4px #0006, 0 14px 28px -6px #0009, 0 4px 8px -4px #0006, inset 0 1px 0 #ffffff0f;
-  --foreground: #e6eaec;
-  --muted-foreground: #8a979d;
-  --popover: #0d1316;
-  --primary: #2fb1d1;
+  --foreground: #e6e9ef;
+  --muted-foreground: #8b94a5;
+  --popover: #0f1218;
+  --primary: #3b82f6;
 }
 
 /* Utility rules */
