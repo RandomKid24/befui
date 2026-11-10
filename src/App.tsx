@@ -60,7 +60,7 @@ export default function App() {
   else if (section === 'docs') page = <GettingStarted />;
   else if (section === 'components') page = slug ? <ComponentPage slug={slug} /> : <ComponentsIndex />;
   else if (section === 'ai') page = <AiPage />;
-  else if (section === 'recipes') page = slug ? <RecipePage slug={slug} /> : <RecipesIndex />;
+  else if (section === 'recipes') page = <div className="mx-auto max-w-[88rem] px-4 py-10 pb-24 sm:px-6">{slug ? <RecipePage slug={slug} /> : <RecipesIndex />}</div>;
   else if (section === 'html') page = slug ? <HtmlComponentPage slug={slug} /> : <HtmlPage />;
   else if (section === 'flutter') page = slug ? <FlutterComponentPage slug={slug} /> : <FlutterPage />;
   else if (section === 'changelog') page = <ChangelogPage />;

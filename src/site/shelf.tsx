@@ -98,7 +98,7 @@ export function Shelf() {
                         <span className="text-sm font-semibold">{p.name}</span>
                         <Link to={`/components/${p.slug}`} className="font-mono text-xs text-muted-foreground underline-offset-4 hover:text-foreground hover:underline">{p.slug}</Link>
                       </figcaption>
-                      <div className="lg:max-h-[22rem] lg:overflow-auto"><p.Demo /></div>
+                      <div className="lg:-m-2 lg:max-h-[23rem] lg:overflow-auto lg:p-2"><p.Demo /></div>
                     </figure>
                   ))}
                 </div>
