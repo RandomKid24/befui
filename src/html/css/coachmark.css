@@ -6,7 +6,7 @@
   --ease-spring: linear(0, .4 8%, .85 20%, 1.06 32%, 1.02 46%, 1 60%, 1);
   --elev-3: 0 2px 4px #0f172a0d, 0 12px 24px -6px #0f172a1f, 0 4px 8px -4px #0f172a0f;
   --font-weight-semibold: 600;
-  --primary: #2563eb;
+  --primary: #0a6f8c;
   --primary-foreground: #fff;
   --radius: .5rem;
   --spacing: .25rem;
@@ -18,8 +18,8 @@
 
 .dark {
   --elev-3: 0 2px 4px #0006, 0 14px 28px -6px #0009, 0 4px 8px -4px #0006, inset 0 1px 0 #ffffff0f;
-  --primary: #3b82f6;
-  --primary-foreground: #0a0c10;
+  --primary: #2fb1d1;
+  --primary-foreground: #071013;
 }
 
 /* Utility rules */

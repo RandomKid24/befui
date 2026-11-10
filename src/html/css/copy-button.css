@@ -9,15 +9,16 @@
   --foreground: #0f172a;
   --muted-foreground: #5b6b80;
   --radius: .5rem;
-  --ring: #3b82f6;
+  --ring: #1593b6;
   --spacing: .25rem;
-  --success: #059669;
+  --success: #047857;
 }
 
 .dark {
-  --background: #0a0c10;
-  --foreground: #e6e9ef;
-  --muted-foreground: #8b94a5;
+  --background: #080c0e;
+  --foreground: #e6eaec;
+  --muted-foreground: #8a979d;
+  --ring: #1c9dbd;
   --success: #10b981;
 }
 
@@ -81,8 +82,13 @@
 .opacity-100 {
   opacity: 1;
 }
-.transition-all {
-  transition-property: all;
+.transition-\[color\,
+background-color\,
+border-color\,
+box-shadow\,
+transform\,
+opacity\] {
+  transition-property: color,background-color,border-color,box-shadow,transform,opacity;
   transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
   transition-duration: var(--tw-duration,var(--default-transition-duration));
 }

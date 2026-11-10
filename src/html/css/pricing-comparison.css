@@ -9,10 +9,10 @@
   --font-weight-semibold: 600;
   --muted: #f8fafc;
   --muted-foreground: #5b6b80;
-  --primary: #2563eb;
+  --primary: #0a6f8c;
   --radius: .5rem;
   --spacing: .25rem;
-  --success: #059669;
+  --success: #047857;
   --text-xl: 1.25rem;
   --text-xl--line-height: calc(1.75 / 1.25);
   --text-xs: .75rem;
@@ -21,12 +21,12 @@
 }
 
 .dark {
-  --background: #0a0c10;
-  --card: #0f1218;
+  --background: #080c0e;
+  --card: #0d1316;
   --elev-1: 0 1px 2px #0006, inset 0 1px 0 #ffffff0a;
-  --muted: #11141b;
-  --muted-foreground: #8b94a5;
-  --primary: #3b82f6;
+  --muted: #0f1518;
+  --muted-foreground: #8a979d;
+  --primary: #2fb1d1;
   --success: #10b981;
 }
 

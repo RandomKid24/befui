@@ -3,15 +3,15 @@
 /* Theme variables it reads (set them on :root, or .dark for dark mode) */
 :root {
   --font-weight-medium: 500;
-  --primary: #2563eb;
+  --primary: #0a6f8c;
   --primary-foreground: #fff;
   --radius: .5rem;
   --spacing: .25rem;
 }
 
 .dark {
-  --primary: #3b82f6;
-  --primary-foreground: #0a0c10;
+  --primary: #2fb1d1;
+  --primary-foreground: #071013;
 }
 
 /* Utility rules */

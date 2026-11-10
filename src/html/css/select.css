@@ -6,6 +6,7 @@
   --control-h: 2.25rem;
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  --destructive: #e11d48;
   --dur-spring: .4s;
   --ease-spring: linear(0, .4 8%, .85 20%, 1.06 32%, 1.02 46%, 1 60%, 1);
   --elev-3: 0 2px 4px #0f172a0d, 0 12px 24px -6px #0f172a1f, 0 4px 8px -4px #0f172a0f;
@@ -14,9 +15,9 @@
   --muted-foreground: #5b6b80;
   --popover: #fff;
   --popover-foreground: #0f172a;
-  --primary: #2563eb;
+  --primary: #0a6f8c;
   --radius: .5rem;
-  --ring: #3b82f6;
+  --ring: #1593b6;
   --secondary: #f1f5f9;
   --spacing: .25rem;
   --text-sm: .875rem;
@@ -25,14 +26,16 @@
 }
 
 .dark {
-  --background: #0a0c10;
+  --background: #080c0e;
+  --destructive: #f43f5e;
   --elev-3: 0 2px 4px #0006, 0 14px 28px -6px #0009, 0 4px 8px -4px #0006, inset 0 1px 0 #ffffff0f;
-  --input: #272d3a;
-  --muted-foreground: #8b94a5;
-  --popover: #0f1218;
-  --popover-foreground: #e6e9ef;
-  --primary: #3b82f6;
-  --secondary: #171b23;
+  --input: #253137;
+  --muted-foreground: #8a979d;
+  --popover: #0d1316;
+  --popover-foreground: #e6eaec;
+  --primary: #2fb1d1;
+  --ring: #1c9dbd;
+  --secondary: #151c20;
 }
 
 /* Utility rules */
@@ -208,25 +211,34 @@ box-shadow\] {
   }
 }
 
+.disabled\:cursor-not-allowed:disabled {
+  cursor: not-allowed;
+}
 .disabled\:opacity-50:disabled {
   opacity: .5;
 }
+.aria-\[invalid\=true\]\:border-destructive[aria-invalid=true] {
+  border-color: var(--destructive);
+}
+.aria-\[invalid\=true\]\:ring-destructive\/15[aria-invalid=true] {
+  --tw-ring-color: var(--destructive);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .aria-\[invalid\=true\]\:ring-destructive\/15[aria-invalid=true] {
+    --tw-ring-color: color-mix(in oklab, var(--destructive) 15%, transparent);
+  }
+}
+
 .data-\[disabled\]\:opacity-50[data-disabled] {
   opacity: .5;
 }
 .data-\[highlighted\]\:bg-secondary[data-highlighted] {
   background-color: var(--secondary);
 }
-.data-\[placeholder\]\:text-muted-foreground\/70[data-placeholder] {
+.data-\[placeholder\]\:text-muted-foreground[data-placeholder] {
   color: var(--muted-foreground);
 }
-
-@supports (color:color-mix(in lab,red,red)) {
-  .data-\[placeholder\]\:text-muted-foreground\/70[data-placeholder] {
-    color: color-mix(in oklab,var(--muted-foreground) 70%,transparent);
-  }
-}
-
 .\[\&\>span\]\:truncate>span {
   text-overflow: ellipsis;
   white-space: nowrap;

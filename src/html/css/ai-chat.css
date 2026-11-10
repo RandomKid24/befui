@@ -12,9 +12,9 @@
   --elev-2: 0 1px 2px #0f172a0d, 0 4px 8px -2px #0f172a12, 0 2px 4px -2px #0f172a0a;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
-  --primary: #2563eb;
+  --primary: #0a6f8c;
   --radius-2xl: 1rem;
-  --ring: #3b82f6;
+  --ring: #1593b6;
   --secondary: #f1f5f9;
   --spacing: .25rem;
   --text-lg: 1.125rem;
@@ -25,10 +25,11 @@
 }
 
 .dark {
-  --background: #0a0c10;
+  --background: #080c0e;
   --elev-2: 0 1px 2px #0006, 0 4px 10px -2px #00000073, inset 0 1px 0 #ffffff0d;
-  --primary: #3b82f6;
-  --secondary: #171b23;
+  --primary: #2fb1d1;
+  --ring: #1c9dbd;
+  --secondary: #151c20;
 }
 
 /* Utility rules */
@@ -228,8 +229,13 @@
   --tw-shadow: var(--elev-2);
   box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
 }
-.transition-all {
-  transition-property: all;
+.transition-\[color\,
+background-color\,
+border-color\,
+box-shadow\,
+transform\,
+opacity\] {
+  transition-property: color,background-color,border-color,box-shadow,transform,opacity;
   transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
   transition-duration: var(--tw-duration,var(--default-transition-duration));
 }
@@ -256,6 +262,12 @@
 @supports (color:color-mix(in lab,red,red)) {
   .focus-visible\:ring-ring\/50:focus-visible {
     --tw-ring-color: color-mix(in oklab, var(--ring) 50%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .motion-reduce\:scroll-auto {
+    scroll-behavior: auto;
   }
 }
 

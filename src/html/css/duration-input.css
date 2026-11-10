@@ -9,7 +9,7 @@
   --input: #e2e8f0;
   --muted-foreground: #5b6b80;
   --radius: .5rem;
-  --ring: #3b82f6;
+  --ring: #1593b6;
   --spacing: .25rem;
   --text-sm: .875rem;
   --text-sm--line-height: calc(1.25 / .875);
@@ -18,10 +18,11 @@
 }
 
 .dark {
-  --background: #0a0c10;
+  --background: #080c0e;
   --destructive: #f43f5e;
-  --input: #272d3a;
-  --muted-foreground: #8b94a5;
+  --input: #253137;
+  --muted-foreground: #8a979d;
+  --ring: #1c9dbd;
 }
 
 /* Utility rules */
@@ -78,14 +79,8 @@ box-shadow\] {
   --tw-outline-style: none;
   outline-style: none;
 }
-.placeholder\:text-muted-foreground\/70::placeholder {
+.placeholder\:text-muted-foreground::placeholder {
   color: var(--muted-foreground);
-}
-
-@supports (color:color-mix(in lab,red,red)) {
-  .placeholder\:text-muted-foreground\/70::placeholder {
-    color: color-mix(in oklab,var(--muted-foreground) 70%,transparent);
-  }
 }
 
 @media (hover:hover) {

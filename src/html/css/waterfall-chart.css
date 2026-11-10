@@ -6,23 +6,24 @@
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
   --destructive: #e11d48;
+  --dur-medium: .5s;
   --font-weight-medium: 500;
   --muted-foreground: #5b6b80;
   --popover: #fff;
   --popover-foreground: #0f172a;
-  --primary: #2563eb;
+  --primary: #0a6f8c;
   --radius: .5rem;
   --spacing: .25rem;
-  --success: #059669;
+  --success: #047857;
 }
 
 .dark {
-  --border: #1f2430;
+  --border: #1c262b;
   --destructive: #f43f5e;
-  --muted-foreground: #8b94a5;
-  --popover: #0f1218;
-  --popover-foreground: #e6e9ef;
-  --primary: #3b82f6;
+  --muted-foreground: #8a979d;
+  --popover: #0d1316;
+  --popover-foreground: #e6eaec;
+  --primary: #2fb1d1;
   --success: #10b981;
 }
 
@@ -176,9 +177,9 @@
   transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
   transition-duration: var(--tw-duration,var(--default-transition-duration));
 }
-.duration-500 {
-  --tw-duration: .5s;
-  transition-duration: .5s;
+.duration-\(--dur-medium\) {
+  --tw-duration: var(--dur-medium);
+  transition-duration: var(--dur-medium);
 }
 .ease-out {
   --tw-ease: cubic-bezier(.22, 1, .36, 1);

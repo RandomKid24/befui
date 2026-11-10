@@ -6,7 +6,7 @@
   --font-weight-medium: 500;
   --muted: #f8fafc;
   --muted-foreground: #5b6b80;
-  --primary: #2563eb;
+  --primary: #0a6f8c;
   --radius: .5rem;
   --spacing: .25rem;
   --text-xs: .75rem;
@@ -14,10 +14,10 @@
 }
 
 .dark {
-  --border: #1f2430;
-  --muted: #11141b;
-  --muted-foreground: #8b94a5;
-  --primary: #3b82f6;
+  --border: #1c262b;
+  --muted: #0f1518;
+  --muted-foreground: #8a979d;
+  --primary: #2fb1d1;
 }
 
 /* Utility rules */

@@ -16,9 +16,9 @@
   --muted-foreground: #5b6b80;
   --popover: #fff;
   --popover-foreground: #0f172a;
-  --primary: #2563eb;
+  --primary: #0a6f8c;
   --radius: .5rem;
-  --ring: #3b82f6;
+  --ring: #1593b6;
   --secondary: #f1f5f9;
   --spacing: .25rem;
   --text-sm: .875rem;
@@ -29,16 +29,17 @@
 }
 
 .dark {
-  --background: #0a0c10;
+  --background: #080c0e;
   --elev-1: 0 1px 2px #0006, inset 0 1px 0 #ffffff0a;
   --elev-3: 0 2px 4px #0006, 0 14px 28px -6px #0009, 0 4px 8px -4px #0006, inset 0 1px 0 #ffffff0f;
-  --foreground: #e6e9ef;
-  --input: #272d3a;
-  --muted-foreground: #8b94a5;
-  --popover: #0f1218;
-  --popover-foreground: #e6e9ef;
-  --primary: #3b82f6;
-  --secondary: #171b23;
+  --foreground: #e6eaec;
+  --input: #253137;
+  --muted-foreground: #8a979d;
+  --popover: #0d1316;
+  --popover-foreground: #e6eaec;
+  --primary: #2fb1d1;
+  --ring: #1c9dbd;
+  --secondary: #151c20;
 }
 
 /* Utility rules */
@@ -313,14 +314,8 @@ box-shadow\] {
 .group-data-\[variant\=underline\]\:pb-2\.5:is(:where(.group)[data-variant=underline] *) {
   padding-bottom: calc(var(--spacing) * 2.5);
 }
-.placeholder\:text-muted-foreground\/70::placeholder {
+.placeholder\:text-muted-foreground::placeholder {
   color: var(--muted-foreground);
-}
-
-@supports (color:color-mix(in lab,red,red)) {
-  .placeholder\:text-muted-foreground\/70::placeholder {
-    color: color-mix(in oklab,var(--muted-foreground) 70%,transparent);
-  }
 }
 
 @media (hover:hover) {

@@ -10,9 +10,9 @@
 }
 
 .dark {
-  --card: #0f1218;
-  --muted: #11141b;
-  --secondary: #171b23;
+  --card: #0d1316;
+  --muted: #0f1518;
+  --secondary: #151c20;
 }
 
 /* Utility rules */

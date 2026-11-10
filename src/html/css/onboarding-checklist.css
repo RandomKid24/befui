@@ -13,11 +13,11 @@
   --input: #e2e8f0;
   --muted: #f8fafc;
   --muted-foreground: #5b6b80;
-  --primary: #2563eb;
+  --primary: #0a6f8c;
   --radius: .5rem;
-  --ring: #3b82f6;
+  --ring: #1593b6;
   --spacing: .25rem;
-  --success: #059669;
+  --success: #047857;
   --text-sm: .875rem;
   --text-sm--line-height: calc(1.25 / .875);
   --text-xs: .75rem;
@@ -25,11 +25,12 @@
 }
 
 .dark {
-  --card: #0f1218;
-  --input: #272d3a;
-  --muted: #11141b;
-  --muted-foreground: #8b94a5;
-  --primary: #3b82f6;
+  --card: #0d1316;
+  --input: #253137;
+  --muted: #0f1518;
+  --muted-foreground: #8a979d;
+  --primary: #2fb1d1;
+  --ring: #1c9dbd;
   --success: #10b981;
 }
 
@@ -98,6 +99,9 @@
 }
 .rounded-full {
   border-radius: 3.40282e38px;
+}
+.rounded-sm {
+  border-radius: calc(var(--radius) - 2px);
 }
 .rounded-xl {
   border-radius: calc(var(--radius) + 6px);

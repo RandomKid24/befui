@@ -472,7 +472,7 @@ Want the circular reveal the docs site uses? It is a few lines around `document.
 |---|---|
 | `--dir <path>` | Target folder. Default `src` (or `.` if there is none) |
 | `--force` | Overwrite files that already exist (for `remove`: remove even if other files import it) |
-| `--theme <name>` | With `init`: write a ready palette (blue, indigo, violet, rose, red, emerald, teal, amber, orange, slate) into `index.css` |
+| `--theme <name>` | With `init`: write a ready palette (petrol, blue, indigo, violet, rose, red, emerald, teal, amber, orange, slate) into `index.css` |
 | `--no-install` | Print the npm packages instead of installing them |
 | `--from <folder or url>` | Read the registry from somewhere else. Also `BEFUI_URL` |
 

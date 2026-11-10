@@ -11,20 +11,21 @@
   --muted: #f8fafc;
   --muted-foreground: #5b6b80;
   --radius: .5rem;
-  --ring: #3b82f6;
+  --ring: #1593b6;
   --spacing: .25rem;
-  --success: #059669;
+  --success: #047857;
   --text-xs: .75rem;
   --text-xs--line-height: calc(1 / .75);
   --warning: #d97706;
 }
 
 .dark {
-  --background: #0a0c10;
-  --border: #1f2430;
+  --background: #080c0e;
+  --border: #1c262b;
   --destructive: #f43f5e;
-  --muted: #11141b;
-  --muted-foreground: #8b94a5;
+  --muted: #0f1518;
+  --muted-foreground: #8a979d;
+  --ring: #1c9dbd;
   --success: #10b981;
   --warning: #f59e0b;
 }

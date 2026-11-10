@@ -7,14 +7,15 @@
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
   --dur-fast: .15s;
   --radius: .5rem;
-  --ring: #3b82f6;
+  --ring: #1593b6;
   --spacing: .25rem;
   --text-sm: .875rem;
   --text-sm--line-height: calc(1.25 / .875);
 }
 
 .dark {
-  --background: #0a0c10;
+  --background: #080c0e;
+  --ring: #1c9dbd;
 }
 
 /* Utility rules */

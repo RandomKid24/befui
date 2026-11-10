@@ -2,16 +2,16 @@
 
 /* Theme variables it reads (set them on :root, or .dark for dark mode) */
 :root {
-  --accent: #eff6ff;
-  --accent-foreground: #1d4ed8;
+  --accent: #e4f4f8;
+  --accent-foreground: #0a5a72;
   --background: #fff;
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
   --input: #e2e8f0;
   --muted-foreground: #5b6b80;
-  --primary: #2563eb;
+  --primary: #0a6f8c;
   --radius: .5rem;
-  --ring: #3b82f6;
+  --ring: #1593b6;
   --secondary: #f1f5f9;
   --spacing: .25rem;
   --text-sm: .875rem;
@@ -19,13 +19,14 @@
 }
 
 .dark {
-  --accent: #14213d;
-  --accent-foreground: #93c5fd;
-  --background: #0a0c10;
-  --input: #272d3a;
-  --muted-foreground: #8b94a5;
-  --primary: #3b82f6;
-  --secondary: #171b23;
+  --accent: #0e2a33;
+  --accent-foreground: #8ad8ea;
+  --background: #080c0e;
+  --input: #253137;
+  --muted-foreground: #8a979d;
+  --primary: #2fb1d1;
+  --ring: #1c9dbd;
+  --secondary: #151c20;
 }
 
 /* Utility rules */
@@ -141,16 +142,6 @@
 .text-muted-foreground\/30 {
   color: var(--muted-foreground);
 }
-.text-muted-foreground\/70 {
-  color: var(--muted-foreground);
-}
-
-@supports (color:color-mix(in lab,red,red)) {
-  .text-muted-foreground\/70 {
-    color: color-mix(in oklab,var(--muted-foreground) 70%,transparent);
-  }
-}
-
 .text-primary {
   color: var(--primary);
 }

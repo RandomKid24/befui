@@ -13,7 +13,7 @@
   --muted-foreground: #5b6b80;
   --radius: .5rem;
   --spacing: .25rem;
-  --success: #059669;
+  --success: #047857;
   --text-sm: .875rem;
   --text-sm--line-height: calc(1.25 / .875);
   --text-xs: .75rem;
@@ -21,12 +21,12 @@
 }
 
 .dark {
-  --background: #0a0c10;
-  --card: #0f1218;
-  --card-foreground: #e6e9ef;
-  --foreground: #e6e9ef;
-  --muted: #11141b;
-  --muted-foreground: #8b94a5;
+  --background: #080c0e;
+  --card: #0d1316;
+  --card-foreground: #e6eaec;
+  --foreground: #e6eaec;
+  --muted: #0f1518;
+  --muted-foreground: #8a979d;
   --success: #10b981;
 }
 

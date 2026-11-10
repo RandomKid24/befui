@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest';
 import themes from '@/registry/themes.json';
 
 const TOKENS = ['primary', 'primary-foreground', 'accent', 'accent-foreground', 'ring'] as const;
-const NAMES = ['blue', 'indigo', 'violet', 'rose', 'red', 'emerald', 'teal', 'amber', 'orange', 'slate'];
+const NAMES = ['petrol', 'blue', 'indigo', 'violet', 'rose', 'red', 'emerald', 'teal', 'amber', 'orange', 'slate'];
 type Tokens = Record<(typeof TOKENS)[number], string>;
 const presets = themes as unknown as Record<string, { label: string; light: Tokens; dark: Tokens }>;
 
@@ -19,7 +19,7 @@ const contrast = (a: string, b: string) => {
 };
 
 describe('themes.json', () => {
-  it('has the ten presets in order, each with a label', () => {
+  it('has the eleven presets in order, each with a label', () => {
     expect(Object.keys(presets)).toEqual(NAMES);
     for (const name of NAMES) expect(presets[name].label.length).toBeGreaterThan(0);
   });
@@ -42,7 +42,7 @@ describe('themes.json', () => {
     expect(contrast(presets[name].dark.primary, '#0a0c10'), `${name} dark`).toBeGreaterThanOrEqual(4.5);
   });
 
-  it('blue is exactly what src/index.css ships', () => {
+  it('petrol is exactly what src/index.css ships', () => {
     const indexCss = readFileSync('src/index.css', 'utf8');
     const block = (selector: string) => {
       const start = indexCss.indexOf(selector);
@@ -50,6 +50,6 @@ describe('themes.json', () => {
     };
     const read = (css: string, token: string) => new RegExp(`--${token}:\\s*(#[0-9a-fA-F]{6})`).exec(css)?.[1].toLowerCase();
     for (const [mode, selector] of [['light', ':root, .light {'], ['dark', '.dark {']] as const)
-      for (const t of TOKENS) expect(presets.blue[mode][t].toLowerCase(), `${mode} ${t}`).toBe(read(block(selector), t));
+      for (const t of TOKENS) expect(presets.petrol[mode][t].toLowerCase(), `${mode} ${t}`).toBe(read(block(selector), t));
   });
 });

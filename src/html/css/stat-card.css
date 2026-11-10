@@ -7,7 +7,7 @@
   --font-weight-semibold: 600;
   --muted-foreground: #5b6b80;
   --spacing: .25rem;
-  --success: #059669;
+  --success: #047857;
   --text-2xl: 1.5rem;
   --text-2xl--line-height: calc(2 / 1.5);
   --text-xs: .75rem;
@@ -17,7 +17,7 @@
 
 .dark {
   --destructive: #f43f5e;
-  --muted-foreground: #8b94a5;
+  --muted-foreground: #8a979d;
   --success: #10b981;
 }
 

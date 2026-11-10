@@ -2,8 +2,8 @@
 
 /* Theme variables it reads (set them on :root, or .dark for dark mode) */
 :root {
-  --accent: #eff6ff;
-  --accent-foreground: #1d4ed8;
+  --accent: #e4f4f8;
+  --accent-foreground: #0a5a72;
   --background: #fff;
   --border: #e2e8f0;
   --default-transition-duration: .15s;
@@ -11,7 +11,7 @@
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --muted-foreground: #5b6b80;
-  --primary: #2563eb;
+  --primary: #0a6f8c;
   --primary-foreground: #fff;
   --spacing: .25rem;
   --text-xs: .75rem;
@@ -19,13 +19,13 @@
 }
 
 .dark {
-  --accent: #14213d;
-  --accent-foreground: #93c5fd;
-  --background: #0a0c10;
-  --border: #1f2430;
-  --muted-foreground: #8b94a5;
-  --primary: #3b82f6;
-  --primary-foreground: #0a0c10;
+  --accent: #0e2a33;
+  --accent-foreground: #8ad8ea;
+  --background: #080c0e;
+  --border: #1c262b;
+  --muted-foreground: #8a979d;
+  --primary: #2fb1d1;
+  --primary-foreground: #071013;
 }
 
 /* Utility rules */

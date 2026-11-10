@@ -35,6 +35,7 @@ const h2 = 'mt-12 mb-4 scroll-mt-20 text-xl font-semibold tracking-tight';
 /* ----------------------------------------------------------- getting started */
 
 const ACCENTS = [
+  { name: 'Petrol', value: '#0a6f8c', ring: '#1593b6', tint: '#e4f4f8', fg: '#0a5a72' },
   { name: 'Blue', value: '#2563eb', ring: '#3b82f6', tint: '#eff6ff', fg: '#1d4ed8' },
   { name: 'Violet', value: '#7c3aed', ring: '#8b5cf6', tint: '#f5f3ff', fg: '#6d28d9' },
   { name: 'Emerald', value: '#059669', ring: '#10b981', tint: '#ecfdf5', fg: '#047857' },
@@ -43,11 +44,11 @@ const ACCENTS = [
 ];
 
 function AccentPicker() {
-  const [active, setActive] = React.useState('Blue');
+  const [active, setActive] = React.useState('Petrol');
   const apply = (a: (typeof ACCENTS)[number]) => {
     setActive(a.name);
     const s = document.documentElement.style;
-    if (a.name === 'Blue') ['--primary', '--ring', '--accent', '--accent-foreground'].forEach((k) => s.removeProperty(k));
+    if (a.name === 'Petrol') ['--primary', '--ring', '--accent', '--accent-foreground'].forEach((k) => s.removeProperty(k));
     else {
       s.setProperty('--primary', a.value);
       s.setProperty('--ring', a.ring);
@@ -138,32 +139,38 @@ export function GettingStarted() {
 
 /* ------------------------------------------------------------ components */
 
+const thumb = (slug: string, mode: string) => `${import.meta.env.BASE_URL}thumbs/${slug}-${mode}.webp`;
+
 const ComponentCard = React.memo(function ComponentCard({ c }: { c: (typeof components)[number]; i?: number }) {
-  // no per-card observer or entrance animation: 199 of them made this page slow, and the browser skips drawing cards that are off screen
-  // The live example mounts only after the pointer rests on a card (or it gets keyboard focus) for a moment, one at a time.
-  const [peek, setPeek] = React.useState(false);
-  const timer = React.useRef<ReturnType<typeof setTimeout>>(undefined);
-  const arm = () => { clearTimeout(timer.current); timer.current = setTimeout(() => setPeek(true), 350); };
-  const disarm = () => { clearTimeout(timer.current); setPeek(false); };
+  // A static picture of the demo, made by scripts/gen-thumbs.mjs. Live demos in 270 cards made this page slow; lazy images cost nothing off screen.
   return (
-    <Link to={`/components/${c.slug}`} onMouseEnter={arm} onMouseLeave={disarm} onFocus={arm} onBlur={disarm} className={cn('group relative block h-full rounded-xl outline-none [contain-intrinsic-size:auto_96px] focus-visible:ring-2 focus-visible:ring-ring/50', peek ? 'z-20' : '[content-visibility:auto]')}>
-      <SpotlightCard className="h-full p-4 hover:translate-y-0">
-        <div className="flex items-center justify-between">
-          <p className="flex items-center gap-2 text-sm font-semibold">{c.name}{c.isNew && <Badge variant="primary">New</Badge>}</p>
-          <ArrowRightIcon className="size-4 text-muted-foreground/0 transition-[color,transform] group-hover:translate-x-0.5 group-hover:text-muted-foreground" />
+    <Link to={`/components/${c.slug}`} className="group block h-full rounded-xl outline-none [contain-intrinsic-size:auto_270px] [content-visibility:auto] focus-visible:ring-2 focus-visible:ring-ring/50">
+      <SpotlightCard className="h-full p-0 hover:translate-y-0">
+        <div className="aspect-[8/5] border-b bg-muted/40">
+          <img src={thumb(c.slug, 'light')} alt="" loading="lazy" width={896} height={560} className="size-full object-cover dark:hidden" />
+          <img src={thumb(c.slug, 'dark')} alt="" loading="lazy" width={896} height={560} className="hidden size-full object-cover dark:block" />
         </div>
-        <p className="mt-1 line-clamp-2 text-[13px] text-muted-foreground">{c.description}</p>
-      </SpotlightCard>
-      {peek && (
-        <div aria-hidden className="pointer-events-none absolute inset-x-2 top-full z-20 mt-1 h-44 animate-pop overflow-hidden rounded-xl border bg-card shadow-lg">
-          <div className="grid h-[200%] w-[200%] origin-top-left scale-50 place-items-center p-6">
-            <React.Suspense fallback={<div className="h-16 w-1/2 animate-pulse rounded-lg bg-muted/60" />}><c.Demo /></React.Suspense>
+        <div className="p-4">
+          <div className="flex items-center justify-between">
+            <p className="flex items-center gap-2 text-sm font-semibold">{c.name}{c.isNew && <Badge variant="primary">New</Badge>}</p>
+            <ArrowRightIcon className="size-4 text-muted-foreground/0 transition-[color,transform] group-hover:translate-x-0.5 group-hover:text-muted-foreground" />
           </div>
+          <p className="mt-1 line-clamp-2 text-[13px] text-muted-foreground">{c.description}</p>
         </div>
-      )}
+      </SpotlightCard>
     </Link>
   );
 });
+
+/** One demo on a bare page, photographed by scripts/gen-thumbs.mjs for the index cards. */
+export function Thumb({ slug }: { slug: string }) {
+  const c = components.find((x) => x.slug === slug);
+  return (
+    <div className="grid h-screen place-items-center overflow-hidden bg-card p-5" data-thumb={slug} data-missing={c ? undefined : ''}>
+      {c && <React.Suspense fallback={null}><div className="grid w-full max-w-lg justify-items-center [&>*]:max-w-full" data-ready><c.Demo /></div></React.Suspense>}
+    </div>
+  );
+}
 
 export function ComponentsIndex() {
   const [q, setQ] = React.useState('');

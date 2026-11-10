@@ -12,6 +12,7 @@ const ComponentPage = named(pages, 'ComponentPage');
 const BlocksIndex = named(pages, 'BlocksIndex');
 const BlockPage = named(pages, 'BlockPage');
 const NotFound = named(pages, 'NotFound');
+const Thumb = named(pages, 'Thumb');
 const DashboardsIndex = named(pages, 'DashboardsIndex');
 const DashboardPage = named(pages, 'DashboardPage');
 const IconsPage = named(() => import('@/site/icons-page'), 'IconsPage');
@@ -36,6 +37,9 @@ export default function App() {
   }, []);
   const [, section, slug] = path.split('/');
   const home = path === '/';
+
+  // bare demo for scripts/gen-thumbs.mjs to photograph, no site chrome
+  if (section === 'thumb') return <React.Suspense fallback={null}><Thumb slug={slug} /></React.Suspense>;
 
   let page;
   if (home) page = <Home />;

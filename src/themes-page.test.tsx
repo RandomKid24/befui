@@ -18,7 +18,7 @@ it('themeCss writes a light block and a dark block with every token', () => {
 
 it('shows one card per preset with its install command', () => {
   render(<ThemesPage />);
-  expect(screen.getAllByRole('button', { name: /^Apply .* theme$/ })).toHaveLength(10);
+  expect(screen.getAllByRole('button', { name: /^Apply .* theme$/ })).toHaveLength(11);
   expect(screen.getByText(/init --theme rose/)).toBeInTheDocument();
 });
 

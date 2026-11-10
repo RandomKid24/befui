@@ -3,7 +3,7 @@
 /* Theme variables it reads (set them on :root, or .dark for dark mode) */
 :root {
   --destructive: #e11d48;
-  --success: #059669;
+  --success: #047857;
 }
 
 .dark {

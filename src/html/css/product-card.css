@@ -9,14 +9,15 @@
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
   --destructive: #e11d48;
+  --dur-medium: .5s;
   --elev-1: 0 1px 2px #0f172a0a, 0 1px 1px #0f172a08;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --muted: #f8fafc;
   --muted-foreground: #5b6b80;
-  --primary: #2563eb;
+  --primary: #0a6f8c;
   --radius: .5rem;
-  --ring: #3b82f6;
+  --ring: #1593b6;
   --spacing: .25rem;
   --text-sm: .875rem;
   --text-sm--line-height: calc(1.25 / .875);
@@ -26,14 +27,15 @@
 }
 
 .dark {
-  --background: #0a0c10;
-  --card: #0f1218;
-  --card-foreground: #e6e9ef;
+  --background: #080c0e;
+  --card: #0d1316;
+  --card-foreground: #e6eaec;
   --destructive: #f43f5e;
   --elev-1: 0 1px 2px #0006, inset 0 1px 0 #ffffff0a;
-  --muted: #11141b;
-  --muted-foreground: #8b94a5;
-  --primary: #3b82f6;
+  --muted: #0f1518;
+  --muted-foreground: #8a979d;
+  --primary: #2fb1d1;
+  --ring: #1c9dbd;
 }
 
 /* Utility rules */
@@ -225,9 +227,9 @@
   transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
   transition-duration: var(--tw-duration,var(--default-transition-duration));
 }
-.duration-500 {
-  --tw-duration: .5s;
-  transition-duration: .5s;
+.duration-\(--dur-medium\) {
+  --tw-duration: var(--dur-medium);
+  transition-duration: var(--dur-medium);
 }
 .outline-none {
   --tw-outline-style: none;

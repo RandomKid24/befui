@@ -9,16 +9,16 @@
   --muted-foreground: #5b6b80;
   --secondary: #f1f5f9;
   --spacing: .25rem;
-  --success: #059669;
+  --success: #047857;
   --warning: #d97706;
 }
 
 .dark {
-  --border: #1f2430;
+  --border: #1c262b;
   --destructive: #f43f5e;
   --info: #60a5fa;
-  --muted-foreground: #8b94a5;
-  --secondary: #171b23;
+  --muted-foreground: #8a979d;
+  --secondary: #151c20;
   --success: #10b981;
   --warning: #f59e0b;
 }

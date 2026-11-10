@@ -5,17 +5,18 @@
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
   --destructive: #e11d48;
-  --primary: #2563eb;
+  --dur-medium: .5s;
+  --primary: #0a6f8c;
   --secondary: #f1f5f9;
   --spacing: .25rem;
-  --success: #059669;
+  --success: #047857;
   --warning: #d97706;
 }
 
 .dark {
   --destructive: #f43f5e;
-  --primary: #3b82f6;
-  --secondary: #171b23;
+  --primary: #2fb1d1;
+  --secondary: #151c20;
   --success: #10b981;
   --warning: #f59e0b;
 }
@@ -62,9 +63,9 @@
   transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
   transition-duration: var(--tw-duration,var(--default-transition-duration));
 }
-.duration-500 {
-  --tw-duration: .5s;
-  transition-duration: .5s;
+.duration-\(--dur-medium\) {
+  --tw-duration: var(--dur-medium);
+  transition-duration: var(--dur-medium);
 }
 .ease-out {
   --tw-ease: cubic-bezier(.22, 1, .36, 1);

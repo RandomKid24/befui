@@ -12,19 +12,20 @@
   --foreground: #0f172a;
   --muted-foreground: #5b6b80;
   --radius: .5rem;
-  --ring: #3b82f6;
+  --ring: #1593b6;
   --spacing: .25rem;
   --text-xs: .75rem;
   --text-xs--line-height: calc(1 / .75);
 }
 
 .dark {
-  --background: #0a0c10;
-  --border: #1f2430;
-  --card: #0f1218;
+  --background: #080c0e;
+  --border: #1c262b;
+  --card: #0d1316;
   --elev-1: 0 1px 2px #0006, inset 0 1px 0 #ffffff0a;
-  --foreground: #e6e9ef;
-  --muted-foreground: #8b94a5;
+  --foreground: #e6eaec;
+  --muted-foreground: #8a979d;
+  --ring: #1c9dbd;
 }
 
 /* Utility rules */

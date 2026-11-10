@@ -8,19 +8,20 @@
   --elev-1: 0 1px 2px #0f172a0a, 0 1px 1px #0f172a08;
   --font-weight-medium: 500;
   --foreground: #0f172a;
-  --primary: #2563eb;
+  --primary: #0a6f8c;
   --radius: .5rem;
-  --ring: #3b82f6;
+  --ring: #1593b6;
   --secondary: #f1f5f9;
   --spacing: .25rem;
 }
 
 .dark {
-  --background: #0a0c10;
+  --background: #080c0e;
   --elev-1: 0 1px 2px #0006, inset 0 1px 0 #ffffff0a;
-  --foreground: #e6e9ef;
-  --primary: #3b82f6;
-  --secondary: #171b23;
+  --foreground: #e6eaec;
+  --primary: #2fb1d1;
+  --ring: #1c9dbd;
+  --secondary: #151c20;
 }
 
 /* Utility rules */

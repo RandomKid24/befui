@@ -6,14 +6,14 @@
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
   --dur-base: .25s;
   --font-weight-medium: 500;
-  --primary: #2563eb;
+  --primary: #0a6f8c;
   --primary-foreground: #fff;
   --spacing: .25rem;
 }
 
 .dark {
-  --primary: #3b82f6;
-  --primary-foreground: #0a0c10;
+  --primary: #2fb1d1;
+  --primary-foreground: #071013;
 }
 
 /* Utility rules */

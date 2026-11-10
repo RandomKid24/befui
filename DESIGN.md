@@ -13,35 +13,35 @@ How befui looks and why. Read this before adding a component, a variant or a pag
 
 ## Colour
 
-Tokens live in `src/index.css` (`:root` for light, `.dark` for dark). Ten ready palettes are in `src/registry/themes.json` and on the Themes page.
+Tokens live in `src/index.css` (`:root` for light, `.dark` for dark). Eleven ready palettes are in `src/registry/themes.json` and on the Themes page.
 
 | Token | Light | Dark | Used for |
 |---|---|---|---|
-| `--background` | `#ffffff` | `#0a0c10` | page |
-| `--foreground` | `#0f172a` | `#e6e9ef` | text |
-| `--card` | `#ffffff` | `#0f1218` | raised surfaces |
-| `--primary` | `#2563eb` | `#3b82f6` | the one accent: buttons, links, focus, active |
-| `--secondary` | `#f1f5f9` | `#171b23` | quiet fills, hover |
-| `--muted` / `--muted-foreground` | `#f8fafc` / `#5b6b80` | `#11141b` / `#8b94a5` | backgrounds and secondary text |
-| `--accent` | `#eff6ff` | `#14213d` | selected rows, soft highlights |
-| `--border` / `--input` | `#e2e8f0` | `#1f2430` / `#272d3a` | hairlines and field borders |
-| `--ring` | `#3b82f6` | `#3b82f6` | focus ring |
+| `--background` | `#ffffff` | `#080c0e` | page |
+| `--foreground` | `#0f172a` | `#e6eaec` | text |
+| `--card` | `#ffffff` | `#0d1316` | raised surfaces |
+| `--primary` | `#0a6f8c` | `#2fb1d1` | the one accent: buttons, links, focus, active |
+| `--secondary` | `#f1f5f9` | `#151c20` | quiet fills, hover |
+| `--muted` / `--muted-foreground` | `#f8fafc` / `#5b6b80` | `#0f1518` / `#8a979d` | backgrounds and secondary text |
+| `--accent` | `#e4f4f8` | `#0e2a33` | selected rows, soft highlights |
+| `--border` / `--input` | `#e2e8f0` | `#1c262b` / `#253137` | hairlines and field borders |
+| `--ring` | `#1593b6` | `#1c9dbd` | focus ring |
 | `--destructive` / `--success` / `--warning` / `--info` | rose, emerald, amber, blue | brighter | status |
 
 Full token list (from `src/index.css`):
 
 | Token | Light | Dark |
 |---|---|---|
-| `--primary-foreground` | `#ffffff` | `#0a0c10` |
-| `--card-foreground` / `--popover` / `--popover-foreground` | `#ffffff`, `#0f172a` | `#0f1218`, `#e6e9ef` |
-| `--secondary-foreground` | `#0f172a` | `#e6e9ef` |
-| `--accent-foreground` | `#1d4ed8` | `#93c5fd` |
+| `--primary-foreground` | `#ffffff` | `#071013` |
+| `--card-foreground` / `--popover` / `--popover-foreground` | `#ffffff`, `#0f172a` | `#0d1316`, `#e6eaec` |
+| `--secondary-foreground` | `#0f172a` | `#e6eaec` |
+| `--accent-foreground` | `#0a5a72` | `#8ad8ea` |
 | `--destructive` | `#e11d48` | `#f43f5e` |
 | `--success` | `#059669` | `#10b981` |
 | `--warning` | `#d97706` | `#f59e0b` |
 | `--info` | `#2563eb` | `#60a5fa` |
 
-The blue family is Tailwind blue: 50 `#eff6ff` (accent), 300 `#93c5fd`, 400 `#60a5fa`, 500 `#3b82f6` (ring, dark primary), 600 `#2563eb` (primary), 700 `#1d4ed8`. Neutrals are slate, with a slightly blue-black in dark (`#0a0c10`, `#0f1218`, `#171b23`).
+The primary is petrol, befui's own colour, not a Tailwind scale: `#0a6f8c` (light primary), `#2fb1d1` (dark primary), `#e4f4f8` and `#0e2a33` (accent), `#1593b6` and `#1c9dbd` (ring). Status blue (`--info`) stays separate from it. Light neutrals are slate; dark neutrals are an ink tinted toward the primary (`#080c0e`, `#0d1316`, `#151c20`).
 
 Rules: text on `--primary` is `--primary-foreground`; status colours always come with an icon or label, never colour alone; primary text on the page background must pass 4.5:1 (the tests check this for every palette).
 

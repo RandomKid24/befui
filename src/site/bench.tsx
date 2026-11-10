@@ -10,7 +10,7 @@ const DENSITIES: { value: Density; label: string; px: string }[] = [
   { value: 'default', label: 'Default', px: '2.25rem' },
   { value: 'comfortable', label: 'Roomy', px: '2.5rem' },
 ];
-const DEFAULT_THEME = 'blue';
+const DEFAULT_THEME = 'petrol';
 const DEFAULT_RADIUS = 8;
 
 const root = () => document.documentElement;

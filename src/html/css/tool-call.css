@@ -11,11 +11,11 @@
   --font-weight-medium: 500;
   --muted: #f8fafc;
   --muted-foreground: #5b6b80;
-  --primary: #2563eb;
+  --primary: #0a6f8c;
   --radius: .5rem;
   --secondary: #f1f5f9;
   --spacing: .25rem;
-  --success: #059669;
+  --success: #047857;
   --text-sm: .875rem;
   --text-sm--line-height: calc(1.25 / .875);
   --text-xs: .75rem;
@@ -24,12 +24,12 @@
 }
 
 .dark {
-  --card: #0f1218;
+  --card: #0d1316;
   --destructive: #f43f5e;
-  --muted: #11141b;
-  --muted-foreground: #8b94a5;
-  --primary: #3b82f6;
-  --secondary: #171b23;
+  --muted: #0f1518;
+  --muted-foreground: #8a979d;
+  --primary: #2fb1d1;
+  --secondary: #151c20;
   --success: #10b981;
 }
 

@@ -4,11 +4,12 @@
 :root {
   --card: #fff;
   --radius: .5rem;
-  --ring: #3b82f6;
+  --ring: #1593b6;
 }
 
 .dark {
-  --card: #0f1218;
+  --card: #0d1316;
+  --ring: #1c9dbd;
 }
 
 /* Utility rules */

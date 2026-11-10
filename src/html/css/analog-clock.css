@@ -6,15 +6,15 @@
   --card: #fff;
   --foreground: #0f172a;
   --muted-foreground: #5b6b80;
-  --primary: #2563eb;
+  --primary: #0a6f8c;
 }
 
 .dark {
-  --border: #1f2430;
-  --card: #0f1218;
-  --foreground: #e6e9ef;
-  --muted-foreground: #8b94a5;
-  --primary: #3b82f6;
+  --border: #1c262b;
+  --card: #0d1316;
+  --foreground: #e6eaec;
+  --muted-foreground: #8a979d;
+  --primary: #2fb1d1;
 }
 
 /* Utility rules */

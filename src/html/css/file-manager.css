@@ -2,30 +2,31 @@
 
 /* Theme variables it reads (set them on :root, or .dark for dark mode) */
 :root {
-  --accent: #eff6ff;
+  --accent: #e4f4f8;
   --card: #fff;
   --font-weight-medium: 500;
   --foreground: #0f172a;
   --muted: #f8fafc;
   --muted-foreground: #5b6b80;
-  --primary: #2563eb;
+  --primary: #0a6f8c;
   --radius: .5rem;
-  --ring: #3b82f6;
+  --ring: #1593b6;
   --secondary: #f1f5f9;
   --spacing: .25rem;
-  --success: #059669;
+  --success: #047857;
   --text-xs: .75rem;
   --text-xs--line-height: calc(1 / .75);
 }
 
 .dark {
-  --accent: #14213d;
-  --card: #0f1218;
-  --foreground: #e6e9ef;
-  --muted: #11141b;
-  --muted-foreground: #8b94a5;
-  --primary: #3b82f6;
-  --secondary: #171b23;
+  --accent: #0e2a33;
+  --card: #0d1316;
+  --foreground: #e6eaec;
+  --muted: #0f1518;
+  --muted-foreground: #8a979d;
+  --primary: #2fb1d1;
+  --ring: #1c9dbd;
+  --secondary: #151c20;
   --success: #10b981;
 }
 

@@ -2,12 +2,12 @@
 
 /* Theme variables it reads (set them on :root, or .dark for dark mode) */
 :root {
-  --primary: #2563eb;
+  --primary: #0a6f8c;
   --spacing: .25rem;
 }
 
 .dark {
-  --primary: #3b82f6;
+  --primary: #2fb1d1;
 }
 
 /* Utility rules */

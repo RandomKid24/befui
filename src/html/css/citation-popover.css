@@ -9,7 +9,7 @@
   --leading-relaxed: 1.625;
   --leading-snug: 1.375;
   --muted-foreground: #5b6b80;
-  --primary: #2563eb;
+  --primary: #0a6f8c;
   --primary-foreground: #fff;
   --spacing: .25rem;
   --text-xs: .75rem;
@@ -17,9 +17,9 @@
 }
 
 .dark {
-  --muted-foreground: #8b94a5;
-  --primary: #3b82f6;
-  --primary-foreground: #0a0c10;
+  --muted-foreground: #8a979d;
+  --primary: #2fb1d1;
+  --primary-foreground: #071013;
 }
 
 /* Utility rules */

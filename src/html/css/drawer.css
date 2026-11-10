@@ -16,8 +16,8 @@
 
 .dark {
   --elev-3: 0 2px 4px #0006, 0 14px 28px -6px #0009, 0 4px 8px -4px #0006, inset 0 1px 0 #ffffff0f;
-  --muted-foreground: #8b94a5;
-  --popover: #0f1218;
+  --muted-foreground: #8a979d;
+  --popover: #0d1316;
 }
 
 /* Utility rules */

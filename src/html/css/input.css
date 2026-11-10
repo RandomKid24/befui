@@ -9,19 +9,22 @@
   --destructive: #e11d48;
   --input: #e2e8f0;
   --leading-relaxed: 1.625;
+  --muted: #f8fafc;
   --muted-foreground: #5b6b80;
   --radius: .5rem;
-  --ring: #3b82f6;
+  --ring: #1593b6;
   --spacing: .25rem;
   --text-sm: .875rem;
   --text-sm--line-height: calc(1.25 / .875);
 }
 
 .dark {
-  --background: #0a0c10;
+  --background: #080c0e;
   --destructive: #f43f5e;
-  --input: #272d3a;
-  --muted-foreground: #8b94a5;
+  --input: #253137;
+  --muted: #0f1518;
+  --muted-foreground: #8a979d;
+  --ring: #1c9dbd;
 }
 
 /* Utility rules */
@@ -42,6 +45,10 @@
 }
 .flex {
   display: flex;
+}
+.size-4 {
+  width: calc(var(--spacing) * 4);
+  height: calc(var(--spacing) * 4);
 }
 .h-\(--control-h\) {
   height: var(--control-h);
@@ -107,13 +114,16 @@ box-shadow\] {
   --tw-outline-style: none;
   outline-style: none;
 }
-.placeholder\:text-muted-foreground\/70::placeholder {
+.placeholder\:text-muted-foreground::placeholder {
   color: var(--muted-foreground);
+}
+.read-only\:bg-muted\/40:read-only {
+  background-color: var(--muted);
 }
 
 @supports (color:color-mix(in lab,red,red)) {
-  .placeholder\:text-muted-foreground\/70::placeholder {
-    color: color-mix(in oklab,var(--muted-foreground) 70%,transparent);
+  .read-only\:bg-muted\/40:read-only {
+    background-color: color-mix(in oklab,var(--muted) 40%,transparent);
   }
 }
 

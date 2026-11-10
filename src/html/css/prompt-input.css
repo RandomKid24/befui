@@ -7,10 +7,10 @@
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
   --elev-1: 0 1px 2px #0f172a0a, 0 1px 1px #0f172a08;
   --muted-foreground: #5b6b80;
-  --primary: #2563eb;
+  --primary: #0a6f8c;
   --primary-foreground: #fff;
   --radius-2xl: 1rem;
-  --ring: #3b82f6;
+  --ring: #1593b6;
   --secondary: #f1f5f9;
   --spacing: .25rem;
   --text-sm: .875rem;
@@ -20,12 +20,13 @@
 }
 
 .dark {
-  --card: #0f1218;
+  --card: #0d1316;
   --elev-1: 0 1px 2px #0006, inset 0 1px 0 #ffffff0a;
-  --muted-foreground: #8b94a5;
-  --primary: #3b82f6;
-  --primary-foreground: #0a0c10;
-  --secondary: #171b23;
+  --muted-foreground: #8a979d;
+  --primary: #2fb1d1;
+  --primary-foreground: #071013;
+  --ring: #1c9dbd;
+  --secondary: #151c20;
 }
 
 /* Utility rules */
@@ -155,8 +156,13 @@ box-shadow\] {
   transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
   transition-duration: var(--tw-duration,var(--default-transition-duration));
 }
-.transition-all {
-  transition-property: all;
+.transition-\[color\,
+background-color\,
+border-color\,
+box-shadow\,
+transform\,
+opacity\] {
+  transition-property: color,background-color,border-color,box-shadow,transform,opacity;
   transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
   transition-duration: var(--tw-duration,var(--default-transition-duration));
 }
@@ -164,8 +170,7 @@ box-shadow\] {
   --tw-outline-style: none;
   outline-style: none;
 }
-.placeholder\:text-muted-foreground::placeholder,
-.placeholder\:text-muted-foreground\/60::placeholder {
+.placeholder\:text-muted-foreground::placeholder {
   color: var(--muted-foreground);
 }
 .focus-within\:border-ring:focus-within {

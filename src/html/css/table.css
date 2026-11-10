@@ -2,7 +2,7 @@
 
 /* Theme variables it reads (set them on :root, or .dark for dark mode) */
 :root {
-  --accent: #eff6ff;
+  --accent: #e4f4f8;
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
   --font-weight-medium: 500;
@@ -15,9 +15,9 @@
 }
 
 .dark {
-  --accent: #14213d;
-  --muted: #11141b;
-  --muted-foreground: #8b94a5;
+  --accent: #0e2a33;
+  --muted: #0f1518;
+  --muted-foreground: #8a979d;
 }
 
 /* Utility rules */

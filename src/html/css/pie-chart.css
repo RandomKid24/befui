@@ -7,19 +7,19 @@
   --font-weight-semibold: 600;
   --info: #2563eb;
   --muted-foreground: #5b6b80;
-  --primary: #2563eb;
+  --primary: #0a6f8c;
   --primary-foreground: #fff;
   --spacing: .25rem;
-  --success: #059669;
+  --success: #047857;
   --warning: #d97706;
 }
 
 .dark {
   --destructive: #f43f5e;
   --info: #60a5fa;
-  --muted-foreground: #8b94a5;
-  --primary: #3b82f6;
-  --primary-foreground: #0a0c10;
+  --muted-foreground: #8a979d;
+  --primary: #2fb1d1;
+  --primary-foreground: #071013;
   --success: #10b981;
   --warning: #f59e0b;
 }

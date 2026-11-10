@@ -8,7 +8,7 @@
   --font-weight-medium: 500;
   --muted: #f8fafc;
   --muted-foreground: #5b6b80;
-  --primary: #2563eb;
+  --primary: #0a6f8c;
   --radius: .5rem;
   --secondary: #f1f5f9;
   --spacing: .25rem;
@@ -19,13 +19,13 @@
 }
 
 .dark {
-  --background: #0a0c10;
-  --card: #0f1218;
+  --background: #080c0e;
+  --card: #0d1316;
   --elev-1: 0 1px 2px #0006, inset 0 1px 0 #ffffff0a;
-  --muted: #11141b;
-  --muted-foreground: #8b94a5;
-  --primary: #3b82f6;
-  --secondary: #171b23;
+  --muted: #0f1518;
+  --muted-foreground: #8a979d;
+  --primary: #2fb1d1;
+  --secondary: #151c20;
 }
 
 /* Utility rules */
@@ -260,14 +260,8 @@
 .group-data-\[variant\=underline\]\:pb-2\.5:is(:where(.group)[data-variant=underline] *) {
   padding-bottom: calc(var(--spacing) * 2.5);
 }
-.placeholder\:text-muted-foreground\/70::placeholder {
+.placeholder\:text-muted-foreground::placeholder {
   color: var(--muted-foreground);
-}
-
-@supports (color:color-mix(in lab,red,red)) {
-  .placeholder\:text-muted-foreground\/70::placeholder {
-    color: color-mix(in oklab,var(--muted-foreground) 70%,transparent);
-  }
 }
 
 @media (hover:hover) {

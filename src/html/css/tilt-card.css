@@ -8,16 +8,16 @@
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
   --dur-base: .25s;
   --elev-1: 0 1px 2px #0f172a0a, 0 1px 1px #0f172a08;
-  --primary: #2563eb;
+  --primary: #0a6f8c;
   --radius: .5rem;
   --spacing: .25rem;
 }
 
 .dark {
-  --background: #0a0c10;
-  --card: #0f1218;
+  --background: #080c0e;
+  --card: #0d1316;
   --elev-1: 0 1px 2px #0006, inset 0 1px 0 #ffffff0a;
-  --primary: #3b82f6;
+  --primary: #2fb1d1;
 }
 
 /* Utility rules */

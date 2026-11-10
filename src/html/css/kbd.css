@@ -9,8 +9,8 @@
 }
 
 .dark {
-  --muted: #11141b;
-  --muted-foreground: #8b94a5;
+  --muted: #0f1518;
+  --muted-foreground: #8a979d;
 }
 
 /* Utility rules */

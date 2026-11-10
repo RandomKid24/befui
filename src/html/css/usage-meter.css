@@ -9,7 +9,7 @@
   --font-weight-medium: 500;
   --foreground: #0f172a;
   --muted-foreground: #5b6b80;
-  --primary: #2563eb;
+  --primary: #0a6f8c;
   --secondary: #f1f5f9;
   --spacing: .25rem;
   --text-sm: .875rem;
@@ -21,10 +21,10 @@
 
 .dark {
   --destructive: #f43f5e;
-  --foreground: #e6e9ef;
-  --muted-foreground: #8b94a5;
-  --primary: #3b82f6;
-  --secondary: #171b23;
+  --foreground: #e6eaec;
+  --muted-foreground: #8a979d;
+  --primary: #2fb1d1;
+  --secondary: #151c20;
   --warning: #f59e0b;
 }
 

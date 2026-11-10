@@ -4,12 +4,12 @@
 :root {
   --animate-pulse: pulse 2s cubic-bezier(.4, 0, .6, 1) infinite;
   --ease-out: cubic-bezier(.22, 1, .36, 1);
-  --primary: #2563eb;
+  --primary: #0a6f8c;
   --spacing: .25rem;
 }
 
 .dark {
-  --primary: #3b82f6;
+  --primary: #2fb1d1;
 }
 
 /* Utility rules */

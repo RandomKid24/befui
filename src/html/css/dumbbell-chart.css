@@ -12,17 +12,17 @@
   --muted-foreground: #5b6b80;
   --radius: .5rem;
   --spacing: .25rem;
-  --success: #059669;
+  --success: #047857;
   --text-xs: .75rem;
   --text-xs--line-height: calc(1 / .75);
 }
 
 .dark {
-  --background: #0a0c10;
-  --border: #1f2430;
+  --background: #080c0e;
+  --border: #1c262b;
   --destructive: #f43f5e;
-  --foreground: #e6e9ef;
-  --muted-foreground: #8b94a5;
+  --foreground: #e6eaec;
+  --muted-foreground: #8a979d;
   --success: #10b981;
 }
 

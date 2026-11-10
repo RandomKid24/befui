@@ -4,18 +4,19 @@
 :root {
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  --dur-long: 1s;
   --font-weight-semibold: 600;
   --foreground: #0f172a;
-  --primary: #2563eb;
+  --primary: #0a6f8c;
   --secondary: #f1f5f9;
   --text-lg: 1.125rem;
   --text-lg--line-height: calc(1.75 / 1.125);
 }
 
 .dark {
-  --foreground: #e6e9ef;
-  --primary: #3b82f6;
-  --secondary: #171b23;
+  --foreground: #e6eaec;
+  --primary: #2fb1d1;
+  --secondary: #151c20;
 }
 
 /* Utility rules */
@@ -61,9 +62,9 @@
   transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
   transition-duration: var(--tw-duration,var(--default-transition-duration));
 }
-.duration-1000 {
-  --tw-duration: 1s;
-  transition-duration: 1s;
+.duration-\(--dur-long\) {
+  --tw-duration: var(--dur-long);
+  transition-duration: var(--dur-long);
 }
 .ease-\[cubic-bezier\(0\.22\,
 1\,

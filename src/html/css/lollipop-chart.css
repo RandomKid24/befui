@@ -6,7 +6,7 @@
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
   --dur-base: .25s;
   --font-weight-medium: 500;
-  --primary: #2563eb;
+  --primary: #0a6f8c;
   --radius: .5rem;
   --spacing: .25rem;
   --text-xs: .75rem;
@@ -14,7 +14,7 @@
 }
 
 .dark {
-  --primary: #3b82f6;
+  --primary: #2fb1d1;
 }
 
 /* Utility rules */

@@ -7,14 +7,14 @@
   --info: #2563eb;
   --muted-foreground: #5b6b80;
   --spacing: .25rem;
-  --success: #059669;
+  --success: #047857;
   --warning: #d97706;
 }
 
 .dark {
   --destructive: #f43f5e;
   --info: #60a5fa;
-  --muted-foreground: #8b94a5;
+  --muted-foreground: #8a979d;
   --success: #10b981;
   --warning: #f59e0b;
 }

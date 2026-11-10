@@ -7,7 +7,7 @@
   --muted-foreground: #5b6b80;
   --radius: .5rem;
   --spacing: .25rem;
-  --success: #059669;
+  --success: #047857;
   --text-4xl: 2.25rem;
   --text-4xl--line-height: calc(2.5 / 2.25);
   --text-sm: .875rem;
@@ -16,8 +16,8 @@
 }
 
 .dark {
-  --card: #0f1218;
-  --muted-foreground: #8b94a5;
+  --card: #0d1316;
+  --muted-foreground: #8a979d;
   --success: #10b981;
 }
 

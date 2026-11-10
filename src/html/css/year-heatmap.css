@@ -5,12 +5,13 @@
   --background: #fff;
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  --dur-medium: .5s;
   --elev-1: 0 1px 2px #0f172a0a, 0 1px 1px #0f172a08;
   --font-weight-semibold: 600;
   --muted-foreground: #5b6b80;
-  --primary: #2563eb;
+  --primary: #0a6f8c;
   --radius: .5rem;
-  --ring: #3b82f6;
+  --ring: #1593b6;
   --secondary: #f1f5f9;
   --spacing: .25rem;
   --text-sm: .875rem;
@@ -18,11 +19,12 @@
 }
 
 .dark {
-  --background: #0a0c10;
+  --background: #080c0e;
   --elev-1: 0 1px 2px #0006, inset 0 1px 0 #ffffff0a;
-  --muted-foreground: #8b94a5;
-  --primary: #3b82f6;
-  --secondary: #171b23;
+  --muted-foreground: #8a979d;
+  --primary: #2fb1d1;
+  --ring: #1c9dbd;
+  --secondary: #151c20;
 }
 
 /* Utility rules */
@@ -145,9 +147,9 @@
   transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
   transition-duration: var(--tw-duration,var(--default-transition-duration));
 }
-.duration-500 {
-  --tw-duration: .5s;
-  transition-duration: .5s;
+.duration-\(--dur-medium\) {
+  --tw-duration: var(--dur-medium);
+  transition-duration: var(--dur-medium);
 }
 .outline-none {
   --tw-outline-style: none;

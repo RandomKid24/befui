@@ -9,7 +9,7 @@
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
   --elev-3: 0 2px 4px #0f172a0d, 0 12px 24px -6px #0f172a1f, 0 4px 8px -4px #0f172a0f;
   --radius: .5rem;
-  --ring: #3b82f6;
+  --ring: #1593b6;
   --spacing: .25rem;
   --text-xs: .75rem;
   --text-xs--line-height: calc(1 / .75);
@@ -17,6 +17,7 @@
 
 .dark {
   --elev-3: 0 2px 4px #0006, 0 14px 28px -6px #0009, 0 4px 8px -4px #0006, inset 0 1px 0 #ffffff0f;
+  --ring: #1c9dbd;
 }
 
 /* Utility rules */

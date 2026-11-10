@@ -7,14 +7,14 @@
   --font-weight-medium: 500;
   --foreground: #0f172a;
   --muted-foreground: #5b6b80;
-  --success: #059669;
+  --success: #047857;
 }
 
 .dark {
-  --border: #1f2430;
+  --border: #1c262b;
   --destructive: #f43f5e;
-  --foreground: #e6e9ef;
-  --muted-foreground: #8b94a5;
+  --foreground: #e6eaec;
+  --muted-foreground: #8a979d;
   --success: #10b981;
 }
 
