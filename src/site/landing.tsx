@@ -6,14 +6,14 @@ import { blocks, components } from '@/registry';
 import { TokenControls, TokenReadout, useBench } from './bench';
 import { Agents, Close, Faq, BlocksViewer, OpenTheFile } from './home-sections';
 import { Shelf } from './shelf';
-import { Assembly } from './hero-workspace';
+import { Exploded } from './hero-workspace';
 import { flutterSlugs } from './platform-lists';
 import { Link } from './router';
 import './site.css';
 
 /**
- * The first frame is the claim and its proof side by side: the headline, and a working screen made of library parts.
- * The counts under the buttons are read from the registry, so they are never out of date.
+ * The first frame is a parts drawing. The headline runs the full width, and under it a working screen is pulled apart
+ * into the files that draw it. The counts are read from the registry, so they are never out of date.
  */
 function Hero() {
   const facts: [number, string, string][] = [
@@ -22,13 +22,11 @@ function Hero() {
     [flutterSlugs.length, 'Flutter widgets', '/flutter'],
   ];
   return (
-    <section className="mx-auto max-w-[88rem] px-4 pb-16 pt-10 sm:px-6 sm:pt-16" aria-labelledby="hero-title">
-      <div className="grid gap-x-16 gap-y-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,33rem)] lg:items-center">
-        <div className="hero-in min-w-0">
-          <h1 id="hero-title" className="font-display text-balance text-[2.5rem] font-bold leading-[0.98] tracking-[-0.03em] sm:text-6xl xl:text-7xl">
-            One file per
-            <br />
-            component.
+    <section className="hero-sheet relative overflow-hidden border-b" aria-labelledby="hero-title">
+      <div className="relative mx-auto max-w-[88rem] px-4 pb-10 pt-10 sm:px-6 sm:pt-14">
+        <div className="hero-in grid gap-x-16 gap-y-8 lg:grid-cols-[minmax(0,1fr)_24rem] lg:items-end">
+          <h1 id="hero-title" className="font-display text-[2.75rem] font-bold leading-[0.94] tracking-[-0.035em] sm:text-7xl xl:text-[6.25rem]">
+            One file per component.
             <br />
             The file is{' '}
             <span className="relative inline-block text-primary">
@@ -38,25 +36,27 @@ function Hero() {
               </svg>
             </span>
           </h1>
-          <p className="font-display mt-7 max-w-lg text-pretty text-lg text-muted-foreground">
-            befui is {components.length} React components with real motion, built on Radix and Tailwind. One command copies a component into your project as plain source, so there is no package to wait on and nothing you cannot change.
-          </p>
-          <div className="mt-8 flex flex-wrap items-center gap-3">
-            <Button asChild size="lg"><Link to="/docs">Get started <ArrowRightIcon draw /></Link></Button>
-            <Button asChild size="lg" variant="outline"><Link to="/components">Browse components</Link></Button>
+          <div className="min-w-0 lg:pb-2">
+            <p className="font-display text-pretty text-lg text-muted-foreground">
+              befui is {components.length} React components with real motion, built on Radix and Tailwind. One command copies a component into your project as plain source, so nothing in it is closed to you.
+            </p>
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <Button asChild size="lg"><Link to="/docs">Get started <ArrowRightIcon draw /></Link></Button>
+              <Button asChild size="lg" variant="outline"><Link to="/components">Browse components</Link></Button>
+            </div>
           </div>
-          <dl className="mt-10 grid max-w-md grid-cols-3 border-t pt-6">
-            {facts.map(([n, label, to]) => (
-              <Link key={label} to={to} className="group pe-3 outline-none focus-visible:ring-2 focus-visible:ring-ring/50 [&+&]:border-s [&+&]:ps-4 sm:[&+&]:ps-6">
-                <dd className="font-display text-3xl font-bold tabular-nums leading-none tracking-tight">{n}</dd>
-                <dt className="mt-1.5 text-[13px] text-muted-foreground underline-offset-4 group-hover:text-foreground group-hover:underline">{label}</dt>
-              </Link>
-            ))}
-          </dl>
         </div>
-        <div className="hero-in min-w-0 [animation-delay:120ms]">
-          <Assembly />
+        <div className="hero-in mt-10 [animation-delay:120ms] sm:mt-4">
+          <Exploded />
         </div>
+        <dl className="mt-2 grid max-w-xl grid-cols-3 border-t pt-6">
+          {facts.map(([n, label, to]) => (
+            <Link key={label} to={to} className="group pe-3 outline-none focus-visible:ring-2 focus-visible:ring-ring/50 [&+&]:border-s [&+&]:ps-4 sm:[&+&]:ps-6">
+              <dd className="font-display text-3xl font-bold tabular-nums leading-none tracking-tight">{n}</dd>
+              <dt className="mt-1.5 text-[13px] text-muted-foreground underline-offset-4 group-hover:text-foreground group-hover:underline">{label}</dt>
+            </Link>
+          ))}
+        </dl>
       </div>
     </section>
   );
@@ -69,7 +69,7 @@ function Hero() {
 function Theme() {
   const bench = useBench();
   return (
-    <section className="border-y bg-muted/40" aria-labelledby="theme">
+    <section className="border-b bg-muted/40" aria-labelledby="theme">
       <div className="mx-auto max-w-[88rem] px-4 py-20 sm:px-6">
         <h2 id="theme" className="font-display text-3xl font-bold leading-[1.05] tracking-[-0.025em] sm:text-4xl">A few CSS lines are the whole theme</h2>
         <p className="font-display mt-3 max-w-xl text-pretty text-lg text-muted-foreground">

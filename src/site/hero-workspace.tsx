@@ -1,11 +1,14 @@
 import * as React from 'react';
 import { Avatar } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { BarChart } from '@/components/ui/charts';
-import { CopyButton } from '@/components/ui/copy-button';
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import avatarSrc from '@/components/ui/avatar.tsx?raw';
+import badgeSrc from '@/components/ui/badge.tsx?raw';
 import buttonSrc from '@/components/ui/button.tsx?raw';
 import chartsSrc from '@/components/ui/charts.tsx?raw';
+import cssSrc from '@/index.css?raw';
 
 type Status = 'open' | 'approved' | 'declined';
 const REQUESTS = [
@@ -18,107 +21,127 @@ const MONTHS = [
   { label: 'Aug', value: 66 }, { label: 'Sep', value: 58 }, { label: 'Oct', value: 71 },
 ];
 
-type Part = 'avatar' | 'button' | 'charts';
+type PartId = 'tokens' | 'avatar' | 'badge' | 'button' | 'charts';
 const lines = (s: string) => s.trimEnd().split('\n').length;
-// line counts come from the files themselves, so the terminal never lies about them
-const PARTS: { id: Part; lines: number; draws: string }[] = [
-  { id: 'avatar', lines: lines(avatarSrc), draws: 'the faces' },
-  { id: 'button', lines: lines(buttonSrc), draws: 'the actions' },
-  { id: 'charts', lines: lines(chartsSrc), draws: 'the chart' },
+// line counts are read from the files themselves; z is how far each part lifts off the plate
+const PARTS: { id: PartId; file: string; lines: number; draws: string; z: number }[] = [
+  { id: 'button', file: 'ui/button.tsx', lines: lines(buttonSrc), draws: 'Approve, Decline, Undo', z: 170 },
+  { id: 'badge', file: 'ui/badge.tsx', lines: lines(badgeSrc), draws: 'the waiting count', z: 130 },
+  { id: 'avatar', file: 'ui/avatar.tsx', lines: lines(avatarSrc), draws: 'the three faces', z: 90 },
+  { id: 'charts', file: 'ui/charts.tsx', lines: lines(chartsSrc), draws: 'leave days per month', z: 80 },
+  { id: 'tokens', file: 'index.css', lines: lines(cssSrc), draws: 'colour, corners, spacing', z: 0 },
 ];
-const CMD = 'npx github:RandomKid24/befui add ';
+const Z = Object.fromEntries(PARTS.map((p) => [p.id, p.z])) as Record<PartId, number>;
 
-/** Slot for a part whose file is not in the project yet. */
-function Missing({ file, className = '' }: { file: string; className?: string }) {
-  return <span className={`grid place-items-center rounded-md border border-dashed border-foreground/25 font-mono text-[11px] text-muted-foreground ${className}`}>{file}</span>;
+const Hot = React.createContext<PartId | null>(null);
+
+/** One library part inside the screen. It leaves a dashed footprint on the plate when it lifts. */
+function Part({ id, children, className = '' }: { id: PartId; children: React.ReactNode; className?: string }) {
+  const hot = React.useContext(Hot);
+  return (
+    <span className={`xp-slot ${className}`}>
+      <span data-part={id} data-hot={hot === id || undefined} data-dim={(hot !== null && hot !== id) || undefined} style={{ '--z': `${Z[id]}px` } as React.CSSProperties}>
+        {children}
+      </span>
+    </span>
+  );
 }
 
 /**
- * The first screen's proof. A terminal adds three files, and each file's component lands in the screen below it.
- * Every file line is a checkbox: untick it and that part leaves the screen, because a befui component is exactly one file.
+ * The first screen's drawing: a working approvals screen pulled apart into the files that draw it. Point at a file
+ * and its part rises; switch to "Assembled" and it is an ordinary screen again, buttons and all.
  */
-export function Assembly() {
+export function Exploded() {
   const still = React.useMemo(() => matchMedia('(prefers-reduced-motion: reduce)').matches || navigator.webdriver, []);
-  const [have, setHave] = React.useState<Set<Part>>(() => new Set(still ? PARTS.map((p) => p.id) : []));
-  const [typed, setTyped] = React.useState('');
-  const [auto, setAuto] = React.useState(!still);
+  const [open, setOpen] = React.useState(still);
+  const [hot, setHot] = React.useState<PartId | null>(null);
+  const wrap = React.useRef<HTMLDivElement>(null);
+  const svg = React.useRef<SVGSVGElement>(null);
 
+  React.useEffect(() => { if (!still) { const t = setTimeout(() => setOpen(true), 650); return () => clearTimeout(t); } }, [still]);
+
+  // Leader lines from each file to its part. Redrawn for a second after anything moves, and on resize.
   React.useEffect(() => {
-    if (!auto) return;
-    let dead = false;
-    const wait = (ms: number) => new Promise((r) => setTimeout(r, ms));
-    (async () => {
-      await wait(700);
+    const root = wrap.current, s = svg.current;
+    if (!root || !s) return;
+    let raf = 0, until = 0;
+    const draw = () => {
+      const o = root.getBoundingClientRect();
       for (const p of PARTS) {
-        const line = CMD + p.id;
-        for (let i = 1; i <= line.length; i++) { if (dead) return; setTyped(line.slice(0, i)); await wait(15); }
-        await wait(260);
-        if (dead) return;
-        setHave((h) => new Set(h).add(p.id));
-        setTyped('');
-        await wait(480);
+        const row = root.querySelector<HTMLElement>(`[data-row="${p.id}"]`)?.getBoundingClientRect();
+        const el = root.querySelector<HTMLElement>(`[data-part="${p.id}"]`)?.getBoundingClientRect();
+        const g = s.querySelector<SVGGElement>(`[data-line="${p.id}"]`);
+        if (!row || !el || !g) continue;
+        const x1 = row.right - o.left + 6, y1 = row.top + row.height / 2 - o.top;
+        const x2 = p.id === 'tokens' ? el.left + el.width * 0.3 - o.left : el.left - o.left - 4, y2 = p.id === 'tokens' ? el.bottom - el.height * 0.16 - o.top : el.top + el.height / 2 - o.top;
+        g.querySelector('path')!.setAttribute('d', `M${x1} ${y1} H${x1 + 28} L${x2} ${y2}`);
+        g.querySelector('circle')!.setAttribute('cx', `${x2}`);
+        g.querySelector('circle')!.setAttribute('cy', `${y2}`);
       }
-      if (!dead) setAuto(false);
-    })();
-    return () => { dead = true; };
-  }, [auto]);
-
-  const toggle = (p: Part) => {
-    setAuto(false);
-    setTyped('');
-    setHave((h) => { const n = new Set(h); if (!n.delete(p)) n.add(p); return n; });
-  };
+      if (performance.now() < until) raf = requestAnimationFrame(draw);
+    };
+    const kick = () => { until = performance.now() + 1100; cancelAnimationFrame(raf); raf = requestAnimationFrame(draw); };
+    kick();
+    window.addEventListener('resize', kick);
+    return () => { cancelAnimationFrame(raf); window.removeEventListener('resize', kick); };
+  }, [open, hot]);
 
   return (
-    <div>
-      <div className="relative z-10 rounded-lg bg-[#0c111d] text-[#e6e9f0] shadow-lg shadow-black/20 ring-1 ring-white/10 sm:-ms-6 sm:me-12">
-        <div className="flex items-center justify-between border-b border-white/10 py-1 pe-1 ps-4 font-mono text-[11px] text-[#9aa3b8]">
-          <span>~/your-app</span>
-          <CopyButton value={CMD + 'button'} className="size-7 border-0 bg-transparent text-[#9aa3b8] hover:bg-white/10 hover:text-white" />
-        </div>
-        <div className="px-4 pb-3 pt-2.5 font-mono text-[12.5px] leading-6">
-          <p className="overflow-hidden whitespace-nowrap" aria-hidden>
-            <span className="text-[#7aa2ff]">$</span> {typed}<span className="term-caret" />
-          </p>
-          <ul aria-label="Files added to the project">
-            {PARTS.map((p) => {
-              const on = have.has(p.id);
-              return (
-                <li key={p.id}>
-                  <label className="-mx-2 flex cursor-pointer items-baseline gap-2 rounded px-2 hover:bg-white/[0.06] has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-[#7aa2ff]">
-                    <input type="checkbox" className="sr-only" checked={on} onChange={() => toggle(p.id)} />
-                    <span aria-hidden className={on ? 'w-3 text-[#5fd39a]' : 'w-3 text-[#6b7489]'}>{on ? '+' : '·'}</span>
-                    <span className={`min-w-0 flex-1 truncate transition-colors ${on ? '' : 'text-[#6b7489] line-through decoration-[#6b7489]/60'}`}>
-                      <span className="hidden sm:inline">src/components/ui/</span>{p.id}.tsx
-                    </span>
-                    <span className="shrink-0 text-[#9aa3b8]">{p.lines} lines, {p.draws}</span>
-                  </label>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
+    <div ref={wrap} className="relative grid gap-x-10 gap-y-6 lg:grid-cols-[19rem_minmax(0,1fr)] lg:items-center">
+      <div className="relative z-10">
+        <ToggleGroup type="single" size="sm" aria-label="View of the screen" value={open ? 'apart' : 'whole'} onValueChange={(v) => v && setOpen(v === 'apart')} className="gap-0.5">
+          <ToggleGroupItem value="apart">Taken apart</ToggleGroupItem>
+          <ToggleGroupItem value="whole">Assembled</ToggleGroupItem>
+        </ToggleGroup>
+        <ul className="mt-5 border-t" onPointerLeave={() => setHot(null)}>
+          {PARTS.map((p, i) => (
+            <li key={p.id} className="border-b">
+              <button
+                type="button" data-row={p.id} aria-pressed={hot === p.id}
+                onPointerEnter={() => setHot(p.id)} onFocus={() => setHot(p.id)} onBlur={() => setHot(null)} onClick={() => { setOpen(true); setHot(p.id); }}
+                className="grid w-full grid-cols-[1.5rem_1fr_auto] items-baseline gap-x-2 py-2.5 text-left outline-none transition-colors hover:bg-primary-soft focus-visible:bg-primary-soft aria-pressed:bg-primary-soft"
+              >
+                <span className="ps-1 font-mono text-[11px] tabular-nums text-muted-foreground">{String(i + 1).padStart(2, '0')}</span>
+                <span className="font-mono text-[13px] font-medium">{p.file}</span>
+                <span className="pe-1 font-mono text-[11px] tabular-nums text-muted-foreground">{p.lines} lines</span>
+                <span className="col-start-2 col-end-4 text-[13px] text-muted-foreground">{p.draws}</span>
+              </button>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-3 text-[13px] text-muted-foreground">Five files draw this whole screen. Point at one to lift its part.</p>
       </div>
-      <ApprovalsPanel have={have} />
-      <p className="mt-3 text-[13px] text-muted-foreground">
-        Each terminal line is a real file from the library. Untick one and its part leaves the screen.
-      </p>
+
+      <svg ref={svg} aria-hidden className={`pointer-events-none absolute inset-0 hidden size-full transition-opacity duration-500 lg:block ${open ? 'opacity-100' : 'opacity-0'}`}>
+        {PARTS.map((p) => (
+          <g key={p.id} data-line={p.id} className={hot === p.id ? 'text-primary' : hot ? 'text-transparent' : 'text-foreground/30'}>
+            <path fill="none" stroke="currentColor" strokeWidth={hot === p.id ? 1.5 : 1} />
+            <circle r="3" fill="currentColor" />
+          </g>
+        ))}
+      </svg>
+
+      <div className="xp-stage grid min-h-[25rem] max-lg:order-first place-items-center sm:min-h-[35rem]">
+        <Hot.Provider value={hot}><Screen open={open} /></Hot.Provider>
+      </div>
     </div>
   );
 }
 
-/** The approvals screen the terminal assembles. Text and data are plain markup; the faces, actions and chart are the three files. */
-function ApprovalsPanel({ have }: { have: Set<Part> }) {
+function Screen({ open }: { open: boolean }) {
+  const hot = React.useContext(Hot);
   const [status, setStatus] = React.useState<Record<string, Status>>({});
-  const open = REQUESTS.filter((r) => !status[r.id] || status[r.id] === 'open').length;
+  const waiting = REQUESTS.filter((r) => !status[r.id] || status[r.id] === 'open').length;
   const set = (id: string, s: Status) => setStatus((x) => ({ ...x, [id]: s }));
   return (
-    <figure className="-mt-5 rounded-xl border bg-card pt-5 shadow-xl shadow-black/[0.06] dark:shadow-black/40">
-      <div className="px-5 pb-5 pt-4">
+    <figure className="xp-screen w-full max-w-[30rem]" data-open={open || undefined}>
+      <div data-part="tokens" data-hot={hot === 'tokens' || undefined} className="rounded-xl border bg-card px-5 pb-5 pt-4 shadow-xl shadow-black/[0.07] dark:shadow-black/40">
         <header className="flex items-end justify-between gap-6 border-b pb-4">
           <div>
             <h2 className="font-display text-2xl font-semibold tracking-tight">Approvals</h2>
-            <p className="mt-0.5 text-[13px] text-muted-foreground" aria-live="polite">{open === 0 ? 'Nothing waiting for you' : `${open} waiting for you`}</p>
+            <p className="mt-1.5" aria-live="polite">
+              <Part id="badge"><Badge variant={waiting ? 'warning' : 'success'} dot>{waiting ? `${waiting} waiting for you` : 'All caught up'}</Badge></Part>
+            </p>
           </div>
           <p className="text-right">
             <span className="font-display text-4xl font-semibold tabular-nums leading-none">142</span>
@@ -130,31 +153,31 @@ function ApprovalsPanel({ have }: { have: Set<Part> }) {
             const s = status[r.id] ?? 'open';
             return (
               <li key={r.id} className="flex flex-wrap items-center gap-x-4 gap-y-2 py-3">
-                {have.has('avatar') ? <span className="part-in"><Avatar name={r.name} size="sm" /></span> : <Missing file="" className="size-8 rounded-full" />}
+                <Part id="avatar" className="rounded-full"><Avatar name={r.name} size="sm" /></Part>
                 <div className="grid min-w-0 flex-1 leading-tight">
                   <span className="truncate text-sm font-medium">{r.name}</span>
                   <span className="truncate text-xs text-muted-foreground">{r.what}, {r.when}, {r.days} {r.days === 1 ? 'day' : 'days'}</span>
                 </div>
-                {!have.has('button') ? (
-                  <Missing file="button.tsx" className="h-8 w-[9.75rem]" />
-                ) : s === 'open' ? (
-                  <div className="part-in flex gap-1.5">
-                    <Button size="sm" variant="ghost" onClick={() => set(r.id, 'declined')} aria-label={`Decline ${r.name}`}>Decline</Button>
-                    <Button size="sm" onClick={() => set(r.id, 'approved')} aria-label={`Approve ${r.name}`}>Approve</Button>
-                  </div>
-                ) : (
-                  <div className="flex items-center gap-2 text-[13px]">
-                    <span className={s === 'approved' ? 'font-medium text-success' : 'font-medium text-destructive'}>{s === 'approved' ? 'Approved' : 'Declined'}</span>
-                    <Button size="sm" variant="ghost" onClick={() => set(r.id, 'open')} aria-label={`Undo for ${r.name}`}>Undo</Button>
-                  </div>
-                )}
+                <Part id="button">
+                  {s === 'open' ? (
+                    <span className="flex gap-1.5">
+                      <Button size="sm" variant="outline" onClick={() => set(r.id, 'declined')} aria-label={`Decline ${r.name}`}>Decline</Button>
+                      <Button size="sm" onClick={() => set(r.id, 'approved')} aria-label={`Approve ${r.name}`}>Approve</Button>
+                    </span>
+                  ) : (
+                    <span className="flex items-center gap-2 text-[13px]">
+                      <span className={s === 'approved' ? 'font-medium text-success' : 'font-medium text-destructive'}>{s === 'approved' ? 'Approved' : 'Declined'}</span>
+                      <Button size="sm" variant="outline" onClick={() => set(r.id, 'open')} aria-label={`Undo for ${r.name}`}>Undo</Button>
+                    </span>
+                  )}
+                </Part>
               </li>
             );
           })}
         </ul>
         <section className="mt-4 border-t pt-4" aria-labelledby="leave-months">
           <h3 id="leave-months" className="mb-3 text-[13px] font-medium">Leave days per month</h3>
-          {have.has('charts') ? <div className="part-in"><BarChart height={120} data={MONTHS} /></div> : <Missing file="charts.tsx" className="h-[120px]" />}
+          <Part id="charts" className="!block"><BarChart height={120} data={MONTHS} /></Part>
         </section>
       </div>
     </figure>
