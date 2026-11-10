@@ -11,6 +11,7 @@ import { examples as flutterExamples } from './flutter-docs';
 import { demos as htmlDemos } from './html-docs';
 import { Link } from './router';
 import { flutterSlugs, hasFlutter, hasHtml } from './platform-lists';
+import { Dim, SheetHead } from './sheet';
 
 const h2 = 'font-display text-3xl font-bold leading-[1.05] tracking-[-0.025em] sm:text-4xl';
 const lede = 'font-display mt-3 max-w-xl text-pretty text-lg text-muted-foreground';
@@ -59,6 +60,7 @@ export function OpenTheFile() {
 
   return (
     <section className={`${wrap} border-t py-20`} aria-labelledby="open-file">
+      <SheetHead n={4} tag={`ui/${slug}.tsx`} />
       <div className="grid gap-x-16 gap-y-10 lg:grid-cols-[minmax(0,22rem)_minmax(0,1fr)]">
         <div>
           <h2 id="open-file" className={h2}>Open the file you would own</h2>
@@ -103,11 +105,19 @@ export function OpenTheFile() {
               <CodeBlock code={text} title={title} lineNumbers maxHeight={420} />
             )}
           </div>
-          <p className="mt-4 max-w-2xl text-[13px] leading-relaxed text-muted-foreground">
-            {lines > 0 ? <><span className="tabular-nums">{lines}</span> lines. </> : null}
-            {entry.requires.length > 0 ? `It also adds ${list(entry.requires)} from the library. ` : 'It needs no other library files. '}
-            {entry.deps.length > 0 ? `npm packages: ${list(entry.deps)}.` : 'No extra npm packages.'}
-          </p>
+          <dl className="mt-5 border-t font-mono text-[12px]" aria-label={`What adding ${entry.name} puts in your project`}>
+            {([
+              ['file', `src/components/ui/${slug}.tsx`],
+              ['lines', lines > 0 ? String(lines) : '...'],
+              ['also adds', entry.requires.length > 0 ? list(entry.requires) : 'no other library files'],
+              ['npm', entry.deps.length > 0 ? list(entry.deps) : 'no extra packages'],
+            ] as const).map(([k, v]) => (
+              <div key={k} className="grid grid-cols-[6.5rem_minmax(0,1fr)] gap-x-4 border-b py-2">
+                <dt className="text-muted-foreground">{k}</dt>
+                <dd className="min-w-0 break-words">{v}</dd>
+              </div>
+            ))}
+          </dl>
           <div className="mt-4 flex w-fit items-center gap-2 rounded-md border bg-background py-1 pl-3.5 pr-1">
             <code className="font-mono text-[13px] text-muted-foreground"><span className="text-primary">$</span> npx github:RandomKid24/befui add {slug}</code>
             <CopyButton value={`npx github:RandomKid24/befui add ${slug}`} className="size-7" />
@@ -136,6 +146,8 @@ function ScaledFrame({ children, height }: { children: React.ReactNode; height: 
   }, []);
   const scaled = scale < 1;
   return (
+    <>
+    <Dim className="mb-2 max-lg:hidden">{DESIGN}px wide, shown at {Math.round(scale * 100)}%</Dim>
     <div ref={ref} className="relative overflow-hidden rounded-lg border bg-background" style={{ height }}>
       <div
         className="origin-top-left overflow-auto [transform:translateZ(0)]"
@@ -144,6 +156,7 @@ function ScaledFrame({ children, height }: { children: React.ReactNode; height: 
         <div className="p-6">{children}</div>
       </div>
     </div>
+    </>
   );
 }
 
@@ -158,6 +171,7 @@ export function BlocksViewer() {
   const b = featured.find((x) => x.slug === shown)!;
   return (
     <section className={`${wrap} border-t py-20`} aria-labelledby="blocks">
+      <SheetHead n={5} tag="src/blocks/" />
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <h2 id="blocks" className={h2}>{blocks.length} whole screens</h2>
@@ -212,7 +226,8 @@ const INIT = 'npx github:RandomKid24/befui init';
 export function Agents() {
   return (
     <section className="border-y bg-muted/40" aria-labelledby="agents">
-      <div className={`${wrap} grid gap-x-16 gap-y-10 py-20 lg:grid-cols-[minmax(0,1fr)_minmax(0,34rem)] lg:items-center`}>
+      <div className={`${wrap} pt-20`}><SheetHead n={6} tag="AGENTS.md" /></div>
+      <div className={`${wrap} grid gap-x-16 gap-y-10 pb-20 lg:grid-cols-[minmax(0,1fr)_minmax(0,34rem)] lg:items-center`}>
         <div className="min-w-0">
           <h2 id="agents" className={h2}>Your coding agent reads the real source</h2>
           <p className={lede}>
@@ -226,13 +241,14 @@ export function Agents() {
             <Link to="/ai" className="text-sm font-medium underline underline-offset-4">How it works with AI</Link>
           </div>
         </div>
-        <div className="rounded-xl border bg-card">
-          <p className="border-b px-5 py-2.5 font-mono text-xs text-muted-foreground">befui mcp, {TOOLS.length} tools</p>
-          <dl className="divide-y px-5">
-            {TOOLS.map(([name, what]) => (
-              <div key={name} className="grid gap-x-6 gap-y-1 py-3.5 sm:grid-cols-[11rem_minmax(0,1fr)] sm:items-baseline">
-                <dt className="font-mono text-[13px] font-medium text-accent-foreground">{name}</dt>
-                <dd className="text-sm text-muted-foreground">{what}</dd>
+        <div>
+          <p className="pb-2.5 font-mono text-[11px] text-muted-foreground">befui mcp, {TOOLS.length} tools</p>
+          <dl className="border-t">
+            {TOOLS.map(([name, what], i) => (
+              <div key={name} className="grid grid-cols-[1.75rem_minmax(0,1fr)] gap-x-2 border-b py-3.5 sm:grid-cols-[1.75rem_11rem_minmax(0,1fr)] sm:items-baseline">
+                <span aria-hidden className="font-mono text-[11px] tabular-nums text-muted-foreground">{String(i + 1).padStart(2, '0')}</span>
+                <dt className="font-mono text-[13px] font-medium">{name}</dt>
+                <dd className="text-sm text-muted-foreground max-sm:col-start-2">{what}</dd>
               </div>
             ))}
           </dl>
@@ -247,6 +263,7 @@ export function Agents() {
 export function Faq() {
   return (
     <section className={`${wrap} py-20`} aria-labelledby="faq">
+      <SheetHead n={7} tag="questions" />
       <div className="grid gap-x-16 gap-y-8 lg:grid-cols-[minmax(0,22rem)_minmax(0,1fr)]">
         <h2 id="faq" className={h2}>Questions</h2>
         <Accordion
@@ -265,16 +282,40 @@ export function Faq() {
   );
 }
 
+/** The page ends the way a drawing does, with a title block: what the library is, counted from the registry. */
 export function Close() {
+  const block: [string, React.ReactNode][] = [
+    ['library', 'befui'],
+    ['licence', 'MIT'],
+    ['components', components.length],
+    ['whole screens', blocks.length],
+    ['flutter widgets', flutterSlugs.length],
+    ['sheet', '08 of 08'],
+  ];
   return (
-    <section className={`${wrap} border-t pb-28 pt-20`} aria-labelledby="close">
-      <h2 id="close" className="font-display max-w-3xl text-balance text-4xl font-bold leading-[1.02] tracking-[-0.03em] sm:text-6xl">Start with one file</h2>
-      <p className={lede}>Run the command, open the file it adds, and change whatever you like. Nothing in your project depends on a befui package.</p>
-      <div className="mt-8 flex flex-wrap items-center gap-4">
-        <Button asChild size="lg"><Link to="/docs">Read the setup guide <ArrowRightIcon draw /></Link></Button>
-        <div className="flex items-center gap-2 rounded-md border bg-background py-1 pl-3.5 pr-1">
-          <code className="font-mono text-[13px] text-muted-foreground"><span className="text-primary">$</span> npx github:RandomKid24/befui add button</code>
-          <CopyButton value="npx github:RandomKid24/befui add button" className="size-7" />
+    <section className="hero-sheet relative overflow-hidden border-t" aria-labelledby="close">
+      <div className={`${wrap} relative pb-24 pt-20`}>
+        <SheetHead n={8} tag="your project" />
+        <div className="grid gap-x-16 gap-y-12 lg:grid-cols-[minmax(0,1fr)_26rem] lg:items-end">
+          <div className="min-w-0">
+            <h2 id="close" className="font-display text-5xl font-bold leading-[0.96] tracking-[-0.035em] sm:text-7xl xl:text-[5.5rem]">Start with one file</h2>
+            <p className={lede}>Run the command, open the file it adds, and change whatever you like. Nothing in your project depends on a befui package.</p>
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <Button asChild size="lg"><Link to="/docs">Read the setup guide <ArrowRightIcon draw /></Link></Button>
+              <div className="flex max-w-full items-center gap-2 rounded-md border bg-background py-1 pl-3.5 pr-1">
+                <code className="min-w-0 overflow-x-auto whitespace-nowrap font-mono text-[13px] text-muted-foreground"><span className="text-primary">$</span> npx github:RandomKid24/befui add button</code>
+                <CopyButton value="npx github:RandomKid24/befui add button" className="size-7 shrink-0" />
+              </div>
+            </div>
+          </div>
+          <dl className="grid grid-cols-2 border-s border-t border-foreground/70 bg-background font-mono text-[12px]">
+            {block.map(([k, v]) => (
+              <div key={k} className="border-b border-e border-foreground/70 px-3.5 py-2.5">
+                <dt className="text-[10px] uppercase tracking-[0.08em] text-muted-foreground">{k}</dt>
+                <dd className="mt-0.5 text-[15px] font-medium tabular-nums">{v}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </div>
     </section>

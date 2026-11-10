@@ -155,3 +155,31 @@ export function TokenControls({ bench }: { bench: Bench }) {
     </div>
   );
 }
+
+/** Two drawn details that follow the controls: the corner at five times its size, and a control's height at twice. */
+export function TokenDetails({ bench }: { bench: Bench }) {
+  const r = bench.radius * 5;
+  const rem = DENSITIES.find((d) => d.value === bench.density)!.px;
+  const h = parseFloat(rem) * 32;
+  const top = (100 - h) / 2;
+  return (
+    <div className="mt-8 flex flex-wrap items-end gap-x-10 gap-y-6 border-t pt-6 font-mono text-[11px] leading-relaxed text-muted-foreground">
+      <figure className="grid gap-3">
+        <svg viewBox="0 0 100 100" className="size-24 shrink-0 text-foreground" role="img" aria-label={`Corner drawn at five times its size, radius ${bench.radius} pixels`}>
+          <path d={`M4 98 V${4 + r} A${r} ${r} 0 0 1 ${4 + r} 4 H98`} fill="none" stroke="currentColor" strokeWidth="2" className="transition-[d] duration-200" />
+          {r > 0 && <path d={`M${4 + r} ${4 + r} L${4 + r * 0.293} ${4 + r * 0.293}`} stroke="var(--primary)" strokeWidth="1.5" />}
+          <circle cx={4 + r} cy={4 + r} r="2.5" fill="var(--primary)" />
+        </svg>
+        <figcaption>Detail A<br />corner, 5×<br /><span className="text-foreground">r = {bench.radius}px</span></figcaption>
+      </figure>
+      <figure className="grid gap-3">
+        <svg viewBox="0 0 150 100" className="h-24 w-36 shrink-0 text-foreground" role="img" aria-label={`A control drawn at twice its size, height ${rem}`}>
+          <path d={`M8 ${top} V${top + h} M3 ${top} H13 M3 ${top + h} H13`} stroke="var(--primary)" strokeWidth="1.5" />
+          <rect x="24" y={top} width="122" height={h} rx={Math.min(bench.radius * 2, h / 2)} fill="none" stroke="currentColor" strokeWidth="2" />
+          <path d={`M40 50 H96`} stroke="currentColor" strokeWidth="2" strokeLinecap="round" opacity="0.35" />
+        </svg>
+        <figcaption>Detail B<br />control, 2×<br /><span className="text-foreground">h = {rem}</span></figcaption>
+      </figure>
+    </div>
+  );
+}

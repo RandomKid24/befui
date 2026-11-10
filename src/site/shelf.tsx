@@ -3,6 +3,7 @@ import { components, type Category } from '@/registry';
 import { flutterSlugs, hasFlutter } from './platform-lists';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Link } from './router';
+import { SheetHead } from './sheet';
 
 const SHELF: Record<Category, string[]> = {
   Inputs: ['date-picker', 'otp-input', 'range-slider', 'tag-input', 'segmented', 'rating'],
@@ -56,6 +57,7 @@ export function Shelf() {
   const count = components.filter((c) => c.category === cat).length;
   return (
     <section ref={ref} className="mx-auto max-w-[88rem] px-4 py-20 sm:px-6" aria-labelledby="shelf">
+      <SheetHead n={3} tag="src/components/ui/" />
       <h2 id="shelf" className="font-display text-3xl font-bold leading-[1.05] tracking-[-0.025em] sm:text-4xl">
         {components.length} components, running
       </h2>
@@ -92,10 +94,10 @@ export function Shelf() {
             <React.Suspense fallback={<Placeholders />}>
               {near ? (
                 <div key={cat} className="gap-x-12 pt-2 md:columns-2" data-stage>
-                  {picks.map((p) => (
+                  {picks.map((p, i) => (
                     <figure key={p.slug} className="mb-8 break-inside-avoid border-t pt-3">
                       <figcaption className="mb-4 flex items-baseline justify-between gap-4">
-                        <span className="text-sm font-semibold">{p.name}</span>
+                        <span className="text-sm font-semibold"><span className="me-2.5 font-mono text-[11px] font-normal tabular-nums text-muted-foreground">{String(i + 1).padStart(2, '0')}</span>{p.name}</span>
                         <Link to={`/components/${p.slug}`} className="font-mono text-xs text-muted-foreground underline-offset-4 hover:text-foreground hover:underline">{p.slug}</Link>
                       </figcaption>
                       <div className="lg:-m-2 lg:max-h-[23rem] lg:overflow-auto lg:p-2"><p.Demo /></div>

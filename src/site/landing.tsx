@@ -3,7 +3,8 @@ import LeaveRequestForm from '@/blocks/leave-request-form';
 import { Button } from '@/components/ui/button';
 import { ArrowRightIcon } from '@/components/ui/icons';
 import { blocks, components } from '@/registry';
-import { TokenControls, TokenReadout, useBench } from './bench';
+import { TokenControls, TokenDetails, TokenReadout, useBench } from './bench';
+import { SheetHead } from './sheet';
 import { Agents, Close, Faq, BlocksViewer, OpenTheFile } from './home-sections';
 import { Shelf } from './shelf';
 import { Exploded } from './hero-workspace';
@@ -71,13 +72,14 @@ function Theme() {
   return (
     <section className="border-b bg-muted/40" aria-labelledby="theme">
       <div className="mx-auto max-w-[88rem] px-4 py-20 sm:px-6">
+        <SheetHead n={2} tag="src/index.css" />
         <h2 id="theme" className="font-display text-3xl font-bold leading-[1.05] tracking-[-0.025em] sm:text-4xl">A few CSS lines are the whole theme</h2>
         <p className="font-display mt-3 max-w-xl text-pretty text-lg text-muted-foreground">
           Pick a colour, a corner and a density. The page you are reading restyles as you go, and the CSS on the left is all you paste into your project.
         </p>
         <div className="mt-8"><TokenControls bench={bench} /></div>
         <div className="mt-10 grid gap-x-16 gap-y-10 lg:grid-cols-[minmax(0,26rem)_minmax(0,1fr)]">
-          <TokenReadout bench={bench} />
+          <div className="min-w-0"><TokenReadout bench={bench} /><TokenDetails bench={bench} /></div>
           <figure className="min-w-0 lg:justify-self-end lg:w-full lg:max-w-[34rem]">
             <LeaveRequestForm />
             <figcaption className="mt-3 text-[13px] text-muted-foreground">The leave request block, straight from the library. It validates for real.</figcaption>
