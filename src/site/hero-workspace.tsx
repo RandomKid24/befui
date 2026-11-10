@@ -23,24 +23,26 @@ const MONTHS = [
 
 type PartId = 'tokens' | 'avatar' | 'badge' | 'button' | 'charts';
 const lines = (s: string) => s.trimEnd().split('\n').length;
-// line counts are read from the files themselves; z is how far each part lifts off the plate
-const PARTS: { id: PartId; file: string; lines: number; draws: string; z: number }[] = [
-  { id: 'button', file: 'ui/button.tsx', lines: lines(buttonSrc), draws: 'Approve, Decline, Undo', z: 170 },
-  { id: 'badge', file: 'ui/badge.tsx', lines: lines(badgeSrc), draws: 'the waiting count', z: 130 },
-  { id: 'avatar', file: 'ui/avatar.tsx', lines: lines(avatarSrc), draws: 'the three faces', z: 90 },
-  { id: 'charts', file: 'ui/charts.tsx', lines: lines(chartsSrc), draws: 'leave days per month', z: 80 },
-  { id: 'tokens', file: 'index.css', lines: lines(cssSrc), draws: 'colour, corners, spacing', z: 0 },
+// line counts are read from the files themselves; dx and dy are how far each part slides off the plate, each along its own axis
+const PARTS: { id: PartId; file: string; lines: number; draws: string; dx: number; dy: number }[] = [
+  { id: 'badge', file: 'ui/badge.tsx', lines: lines(badgeSrc), draws: 'the waiting count', dx: 0, dy: -92 },
+  { id: 'button', file: 'ui/button.tsx', lines: lines(buttonSrc), draws: 'Approve, Decline, Undo', dx: 184, dy: 0 },
+  { id: 'avatar', file: 'ui/avatar.tsx', lines: lines(avatarSrc), draws: 'the three faces', dx: -72, dy: 0 },
+  { id: 'tokens', file: 'index.css', lines: lines(cssSrc), draws: 'colour, corners, spacing', dx: 0, dy: 0 },
+  { id: 'charts', file: 'ui/charts.tsx', lines: lines(chartsSrc), draws: 'leave days per month', dx: 0, dy: 176 },
 ];
-const Z = Object.fromEntries(PARTS.map((p) => [p.id, p.z])) as Record<PartId, number>;
+const BY = Object.fromEntries(PARTS.map((p, i) => [p.id, { ...p, i }])) as Record<PartId, (typeof PARTS)[number] & { i: number }>;
 
 const Hot = React.createContext<PartId | null>(null);
 
-/** One library part inside the screen. It leaves a dashed footprint on the plate when it lifts. */
+/** One library part inside the screen. It slides out along one axis and leaves a dashed footprint and a centre line behind. */
 function Part({ id, children, className = '' }: { id: PartId; children: React.ReactNode; className?: string }) {
   const hot = React.useContext(Hot);
+  const { dx, dy, i } = BY[id];
+  const vars = { '--dx': `${dx}px`, '--dy': `${dy}px`, '--i': i } as React.CSSProperties;
   return (
-    <span className={`xp-slot ${className}`}>
-      <span data-part={id} data-hot={hot === id || undefined} data-dim={(hot !== null && hot !== id) || undefined} style={{ '--z': `${Z[id]}px` } as React.CSSProperties}>
+    <span className={`xp-slot ${className}`} data-axis={dx < 0 ? 'left' : dx > 0 ? 'right' : dy < 0 ? 'up' : 'down'} style={vars}>
+      <span data-part={id} data-hot={hot === id || undefined} data-dim={(hot !== null && hot !== id) || undefined} style={vars}>
         {children}
       </span>
     </span>
@@ -60,7 +62,8 @@ export function Exploded() {
 
   React.useEffect(() => { if (!still) { const t = setTimeout(() => setOpen(true), 650); return () => clearTimeout(t); } }, [still]);
 
-  // Leader lines from each file to its part. Redrawn for a second after anything moves, and on resize.
+  // Leader lines from each file to its part. Redrawn while anything moves (open, hover, pointer tilt), and on resize.
+  const kickRef = React.useRef(() => {});
   React.useEffect(() => {
     const root = wrap.current, s = svg.current;
     if (!root || !s) return;
@@ -73,14 +76,15 @@ export function Exploded() {
         const g = s.querySelector<SVGGElement>(`[data-line="${p.id}"]`);
         if (!row || !el || !g) continue;
         const x1 = row.right - o.left + 6, y1 = row.top + row.height / 2 - o.top;
-        const x2 = p.id === 'tokens' ? el.left + el.width * 0.3 - o.left : el.left - o.left - 4, y2 = p.id === 'tokens' ? el.bottom - el.height * 0.16 - o.top : el.top + el.height / 2 - o.top;
+        const x2 = p.id === 'tokens' ? el.left + el.width * 0.42 - o.left : el.left - o.left - 4, y2 = p.id === 'tokens' ? el.bottom - el.height * 0.3 - o.top : el.top + el.height / 2 - o.top;
         g.querySelector('path')!.setAttribute('d', `M${x1} ${y1} H${x1 + 28} L${x2} ${y2}`);
         g.querySelector('circle')!.setAttribute('cx', `${x2}`);
         g.querySelector('circle')!.setAttribute('cy', `${y2}`);
       }
       if (performance.now() < until) raf = requestAnimationFrame(draw);
     };
-    const kick = () => { until = performance.now() + 1100; cancelAnimationFrame(raf); raf = requestAnimationFrame(draw); };
+    const kick = () => { until = performance.now() + 2200; cancelAnimationFrame(raf); raf = requestAnimationFrame(draw); };
+    kickRef.current = kick;
     kick();
     window.addEventListener('resize', kick);
     return () => { cancelAnimationFrame(raf); window.removeEventListener('resize', kick); };
@@ -109,10 +113,10 @@ export function Exploded() {
             </li>
           ))}
         </ul>
-        <p className="mt-3 text-[13px] text-muted-foreground">Five files draw this whole screen. Point at one to lift its part.</p>
+        <p className="mt-3 text-[13px] text-muted-foreground">Five files draw this whole screen. Point at one to pick out its part.</p>
       </div>
 
-      <svg ref={svg} aria-hidden className={`pointer-events-none absolute inset-0 hidden size-full transition-opacity duration-500 lg:block ${open ? 'opacity-100' : 'opacity-0'}`}>
+      <svg ref={svg} aria-hidden className={`pointer-events-none absolute inset-0 hidden size-full transition-opacity lg:block ${open ? 'opacity-100 delay-[1500ms] duration-500' : 'opacity-0 duration-150'}`}>
         {PARTS.map((p) => (
           <g key={p.id} data-line={p.id} className={hot === p.id ? 'text-primary' : hot ? 'text-transparent' : 'text-foreground/30'}>
             <path fill="none" stroke="currentColor" strokeWidth={hot === p.id ? 1.5 : 1} />
@@ -121,8 +125,19 @@ export function Exploded() {
         ))}
       </svg>
 
-      <div className="xp-stage grid min-h-[25rem] max-lg:order-first place-items-center sm:min-h-[35rem]">
-        <Hot.Provider value={hot}><Screen open={open} /></Hot.Provider>
+      <div
+        className="xp-stage grid min-h-[25rem] place-items-center max-lg:order-first sm:min-h-[36rem]"
+        onPointerMove={(e) => {
+          // the drawing leans a few degrees toward a mouse pointer, so it reads as an object and not a picture
+          if (still || !open || e.pointerType !== 'mouse') return;
+          const r = e.currentTarget.getBoundingClientRect();
+          e.currentTarget.style.setProperty('--px', ((e.clientX - r.left) / r.width - 0.5).toFixed(3));
+          e.currentTarget.style.setProperty('--py', ((e.clientY - r.top) / r.height - 0.5).toFixed(3));
+          kickRef.current();
+        }}
+        onPointerLeave={(e) => { e.currentTarget.style.removeProperty('--px'); e.currentTarget.style.removeProperty('--py'); kickRef.current(); }}
+      >
+        <div className="xp-tilt grid w-full place-items-center"><Hot.Provider value={hot}><Screen open={open} /></Hot.Provider></div>
       </div>
     </div>
   );
