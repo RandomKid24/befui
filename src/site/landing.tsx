@@ -1,18 +1,15 @@
 import * as React from 'react';
 import LeaveRequestForm from '@/blocks/leave-request-form';
 import { Button } from '@/components/ui/button';
-import { CopyButton } from '@/components/ui/copy-button';
 import { ArrowRightIcon } from '@/components/ui/icons';
 import { blocks, components } from '@/registry';
 import { TokenControls, TokenReadout, useBench } from './bench';
 import { Agents, Close, Faq, BlocksViewer, OpenTheFile } from './home-sections';
 import { Shelf } from './shelf';
-import { ApprovalsPanel } from './hero-workspace';
+import { Assembly } from './hero-workspace';
 import { flutterSlugs } from './platform-lists';
 import { Link } from './router';
 import './site.css';
-
-const INSTALL = 'npx github:RandomKid24/befui add button';
 
 /**
  * The first frame is the claim and its proof side by side: the headline, and a working screen made of library parts.
@@ -29,27 +26,24 @@ function Hero() {
       <div className="grid gap-x-16 gap-y-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,33rem)] lg:items-center">
         <div className="hero-in min-w-0">
           <h1 id="hero-title" className="font-display text-balance text-[2.5rem] font-bold leading-[0.98] tracking-[-0.03em] sm:text-6xl xl:text-7xl">
-            Interfaces people
+            One file per
             <br />
-            actually{' '}
+            component.
+            <br />
+            The file is{' '}
             <span className="relative inline-block text-primary">
-              enjoy
+              yours
               <svg aria-hidden viewBox="0 0 200 14" preserveAspectRatio="none" className="hero-stroke absolute -bottom-1 left-0 h-3 w-full overflow-visible">
                 <path pathLength={1} d="M2 9 C 30 3, 52 12, 84 7 S 140 3, 198 8" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
               </svg>
-            </span>{' '}
-            using
+            </span>
           </h1>
           <p className="font-display mt-7 max-w-lg text-pretty text-lg text-muted-foreground">
-            Copy-paste React components with real motion, built on Radix and Tailwind. The CLI drops each one into your project as a single file, and from then on it is yours.
+            befui is {components.length} React components with real motion, built on Radix and Tailwind. One command copies a component into your project as plain source, so there is no package to wait on and nothing you cannot change.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Button asChild size="lg"><Link to="/docs">Get started <ArrowRightIcon draw /></Link></Button>
             <Button asChild size="lg" variant="outline"><Link to="/components">Browse components</Link></Button>
-          </div>
-          <div className="mt-4 inline-flex max-w-full items-center gap-2 rounded-md border bg-card py-1 pl-3.5 pr-1">
-            <code className="min-w-0 overflow-x-auto whitespace-nowrap font-mono text-[13px] text-muted-foreground"><span className="text-primary">$</span> {INSTALL}</code>
-            <CopyButton value={INSTALL} className="size-8 shrink-0" />
           </div>
           <dl className="mt-10 grid max-w-md grid-cols-3 border-t pt-6">
             {facts.map(([n, label, to]) => (
@@ -61,7 +55,7 @@ function Hero() {
           </dl>
         </div>
         <div className="hero-in min-w-0 [animation-delay:120ms]">
-          <ApprovalsPanel />
+          <Assembly />
         </div>
       </div>
     </section>
@@ -69,7 +63,7 @@ function Hero() {
 }
 
 /**
- * The theme as the thing itself: the controls, the CSS they write, and a form that follows them. The panel in the
+ * The theme as the thing itself: the controls, the CSS they write, and a form that follows them. The screen in the
  * hero and the nav follow too, because all of it reads the same variables.
  */
 function Theme() {
