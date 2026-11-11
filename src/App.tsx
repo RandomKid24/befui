@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Shell } from '@/site/layout';
 import { Home } from '@/site/landing';
 import { useRoute } from '@/site/router';
+import { components } from '@/registry';
 
 // Every page except the home page loads when it is first visited, so the first paint only needs the shell and the hero.
 const pages = () => import('@/site/pages');
@@ -50,7 +51,14 @@ export default function App() {
     return () => { document.removeEventListener('pointerover', warm); document.removeEventListener('focusin', warm); };
   }, []);
   const [, section, slug] = path.split('/');
-  const home = path === '/';
+  const home = path === '/' || section === 'home'; // /home is the landing page's own address; / still opens it
+
+  // each address names itself in the tab and in shared links
+  React.useEffect(() => {
+    const name = home ? '' : section === 'components' || section === 'html' || section === 'flutter'
+      ? (components.find((c) => c.slug === slug)?.name ?? section[0]!.toUpperCase() + section.slice(1)) : section ? section[0]!.toUpperCase() + section.slice(1) : '';
+    document.title = name ? `${name} · befui` : 'befui · React components you own, with live demos';
+  }, [home, section, slug]);
 
   // bare demo for scripts/gen-thumbs.mjs to photograph, no site chrome
   if (section === 'thumb') return <React.Suspense fallback={null}><Thumb slug={slug} /></React.Suspense>;

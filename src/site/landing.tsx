@@ -24,9 +24,9 @@ function Hero() {
   ];
   return (
     <section className="hero-sheet relative overflow-hidden border-b" aria-labelledby="hero-title">
-      <div className="relative mx-auto max-w-[88rem] px-4 pb-10 pt-10 sm:px-6 sm:pt-14">
+      <div className="relative mx-auto max-w-[88rem] px-4 pb-8 pt-8 sm:px-6 sm:pt-10">
         <div className="hero-in grid gap-x-16 gap-y-8 lg:grid-cols-[minmax(0,1fr)_24rem] lg:items-end">
-          <h1 id="hero-title" className="font-display text-[2.75rem] font-bold leading-[0.94] tracking-[-0.035em] sm:text-7xl xl:text-[6.25rem]">
+          <h1 id="hero-title" className="font-display text-[2.75rem] font-bold leading-[0.94] tracking-[-0.035em] sm:text-6xl xl:text-[5.25rem]">
             Try it here.
             <br />
             Then own the{' '}
@@ -47,10 +47,10 @@ function Hero() {
             </div>
           </div>
         </div>
-        <div className="hero-in mt-10 [animation-delay:120ms] sm:mt-12">
+        <div className="hero-in mt-7 [animation-delay:120ms] sm:mt-8">
           <TryIt />
         </div>
-        <dl className="mt-12 grid max-w-xl grid-cols-3 border-t pt-6">
+        <dl className="mt-10 grid max-w-xl grid-cols-3 border-t pt-6">
           {facts.map(([n, label, to]) => (
             <Link key={label} to={to} className="group pe-3 outline-none focus-visible:ring-2 focus-visible:ring-ring/50 [&+&]:border-s [&+&]:ps-4 sm:[&+&]:ps-6">
               <dd className="font-display text-3xl font-bold tabular-nums leading-none tracking-tight">{n}</dd>

@@ -20,7 +20,7 @@ export const REPO = 'https://github.com/RandomKid24/befui';
 
 export function Logo() {
   return (
-    <Link to="/" className="font-display flex items-center gap-2 text-[17px] font-bold tracking-tight">
+    <Link to="/home" className="font-display flex items-center gap-2 text-[17px] font-bold tracking-tight">
       <span className="grid size-6 place-items-center rounded-md bg-primary text-primary-foreground">
 <BefMark weight={3} className="size-3.5" />
       </span>
