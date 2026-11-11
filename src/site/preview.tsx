@@ -19,6 +19,7 @@ export function Preview({
   bleed,
   className,
   playground,
+  variants,
 }: {
   children: React.ReactNode;
   code: string;
@@ -26,19 +27,23 @@ export function Preview({
   bleed?: boolean;
   className?: string;
   playground?: React.ReactNode;
+  /** A set of ready-made designs, shown on their own tab so every page has the same frame. */
+  variants?: React.ReactNode;
 }) {
   const [width, setWidth] = React.useState<Width>('full');
   const [theme, setTheme] = React.useState<Theme>('site');
   const [rtl, setRtl] = React.useState(false);
+  const [tab, setTab] = React.useState(variants ? 'variants' : 'preview');
   return (
-    <Tabs defaultValue="preview" className="min-w-0">
+    <Tabs value={tab} onValueChange={setTab} className="min-w-0">
       <div className="flex items-center justify-between gap-2">
         <TabsList variant="pill">
           <TabsTrigger value="preview">Preview</TabsTrigger>
+          {variants && <TabsTrigger value="variants">Variants</TabsTrigger>}
           {playground && <TabsTrigger value="playground">Playground</TabsTrigger>}
           <TabsTrigger value="code">Code</TabsTrigger>
         </TabsList>
-        <div className="flex items-center gap-2">
+        <div className={cn('flex items-center gap-2', tab !== 'preview' && 'invisible')} aria-hidden={tab !== 'preview'}>
           <Tooltip content={rtl ? 'Right-to-left: on' : 'Test right-to-left'}>
             <button type="button" aria-pressed={rtl} onClick={() => setRtl(!rtl)} className={cn('h-8 rounded-md border px-2 text-xs font-semibold outline-none transition-colors focus-visible:ring-2 focus-visible:ring-ring/40', rtl ? 'border-primary bg-primary/10 text-primary' : 'text-muted-foreground hover:bg-secondary')}>RTL</button>
           </Tooltip>
@@ -82,6 +87,7 @@ export function Preview({
           </DirectionProvider>
         </div>
       </TabsContent>
+      {variants && <TabsContent value="variants" className="mt-3 animate-pop">{variants}</TabsContent>}
       {playground && <TabsContent value="playground" className="mt-3 animate-pop">{playground}</TabsContent>}
       <TabsContent value="code" className="mt-3 animate-pop">
         <CodeBlock code={code} title={title} maxHeight={480} />

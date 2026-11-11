@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Github } from 'lucide-react';
-import { ArrowRightIcon, CheckIcon, EyeIcon, LightbulbIcon, SearchIcon, SparkleIcon, TargetIcon, XCircleIcon } from '@/components/ui/icons';
+import { ArrowRightIcon, CheckIcon, EyeIcon, LayoutGridIcon, LightbulbIcon, ListIcon, SearchIcon, SparkleIcon, TargetIcon, XCircleIcon } from '@/components/ui/icons';
 import { Badge } from '@/components/ui/badge';
 import { ChipGroup } from '@/components/ui/chip';
 import { EmptyState } from '@/components/ui/empty-state';
@@ -9,6 +9,10 @@ import { Reveal } from '@/components/ui/reveal';
 import { SpotlightCard } from '@/components/ui/spotlight-card';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import { Button } from '@/components/ui/button';
+import { Segmented } from '@/components/ui/segmented';
+import { Kbd } from '@/components/ui/kbd';
+import { Tooltip } from '@/components/ui/tooltip';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card } from '@/components/ui/card';
 import { Alert } from '@/components/ui/alert';
 import { BarChart, Sparkline } from '@/components/ui/charts';
@@ -19,11 +23,12 @@ import { Users, IndianRupee } from 'lucide-react';
 import { blocks, dashboards, categories, NEW_SLUGS, components, globalCss, useSource, utilsSource, type ChartGuide } from '@/registry';
 import { cn } from '@/lib/utils';
 import { Command, CodeBlock } from './code';
-import { Link } from './router';
+import { Link, go } from './router';
 import { Preview } from './preview';
 import { Playground, hasPlayground } from './playground';
 import { Gallery, hasGallery } from './gallery';
 import { PlatformTabs } from './platform';
+import { hasFlutter, hasHtml } from './platform-lists';
 import { BlockGrid } from './home-parts';
 
 const h1 = 'text-3xl font-semibold tracking-tight sm:text-4xl';
@@ -162,6 +167,21 @@ const ComponentCard = React.memo(function ComponentCard({ c }: { c: (typeof comp
   );
 });
 
+/** Dense one-line version of a card, for scanning a long category quickly. */
+const ComponentRow = React.memo(function ComponentRow({ c }: { c: (typeof components)[number] }) {
+  return (
+    <Link to={`/components/${c.slug}`} className="group grid grid-cols-[minmax(0,11rem)_1fr_auto] items-center gap-4 px-3 py-2.5 outline-none transition-colors hover:bg-secondary/60 focus-visible:bg-secondary/60 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring/50 max-sm:grid-cols-[1fr_auto]">
+      <span className="flex items-center gap-2 text-sm font-medium">{c.name}{c.isNew && <Badge variant="primary">New</Badge>}</span>
+      <span className="truncate text-[13px] text-muted-foreground max-sm:hidden">{c.description}</span>
+      <span className="flex w-[11.5rem] items-center justify-end gap-1 text-[11px] font-medium text-muted-foreground max-sm:w-auto">
+        <span className="rounded bg-secondary px-1.5 py-0.5">React</span>
+        {hasHtml(c.slug) && <span className="rounded bg-secondary px-1.5 py-0.5">HTML</span>}
+        {hasFlutter(c.slug) && <span className="rounded bg-secondary px-1.5 py-0.5">Flutter</span>}
+      </span>
+    </Link>
+  );
+});
+
 /** One demo on a bare page, photographed by scripts/gen-thumbs.mjs for the index cards. */
 export function Thumb({ slug }: { slug: string }) {
   const c = components.find((x) => x.slug === slug);
@@ -181,6 +201,9 @@ export function ComponentsIndex() {
     (!term || `${c.name} ${c.description} ${c.keywords.join(' ')}`.toLowerCase().includes(term));
   const shown = components.filter(match);
   const [allNew, setAllNew] = React.useState(false);
+  const [view, setViewState] = React.useState<'grid' | 'list'>(() => { try { return localStorage.getItem('befui-view') === 'list' ? 'list' : 'grid'; } catch { return 'grid'; } });
+  const setView = (v: 'grid' | 'list') => { setViewState(v); try { localStorage.setItem('befui-view', v); } catch { /* storage can be blocked */ } };
+  const list = view === 'list';
   const order = [...NEW_SLUGS];
   const fresh = shown.filter((c) => c.isNew).sort((a, b) => order.indexOf(a.slug) - order.indexOf(b.slug));
   const filtering = !!term || cat.length > 0;
@@ -189,9 +212,15 @@ export function ComponentsIndex() {
     <div>
       <h1 className={h1}>Components <Badge variant="outline" className="ml-2 align-middle">{shown.length}</Badge></h1>
       <p className="mt-3 max-w-2xl text-muted-foreground">Each is a single file with a live example.</p>
-      <div className="sticky top-14 z-10 -mx-1 mt-6 grid gap-3 bg-background/85 px-1 py-3 backdrop-blur supports-[backdrop-filter]:bg-background/70">
-        <Input leftIcon={<SearchIcon />} placeholder="Filter by name or keyword" value={q} onChange={(e) => setQ(e.target.value)} className="max-w-sm" />
-        <ChipGroup options={categories} value={cat} onValueChange={setCat} />
+      <div className="sticky top-14 z-10 -mx-1 mt-6 grid gap-3 border-b border-transparent bg-background px-1 py-3">
+        <div className="flex flex-wrap items-center gap-3">
+          <Input leftIcon={<SearchIcon />} placeholder="Filter by name or keyword" value={q} onChange={(e) => setQ(e.target.value)} className="max-w-sm" />
+          <Segmented<'grid' | 'list'> className="ml-auto" value={view} onValueChange={setView} options={[
+            { value: 'grid', label: <Tooltip content="Previews"><LayoutGridIcon aria-label="Previews" /></Tooltip> },
+            { value: 'list', label: <Tooltip content="Compact list"><ListIcon aria-label="Compact list" /></Tooltip> },
+          ]} />
+        </div>
+        <div className="max-sm:-mx-1 max-sm:overflow-x-auto max-sm:px-1 max-sm:pb-1 max-sm:[&>*]:flex-nowrap max-sm:[&>*]:whitespace-nowrap"><ChipGroup options={categories} value={cat} onValueChange={setCat} /></div>
       </div>
       {shown.length === 0 && (
         <EmptyState className="mt-10" icon={<SearchIcon />} title="Nothing matches" description="Try a different word, or clear the category filters." action={<Button variant="outline" size="sm" onClick={() => { setQ(''); setCat([]); }}>Clear filters</Button>} />
@@ -206,17 +235,21 @@ export function ComponentsIndex() {
               </button>
             )}
           </h2>
-          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-            {freshShown.map((c) => <ComponentCard key={c.slug} c={c} />)}
-          </div>
+          {list ? <div className="divide-y overflow-hidden rounded-xl border">{freshShown.map((c) => <ComponentRow key={c.slug} c={c} />)}</div> : (
+            <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+              {freshShown.map((c) => <ComponentCard key={c.slug} c={c} />)}
+            </div>
+          )}
         </section>
       )}
       {categories.filter((k) => shown.some((c) => c.category === k)).map((k) => (
         <section key={k} className="mt-10">
           <h2 className="mb-3 flex items-center gap-2 border-b pb-2 text-sm font-semibold">{k} <span className="text-xs font-normal text-muted-foreground">{shown.filter((c) => c.category === k).length}</span></h2>
-          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-            {shown.filter((c) => c.category === k).map((c, i) => <ComponentCard key={c.slug} c={c} />)}
-          </div>
+          {list ? <div className="divide-y overflow-hidden rounded-xl border">{shown.filter((c) => c.category === k).map((c) => <ComponentRow key={c.slug} c={c} />)}</div> : (
+            <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+              {shown.filter((c) => c.category === k).map((c) => <ComponentCard key={c.slug} c={c} />)}
+            </div>
+          )}
         </section>
       ))}
     </div>
@@ -233,15 +266,67 @@ function LazyCode({ load, title, maxHeight }: { load: () => Promise<string>; tit
   return <CodeBlock code={useSource(load)} title={title} maxHeight={maxHeight} />;
 }
 
-function PrevNext<T extends { slug: string; name: string }>({ list, slug, base }: { list: T[]; slug: string; base: string }) {
+/** Components in the order the sidebar lists them (by category), so previous and next walk the same path the eye does. */
+const ordered = categories.flatMap((k) => components.filter((c) => c.category === k));
+
+function PrevNext<T extends { slug: string; name: string }>({ list, slug, base, label }: { list: T[]; slug: string; base: string; label?: (x: T) => string }) {
   const i = list.findIndex((x) => x.slug === slug);
   const prev = list[i - 1];
   const next = list[i + 1];
+  const side = (x: T | undefined, dir: 'prev' | 'next') =>
+    x ? (
+      <Link to={`${base}/${x.slug}`} className={cn('group flex flex-col gap-0.5 rounded-xl border px-4 py-3 outline-none transition-colors hover:border-primary/50 hover:bg-secondary/50 focus-visible:ring-2 focus-visible:ring-ring/50', dir === 'next' && 'items-end text-right')}>
+        <span className="text-xs text-muted-foreground">{dir === 'prev' ? '← Previous' : 'Next →'}{label && ` · ${label(x)}`}</span>
+        <span className="text-sm font-semibold">{x.name}</span>
+      </Link>
+    ) : <span />;
+  return <div className="mt-16 grid grid-cols-2 gap-3 border-t pt-6">{side(prev, 'prev')}{side(next, 'next')}</div>;
+}
+
+/** Position in the category with arrows and the [ and ] keys, so you can flip through components without going back to the list. */
+function Flip({ slug }: { slug: string }) {
+  const c = components.find((x) => x.slug === slug)!;
+  const group = components.filter((x) => x.category === c.category);
+  const at = group.findIndex((x) => x.slug === slug);
+  const around = ordered[ordered.findIndex((x) => x.slug === slug) - 1];
+  const after = ordered[ordered.findIndex((x) => x.slug === slug) + 1];
+  React.useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const t = e.target as HTMLElement;
+      if (e.metaKey || e.ctrlKey || e.altKey || t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)) return;
+      const to = e.key === '[' ? around : e.key === ']' ? after : undefined;
+      if (to) go(`/components/${to.slug}`);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [around, after]);
+  const arrow = (to: typeof around, dir: 'Previous' | 'Next', key: string) =>
+    to ? (
+      <Tooltip content={<span>{dir}: {to.name} <Kbd>{key}</Kbd></span>}>
+        <Link to={`/components/${to.slug}`} aria-label={`${dir} component, ${to.name}`} className="grid size-8 place-items-center rounded-md border text-muted-foreground outline-none transition-colors hover:bg-secondary hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/50">{dir === 'Previous' ? '←' : '→'}</Link>
+      </Tooltip>
+    ) : <span className="size-8" aria-hidden />;
   return (
-    <div className="mt-16 flex items-center justify-between gap-3 border-t pt-6">
-      {prev ? <Button asChild variant="outline"><Link to={`${base}/${prev.slug}`}>← {prev.name}</Link></Button> : <span />}
-      {next ? <Button asChild variant="outline"><Link to={`${base}/${next.slug}`}>{next.name} →</Link></Button> : <span />}
+    <div className="flex items-center gap-2 text-[13px] text-muted-foreground">
+      {arrow(around, 'Previous', '[')}
+      <span className="min-w-24 text-center tabular-nums">{c.category} {at + 1} of {group.length}</span>
+      {arrow(after, 'Next', ']')}
     </div>
+  );
+}
+
+/** The next few in the same category, as cards, so the end of a page leads somewhere. */
+function MoreInCategory({ slug }: { slug: string }) {
+  const c = components.find((x) => x.slug === slug)!;
+  const group = components.filter((x) => x.category === c.category);
+  const at = group.findIndex((x) => x.slug === slug);
+  const more = [1, 2, 3].map((n) => group[(at + n) % group.length]!).filter((x, i, a) => x.slug !== slug && a.indexOf(x) === i);
+  if (!more.length) return null;
+  return (
+    <section className="mt-14" aria-label={`More in ${c.category}`}>
+      <h2 className="mb-3 text-sm font-semibold">More in {c.category}</h2>
+      <div className="grid gap-3 sm:grid-cols-3">{more.map((x) => <ComponentCard key={x.slug} c={x} />)}</div>
+    </section>
   );
 }
 
@@ -291,48 +376,64 @@ function GuidePanel({ guide }: { guide: ChartGuide }) {
 export function ComponentPage({ slug }: { slug: string }) {
   const c = components.find((x) => x.slug === slug);
   if (!c) return <NotFound />;
-  const packages = ['clsx', 'tailwind-merge', 'class-variance-authority', ...c.deps];
+  const packages = [...new Set(['clsx', 'tailwind-merge', 'class-variance-authority', ...c.deps])];
   const needs = c.requires.map((r) => (r === 'icons' ? { slug: 'icons', name: 'Icons', to: '/icons' } : { slug: r, name: components.find((x) => x.slug === r)!.name, to: `/components/${r}` }));
+  // every page gets the same frame: one Preview with the same tabs, whatever the component has to show
   return (
     <article className="max-w-4xl">
-      <Breadcrumb className="mb-4" items={[{ label: 'Components', href: '#/components' }, { label: c.category }, { label: c.name }]} />
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+        <Breadcrumb items={[{ label: 'Components', href: '#/components' }, { label: c.category }, { label: c.name }]} />
+        <Flip slug={slug} />
+      </div>
       <h1 className={h1}>{c.name}{c.isNew && <Badge variant="primary" className="ml-3 align-middle">New</Badge>}</h1>
       <p className="mt-3 max-w-2xl text-muted-foreground">{c.description}</p>
       <PlatformTabs slug={slug} active="react"><CopyForAI c={c} /></PlatformTabs>
 
       <div className="mt-8">
-        {hasGallery(slug) ? (
-          <div className="grid gap-8">
-            {hasPlayground(slug) && <Playground slug={slug} />}
-            <Gallery slug={slug} />
-          </div>
-        ) : (
-          <LazyPreview bleed={c.wide} title={`examples/${c.slug}.tsx`} load={c.loadDemoSource} playground={hasPlayground(c.slug) ? <Playground slug={c.slug} /> : undefined}><React.Suspense fallback={demoFallback}><c.Demo /></React.Suspense></LazyPreview>
-        )}
+        <LazyPreview
+          bleed={c.wide}
+          title={`examples/${c.slug}.tsx`}
+          load={c.loadDemoSource}
+          variants={hasGallery(slug) ? <Gallery slug={slug} /> : undefined}
+          playground={hasPlayground(slug) ? <Playground slug={slug} /> : undefined}
+        >
+          <React.Suspense fallback={demoFallback}><c.Demo /></React.Suspense>
+        </LazyPreview>
       </div>
 
       {c.guide && <GuidePanel guide={c.guide} />}
 
       <h2 className={h2}>Install</h2>
-      <p className="mb-3 text-[13px] text-muted-foreground">With the CLI. It installs packages and adds any components this one needs:</p>
-      <Command>{`npx github:RandomKid24/befui add ${c.slug}`}</Command>
-      <p className="mb-3 mt-6 text-[13px] text-muted-foreground">Or by hand. Packages (skip any you already have):</p>
-      <Command>{`npm i ${[...new Set(packages)].join(' ')}`}</Command>
-      <p className="mb-3 mt-6 text-[13px] text-muted-foreground">
-        Copy this file to <code className="rounded bg-secondary px-1 py-0.5 font-mono text-xs">src/{c.path}</code>
-        {needs.length > 0 && (
-          <>
-            , along with {needs.map((n, i) => (
-              <React.Fragment key={n.slug}>{i > 0 && ', '}<Link to={n.to} className="font-medium text-primary hover:underline">{n.name}</Link></React.Fragment>
-            ))}
-          </>
-        )}
-        .
-      </p>
+      <Tabs defaultValue="cli">
+        <TabsList variant="pill">
+          <TabsTrigger value="cli">CLI</TabsTrigger>
+          <TabsTrigger value="manual">Copy by hand</TabsTrigger>
+        </TabsList>
+        <TabsContent value="cli" className="mt-3">
+          <p className="mb-3 text-[13px] text-muted-foreground">Installs the packages and adds any components this one needs.</p>
+          <Command>{`npx github:RandomKid24/befui add ${c.slug}`}</Command>
+        </TabsContent>
+        <TabsContent value="manual" className="mt-3">
+          <p className="mb-3 text-[13px] text-muted-foreground">Packages, skipping any you already have:</p>
+          <Command>{`npm i ${packages.join(' ')}`}</Command>
+          <p className="mb-1 mt-5 text-[13px] text-muted-foreground">
+            Then copy the file below to <code className="rounded bg-secondary px-1 py-0.5 font-mono text-xs">src/{c.path}</code>
+            {needs.length > 0 && (
+              <>
+                , along with {needs.map((n, i) => (
+                  <React.Fragment key={n.slug}>{i > 0 && ', '}<Link to={n.to} className="font-medium text-primary hover:underline">{n.name}</Link></React.Fragment>
+                ))}
+              </>
+            )}
+            .
+          </p>
+        </TabsContent>
+      </Tabs>
       <h2 className={h2}>Source</h2>
       <LazyCode load={c.loadSource} title={c.path} maxHeight={420} />
 
-      <PrevNext list={components} slug={slug} base="/components" />
+      <MoreInCategory slug={slug} />
+      <PrevNext list={ordered} slug={slug} base="/components" label={(x) => x.category} />
     </article>
   );
 }
