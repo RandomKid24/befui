@@ -182,12 +182,35 @@ const ComponentRow = React.memo(function ComponentRow({ c }: { c: (typeof compon
   );
 });
 
-/** One demo on a bare page, photographed by scripts/gen-thumbs.mjs for the index cards. */
+/**
+ * One demo on a bare page, photographed by scripts/gen-thumbs.mjs for the index cards. Every demo is laid out on the same
+ * 480px canvas and scaled by the same rule (down to fit the frame, never up), so no card crops differently from another.
+ */
 export function Thumb({ slug }: { slug: string }) {
   const c = components.find((x) => x.slug === slug);
+  const box = React.useRef<HTMLDivElement>(null);
+  const [fit, setFit] = React.useState<{ s: number } | null>(null);
+  React.useEffect(() => {
+    const el = box.current;
+    if (!el || !c) return;
+    const measure = () => {
+      // page-size demos get a wider canvas, and one that still overflows widens it (and reflows) before it is scaled down to fit
+      const w = Math.max(c.wide ? 1000 : 480, el.scrollWidth);
+      el.style.width = `${w}px`;
+      setFit({ s: Math.max(0.3, Math.min((innerWidth - 40) / w, (innerHeight - 40) / el.offsetHeight)) });
+    };
+    const id = setTimeout(measure, 300);
+    return () => clearTimeout(id);
+  }, [c]);
   return (
-    <div className="grid h-screen place-items-center overflow-hidden bg-card p-5" data-thumb={slug} data-missing={c ? undefined : ''}>
-      {c && <React.Suspense fallback={null}><div className="grid w-full max-w-lg justify-items-center [&>*]:max-w-full" data-ready><c.Demo /></div></React.Suspense>}
+    <div className="relative grid h-screen place-items-center overflow-hidden bg-card" data-thumb={slug} data-missing={c ? undefined : ''}>
+      {c && (
+        <React.Suspense fallback={null}>
+          <div ref={box} className="absolute left-1/2 top-1/2 grid w-[480px] justify-items-center [&>*]:max-w-full" style={{ transform: `translate(-50%, -50%) scale(${fit?.s ?? 1})`, opacity: fit ? 1 : 0 }} data-ready={fit ? '' : undefined}>
+            <c.Demo />
+          </div>
+        </React.Suspense>
+      )}
     </div>
   );
 }
