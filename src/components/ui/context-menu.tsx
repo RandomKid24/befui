@@ -11,7 +11,7 @@ export const ContextMenuTrigger = M.Trigger;
 export const ContextMenuGroup = M.Group;
 export const ContextMenuSub = M.Sub;
 
-const panel = 'z-50 min-w-[10rem] overflow-hidden rounded-lg border bg-popover p-1 text-popover-foreground shadow-lg animate-pop';
+const panel = 'z-50 min-w-[10rem] overflow-hidden rounded-lg border bg-popover p-1 text-popover-foreground shadow-lg animate-pop data-[state=closed]:animate-pop-out origin-(--radix-context-menu-content-transform-origin)';
 const row = 'relative flex cursor-pointer select-none items-center gap-2 rounded-md px-2 py-1.5 text-[13px] outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[highlighted]:bg-secondary [&_svg]:size-4 [&_svg]:text-muted-foreground';
 
 export const ContextMenuContent = React.forwardRef<React.ElementRef<typeof M.Content>, React.ComponentPropsWithoutRef<typeof M.Content>>(

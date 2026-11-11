@@ -109,6 +109,10 @@
   --dur-spring: 400ms;
   --animate-in: fade-in var(--dur-fast) ease-out;
   --animate-pop: pop var(--dur-spring) var(--ease-spring);
+  --animate-pop-out: pop-out var(--dur-fast) cubic-bezier(0.4, 0, 1, 1) both;
+  --animate-fade-out: fade-out var(--dur-fast) ease-in both;
+  --animate-slide-right-out: slide-right-out var(--dur-base) cubic-bezier(0.4, 0, 1, 1) both;
+  --animate-slide-left-out: slide-left-out var(--dur-base) cubic-bezier(0.4, 0, 1, 1) both;
   --animate-slide-right: slide-right var(--dur-base) var(--ease-out);
   --animate-slide-left: slide-left var(--dur-base) var(--ease-out);
   --animate-delayed-in: fade-in var(--dur-fast) ease-out 150ms both;
@@ -132,6 +136,10 @@
 
 @keyframes fade-in { from { opacity: 0 } to { opacity: 1 } }
 @keyframes pop { from { opacity: 0; transform: scale(0.97) translateY(2px) } to { opacity: 1; transform: none } }
+@keyframes pop-out { to { opacity: 0; transform: scale(0.97) } }
+@keyframes fade-out { to { opacity: 0 } }
+@keyframes slide-right-out { to { transform: translateX(100%) } }
+@keyframes slide-left-out { to { transform: translateX(-100%) } }
 @keyframes slide-right { from { transform: translateX(100%) } to { transform: none } }
 @keyframes slide-left { from { transform: translateX(-100%) } to { transform: none } }
 @keyframes stream-in { from { opacity: 0; filter: blur(3px); transform: translateY(2px) } to { opacity: 1; filter: none; transform: none } }

@@ -22,7 +22,7 @@ export function Coachmark({ title, description, persistKey, open: openProp, onDi
     <P.Root open={open} onOpenChange={(o) => !o && dismiss()}>
       <P.Anchor asChild>{children}</P.Anchor>
       <P.Portal>
-        <P.Content side={side} sideOffset={10} onOpenAutoFocus={(e) => e.preventDefault()} className="z-50 w-64 rounded-xl bg-primary p-3.5 text-primary-foreground shadow-lg animate-pop">
+        <P.Content side={side} sideOffset={10} onOpenAutoFocus={(e) => e.preventDefault()} className="z-50 w-64 rounded-xl bg-primary p-3.5 text-primary-foreground shadow-lg animate-pop data-[state=closed]:animate-pop-out origin-(--radix-popover-content-transform-origin)">
           <p className="text-sm font-semibold">{title}</p>
           {description ? <p className="mt-1 text-xs opacity-90">{description}</p> : null}
           <Button size="sm" variant="secondary" className="mt-3" onClick={dismiss}>Got it</Button>

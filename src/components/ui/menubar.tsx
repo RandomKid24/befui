@@ -34,7 +34,7 @@ export const MenubarContent = React.forwardRef<React.ElementRef<typeof M.Content
         align={align}
         alignOffset={alignOffset}
         sideOffset={sideOffset}
-        className={cn('z-50 min-w-[12rem] overflow-hidden rounded-lg border bg-popover p-1 text-popover-foreground shadow-lg animate-pop', className)}
+        className={cn('z-50 min-w-[12rem] overflow-hidden rounded-lg border bg-popover p-1 text-popover-foreground shadow-lg animate-pop data-[state=closed]:animate-pop-out origin-(--radix-menubar-content-transform-origin)', className)}
         {...props}
       />
     </M.Portal>

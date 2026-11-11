@@ -16,7 +16,7 @@ const Overlay = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Overlay
     ref={ref}
-    className={cn('fixed inset-0 z-50 bg-black/40 backdrop-blur-[2px] animate-in', className)}
+    className={cn('fixed inset-0 z-50 bg-black/40 backdrop-blur-[2px] animate-in data-[state=closed]:animate-fade-out', className)}
     {...props}
   />
 ));
@@ -38,7 +38,7 @@ export const DialogContent = React.forwardRef<
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
-        'fixed left-1/2 top-1/2 z-50 grid w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 gap-4 rounded-xl border bg-popover p-6 shadow-xl outline-none animate-pop',
+        'fixed left-1/2 top-1/2 z-50 grid w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 gap-4 rounded-xl border bg-popover p-6 shadow-xl outline-none animate-pop data-[state=closed]:animate-pop-out',
         className,
       )}
       {...props}
@@ -55,8 +55,8 @@ const sheetVariants = cva(
   {
     variants: {
       side: {
-        right: 'inset-y-0 right-0 w-full max-w-md border-l animate-slide-right',
-        left: 'inset-y-0 left-0 w-full max-w-md border-r animate-slide-left',
+        right: 'inset-y-0 right-0 w-full max-w-md border-l animate-slide-right data-[state=closed]:animate-slide-right-out',
+        left: 'inset-y-0 left-0 w-full max-w-md border-r animate-slide-left data-[state=closed]:animate-slide-left-out',
       },
     },
     defaultVariants: { side: 'right' },

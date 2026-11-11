@@ -25,7 +25,7 @@ export function ImageViewer({ images, index, onIndexChange }: { images: ViewerIm
   return (
     <D.Root open={open} onOpenChange={(o) => !o && onIndexChange(null)}>
       <D.Portal>
-        <D.Overlay className="fixed inset-0 z-50 bg-black/90 animate-in" />
+        <D.Overlay className="fixed inset-0 z-50 bg-black/90 animate-in data-[state=closed]:animate-fade-out" />
         <D.Content
           aria-describedby={undefined}
           onKeyDown={(e) => { if (e.key === 'ArrowRight') go(1); if (e.key === 'ArrowLeft') go(-1); }}

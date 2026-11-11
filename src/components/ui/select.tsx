@@ -39,7 +39,7 @@ export const SelectContent = React.forwardRef<
       position={position}
       sideOffset={6}
       className={cn(
-        'z-50 max-h-72 min-w-[8rem] overflow-hidden rounded-lg border bg-popover p-1 text-popover-foreground shadow-lg animate-pop',
+        'z-50 max-h-72 min-w-[8rem] overflow-hidden rounded-lg border bg-popover p-1 text-popover-foreground shadow-lg animate-pop data-[state=closed]:animate-pop-out origin-(--radix-select-content-transform-origin)',
         position === 'popper' && 'w-[var(--radix-select-trigger-width)]',
         className,
       )}

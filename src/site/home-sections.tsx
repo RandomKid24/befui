@@ -171,7 +171,7 @@ export function BlocksViewer() {
   const b = featured.find((x) => x.slug === shown)!;
   return (
     <section className={`${wrap} border-t py-20`} aria-labelledby="blocks">
-      <SheetHead n={5} tag="src/blocks/" />
+      <SheetHead n={4} tag="src/blocks/" />
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <h2 id="blocks" className={h2}>{blocks.length} whole screens</h2>
@@ -263,7 +263,7 @@ export function Agents() {
 export function Faq() {
   return (
     <section className={`${wrap} py-20`} aria-labelledby="faq">
-      <SheetHead n={7} tag="questions" />
+      <SheetHead n={6} tag="questions" />
       <div className="grid gap-x-16 gap-y-8 lg:grid-cols-[minmax(0,22rem)_minmax(0,1fr)]">
         <h2 id="faq" className={h2}>Questions</h2>
         <Accordion
@@ -271,7 +271,7 @@ export function Faq() {
           items={[
             { id: 'own', title: 'Is this an npm package?', content: 'No. You copy the file you need into your project, or let the CLI do it: npx github:RandomKid24/befui add button. Nothing to version-lock.' },
             { id: 'deps', title: 'What does it depend on?', content: 'React, Tailwind 4, Radix primitives for behaviour, and our own icon set. The animated pieces use plain CSS and pointer events.' },
-            { id: 'theme', title: 'How do I match my brand?', content: 'Paste a palette block into your CSS, as the controls at the top of this page show, and set --radius and data-density if you want them. Light and dark both follow.' },
+            { id: 'theme', title: 'How do I match my brand?', content: 'Paste a palette block into your CSS, as the theme controls on this page show, and set --radius and data-density if you want them. Light and dark both follow.' },
             { id: 'platforms', title: 'Is there more than React?', content: `Every component also has a <bef-*> HTML tag, and ${flutterSlugs.length} of them are Flutter widgets for Android and iOS.` },
             { id: 'rtl', title: 'Does it work right to left, and in other languages?', content: 'Calendar and date pickers take a locale, and components use logical start and end spacing so they flip on right-to-left pages. Every docs preview has an RTL switch.' },
             { id: 'motion', title: 'Does it respect reduced motion?', content: 'Yes. Animations switch off for people who ask their system for less motion.' },
@@ -290,12 +290,12 @@ export function Close() {
     ['components', components.length],
     ['whole screens', blocks.length],
     ['flutter widgets', flutterSlugs.length],
-    ['sheet', '08 of 08'],
+    ['sheet', '07 of 07'],
   ];
   return (
     <section className="hero-sheet relative overflow-hidden border-t" aria-labelledby="close">
       <div className={`${wrap} relative pb-24 pt-20`}>
-        <SheetHead n={8} tag="your project" />
+        <SheetHead n={7} tag="your project" />
         <div className="grid gap-x-16 gap-y-12 lg:grid-cols-[minmax(0,1fr)_26rem] lg:items-end">
           <div className="min-w-0">
             <h2 id="close" className="font-display text-5xl font-bold leading-[0.96] tracking-[-0.035em] sm:text-7xl xl:text-[5.5rem]">Start with one file</h2>

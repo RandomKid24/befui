@@ -46,7 +46,7 @@ export function Tooltip({
           align={align}
           sideOffset={6}
           className={cn(
-            'z-50 max-w-64 rounded-md px-2 py-1 text-xs font-medium shadow-md animate-in',
+            'z-50 max-w-64 rounded-md px-2 py-1 text-xs font-medium shadow-md animate-in data-[state=closed]:animate-fade-out origin-(--radix-tooltip-content-transform-origin)',
             light ? 'border bg-popover text-popover-foreground shadow-lg' : 'bg-foreground text-background',
             (title || shortcut) && 'px-2.5 py-1.5',
             className,
@@ -92,7 +92,7 @@ export function TruncatedText({ children, className, side = 'top' }: { children:
         <span ref={ref} onPointerEnter={check} onFocus={check} tabIndex={0} className={cn('block truncate rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-ring/50', className)}>{children}</span>
       </TooltipPrimitive.Trigger>
       <TooltipPrimitive.Portal>
-        <TooltipPrimitive.Content side={side} sideOffset={6} className="z-50 max-w-72 break-words rounded-md bg-foreground px-2 py-1 text-xs font-medium text-background shadow-md animate-in">
+        <TooltipPrimitive.Content side={side} sideOffset={6} className="z-50 max-w-72 break-words rounded-md bg-foreground px-2 py-1 text-xs font-medium text-background shadow-md animate-in data-[state=closed]:animate-fade-out origin-(--radix-tooltip-content-transform-origin)">
           {children}
         </TooltipPrimitive.Content>
       </TooltipPrimitive.Portal>
