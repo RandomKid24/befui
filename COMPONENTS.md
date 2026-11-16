@@ -1,6 +1,6 @@
 # Components
 
-Every befui component and block. **273 React components**, **269 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **38 page blocks**.
+Every befui component and block. **277 React components**, **269 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **38 page blocks**.
 (Generated from the registry by `npm run registry:build`. Do not edit by hand.)
 
 Install a React component with `npx github:RandomKid24/befui add <name>`, the Flutter version with `npx github:RandomKid24/befui add <name> --flutter`.
@@ -100,13 +100,14 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `toggle-group` | A row of toggles where one or several can be pressed, for formatting toolbars. | ✓ | ✓ |
 | `transfer-list` | Two lists with arrows between them: tick items and move them across, each side with search and select all. For roles, columns or members. | ✓ |  |
 
-## Display (51, 29 on Flutter)
+## Display (55, 29 on Flutter)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
 | `accordion` | Collapsible sections with a smooth height animation. Single or multiple open. | ✓ | ✓ |
 | `activity-feed` | Who did what and when, grouped under Today and Yesterday, with live relative times and an optional quoted detail. | ✓ | ✓ |
 | `approval-flow` | Chain of approvers with decisions, comments and times. The current approver gets Approve and Reject buttons. | ✓ |  |
+| `attendance-report` | Monthly attendance sheet: present, absent, late, leave and hours per person, attendance percent, column totals and signature lines. |  |  |
 | `avatar` | Image with initials fallback in a stable color. Five sizes, circle or square, presence dot (online, away, busy, offline), a stacked group with hover names, and UserInfo for avatar plus name and subtitle. | ✓ | ✓ |
 | `badge` | Status pill with semantic colors and an optional dot. | ✓ | ✓ |
 | `border-beam` | A light beam that circles the border. For pricing cards and featured content. | ✓ |  |
@@ -125,6 +126,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `empty-state` | Dashed placeholder with icon, text and an action. | ✓ | ✓ |
 | `format` | formatCurrency, formatCompact, formatPercent, formatBytes, formatDuration and a signed Currency component. Indian rupees by default. | ✓ |  |
 | `image-gallery` | Masonry grid of images of different heights with a hover zoom and caption. onSelect gives the index. | ✓ |  |
+| `income-statement` | Profit and loss report: income and expense sections, totals and net profit, with a last-period column and percent change. Negatives in brackets. |  |  |
 | `invoice` | Printable invoice with number, status, from and bill-to, line items, tax and total computed from the lines. | ✓ |  |
 | `json-tree` | Collapsible JSON viewer with colour-coded values, counts on closed branches, expand and collapse all, and copy path or copy JSON. | ✓ |  |
 | `kbd` | Keyboard key hint. | ✓ |  |
@@ -139,12 +141,14 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `profile-card` | Person card with banner, avatar, role, stats and an actions slot. | ✓ | ✓ |
 | `rating-breakdown` | Review summary: big average, stars and a bar per star level. Rows can act as filters. Bars fill in on scroll. | ✓ | ✓ |
 | `reveal` | Scroll-in fade-up wrapper and a blur-in headline. One IntersectionObserver each. | ✓ |  |
+| `sales-report` | Printable sales report sheet: headline totals, a breakdown by region with each share of revenue, top products and a summary paragraph. |  |  |
 | `separator` | Horizontal or vertical divider. | ✓ | ✓ |
 | `shimmer-text` | Text with a light sweep passing over it. | ✓ | ✓ |
 | `sortable-list` | Reorder rows by dragging, or with arrow keys on the grip. Controlled, no drag library. | ✓ | ✓ |
 | `spotlight-card` | Card with a glow and border highlight that follow the cursor. | ✓ |  |
 | `status-dot` | Small status light with an optional pulse and label. | ✓ | ✓ |
 | `status-page` | A public status page: an all-systems banner worked out from each service, 90-day uptime bars and incident history with updates. | ✓ |  |
+| `stock-report` | Inventory report: on hand against reorder level, value per item, Low and Out flags and a list of what to reorder. |  |  |
 | `swipe-actions` | List row you swipe left to reveal action buttons. Touch, mouse drag and keyboard. | ✓ | ✓ |
 | `table` | Dense table parts with hover rows, a selected state, footer and caption. | ✓ | ✓ |
 | `tag-manager` | Create, rename, recolor and delete labels, with usage counts. | ✓ |  |
