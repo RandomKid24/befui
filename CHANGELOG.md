@@ -3,6 +3,15 @@
 All notable changes to befui. Versions follow [semver](https://semver.org): new components are minor releases, breaking prop changes are major. The same list, with links to each component, is on the docs site under Changelog.
 (Generated from src/registry/changelog.json by `npm run registry:build`. Edit the JSON, not this file.)
 
+## 1.13.0 - 2026-11-16
+
+Four reports with a look of their own
+
+- **Added:** Lab report: every result draws its reference range as a track with the value as a marker, and the high or low flag is worked out from the range. (Lab report)
+- **Added:** Report card: a school report in a double-ruled frame with marks per term, an average and letter grade per subject, a large overall grade, attendance and signatures. (Report card)
+- **Added:** Sprint report: a burndown chart with an ideal line at its centre, committed, completed and spilled points, a velocity strip, and what shipped and what slipped with the reason. (Sprint report)
+- **Added:** Inspection report: square tick, cross and dash marks grouped by area, a rotated PASSED or FAILED stamp, and a list of deficiencies built from the failed checks. (Inspection report)
+
 ## 1.12.0 - 2026-11-16
 
 Fourteen report documents

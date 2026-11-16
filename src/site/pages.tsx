@@ -197,7 +197,7 @@ export function Thumb({ slug }: { slug: string }) {
       // page-size demos get a wider canvas, and one that still overflows widens it (and reflows) before it is scaled down to fit
       const w = Math.max(c.wide ? 1000 : 480, el.scrollWidth);
       el.style.width = `${w}px`;
-      setFit({ s: Math.max(0.3, Math.min((innerWidth - 40) / w, (innerHeight - 40) / el.offsetHeight)) });
+      setFit({ s: Math.max(0.2, Math.min((innerWidth - 40) / w, (innerHeight - 40) / el.offsetHeight)) });
     };
     const id = setTimeout(measure, 300);
     return () => clearTimeout(id);

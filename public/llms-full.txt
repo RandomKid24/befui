@@ -3267,6 +3267,53 @@ export default function IncomeStatementDemo() {
 }
 ```
 
+## Inspection report (`inspection-report`)
+Site or safety inspection: square tick, cross and dash marks grouped by area, a rotated PASSED or FAILED stamp, and a deficiency list worked out from failed checks.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add inspection-report`
+- Import: `import { InspectionReport } from '@/components/ui/inspection-report'`
+- Also needs: icons
+
+Example:
+
+```tsx
+import { InspectionReport } from '@/components/ui/inspection-report';
+
+export default function InspectionReportDemo() {
+  return (
+    <InspectionReport
+      title="Monthly fire and safety inspection"
+      number="FS-2026-11"
+      site="Kiran Foods warehouse, Bhiwandi, Unit 3"
+      date="14 November 2026"
+      inspector="Imran Shaikh"
+      sections={[
+        { title: 'Fire safety', items: [
+          { check: 'Extinguishers in date and sealed', result: 'pass' },
+          { check: 'Exit routes clear', result: 'fail', note: 'Pallets stacked in front of the east exit.' },
+          { check: 'Alarm test completed', result: 'pass' },
+          { check: 'Sprinkler valves open', result: 'na' },
+        ] },
+        { title: 'Electrical', items: [
+          { check: 'Panels closed and labelled', result: 'pass' },
+          { check: 'No exposed or taped cables', result: 'fail', note: 'Taped extension lead near the packing bench.' },
+          { check: 'Earthing test within 12 months', result: 'pass' },
+        ] },
+        { title: 'Storage', items: [
+          { check: 'Racks within load rating', result: 'pass' },
+          { check: 'Stacks no higher than 1.8 m', result: 'pass' },
+          { check: 'Chemicals kept apart from food stock', result: 'pass' },
+        ] },
+        { title: 'People', items: [
+          { check: 'First aid box stocked', result: 'pass' },
+          { check: 'Drill held this quarter', result: 'pass' },
+        ] },
+      ]}
+    />
+  );
+}
+```
+
 ## Invoice (`invoice`)
 Printable invoice with number, status, from and bill-to, line items, tax and total computed from the lines.
 - Group: Display
@@ -3350,6 +3397,37 @@ export default function KbdDemo() {
     <p className="flex items-center gap-1.5 text-[13px] text-muted-foreground">
       Press <Kbd>Ctrl</Kbd> <Kbd>K</Kbd> to search
     </p>
+  );
+}
+```
+
+## Lab report (`lab-report`)
+Laboratory results where every row draws its reference range as a track with the value as a marker, so high and low results show at a glance. Flags worked out from the range.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add lab-report`
+- Import: `import { LabReport } from '@/components/ui/lab-report'`
+
+Example:
+
+```tsx
+import { LabReport } from '@/components/ui/lab-report';
+
+export default function LabReportDemo() {
+  return (
+    <LabReport
+      lab="Sahyadri Diagnostics"
+      patient={{ name: 'Meera Joshi', age: '34 years', sex: 'Female', id: 'SD-558210' }}
+      sample={{ collected: '14 Nov 2026, 07:40', reported: '14 Nov 2026, 13:15', doctor: 'Dr. A. Kulkarni', type: 'Blood' }}
+      results={[
+        { group: 'Complete blood count', name: 'Haemoglobin', value: 10.8, unit: 'g/dL', low: 12, high: 15.5 },
+        { group: 'Complete blood count', name: 'White cells', value: 7.2, unit: '10³/µL', low: 4, high: 11 },
+        { group: 'Complete blood count', name: 'Platelets', value: 268, unit: '10³/µL', low: 150, high: 410 },
+        { group: 'Lipid profile', name: 'Total cholesterol', value: 214, unit: 'mg/dL', low: 125, high: 200 },
+        { group: 'Lipid profile', name: 'HDL', value: 52, unit: 'mg/dL', low: 40, high: 60 },
+        { group: 'Thyroid', name: 'TSH', value: 2.4, unit: 'mIU/L', low: 0.4, high: 4.0 },
+      ]}
+      note="Results are for the sample received. Please read them with your doctor along with symptoms and history."
+    />
   );
 }
 ```
@@ -3763,6 +3841,38 @@ export default function RatingBreakdownDemo() {
 }
 ```
 
+## Report card (`report-card`)
+School report card in a double-ruled frame: marks per term, average and letter grade per subject, a large overall grade, attendance, teacher note and signatures.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add report-card`
+- Import: `import { ReportCard } from '@/components/ui/report-card'`
+
+Example:
+
+```tsx
+import { ReportCard } from '@/components/ui/report-card';
+
+export default function ReportCardDemo() {
+  return (
+    <ReportCard
+      school="Saraswati Vidyalaya"
+      year="2026 to 2027"
+      student={{ name: 'Aarav Kulkarni', class: '8 B', roll: '14' }}
+      terms={['Term 1', 'Term 2']}
+      attendance={{ present: 168, total: 178 }}
+      subjects={[
+        { name: 'Mathematics', scores: [92, 96] },
+        { name: 'Science', scores: [84, 88], remark: 'Strong in experiments. Write conclusions in full sentences.' },
+        { name: 'English', scores: [71, 78] },
+        { name: 'Hindi', scores: [66, 62] },
+        { name: 'Social studies', scores: [58, 49], remark: 'Needs to revise maps and dates before tests.' },
+      ]}
+      teacherNote="Aarav is curious and helps others in class. A little more reading at home will lift languages and social studies."
+    />
+  );
+}
+```
+
 ## Reveal (`reveal`)
 Scroll-in fade-up wrapper and a blur-in headline. One IntersectionObserver each.
 - Group: Display
@@ -3939,6 +4049,44 @@ export default function SpotlightCardDemo() {
         </SpotlightCard>
       ))}
     </div>
+  );
+}
+```
+
+## Sprint report (`sprint-report`)
+Sprint report built around a burndown chart with an ideal line, plus committed, completed and spilled points, a velocity strip, and what shipped and slipped.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add sprint-report`
+- Import: `import { SprintReport } from '@/components/ui/sprint-report'`
+
+Example:
+
+```tsx
+import { SprintReport } from '@/components/ui/sprint-report';
+
+export default function SprintReportDemo() {
+  return (
+    <SprintReport
+      team="Storefront"
+      sprint="S24"
+      dates="2 to 13 Nov 2026"
+      goal="Customers can pay with UPI and see the order status without refreshing."
+      committed={42}
+      days={10}
+      remaining={[42, 42, 39, 36, 36, 30, 27, 21, 15, 9, 6]}
+      velocity={[34, 38, 31, 40]}
+      done={[
+        { title: 'UPI payment option', points: 13 },
+        { title: 'Order status page', points: 8 },
+        { title: 'Retry failed payments', points: 8 },
+        { title: 'Fix cart badge count', points: 2 },
+        { title: 'Tidy checkout copy', points: 5 },
+      ]}
+      spilled={[
+        { title: 'Refund request form', points: 4, reason: 'Waiting on finance for the refund rules.' },
+        { title: 'Push notifications', points: 2, reason: 'Needs the mobile team; started late.' },
+      ]}
+    />
   );
 }
 ```

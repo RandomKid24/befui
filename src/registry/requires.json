@@ -332,6 +332,9 @@
     "spinner"
   ],
   "input-group": [],
+  "inspection-report": [
+    "icons"
+  ],
   "invoice": [
     "badge"
   ],
@@ -347,6 +350,7 @@
     "button",
     "icons"
   ],
+  "lab-report": [],
   "label": [],
   "landing-sections": [
     "accordion"
@@ -530,6 +534,7 @@
     "icons"
   ],
   "relative-time": [],
+  "report-card": [],
   "resizable-panels": [
     "icons"
   ],
@@ -624,6 +629,7 @@
   ],
   "split-pane": [],
   "spotlight-card": [],
+  "sprint-report": [],
   "stacked-bar-chart": [
     "charts"
   ],

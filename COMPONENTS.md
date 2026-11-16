@@ -1,6 +1,6 @@
 # Components
 
-Every befui component and block. **287 React components**, **269 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **38 page blocks**.
+Every befui component and block. **291 React components**, **269 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **38 page blocks**.
 (Generated from the registry by `npm run registry:build`. Do not edit by hand.)
 
 Install a React component with `npx github:RandomKid24/befui add <name>`, the Flutter version with `npx github:RandomKid24/befui add <name> --flutter`.
@@ -100,7 +100,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `toggle-group` | A row of toggles where one or several can be pressed, for formatting toolbars. | ✓ | ✓ |
 | `transfer-list` | Two lists with arrows between them: tick items and move them across, each side with search and select all. For roles, columns or members. | ✓ |  |
 
-## Display (65, 29 on Flutter)
+## Display (69, 29 on Flutter)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
@@ -132,9 +132,11 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `image-gallery` | Masonry grid of images of different heights with a hover zoom and caption. onSelect gives the index. | ✓ |  |
 | `incident-report` | Post-incident report: severity, key facts, impact, root cause, timeline and follow-up actions with owners. |  |  |
 | `income-statement` | Profit and loss report: income and expense sections, totals and net profit, with a last-period column and percent change. Negatives in brackets. |  |  |
+| `inspection-report` | Site or safety inspection: square tick, cross and dash marks grouped by area, a rotated PASSED or FAILED stamp, and a deficiency list worked out from failed checks. |  |  |
 | `invoice` | Printable invoice with number, status, from and bill-to, line items, tax and total computed from the lines. | ✓ |  |
 | `json-tree` | Collapsible JSON viewer with colour-coded values, counts on closed branches, expand and collapse all, and copy path or copy JSON. | ✓ |  |
 | `kbd` | Keyboard key hint. | ✓ |  |
+| `lab-report` | Laboratory results where every row draws its reference range as a track with the value as a marker, so high and low results show at a glance. Flags worked out from the range. |  |  |
 | `markdown` | Renders Markdown text as styled elements with no HTML injection: headings, bold, italic, code, code blocks, lists, quotes and safe links. For AI answers and notes. | ✓ |  |
 | `marquee` | Endless logo or tag scroll with edge fade. Pauses on hover. | ✓ | ✓ |
 | `media-player` | Video or audio player with themed controls: play, seek, time, mute and fullscreen. | ✓ |  |
@@ -148,12 +150,14 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `profile-card` | Person card with banner, avatar, role, stats and an actions slot. | ✓ | ✓ |
 | `project-status-report` | Project status sheet: overall health, summary, milestones with state, budget burn, risks with owners and next steps. |  |  |
 | `rating-breakdown` | Review summary: big average, stars and a bar per star level. Rows can act as filters. Bars fill in on scroll. | ✓ | ✓ |
+| `report-card` | School report card in a double-ruled frame: marks per term, average and letter grade per subject, a large overall grade, attendance, teacher note and signatures. |  |  |
 | `reveal` | Scroll-in fade-up wrapper and a blur-in headline. One IntersectionObserver each. | ✓ |  |
 | `sales-report` | Printable sales report sheet: headline totals, a breakdown by region with each share of revenue, top products and a summary paragraph. |  |  |
 | `separator` | Horizontal or vertical divider. | ✓ | ✓ |
 | `shimmer-text` | Text with a light sweep passing over it. | ✓ | ✓ |
 | `sortable-list` | Reorder rows by dragging, or with arrow keys on the grip. Controlled, no drag library. | ✓ | ✓ |
 | `spotlight-card` | Card with a glow and border highlight that follow the cursor. | ✓ |  |
+| `sprint-report` | Sprint report built around a burndown chart with an ideal line, plus committed, completed and spilled points, a velocity strip, and what shipped and slipped. |  |  |
 | `status-dot` | Small status light with an optional pulse and label. | ✓ | ✓ |
 | `status-page` | A public status page: an all-systems banner worked out from each service, 90-day uptime bars and incident history with updates. | ✓ |  |
 | `stock-report` | Inventory report: on hand against reorder level, value per item, Low and Out flags and a list of what to reorder. |  |  |

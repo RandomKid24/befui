@@ -1,5 +1,40 @@
 [
   {
+    "version": "1.13.0",
+    "date": "2026-11-16",
+    "title": "Four reports with a look of their own",
+    "entries": [
+      {
+        "kind": "added",
+        "text": "Lab report: every result draws its reference range as a track with the value as a marker, and the high or low flag is worked out from the range.",
+        "slugs": [
+          "lab-report"
+        ]
+      },
+      {
+        "kind": "added",
+        "text": "Report card: a school report in a double-ruled frame with marks per term, an average and letter grade per subject, a large overall grade, attendance and signatures.",
+        "slugs": [
+          "report-card"
+        ]
+      },
+      {
+        "kind": "added",
+        "text": "Sprint report: a burndown chart with an ideal line at its centre, committed, completed and spilled points, a velocity strip, and what shipped and what slipped with the reason.",
+        "slugs": [
+          "sprint-report"
+        ]
+      },
+      {
+        "kind": "added",
+        "text": "Inspection report: square tick, cross and dash marks grouped by area, a rotated PASSED or FAILED stamp, and a list of deficiencies built from the failed checks.",
+        "slugs": [
+          "inspection-report"
+        ]
+      }
+    ]
+  },
+  {
     "version": "1.12.0",
     "date": "2026-11-16",
     "title": "Fourteen report documents",
