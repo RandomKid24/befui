@@ -51,6 +51,7 @@
   "attachment": [
     "icons"
   ],
+  "attendance-report": [],
   "audit-log": [
     "avatar",
     "badge",
@@ -315,6 +316,7 @@
   "image-viewer": [
     "icons"
   ],
+  "income-statement": [],
   "india-map": [
     "charts"
   ],
@@ -539,6 +541,7 @@
   "rose-chart": [
     "charts"
   ],
+  "sales-report": [],
   "sankey-chart": [
     "charts"
   ],
@@ -628,6 +631,7 @@
   "stepper": [
     "icons"
   ],
+  "stock-report": [],
   "stopwatch": [
     "button",
     "icons"

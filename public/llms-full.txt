@@ -2484,6 +2484,38 @@ export default function ApprovalFlowDemo() {
 }
 ```
 
+## Attendance report (`attendance-report`)
+Monthly attendance sheet: present, absent, late, leave and hours per person, attendance percent, column totals and signature lines.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add attendance-report`
+- Import: `import { AttendanceReport } from '@/components/ui/attendance-report'`
+
+Example:
+
+```tsx
+import { AttendanceReport } from '@/components/ui/attendance-report';
+
+export default function AttendanceReportDemo() {
+  return (
+    <AttendanceReport
+      organization="Kiran Foods Pvt Ltd"
+      title="Attendance report"
+      period="October 2026"
+      number="HR-ATT-10"
+      generated="1 Nov 2026"
+      workingDays={22}
+      signatures={['Prepared by, HR', 'Approved by, Operations head']}
+      rows={[
+        { name: 'Meera Joshi', role: 'Accounts', present: 21, absent: 0, late: 1, leave: 0, hours: 178 },
+        { name: 'Rohan Desai', role: 'Warehouse', present: 16, absent: 3, late: 3, leave: 0, hours: 141 },
+        { name: 'Anita Rao', role: 'Sales', present: 18, absent: 0, late: 0, leave: 4, hours: 150 },
+        { name: 'Imran Shaikh', role: 'Dispatch', present: 20, absent: 1, late: 1, leave: 0, hours: 169 },
+      ]}
+    />
+  );
+}
+```
+
 ## Avatar (`avatar`)
 Image with initials fallback in a stable color. Five sizes, circle or square, presence dot (online, away, busy, offline), a stacked group with hover names, and UserInfo for avatar plus name and subtitle.
 - Group: Display
@@ -3023,6 +3055,40 @@ export default function ImageGalleryDemo() {
 }
 ```
 
+## Income statement (`income-statement`)
+Profit and loss report: income and expense sections, totals and net profit, with a last-period column and percent change. Negatives in brackets.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add income-statement`
+- Import: `import { IncomeStatement } from '@/components/ui/income-statement'`
+
+Example:
+
+```tsx
+import { IncomeStatement } from '@/components/ui/income-statement';
+
+export default function IncomeStatementDemo() {
+  return (
+    <IncomeStatement
+      organization="Kiran Foods Pvt Ltd"
+      title="Income statement"
+      period="Quarter ended 30 September 2026"
+      number="FS-Q2"
+      generated="8 Oct 2026"
+      previousLabel="Last quarter"
+      income={[
+        { title: 'Sales', lines: [{ label: 'Retail', amount: 9200000, previous: 8400000 }, { label: 'Wholesale', amount: 5100000, previous: 5300000 }] },
+        { title: 'Other income', lines: [{ label: 'Interest', amount: 140000, previous: 120000 }] },
+      ]}
+      expenses={[
+        { title: 'Cost of goods', lines: [{ label: 'Raw material', amount: 7300000, previous: 6900000 }, { label: 'Packaging', amount: 820000, previous: 790000 }] },
+        { title: 'Operating', lines: [{ label: 'Salaries', amount: 3100000, previous: 3000000 }, { label: 'Rent and utilities', amount: 640000, previous: 640000 }, { label: 'Marketing', amount: 910000, previous: 540000 }] },
+      ]}
+      notes="Marketing was up because of the festival campaign. Wholesale fell after two distributors paused orders."
+    />
+  );
+}
+```
+
 ## Invoice (`invoice`)
 Printable invoice with number, status, from and bill-to, line items, tax and total computed from the lines.
 - Group: Display
@@ -3435,6 +3501,42 @@ export default function RevealDemo() {
 }
 ```
 
+## Sales report (`sales-report`)
+Printable sales report sheet: headline totals, a breakdown by region with each share of revenue, top products and a summary paragraph.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add sales-report`
+- Import: `import { SalesReport } from '@/components/ui/sales-report'`
+
+Example:
+
+```tsx
+import { SalesReport } from '@/components/ui/sales-report';
+
+export default function SalesReportDemo() {
+  return (
+    <SalesReport
+      organization="Kiran Foods Pvt Ltd"
+      title="Monthly sales report"
+      period="1 to 31 October 2026"
+      number="SR-2026-10"
+      generated="2 Nov 2026"
+      breakdown={[
+        { name: 'West', orders: 1840, revenue: 4820000 },
+        { name: 'South', orders: 1260, revenue: 3150000 },
+        { name: 'North', orders: 980, revenue: 2410000 },
+        { name: 'East', orders: 420, revenue: 960000 },
+      ]}
+      topProducts={[
+        { name: 'Cold-pressed groundnut oil, 1 L', orders: 1120, revenue: 2240000 },
+        { name: 'Stone-ground atta, 5 kg', orders: 960, revenue: 1680000 },
+        { name: 'Jaggery cubes, 500 g', orders: 730, revenue: 880000 },
+      ]}
+      summary="Revenue grew in the West and South. The East region is small but its orders per customer are the highest of the four. Oil and atta together made up 38% of revenue."
+    />
+  );
+}
+```
+
 ## Separator (`separator`)
 Horizontal or vertical divider.
 - Group: Display
@@ -3604,6 +3706,36 @@ export default function StatusPageDemo() {
       incidents={[
         { id: 'i1', title: 'Delayed webhook deliveries', state: 'monitoring', updates: [{ time: '2 days ago, 10:40', text: 'A fix is in place. We are watching the queue drain.' }, { time: '2 days ago, 09:55', text: 'Webhook deliveries are delayed by up to 20 minutes.' }] },
         { id: 'i2', title: 'Database failover', state: 'resolved', updates: [{ time: '18 days ago, 14:20', text: 'Resolved. All services are back to normal.' }, { time: '18 days ago, 13:42', text: 'The primary database failed over. API requests are failing.' }] },
+      ]}
+    />
+  );
+}
+```
+
+## Stock report (`stock-report`)
+Inventory report: on hand against reorder level, value per item, Low and Out flags and a list of what to reorder.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add stock-report`
+- Import: `import { StockReport } from '@/components/ui/stock-report'`
+
+Example:
+
+```tsx
+import { StockReport } from '@/components/ui/stock-report';
+
+export default function StockReportDemo() {
+  return (
+    <StockReport
+      organization="Kiran Foods Pvt Ltd"
+      title="Stock report"
+      period="As of 31 October 2026"
+      number="INV-2026-10"
+      generated="1 Nov 2026"
+      items={[
+        { sku: 'OIL-GN-1L', name: 'Groundnut oil, 1 L', onHand: 640, reorderAt: 300, unitCost: 180 },
+        { sku: 'ATA-SG-5K', name: 'Stone-ground atta, 5 kg', onHand: 210, reorderAt: 250, unitCost: 240 },
+        { sku: 'JAG-CB-500', name: 'Jaggery cubes, 500 g', onHand: 0, reorderAt: 120, unitCost: 65 },
+        { sku: 'GHE-DS-500', name: 'Desi ghee, 500 ml', onHand: 380, reorderAt: 150, unitCost: 410 },
       ]}
     />
   );
