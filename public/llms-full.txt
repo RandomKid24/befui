@@ -3441,6 +3441,78 @@ export default function OrderSummaryDemo() {
 }
 ```
 
+## Payroll summary (`payroll-summary`)
+Monthly payroll sheet: basic, allowances, gross, deductions and net pay per person, totals, net pay by department and approval lines.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add payroll-summary`
+- Import: `import { PayrollSummary } from '@/components/ui/payroll-summary'`
+
+Example:
+
+```tsx
+import { PayrollSummary } from '@/components/ui/payroll-summary';
+
+export default function PayrollSummaryDemo() {
+  return (
+    <PayrollSummary
+      organization="Kiran Foods Pvt Ltd"
+      title="Payroll summary"
+      period="October 2026"
+      number="PAY-2026-10"
+      generated="28 Oct 2026"
+      note="Salaries are paid on 31 October by bank transfer."
+      rows={[
+        { name: 'Meera Joshi', department: 'Accounts', basic: 52000, allowances: 14000, deductions: 9800 },
+        { name: 'Rohan Desai', department: 'Sales', basic: 38000, allowances: 12000, deductions: 6400 },
+        { name: 'Anita Rao', department: 'Sales', basic: 61000, allowances: 17000, deductions: 12100 },
+        { name: 'Imran Shaikh', department: 'Dispatch', basic: 31000, allowances: 8000, deductions: 4700 },
+        { name: 'Kavita Nair', department: 'Warehouse', basic: 27000, allowances: 6500, deductions: 3900 },
+      ]}
+    />
+  );
+}
+```
+
+## Performance review (`performance-review`)
+Individual review sheet: goals scored 1 to 5 with comments, competency scores, strengths, areas to improve, next goals, an overall score and signature lines.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add performance-review`
+- Import: `import { PerformanceReview } from '@/components/ui/performance-review'`
+
+Example:
+
+```tsx
+import { PerformanceReview } from '@/components/ui/performance-review';
+
+export default function PerformanceReviewDemo() {
+  return (
+    <PerformanceReview
+      organization="Kiran Foods Pvt Ltd"
+      title="Performance review"
+      period="April to September 2026"
+      number="PR-H1-0231"
+      generated="5 Oct 2026"
+      employee={{ name: 'Rohan Desai', role: 'Sales executive', manager: 'Anita Rao', tenure: '2 years 4 months' }}
+      outcome="Meets expectations"
+      goals={[
+        { goal: 'Grow West region revenue by 15%', rating: 4, comment: 'Reached 18%, mostly from two new wholesale accounts.' },
+        { goal: 'Keep customer complaints under 2% of orders', rating: 3, comment: 'Averaged 2.1%. September was the only month over.' },
+        { goal: 'Update the CRM within a day of every call', rating: 2, comment: 'Done for about half of calls. This made handovers harder.' },
+      ]}
+      competencies={[
+        { name: 'Communication', rating: 4 },
+        { name: 'Ownership', rating: 4 },
+        { name: 'Planning', rating: 3 },
+        { name: 'Teamwork', rating: 3 },
+      ]}
+      strengths={['Builds trust quickly with new buyers', 'Takes on hard accounts without being asked']}
+      improvements={['Keep CRM notes current', 'Plan the week on Monday, not Wednesday']}
+      next={['Open three new retail accounts in the South', 'CRM updated daily, checked monthly']}
+    />
+  );
+}
+```
+
 ## Pricing card (`pricing-card`)
 Plan card whose price counts to the new value. The highlighted plan gets a travelling border beam.
 - Group: Display

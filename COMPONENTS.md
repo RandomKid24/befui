@@ -1,6 +1,6 @@
 # Components
 
-Every befui component and block. **281 React components**, **269 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **38 page blocks**.
+Every befui component and block. **283 React components**, **269 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **38 page blocks**.
 (Generated from the registry by `npm run registry:build`. Do not edit by hand.)
 
 Install a React component with `npx github:RandomKid24/befui add <name>`, the Flutter version with `npx github:RandomKid24/befui add <name> --flutter`.
@@ -100,7 +100,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `toggle-group` | A row of toggles where one or several can be pressed, for formatting toolbars. | ✓ | ✓ |
 | `transfer-list` | Two lists with arrows between them: tick items and move them across, each side with search and select all. For roles, columns or members. | ✓ |  |
 
-## Display (59, 29 on Flutter)
+## Display (61, 29 on Flutter)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
@@ -138,6 +138,8 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `media-player` | Video or audio player with themed controls: play, seek, time, mute and fullscreen. | ✓ |  |
 | `onboarding-checklist` | Getting-started card with a progress bar, tick-off items, short help text and actions. Collapsible. | ✓ | ✓ |
 | `order-summary` | Cart lines with subtotal, discount, shipping, tax and total computed for you. Slots for a coupon field and a checkout button. | ✓ | ✓ |
+| `payroll-summary` | Monthly payroll sheet: basic, allowances, gross, deductions and net pay per person, totals, net pay by department and approval lines. |  |  |
+| `performance-review` | Individual review sheet: goals scored 1 to 5 with comments, competency scores, strengths, areas to improve, next goals, an overall score and signature lines. |  |  |
 | `pricing-card` | Plan card whose price counts to the new value. The highlighted plan gets a travelling border beam. | ✓ | ✓ |
 | `pricing-comparison` | The feature grid under a pricing page: plans across the top, features down the side, checks and short text in the cells. | ✓ |  |
 | `product-card` | Product tile with image, rating, price with strike-through, discount tag, wishlist heart and Add button. Also exports Price. | ✓ | ✓ |

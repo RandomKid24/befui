@@ -459,6 +459,8 @@
     "icons",
     "input"
   ],
+  "payroll-summary": [],
+  "performance-review": [],
   "permission-matrix": [
     "checkbox",
     "table"
