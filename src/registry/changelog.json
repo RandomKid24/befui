@@ -1,5 +1,19 @@
 [
   {
+    "version": "1.14.0",
+    "date": "2026-11-16",
+    "title": "Update progress card",
+    "entries": [
+      {
+        "kind": "added",
+        "text": "Update progress: an app updater card with the target version, a large monospace percent, a status line, a segmented bar and a fetch, apply, reopen step row, with an optional Hide button.",
+        "slugs": [
+          "update-progress"
+        ]
+      }
+    ]
+  },
+  {
     "version": "1.13.0",
     "date": "2026-11-16",
     "title": "Four reports with a look of their own",
