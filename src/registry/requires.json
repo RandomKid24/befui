@@ -69,6 +69,7 @@
     "icons"
   ],
   "badge": [],
+  "balance-sheet": [],
   "banner": [
     "icons"
   ],
@@ -254,6 +255,7 @@
     "calendar",
     "icons"
   ],
+  "expense-report": [],
   "fab": [
     "icons"
   ],
@@ -316,6 +318,7 @@
   "image-viewer": [
     "icons"
   ],
+  "incident-report": [],
   "income-statement": [],
   "india-map": [
     "charts"
@@ -490,6 +493,7 @@
   ],
   "progress": [],
   "progress-ring": [],
+  "project-status-report": [],
   "prompt-input": [
     "icons"
   ],

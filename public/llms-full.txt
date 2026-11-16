@@ -2588,6 +2588,41 @@ export default function BadgeDemo() {
 }
 ```
 
+## Balance sheet (`balance-sheet`)
+Assets, liabilities and equity as at a date, with subtotals and a check that the sheet balances.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add balance-sheet`
+- Import: `import { BalanceSheet } from '@/components/ui/balance-sheet'`
+
+Example:
+
+```tsx
+import { BalanceSheet } from '@/components/ui/balance-sheet';
+
+export default function BalanceSheetDemo() {
+  return (
+    <BalanceSheet
+      organization="Kiran Foods Pvt Ltd"
+      title="Balance sheet"
+      period="As at 30 September 2026"
+      number="FS-BS-Q2"
+      generated="8 Oct 2026"
+      assets={[
+        { title: 'Current assets', lines: [{ label: 'Cash and bank', amount: 6200000 }, { label: 'Receivables', amount: 4100000 }, { label: 'Inventory', amount: 3850000 }] },
+        { title: 'Fixed assets', lines: [{ label: 'Plant and machinery', amount: 9400000 }, { label: 'Vehicles', amount: 2100000 }, { label: 'Less depreciation', amount: -3300000 }] },
+      ]}
+      liabilities={[
+        { title: 'Current liabilities', lines: [{ label: 'Payables', amount: 3600000 }, { label: 'GST payable', amount: 520000 }] },
+        { title: 'Long-term liabilities', lines: [{ label: 'Term loan', amount: 6000000 }] },
+      ]}
+      equity={[
+        { title: 'Owners equity', lines: [{ label: 'Share capital', amount: 5000000 }, { label: 'Retained earnings', amount: 7230000 }] },
+      ]}
+    />
+  );
+}
+```
+
 ## Border beam (`border-beam`)
 A light beam that circles the border. For pricing cards and featured content.
 - Group: Display
@@ -2998,6 +3033,39 @@ export default function EmptyStateDemo() {
 }
 ```
 
+## Expense report (`expense-report`)
+Employee expense claim: itemised lines with a missing-receipt flag, totals by category, advance taken off, amount payable and approval lines.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add expense-report`
+- Import: `import { ExpenseReport } from '@/components/ui/expense-report'`
+
+Example:
+
+```tsx
+import { ExpenseReport } from '@/components/ui/expense-report';
+
+export default function ExpenseReportDemo() {
+  return (
+    <ExpenseReport
+      organization="Kiran Foods Pvt Ltd"
+      title="Expense claim"
+      period="Pune trip, 12 to 14 October 2026"
+      number="EXP-0412"
+      generated="16 Oct 2026"
+      employee={{ name: 'Rohan Desai', id: 'KF-0231', department: 'Sales' }}
+      advance={5000}
+      lines={[
+        { date: '12 Oct', category: 'Travel', description: 'Train, Mumbai to Pune', amount: 1450 },
+        { date: '12 Oct', category: 'Hotel', description: 'Two nights, Hotel Sapphire', amount: 6800 },
+        { date: '13 Oct', category: 'Meals', description: 'Client dinner, four people', amount: 3200 },
+        { date: '13 Oct', category: 'Local travel', description: 'Cabs, three rides', amount: 1180, receipt: false },
+        { date: '14 Oct', category: 'Travel', description: 'Train, Pune to Mumbai', amount: 1450 },
+      ]}
+    />
+  );
+}
+```
+
 ## Format helpers (`format`)
 formatCurrency, formatCompact, formatPercent, formatBytes, formatDuration and a signed Currency component. Indian rupees by default.
 - Group: Display
@@ -3052,6 +3120,49 @@ export default function ImageGalleryDemo() {
     ['#8b5cf6', '#3b82f6', 3, 4, 'Dusk'], ['#14b8a6', '#84cc16', 1, 1, 'Meadow'], ['#f43f5e', '#f59e0b', 5, 4, 'Spice'],
   ];
   return <ImageGallery className="w-[32rem] max-w-full" images={data.map(([a, b, w, h, c]) => ({ src: pic(a, b, w * 100, h * 100), alt: c, ratio: w / h, caption: c }))} />;
+}
+```
+
+## Incident report (`incident-report`)
+Post-incident report: severity, key facts, impact, root cause, timeline and follow-up actions with owners.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add incident-report`
+- Import: `import { IncidentReport } from '@/components/ui/incident-report'`
+
+Example:
+
+```tsx
+import { IncidentReport } from '@/components/ui/incident-report';
+
+export default function IncidentReportDemo() {
+  return (
+    <IncidentReport
+      organization="Kiran Foods Pvt Ltd"
+      title="Checkout returned errors"
+      period="12 November 2026"
+      number="INC-218"
+      generated="14 Nov 2026"
+      severity="SEV2"
+      facts={[
+        { label: 'Duration', value: '45 minutes' },
+        { label: 'Detected by', value: 'Error rate alert' },
+        { label: 'Incident lead', value: 'Imran Shaikh' },
+      ]}
+      impact="About 8% of card payments failed between 14:02 and 14:47 UTC. No orders were lost; most customers retried and paid."
+      cause="A config change lowered the database connection pool limit. Under evening traffic the pool ran out and requests timed out. The change was reviewed but the limit was not part of the review checklist."
+      timeline={[
+        { time: '14:02', text: 'Error rate alert fires and the on-call engineer is paged.' },
+        { time: '14:11', text: 'Last deploy rolled back. Errors continue.' },
+        { time: '14:19', text: 'Pool exhaustion found in the database metrics.' },
+        { time: '14:47', text: 'Pool limit restored and errors return to normal.' },
+      ]}
+      actions={[
+        { action: 'Add pool limits to the config review checklist', owner: 'Imran Shaikh', due: '20 Nov', done: true },
+        { action: 'Alert on pool usage above 80%', owner: 'Meera Joshi', due: '27 Nov' },
+        { action: 'Load test checkout at twice evening peak', owner: 'Rohan Desai', due: '4 Dec' },
+      ]}
+    />
+  );
 }
 ```
 
@@ -3446,6 +3557,45 @@ export default function ProfileCardDemo() {
       <Button variant="outline">Message</Button>
       <Button>View profile</Button>
     </ProfileCard>
+  );
+}
+```
+
+## Project status report (`project-status-report`)
+Project status sheet: overall health, summary, milestones with state, budget burn, risks with owners and next steps.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add project-status-report`
+- Import: `import { ProjectStatusReport } from '@/components/ui/project-status-report'`
+
+Example:
+
+```tsx
+import { ProjectStatusReport } from '@/components/ui/project-status-report';
+
+export default function ProjectStatusReportDemo() {
+  return (
+    <ProjectStatusReport
+      organization="Kiran Foods Pvt Ltd"
+      title="Online store rebuild"
+      period="Week 7, 9 to 15 November 2026"
+      number="PSR-07"
+      generated="16 Nov 2026"
+      health="at risk"
+      summary="Catalogue and checkout are done. Payments are late because the gateway sandbox access took three weeks. We expect to recover two of those weeks if the mobile work starts on Monday."
+      milestones={[
+        { name: 'Catalogue import', due: '28 Oct', state: 'done' },
+        { name: 'Checkout flow', due: '8 Nov', state: 'done' },
+        { name: 'Payment gateway', due: '15 Nov', state: 'off track' },
+        { name: 'Mobile app beta', due: '6 Dec', state: 'at risk' },
+        { name: 'Launch', due: '20 Dec', state: 'on track' },
+      ]}
+      budget={{ spent: 3420000, total: 4500000 }}
+      risks={[
+        { risk: 'Gateway approval takes longer than a week', level: 'high', owner: 'Anita Rao', plan: 'Escalated to the bank relationship manager' },
+        { risk: 'One mobile developer on leave in December', level: 'medium', owner: 'Imran Shaikh' },
+      ]}
+      next={['Finish payment integration and test refunds', 'Start mobile beta build', 'Freeze the catalogue on 1 December']}
+    />
   );
 }
 ```

@@ -1,6 +1,6 @@
 # Components
 
-Every befui component and block. **277 React components**, **269 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **38 page blocks**.
+Every befui component and block. **281 React components**, **269 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **38 page blocks**.
 (Generated from the registry by `npm run registry:build`. Do not edit by hand.)
 
 Install a React component with `npx github:RandomKid24/befui add <name>`, the Flutter version with `npx github:RandomKid24/befui add <name> --flutter`.
@@ -100,7 +100,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `toggle-group` | A row of toggles where one or several can be pressed, for formatting toolbars. | ✓ | ✓ |
 | `transfer-list` | Two lists with arrows between them: tick items and move them across, each side with search and select all. For roles, columns or members. | ✓ |  |
 
-## Display (55, 29 on Flutter)
+## Display (59, 29 on Flutter)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
@@ -110,6 +110,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `attendance-report` | Monthly attendance sheet: present, absent, late, leave and hours per person, attendance percent, column totals and signature lines. |  |  |
 | `avatar` | Image with initials fallback in a stable color. Five sizes, circle or square, presence dot (online, away, busy, offline), a stacked group with hover names, and UserInfo for avatar plus name and subtitle. | ✓ | ✓ |
 | `badge` | Status pill with semantic colors and an optional dot. | ✓ | ✓ |
+| `balance-sheet` | Assets, liabilities and equity as at a date, with subtotals and a check that the sheet balances. |  |  |
 | `border-beam` | A light beam that circles the border. For pricing cards and featured content. | ✓ |  |
 | `brand-icons` | Logos of popular services as single-colour SVGs that follow the text colour, for sign-in buttons and integration lists. | ✓ |  |
 | `card` | Bordered surface with header, content and footer parts. | ✓ | ✓ |
@@ -124,8 +125,10 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `description-list` | Label and value pairs for a details panel, in one to three columns, optionally with dividers. | ✓ | ✓ |
 | `diff-viewer` | Before and after text as a unified diff: red removed lines, green added lines, line numbers, and unchanged stretches folded. | ✓ |  |
 | `empty-state` | Dashed placeholder with icon, text and an action. | ✓ | ✓ |
+| `expense-report` | Employee expense claim: itemised lines with a missing-receipt flag, totals by category, advance taken off, amount payable and approval lines. |  |  |
 | `format` | formatCurrency, formatCompact, formatPercent, formatBytes, formatDuration and a signed Currency component. Indian rupees by default. | ✓ |  |
 | `image-gallery` | Masonry grid of images of different heights with a hover zoom and caption. onSelect gives the index. | ✓ |  |
+| `incident-report` | Post-incident report: severity, key facts, impact, root cause, timeline and follow-up actions with owners. |  |  |
 | `income-statement` | Profit and loss report: income and expense sections, totals and net profit, with a last-period column and percent change. Negatives in brackets. |  |  |
 | `invoice` | Printable invoice with number, status, from and bill-to, line items, tax and total computed from the lines. | ✓ |  |
 | `json-tree` | Collapsible JSON viewer with colour-coded values, counts on closed branches, expand and collapse all, and copy path or copy JSON. | ✓ |  |
@@ -139,6 +142,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `pricing-comparison` | The feature grid under a pricing page: plans across the top, features down the side, checks and short text in the cells. | ✓ |  |
 | `product-card` | Product tile with image, rating, price with strike-through, discount tag, wishlist heart and Add button. Also exports Price. | ✓ | ✓ |
 | `profile-card` | Person card with banner, avatar, role, stats and an actions slot. | ✓ | ✓ |
+| `project-status-report` | Project status sheet: overall health, summary, milestones with state, budget burn, risks with owners and next steps. |  |  |
 | `rating-breakdown` | Review summary: big average, stars and a bar per star level. Rows can act as filters. Bars fill in on scroll. | ✓ | ✓ |
 | `reveal` | Scroll-in fade-up wrapper and a blur-in headline. One IntersectionObserver each. | ✓ |  |
 | `sales-report` | Printable sales report sheet: headline totals, a breakdown by region with each share of revenue, top products and a summary paragraph. |  |  |
