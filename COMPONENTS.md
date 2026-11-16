@@ -1,6 +1,6 @@
 # Components
 
-Every befui component and block. **292 React components**, **269 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **38 page blocks**.
+Every befui component and block. **293 React components**, **269 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **38 page blocks**.
 (Generated from the registry by `npm run registry:build`. Do not edit by hand.)
 
 Install a React component with `npx github:RandomKid24/befui add <name>`, the Flutter version with `npx github:RandomKid24/befui add <name> --flutter`.
@@ -100,18 +100,18 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `toggle-group` | A row of toggles where one or several can be pressed, for formatting toolbars. | ✓ | ✓ |
 | `transfer-list` | Two lists with arrows between them: tick items and move them across, each side with search and select all. For roles, columns or members. | ✓ |  |
 
-## Display (69, 29 on Flutter)
+## Display (70, 29 on Flutter)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
 | `accordion` | Collapsible sections with a smooth height animation. Single or multiple open. | ✓ | ✓ |
 | `activity-feed` | Who did what and when, grouped under Today and Yesterday, with live relative times and an optional quoted detail. | ✓ | ✓ |
 | `approval-flow` | Chain of approvers with decisions, comments and times. The current approver gets Approve and Reject buttons. | ✓ |  |
-| `attendance-report` | Monthly attendance sheet: present, absent, late, leave and hours per person, attendance percent, column totals and signature lines. |  |  |
+| `attendance-report` | Attendance report screen: headline attendance, absences and hours, then a table with present, absent, late, leave and attendance percent per person, with totals. |  |  |
 | `audit-report` | Audit report: scope, overall opinion, a count of findings by severity, then each finding with reference, evidence and recommendation, worst first. |  |  |
 | `avatar` | Image with initials fallback in a stable color. Five sizes, circle or square, presence dot (online, away, busy, offline), a stacked group with hover names, and UserInfo for avatar plus name and subtitle. | ✓ | ✓ |
 | `badge` | Status pill with semantic colors and an optional dot. | ✓ | ✓ |
-| `balance-sheet` | Assets, liabilities and equity as at a date, with subtotals and a check that the sheet balances. |  |  |
+| `balance-sheet` | Balance sheet as a statement table: totals of assets, liabilities and equity up top, then each section with subtotals and a check that it balances. |  |  |
 | `border-beam` | A light beam that circles the border. For pricing cards and featured content. | ✓ |  |
 | `brand-icons` | Logos of popular services as single-colour SVGs that follow the text colour, for sign-in buttons and integration lists. | ✓ |  |
 | `card` | Bordered surface with header, content and footer parts. | ✓ | ✓ |
@@ -126,13 +126,13 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `description-list` | Label and value pairs for a details panel, in one to three columns, optionally with dividers. | ✓ | ✓ |
 | `diff-viewer` | Before and after text as a unified diff: red removed lines, green added lines, line numbers, and unchanged stretches folded. | ✓ |  |
 | `empty-state` | Dashed placeholder with icon, text and an action. | ✓ | ✓ |
-| `expense-report` | Employee expense claim: itemised lines with a missing-receipt flag, totals by category, advance taken off, amount payable and approval lines. |  |  |
+| `expense-report` | Employee expense claim: total, amount payable and missing receipts up top, then itemised lines with a receipt flag and totals by category. |  |  |
 | `feedback-report` | Customer feedback report: average rating with change, star distribution, NPS, themes with mentions and a quote, and a summary. |  |  |
 | `format` | formatCurrency, formatCompact, formatPercent, formatBytes, formatDuration and a signed Currency component. Indian rupees by default. | ✓ |  |
 | `image-gallery` | Masonry grid of images of different heights with a hover zoom and caption. onSelect gives the index. | ✓ |  |
 | `incident-report` | Post-incident report: severity, key facts, impact, root cause, timeline and follow-up actions with owners. |  |  |
 | `income-statement` | Profit and loss report: income and expense sections, totals and net profit, with a last-period column and percent change. Negatives in brackets. |  |  |
-| `inspection-report` | Site or safety inspection: square tick, cross and dash marks grouped by area, a rotated PASSED or FAILED stamp, and a deficiency list worked out from failed checks. |  |  |
+| `inspection-report` | Inspection report: result and counts up top, then a table per area with a pass, fail or N/A mark and note for each check. |  |  |
 | `invoice` | Printable invoice with number, status, from and bill-to, line items, tax and total computed from the lines. | ✓ |  |
 | `json-tree` | Collapsible JSON viewer with colour-coded values, counts on closed branches, expand and collapse all, and copy path or copy JSON. | ✓ |  |
 | `kbd` | Keyboard key hint. | ✓ |  |
@@ -142,17 +142,18 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `media-player` | Video or audio player with themed controls: play, seek, time, mute and fullscreen. | ✓ |  |
 | `onboarding-checklist` | Getting-started card with a progress bar, tick-off items, short help text and actions. Collapsible. | ✓ | ✓ |
 | `order-summary` | Cart lines with subtotal, discount, shipping, tax and total computed for you. Slots for a coupon field and a checkout button. | ✓ | ✓ |
-| `payroll-summary` | Monthly payroll sheet: basic, allowances, gross, deductions and net pay per person, totals, net pay by department and approval lines. |  |  |
-| `performance-review` | Individual review sheet: goals scored 1 to 5 with comments, competency scores, strengths, areas to improve, next goals, an overall score and signature lines. |  |  |
+| `payroll-summary` | Payroll summary screen: gross, deductions and net up top, then basic, allowances, gross, deductions and net pay per person with totals and net pay by department. |  |  |
+| `performance-review` | Performance review: overall score and employee facts up top, goals scored 1 to 5 with comments, competency scores, strengths and areas to improve. |  |  |
 | `pricing-card` | Plan card whose price counts to the new value. The highlighted plan gets a travelling border beam. | ✓ | ✓ |
 | `pricing-comparison` | The feature grid under a pricing page: plans across the top, features down the side, checks and short text in the cells. | ✓ |  |
 | `product-card` | Product tile with image, rating, price with strike-through, discount tag, wishlist heart and Add button. Also exports Price. | ✓ | ✓ |
 | `profile-card` | Person card with banner, avatar, role, stats and an actions slot. | ✓ | ✓ |
-| `project-status-report` | Project status sheet: overall health, summary, milestones with state, budget burn, risks with owners and next steps. |  |  |
+| `project-status-report` | Project status report: health, milestones done, budget used and open risks up top, then a milestone table, budget bar, risks with owners and next steps. |  |  |
 | `rating-breakdown` | Review summary: big average, stars and a bar per star level. Rows can act as filters. Bars fill in on scroll. | ✓ | ✓ |
-| `report-card` | School report card in a double-ruled frame: marks per term, average and letter grade per subject, a large overall grade, attendance, teacher note and signatures. |  |  |
+| `report-card` | School report card screen: student, overall grade and attendance up top, then a marks table per term with average and letter grade per subject, and a teacher note. |  |  |
+| `report-view` | The frame the befui reports share: a toolbar with title, period and print button, a strip of headline numbers, sections of full-width tables, and a footer. |  |  |
 | `reveal` | Scroll-in fade-up wrapper and a blur-in headline. One IntersectionObserver each. | ✓ |  |
-| `sales-report` | Printable sales report sheet: headline totals, a breakdown by region with each share of revenue, top products and a summary paragraph. |  |  |
+| `sales-report` | Sales report screen: revenue, orders and average order up top, a breakdown table with each share of revenue, top products and a summary. |  |  |
 | `separator` | Horizontal or vertical divider. | ✓ | ✓ |
 | `shimmer-text` | Text with a light sweep passing over it. | ✓ | ✓ |
 | `sortable-list` | Reorder rows by dragging, or with arrow keys on the grip. Controlled, no drag library. | ✓ | ✓ |
@@ -169,7 +170,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `testimonial-card` | Customer quote with avatar, role and optional star rating. | ✓ | ✓ |
 | `tilt-card` | 3D card that tilts toward the cursor with a moving sheen. | ✓ |  |
 | `timeline` | Vertical activity feed with tone-colored markers. | ✓ | ✓ |
-| `timesheet-report` | Weekly timesheet: hours per project per day with row and column totals, billable share, a shortfall against expected hours and approval lines. |  |  |
+| `timesheet-report` | Timesheet report: total and billable hours up top, then hours per project per day with row and column totals and a shortfall against expected hours. |  |  |
 | `typewriter` | Types, holds and deletes phrases in a loop. Static for reduced motion. | ✓ | ✓ |
 | `usage-meter` | Plan usage rows for a billing page: used of limit, percent, blue to amber to red as it fills, overage spelled out, unlimited rows. | ✓ |  |
 | `version-log` | Animated version history: the rail draws and dots pop as releases scroll in, entries slide in one by one, releases fold open, with a version jump strip and a kind filter. | ✓ |  |

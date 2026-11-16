@@ -241,6 +241,19 @@
   }
 }
 
+.data-\[state\=closed\]\:animate-fade-out[data-state=closed] {
+  animation: fade-out var(--dur-fast) ease-in both;
+}
+.data-\[state\=closed\]\:animate-pop-out[data-state=closed] {
+  animation: pop-out var(--dur-fast) cubic-bezier(.4,0,1,1) both;
+}
+.data-\[state\=closed\]\:animate-slide-left-out[data-state=closed] {
+  animation: slide-left-out var(--dur-base) cubic-bezier(.4,0,1,1) both;
+}
+.data-\[state\=closed\]\:animate-slide-right-out[data-state=closed] {
+  animation: slide-right-out var(--dur-base) cubic-bezier(.4,0,1,1) both;
+}
+
 @media (min-width:40rem) {
   .sm\:flex-row {
     flex-direction: row;
@@ -268,6 +281,31 @@
   to {
     opacity: 1;
     transform: none;
+  }
+}
+
+@keyframes pop-out {
+  to {
+    opacity: 0;
+    transform: scale(.97);
+  }
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes slide-right-out {
+  to {
+    transform: translate(100%);
+  }
+}
+
+@keyframes slide-left-out {
+  to {
+    transform: translate(-100%);
   }
 }
 

@@ -7,6 +7,7 @@
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
   --destructive: #e11d48;
+  --dur-fast: .15s;
   --dur-spring: .4s;
   --ease-spring: linear(0, .4 8%, .85 20%, 1.06 32%, 1.02 46%, 1 60%, 1);
   --elev-3: 0 2px 4px #0f172a0d, 0 12px 24px -6px #0f172a1f, 0 4px 8px -4px #0f172a0f;
@@ -74,6 +75,9 @@
 }
 .shrink-0 {
   flex-shrink: 0;
+}
+.origin-\(--radix-select-content-transform-origin\) {
+  transform-origin: var(--radix-select-content-transform-origin);
 }
 .animate-pop {
   animation: pop var(--dur-spring) var(--ease-spring);
@@ -238,6 +242,9 @@ box-shadow\] {
 .data-\[placeholder\]\:text-muted-foreground[data-placeholder] {
   color: var(--muted-foreground);
 }
+.data-\[state\=closed\]\:animate-pop-out[data-state=closed] {
+  animation: pop-out var(--dur-fast) cubic-bezier(.4,0,1,1) both;
+}
 .\[\&\>span\]\:truncate>span {
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -253,6 +260,13 @@ box-shadow\] {
   to {
     opacity: 1;
     transform: none;
+  }
+}
+
+@keyframes pop-out {
+  to {
+    opacity: 0;
+    transform: scale(.97);
   }
 }
 

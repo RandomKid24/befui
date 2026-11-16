@@ -75,6 +75,9 @@
 .min-w-4 {
   min-width: calc(var(--spacing) * 4);
 }
+.origin-\(--radix-tooltip-content-transform-origin\) {
+  transform-origin: var(--radix-tooltip-content-transform-origin);
+}
 .animate-in {
   animation: fade-in var(--dur-fast) ease-out;
 }
@@ -130,7 +133,7 @@
 }
 
 .bg-foreground,
-.bg-foreground\/55 {
+.bg-foreground\/10 {
   background-color: var(--foreground);
 }
 .bg-popover {
@@ -237,6 +240,9 @@
   }
 }
 
+.data-\[state\=closed\]\:animate-fade-out[data-state=closed] {
+  animation: fade-out var(--dur-fast) ease-in both;
+}
 .dark\:text-amber-300:where(.dark,
 .dark *) {
   color: var(--color-amber-300);
@@ -335,6 +341,12 @@
   }
   to {
     opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
   }
 }
 

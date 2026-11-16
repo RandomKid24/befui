@@ -147,7 +147,7 @@
   background-color: var(--destructive);
 }
 .bg-foreground,
-.bg-foreground\/55 {
+.bg-foreground\/10 {
   background-color: var(--foreground);
 }
 .bg-primary {
@@ -250,8 +250,9 @@
 .transition-\[background\,
 box-shadow\,
 transform\,
+scale\,
 color\] {
-  transition-property: background,box-shadow,transform,color;
+  transition-property: background,box-shadow,transform,scale,color;
   transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
   transition-duration: var(--tw-duration,var(--default-transition-duration));
 }
@@ -531,6 +532,9 @@ color\] {
 }
 .active\:scale-\(--press\):active {
   scale: var(--press);
+}
+.active\:scale-\[0\.97\]:active {
+  scale: .97;
 }
 .active\:border-b-2:active {
   border-bottom-style: var(--tw-border-style);

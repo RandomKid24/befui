@@ -100,7 +100,7 @@
   background-color: var(--background);
 }
 .bg-foreground,
-.bg-foreground\/55 {
+.bg-foreground\/10 {
   background-color: var(--foreground);
 }
 .bg-primary {

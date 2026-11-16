@@ -9,7 +9,6 @@ export default function AttendanceReportDemo() {
       number="HR-ATT-10"
       generated="1 Nov 2026"
       workingDays={22}
-      signatures={['Prepared by, HR', 'Approved by, Operations head']}
       rows={[
         { name: 'Meera Joshi', role: 'Accounts', present: 21, absent: 0, late: 1, leave: 0, hours: 178 },
         { name: 'Rohan Desai', role: 'Warehouse', present: 16, absent: 3, late: 3, leave: 0, hours: 141 },

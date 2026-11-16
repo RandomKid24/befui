@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { cn } from '@/lib/utils';
+import { ReportSection, ReportView, type ReportMeta } from './report-view';
 
 export type Health = 'on track' | 'at risk' | 'off track';
 const healthTone: Record<Health, string> = { 'on track': 'text-success', 'at risk': 'text-warning', 'off track': 'text-destructive' };
@@ -28,88 +29,43 @@ export function ProjectStatusReport({ health, summary, milestones, budget, risks
   const used = budget ? Math.round((budget.spent / budget.total) * 100) : 0;
   const lvl = { high: 'text-destructive', medium: 'text-warning', low: 'text-muted-foreground' } as const;
   return (
-    <Sheet {...meta} footer={`${done} of ${milestones.length} milestones done`}>
-      <div className="flex items-start gap-4 border-b pb-6">
-        <p className={cn('flex shrink-0 items-center gap-2 text-base font-semibold capitalize', healthTone[health])}><span aria-hidden className={cn('size-3', healthBg[health])} />{health}</p>
-        <p className="max-w-prose leading-relaxed">{summary}</p>
-      </div>
-      <Section title="Milestones">
+    <ReportView {...meta} stats={[{ label: 'Health', value: <span className="capitalize">{health}</span>, tone: health === 'on track' ? 'good' : health === 'at risk' ? 'warn' : 'bad' }, { label: 'Milestones', value: `${done} / ${milestones.length}`, hint: 'done' }, ...(budget ? [{ label: 'Budget used', value: `${used}%`, hint: `${m(budget.spent)} of ${m(budget.total)}`, tone: used > 100 ? 'bad' as const : used > 85 ? 'warn' as const : undefined }] : []), ...(risks ? [{ label: 'Open risks', value: risks.length }] : [])]} footer={`${done} of ${milestones.length} milestones done`}>
+      <ReportSection title="Summary"><p className="max-w-prose leading-relaxed">{summary}</p></ReportSection>
+      <ReportSection flush title="Milestones">
         <table className="w-full">
           <thead><tr className="border-b"><th className={cn(th, 'text-start')}>Milestone</th><th className={cn(th, 'text-start')}>Due</th><th className={cn(th, 'text-end')}>Status</th></tr></thead>
           <tbody>
             {milestones.map((x) => (
               <tr key={x.name} className="border-b">
-                <td className="py-2">{x.name}</td>
-                <td className="py-2 text-muted-foreground">{x.due}</td>
-                <td className={cn('py-2 text-end text-xs font-semibold uppercase tracking-wide', x.state === 'done' ? 'text-muted-foreground' : healthTone[x.state])}>{x.state}</td>
+                <td className="px-5 py-2.5">{x.name}</td>
+                <td className="px-5 py-2.5 text-muted-foreground">{x.due}</td>
+                <td className={cn('px-5 py-2.5 text-end text-xs font-semibold uppercase tracking-wide', x.state === 'done' ? 'text-muted-foreground' : healthTone[x.state])}>{x.state}</td>
               </tr>
             ))}
           </tbody>
         </table>
-      </Section>
+      </ReportSection>
       {budget && (
-        <Section title="Budget">
+        <ReportSection title="Budget">
           <div className="flex items-baseline justify-between"><span className="tabular-nums">{m(budget.spent)} of {m(budget.total)}</span><span className="font-mono text-xs text-muted-foreground">{used}% used</span></div>
-          <div className="mt-1.5 h-2 bg-muted"><div className={cn('h-full', used > 100 ? 'bg-destructive' : used > 85 ? 'bg-warning' : 'bg-foreground')} style={{ width: `${Math.min(used, 100)}%` }} /></div>
-        </Section>
+          <div className="mt-1.5 h-2 overflow-hidden rounded-full bg-secondary"><div className={cn('h-full rounded-full', used > 100 ? 'bg-destructive' : used > 85 ? 'bg-warning' : 'bg-primary')} style={{ width: `${Math.min(used, 100)}%` }} /></div>
+        </ReportSection>
       )}
       {risks && risks.length > 0 && (
-        <Section title="Risks">
-          <ul className="divide-y border-y">
+        <ReportSection flush title="Risks">
+          <ul className="divide-y border-t">
             {risks.map((r) => (
-              <li key={r.risk} className="py-2.5">
+              <li key={r.risk} className="px-5 py-2.5">
                 <div className="flex items-baseline justify-between gap-3"><span className="font-medium">{r.risk}</span><span className={cn('text-xs font-semibold uppercase tracking-wide', lvl[r.level])}>{r.level}</span></div>
                 <p className="text-xs text-muted-foreground">Owner: {r.owner}{r.plan ? `. ${r.plan}` : ''}</p>
               </li>
             ))}
           </ul>
-        </Section>
+        </ReportSection>
       )}
-      {next && next.length > 0 && <Section title="Next period"><ul className="list-disc ps-5">{next.map((n) => <li key={n}>{n}</li>)}</ul></Section>}
-    </Sheet>
+      {next && next.length > 0 && <ReportSection title="Next period"><ul className="list-disc ps-5">{next.map((n) => <li key={n}>{n}</li>)}</ul></ReportSection>}
+    </ReportView>
   );
 }
 
-export interface ReportMeta {
-  organization: string;
-  title: string;
-  /** e.g. "1 to 31 October 2026" */
-  period: string;
-  /** Report number or reference. */
-  number?: string;
-  generated?: string;
-  className?: string;
-}
-
-function Sheet({ organization, title, period, number, generated, className, children, footer }: ReportMeta & { children: React.ReactNode; footer?: React.ReactNode }) {
-  return (
-    <article className={cn('mx-auto w-full max-w-3xl rounded-lg border bg-card p-6 text-sm text-card-foreground shadow-sm sm:p-10 print:border-0 print:shadow-none', className)}>
-      <header className="flex flex-wrap items-end justify-between gap-4 border-b-2 border-foreground pb-4">
-        <div>
-          <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground">{organization}</p>
-          <h2 className="mt-1 text-2xl font-semibold tracking-tight">{title}</h2>
-        </div>
-        <dl className="text-end text-xs text-muted-foreground">
-          <dd className="font-medium text-foreground">{period}</dd>
-          {number && <dd className="font-mono">{number}</dd>}
-        </dl>
-      </header>
-      <div className="grid gap-8 py-6">{children}</div>
-      <footer className="flex justify-between gap-4 border-t pt-3 text-xs text-muted-foreground">
-        <span>{footer}</span>
-        {generated && <span>Generated {generated}</span>}
-      </footer>
-    </article>
-  );
-}
-
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <section>
-      <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">{title}</h3>
-      {children}
-    </section>
-  );
-}
-
-const th = 'py-2 text-xs font-medium text-muted-foreground';
+const th = 'h-8 px-5 text-[11px] font-medium uppercase tracking-wider text-muted-foreground';

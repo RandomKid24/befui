@@ -1,1 +1,1 @@
-import{r as u}from"./bundle.js";var o=Object.defineProperty,c=(r,e)=>o(r,"name",{value:e,configurable:!0});function n(r){const e=u.useRef(r);return u.useEffect(()=>{e.current=r}),u.useMemo(()=>((...a)=>{var t;return(t=e.current)==null?void 0:t.call(e,...a)}),[])}c(n,"useCallbackRef");export{n as u};
+import{r as a}from"./bundle.js";var o=globalThis!=null&&globalThis.document?a.useLayoutEffect:()=>{};export{o as u};

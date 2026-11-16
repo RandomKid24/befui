@@ -51,13 +51,18 @@
   "attachment": [
     "icons"
   ],
-  "attendance-report": [],
+  "attendance-report": [
+    "report-view",
+    "table"
+  ],
   "audit-log": [
     "avatar",
     "badge",
     "icons"
   ],
-  "audit-report": [],
+  "audit-report": [
+    "report-view"
+  ],
   "autocomplete": [
     "input"
   ],
@@ -70,7 +75,9 @@
     "icons"
   ],
   "badge": [],
-  "balance-sheet": [],
+  "balance-sheet": [
+    "report-view"
+  ],
   "banner": [
     "icons"
   ],
@@ -256,7 +263,9 @@
     "calendar",
     "icons"
   ],
-  "expense-report": [],
+  "expense-report": [
+    "report-view"
+  ],
   "fab": [
     "icons"
   ],
@@ -264,7 +273,9 @@
     "badge",
     "switch"
   ],
-  "feedback-report": [],
+  "feedback-report": [
+    "report-view"
+  ],
   "file-manager": [
     "icons"
   ],
@@ -320,8 +331,12 @@
   "image-viewer": [
     "icons"
   ],
-  "incident-report": [],
-  "income-statement": [],
+  "incident-report": [
+    "report-view"
+  ],
+  "income-statement": [
+    "report-view"
+  ],
   "india-map": [
     "charts"
   ],
@@ -333,7 +348,9 @@
   ],
   "input-group": [],
   "inspection-report": [
-    "icons"
+    "icons",
+    "report-view",
+    "table"
   ],
   "invoice": [
     "badge"
@@ -350,7 +367,10 @@
     "button",
     "icons"
   ],
-  "lab-report": [],
+  "lab-report": [
+    "report-view",
+    "table"
+  ],
   "label": [],
   "landing-sections": [
     "accordion"
@@ -465,8 +485,12 @@
     "icons",
     "input"
   ],
-  "payroll-summary": [],
-  "performance-review": [],
+  "payroll-summary": [
+    "report-view"
+  ],
+  "performance-review": [
+    "report-view"
+  ],
   "permission-matrix": [
     "checkbox",
     "table"
@@ -501,7 +525,9 @@
   ],
   "progress": [],
   "progress-ring": [],
-  "project-status-report": [],
+  "project-status-report": [
+    "report-view"
+  ],
   "prompt-input": [
     "icons"
   ],
@@ -534,7 +560,13 @@
     "icons"
   ],
   "relative-time": [],
-  "report-card": [],
+  "report-card": [
+    "report-view",
+    "table"
+  ],
+  "report-view": [
+    "icons"
+  ],
   "resizable-panels": [
     "icons"
   ],
@@ -554,7 +586,10 @@
   "rose-chart": [
     "charts"
   ],
-  "sales-report": [],
+  "sales-report": [
+    "report-view",
+    "table"
+  ],
   "sankey-chart": [
     "charts"
   ],
@@ -629,7 +664,10 @@
   ],
   "split-pane": [],
   "spotlight-card": [],
-  "sprint-report": [],
+  "sprint-report": [
+    "report-view",
+    "table"
+  ],
   "stacked-bar-chart": [
     "charts"
   ],
@@ -645,7 +683,9 @@
   "stepper": [
     "icons"
   ],
-  "stock-report": [],
+  "stock-report": [
+    "report-view"
+  ],
   "stopwatch": [
     "button",
     "icons"
@@ -677,7 +717,9 @@
     "icons"
   ],
   "terminal": [],
-  "test-report": [],
+  "test-report": [
+    "report-view"
+  ],
   "testimonial-card": [
     "avatar",
     "icons"
@@ -698,7 +740,9 @@
     "button",
     "icons"
   ],
-  "timesheet-report": [],
+  "timesheet-report": [
+    "report-view"
+  ],
   "timezone-picker": [
     "icons",
     "popover"

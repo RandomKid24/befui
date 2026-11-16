@@ -2485,10 +2485,11 @@ export default function ApprovalFlowDemo() {
 ```
 
 ## Attendance report (`attendance-report`)
-Monthly attendance sheet: present, absent, late, leave and hours per person, attendance percent, column totals and signature lines.
+Attendance report screen: headline attendance, absences and hours, then a table with present, absent, late, leave and attendance percent per person, with totals.
 - Group: Display
 - Add: `npx github:RandomKid24/befui add attendance-report`
 - Import: `import { AttendanceReport } from '@/components/ui/attendance-report'`
+- Also needs: report-view, table
 
 Example:
 
@@ -2504,7 +2505,6 @@ export default function AttendanceReportDemo() {
       number="HR-ATT-10"
       generated="1 Nov 2026"
       workingDays={22}
-      signatures={['Prepared by, HR', 'Approved by, Operations head']}
       rows={[
         { name: 'Meera Joshi', role: 'Accounts', present: 21, absent: 0, late: 1, leave: 0, hours: 178 },
         { name: 'Rohan Desai', role: 'Warehouse', present: 16, absent: 3, late: 3, leave: 0, hours: 141 },
@@ -2521,6 +2521,7 @@ Audit report: scope, overall opinion, a count of findings by severity, then each
 - Group: Display
 - Add: `npx github:RandomKid24/befui add audit-report`
 - Import: `import { AuditReport } from '@/components/ui/audit-report'`
+- Also needs: report-view
 
 Example:
 
@@ -2622,10 +2623,11 @@ export default function BadgeDemo() {
 ```
 
 ## Balance sheet (`balance-sheet`)
-Assets, liabilities and equity as at a date, with subtotals and a check that the sheet balances.
+Balance sheet as a statement table: totals of assets, liabilities and equity up top, then each section with subtotals and a check that it balances.
 - Group: Display
 - Add: `npx github:RandomKid24/befui add balance-sheet`
 - Import: `import { BalanceSheet } from '@/components/ui/balance-sheet'`
+- Also needs: report-view
 
 Example:
 
@@ -3067,10 +3069,11 @@ export default function EmptyStateDemo() {
 ```
 
 ## Expense report (`expense-report`)
-Employee expense claim: itemised lines with a missing-receipt flag, totals by category, advance taken off, amount payable and approval lines.
+Employee expense claim: total, amount payable and missing receipts up top, then itemised lines with a receipt flag and totals by category.
 - Group: Display
 - Add: `npx github:RandomKid24/befui add expense-report`
 - Import: `import { ExpenseReport } from '@/components/ui/expense-report'`
+- Also needs: report-view
 
 Example:
 
@@ -3104,6 +3107,7 @@ Customer feedback report: average rating with change, star distribution, NPS, th
 - Group: Display
 - Add: `npx github:RandomKid24/befui add feedback-report`
 - Import: `import { FeedbackReport } from '@/components/ui/feedback-report'`
+- Also needs: report-view
 
 Example:
 
@@ -3195,6 +3199,7 @@ Post-incident report: severity, key facts, impact, root cause, timeline and foll
 - Group: Display
 - Add: `npx github:RandomKid24/befui add incident-report`
 - Import: `import { IncidentReport } from '@/components/ui/incident-report'`
+- Also needs: report-view
 
 Example:
 
@@ -3238,6 +3243,7 @@ Profit and loss report: income and expense sections, totals and net profit, with
 - Group: Display
 - Add: `npx github:RandomKid24/befui add income-statement`
 - Import: `import { IncomeStatement } from '@/components/ui/income-statement'`
+- Also needs: report-view
 
 Example:
 
@@ -3268,11 +3274,11 @@ export default function IncomeStatementDemo() {
 ```
 
 ## Inspection report (`inspection-report`)
-Site or safety inspection: square tick, cross and dash marks grouped by area, a rotated PASSED or FAILED stamp, and a deficiency list worked out from failed checks.
+Inspection report: result and counts up top, then a table per area with a pass, fail or N/A mark and note for each check.
 - Group: Display
 - Add: `npx github:RandomKid24/befui add inspection-report`
 - Import: `import { InspectionReport } from '@/components/ui/inspection-report'`
-- Also needs: icons
+- Also needs: icons, report-view, table
 
 Example:
 
@@ -3406,6 +3412,7 @@ Laboratory results where every row draws its reference range as a track with the
 - Group: Display
 - Add: `npx github:RandomKid24/befui add lab-report`
 - Import: `import { LabReport } from '@/components/ui/lab-report'`
+- Also needs: report-view, table
 
 Example:
 
@@ -3587,10 +3594,11 @@ export default function OrderSummaryDemo() {
 ```
 
 ## Payroll summary (`payroll-summary`)
-Monthly payroll sheet: basic, allowances, gross, deductions and net pay per person, totals, net pay by department and approval lines.
+Payroll summary screen: gross, deductions and net up top, then basic, allowances, gross, deductions and net pay per person with totals and net pay by department.
 - Group: Display
 - Add: `npx github:RandomKid24/befui add payroll-summary`
 - Import: `import { PayrollSummary } from '@/components/ui/payroll-summary'`
+- Also needs: report-view
 
 Example:
 
@@ -3619,10 +3627,11 @@ export default function PayrollSummaryDemo() {
 ```
 
 ## Performance review (`performance-review`)
-Individual review sheet: goals scored 1 to 5 with comments, competency scores, strengths, areas to improve, next goals, an overall score and signature lines.
+Performance review: overall score and employee facts up top, goals scored 1 to 5 with comments, competency scores, strengths and areas to improve.
 - Group: Display
 - Add: `npx github:RandomKid24/befui add performance-review`
 - Import: `import { PerformanceReview } from '@/components/ui/performance-review'`
+- Also needs: report-view
 
 Example:
 
@@ -3779,10 +3788,11 @@ export default function ProfileCardDemo() {
 ```
 
 ## Project status report (`project-status-report`)
-Project status sheet: overall health, summary, milestones with state, budget burn, risks with owners and next steps.
+Project status report: health, milestones done, budget used and open risks up top, then a milestone table, budget bar, risks with owners and next steps.
 - Group: Display
 - Add: `npx github:RandomKid24/befui add project-status-report`
 - Import: `import { ProjectStatusReport } from '@/components/ui/project-status-report'`
+- Also needs: report-view
 
 Example:
 
@@ -3842,10 +3852,11 @@ export default function RatingBreakdownDemo() {
 ```
 
 ## Report card (`report-card`)
-School report card in a double-ruled frame: marks per term, average and letter grade per subject, a large overall grade, attendance, teacher note and signatures.
+School report card screen: student, overall grade and attendance up top, then a marks table per term with average and letter grade per subject, and a teacher note.
 - Group: Display
 - Add: `npx github:RandomKid24/befui add report-card`
 - Import: `import { ReportCard } from '@/components/ui/report-card'`
+- Also needs: report-view, table
 
 Example:
 
@@ -3869,6 +3880,49 @@ export default function ReportCardDemo() {
       ]}
       teacherNote="Aarav is curious and helps others in class. A little more reading at home will lift languages and social studies."
     />
+  );
+}
+```
+
+## Report view (`report-view`)
+The frame the befui reports share: a toolbar with title, period and print button, a strip of headline numbers, sections of full-width tables, and a footer.
+- Group: Display
+- Add: `npx github:RandomKid24/befui add report-view`
+- Import: `import { ReportView, ReportSection, rv } from '@/components/ui/report-view'`
+- Also needs: icons
+
+Example:
+
+```tsx
+import { ReportSection, ReportView } from '@/components/ui/report-view';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+
+export default function ReportViewDemo() {
+  return (
+    <ReportView
+      organization="Kiran Foods Pvt Ltd"
+      title="Orders by channel"
+      period="October 2026"
+      number="RPT-10"
+      generated="2 Nov 2026"
+      footer="3 channels"
+      stats={[
+        { label: 'Orders', value: '4,500', hint: '+6% vs September', tone: 'good' },
+        { label: 'Returns', value: 82, tone: 'warn' },
+        { label: 'Cancelled', value: 31 },
+      ]}
+    >
+      <ReportSection flush title="By channel">
+        <Table>
+          <TableHeader><TableRow className="hover:bg-transparent"><TableHead className="h-8 px-5 text-[11px]">Channel</TableHead><TableHead className="h-8 px-5 text-end text-[11px]">Orders</TableHead></TableRow></TableHeader>
+          <TableBody>
+            {[['Website', '2,310'], ['Marketplace', '1,540'], ['Phone', '650']].map(([c, n]) => (
+              <TableRow key={c}><TableCell className="px-5 py-2.5">{c}</TableCell><TableCell className="px-5 py-2.5 text-end tabular-nums">{n}</TableCell></TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </ReportSection>
+    </ReportView>
   );
 }
 ```
@@ -3901,10 +3955,11 @@ export default function RevealDemo() {
 ```
 
 ## Sales report (`sales-report`)
-Printable sales report sheet: headline totals, a breakdown by region with each share of revenue, top products and a summary paragraph.
+Sales report screen: revenue, orders and average order up top, a breakdown table with each share of revenue, top products and a summary.
 - Group: Display
 - Add: `npx github:RandomKid24/befui add sales-report`
 - Import: `import { SalesReport } from '@/components/ui/sales-report'`
+- Also needs: report-view, table
 
 Example:
 
@@ -4058,6 +4113,7 @@ Sprint report built around a burndown chart with an ideal line, plus committed, 
 - Group: Display
 - Add: `npx github:RandomKid24/befui add sprint-report`
 - Import: `import { SprintReport } from '@/components/ui/sprint-report'`
+- Also needs: report-view, table
 
 Example:
 
@@ -4154,6 +4210,7 @@ Inventory report: on hand against reorder level, value per item, Low and Out fla
 - Group: Display
 - Add: `npx github:RandomKid24/befui add stock-report`
 - Import: `import { StockReport } from '@/components/ui/stock-report'`
+- Also needs: report-view
 
 Example:
 
@@ -4359,6 +4416,7 @@ Test run report: pass rate and verdict, build facts, a table per suite with a pa
 - Group: Display
 - Add: `npx github:RandomKid24/befui add test-report`
 - Import: `import { TestReport } from '@/components/ui/test-report'`
+- Also needs: report-view
 
 Example:
 
@@ -4461,10 +4519,11 @@ export default function TimelineDemo() {
 ```
 
 ## Timesheet report (`timesheet-report`)
-Weekly timesheet: hours per project per day with row and column totals, billable share, a shortfall against expected hours and approval lines.
+Timesheet report: total and billable hours up top, then hours per project per day with row and column totals and a shortfall against expected hours.
 - Group: Display
 - Add: `npx github:RandomKid24/befui add timesheet-report`
 - Import: `import { TimesheetReport } from '@/components/ui/timesheet-report'`
+- Also needs: report-view
 
 Example:
 

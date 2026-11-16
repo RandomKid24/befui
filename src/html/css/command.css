@@ -193,6 +193,12 @@
 .data-\[selected\=true\]\:bg-secondary[data-selected=true] {
   background-color: var(--secondary);
 }
+.data-\[state\=closed\]\:animate-fade-out[data-state=closed] {
+  animation: fade-out var(--dur-fast) ease-in both;
+}
+.data-\[state\=closed\]\:animate-pop-out[data-state=closed] {
+  animation: pop-out var(--dur-fast) cubic-bezier(.4,0,1,1) both;
+}
 .\[\&_\[cmdk-group-heading\]\]\:px-2 [cmdk-group-heading] {
   padding-inline: calc(var(--spacing) * 2);
 }
@@ -242,6 +248,19 @@
   to {
     opacity: 1;
     transform: none;
+  }
+}
+
+@keyframes pop-out {
+  to {
+    opacity: 0;
+    transform: scale(.97);
+  }
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
   }
 }
 

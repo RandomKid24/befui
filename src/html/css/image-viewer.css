@@ -234,6 +234,10 @@ max-height\] {
   }
 }
 
+.data-\[state\=closed\]\:animate-fade-out[data-state=closed] {
+  animation: fade-out var(--dur-fast) ease-in both;
+}
+
 /* Animations */
 @keyframes fade-in {
   0% {
@@ -241,6 +245,12 @@ max-height\] {
   }
   to {
     opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
   }
 }
 

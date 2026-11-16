@@ -74,7 +74,6 @@
 .rounded-full {
   border-radius: 3.40282e38px;
 }
-.bg-foreground,
 .bg-foreground\/55 {
   background-color: var(--foreground);
 }

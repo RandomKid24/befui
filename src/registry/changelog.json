@@ -2,8 +2,33 @@
   {
     "version": "1.14.0",
     "date": "2026-11-16",
-    "title": "Update progress card",
+    "title": "Report screens and an update progress card",
     "entries": [
+      {
+        "kind": "changed",
+        "text": "All eighteen reports now look like report screens in an app instead of printed pages: a toolbar with the period and a print button, a strip of headline numbers, tables that run edge to edge with total rows, and a footer. They share a new report view component. Signature lines are gone.",
+        "slugs": [
+          "report-view",
+          "sales-report",
+          "income-statement",
+          "balance-sheet",
+          "payroll-summary",
+          "expense-report",
+          "stock-report",
+          "attendance-report",
+          "timesheet-report",
+          "performance-review",
+          "project-status-report",
+          "incident-report",
+          "audit-report",
+          "test-report",
+          "feedback-report",
+          "lab-report",
+          "report-card",
+          "sprint-report",
+          "inspection-report"
+        ]
+      },
       {
         "kind": "added",
         "text": "Update progress: an app updater card with the target version, a large monospace percent, a status line, a segmented bar and a fetch, apply, reopen step row, with an optional Hide button.",

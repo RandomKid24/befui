@@ -4,7 +4,7 @@
 
 **Interfaces people actually enjoy using.**
 
-292 copy-paste React components, 389 hand-drawn icons and 38 full-page blocks.<br/>
+293 copy-paste React components, 389 hand-drawn icons and 38 full-page blocks.<br/>
 Plus **121 Flutter widgets** for Android and iOS, and every component as a `<bef-*>` HTML tag.<br/>
 Built on Radix, Tailwind 4 and CSS variables. You own every file.
 
@@ -202,7 +202,7 @@ Add a `## x.y.z` section to `CHANGELOG.md`, then `npm version minor` (checks the
 Some components (loader, bottom sheet, toast...) need keyframes from `index.css`. After adding components, run `npx github:RandomKid24/befui update` to append any your project is missing (`--check` only reports, handy in CI). `add` also prints a warning when something is missing.
 
 <!-- components:start -->
-### Components (292)
+### Components (293)
 
 <details>
 <summary><b>Layout</b> (6)</summary>
@@ -226,9 +226,9 @@ Some components (loader, bottom sheet, toast...) need keyframes from `index.css`
 </details>
 
 <details>
-<summary><b>Display</b> (69)</summary>
+<summary><b>Display</b> (70)</summary>
 
-`accordion` · `activity-feed` · `approval-flow` · `attendance-report` · `audit-report` · `avatar` · `badge` · `balance-sheet` · `border-beam` · `brand-icons` · `card` · `carousel` · `changelog` · `chat` · `code-block` · `collapsible` · `comment-thread` · `compare` · `credit-card` · `description-list` · `diff-viewer` · `empty-state` · `expense-report` · `feedback-report` · `format` · `image-gallery` · `incident-report` · `income-statement` · `inspection-report` · `invoice` · `json-tree` · `kbd` · `lab-report` · `markdown` · `marquee` · `media-player` · `onboarding-checklist` · `order-summary` · `payroll-summary` · `performance-review` · `pricing-card` · `pricing-comparison` · `product-card` · `profile-card` · `project-status-report` · `rating-breakdown` · `report-card` · `reveal` · `sales-report` · `separator` · `shimmer-text` · `sortable-list` · `spotlight-card` · `sprint-report` · `status-dot` · `status-page` · `stock-report` · `swipe-actions` · `table` · `tag-manager` · `terminal` · `test-report` · `testimonial-card` · `tilt-card` · `timeline` · `timesheet-report` · `typewriter` · `usage-meter` · `version-log`
+`accordion` · `activity-feed` · `approval-flow` · `attendance-report` · `audit-report` · `avatar` · `badge` · `balance-sheet` · `border-beam` · `brand-icons` · `card` · `carousel` · `changelog` · `chat` · `code-block` · `collapsible` · `comment-thread` · `compare` · `credit-card` · `description-list` · `diff-viewer` · `empty-state` · `expense-report` · `feedback-report` · `format` · `image-gallery` · `incident-report` · `income-statement` · `inspection-report` · `invoice` · `json-tree` · `kbd` · `lab-report` · `markdown` · `marquee` · `media-player` · `onboarding-checklist` · `order-summary` · `payroll-summary` · `performance-review` · `pricing-card` · `pricing-comparison` · `product-card` · `profile-card` · `project-status-report` · `rating-breakdown` · `report-card` · `report-view` · `reveal` · `sales-report` · `separator` · `shimmer-text` · `sortable-list` · `spotlight-card` · `sprint-report` · `status-dot` · `status-page` · `stock-report` · `swipe-actions` · `table` · `tag-manager` · `terminal` · `test-report` · `testimonial-card` · `tilt-card` · `timeline` · `timesheet-report` · `typewriter` · `usage-meter` · `version-log`
 
 </details>
 

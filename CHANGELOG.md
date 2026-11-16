@@ -3,6 +3,13 @@
 All notable changes to befui. Versions follow [semver](https://semver.org): new components are minor releases, breaking prop changes are major. The same list, with links to each component, is on the docs site under Changelog.
 (Generated from src/registry/changelog.json by `npm run registry:build`. Edit the JSON, not this file.)
 
+## 1.14.0 - 2026-11-16
+
+Report screens and an update progress card
+
+- **Changed:** All eighteen reports now look like report screens in an app instead of printed pages: a toolbar with the period and a print button, a strip of headline numbers, tables that run edge to edge with total rows, and a footer. They share a new report view component. Signature lines are gone. (Report view, Sales report, Income statement, Balance sheet, Payroll summary, Expense report, Stock report, Attendance report, Timesheet report, Performance review, Project status report, Incident report, Audit report, Test report, Feedback report, Lab report, Report card, Sprint report, Inspection report)
+- **Added:** Update progress: an app updater card with the target version, a large monospace percent, a status line, a segmented bar and a fetch, apply, reopen step row, with an optional Hide button. (Update progress)
+
 ## 1.13.0 - 2026-11-16
 
 Four reports with a look of their own
