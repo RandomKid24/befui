@@ -1,6 +1,6 @@
 # Components
 
-Every befui component and block. **291 React components**, **269 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **38 page blocks**.
+Every befui component and block. **292 React components**, **269 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **38 page blocks**.
 (Generated from the registry by `npm run registry:build`. Do not edit by hand.)
 
 Install a React component with `npx github:RandomKid24/befui add <name>`, the Flutter version with `npx github:RandomKid24/befui add <name> --flutter`.
@@ -285,7 +285,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `world-map` | Countries on a flat map or a draggable globe, with a 3D bar or pin standing on every country in your data. Zoom, pan and spin it; click a name in the list to highlight a country. |  |  |
 | `year-heatmap` | A whole year as small squares, one per day, columns are weeks (the GitHub contributions graph), tinted in five steps by value. | ✓ |  |
 
-## Feedback (13, 9 on Flutter)
+## Feedback (14, 9 on Flutter)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
@@ -302,6 +302,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `skeleton` | Shimmering placeholder for content that is loading. | ✓ | ✓ |
 | `spinner` | Tiny CSS spinner that inherits text color. | ✓ | ✓ |
 | `toast` | Call toast.success() from anywhere. No provider needed. | ✓ | ✓ |
+| `update-progress` | App updater card: app and target version, large monospace percent, status line, segmented bar and a fetch, apply, reopen step row, with a Hide button. |  |  |
 
 ## Overlays (15, 7 on Flutter)
 
