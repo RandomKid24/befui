@@ -1,5 +1,48 @@
 [
   {
+    "version": "1.12.0",
+    "date": "2026-11-16",
+    "title": "Fourteen report documents",
+    "entries": [
+      {
+        "kind": "added",
+        "text": "Business reports as printable sheets, each its own file with a letterhead, period, report number, body and footer, and a clean print style: sales report, income statement, balance sheet, stock report, expense report, payroll summary and attendance report. Totals, shares and scores are worked out from the rows you pass in.",
+        "slugs": [
+          "sales-report",
+          "income-statement",
+          "balance-sheet",
+          "stock-report",
+          "expense-report",
+          "payroll-summary",
+          "attendance-report"
+        ]
+      },
+      {
+        "kind": "added",
+        "text": "Team and project reports: project status report (health, milestones, budget, risks), incident report (severity, impact, cause, timeline, follow-up actions), performance review (goals scored 1 to 5, competencies, signatures) and timesheet report (hours per project per day, billable share).",
+        "slugs": [
+          "project-status-report",
+          "incident-report",
+          "performance-review",
+          "timesheet-report"
+        ]
+      },
+      {
+        "kind": "added",
+        "text": "Review reports: audit report (scope, opinion, findings by severity with recommendations), test report (pass rate, suites, failures with location) and feedback report (average rating, star distribution, NPS, themes with quotes).",
+        "slugs": [
+          "audit-report",
+          "test-report",
+          "feedback-report"
+        ]
+      },
+      {
+        "kind": "fixed",
+        "text": "Components index: cards for new components showed a broken image until their preview picture was made. All fourteen reports now have light and dark previews."
+      }
+    ]
+  },
+  {
     "version": "1.11.1",
     "date": "2026-11-10",
     "title": "Try any component on the home page, and smoother page changes",

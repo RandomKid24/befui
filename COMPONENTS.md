@@ -1,6 +1,6 @@
 # Components
 
-Every befui component and block. **283 React components**, **269 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **38 page blocks**.
+Every befui component and block. **287 React components**, **269 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **38 page blocks**.
 (Generated from the registry by `npm run registry:build`. Do not edit by hand.)
 
 Install a React component with `npx github:RandomKid24/befui add <name>`, the Flutter version with `npx github:RandomKid24/befui add <name> --flutter`.
@@ -100,7 +100,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `toggle-group` | A row of toggles where one or several can be pressed, for formatting toolbars. | ✓ | ✓ |
 | `transfer-list` | Two lists with arrows between them: tick items and move them across, each side with search and select all. For roles, columns or members. | ✓ |  |
 
-## Display (61, 29 on Flutter)
+## Display (65, 29 on Flutter)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
@@ -108,6 +108,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `activity-feed` | Who did what and when, grouped under Today and Yesterday, with live relative times and an optional quoted detail. | ✓ | ✓ |
 | `approval-flow` | Chain of approvers with decisions, comments and times. The current approver gets Approve and Reject buttons. | ✓ |  |
 | `attendance-report` | Monthly attendance sheet: present, absent, late, leave and hours per person, attendance percent, column totals and signature lines. |  |  |
+| `audit-report` | Audit report: scope, overall opinion, a count of findings by severity, then each finding with reference, evidence and recommendation, worst first. |  |  |
 | `avatar` | Image with initials fallback in a stable color. Five sizes, circle or square, presence dot (online, away, busy, offline), a stacked group with hover names, and UserInfo for avatar plus name and subtitle. | ✓ | ✓ |
 | `badge` | Status pill with semantic colors and an optional dot. | ✓ | ✓ |
 | `balance-sheet` | Assets, liabilities and equity as at a date, with subtotals and a check that the sheet balances. |  |  |
@@ -126,6 +127,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `diff-viewer` | Before and after text as a unified diff: red removed lines, green added lines, line numbers, and unchanged stretches folded. | ✓ |  |
 | `empty-state` | Dashed placeholder with icon, text and an action. | ✓ | ✓ |
 | `expense-report` | Employee expense claim: itemised lines with a missing-receipt flag, totals by category, advance taken off, amount payable and approval lines. |  |  |
+| `feedback-report` | Customer feedback report: average rating with change, star distribution, NPS, themes with mentions and a quote, and a summary. |  |  |
 | `format` | formatCurrency, formatCompact, formatPercent, formatBytes, formatDuration and a signed Currency component. Indian rupees by default. | ✓ |  |
 | `image-gallery` | Masonry grid of images of different heights with a hover zoom and caption. onSelect gives the index. | ✓ |  |
 | `incident-report` | Post-incident report: severity, key facts, impact, root cause, timeline and follow-up actions with owners. |  |  |
@@ -159,9 +161,11 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `table` | Dense table parts with hover rows, a selected state, footer and caption. | ✓ | ✓ |
 | `tag-manager` | Create, rename, recolor and delete labels, with usage counts. | ✓ |  |
 | `terminal` | Dark terminal window with prompt lines and output. Optional typing animation. | ✓ |  |
+| `test-report` | Test run report: pass rate and verdict, build facts, a table per suite with a pass bar, and each failure with its message and location. |  |  |
 | `testimonial-card` | Customer quote with avatar, role and optional star rating. | ✓ | ✓ |
 | `tilt-card` | 3D card that tilts toward the cursor with a moving sheen. | ✓ |  |
 | `timeline` | Vertical activity feed with tone-colored markers. | ✓ | ✓ |
+| `timesheet-report` | Weekly timesheet: hours per project per day with row and column totals, billable share, a shortfall against expected hours and approval lines. |  |  |
 | `typewriter` | Types, holds and deletes phrases in a loop. Static for reduced motion. | ✓ | ✓ |
 | `usage-meter` | Plan usage rows for a billing page: used of limit, percent, blue to amber to red as it fills, overage spelled out, unlimited rows. | ✓ |  |
 | `version-log` | Animated version history: the rail draws and dots pop as releases scroll in, entries slide in one by one, releases fold open, with a version jump strip and a kind filter. | ✓ |  |

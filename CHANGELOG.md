@@ -3,6 +3,15 @@
 All notable changes to befui. Versions follow [semver](https://semver.org): new components are minor releases, breaking prop changes are major. The same list, with links to each component, is on the docs site under Changelog.
 (Generated from src/registry/changelog.json by `npm run registry:build`. Edit the JSON, not this file.)
 
+## 1.12.0 - 2026-11-16
+
+Fourteen report documents
+
+- **Added:** Business reports as printable sheets, each its own file with a letterhead, period, report number, body and footer, and a clean print style: sales report, income statement, balance sheet, stock report, expense report, payroll summary and attendance report. Totals, shares and scores are worked out from the rows you pass in. (Sales report, Income statement, Balance sheet, Stock report, Expense report, Payroll summary, Attendance report)
+- **Added:** Team and project reports: project status report (health, milestones, budget, risks), incident report (severity, impact, cause, timeline, follow-up actions), performance review (goals scored 1 to 5, competencies, signatures) and timesheet report (hours per project per day, billable share). (Project status report, Incident report, Performance review, Timesheet report)
+- **Added:** Review reports: audit report (scope, opinion, findings by severity with recommendations), test report (pass rate, suites, failures with location) and feedback report (average rating, star distribution, NPS, themes with quotes). (Audit report, Test report, Feedback report)
+- **Fixed:** Components index: cards for new components showed a broken image until their preview picture was made. All fourteen reports now have light and dark previews.
+
 ## 1.11.1 - 2026-11-10
 
 Try any component on the home page, and smoother page changes

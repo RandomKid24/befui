@@ -57,6 +57,7 @@
     "badge",
     "icons"
   ],
+  "audit-report": [],
   "autocomplete": [
     "input"
   ],
@@ -263,6 +264,7 @@
     "badge",
     "switch"
   ],
+  "feedback-report": [],
   "file-manager": [
     "icons"
   ],
@@ -669,6 +671,7 @@
     "icons"
   ],
   "terminal": [],
+  "test-report": [],
   "testimonial-card": [
     "avatar",
     "icons"
@@ -689,6 +692,7 @@
     "button",
     "icons"
   ],
+  "timesheet-report": [],
   "timezone-picker": [
     "icons",
     "popover"
