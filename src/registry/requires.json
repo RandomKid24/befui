@@ -55,10 +55,6 @@
     "report-view",
     "table"
   ],
-  "audit-by-person": [
-    "audit-log",
-    "avatar"
-  ],
   "audit-log": [
     "badge",
     "search-input",
@@ -78,10 +74,6 @@
   ],
   "audit-log-terminal": [
     "audit-log"
-  ],
-  "audit-overview": [
-    "audit-log",
-    "relative-time"
   ],
   "audit-record-history": [
     "audit-log",

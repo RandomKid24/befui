@@ -7,13 +7,13 @@ All notable changes to befui. Versions follow [semver](https://semver.org): new 
 
 Practical audit logs
 
-- **Added:** Three audit log designs for real work: a filterable log (search, who, action, result, time range, row details, paging, CSV export), a per-record history panel with a field picker, and an overview with failed, deleted and exported counts that filter the list. (Audit log with filters, Record history, Audit overview)
+- **Added:** Two audit log designs for real work: a filterable log (search, who, action, result, time range, row details, paging, CSV export) and a per-record history panel with a field picker. (Audit log with filters, Record history)
 
 ## 1.16.0 - 2026-11-17
 
 Four more audit log designs
 
-- **Added:** Four audit log layouts next to the table: a terminal-style one-line log, a day-grouped timeline, a list with a detail panel for before and after values, and a card per person with their latest events. (Audit log, terminal, Audit timeline, Audit log with detail panel, Audit log by person)
+- **Added:** Three audit log layouts next to the table: a terminal-style one-line log, a day-grouped timeline, and a list with a detail panel for before and after values. (Audit log, terminal, Audit timeline, Audit log with detail panel)
 
 ## 1.15.0 - 2026-11-17
 

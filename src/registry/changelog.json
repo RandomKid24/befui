@@ -6,11 +6,10 @@
     "entries": [
       {
         "kind": "added",
-        "text": "Three audit log designs for real work: a filterable log (search, who, action, result, time range, row details, paging, CSV export), a per-record history panel with a field picker, and an overview with failed, deleted and exported counts that filter the list.",
+        "text": "Two audit log designs for real work: a filterable log (search, who, action, result, time range, row details, paging, CSV export) and a per-record history panel with a field picker.",
         "slugs": [
           "audit-log-pro",
-          "audit-record-history",
-          "audit-overview"
+          "audit-record-history"
         ]
       }
     ]
@@ -22,12 +21,11 @@
     "entries": [
       {
         "kind": "added",
-        "text": "Four audit log layouts next to the table: a terminal-style one-line log, a day-grouped timeline, a list with a detail panel for before and after values, and a card per person with their latest events.",
+        "text": "Three audit log layouts next to the table: a terminal-style one-line log, a day-grouped timeline, and a list with a detail panel for before and after values.",
         "slugs": [
           "audit-log-terminal",
           "audit-timeline",
-          "audit-log-detail",
-          "audit-by-person"
+          "audit-log-detail"
         ]
       }
     ]
