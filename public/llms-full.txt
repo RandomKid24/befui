@@ -5183,11 +5183,11 @@ export default function AreaChartDemo() {
 ```
 
 ## Audit log (`audit-log`)
-Who did what, grouped by day. Colored action icons, before and after values right on the row, and filter chips that count each action.
+Who did what and when: one line per entry with a colored dot, the changes written underneath.
 - Group: Data
 - Add: `npx github:RandomKid24/befui add audit-log`
 - Import: `import { AuditLog } from '@/components/ui/audit-log'`
-- Also needs: icons
+- Also needs: relative-time
 
 Example:
 

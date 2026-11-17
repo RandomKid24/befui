@@ -5,9 +5,9 @@ All notable changes to befui. Versions follow [semver](https://semver.org): new 
 
 ## 1.15.0 - 2026-11-17
 
-A clearer audit log
+A simpler audit log
 
-- **Changed:** Audit log redesigned so you can see what happened at a glance: entries are grouped by day, each has a colored action icon, a plain sentence (who did what to what) and its before and after values right on the row, with the rest behind a 'more changes' link. Chips on top count each action and filter the list. It no longer needs the avatar or badge components. (Audit log)
+- **Changed:** Audit log simplified: one line per entry (who did what to what, with a colored dot and how long ago), and any changes written in plain text underneath as 'Field: before → after'. No filters or expanding. (Audit log)
 
 ## 1.14.0 - 2026-11-16
 
