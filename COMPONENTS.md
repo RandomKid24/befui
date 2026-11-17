@@ -1,6 +1,6 @@
 # Components
 
-Every befui component and block. **298 React components**, **269 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **38 page blocks**.
+Every befui component and block. **303 React components**, **269 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **38 page blocks**.
 (Generated from the registry by `npm run registry:build`. Do not edit by hand.)
 
 Install a React component with `npx github:RandomKid24/befui add <name>`, the Flutter version with `npx github:RandomKid24/befui add <name> --flutter`.
@@ -16,7 +16,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `sidebar` | Collapsible nav with groups, nested links and badges. Icon rail on desktop, slide-over on mobile. | ✓ |  |
 | `split-pane` | Two resizable panels with a draggable divider. Keyboard resizable. Horizontal or vertical. | ✓ |  |
 
-## Navigation (17, 9 on Flutter)
+## Navigation (22, 9 on Flutter)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
@@ -32,6 +32,11 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `org-switcher` | The workspace dropdown at the top of a sidebar: current workspace and plan, a menu to switch, and a Create workspace row. | ✓ |  |
 | `pagination` | Page buttons with ellipsis for long ranges. | ✓ | ✓ |
 | `scroll-progress` | Thin bar that fills as you scroll the page or a container. | ✓ |  |
+| `sidebar-docs` | Navigation for docs and help sites: section titles, links, nested pages on a guide line, a bar on the current page and small New or Beta tags. |  |  |
+| `sidebar-rail` | Narrow icon-only column for apps with a few big areas. Labels in a tooltip, an active bar, unread badges and a footer slot for the user. |  |  |
+| `sidebar-settings` | Plain text menu beside a settings page: group headings, one line per page, current page filled, and a red danger item. |  |  |
+| `sidebar-split` | An icon rail that picks the area and a wider panel listing the pages of that area with counts. For apps with many pages under a few areas. |  |  |
+| `sidebar-workspace` | The everyday app sidebar: workspace switcher on top, search button, collapsible groups with counts, and the user with settings at the bottom. |  |  |
 | `stepper` | Horizontal steps for multi-step forms and onboarding. | ✓ | ✓ |
 | `table-of-contents` | On this page list that highlights the section currently in view. | ✓ |  |
 | `tabs` | Underline or pill tabs on Radix Tabs. | ✓ | ✓ |

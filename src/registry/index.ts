@@ -367,6 +367,11 @@ const metas: Meta[] = [
   m('stepper', 'Stepper', 'Navigation', 'Horizontal steps for multi-step forms and onboarding.', { deps: [], keywords: ['wizard', 'steps', 'onboarding'] }),
 
   m('sidebar', 'Sidebar', 'Layout', 'Collapsible nav with groups, nested links and badges. Icon rail on desktop, slide-over on mobile.', { deps: ['@radix-ui/react-dialog', '@radix-ui/react-tooltip'], requires: ['dialog', 'tooltip'], keywords: ['nav', 'menu', 'navigation', 'drawer', 'rail'], wide: true }),
+  m('sidebar-rail', 'Sidebar rail', 'Navigation', 'Narrow icon-only column for apps with a few big areas. Labels in a tooltip, an active bar, unread badges and a footer slot for the user.', { requires: ['tooltip', 'icons'], keywords: ['rail','icons','compact','app','mobile'] }),
+  m('sidebar-split', 'Sidebar with panel', 'Navigation', 'An icon rail that picks the area and a wider panel listing the pages of that area with counts. For apps with many pages under a few areas.', { requires: ['tooltip'], keywords: ['two level','rail','panel','nested','navigation','projects'] }),
+  m('sidebar-workspace', 'Workspace sidebar', 'Navigation', 'The everyday app sidebar: workspace switcher on top, search button, collapsible groups with counts, and the user with settings at the bottom.', { requires: ['avatar', 'icons', 'kbd'], keywords: ['notion','linear','favorites','groups','search','workspace'] }),
+  m('sidebar-settings', 'Settings sidebar', 'Navigation', 'Plain text menu beside a settings page: group headings, one line per page, current page filled, and a red danger item.', { requires: [], keywords: ['settings','account','preferences','menu','profile'] }),
+  m('sidebar-docs', 'Docs sidebar', 'Navigation', 'Navigation for docs and help sites: section titles, links, nested pages on a guide line, a bar on the current page and small New or Beta tags.', { requires: ['badge'], keywords: ['docs','documentation','help','guide','nested','toc'] }),
   m('app-shell', 'App shell', 'Layout', 'Sidebar, topbar and scrolling content area, plus a page header.', { deps: [], requires: ['sidebar'], keywords: ['layout', 'dashboard', 'frame', 'page', 'admin'], wide: true }),
 ];
 

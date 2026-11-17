@@ -3,6 +3,12 @@
 All notable changes to befui. Versions follow [semver](https://semver.org): new components are minor releases, breaking prop changes are major. The same list, with links to each component, is on the docs site under Changelog.
 (Generated from src/registry/changelog.json by `npm run registry:build`. Edit the JSON, not this file.)
 
+## 1.18.0 - 2026-11-17
+
+Five sidebar designs
+
+- **Added:** Five different sidebars for different apps: an icon-only rail, a rail with a page panel, a workspace sidebar with search and collapsible groups, a plain settings menu, and a docs sidebar with nested pages and tags. (Sidebar rail, Sidebar with panel, Workspace sidebar, Settings sidebar, Docs sidebar)
+
 ## 1.17.0 - 2026-11-17
 
 Practical audit logs

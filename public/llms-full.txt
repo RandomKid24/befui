@@ -726,6 +726,215 @@ export default function ScrollProgressDemo() {
 }
 ```
 
+## Docs sidebar (`sidebar-docs`)
+Navigation for docs and help sites: section titles, links, nested pages on a guide line, a bar on the current page and small New or Beta tags.
+- Group: Navigation
+- Add: `npx github:RandomKid24/befui add sidebar-docs`
+- Import: `import { SidebarDocs } from '@/components/ui/sidebar-docs'`
+- Also needs: badge
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { SidebarDocs } from '@/components/ui/sidebar-docs';
+
+function Page({ title }: { title: string }) {
+  return (
+    <div className="flex-1 p-6">
+      <h3 className="text-lg font-semibold capitalize">{title}</h3>
+      <div className="mt-4 grid gap-2"><div className="h-3 w-3/4 rounded bg-muted" /><div className="h-3 w-1/2 rounded bg-muted" /><div className="h-24 rounded-lg bg-muted/60" /></div>
+    </div>
+  );
+}
+
+const sections = [
+  { title: 'Getting started', items: [{ id: 'intro', label: 'Introduction' }, { id: 'install', label: 'Installation' }, { id: 'quick', label: 'Quick start', tag: 'New' }] },
+  { title: 'Guides', items: [
+    { id: 'auth', label: 'Authentication', children: [{ id: 'auth-keys', label: 'API keys' }, { id: 'auth-oauth', label: 'OAuth' }] },
+    { id: 'webhooks', label: 'Webhooks', tag: 'Beta' },
+    { id: 'errors', label: 'Errors' },
+  ] },
+  { title: 'Reference', items: [{ id: 'api', label: 'REST API' }, { id: 'sdk', label: 'SDKs' }] },
+];
+
+export default function SidebarDocsDemo() {
+  const [v, setV] = React.useState('auth-keys');
+  return (
+    <div className="flex h-[26rem] w-full max-w-3xl overflow-hidden rounded-xl border bg-background">
+      <SidebarDocs sections={sections} value={v} onChange={setV} />
+      <Page title={v.replace('-', ' ')} />
+    </div>
+  );
+}
+```
+
+## Sidebar rail (`sidebar-rail`)
+Narrow icon-only column for apps with a few big areas. Labels in a tooltip, an active bar, unread badges and a footer slot for the user.
+- Group: Navigation
+- Add: `npx github:RandomKid24/befui add sidebar-rail`
+- Import: `import { SidebarRail } from '@/components/ui/sidebar-rail'`
+- Also needs: tooltip
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { SidebarRail } from '@/components/ui/sidebar-rail';
+import { Avatar } from '@/components/ui/avatar';
+import { BellIcon, CalendarIcon, FolderIcon, HomeIcon, InboxIcon } from '@/components/ui/icons';
+
+function Page({ title }: { title: string }) {
+  return (
+    <div className="flex-1 p-6">
+      <h3 className="text-lg font-semibold capitalize">{title}</h3>
+      <div className="mt-4 grid gap-2"><div className="h-3 w-3/4 rounded bg-muted" /><div className="h-3 w-1/2 rounded bg-muted" /><div className="h-24 rounded-lg bg-muted/60" /></div>
+    </div>
+  );
+}
+
+const items = [
+  { id: 'home', label: 'Home', icon: <HomeIcon /> },
+  { id: 'inbox', label: 'Inbox', icon: <InboxIcon />, badge: 4 },
+  { id: 'files', label: 'Files', icon: <FolderIcon /> },
+  { id: 'calendar', label: 'Calendar', icon: <CalendarIcon /> },
+  { id: 'alerts', label: 'Alerts', icon: <BellIcon />, badge: 12 },
+];
+
+export default function SidebarRailDemo() {
+  const [v, setV] = React.useState('home');
+  return (
+    <div className="flex h-[26rem] w-full max-w-3xl overflow-hidden rounded-xl border bg-background">
+      <SidebarRail items={items} value={v} onChange={setV} header={<span className="grid size-9 place-items-center rounded-xl bg-primary text-sm font-semibold text-primary-foreground">B</span>} footer={<Avatar name="Meera Iyer" size="sm" />} />
+      <Page title={v} />
+    </div>
+  );
+}
+```
+
+## Settings sidebar (`sidebar-settings`)
+Plain text menu beside a settings page: group headings, one line per page, current page filled, and a red danger item.
+- Group: Navigation
+- Add: `npx github:RandomKid24/befui add sidebar-settings`
+- Import: `import { SidebarSettings } from '@/components/ui/sidebar-settings'`
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { SidebarSettings } from '@/components/ui/sidebar-settings';
+
+function Page({ title }: { title: string }) {
+  return (
+    <div className="flex-1 p-6">
+      <h3 className="text-lg font-semibold capitalize">{title}</h3>
+      <div className="mt-4 grid gap-2"><div className="h-3 w-3/4 rounded bg-muted" /><div className="h-3 w-1/2 rounded bg-muted" /><div className="h-24 rounded-lg bg-muted/60" /></div>
+    </div>
+  );
+}
+
+const groups = [
+  { label: 'Account', items: [{ id: 'profile', label: 'Profile' }, { id: 'security', label: 'Password and security' }, { id: 'notifications', label: 'Notifications' }] },
+  { label: 'Workspace', items: [{ id: 'general', label: 'General' }, { id: 'members', label: 'Members and roles' }, { id: 'billing', label: 'Billing' }, { id: 'integrations', label: 'Integrations' }] },
+  { label: 'Danger zone', items: [{ id: 'delete', label: 'Delete workspace', danger: true }] },
+];
+
+export default function SidebarSettingsDemo() {
+  const [v, setV] = React.useState('profile');
+  return (
+    <div className="flex h-[26rem] w-full max-w-3xl overflow-hidden rounded-xl border bg-background">
+      <SidebarSettings groups={groups} value={v} onChange={setV} />
+      <Page title={v} />
+    </div>
+  );
+}
+```
+
+## Sidebar with panel (`sidebar-split`)
+An icon rail that picks the area and a wider panel listing the pages of that area with counts. For apps with many pages under a few areas.
+- Group: Navigation
+- Add: `npx github:RandomKid24/befui add sidebar-split`
+- Import: `import { SidebarSplit } from '@/components/ui/sidebar-split'`
+- Also needs: tooltip
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { SidebarSplit } from '@/components/ui/sidebar-split';
+import { Avatar } from '@/components/ui/avatar';
+import { CreditCardIcon, FolderIcon, UsersIcon } from '@/components/ui/icons';
+
+function Page({ title }: { title: string }) {
+  return (
+    <div className="flex-1 p-6">
+      <h3 className="text-lg font-semibold capitalize">{title}</h3>
+      <div className="mt-4 grid gap-2"><div className="h-3 w-3/4 rounded bg-muted" /><div className="h-3 w-1/2 rounded bg-muted" /><div className="h-24 rounded-lg bg-muted/60" /></div>
+    </div>
+  );
+}
+
+const sections = [
+  { id: 'projects', label: 'Projects', icon: <FolderIcon />, links: [{ id: 'all', label: 'All projects', count: 24 }, { id: 'mine', label: 'Assigned to me', count: 6 }, { id: 'archived', label: 'Archived' }] },
+  { id: 'people', label: 'People', icon: <UsersIcon />, links: [{ id: 'directory', label: 'Directory', count: 128 }, { id: 'teams', label: 'Teams', count: 9 }, { id: 'invites', label: 'Pending invites', count: 3 }] },
+  { id: 'billing', label: 'Billing', icon: <CreditCardIcon />, links: [{ id: 'plan', label: 'Plan' }, { id: 'invoices', label: 'Invoices' }, { id: 'methods', label: 'Payment methods' }] },
+];
+
+export default function SidebarSplitDemo() {
+  const [section, setSection] = React.useState('projects');
+  const [link, setLink] = React.useState('all');
+  return (
+    <div className="flex h-[26rem] w-full max-w-3xl overflow-hidden rounded-xl border bg-background">
+      <SidebarSplit sections={sections} section={section} onSection={(s) => { setSection(s); setLink(sections.find((x) => x.id === s)!.links[0].id); }} link={link} onLink={setLink} footer={<Avatar name="Meera Iyer" size="sm" />} />
+      <Page title={link} />
+    </div>
+  );
+}
+```
+
+## Workspace sidebar (`sidebar-workspace`)
+The everyday app sidebar: workspace switcher on top, search button, collapsible groups with counts, and the user with settings at the bottom.
+- Group: Navigation
+- Add: `npx github:RandomKid24/befui add sidebar-workspace`
+- Import: `import { SidebarWorkspace } from '@/components/ui/sidebar-workspace'`
+- Also needs: avatar, icons, kbd
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { SidebarWorkspace } from '@/components/ui/sidebar-workspace';
+import { OrgSwitcher } from '@/components/ui/org-switcher';
+import { CalendarIcon, FileTextIcon, FolderIcon, HomeIcon, InboxIcon, StarIcon } from '@/components/ui/icons';
+
+function Page({ title }: { title: string }) {
+  return (
+    <div className="flex-1 p-6">
+      <h3 className="text-lg font-semibold capitalize">{title}</h3>
+      <div className="mt-4 grid gap-2"><div className="h-3 w-3/4 rounded bg-muted" /><div className="h-3 w-1/2 rounded bg-muted" /><div className="h-24 rounded-lg bg-muted/60" /></div>
+    </div>
+  );
+}
+
+const orgs = [{ id: 'a', name: 'Aureole', plan: 'Team' }, { id: 'b', name: 'Beforth', plan: 'Free' }];
+const groups = [
+  { id: 'main', label: 'Workspace', items: [{ id: 'home', label: 'Home', icon: <HomeIcon /> }, { id: 'inbox', label: 'Inbox', icon: <InboxIcon />, count: 3 }, { id: 'calendar', label: 'Calendar', icon: <CalendarIcon /> }] },
+  { id: 'fav', label: 'Favorites', items: [{ id: 'roadmap', label: 'Q4 roadmap', icon: <StarIcon /> }, { id: 'handbook', label: 'Team handbook', icon: <FileTextIcon /> }] },
+  { id: 'projects', label: 'Projects', items: [{ id: 'website', label: 'Website relaunch', icon: <FolderIcon />, count: 8 }, { id: 'mobile', label: 'Mobile app', icon: <FolderIcon /> }, { id: 'hr', label: 'HR portal', icon: <FolderIcon />, count: 2 }] },
+];
+
+export default function SidebarWorkspaceDemo() {
+  const [v, setV] = React.useState('home');
+  const [org, setOrg] = React.useState('a');
+  return (
+    <div className="flex h-[26rem] w-full max-w-3xl overflow-hidden rounded-xl border bg-background">
+      <SidebarWorkspace header={<OrgSwitcher orgs={orgs} value={org} onChange={setOrg} />} groups={groups} value={v} onChange={setV} onSearch={() => {}} user={{ name: 'Meera Iyer', email: 'meera@aureole.in' }} onSettings={() => {}} />
+      <Page title={v} />
+    </div>
+  );
+}
+```
+
 ## Stepper (`stepper`)
 Horizontal steps for multi-step forms and onboarding.
 - Group: Navigation

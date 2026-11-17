@@ -4,7 +4,7 @@
 
 **Interfaces people actually enjoy using.**
 
-298 copy-paste React components, 389 hand-drawn icons and 38 full-page blocks.<br/>
+303 copy-paste React components, 389 hand-drawn icons and 38 full-page blocks.<br/>
 Plus **121 Flutter widgets** for Android and iOS, and every component as a `<bef-*>` HTML tag.<br/>
 Built on Radix, Tailwind 4 and CSS variables. You own every file.
 
@@ -202,7 +202,7 @@ Add a `## x.y.z` section to `CHANGELOG.md`, then `npm version minor` (checks the
 Some components (loader, bottom sheet, toast...) need keyframes from `index.css`. After adding components, run `npx github:RandomKid24/befui update` to append any your project is missing (`--check` only reports, handy in CI). `add` also prints a warning when something is missing.
 
 <!-- components:start -->
-### Components (298)
+### Components (303)
 
 <details>
 <summary><b>Layout</b> (6)</summary>
@@ -212,9 +212,9 @@ Some components (loader, bottom sheet, toast...) need keyframes from `index.css`
 </details>
 
 <details>
-<summary><b>Navigation</b> (17)</summary>
+<summary><b>Navigation</b> (22)</summary>
 
-`bottom-nav` · `breadcrumb` · `dock` · `file-tree` · `menubar` · `navbar` · `navigation-menu` · `onboarding-carousel` · `order-tracker` · `org-switcher` · `pagination` · `scroll-progress` · `stepper` · `table-of-contents` · `tabs` · `tree-view` · `user-menu`
+`bottom-nav` · `breadcrumb` · `dock` · `file-tree` · `menubar` · `navbar` · `navigation-menu` · `onboarding-carousel` · `order-tracker` · `org-switcher` · `pagination` · `scroll-progress` · `sidebar-docs` · `sidebar-rail` · `sidebar-settings` · `sidebar-split` · `sidebar-workspace` · `stepper` · `table-of-contents` · `tabs` · `tree-view` · `user-menu`
 
 </details>
 

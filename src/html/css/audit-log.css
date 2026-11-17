@@ -2,17 +2,13 @@
 
 /* Theme variables it reads (set them on :root, or .dark for dark mode) */
 :root {
+  --background: #fff;
   --card: #fff;
-  --default-transition-duration: .15s;
-  --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
   --destructive: #e11d48;
-  --dur-fast: .15s;
   --font-weight-medium: 500;
-  --muted: #f8fafc;
   --muted-foreground: #5b6b80;
   --radius: .5rem;
   --ring: #3b82f6;
-  --secondary: #f1f5f9;
   --spacing: .25rem;
   --success: #047857;
   --text-xs: .75rem;
@@ -20,33 +16,31 @@
 }
 
 .dark {
+  --background: #0a0c10;
   --card: #0f1218;
   --destructive: #f43f5e;
-  --muted: #11141b;
   --muted-foreground: #8b94a5;
-  --secondary: #171b23;
   --success: #10b981;
 }
 
 /* Utility rules */
-.mx-1 {
-  margin-inline: var(--spacing);
+.mt-1 {
+  margin-top: var(--spacing);
+}
+.ml-auto {
+  margin-left: auto;
 }
 .flex {
   display: flex;
 }
-.grid {
-  display: grid;
+.h-9 {
+  height: calc(var(--spacing) * 9);
 }
-.size-7 {
-  width: calc(var(--spacing) * 7);
-  height: calc(var(--spacing) * 7);
+.min-w-28 {
+  min-width: calc(var(--spacing) * 28);
 }
-.w-28 {
-  width: calc(var(--spacing) * 28);
-}
-.min-w-0 {
-  min-width: 0;
+.min-w-48 {
+  min-width: calc(var(--spacing) * 48);
 }
 .flex-1 {
   flex: 1;
@@ -54,53 +48,17 @@
 .shrink-0 {
   flex-shrink: 0;
 }
-.rotate-180 {
-  rotate: 180deg;
-}
-.animate-in {
-  animation: fade-in var(--dur-fast) ease-out;
-}
 .flex-wrap {
   flex-wrap: wrap;
-}
-.place-items-center {
-  place-items: center;
 }
 .items-center {
   align-items: center;
 }
-.gap-1\.5 {
-  gap: calc(var(--spacing) * 1.5);
-}
 .gap-2 {
   gap: calc(var(--spacing) * 2);
 }
-.gap-3 {
-  gap: calc(var(--spacing) * 3);
-}
-.gap-x-2 {
-  column-gap: calc(var(--spacing) * 2);
-}
-:where(.divide-y>:not(:last-child)) {
-  --tw-divide-y-reverse: 0;
-  border-bottom-style: var(--tw-border-style);
-  border-top-style: var(--tw-border-style);
-  border-top-width: calc(1px * var(--tw-divide-y-reverse));
-  border-bottom-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
-}
-.truncate {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-}
-.overflow-hidden {
-  overflow: hidden;
-}
-.rounded {
-  border-radius: .25rem;
-}
-.rounded-md {
-  border-radius: var(--radius);
+.rounded-lg {
+  border-radius: calc(var(--radius) + 2px);
 }
 .rounded-xl {
   border-radius: calc(var(--radius) + 6px);
@@ -109,58 +67,46 @@
   border-style: var(--tw-border-style);
   border-width: 1px;
 }
-.border-t {
-  border-top-style: var(--tw-border-style);
-  border-top-width: 1px;
+.border-b {
+  border-bottom-style: var(--tw-border-style);
+  border-bottom-width: 1px;
+}
+.bg-background,
+.bg-background\/15 {
+  background-color: var(--background);
 }
 .bg-card,
 .bg-card\/80 {
   background-color: var(--card);
 }
-.bg-destructive\/10 {
+.bg-destructive,
+.bg-destructive\/5 {
   background-color: var(--destructive);
 }
 
 @supports (color:color-mix(in lab,red,red)) {
-  .bg-destructive\/10 {
-    background-color: color-mix(in oklab,var(--destructive) 10%,transparent);
+  .bg-destructive\/5 {
+    background-color: color-mix(in oklab,var(--destructive) 5%,transparent);
   }
 }
 
-.bg-muted\/40 {
-  background-color: var(--muted);
+.p-3 {
+  padding: calc(var(--spacing) * 3);
 }
-
-@supports (color:color-mix(in lab,red,red)) {
-  .bg-muted\/40 {
-    background-color: color-mix(in oklab,var(--muted) 40%,transparent);
-  }
+.px-3 {
+  padding-inline: calc(var(--spacing) * 3);
 }
-
-.bg-success\/10 {
-  background-color: var(--success);
+.py-10 {
+  padding-block: calc(var(--spacing) * 10);
 }
-
-@supports (color:color-mix(in lab,red,red)) {
-  .bg-success\/10 {
-    background-color: color-mix(in oklab,var(--success) 10%,transparent);
-  }
+.text-center {
+  text-align: center;
 }
-
-.px-1\.5 {
-  padding-inline: calc(var(--spacing) * 1.5);
+.align-top {
+  vertical-align: top;
 }
-.px-4 {
-  padding-inline: calc(var(--spacing) * 4);
-}
-.py-0\.5 {
-  padding-block: calc(var(--spacing) * .5);
-}
-.py-3 {
-  padding-block: calc(var(--spacing) * 3);
-}
-.pl-16 {
-  padding-left: calc(var(--spacing) * 16);
+.font-mono {
+  font-family: JetBrains Mono,ui-monospace,monospace;
 }
 .text-xs {
   font-size: var(--text-xs);
@@ -173,6 +119,9 @@
   --tw-font-weight: var(--font-weight-medium);
   font-weight: var(--font-weight-medium);
 }
+.whitespace-nowrap {
+  white-space: nowrap;
+}
 .text-destructive {
   color: var(--destructive);
 }
@@ -183,10 +132,19 @@
 .text-success {
   color: var(--success);
 }
-.transition-transform {
-  transition-property: transform,translate,scale,rotate;
-  transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
-  transition-duration: var(--tw-duration,var(--default-transition-duration));
+.capitalize {
+  text-transform: capitalize;
+}
+.tabular-nums {
+  --tw-numeric-spacing: tabular-nums;
+  font-variant-numeric: var(--tw-ordinal,) var(--tw-slashed-zero,) var(--tw-numeric-figure,) var(--tw-numeric-spacing,) var(--tw-numeric-fraction,);
+}
+.line-through {
+  text-decoration-line: line-through;
+}
+.shadow-\[inset_3px_0_0_var\(--destructive\)\] {
+  --tw-shadow: inset 3px 0 0 var(--tw-shadow-color,var(--destructive));
+  box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
 }
 .outline-none {
   --tw-outline-style: none;
@@ -194,9 +152,8 @@
 }
 
 @media (hover:hover) {
-  .hover\:bg-secondary:hover,
-  .hover\:bg-secondary\/40:hover {
-    background-color: var(--secondary);
+  .hover\:bg-transparent:hover {
+    background-color: #0000;
   }
 }
 
@@ -214,14 +171,11 @@
   }
 }
 
-/* Animations */
-@keyframes fade-in {
-  0% {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+.\[\&_td\]\:px-3 td {
+  padding-inline: calc(var(--spacing) * 3);
+}
+.\[\&_th\]\:px-3 th {
+  padding-inline: calc(var(--spacing) * 3);
 }
 
 @property --tw-border-style {
@@ -229,12 +183,27 @@
   inherits: false;
   initial-value: solid;
 }
-@property --tw-divide-y-reverse {
+@property --tw-leading {
   syntax: "*";
   inherits: false;
-  initial-value: 0;
 }
-@property --tw-leading {
+@property --tw-ordinal {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-slashed-zero {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-figure {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-spacing {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-fraction {
   syntax: "*";
   inherits: false;
 }
@@ -242,6 +211,10 @@
   syntax: "*";
   inherits: false;
   initial-value: 0 0 #0000;
+}
+@property --tw-shadow-color {
+  syntax: "*";
+  inherits: false;
 }
 @property --tw-inset-shadow {
   syntax: "*";
@@ -275,12 +248,4 @@
   syntax: "*";
   inherits: false;
   initial-value: 0 0 #0000;
-}
-@property --tw-duration {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-ease {
-  syntax: "*";
-  inherits: false;
 }

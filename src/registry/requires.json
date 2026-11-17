@@ -659,6 +659,21 @@
     "icons",
     "tooltip"
   ],
+  "sidebar-docs": [
+    "badge"
+  ],
+  "sidebar-rail": [
+    "tooltip"
+  ],
+  "sidebar-settings": [],
+  "sidebar-split": [
+    "tooltip"
+  ],
+  "sidebar-workspace": [
+    "avatar",
+    "icons",
+    "kbd"
+  ],
   "signature-field": [
     "input",
     "signature-pad"

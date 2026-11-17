@@ -1,5 +1,23 @@
 [
   {
+    "version": "1.18.0",
+    "date": "2026-11-17",
+    "title": "Five sidebar designs",
+    "entries": [
+      {
+        "kind": "added",
+        "text": "Five different sidebars for different apps: an icon-only rail, a rail with a page panel, a workspace sidebar with search and collapsible groups, a plain settings menu, and a docs sidebar with nested pages and tags.",
+        "slugs": [
+          "sidebar-rail",
+          "sidebar-split",
+          "sidebar-workspace",
+          "sidebar-settings",
+          "sidebar-docs"
+        ]
+      }
+    ]
+  },
+  {
     "version": "1.17.0",
     "date": "2026-11-17",
     "title": "Practical audit logs",

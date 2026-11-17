@@ -145,3 +145,8 @@ export * from './pivot-table';
 export * from './tree-table';
 export * from './file-uploader';
 export * from './onboarding-carousel';
+export * from './sidebar-rail';
+export * from './sidebar-split';
+export * from './sidebar-workspace';
+export * from './sidebar-settings';
+export * from './sidebar-docs';
