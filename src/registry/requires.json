@@ -55,13 +55,27 @@
     "report-view",
     "table"
   ],
+  "audit-by-person": [
+    "audit-log",
+    "avatar"
+  ],
   "audit-log": [
     "badge",
     "search-input",
     "table"
   ],
+  "audit-log-detail": [
+    "audit-log",
+    "badge"
+  ],
+  "audit-log-terminal": [
+    "audit-log"
+  ],
   "audit-report": [
     "report-view"
+  ],
+  "audit-timeline": [
+    "audit-log"
   ],
   "autocomplete": [
     "input"

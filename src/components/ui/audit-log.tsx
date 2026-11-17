@@ -19,11 +19,19 @@ export interface AuditEntry {
   changes?: { field: string; from?: string; to?: string }[];
 }
 
-const tone = { created: 'success', updated: 'info', deleted: 'danger', exported: 'warning' } as const;
-const stamp = (d: Date | string | number) => {
+/** Shared by the other audit log designs. */
+export const auditTone = { created: 'success', updated: 'info', deleted: 'danger', exported: 'warning' } as const;
+export const auditStamp = (d: Date | string | number) => {
   const t = new Date(d);
   return `${t.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' })}, ${t.toLocaleTimeString('en-GB', { hour12: false })}`;
 };
+
+export const auditDay = (d: Date | string | number) => {
+  const t = new Date(d), n = new Date();
+  const diff = Math.round((new Date(n.getFullYear(), n.getMonth(), n.getDate()).getTime() - new Date(t.getFullYear(), t.getMonth(), t.getDate()).getTime()) / 86400000);
+  return diff === 0 ? 'Today' : diff === 1 ? 'Yesterday' : t.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+};
+export const auditTime = (d: Date | string | number) => new Date(d).toLocaleTimeString('en-GB', { hour12: false });
 
 /**
  * Every event on one row: when, who, what they did, to what (with before → after values), whether it worked, and from where.
@@ -63,9 +71,9 @@ export function AuditLog({ entries, className }: { entries: AuditEntry[]; classN
         <TableBody>
           {rows.map((e) => (
             <TableRow key={e.id} className={cn(e.status === 'failed' && 'bg-destructive/5 shadow-[inset_3px_0_0_var(--destructive)]')}>
-              <TableCell className="whitespace-nowrap align-top font-mono text-xs tabular-nums text-muted-foreground">{stamp(e.at)}</TableCell>
+              <TableCell className="whitespace-nowrap align-top font-mono text-xs tabular-nums text-muted-foreground">{auditStamp(e.at)}</TableCell>
               <TableCell className="whitespace-nowrap align-top font-medium">{e.actor}</TableCell>
-              <TableCell className="align-top"><Badge variant={tone[e.action as keyof typeof tone] ?? 'default'} className="capitalize">{e.action}</Badge></TableCell>
+              <TableCell className="align-top"><Badge variant={auditTone[e.action as keyof typeof auditTone] ?? 'default'} className="capitalize">{e.action}</Badge></TableCell>
               <TableCell className="whitespace-nowrap align-top">
                 <span className="font-medium">{e.target}</span>
                 {e.changes?.map((c) => (

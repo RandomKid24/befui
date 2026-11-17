@@ -3,6 +3,12 @@
 All notable changes to befui. Versions follow [semver](https://semver.org): new components are minor releases, breaking prop changes are major. The same list, with links to each component, is on the docs site under Changelog.
 (Generated from src/registry/changelog.json by `npm run registry:build`. Edit the JSON, not this file.)
 
+## 1.16.0 - 2026-11-17
+
+Four more audit log designs
+
+- **Added:** Four audit log layouts next to the table: a terminal-style one-line log, a day-grouped timeline, a list with a detail panel for before and after values, and a card per person with their latest events. (Audit log, terminal, Audit timeline, Audit log with detail panel, Audit log by person)
+
 ## 1.15.0 - 2026-11-17
 
 An audit log you can scan

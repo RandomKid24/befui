@@ -1,5 +1,22 @@
 [
   {
+    "version": "1.16.0",
+    "date": "2026-11-17",
+    "title": "Four more audit log designs",
+    "entries": [
+      {
+        "kind": "added",
+        "text": "Four audit log layouts next to the table: a terminal-style one-line log, a day-grouped timeline, a list with a detail panel for before and after values, and a card per person with their latest events.",
+        "slugs": [
+          "audit-log-terminal",
+          "audit-timeline",
+          "audit-log-detail",
+          "audit-by-person"
+        ]
+      }
+    ]
+  },
+  {
     "version": "1.15.0",
     "date": "2026-11-17",
     "title": "An audit log you can scan",
