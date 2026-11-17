@@ -3,6 +3,12 @@
 All notable changes to befui. Versions follow [semver](https://semver.org): new components are minor releases, breaking prop changes are major. The same list, with links to each component, is on the docs site under Changelog.
 (Generated from src/registry/changelog.json by `npm run registry:build`. Edit the JSON, not this file.)
 
+## 1.15.0 - 2026-11-17
+
+A clearer audit log
+
+- **Changed:** Audit log redesigned so you can see what happened at a glance: entries are grouped by day, each has a colored action icon, a plain sentence (who did what to what) and its before and after values right on the row, with the rest behind a 'more changes' link. Chips on top count each action and filter the list. It no longer needs the avatar or badge components. (Audit log)
+
 ## 1.14.0 - 2026-11-16
 
 Report screens and an update progress card

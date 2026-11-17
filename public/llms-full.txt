@@ -5183,11 +5183,11 @@ export default function AreaChartDemo() {
 ```
 
 ## Audit log (`audit-log`)
-Who changed what and when, with expandable before and after values.
+Who did what, grouped by day. Colored action icons, before and after values right on the row, and filter chips that count each action.
 - Group: Data
 - Add: `npx github:RandomKid24/befui add audit-log`
 - Import: `import { AuditLog } from '@/components/ui/audit-log'`
-- Also needs: avatar, badge, icons
+- Also needs: icons
 
 Example:
 
@@ -5196,7 +5196,7 @@ import { AuditLog, type AuditEntry } from '@/components/ui/audit-log';
 
 const h = 3600000;
 const entries: AuditEntry[] = [
-  { id: '1', actor: 'Meera Iyer', action: 'updated', target: 'Salary structure, Engineering', at: Date.now() - 0.5 * h, ip: '10.0.4.21', changes: [{ field: 'Basic', from: '₹60,000', to: '₹64,000' }, { field: 'HRA', from: '₹24,000', to: '₹25,600' }, { field: 'Effective from', from: '', to: '01 Nov 2026' }] },
+  { id: '1', actor: 'Meera Iyer', action: 'updated', target: 'Salary structure, Engineering', at: Date.now() - 0.5 * h, ip: '10.0.4.21', changes: [{ field: 'Basic', from: '₹60,000', to: '₹64,000' }, { field: 'HRA', from: '₹24,000', to: '₹25,600' }, { field: 'Effective from', from: '', to: '01 Nov 2026' }, { field: 'Approved by', from: 'Pending', to: 'Kabir Shah' }] },
   { id: '2', actor: 'Isha Nair', action: 'created', target: 'Employee EMP-0412', at: Date.now() - 3 * h, ip: '10.0.4.18', changes: [{ field: 'Name', to: 'Ananya Kulkarni' }, { field: 'Department', to: 'Engineering' }] },
   { id: '3', actor: 'Kabir Shah', action: 'exported', target: 'Payroll report, September', at: Date.now() - 20 * h, ip: '10.0.7.5' },
   { id: '4', actor: 'Rohan Das', action: 'deleted', target: 'Draft offer letter v1', at: Date.now() - 30 * h, ip: '10.0.4.33' },

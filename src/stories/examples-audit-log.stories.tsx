@@ -6,7 +6,7 @@ const meta = {
   title: "Data/Audit log",
   component: Demo,
   tags: ['autodocs'],
-  parameters: { layout: 'centered', docs: { description: { component: "Who changed what and when, with expandable before and after values." } } },
+  parameters: { layout: 'centered', docs: { description: { component: "Who did what, grouped by day. Colored action icons, before and after values right on the row, and filter chips that count each action." } } },
 } satisfies Meta<typeof Demo>;
 export default meta;
 

@@ -303,7 +303,7 @@ const metas: Meta[] = [
 
   m('line-chart', 'Line chart', 'Data', 'Multi-series line or area chart in plain SVG with grid, axis labels, legend and a hover readout.', { keywords: ['trend', 'graph', 'area', 'timeseries', 'analytics', 'revenue'] }),
   m('radar-chart', 'Radar chart', 'Data', 'Spider chart for several scores on the same axes: a pentagon with five, a hexagon with six. Shapes grow from the center on scroll; hover a legend name to highlight a series.', { keywords: ['spider', 'skills', 'performance', 'compare', 'review'] }),
-  m('audit-log', 'Audit log', 'Data', 'Who changed what and when, with expandable before and after values.', { requires: ['avatar', 'badge', 'icons'], keywords: ['history', 'changes', 'compliance', 'activity', 'diff', 'security'] }),
+  m('audit-log', 'Audit log', 'Data', 'Who did what, grouped by day. Colored action icons, before and after values right on the row, and filter chips that count each action.', { requires: ['icons'], keywords: ['history', 'changes', 'compliance', 'activity', 'diff', 'security'] }),
   m('file-manager', 'File manager', 'Data', 'Folder browser with breadcrumb, list and grid views, selection and double-click or Enter to open.', { requires: ['icons'], keywords: ['files', 'folders', 'documents', 'drive', 'explorer'] }),
   m('swipe-actions', 'Swipe actions', 'Display', 'List row you swipe left to reveal action buttons. Touch, mouse drag and keyboard.', { keywords: ['mobile', 'list', 'archive', 'delete', 'gesture', 'row'] }),
   m('pull-to-refresh', 'Pull to refresh', 'Feedback', 'Scroll area you pull down from the top to refresh, with a spinner until your promise settles.', { requires: ['icons'], keywords: ['mobile', 'reload', 'gesture', 'refresh', 'feed'] }),
