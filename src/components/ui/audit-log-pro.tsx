@@ -56,7 +56,7 @@ export function AuditLogPro({ entries, pageSize = 10, className }: { entries: Au
       </div>
 
       <Table className="[&_td]:px-3 [&_th]:px-3">
-        <TableHeader><TableRow className="hover:bg-transparent"><TableHead className="w-8" /><TableHead>Time</TableHead><TableHead>Who</TableHead><TableHead>Action</TableHead><TableHead>What</TableHead><TableHead>Result</TableHead></TableRow></TableHeader>
+        <TableHeader><TableRow className="hover:bg-transparent"><TableHead className="w-8"><span className="sr-only">Details</span></TableHead><TableHead>Time</TableHead><TableHead>Who</TableHead><TableHead>Action</TableHead><TableHead>What</TableHead><TableHead>Result</TableHead></TableRow></TableHeader>
         <TableBody>
           {view.map((e) => {
             const on = open === e.id;
