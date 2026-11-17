@@ -5,9 +5,9 @@ All notable changes to befui. Versions follow [semver](https://semver.org): new 
 
 ## 1.15.0 - 2026-11-17
 
-A simpler audit log
+An audit log you can scan
 
-- **Changed:** Audit log simplified: one line per entry (who did what to what, with a colored dot and how long ago), and any changes written in plain text underneath as 'Field: before → after'. No filters or expanding. (Audit log)
+- **Changed:** Audit log is now a real log table: each event on one row with time (to the second), who, action, what changed (before → after), result and IP. Failed events get a red edge. Search, an action filter and an event and failed count sit on top. It takes an optional status of success or failed per entry. (Audit log)
 
 ## 1.14.0 - 2026-11-16
 

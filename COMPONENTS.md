@@ -202,7 +202,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
 | `area-chart` | Smooth gradient areas, stacked or overlapping, that wipe in on scroll. Hover for a readout across series. | ✓ |  |
-| `audit-log` | Who did what and when: one line per entry with a colored dot, the changes written underneath. | ✓ |  |
+| `audit-log` | Every event on one row: time, who, action, what (with before and after values), result and IP. Search, an action filter and a failed count on top. | ✓ |  |
 | `bar-list` | Ranked list with a bar behind each row: top pages, products, sources, countries. | ✓ | ✓ |
 | `bar-race` | Bars that re-sort and grow as time moves, frame by frame, with play and a scrubber. Shows who overtakes whom. | ✓ |  |
 | `box-plot-chart` | Spread per group: box for the middle half, median line, whiskers and outlier dots. Boxes open from the median; hover for the five numbers. | ✓ |  |

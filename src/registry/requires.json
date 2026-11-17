@@ -56,7 +56,9 @@
     "table"
   ],
   "audit-log": [
-    "relative-time"
+    "badge",
+    "search-input",
+    "table"
   ],
   "audit-report": [
     "report-view"
