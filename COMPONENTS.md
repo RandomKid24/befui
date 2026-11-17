@@ -1,6 +1,6 @@
 # Components
 
-Every befui component and block. **297 React components**, **269 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **38 page blocks**.
+Every befui component and block. **300 React components**, **269 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **38 page blocks**.
 (Generated from the registry by `npm run registry:build`. Do not edit by hand.)
 
 Install a React component with `npx github:RandomKid24/befui add <name>`, the Flutter version with `npx github:RandomKid24/befui add <name> --flutter`.
@@ -197,7 +197,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `tool-call` | A card for one tool or function call an AI made: name, running, done or failed, how long it took, and its input and output to expand. | ✓ | ✓ |
 | `voice-wave` | Audio level bars for a voice input: they dance while listening and settle to a line when paused. Drive them with a real level or leave them idle. | ✓ | ✓ |
 
-## Data (88, 15 on Flutter)
+## Data (91, 15 on Flutter)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
@@ -205,7 +205,10 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `audit-by-person` | One card per person with their event count, a tally by action and their latest few events. For answering who has been touching this. |  |  |
 | `audit-log` | Every event on one row: time, who, action, what (with before and after values), result and IP. Search, an action filter and a failed count on top. | ✓ |  |
 | `audit-log-detail` | List of events on the left and the selected event on the right: who, when, IP, result and a before and after table for every field. |  |  |
+| `audit-log-pro` | The audit log for daily use: search, filter by who, action, result and time, click a row for before and after values, paging and CSV export. |  |  |
 | `audit-log-terminal` | Audit log as plain monospace lines like tail -f: time, tick, who, action, target and changes on one line, with a date line per day and failed lines in red. |  |  |
+| `audit-overview` | Counts of events, failed, deleted and exported on top that filter the list below. Risky events are marked so a bad day shows before you read a row. |  |  |
+| `audit-record-history` | The History panel for one record: who changed which field from what to what, newest first, with a field picker to follow one value over time. |  |  |
 | `audit-timeline` | Audit log as a vertical timeline under Today, Yesterday and date headings, each event a sentence with its before and after values in a small box. |  |  |
 | `bar-list` | Ranked list with a bar behind each row: top pages, products, sources, countries. | ✓ | ✓ |
 | `bar-race` | Bars that re-sort and grow as time moves, frame by frame, with play and a scrubber. Shows who overtakes whom. | ✓ |  |

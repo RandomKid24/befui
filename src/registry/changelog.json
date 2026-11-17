@@ -1,5 +1,21 @@
 [
   {
+    "version": "1.17.0",
+    "date": "2026-11-17",
+    "title": "Practical audit logs",
+    "entries": [
+      {
+        "kind": "added",
+        "text": "Three audit log designs for real work: a filterable log (search, who, action, result, time range, row details, paging, CSV export), a per-record history panel with a field picker, and an overview with failed, deleted and exported counts that filter the list.",
+        "slugs": [
+          "audit-log-pro",
+          "audit-record-history",
+          "audit-overview"
+        ]
+      }
+    ]
+  },
+  {
     "version": "1.16.0",
     "date": "2026-11-17",
     "title": "Four more audit log designs",

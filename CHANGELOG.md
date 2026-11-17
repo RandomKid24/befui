@@ -3,6 +3,12 @@
 All notable changes to befui. Versions follow [semver](https://semver.org): new components are minor releases, breaking prop changes are major. The same list, with links to each component, is on the docs site under Changelog.
 (Generated from src/registry/changelog.json by `npm run registry:build`. Edit the JSON, not this file.)
 
+## 1.17.0 - 2026-11-17
+
+Practical audit logs
+
+- **Added:** Three audit log designs for real work: a filterable log (search, who, action, result, time range, row details, paging, CSV export), a per-record history panel with a field picker, and an overview with failed, deleted and exported counts that filter the list. (Audit log with filters, Record history, Audit overview)
+
 ## 1.16.0 - 2026-11-17
 
 Four more audit log designs

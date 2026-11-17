@@ -68,8 +68,25 @@
     "audit-log",
     "badge"
   ],
+  "audit-log-pro": [
+    "audit-log",
+    "badge",
+    "button",
+    "icons",
+    "search-input",
+    "table"
+  ],
   "audit-log-terminal": [
     "audit-log"
+  ],
+  "audit-overview": [
+    "audit-log",
+    "relative-time"
+  ],
+  "audit-record-history": [
+    "audit-log",
+    "avatar",
+    "relative-time"
   ],
   "audit-report": [
     "report-view"
