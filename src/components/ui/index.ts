@@ -158,3 +158,5 @@ export * from './health-vitals';
 export * from './smart-home-tiles';
 export * from './return-calculator';
 export * from './floating-shell';
+export * from './desk-kit';
+export * from './motion-hooks';

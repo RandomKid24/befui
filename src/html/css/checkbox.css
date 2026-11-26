@@ -6,6 +6,8 @@
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
   --destructive: #e11d48;
+  --dur-medium: .5s;
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
   --input: #e2e8f0;
   --muted-foreground: #5b6b80;
   --primary: #2563eb;
@@ -120,6 +122,25 @@
 }
 .data-\[state\=indeterminate\]\:bg-primary[data-state=indeterminate] {
   background-color: var(--primary);
+}
+
+@media (prefers-reduced-motion:no-preference) {
+  .motion-safe\:\[\&_path\]\:animate-\[icon-draw_var\(--dur-medium\)_var\(--ease-out\)\] path {
+    animation: icon-draw var(--dur-medium) var(--ease-out);
+  }
+  .motion-safe\:\[\&_path\]\:\[stroke-dasharray\:1_1\] path {
+    stroke-dasharray: 1 1;
+  }
+}
+
+/* Animations */
+@keyframes icon-draw {
+  0% {
+    stroke-dashoffset: 1px;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 @property --tw-border-style {

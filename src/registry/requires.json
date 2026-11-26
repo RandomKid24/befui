@@ -107,7 +107,9 @@
   "bar-list": [],
   "bar-race": [],
   "border-beam": [],
-  "bottom-nav": [],
+  "bottom-nav": [
+    "motion-hooks"
+  ],
   "bottom-sheet": [
     "drawer"
   ],
@@ -263,6 +265,10 @@
   ],
   "day-agenda": [],
   "description-list": [],
+  "desk-kit": [
+    "charts",
+    "floating-shell"
+  ],
   "dialog": [
     "icons"
   ],
@@ -325,7 +331,9 @@
     "input"
   ],
   "floating-shell": [
+    "avatar",
     "button",
+    "command",
     "dialog",
     "icons",
     "stretch-nav",
@@ -397,7 +405,9 @@
   "json-tree": [
     "icons"
   ],
-  "kanban": [],
+  "kanban": [
+    "motion-hooks"
+  ],
   "kbd": [],
   "kpi-strip": [
     "icons"
@@ -462,6 +472,7 @@
     "icons",
     "popover"
   ],
+  "motion-hooks": [],
   "navbar": [
     "icons"
   ],
@@ -672,7 +683,9 @@
   "search-input": [
     "icons"
   ],
-  "segmented": [],
+  "segmented": [
+    "motion-hooks"
+  ],
   "select": [
     "icons"
   ],
@@ -724,7 +737,9 @@
     "stretch-nav",
     "switch"
   ],
-  "sortable-list": [],
+  "sortable-list": [
+    "motion-hooks"
+  ],
   "sources": [
     "icons"
   ],
@@ -771,7 +786,9 @@
     "charts"
   ],
   "streaming-text": [],
-  "stretch-nav": [],
+  "stretch-nav": [
+    "motion-hooks"
+  ],
   "sunburst-chart": [
     "charts"
   ],
@@ -782,7 +799,9 @@
   "switch": [],
   "table": [],
   "table-of-contents": [],
-  "tabs": [],
+  "tabs": [
+    "motion-hooks"
+  ],
   "tag-input": [
     "icons"
   ],

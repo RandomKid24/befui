@@ -1741,7 +1741,7 @@ Collapsible JSON viewer with colour-coded values, counts on closed branches, exp
 ```
 
 ## Kanban board (kanban)
-Columns of draggable cards. Drag with the mouse or move a focused card with Alt and the arrow keys. Controlled, no drag library.
+Columns of cards you drag with a mouse or finger: the card lifts, a space opens where it will land and the rest slide aside. Alt and the arrow keys move a focused card. No drag library.
 ```html
 <bef-kanban :columns='[{"id":"todo","title":"To do","tone":"default"},{"id":"doing","title":"In progress","tone":"info"},{"id":"review","title":"In review","tone":"warning"},{"id":"done","title":"Done","tone":"success"}]' :value='{"todo":[{"id":"t1","title":"Onboarding checklist for new hires","tag":"Feature","owner":"Isha Nair","due":"14 Oct"},{"id":"t2","title":"Fix payslip PDF margins","tag":"Bug","owner":"Rohan Das","due":"12 Oct"},{"id":"t3","title":"Archive 2023 attendance logs","tag":"Chore","owner":"Meera Iyer","due":"30 Oct"}],"doing":[{"id":"t4","title":"Leave balance widget","tag":"Feature","owner":"Aarav Mehta","due":"16 Oct"},{"id":"t5","title":"Refresh login screen","tag":"Design","owner":"Diya Rao","due":"15 Oct"}],"review":[{"id":"t6","title":"Holiday calendar import","tag":"Feature","owner":"Kabir Shah","due":"11 Oct"}],"done":[{"id":"t7","title":"Dark mode for dashboards","tag":"Design","owner":"Diya Rao","due":"03 Oct"},{"id":"t8","title":"Duplicate employee IDs","tag":"Bug","owner":"Vikram Joshi","due":"05 Oct"}]}' emit="change" id="g1"></bef-kanban>
 <script type="module">
@@ -2242,7 +2242,7 @@ document.getElementById("g1").props = {
 ```
 
 ## OTP input (otp-input)
-Code boxes with paste, backspace, arrow keys, autofill and a shake on error.
+Code boxes with paste, backspace, arrow keys and autofill. Digits land as you type, turn green on success and shake on error.
 ```html
 <div class="grid justify-items-center gap-3">
   <bef-otp-input value="" :invalid="false" emit="change"></bef-otp-input>
@@ -3063,7 +3063,7 @@ document.getElementById("g1").props = {
 ```
 
 ## Sortable list (sortable-list)
-Reorder rows by dragging, or with arrow keys on the grip. Controlled, no drag library.
+Reorder rows by dragging with a mouse or finger, or with the arrow keys on the grip. Rows slide into place. No drag library.
 ```html
 <div class="grid w-full max-w-md gap-2">
   <bef-sortable-list :items='[{"id":"a","title":"Collect documents","owner":"Isha Nair","tag":"HR"},{"id":"b","title":"Create email and accounts","owner":"Rohan Das","tag":"IT"},{"id":"c","title":"Assign a buddy","owner":"Aarav Mehta","tag":"Team"},{"id":"d","title":"Schedule day-one orientation","owner":"Meera Iyer","tag":"HR"},{"id":"e","title":"Order laptop","owner":"Vikram Joshi","tag":"IT"}]' emit="change" id="g1"></bef-sortable-list>

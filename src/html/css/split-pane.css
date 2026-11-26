@@ -123,7 +123,7 @@
   background-color: var(--border);
 }
 .bg-card,
-.bg-card\/65 {
+.bg-card\/55 {
   background-color: var(--card);
 }
 .ring-4 {
@@ -237,8 +237,18 @@
   --tw-shadow: var(--elev-1);
   box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
 }
+.group-data-\[indicator\]\:group-data-\[variant\=pill\]\:data-\[state\=active\]\:bg-transparent:is(:where(.group)[data-indicator] *):is(:where(.group)[data-variant=pill] *)[data-state=active] {
+  background-color: #0000;
+}
+.group-data-\[indicator\]\:group-data-\[variant\=pill\]\:data-\[state\=active\]\:shadow-none:is(:where(.group)[data-indicator] *):is(:where(.group)[data-variant=pill] *)[data-state=active] {
+  --tw-shadow: 0 0 #0000;
+  box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
+}
 .group-data-\[variant\=underline\]\:data-\[state\=active\]\:border-primary:is(:where(.group)[data-variant=underline] *)[data-state=active] {
   border-color: var(--primary);
+}
+.group-data-\[indicator\]\:group-data-\[variant\=underline\]\:data-\[state\=active\]\:border-transparent:is(:where(.group)[data-indicator] *):is(:where(.group)[data-variant=underline] *)[data-state=active] {
+  border-color: #0000;
 }
 .icon-draw:hover *,
 .group:hover .icon-draw * {

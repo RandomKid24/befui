@@ -31,14 +31,31 @@ function push(type: ToastType, title: string, description?: string, { action, du
   const id = nextId++;
   items = [...items, { id, type, title, description, action }];
   emit();
-  if (duration > 0) setTimeout(() => dismiss(id), duration);
+  if (duration > 0) arm(id, duration);
   return id;
+}
+/** Running countdowns, so one can wait while the pointer or keyboard is on its toast. */
+const timers = new Map<number, { left: number; since: number; handle?: ReturnType<typeof setTimeout> }>();
+function arm(id: number, left: number) {
+  timers.set(id, { left, since: Date.now(), handle: setTimeout(() => dismiss(id), left) });
+}
+function hold(id: number) {
+  const t = timers.get(id);
+  if (!t?.handle) return;
+  clearTimeout(t.handle);
+  timers.set(id, { left: Math.max(1000, t.left - (Date.now() - t.since)), since: 0 });
+}
+function release(id: number) {
+  const t = timers.get(id);
+  if (t && !t.handle) arm(id, t.left);
 }
 function patch(id: number, p: Partial<ToastItem>) {
   items = items.map((t) => (t.id === id ? { ...t, ...p } : t));
   emit();
 }
 function dismiss(id: number) {
+  clearTimeout(timers.get(id)?.handle);
+  timers.delete(id);
   items = items.filter((t) => t.id !== id);
   emit();
 }
@@ -56,7 +73,7 @@ export const toast = {
   progress: (title: string, description?: string) => {
     const id = push('info', title, description, { duration: 0 });
     patch(id, { progress: 0 });
-    const end = (type: ToastType) => (t: string, d?: string) => { patch(id, { type, title: t, description: d, progress: undefined }); setTimeout(() => dismiss(id), 4000); };
+    const end = (type: ToastType) => (t: string, d?: string) => { patch(id, { type, title: t, description: d, progress: undefined }); arm(id, 4000); };
     return { id, update: (pct: number, d?: string) => patch(id, { progress: Math.min(100, Math.max(0, pct)), ...(d !== undefined ? { description: d } : null) }), success: end('success'), error: end('error') };
   },
 };
@@ -81,6 +98,10 @@ export function Toaster() {
         <div
           key={t.id}
           role="status"
+          onPointerEnter={() => hold(t.id)}
+          onPointerLeave={() => release(t.id)}
+          onFocus={() => hold(t.id)}
+          onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget)) release(t.id); }}
           className={cn('pointer-events-auto flex items-start gap-3 rounded-lg border bg-popover p-3.5 shadow-lg animate-toast')}
         >
           <span className="mt-0.5">{icons[t.type]}</span>

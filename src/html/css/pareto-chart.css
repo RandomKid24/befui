@@ -99,7 +99,7 @@
   stroke: var(--border);
 }
 .stroke-foreground,
-.stroke-foreground\/70 {
+.stroke-foreground\/15 {
   stroke: var(--foreground);
 }
 .stroke-warning {

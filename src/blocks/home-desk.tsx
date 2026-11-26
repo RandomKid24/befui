@@ -2,11 +2,12 @@
 
 import * as React from 'react';
 import { Button } from '@/components/ui/button';
-import { BarChart } from '@/components/ui/charts';
+import { CapsuleBars, DeskHeader, StatTile, TickDial } from '@/components/ui/desk-kit';
 import { FloatingShell, GlassPanel, glass } from '@/components/ui/floating-shell';
-import { GridIcon, HomeIcon, LightbulbIcon, PowerIcon, ZapIcon } from '@/components/ui/icons';
+import { GridIcon, HomeIcon, LightbulbIcon, MinusIcon, PlusIcon, PowerIcon, ZapIcon } from '@/components/ui/icons';
 import { RevealGroup } from '@/components/ui/reveal';
 import { SmartHomeTiles, type HomeDevice } from '@/components/ui/smart-home-tiles';
+import { Toaster, toast } from '@/components/ui/toast';
 import { cn } from '@/lib/utils';
 
 // Demo data: swap for your hub's API.
@@ -30,32 +31,61 @@ export default function HomeDesk() {
     ['Movie night', 'Television and night lamp', (d) => ['t', 'n', 'f', 'c'].includes(d.id)],
     ['Good night', 'Lights off, air conditioner on', (d) => ['a', 'f', 'c'].includes(d.id)],
   ];
-  const apply = (keep: (d: HomeDevice) => boolean) => setDevices((all) => all.map((d) => ({ ...d, on: keep(d) })));
+  const apply = (name: string, keep: (d: HomeDevice) => boolean) => {
+    const before = devices;
+    setDevices(devices.map((d) => ({ ...d, on: keep(d) })));
+    toast.success(name, undefined, { action: { label: 'Undo', onClick: () => setDevices(before) } });
+  };
+  const ac = devices.find((d) => d.id === 'a')!;
+  const heat = ac.level!;
+  const setHeat = (value: number) => change({ ...ac, level: { ...heat, value } });
   return (
+    <>
+    <Toaster />
     <FloatingShell
-      className="[--primary:#0f766e] dark:[--primary:#5eead4] dark:[--primary-foreground:#042f2e]"
+      user={{ name: 'Noor Khan', role: 'Admin' }}
       brand={{ name: 'Hearth', tagline: 'Home control', mark: <HomeIcon /> }}
       value={view}
       onChange={setView}
       groups={[{ label: 'House', items: [{ id: 'home', label: 'Devices', icon: <GridIcon /> }, { id: 'scenes', label: 'Scenes', icon: <LightbulbIcon /> }, { id: 'energy', label: 'Energy', icon: <ZapIcon /> }] }]}
-      actions={<Button size="sm" variant="outline" disabled={!on} onClick={() => apply(() => false)}><PowerIcon /> All off</Button>}
-      footer={<><p className="text-xs text-muted-foreground">Running now</p><p className="text-lg font-semibold tabular-nums">{on} of {devices.length}</p></>}
+      actions={<Button size="sm" variant="outline" disabled={!on} onClick={() => apply('Everything is off', () => false)}><PowerIcon /> All off</Button>}
     >
-      {view === 'home' && <SmartHomeTiles className="max-w-none" devices={devices} onChange={change} />}
+      {view === 'home' && (
+        <>
+          <DeskHeader title="Good evening, Noor" summary={`${on} of ${devices.length} devices are on`} />
+          <RevealGroup className="grid gap-3 lg:grid-cols-3">
+            <GlassPanel title="Bedroom climate" note={ac.on ? 'Cooling to target' : 'Air conditioner is off'} className="h-full">
+              <TickDial size={180} min={heat.min} max={heat.max} value={heat.value} label="target °C" />
+              <div className="mt-2 flex justify-center gap-2">
+                <Button variant="outline" size="icon" aria-label="One degree cooler" disabled={!ac.on || heat.value <= heat.min} onClick={() => setHeat(heat.value - 1)}><MinusIcon /></Button>
+                {!ac.on && <Button onClick={() => change({ ...ac, on: true })}>Turn on</Button>}
+                <Button variant="outline" size="icon" aria-label="One degree warmer" disabled={!ac.on || heat.value >= heat.max} onClick={() => setHeat(heat.value + 1)}><PlusIcon /></Button>
+              </div>
+            </GlassPanel>
+            <GlassPanel title="Electricity this week" note="Units (kWh) a day" className="h-full"><CapsuleBars height={240} label="Electricity used each day in kWh" format={(n) => `${n} kWh`} data={usage.map(([label, value]) => ({ label, value }))} /></GlassPanel>
+            <div className="grid gap-3">
+              <StatTile hero label="Running now" value={`${on} devices`} note="Across the house" />
+              <StatTile label="Used today" value={`${usage[usage.length - 1][1]} kWh`} trend={usage.map(([, v]) => v)} />
+            </div>
+          </RevealGroup>
+          <SmartHomeTiles className={cn(glass, 'max-w-none p-3')} devices={devices} onChange={change} />
+        </>
+      )}
       {view === 'scenes' && (
         <RevealGroup className="grid gap-3 md:grid-cols-3">
           {scenes.map(([name, note, keep]) => {
             const active = devices.every((d) => d.on === keep(d));
-            return <GlassPanel key={name} title={name} note={note} className={cn(active && 'bg-primary/15')}><Button className="w-full" variant={active ? 'secondary' : 'primary'} disabled={active} onClick={() => apply(keep)}>{active ? 'Active now' : 'Run scene'}</Button></GlassPanel>;
+            return <GlassPanel key={name} title={name} note={note} className={cn(active && 'bg-primary/15')}><Button className="w-full" variant={active ? 'secondary' : 'primary'} disabled={active} onClick={() => apply(`${name} is on`, keep)}>{active ? 'Active now' : 'Run scene'}</Button></GlassPanel>;
           })}
         </RevealGroup>
       )}
       {view === 'energy' && (
         <RevealGroup className="grid gap-3 lg:grid-cols-3 [&>:first-child]:lg:col-span-2">
-          <GlassPanel title="Electricity this week" note="Units (kWh) a day" className="h-full"><BarChart height={220} data={usage.map(([label, value]) => ({ label, value }))} /></GlassPanel>
+          <GlassPanel title="Electricity this week" note="Units (kWh) a day" className="h-full"><CapsuleBars height={280} label="Electricity used each day in kWh" format={(n) => `${n} kWh`} data={usage.map(([label, value]) => ({ label, value }))} /></GlassPanel>
           <div className={cn(glass, 'h-full p-4')}><p className="text-xs text-muted-foreground">Week total</p><p className="text-4xl font-semibold tabular-nums">{usage.reduce((t, [, v]) => t + v, 0).toFixed(1)}</p><p className="text-sm text-muted-foreground">kWh</p></div>
         </RevealGroup>
       )}
     </FloatingShell>
+    </>
   );
 }

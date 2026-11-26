@@ -1,17 +1,18 @@
 # Components
 
-Every befui component and block. **311 React components**, **269 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **42 page blocks**.
+Every befui component and block. **313 React components**, **269 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **42 page blocks**.
 (Generated from the registry by `npm run registry:build`. Do not edit by hand.)
 
 Install a React component with `npx github:RandomKid24/befui add <name>`, the Flutter version with `npx github:RandomKid24/befui add <name> --flutter`.
 
-## Layout (7, 0 on Flutter)
+## Layout (8, 0 on Flutter)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
 | `app-shell` | Sidebar, topbar and scrolling content area, plus a page header. | ✓ |  |
 | `floating-shell` | Dashboard frame with a see-through menu floating over a soft backdrop: a sidebar that folds to icons or a top bar, a stretching highlight and a phone drawer. |  |  |
 | `landing-sections` | Marketing page parts: Hero, LogoStrip, FeatureGrid, StatsStrip, Faq, CtaBanner and SiteFooter. Stack them with a Navbar. | ✓ |  |
+| `motion-hooks` | The shared motion behind boards, lists and menus: items slide to their new places, a dragged item lifts and follows a mouse or finger, and one highlight stretches to the chosen item. |  |  |
 | `resizable-panels` | Three panels side by side: drag the left and right panels wider or narrower, or collapse them. For inbox and IDE layouts. | ✓ |  |
 | `settings-layout` | Settings page frame: vertical section list on the left, SettingsSection rows (title and help on the left, controls on the right). | ✓ |  |
 | `sidebar` | Collapsible nav with groups, nested links and badges. Icon rail on desktop, slide-over on mobile. | ✓ |  |
@@ -83,7 +84,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `mention-input` | Textarea that suggests people when you type @. Arrow keys and Enter pick. | ✓ |  |
 | `notification-preferences` | Grid of events by channel (email, push, SMS, in-app) with a switch per cell and a switch per channel. | ✓ | ✓ |
 | `number-stepper` | Number field with plus and minus buttons and arrow keys. | ✓ | ✓ |
-| `otp-input` | Code boxes with paste, backspace, arrow keys, autofill and a shake on error. | ✓ | ✓ |
+| `otp-input` | Code boxes with paste, backspace, arrow keys and autofill. Digits land as you type, turn green on success and shake on error. | ✓ | ✓ |
 | `password-input` | Show and hide toggle with an optional strength meter. | ✓ | ✓ |
 | `phone-input` | Phone field with a country picker. Groups digits as you type and hands back the E.164 number and whether it is complete. | ✓ | ✓ |
 | `radio-group` | Native radios as selectable cards with descriptions. | ✓ | ✓ |
@@ -167,7 +168,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `separator` | Horizontal or vertical divider. | ✓ | ✓ |
 | `shimmer-text` | Text with a light sweep passing over it. | ✓ | ✓ |
 | `smart-home-tiles` | Devices filtered by room, each with a switch and an optional level slider. Offline devices are locked. |  |  |
-| `sortable-list` | Reorder rows by dragging, or with arrow keys on the grip. Controlled, no drag library. | ✓ | ✓ |
+| `sortable-list` | Reorder rows by dragging with a mouse or finger, or with the arrow keys on the grip. Rows slide into place. No drag library. | ✓ | ✓ |
 | `spotlight-card` | Card with a glow and border highlight that follow the cursor. | ✓ |  |
 | `sprint-report` | Sprint report built around a burndown chart with an ideal line, plus committed, completed and spilled points, a velocity strip, and what shipped and slipped. |  |  |
 | `status-dot` | Small status light with an optional pulse and label. | ✓ | ✓ |
@@ -208,7 +209,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `tool-call` | A card for one tool or function call an AI made: name, running, done or failed, how long it took, and its input and output to expand. | ✓ | ✓ |
 | `voice-wave` | Audio level bars for a voice input: they dance while listening and settle to a line when paused. Drive them with a real level or leave them idle. | ✓ | ✓ |
 
-## Data (91, 15 on Flutter)
+## Data (92, 15 on Flutter)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
@@ -234,6 +235,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `comparison-table` | Plans across the top, features down the side, a check, dash or text in each cell. For pricing pages. | ✓ |  |
 | `countdown` | Live countdown with flipping digits. | ✓ | ✓ |
 | `data-table` | Sortable columns, a search box and pagination, with optional row selection and bulk actions, column visibility menu, sticky header, toolbar slot, row action menus and clickable rows. You pass rows and column definitions. | ✓ |  |
+| `desk-kit` | Dashboard pieces: a page greeting that draws its accent rule, headline tiles with a filled hero and trend line, rounded bars with a labelled highlight, and a tick dial. |  |  |
 | `dumbbell-chart` | Change per item as two dots joined by a line: before and after, plan and actual. Green when good, red when bad. | ✓ |  |
 | `feature-flag-table` | Flags with a switch, key, environments and a rollout slider (percent of users) that dims while off. Searchable, controlled. | ✓ |  |
 | `file-manager` | Folder browser with breadcrumb, list and grid views, selection and double-click or Enter to open. | ✓ |  |
@@ -248,7 +250,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `heatmap` | Contribution-style grid for daily activity. Cells pop in column by column. | ✓ |  |
 | `histogram-chart` | Counts how many values fall in each range from raw data, with a smooth curve over the bars. Bars rise in turn. | ✓ |  |
 | `india-map` | India by state and union territory, with a 3D bar or pin standing on every state in your data. Zoom and pan it; click a name in the list to highlight a state. |  |  |
-| `kanban` | Columns of draggable cards. Drag with the mouse or move a focused card with Alt and the arrow keys. Controlled, no drag library. | ✓ | ✓ |
+| `kanban` | Columns of cards you drag with a mouse or finger: the card lifts, a space opens where it will land and the rest slide aside. Alt and the arrow keys move a focused card. No drag library. | ✓ | ✓ |
 | `kpi-strip` | A row of headline numbers sharing one border with dividers between them, with change arrows. The strip at the top of a dashboard. | ✓ |  |
 | `leaderboard` | Ranked people or teams with avatars, score bars, gold, silver and bronze badges and place changes. Sorted for you; bars fill in on scroll. | ✓ | ✓ |
 | `line-chart` | Multi-series line or area chart in plain SVG with grid, axis labels, legend and a hover readout. | ✓ | ✓ |

@@ -30,7 +30,6 @@
 .stroke-border {
   stroke: var(--border);
 }
-.stroke-foreground,
 .stroke-foreground\/70 {
   stroke: var(--foreground);
 }

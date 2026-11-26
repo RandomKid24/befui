@@ -3,12 +3,14 @@
 import * as React from 'react';
 import { Avatar } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { BarChart } from '@/components/ui/charts';
 import { Checkbox } from '@/components/ui/checkbox';
-import { FloatingShell, GlassPanel, glass } from '@/components/ui/floating-shell';
+import { CapsuleBars, DeskHeader, StatTile, TickDial } from '@/components/ui/desk-kit';
+import { FloatingShell, GlassPanel } from '@/components/ui/floating-shell';
 import { formatCurrency } from '@/components/ui/format';
-import { BriefcaseIcon, CheckIcon, GridIcon, KanbanIcon, TargetIcon, TrophyIcon } from '@/components/ui/icons';
+import { GridIcon, KanbanIcon, TargetIcon, TrophyIcon } from '@/components/ui/icons';
+import { Kanban } from '@/components/ui/kanban';
 import { RevealGroup } from '@/components/ui/reveal';
+import { Toaster, toast } from '@/components/ui/toast';
 import { cn } from '@/lib/utils';
 
 // Demo data: swap for your API. Every figure on screen is worked out from these rows.
@@ -35,59 +37,63 @@ export default function CrmDesk() {
   const won = deals.filter((d) => d.stage === 'Won');
   const next = [...open].sort((a, b) => stages.indexOf(b.stage) - stages.indexOf(a.stage) || b.value - a.value)[0];
   const owners = [...new Set(deals.map((d) => d.owner))].map((name) => ({ name, won: sum(won.filter((d) => d.owner === name)), open: sum(open.filter((d) => d.owner === name)) })).sort((a, b) => b.won - a.won);
-  const advance = (id: string) => setDeals((all) => all.map((d) => (d.id === id ? { ...d, stage: stages[Math.min(stages.indexOf(d.stage) + 1, stages.length - 1)] } : d)));
+  const advance = (id: string) => {
+    const before = deals;
+    const moved = deals.map((d) => (d.id === id ? { ...d, stage: stages[Math.min(stages.indexOf(d.stage) + 1, stages.length - 1)] } : d));
+    setDeals(moved);
+    const d = moved.find((x) => x.id === id)!;
+    toast.success(`${d.name} moved to ${d.stage}`, undefined, { action: { label: 'Undo', onClick: () => setDeals(before) } });
+  };
   const tasks = ['Send revised quote to Frostline Foods', 'Call Sunrise Hospital about site access', 'Confirm survey date with Northgate School'];
-  const tiles = [['Won this month', money(sum(won))], ['Open pipeline', money(sum(open))], ['Open deals', String(open.length)], ['Share of deals won', `${Math.round((won.length / deals.length) * 100)}%`]];
 
   return (
+    <>
+    <Toaster />
     <FloatingShell
-      className="[--primary:#4d7c0f] dark:[--primary:#bef264] dark:[--primary-foreground:#1a2e05]"
+      user={{ name: 'Ananya Rao', role: 'Head of sales' }}
       brand={{ name: 'Fernline', tagline: 'Sales desk', mark: <TargetIcon /> }}
       value={view}
       onChange={setView}
       groups={[{ label: 'Menu', items: [{ id: 'overview', label: 'Overview', icon: <GridIcon /> }, { id: 'pipeline', label: 'Pipeline', icon: <KanbanIcon />, badge: open.length }, { id: 'team', label: 'Team', icon: <TrophyIcon /> }] }]}
-      footer={<><p className="text-xs text-muted-foreground">Monthly target ₹40L</p><p className="text-lg font-semibold tabular-nums">{Math.round((sum(won) / 4_000_000) * 100)}% reached</p><div aria-hidden className="mt-1 h-1.5 overflow-hidden rounded-sm bg-foreground/10"><div className="h-full bg-primary transition-[width]" style={{ width: `${Math.min(100, (sum(won) / 4_000_000) * 100)}%` }} /></div></>}
     >
       {view === 'overview' && (
-        <div className="grid gap-3">
+        <>
+          <DeskHeader title="Good morning, Ananya" summary={`${tasks.length - done.length} tasks today, ${open.length} deals open`} actions={<Button onClick={() => setView('pipeline')}><KanbanIcon /> Open pipeline</Button>} />
           <RevealGroup className="grid grid-cols-2 gap-3 xl:grid-cols-4">
-            {tiles.map(([label, value]) => <div key={label} className={cn(glass, 'p-4')}><p className="text-xs text-muted-foreground">{label}</p><p className="mt-1 text-2xl font-semibold tabular-nums">{value}</p></div>)}
+            <StatTile hero label="Won this month" value={money(sum(won))} note={`${won.length} deals`} trend={revenue.map(([, v]) => v)} />
+            <StatTile label="Open pipeline" value={money(sum(open))} note={`${open.length} deals`} />
+            <StatTile label="Average open deal" value={money(open.length ? sum(open) / open.length : 0)} />
+            <StatTile label="Share of deals won" value={`${Math.round((won.length / deals.length) * 100)}%`} note={`${won.length} of ${deals.length}`} />
           </RevealGroup>
-          <RevealGroup className="grid gap-3 xl:grid-cols-3 [&>:first-child]:xl:col-span-2 [&>:last-child]:xl:col-span-3" step={90}>
-            <GlassPanel title="Revenue won" note="Last five months, ₹ lakh" className="h-full"><BarChart height={200} data={revenue.map(([label, value]) => ({ label, value }))} /></GlassPanel>
+          <RevealGroup className="grid gap-3 xl:grid-cols-3 [&>:first-child]:xl:col-span-2" step={90}>
+            <GlassPanel title="Revenue won" note="Last five months, ₹ lakh" className="h-full"><CapsuleBars label="Revenue won by month in lakh rupees" format={(n) => `₹${n}L`} data={revenue.map(([label, value]) => ({ label, value }))} /></GlassPanel>
             <GlassPanel title="Closest to closing" className="h-full bg-primary/15">
-              {next ? <><p className="text-lg font-semibold">{next.name}</p><p className="text-xs text-muted-foreground">{next.company}, {next.stage.toLowerCase()}</p><p className="my-3 text-3xl font-semibold tabular-nums">{money(next.value)}</p><Button className="w-full" onClick={() => advance(next.id)}>Move to {stages[stages.indexOf(next.stage) + 1]}</Button></> : <p className="text-sm">Every deal is won.</p>}
+              {next ? <><p className="text-lg font-semibold">{next.name}</p><p className="text-xs text-muted-foreground">{next.company}, {next.stage.toLowerCase()}</p><p className="my-4 text-4xl font-semibold tracking-tight tabular-nums">{money(next.value)}</p><Button className="w-full" onClick={() => advance(next.id)}>Move to {stages[stages.indexOf(next.stage) + 1]}</Button></> : <p className="text-sm">Every deal is won.</p>}
             </GlassPanel>
             <GlassPanel title="Today" note={`${tasks.length - done.length} to do`} className="h-full">
               <ul className="divide-y divide-foreground/10">
                 {tasks.map((t) => <li key={t}><label className="flex items-center gap-3 py-2.5 text-sm"><Checkbox checked={done.includes(t)} onCheckedChange={(v) => setDone(v ? [...done, t] : done.filter((x) => x !== t))} /><span className={cn(done.includes(t) && 'text-muted-foreground line-through')}>{t}</span></label></li>)}
               </ul>
             </GlassPanel>
+            <GlassPanel title="Leaderboard" note="By value won" className="h-full">
+              <ol className="grid gap-3">
+                {owners.map((o, i) => <li key={o.name} className="flex items-center gap-3"><span className="w-4 text-sm font-semibold tabular-nums text-muted-foreground">{i + 1}</span><Avatar name={o.name} size="sm" /><span className="min-w-0 flex-1 truncate text-sm">{o.name}</span><span className="text-sm font-semibold tabular-nums">{money(o.won)}</span></li>)}
+              </ol>
+            </GlassPanel>
+            <GlassPanel title="Monthly target" note="₹40L" className="h-full"><TickDial size={170} value={Math.round((sum(won) / 4_000_000) * 100)} label="reached" display={`${Math.round((sum(won) / 4_000_000) * 100)}%`} /></GlassPanel>
           </RevealGroup>
-        </div>
+        </>
       )}
       {view === 'pipeline' && (
-        <GlassPanel title="Pipeline" note="Grouped by stage, nearest to closing first">
-          {[...stages].reverse().map((stage) => {
-            const rows = deals.filter((d) => d.stage === stage);
-            return (
-              <section key={stage} aria-label={stage} className="border-t border-foreground/10 py-3 first:border-t-0">
-                <h3 className="flex justify-between text-xs font-semibold text-muted-foreground"><span>{stage}</span><span className="tabular-nums">{money(sum(rows))}</span></h3>
-                {!rows.length && <p className="py-2 text-xs text-muted-foreground">No deals here.</p>}
-                <ul>
-                  {rows.map((d) => (
-                    <li key={d.id} className="flex flex-wrap items-center gap-3 py-2">
-                      <BriefcaseIcon className="size-4 shrink-0 text-primary" />
-                      <div className="min-w-0 flex-1"><p className="truncate text-sm font-medium">{d.name}</p><p className="truncate text-xs text-muted-foreground">{d.company}, {d.owner}</p></div>
-                      <span className="text-sm tabular-nums">{money(d.value)}</span>
-                      {stage === 'Won' ? <CheckIcon className="size-4 text-success" /> : <Button size="sm" variant="outline" aria-label={`Move ${d.name} to the next stage`} onClick={() => advance(d.id)}>Advance</Button>}
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            );
-          })}
-        </GlassPanel>
+        <>
+          <DeskHeader title="Pipeline" summary={`${open.length} open deals worth ${money(sum(open))}. Drag a card to move it, or focus it and press Alt with an arrow key.`} />
+          <Kanban<Deal>
+            columns={stages.map((s) => ({ id: s, title: s, tone: s === 'Won' ? 'success' : 'default' }))}
+            value={Object.fromEntries(stages.map((s) => [s, deals.filter((d) => d.stage === s)]))}
+            onChange={(next) => setDeals(stages.flatMap((s) => (next[s] ?? []).map((d) => ({ ...d, stage: s }))))}
+            renderCard={(d) => <div className="grid gap-1.5"><p className="text-sm font-medium">{d.name}</p><p className="text-xs text-muted-foreground">{d.company}</p><div className="flex items-center justify-between gap-2"><Avatar name={d.owner} size="sm" /><span className="text-sm font-semibold tabular-nums">{money(d.value)}</span></div></div>}
+          />
+        </>
       )}
       {view === 'team' && (
         <RevealGroup className="grid gap-3 md:grid-cols-3">
@@ -95,5 +101,6 @@ export default function CrmDesk() {
         </RevealGroup>
       )}
     </FloatingShell>
+    </>
   );
 }

@@ -3657,7 +3657,7 @@ Widget _groups(BuildContext context, List<(String, Widget)> groups) {
 ```
 
 ### Kanban board (`kanban`)
-Columns of draggable cards. Drag with the mouse or move a focused card with Alt and the arrow keys. Controlled, no drag library.
+Columns of cards you drag with a mouse or finger: the card lifts, a space opens where it will land and the rest slide aside. Alt and the arrow keys move a focused card. No drag library.
 - Add: `npx github:RandomKid24/befui add kanban --flutter`
 - Import: `import 'befui/kanban.dart';` (classes: BefKanbanColumn, BefKanban)
 - Also copies: icons.dart, theme.dart
@@ -4945,7 +4945,7 @@ Widget _groups(BuildContext context, List<(String, Widget)> groups) {
 ```
 
 ### OTP input (`otp-input`)
-Code boxes with paste, backspace, arrow keys, autofill and a shake on error.
+Code boxes with paste, backspace, arrow keys and autofill. Digits land as you type, turn green on success and shake on error.
 - Add: `npx github:RandomKid24/befui add otp-input --flutter`
 - Import: `import 'befui/otp_input.dart';` (classes: BefOtpInput)
 - Also copies: theme.dart
@@ -6850,7 +6850,7 @@ Widget _groups(BuildContext context, List<(String, Widget)> groups) {
 ```
 
 ### Sortable list (`sortable-list`)
-Reorder rows by dragging, or with arrow keys on the grip. Controlled, no drag library.
+Reorder rows by dragging with a mouse or finger, or with the arrow keys on the grip. Rows slide into place. No drag library.
 - Add: `npx github:RandomKid24/befui add sortable-list --flutter`
 - Import: `import 'befui/sortable_list.dart';` (classes: BefSortableList)
 - Also copies: icons.dart, theme.dart

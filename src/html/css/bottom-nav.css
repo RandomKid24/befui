@@ -7,6 +7,8 @@
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
   --destructive: #e11d48;
+  --dur-spring: .4s;
+  --ease-spring: linear(0, .4 8%, .85 20%, 1.06 32%, 1.02 46%, 1 60%, 1);
   --elev-1: 0 1px 2px #0f172a0a, 0 1px 1px #0f172a08;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
@@ -28,6 +30,9 @@
 }
 
 /* Utility rules */
+.pointer-events-none {
+  pointer-events: none;
+}
 .absolute {
   position: absolute;
 }
@@ -269,13 +274,37 @@ env\(safe-area-inset-bottom\)\)\] {
   --tw-shadow: var(--elev-1);
   box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
 }
+.group-data-\[indicator\]\:group-data-\[variant\=pill\]\:data-\[state\=active\]\:bg-transparent:is(:where(.group)[data-indicator] *):is(:where(.group)[data-variant=pill] *)[data-state=active] {
+  background-color: #0000;
+}
+.group-data-\[indicator\]\:group-data-\[variant\=pill\]\:data-\[state\=active\]\:shadow-none:is(:where(.group)[data-indicator] *):is(:where(.group)[data-variant=pill] *)[data-state=active] {
+  --tw-shadow: 0 0 #0000;
+  box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
+}
 .group-data-\[variant\=underline\]\:data-\[state\=active\]\:border-primary:is(:where(.group)[data-variant=underline] *)[data-state=active] {
   border-color: var(--primary);
 }
+.group-data-\[indicator\]\:group-data-\[variant\=underline\]\:data-\[state\=active\]\:border-transparent:is(:where(.group)[data-indicator] *):is(:where(.group)[data-variant=underline] *)[data-state=active] {
+  border-color: #0000;
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .motion-reduce\:\!transition-none {
+    transition-property: none;
+  }
+}
+
 .\[\&_svg\]\:size-5 svg {
   width: calc(var(--spacing) * 5);
   height: calc(var(--spacing) * 5);
 }
+
+@media (prefers-reduced-motion:no-preference) {
+  .motion-safe\:\[\&_svg\]\:animate-pop svg {
+    animation: pop var(--dur-spring) var(--ease-spring);
+  }
+}
+
 .icon-draw:hover *,
 .group:hover .icon-draw * {
   animation: icon-draw var(--icon-ms,.9s) cubic-bezier(.45,0,.2,1) backwards;
@@ -283,6 +312,17 @@ env\(safe-area-inset-bottom\)\)\] {
 }
 
 /* Animations */
+@keyframes pop {
+  0% {
+    opacity: 0;
+    transform: scale(.97)translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 @keyframes icon-draw {
   0% {
     stroke-dashoffset: 1px;

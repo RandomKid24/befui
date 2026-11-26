@@ -24,6 +24,15 @@
 }
 
 /* Utility rules */
+.pointer-events-none {
+  pointer-events: none;
+}
+.absolute {
+  position: absolute;
+}
+.relative {
+  position: relative;
+}
 .inline-flex {
   display: inline-flex;
 }
@@ -45,6 +54,10 @@
 .rounded-md {
   border-radius: var(--radius);
 }
+.bg-background,
+.bg-background\/15 {
+  background-color: var(--background);
+}
 .bg-secondary {
   background-color: var(--secondary);
 }
@@ -64,6 +77,10 @@
 .text-muted-foreground,
 .text-muted-foreground\/30 {
   color: var(--muted-foreground);
+}
+.shadow-sm {
+  --tw-shadow: var(--elev-1);
+  box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
 }
 .transition-\[color\,
 background-color\,
@@ -100,16 +117,30 @@ opacity\] {
   }
 }
 
+.data-\[state\=on\]\:\!bg-transparent[data-state=on] {
+  background-color: #0000;
+}
 .data-\[state\=on\]\:bg-background[data-state=on] {
   background-color: var(--background);
 }
 .data-\[state\=on\]\:text-foreground[data-state=on] {
   color: var(--foreground);
 }
+.data-\[state\=on\]\:\!shadow-none[data-state=on] {
+  --tw-shadow: 0 0 #0000;
+  box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
+}
 .data-\[state\=on\]\:shadow-sm[data-state=on] {
   --tw-shadow: var(--elev-1);
   box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
 }
+
+@media (prefers-reduced-motion:reduce) {
+  .motion-reduce\:\!transition-none {
+    transition-property: none;
+  }
+}
+
 .\[\&_svg\]\:size-3\.5 svg {
   width: calc(var(--spacing) * 3.5);
   height: calc(var(--spacing) * 3.5);

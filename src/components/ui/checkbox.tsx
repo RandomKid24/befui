@@ -17,7 +17,7 @@ export const Checkbox = React.forwardRef<
     )}
     {...props}
   >
-    <CheckboxPrimitive.Indicator>
+    <CheckboxPrimitive.Indicator className="motion-safe:[&_path]:[stroke-dasharray:1_1] motion-safe:[&_path]:animate-[icon-draw_var(--dur-medium)_var(--ease-out)]">
       {props.checked === 'indeterminate' ? <MinusIcon className="size-3" strokeWidth={3} /> : <CheckIcon className="size-3" strokeWidth={3} />}
     </CheckboxPrimitive.Indicator>
   </CheckboxPrimitive.Root>

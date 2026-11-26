@@ -258,11 +258,11 @@
   background-color: var(--background);
 }
 .bg-card,
-.bg-card\/65 {
+.bg-card\/55 {
   background-color: var(--card);
 }
 .bg-foreground,
-.bg-foreground\/10 {
+.bg-foreground\/5 {
   background-color: var(--foreground);
 }
 .bg-foreground\/80 {

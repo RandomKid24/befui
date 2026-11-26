@@ -1,5 +1,57 @@
 [
   {
+    "version": "1.22.0",
+    "date": "2026-11-26",
+    "title": "Better dashboards, and motion in everyday components",
+    "entries": [
+      {
+        "kind": "added",
+        "text": "Desk kit for dashboards (page greeting, headline tiles, rounded bars, tick dial) and shared motion hooks (slide into place, drag with mouse or finger, stretching highlight).",
+        "slugs": [
+          "desk-kit",
+          "motion-hooks"
+        ]
+      },
+      {
+        "kind": "changed",
+        "text": "The kanban board and sortable list now work on touch screens. The dragged item lifts and tilts, a space opens where it will land, and the others slide aside. Escape cancels.",
+        "slugs": [
+          "kanban",
+          "sortable-list"
+        ]
+      },
+      {
+        "kind": "changed",
+        "text": "The highlight now stretches to the item you choose.",
+        "slugs": [
+          "tabs",
+          "segmented",
+          "bottom-nav"
+        ]
+      },
+      {
+        "kind": "changed",
+        "text": "Code digits land as you type and can turn green when accepted (new success prop). The checkbox tick draws itself. A toast stops counting down while the pointer or keyboard is on it.",
+        "slugs": [
+          "otp-input",
+          "checkbox",
+          "toast"
+        ]
+      },
+      {
+        "kind": "changed",
+        "text": "The floating shell has page search on Command or Ctrl K, a signed-in user and a richer backdrop. The four dashboards use the befui colours, a large greeting, headline tiles, new charts and Undo.",
+        "slugs": [
+          "floating-shell",
+          "block:property-desk",
+          "block:crm-desk",
+          "block:home-desk",
+          "block:wellbeing-desk"
+        ]
+      }
+    ]
+  },
+  {
     "version": "1.21.0",
     "date": "2026-11-26",
     "title": "Floating dashboards",

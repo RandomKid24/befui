@@ -5,7 +5,6 @@
   --background: #fff;
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
-  --dur-fast: .15s;
   --elev-1: 0 1px 2px #0f172a0a, 0 1px 1px #0f172a08;
   --font-weight-medium: 500;
   --foreground: #0f172a;
@@ -27,17 +26,23 @@
 }
 
 /* Utility rules */
-.mt-4 {
-  margin-top: calc(var(--spacing) * 4);
+.pointer-events-none {
+  pointer-events: none;
+}
+.absolute {
+  position: absolute;
+}
+.relative {
+  position: relative;
 }
 .inline-flex {
   display: inline-flex;
 }
+.h-0\.5 {
+  height: calc(var(--spacing) * .5);
+}
 .w-full {
   width: 100%;
-}
-.animate-in {
-  animation: fade-in var(--dur-fast) ease-out;
 }
 .items-center {
   align-items: center;
@@ -54,9 +59,19 @@
 .rounded-lg {
   border-radius: calc(var(--radius) + 2px);
 }
+.rounded-md {
+  border-radius: var(--radius);
+}
 .border-b {
   border-bottom-style: var(--tw-border-style);
   border-bottom-width: 1px;
+}
+.bg-background,
+.bg-background\/15 {
+  background-color: var(--background);
+}
+.bg-primary {
+  background-color: var(--primary);
 }
 .bg-secondary {
   background-color: var(--secondary);
@@ -80,6 +95,10 @@
 }
 .underline {
   text-decoration-line: underline;
+}
+.shadow-sm {
+  --tw-shadow: var(--elev-1);
+  box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
 }
 .transition-colors {
   transition-property: color,background-color,border-color,outline-color,text-decoration-color,fill,stroke,--tw-gradient-from,--tw-gradient-via,--tw-gradient-to;
@@ -191,9 +210,26 @@
   --tw-shadow: var(--elev-1);
   box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
 }
+.group-data-\[indicator\]\:group-data-\[variant\=pill\]\:data-\[state\=active\]\:bg-transparent:is(:where(.group)[data-indicator] *):is(:where(.group)[data-variant=pill] *)[data-state=active] {
+  background-color: #0000;
+}
+.group-data-\[indicator\]\:group-data-\[variant\=pill\]\:data-\[state\=active\]\:shadow-none:is(:where(.group)[data-indicator] *):is(:where(.group)[data-variant=pill] *)[data-state=active] {
+  --tw-shadow: 0 0 #0000;
+  box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
+}
 .group-data-\[variant\=underline\]\:data-\[state\=active\]\:border-primary:is(:where(.group)[data-variant=underline] *)[data-state=active] {
   border-color: var(--primary);
 }
+.group-data-\[indicator\]\:group-data-\[variant\=underline\]\:data-\[state\=active\]\:border-transparent:is(:where(.group)[data-indicator] *):is(:where(.group)[data-variant=underline] *)[data-state=active] {
+  border-color: #0000;
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .motion-reduce\:\!transition-none {
+    transition-property: none;
+  }
+}
+
 .icon-draw:hover *,
 .group:hover .icon-draw * {
   animation: icon-draw var(--icon-ms,.9s) cubic-bezier(.45,0,.2,1) backwards;
@@ -201,15 +237,6 @@
 }
 
 /* Animations */
-@keyframes fade-in {
-  0% {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
 @keyframes icon-draw {
   0% {
     stroke-dashoffset: 1px;

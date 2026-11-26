@@ -136,7 +136,7 @@ Dashboard frame with a see-through menu floating over a soft backdrop: a sidebar
 - Group: Layout
 - Add: `npx github:RandomKid24/befui add floating-shell`
 - Import: `import { glass, GlassPanel, FloatingShell } from '@/components/ui/floating-shell'`
-- Also needs: button, dialog, icons, stretch-nav, theme-toggle
+- Also needs: avatar, button, command, dialog, icons, stretch-nav, theme-toggle
 
 Example:
 
@@ -195,6 +195,34 @@ export default function LandingSectionsDemo() {
         ]}
       />
       <CtaBanner title="Ready to switch?" description="Import your team in minutes." actions={<Button variant="secondary" size="lg">Get started</Button>} />
+    </div>
+  );
+}
+```
+
+## Motion hooks (`motion-hooks`)
+The shared motion behind boards, lists and menus: items slide to their new places, a dragged item lifts and follows a mouse or finger, and one highlight stretches to the chosen item.
+- Group: Layout
+- Add: `npx github:RandomKid24/befui add motion-hooks`
+- Import: `import { useFlip, useDragLift, useStretch } from '@/components/ui/motion-hooks'`
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { Button } from '@/components/ui/button';
+import { useFlip } from '@/components/ui/motion-hooks';
+
+export default function MotionHooksDemo() {
+  const [order, setOrder] = React.useState(['Design', 'Build', 'Test', 'Ship']);
+  const list = React.useRef<HTMLUListElement>(null);
+  useFlip(list);
+  return (
+    <div className="grid justify-items-center gap-3">
+      <ul ref={list} className="relative flex flex-wrap justify-center gap-2">
+        {order.map((o) => <li key={o} data-flip={o} className="rounded-lg border bg-card px-4 py-2 text-[13px] font-medium shadow-sm">{o}</li>)}
+      </ul>
+      <Button variant="outline" onClick={() => setOrder([...order.slice(1), order[0]!])}>Move the first to the end</Button>
     </div>
   );
 }
@@ -376,6 +404,7 @@ Mobile tab bar with icons, labels, an active pill and count badges.
 - Group: Navigation
 - Add: `npx github:RandomKid24/befui add bottom-nav`
 - Import: `import { BottomNav } from '@/components/ui/bottom-nav'`
+- Also needs: motion-hooks
 
 Example:
 
@@ -1000,6 +1029,7 @@ A row of views with one highlight that stretches from the old item to the new on
 - Group: Navigation
 - Add: `npx github:RandomKid24/befui add stretch-nav`
 - Import: `import { StretchNav } from '@/components/ui/stretch-nav'`
+- Also needs: motion-hooks
 
 Example:
 
@@ -1042,6 +1072,7 @@ Underline or pill tabs on Radix Tabs.
 - Group: Navigation
 - Add: `npx github:RandomKid24/befui add tabs`
 - Import: `import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'`
+- Also needs: motion-hooks
 - npm packages: @radix-ui/react-tabs
 
 Example:
@@ -2073,7 +2104,7 @@ export default function NumberStepperDemo() {
 ```
 
 ## OTP input (`otp-input`)
-Code boxes with paste, backspace, arrow keys, autofill and a shake on error.
+Code boxes with paste, backspace, arrow keys and autofill. Digits land as you type, turn green on success and shake on error.
 - Group: Inputs
 - Add: `npx github:RandomKid24/befui add otp-input`
 - Import: `import { OtpInput } from '@/components/ui/otp-input'`
@@ -2088,13 +2119,15 @@ import { toast } from '@/components/ui/toast';
 export default function OtpInputDemo() {
   const [v, setV] = React.useState('');
   const [bad, setBad] = React.useState(false);
+  const [ok, setOk] = React.useState(false);
   return (
     <div className="grid justify-items-center gap-3">
       <OtpInput
         value={v}
         invalid={bad}
-        onChange={(x) => { setV(x); setBad(false); }}
-        onComplete={(x) => (x === '123456' ? toast.success('Verified') : (setBad(true), setTimeout(() => setV(''), 500)))}
+        success={ok}
+        onChange={(x) => { setV(x); setBad(false); setOk(false); }}
+        onComplete={(x) => (x === '123456' ? (setOk(true), toast.success('Verified')) : (setBad(true), setTimeout(() => setV(''), 500)))}
       />
       <p className="text-xs text-muted-foreground">Try 123456, or paste any code.</p>
     </div>
@@ -2333,6 +2366,7 @@ Pick one of a few views or ranges. Smaller than tabs.
 - Group: Inputs
 - Add: `npx github:RandomKid24/befui add segmented`
 - Import: `import { Segmented } from '@/components/ui/segmented'`
+- Also needs: motion-hooks
 - npm packages: @radix-ui/react-toggle-group
 
 Example:
@@ -4404,10 +4438,11 @@ export default function SmartHomeTilesDemo() {
 ```
 
 ## Sortable list (`sortable-list`)
-Reorder rows by dragging, or with arrow keys on the grip. Controlled, no drag library.
+Reorder rows by dragging with a mouse or finger, or with the arrow keys on the grip. Rows slide into place. No drag library.
 - Group: Display
 - Add: `npx github:RandomKid24/befui add sortable-list`
 - Import: `import { SortableList } from '@/components/ui/sortable-list'`
+- Also needs: motion-hooks
 
 Example:
 
@@ -6234,6 +6269,35 @@ export default function DataTableDemo() {
 }
 ```
 
+## Desk kit (`desk-kit`)
+Dashboard pieces: a page greeting that draws its accent rule, headline tiles with a filled hero and trend line, rounded bars with a labelled highlight, and a tick dial.
+- Group: Data
+- Add: `npx github:RandomKid24/befui add desk-kit`
+- Import: `import { DeskHeader, StatTile, CapsuleBars, TickDial } from '@/components/ui/desk-kit'`
+- Also needs: charts, floating-shell
+
+Example:
+
+```tsx
+import { CapsuleBars, DeskHeader, StatTile, TickDial } from '@/components/ui/desk-kit';
+
+export default function DeskKitDemo() {
+  return (
+    <div className="grid w-full max-w-3xl gap-3">
+      <DeskHeader title="Good morning" summary="Demo figures" />
+      <div className="grid gap-3 sm:grid-cols-2">
+        <StatTile hero label="Orders this week" value="248" note="31 more than last week" trend={[21, 28, 25, 34, 31, 44, 41]} />
+        <StatTile label="Returns" value="9" note="3 waiting for pickup" trend={[4, 2, 3, 1, 2, 2, 1]} />
+      </div>
+      <div className="grid items-center gap-3 sm:grid-cols-[1fr_auto]">
+        <CapsuleBars label="Orders by day" data={[['Mon', 31], ['Tue', 28], ['Wed', 40], ['Thu', 34], ['Fri', 52], ['Sat', 41], ['Sun', 22]].map(([label, value]) => ({ label: String(label), value: Number(value) }))} highlight={4} />
+        <TickDial value={72} label="of target" display="72%" />
+      </div>
+    </div>
+  );
+}
+```
+
 ## Dumbbell chart (`dumbbell-chart`)
 Change per item as two dots joined by a line: before and after, plan and actual. Green when good, red when bad.
 - Group: Data
@@ -6657,10 +6721,11 @@ export default function IndiaMapDemo() {
 ```
 
 ## Kanban board (`kanban`)
-Columns of draggable cards. Drag with the mouse or move a focused card with Alt and the arrow keys. Controlled, no drag library.
+Columns of cards you drag with a mouse or finger: the card lifts, a space opens where it will land and the rest slide aside. Alt and the arrow keys move a focused card. No drag library.
 - Group: Data
 - Add: `npx github:RandomKid24/befui add kanban`
 - Import: `import { Kanban } from '@/components/ui/kanban'`
+- Also needs: motion-hooks
 
 Example:
 

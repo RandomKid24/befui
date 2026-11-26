@@ -10,6 +10,7 @@ export function OtpInput({
   onChange,
   onComplete,
   invalid,
+  success,
   className,
 }: {
   length?: number;
@@ -17,6 +18,8 @@ export function OtpInput({
   onChange: (v: string) => void;
   onComplete?: (v: string) => void;
   invalid?: boolean;
+  /** The code was accepted: the boxes turn green one after another. */
+  success?: boolean;
   className?: string;
 }) {
   const refs = React.useRef<(HTMLInputElement | null)[]>([]);
@@ -60,9 +63,12 @@ export function OtpInput({
             set(t);
             focus(t.length);
           }}
+          style={{ animationDelay: `${i * (success ? 70 : 35)}ms` }}
           className={cn(
             'size-11 rounded-lg border bg-background text-center text-lg font-semibold tabular-nums outline-none transition-[border-color,box-shadow,transform] duration-(--dur-fast) focus:scale-105 focus:border-ring focus:ring-4 focus:ring-ring/15',
-            value[i] && 'border-primary/50 bg-accent',
+            // each digit lands as it arrives; a pasted code lands left to right
+            value[i] && 'border-primary/50 bg-accent motion-safe:animate-digit-land',
+            success && 'border-success bg-success/10 motion-safe:animate-digit-ok focus:border-success',
             invalid && 'border-destructive focus:border-destructive focus:ring-destructive/15',
           )}
         />

@@ -58,7 +58,7 @@
   border-radius: var(--radius);
 }
 .bg-foreground,
-.bg-foreground\/10 {
+.bg-foreground\/5 {
   background-color: var(--foreground);
 }
 .bg-transparent {
@@ -179,8 +179,18 @@
   --tw-shadow: var(--elev-1);
   box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
 }
+.group-data-\[indicator\]\:group-data-\[variant\=pill\]\:data-\[state\=active\]\:bg-transparent:is(:where(.group)[data-indicator] *):is(:where(.group)[data-variant=pill] *)[data-state=active] {
+  background-color: #0000;
+}
+.group-data-\[indicator\]\:group-data-\[variant\=pill\]\:data-\[state\=active\]\:shadow-none:is(:where(.group)[data-indicator] *):is(:where(.group)[data-variant=pill] *)[data-state=active] {
+  --tw-shadow: 0 0 #0000;
+  box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
+}
 .group-data-\[variant\=underline\]\:data-\[state\=active\]\:border-primary:is(:where(.group)[data-variant=underline] *)[data-state=active] {
   border-color: var(--primary);
+}
+.group-data-\[indicator\]\:group-data-\[variant\=underline\]\:data-\[state\=active\]\:border-transparent:is(:where(.group)[data-indicator] *):is(:where(.group)[data-variant=underline] *)[data-state=active] {
+  border-color: #0000;
 }
 .ui-slider::-webkit-slider-runnable-track {
   background: linear-gradient(90deg,var(--primary) var(--fill),var(--secondary) var(--fill));

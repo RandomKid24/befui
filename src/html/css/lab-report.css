@@ -107,7 +107,7 @@
 }
 
 .bg-foreground,
-.bg-foreground\/10 {
+.bg-foreground\/5 {
   background-color: var(--foreground);
 }
 .bg-success\/25 {

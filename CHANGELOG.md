@@ -3,6 +3,16 @@
 All notable changes to befui. Versions follow [semver](https://semver.org): new components are minor releases, breaking prop changes are major. The same list, with links to each component, is on the docs site under Changelog.
 (Generated from src/registry/changelog.json by `npm run registry:build`. Edit the JSON, not this file.)
 
+## 1.22.0 - 2026-11-26
+
+Better dashboards, and motion in everyday components
+
+- **Added:** Desk kit for dashboards (page greeting, headline tiles, rounded bars, tick dial) and shared motion hooks (slide into place, drag with mouse or finger, stretching highlight). (Desk kit, Motion hooks)
+- **Changed:** The kanban board and sortable list now work on touch screens. The dragged item lifts and tilts, a space opens where it will land, and the others slide aside. Escape cancels. (Kanban board, Sortable list)
+- **Changed:** The highlight now stretches to the item you choose. (Tabs, Segmented control, Bottom navigation)
+- **Changed:** Code digits land as you type and can turn green when accepted (new success prop). The checkbox tick draws itself. A toast stops counting down while the pointer or keyboard is on it. (OTP input, Checkbox, Toast)
+- **Changed:** The floating shell has page search on Command or Ctrl K, a signed-in user and a richer backdrop. The four dashboards use the befui colours, a large greeting, headline tiles, new charts and Undo. (Floating shell, Property desk, CRM desk, Home control desk, Wellbeing desk)
+
 ## 1.21.0 - 2026-11-26
 
 Floating dashboards

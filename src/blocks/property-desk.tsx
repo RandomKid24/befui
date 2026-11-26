@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { Button } from '@/components/ui/button';
 import { DonutChart } from '@/components/ui/charts';
+import { DeskHeader, StatTile } from '@/components/ui/desk-kit';
 import { FloatingShell, GlassPanel, glass } from '@/components/ui/floating-shell';
 import { formatCurrency } from '@/components/ui/format';
 import { BuildingIcon, CalculatorIcon, GridIcon, HomeIcon, WalletIcon } from '@/components/ui/icons';
@@ -12,6 +13,7 @@ import { ReturnCalculator } from '@/components/ui/return-calculator';
 import { RevealGroup } from '@/components/ui/reveal';
 import { SearchInput } from '@/components/ui/search-input';
 import { Segmented } from '@/components/ui/segmented';
+import { Toaster, toast } from '@/components/ui/toast';
 import { cn } from '@/lib/utils';
 
 // Demo data: swap for your API. Every total on screen is worked out from these rows.
@@ -37,6 +39,13 @@ export default function PropertyDesk() {
   const collected = sum(homes.map((h) => h.paid));
   const owing = homes.filter((h) => h.paid < h.rent);
   const cities = [...new Set(homes.map((h) => h.city))];
+  const remind = (names: string[]) => {
+    const before = reminded;
+    setReminded([...new Set([...reminded, ...names])]);
+    toast.success(names.length > 1 ? `${names.length} reminders queued` : 'Reminder queued', undefined, { action: { label: 'Undo', onClick: () => setReminded(before) } });
+  };
+  const pending = owing.filter((h) => !reminded.includes(h.name));
+  const yields = (sum(homes.map((h) => h.rent)) * 12) / worth;
   const found = homes.filter((h) => `${h.name} ${h.city} ${h.tenant}`.toLowerCase().includes(query.trim().toLowerCase()));
 
   const rentList = (
@@ -46,7 +55,7 @@ export default function PropertyDesk() {
         {owing.map((h) => (
           <li key={h.name} className="flex items-center justify-between gap-3 py-2.5">
             <div className="min-w-0"><p className="truncate text-sm font-medium">{h.tenant}</p><p className="truncate text-xs text-muted-foreground">{money(h.rent - h.paid)} due, {h.name}</p></div>
-            <Button size="sm" variant="outline" disabled={reminded.includes(h.name)} onClick={() => setReminded([...reminded, h.name])}>{reminded.includes(h.name) ? 'Reminded' : 'Remind'}</Button>
+            <Button size="sm" variant="outline" disabled={reminded.includes(h.name)} onClick={() => remind([h.name])}>{reminded.includes(h.name) ? 'Reminded' : 'Remind'}</Button>
           </li>
         ))}
       </ul>
@@ -54,8 +63,10 @@ export default function PropertyDesk() {
   );
 
   return (
+    <>
+    <Toaster />
     <FloatingShell
-      className="[--primary:#c2410c] dark:[--primary:#fb923c] dark:[--primary-foreground:#1c0a00]"
+      user={{ name: 'Meera Joshi', role: 'Owner' }}
       brand={{ name: 'Keystone', tagline: 'Property desk', mark: <HomeIcon /> }}
       value={view}
       onChange={setView}
@@ -65,6 +76,15 @@ export default function PropertyDesk() {
       ]}
       footer={<><p className="text-xs text-muted-foreground">Homes you own</p><p className="text-lg font-semibold tabular-nums">{homes.length} in {cities.length} cities</p></>}
     >
+      {view === 'overview' && <DeskHeader title="Investor desk" summary={`${homes.length} homes in ${cities.length} cities, ${owing.length} with rent still due`} actions={<Button disabled={!pending.length} onClick={() => remind(pending.map((h) => h.name))}>{pending.length ? 'Remind everyone who owes' : 'Everyone reminded'}</Button>} />}
+      {view === 'overview' && (
+        <RevealGroup className="grid grid-cols-2 gap-3 xl:grid-cols-4">
+          <StatTile hero label="Portfolio value" value={formatCurrency(worth, { compact: true })} note="Up 9.6% since December" trend={history} />
+          <StatTile label="Rent a month" value={formatCurrency(due, { compact: true })} note={`From ${homes.length} tenants`} />
+          <StatTile label="Collected this month" value={`${Math.round((collected / due) * 100)}%`} note={`${money(due - collected)} to come`} />
+          <StatTile label="Gross yield" value={`${(yields * 100).toFixed(1)}%`} note="Across all homes" />
+        </RevealGroup>
+      )}
       {view === 'overview' && (
         <RevealGroup className="grid gap-3 xl:grid-cols-3 [&>:first-child]:xl:col-span-2 [&>:last-child]:xl:col-span-2">
           <GlassPanel title="Portfolio value" note="Every home at today's valuation" action={<Segmented value={range} onValueChange={setRange} options={[{ value: '6', label: '6 months' }, { value: '12', label: '1 year' }]} />}>
@@ -75,7 +95,7 @@ export default function PropertyDesk() {
           <GlassPanel title="Where the money sits" note="Value by city" className="h-full">
             <DonutChart centerLabel={`${cities.length} cities`} data={cities.map((c, i) => ({ label: c, value: sum(homes.filter((h) => h.city === c).map((h) => h.value)), color: ['var(--primary)', 'var(--info)', 'var(--success)'][i] }))} />
           </GlassPanel>
-          <GlassPanel title="Gross yield" note="A year of rent against value" className="h-full">
+          <GlassPanel title="Yield by home" note="A year of rent against value" className="h-full">
             <ul className="grid gap-3">
               {[...homes].sort((a, b) => b.rent / b.value - a.rent / a.value).map((h) => (
                 <li key={h.name} className="grid grid-cols-[7rem_1fr_3rem] items-center gap-3 text-[13px]">
@@ -105,5 +125,6 @@ export default function PropertyDesk() {
       {view === 'rent' && <div className="max-w-2xl">{owing.length ? rentList : <p className={cn(glass, 'p-6 text-sm')}>All rent is in.</p>}</div>}
       {view === 'calc' && <ReturnCalculator className={cn(glass, 'max-w-4xl')} />}
     </FloatingShell>
+    </>
   );
 }
