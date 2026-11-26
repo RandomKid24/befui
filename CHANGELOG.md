@@ -3,6 +3,14 @@
 All notable changes to befui. Versions follow [semver](https://semver.org): new components are minor releases, breaking prop changes are major. The same list, with links to each component, is on the docs site under Changelog.
 (Generated from src/registry/changelog.json by `npm run registry:build`. Edit the JSON, not this file.)
 
+## 1.20.0 - 2026-11-26
+
+Eight dashboard pieces
+
+- **Added:** A nav highlight that stretches between views, a challenge tracker, a review inbox, health vitals, smart home tiles and a rental return calculator. (Stretch nav, Challenge tracker, Review inbox, Health vitals, Smart home tiles, Return calculator)
+- **Added:** RevealGroup brings a grid of cards in one after another in reading order. (Reveal)
+- **Changed:** The theme toggle now spreads the new theme in a circle from the button, where the browser supports it. Reduced motion switches instantly. (Theme toggle)
+
 ## 1.19.0 - 2026-11-26
 
 Login pass screen

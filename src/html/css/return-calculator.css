@@ -1,0 +1,233 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --card: #fff;
+  --container-3xl: 48rem;
+  --default-transition-duration: .15s;
+  --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  --destructive: #e11d48;
+  --font-weight-semibold: 600;
+  --info: #2563eb;
+  --muted: #f8fafc;
+  --muted-foreground: #5b6b80;
+  --radius: .5rem;
+  --spacing: .25rem;
+  --success: #047857;
+  --text-5xl: 3rem;
+  --text-5xl--line-height: 1;
+  --text-sm: .875rem;
+  --text-sm--line-height: calc(1.25 / .875);
+  --text-xs: .75rem;
+  --text-xs--line-height: calc(1 / .75);
+  --tracking-tight: -.025em;
+  --warning: #d97706;
+}
+
+.dark {
+  --card: #0f1218;
+  --destructive: #f43f5e;
+  --info: #60a5fa;
+  --muted: #11141b;
+  --muted-foreground: #8b94a5;
+  --success: #10b981;
+  --warning: #f59e0b;
+}
+
+/* Utility rules */
+.ms-auto {
+  margin-inline-start: auto;
+}
+.mt-1 {
+  margin-top: var(--spacing);
+}
+.flex {
+  display: flex;
+}
+.grid {
+  display: grid;
+}
+.size-2\.5 {
+  width: calc(var(--spacing) * 2.5);
+  height: calc(var(--spacing) * 2.5);
+}
+.h-3 {
+  height: calc(var(--spacing) * 3);
+}
+.w-full {
+  width: 100%;
+}
+.max-w-3xl {
+  max-width: var(--container-3xl);
+}
+.content-start {
+  align-content: flex-start;
+}
+.items-center {
+  align-items: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.gap-1 {
+  gap: var(--spacing);
+}
+.gap-1\.5 {
+  gap: calc(var(--spacing) * 1.5);
+}
+.gap-2 {
+  gap: calc(var(--spacing) * 2);
+}
+.gap-3 {
+  gap: calc(var(--spacing) * 3);
+}
+.gap-4 {
+  gap: calc(var(--spacing) * 4);
+}
+.overflow-hidden {
+  overflow: hidden;
+}
+.rounded-sm {
+  border-radius: calc(var(--radius) - 2px);
+}
+.rounded-xl {
+  border-radius: calc(var(--radius) + 6px);
+}
+.border {
+  border-style: var(--tw-border-style);
+  border-width: 1px;
+}
+.border-y {
+  border-block-style: var(--tw-border-style);
+  border-block-width: 1px;
+}
+.border-b {
+  border-bottom-style: var(--tw-border-style);
+  border-bottom-width: 1px;
+}
+.bg-card,
+.bg-card\/80 {
+  background-color: var(--card);
+}
+.bg-info,
+.bg-info\/5 {
+  background-color: var(--info);
+}
+.bg-muted {
+  background-color: var(--muted);
+}
+.bg-muted-foreground,
+.bg-muted-foreground\/15 {
+  background-color: var(--muted-foreground);
+}
+.bg-success,
+.bg-success\/5 {
+  background-color: var(--success);
+}
+.bg-warning,
+.bg-warning\/5 {
+  background-color: var(--warning);
+}
+.p-5 {
+  padding: calc(var(--spacing) * 5);
+}
+.py-3 {
+  padding-block: calc(var(--spacing) * 3);
+}
+.pt-0 {
+  padding-top: 0;
+}
+.text-5xl {
+  font-size: var(--text-5xl);
+  line-height: var(--tw-leading,var(--text-5xl--line-height));
+}
+.text-sm {
+  font-size: var(--text-sm);
+  line-height: var(--tw-leading,var(--text-sm--line-height));
+}
+.text-xs {
+  font-size: var(--text-xs);
+  line-height: var(--tw-leading,var(--text-xs--line-height));
+}
+.font-semibold {
+  --tw-font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-semibold);
+}
+.tracking-tight {
+  --tw-tracking: var(--tracking-tight);
+  letter-spacing: var(--tracking-tight);
+}
+.text-destructive {
+  color: var(--destructive);
+}
+.text-muted-foreground,
+.text-muted-foreground\/30 {
+  color: var(--muted-foreground);
+}
+.tabular-nums {
+  --tw-numeric-spacing: tabular-nums;
+  font-variant-numeric: var(--tw-ordinal,) var(--tw-slashed-zero,) var(--tw-numeric-figure,) var(--tw-numeric-spacing,) var(--tw-numeric-fraction,);
+}
+.transition-\[width\] {
+  transition-property: width;
+  transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
+  transition-duration: var(--tw-duration,var(--default-transition-duration));
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .motion-reduce\:transition-none {
+    transition-property: none;
+  }
+}
+
+@media (min-width:48rem) {
+  .md\:grid-cols-2 {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+  }
+  .md\:border-e {
+    border-inline-end-style: var(--tw-border-style);
+    border-inline-end-width: 1px;
+  }
+  .md\:border-b-0 {
+    border-bottom-style: var(--tw-border-style);
+    border-bottom-width: 0;
+  }
+}
+
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
+@property --tw-leading {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ordinal {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-slashed-zero {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-figure {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-spacing {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-fraction {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-duration {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ease {
+  syntax: "*";
+  inherits: false;
+}

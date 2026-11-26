@@ -35,6 +35,18 @@ export function Reveal({
   );
 }
 
+/** Brings a set of cards in one after another, in the order they are written (reading order). Give it the grid classes. */
+export function RevealGroup({ step = 60, y = 24, className, children, ...props }: React.HTMLAttributes<HTMLDivElement> & { step?: number; y?: number }) {
+  return (
+    <div className={className} {...props}>
+      {React.Children.toArray(children).map((child, i) => (
+        // capped so the last card of a long grid is not left waiting
+        <Reveal key={React.isValidElement(child) ? child.key : i} delay={Math.min(i, 11) * step} y={y} className="grid">{child}</Reveal>
+      ))}
+    </div>
+  );
+}
+
 /** Headline that reveals word by word with a blur-to-sharp effect. */
 export function TextReveal({ text, className, step = 60 }: { text: string; className?: string; step?: number }) {
   const [ref, seen] = useInView<HTMLParagraphElement>();

@@ -35,7 +35,7 @@ export function Slider({ value, onValueChange, min = 0, max = 100, step = 1, sho
         step={step}
         value={value}
         onChange={(e) => onValueChange(Number(e.target.value))}
-        className="ui-slider h-4 w-full cursor-pointer appearance-none bg-transparent outline-none"
+        className="ui-slider h-4 w-full cursor-pointer appearance-none bg-transparent outline-none disabled:cursor-not-allowed disabled:opacity-40"
         style={{ '--fill': `${pct}%` } as React.CSSProperties}
         {...props}
       />

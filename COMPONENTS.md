@@ -1,6 +1,6 @@
 # Components
 
-Every befui component and block. **304 React components**, **269 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **38 page blocks**.
+Every befui component and block. **310 React components**, **269 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **38 page blocks**.
 (Generated from the registry by `npm run registry:build`. Do not edit by hand.)
 
 Install a React component with `npx github:RandomKid24/befui add <name>`, the Flutter version with `npx github:RandomKid24/befui add <name> --flutter`.
@@ -16,7 +16,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `sidebar` | Collapsible nav with groups, nested links and badges. Icon rail on desktop, slide-over on mobile. | ✓ |  |
 | `split-pane` | Two resizable panels with a draggable divider. Keyboard resizable. Horizontal or vertical. | ✓ |  |
 
-## Navigation (22, 9 on Flutter)
+## Navigation (23, 9 on Flutter)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
@@ -38,6 +38,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `sidebar-split` | An icon rail that picks the area and a wider panel listing the pages of that area with counts. For apps with many pages under a few areas. |  |  |
 | `sidebar-workspace` | The everyday app sidebar: workspace switcher on top, search button, collapsible groups with counts, and the user with settings at the bottom. |  |  |
 | `stepper` | Horizontal steps for multi-step forms and onboarding. | ✓ | ✓ |
+| `stretch-nav` | A row of views with one highlight that stretches from the old item to the new one: the front edge leaves first and the back edge catches up. |  |  |
 | `table-of-contents` | On this page list that highlights the section currently in view. | ✓ |  |
 | `tabs` | Underline or pill tabs on Radix Tabs. | ✓ | ✓ |
 | `tree-view` | Nested expandable list with animated open and close. | ✓ | ✓ |
@@ -101,12 +102,12 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `switch` | On/off toggle for settings that apply immediately. | ✓ | ✓ |
 | `tag-input` | Type and press Enter to add chips. Backspace removes the last. | ✓ | ✓ |
 | `team-invite` | Invite people by email: type or paste a list, each address becomes a chip, bad ones are flagged, one role for all, then Send. | ✓ |  |
-| `theme-toggle` | Icon button that flips light and dark mode and remembers the choice. Also exports a useTheme hook. | ✓ | ✓ |
+| `theme-toggle` | Icon button that flips light and dark mode with a circular reveal and remembers the choice. Also exports a useTheme hook. | ✓ | ✓ |
 | `toggle` | Two-state button for favourite, bold or mute. Announces its state to screen readers. | ✓ | ✓ |
 | `toggle-group` | A row of toggles where one or several can be pressed, for formatting toolbars. | ✓ | ✓ |
 | `transfer-list` | Two lists with arrows between them: tick items and move them across, each side with search and select all. For roles, columns or members. | ✓ |  |
 
-## Display (70, 29 on Flutter)
+## Display (73, 29 on Flutter)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
@@ -122,6 +123,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `brand-icons` | Logos of popular services as single-colour SVGs that follow the text colour, for sign-in buttons and integration lists. | ✓ |  |
 | `card` | Bordered surface with header, content and footer parts. | ✓ | ✓ |
 | `carousel` | Scroll-snap slides with arrows and animated dots. | ✓ | ✓ |
+| `challenge-tracker` | A day-by-day challenge such as a no-spend month: numbered day grid, current and best streak, money saved and a check-in with undo. |  |  |
 | `changelog` | Release notes: version and date on the left, tagged New, Improved, Fixed or Removed changes on the right. | ✓ |  |
 | `chat` | Message bubbles with avatars, timestamps, a typing indicator and a composer. Enter sends. | ✓ | ✓ |
 | `code-block` | Code with a title, optional line numbers and a copy button. No highlighter dependency. | ✓ | ✓ |
@@ -158,10 +160,12 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `rating-breakdown` | Review summary: big average, stars and a bar per star level. Rows can act as filters. Bars fill in on scroll. | ✓ | ✓ |
 | `report-card` | School report card screen: student, overall grade and attendance up top, then a marks table per term with average and letter grade per subject, and a teacher note. |  |  |
 | `report-view` | The frame the befui reports share: a toolbar with title, period and print button, a strip of headline numbers, sections of full-width tables, and a footer. |  |  |
-| `reveal` | Scroll-in fade-up wrapper and a blur-in headline. One IntersectionObserver each. | ✓ |  |
+| `reveal` | Scroll-in fade-up wrapper, a group that brings cards in one after another, and a blur-in headline. One IntersectionObserver each. | ✓ |  |
+| `review-inbox` | Customer reviews to answer: To reply and Replied lists beside the chosen review and its reply box. Drafts survive switching and failed sends. |  |  |
 | `sales-report` | Sales report screen: revenue, orders and average order up top, a breakdown table with each share of revenue, top products and a summary. |  |  |
 | `separator` | Horizontal or vertical divider. | ✓ | ✓ |
 | `shimmer-text` | Text with a light sweep passing over it. | ✓ | ✓ |
+| `smart-home-tiles` | Devices filtered by room, each with a switch and an optional level slider. Offline devices are locked. |  |  |
 | `sortable-list` | Reorder rows by dragging, or with arrow keys on the grip. Controlled, no drag library. | ✓ | ✓ |
 | `spotlight-card` | Card with a glow and border highlight that follow the cursor. | ✓ |  |
 | `sprint-report` | Sprint report built around a burndown chart with an ideal line, plus committed, completed and spilled points, a velocity strip, and what shipped and slipped. |  |  |
@@ -203,7 +207,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `tool-call` | A card for one tool or function call an AI made: name, running, done or failed, how long it took, and its input and output to expand. | ✓ | ✓ |
 | `voice-wave` | Audio level bars for a voice input: they dance while listening and settle to a line when paused. Drive them with a real level or leave them idle. | ✓ | ✓ |
 
-## Data (89, 15 on Flutter)
+## Data (91, 15 on Flutter)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
@@ -238,6 +242,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `gantt` | Schedule view with a bar per task, progress fill, weekend shading and a today line. | ✓ |  |
 | `gauge` | Half-circle meter with a needle that swings to the value. | ✓ | ✓ |
 | `half-donut-chart` | A semicircle split into parts with a total under the arch. Half the height of a donut, so it fits dashboard cards. | ✓ |  |
+| `health-vitals` | Heart rate drawn from your readings with low and high, a list of other measurements, and a water counter. |  |  |
 | `heat-calendar` | One month as a calendar grid, every day tinted by its value. Hover a day for its number; click to select. | ✓ |  |
 | `heatmap` | Contribution-style grid for daily activity. Cells pop in column by column. | ✓ |  |
 | `histogram-chart` | Counts how many values fall in each range from raw data, with a smooth curve over the bars. Bars rise in turn. | ✓ |  |
@@ -270,6 +275,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `radial-line-chart` | A line chart bent into a circle for things that repeat: 24 hours, 12 months. A smooth closed shape grows from the middle. | ✓ |  |
 | `range-gauge` | Speedometer in coloured bands (poor, fair, good) with a needle that swings to the value and a big number. | ✓ |  |
 | `resizable-table` | Table whose columns resize by dragging the header edge or with the arrow keys. Scrolls sideways when wider than the card. | ✓ |  |
+| `return-calculator` | Rental property sliders with net and gross yield, yearly and monthly income, and a bar showing where the rent goes. |  |  |
 | `ridgeline-chart` | One smooth curve per row, overlapping like mountain ridges on a shared scale. Ridges rise in turn; hover one to bring it forward. | ✓ |  |
 | `ring-chart` | Concentric progress rings, one per measure against its own goal (move, exercise, stand). Rings sweep in on scroll. | ✓ |  |
 | `roadmap-timeline` | A light roadmap: one bar per item along a month axis, coloured by group, with progress inside and a line for today. | ✓ |  |

@@ -1,0 +1,172 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --accent: #eff6ff;
+  --border: #e2e8f0;
+  --card: #fff;
+  --container-3xl: 48rem;
+  --default-transition-duration: .15s;
+  --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  --font-weight-semibold: 600;
+  --muted-foreground: #5b6b80;
+  --radius: .5rem;
+  --spacing: .25rem;
+  --text-3xl: 1.875rem;
+  --text-3xl--line-height: 1.2 ;
+  --text-sm: .875rem;
+  --text-sm--line-height: calc(1.25 / .875);
+  --text-xs: .75rem;
+  --text-xs--line-height: calc(1 / .75);
+  --tracking-tight: -.025em;
+}
+
+.dark {
+  --accent: #14213d;
+  --border: #1f2430;
+  --card: #0f1218;
+  --muted-foreground: #8b94a5;
+}
+
+/* Utility rules */
+.flex {
+  display: flex;
+}
+.grid {
+  display: grid;
+}
+.w-full {
+  width: 100%;
+}
+.max-w-3xl {
+  max-width: var(--container-3xl);
+}
+.flex-col {
+  flex-direction: column;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.items-center {
+  align-items: center;
+}
+.items-start {
+  align-items: flex-start;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.gap-3 {
+  gap: calc(var(--spacing) * 3);
+}
+.gap-px {
+  gap: 1px;
+}
+.overflow-hidden {
+  overflow: hidden;
+}
+.rounded-xl {
+  border-radius: calc(var(--radius) + 6px);
+}
+.border {
+  border-style: var(--tw-border-style);
+  border-width: 1px;
+}
+.bg-accent,
+.bg-accent\/60 {
+  background-color: var(--accent);
+}
+.bg-border,
+.bg-border\/60 {
+  background-color: var(--border);
+}
+.bg-card,
+.bg-card\/80 {
+  background-color: var(--card);
+}
+.p-4 {
+  padding: calc(var(--spacing) * 4);
+}
+.pt-1 {
+  padding-top: var(--spacing);
+}
+.text-3xl {
+  font-size: var(--text-3xl);
+  line-height: var(--tw-leading,var(--text-3xl--line-height));
+}
+.text-sm {
+  font-size: var(--text-sm);
+  line-height: var(--tw-leading,var(--text-sm--line-height));
+}
+.text-xs {
+  font-size: var(--text-xs);
+  line-height: var(--tw-leading,var(--text-xs--line-height));
+}
+.font-semibold {
+  --tw-font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-semibold);
+}
+.tracking-tight {
+  --tw-tracking: var(--tracking-tight);
+  letter-spacing: var(--tracking-tight);
+}
+.text-muted-foreground,
+.text-muted-foreground\/30 {
+  color: var(--muted-foreground);
+}
+.tabular-nums {
+  --tw-numeric-spacing: tabular-nums;
+  font-variant-numeric: var(--tw-ordinal,) var(--tw-slashed-zero,) var(--tw-numeric-figure,) var(--tw-numeric-spacing,) var(--tw-numeric-fraction,);
+}
+.transition-colors {
+  transition-property: color,background-color,border-color,outline-color,text-decoration-color,fill,stroke,--tw-gradient-from,--tw-gradient-via,--tw-gradient-to;
+  transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
+  transition-duration: var(--tw-duration,var(--default-transition-duration));
+}
+
+@media (min-width:40rem) {
+  .sm\:grid-cols-2 {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+  }
+  .last\:odd\:sm\:col-span-2:last-child:nth-child(odd) {
+    grid-column: span 2/span 2;
+  }
+}
+
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
+@property --tw-leading {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ordinal {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-slashed-zero {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-figure {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-spacing {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-numeric-fraction {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-duration {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ease {
+  syntax: "*";
+  inherits: false;
+}

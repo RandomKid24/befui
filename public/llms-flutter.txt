@@ -7919,7 +7919,7 @@ Widget _groups(BuildContext context, List<(String, Widget)> groups) {
 ```
 
 ### Theme toggle (`theme-toggle`)
-Icon button that flips light and dark mode and remembers the choice. Also exports a useTheme hook.
+Icon button that flips light and dark mode with a circular reveal and remembers the choice. Also exports a useTheme hook.
 - Add: `npx github:RandomKid24/befui add theme-toggle --flutter`
 - Import: `import 'befui/theme_toggle.dart';` (classes: BefThemeToggle)
 - Also copies: button.dart, icons.dart

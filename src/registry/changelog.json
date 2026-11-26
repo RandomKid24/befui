@@ -1,5 +1,38 @@
 [
   {
+    "version": "1.20.0",
+    "date": "2026-11-26",
+    "title": "Eight dashboard pieces",
+    "entries": [
+      {
+        "kind": "added",
+        "text": "A nav highlight that stretches between views, a challenge tracker, a review inbox, health vitals, smart home tiles and a rental return calculator.",
+        "slugs": [
+          "stretch-nav",
+          "challenge-tracker",
+          "review-inbox",
+          "health-vitals",
+          "smart-home-tiles",
+          "return-calculator"
+        ]
+      },
+      {
+        "kind": "added",
+        "text": "RevealGroup brings a grid of cards in one after another in reading order.",
+        "slugs": [
+          "reveal"
+        ]
+      },
+      {
+        "kind": "changed",
+        "text": "The theme toggle now spreads the new theme in a circle from the button, where the browser supports it. Reduced motion switches instantly.",
+        "slugs": [
+          "theme-toggle"
+        ]
+      }
+    ]
+  },
+  {
     "version": "1.19.0",
     "date": "2026-11-26",
     "title": "Login pass screen",

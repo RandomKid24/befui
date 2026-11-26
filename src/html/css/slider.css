@@ -166,6 +166,12 @@
 .group-data-\[variant\=underline\]\:pb-2\.5:is(:where(.group)[data-variant=underline] *) {
   padding-bottom: calc(var(--spacing) * 2.5);
 }
+.disabled\:cursor-not-allowed:disabled {
+  cursor: not-allowed;
+}
+.disabled\:opacity-40:disabled {
+  opacity: .4;
+}
 .group-data-\[variant\=pill\]\:data-\[state\=active\]\:bg-background:is(:where(.group)[data-variant=pill] *)[data-state=active] {
   background-color: var(--background);
 }

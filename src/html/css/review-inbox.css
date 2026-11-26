@@ -1,0 +1,218 @@
+/* The rules this component uses, taken from befui.css. Load befui.css to get all of it; this is for reading, porting or restyling. */
+
+/* Theme variables it reads (set them on :root, or .dark for dark mode) */
+:root {
+  --accent: #eff6ff;
+  --card: #fff;
+  --destructive: #e11d48;
+  --font-weight-semibold: 600;
+  --leading-relaxed: 1.625;
+  --muted: #f8fafc;
+  --muted-foreground: #5b6b80;
+  --primary: #2563eb;
+  --radius: .5rem;
+  --spacing: .25rem;
+  --text-lg: 1.125rem;
+  --text-lg--line-height: calc(1.75 / 1.125);
+  --text-sm: .875rem;
+  --text-sm--line-height: calc(1.25 / .875);
+  --text-xs: .75rem;
+  --text-xs--line-height: calc(1 / .75);
+}
+
+.dark {
+  --accent: #14213d;
+  --card: #0f1218;
+  --destructive: #f43f5e;
+  --muted: #11141b;
+  --muted-foreground: #8b94a5;
+  --primary: #3b82f6;
+}
+
+/* Utility rules */
+.mt-1 {
+  margin-top: var(--spacing);
+}
+.mt-auto {
+  margin-top: auto;
+}
+.flex {
+  display: flex;
+}
+.grid {
+  display: grid;
+}
+.max-h-60 {
+  max-height: calc(var(--spacing) * 60);
+}
+.min-h-40 {
+  min-height: calc(var(--spacing) * 40);
+}
+.w-full {
+  width: 100%;
+}
+.shrink-0 {
+  flex-shrink: 0;
+}
+.flex-col {
+  flex-direction: column;
+}
+.place-items-center {
+  place-items: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.gap-1 {
+  gap: var(--spacing);
+}
+.gap-1\.5 {
+  gap: calc(var(--spacing) * 1.5);
+}
+.gap-2 {
+  gap: calc(var(--spacing) * 2);
+}
+.gap-4 {
+  gap: calc(var(--spacing) * 4);
+}
+.justify-self-end {
+  justify-self: flex-end;
+}
+.truncate {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.overflow-hidden {
+  overflow: hidden;
+}
+.overflow-y-auto {
+  overflow-y: auto;
+}
+.rounded-xl {
+  border-radius: calc(var(--radius) + 6px);
+}
+.border {
+  border-style: var(--tw-border-style);
+  border-width: 1px;
+}
+.border-s-2 {
+  border-inline-start-style: var(--tw-border-style);
+  border-inline-start-width: 2px;
+}
+.border-b {
+  border-bottom-style: var(--tw-border-style);
+  border-bottom-width: 1px;
+}
+.border-primary,
+.border-primary\/30 {
+  border-color: var(--primary);
+}
+.border-transparent {
+  border-color: #0000;
+}
+.bg-accent,
+.bg-accent\/60 {
+  background-color: var(--accent);
+}
+.bg-card,
+.bg-card\/80 {
+  background-color: var(--card);
+}
+.p-3 {
+  padding: calc(var(--spacing) * 3);
+}
+.p-5 {
+  padding: calc(var(--spacing) * 5);
+}
+.p-6 {
+  padding: calc(var(--spacing) * 6);
+}
+.px-3 {
+  padding-inline: calc(var(--spacing) * 3);
+}
+.py-2\.5 {
+  padding-block: calc(var(--spacing) * 2.5);
+}
+.ps-4 {
+  padding-inline-start: calc(var(--spacing) * 4);
+}
+.text-left {
+  text-align: left;
+}
+.text-lg {
+  font-size: var(--text-lg);
+  line-height: var(--tw-leading,var(--text-lg--line-height));
+}
+.text-sm {
+  font-size: var(--text-sm);
+  line-height: var(--tw-leading,var(--text-sm--line-height));
+}
+.text-xs {
+  font-size: var(--text-xs);
+  line-height: var(--tw-leading,var(--text-xs--line-height));
+}
+.text-\[13px\] {
+  font-size: 13px;
+}
+.leading-relaxed {
+  --tw-leading: var(--leading-relaxed);
+  line-height: var(--leading-relaxed);
+}
+.font-semibold {
+  --tw-font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-semibold);
+}
+.text-destructive {
+  color: var(--destructive);
+}
+.text-muted-foreground,
+.text-muted-foreground\/30 {
+  color: var(--muted-foreground);
+}
+.outline-none {
+  --tw-outline-style: none;
+  outline-style: none;
+}
+.last\:border-b-0:last-child {
+  border-bottom-style: var(--tw-border-style);
+  border-bottom-width: 0;
+}
+
+@media (hover:hover) {
+  .hover\:bg-muted:hover {
+    background-color: var(--muted);
+  }
+}
+
+.focus-visible\:bg-muted:focus-visible,
+.focus-visible\:bg-muted\/40:focus-visible {
+  background-color: var(--muted);
+}
+
+@media (min-width:48rem) {
+  .md\:max-h-\[26rem\] {
+    max-height: 26rem;
+  }
+  .md\:grid-cols-\[18rem_1fr\] {
+    grid-template-columns: 18rem 1fr;
+  }
+  .md\:border-e {
+    border-inline-end-style: var(--tw-border-style);
+    border-inline-end-width: 1px;
+  }
+  .md\:border-b-0 {
+    border-bottom-style: var(--tw-border-style);
+    border-bottom-width: 0;
+  }
+}
+
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
+@property --tw-leading {
+  syntax: "*";
+  inherits: false;
+}

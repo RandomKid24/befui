@@ -1,4 +1,4 @@
-import { Reveal, TextReveal } from '@/components/ui/reveal';
+import { Reveal, RevealGroup, TextReveal } from '@/components/ui/reveal';
 
 export default function RevealDemo() {
   return (
@@ -11,6 +11,11 @@ export default function RevealDemo() {
           </Reveal>
         ))}
       </div>
+      <RevealGroup className="grid grid-cols-3 gap-3">
+        {['Open roles', 'In interview', 'Offers out', 'Joined', 'On leave', 'Leaving'].map((t, i) => (
+          <div key={t} className="rounded-lg border bg-card p-3"><p className="text-2xl font-semibold tabular-nums">{[6, 14, 3, 9, 4, 1][i]}</p><p className="text-xs text-muted-foreground">{t}</p></div>
+        ))}
+      </RevealGroup>
     </div>
   );
 }

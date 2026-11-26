@@ -19,6 +19,9 @@
   position: absolute;
   overflow: hidden;
 }
+.grid {
+  display: grid;
+}
 .inline-block {
   display: inline-block;
 }

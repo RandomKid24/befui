@@ -145,6 +145,11 @@
     "icons",
     "popover"
   ],
+  "challenge-tracker": [
+    "button",
+    "format",
+    "icons"
+  ],
   "changelog": [
     "badge"
   ],
@@ -336,6 +341,10 @@
   ],
   "half-donut-chart": [
     "charts"
+  ],
+  "health-vitals": [
+    "button",
+    "icons"
   ],
   "heat-calendar": [
     "charts"
@@ -601,7 +610,17 @@
     "icons"
   ],
   "resizable-table": [],
+  "return-calculator": [
+    "format",
+    "slider"
+  ],
   "reveal": [],
+  "review-inbox": [
+    "button",
+    "input",
+    "rating",
+    "segmented"
+  ],
   "rich-text-editor": [],
   "ridgeline-chart": [
     "area-chart",
@@ -693,6 +712,11 @@
   "slope-chart": [
     "charts"
   ],
+  "smart-home-tiles": [
+    "slider",
+    "stretch-nav",
+    "switch"
+  ],
   "sortable-list": [],
   "sources": [
     "icons"
@@ -740,6 +764,7 @@
     "charts"
   ],
   "streaming-text": [],
+  "stretch-nav": [],
   "sunburst-chart": [
     "charts"
   ],

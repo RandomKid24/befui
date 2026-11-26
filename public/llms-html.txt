@@ -2634,7 +2634,7 @@ Table whose columns resize by dragging the header edge or with the arrow keys. S
 ```
 
 ## Reveal (reveal)
-Scroll-in fade-up wrapper and a blur-in headline. One IntersectionObserver each.
+Scroll-in fade-up wrapper, a group that brings cards in one after another, and a blur-in headline. One IntersectionObserver each.
 ```html
 <div class="grid w-full max-w-lg gap-6">
   <bef-text-reveal text="People software that gets out of the way." class="text-3xl font-semibold tracking-tight"></bef-text-reveal>
@@ -3575,7 +3575,7 @@ Customer quote with avatar, role and optional star rating.
 ```
 
 ## Theme toggle (theme-toggle)
-Icon button that flips light and dark mode and remembers the choice. Also exports a useTheme hook.
+Icon button that flips light and dark mode with a circular reveal and remembers the choice. Also exports a useTheme hook.
 ```html
 <bef-theme-toggle></bef-theme-toggle>
 ```
