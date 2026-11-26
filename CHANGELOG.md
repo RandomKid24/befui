@@ -3,6 +3,13 @@
 All notable changes to befui. Versions follow [semver](https://semver.org): new components are minor releases, breaking prop changes are major. The same list, with links to each component, is on the docs site under Changelog.
 (Generated from src/registry/changelog.json by `npm run registry:build`. Edit the JSON, not this file.)
 
+## 1.21.0 - 2026-11-26
+
+Floating dashboards
+
+- **Added:** Floating shell: a dashboard frame with a see-through sidebar that folds to icons, or a floating top menu. (Floating shell)
+- **Added:** Four full dashboards built on it: property, sales, home control and wellbeing. (Property desk, CRM desk, Home control desk, Wellbeing desk)
+
 ## 1.20.0 - 2026-11-26
 
 Eight dashboard pieces

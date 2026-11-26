@@ -4,7 +4,7 @@
 
 **Interfaces people actually enjoy using.**
 
-310 copy-paste React components, 389 hand-drawn icons and 38 full-page blocks.<br/>
+311 copy-paste React components, 389 hand-drawn icons and 42 full-page blocks.<br/>
 Plus **121 Flutter widgets** for Android and iOS, and every component as a `<bef-*>` HTML tag.<br/>
 Built on Radix, Tailwind 4 and CSS variables. You own every file.
 
@@ -202,12 +202,12 @@ Add a `## x.y.z` section to `CHANGELOG.md`, then `npm version minor` (checks the
 Some components (loader, bottom sheet, toast...) need keyframes from `index.css`. After adding components, run `npx github:RandomKid24/befui update` to append any your project is missing (`--check` only reports, handy in CI). `add` also prints a warning when something is missing.
 
 <!-- components:start -->
-### Components (310)
+### Components (311)
 
 <details>
-<summary><b>Layout</b> (6)</summary>
+<summary><b>Layout</b> (7)</summary>
 
-`app-shell` · `landing-sections` · `resizable-panels` · `settings-layout` · `sidebar` · `split-pane`
+`app-shell` · `floating-shell` · `landing-sections` · `resizable-panels` · `settings-layout` · `sidebar` · `split-pane`
 
 </details>
 
@@ -289,7 +289,7 @@ Browse them live with search at the docs site, or run `npx github:RandomKid24/be
 More in `docs/images/block-*.png`: project overview, profile, billing, API keys, invoice, top-nav layout and 404.
 
 <!-- blocks:start -->
-### Blocks (38)
+### Blocks (42)
 
 Full screens built from the components, with mock data you swap for your own API.
 
@@ -304,9 +304,11 @@ Full screens built from the components, with mock data you swap for your own API
 | `block:chat-app` | Messaging | Conversation list with unread badges beside a thread with a composer and a typing indicator. |
 | `block:checkout-page` | Commerce | Delivery address form with validation, shipping options, coupon code and a live order summary. |
 | `block:contact-page` | Marketing | Contact form with validation and a confirmation, beside an FAQ accordion. |
+| `block:crm-desk` | Dashboard | A sales dashboard with a floating sidebar: totals, revenue, the deal closest to closing, tasks, a pipeline you advance and a team ranking. |
 | `block:ecommerce-dashboard` | Commerce | Marketing-style dashboard: KPI tiles, a best-seller tile, sales overview as stacked monthly bars you can pick, a channel donut that follows the pick, recent orders and top products. |
 | `block:employee-directory` | HRMS | Searchable table with status filter, row selection, actions and pagination. |
 | `block:finance-dashboard` | Dashboard | Money overview: a balance card, income against spending bars with a 6 or 12 month switch, recent activity, a working quick transfer, a tip tile that moves money to a goal and savings goals. |
+| `block:home-desk` | Dashboard | A smart home dashboard with a floating sidebar: devices by room, one-tap scenes, all off and weekly energy use. |
 | `block:hrms-overview` | HRMS | People dashboard: a planned-absences timeline with weekends hatched and pending leave you approve in place, upcoming events, onboarding progress and an assistant that answers HR questions. |
 | `block:inbox` | Layout | Two-pane mail view: searchable list with unread dots, message reader with reply, archive and delete. Single pane on mobile. |
 | `block:invoice-page` | Commerce | A full invoice with print, download and send actions. |
@@ -323,6 +325,7 @@ Full screens built from the components, with mock data you swap for your own API
 | `block:pricing-page` | Marketing | Headline, monthly or yearly switch, three plan cards with a highlighted one, and an FAQ. |
 | `block:profile-page` | Account | Cover and avatar header with actions, then About (details list) and Activity (timeline) tabs. |
 | `block:project-overview` | Dashboard | Task management screen: a filled total tile, project analytics with hatched day bars, a reminder, team collaboration, a progress ring and a working time tracker. |
+| `block:property-desk` | Dashboard | A property investor dashboard with a floating sidebar: portfolio value, rent to chase, value by city, yields, searchable homes and a return calculator. |
 | `block:reports-table` | Reports | Searchable, filterable, sortable reports table with row action menus and a details drawer. |
 | `block:reset-password` | Auth | Four steps: ask for email, check your inbox with a resend timer, choose a new password, done. |
 | `block:sales-dashboard` | Marketing | Revenue-first sales report: one large total with change chips, a dark best-deal tile, revenue by rep, a sales streak, deals by source that drive a hatched monthly chart, and weekly sales dynamics. |
@@ -333,6 +336,7 @@ Full screens built from the components, with mock data you swap for your own API
 | `block:team-page` | Marketing | Heading, a grid of team members with roles and short bios, and a hiring call to action. |
 | `block:top-nav-layout` | Layout | App frame with a top navigation bar instead of a sidebar, with notifications, theme toggle and user menu. |
 | `block:user-management` | Account | Team members table with search, sort, role and status, row actions (suspend, remove) and an invite dialog with validation. |
+| `block:wellbeing-desk` | Dashboard | A health dashboard with a floating top menu: heart rate, water, medicines, weekly steps and a 30-day habit. |
 <!-- blocks:end -->
 
 ### Icons (389)

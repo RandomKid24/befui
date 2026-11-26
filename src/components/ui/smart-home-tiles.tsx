@@ -29,14 +29,14 @@ export function SmartHomeTiles({ devices, onChange, className }: {
   const shown = devices.filter((d) => !active || d.room === active);
   const running = shown.filter((d) => d.on && !d.offline).length;
   return (
-    <section aria-label="Home devices" className={cn('grid w-full max-w-3xl gap-3', className)}>
-      <div className="flex flex-wrap items-center justify-between gap-3">
+    <section aria-label="Home devices" className={cn('grid w-full max-w-3xl grid-cols-[minmax(0,1fr)] gap-3', className)}>
+      <div className="flex min-w-0 flex-wrap items-center justify-between gap-3">
         <StretchNav label="Rooms" value={active} onChange={setRoom} items={[{ id: '', label: 'All rooms' }, ...rooms.map((r) => ({ id: r, label: r }))]} />
         <p role="status" className="text-sm text-muted-foreground">{running} of {shown.length} on</p>
       </div>
       <ul className="grid gap-px overflow-hidden rounded-xl border bg-border sm:grid-cols-2">
         {shown.map((d) => (
-          <li key={d.id} className={cn('flex flex-col gap-3 p-4 transition-colors last:odd:sm:col-span-2', d.on && !d.offline ? 'bg-accent' : 'bg-card')}>
+          <li key={d.id} className={cn('flex flex-col gap-3 p-4 transition-colors last:odd:sm:col-span-2', d.on && !d.offline ? 'bg-[color-mix(in_srgb,var(--primary)_10%,var(--card))]' : 'bg-card')}>
             <div className="flex items-start justify-between gap-3">
               <div>
                 <h3 className="text-sm font-semibold">{d.name}</h3>

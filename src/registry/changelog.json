@@ -1,5 +1,29 @@
 [
   {
+    "version": "1.21.0",
+    "date": "2026-11-26",
+    "title": "Floating dashboards",
+    "entries": [
+      {
+        "kind": "added",
+        "text": "Floating shell: a dashboard frame with a see-through sidebar that folds to icons, or a floating top menu.",
+        "slugs": [
+          "floating-shell"
+        ]
+      },
+      {
+        "kind": "added",
+        "text": "Four full dashboards built on it: property, sales, home control and wellbeing.",
+        "slugs": [
+          "block:property-desk",
+          "block:crm-desk",
+          "block:home-desk",
+          "block:wellbeing-desk"
+        ]
+      }
+    ]
+  },
+  {
     "version": "1.20.0",
     "date": "2026-11-26",
     "title": "Eight dashboard pieces",

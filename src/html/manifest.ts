@@ -188,6 +188,8 @@ export const manifest: Record<string, [file: string, name: string]> = {
   "bef-file-uploader": [ "file-uploader", "FileUploader" ],
   "bef-filter-bar": [ "filter-bar", "FilterBar" ],
   "bef-filter-builder": [ "filter-builder", "FilterBuilder" ],
+  "bef-glass-panel": [ "floating-shell", "GlassPanel" ],
+  "bef-floating-shell": [ "floating-shell", "FloatingShell" ],
   "bef-forecast-chart": [ "forecast-chart", "ForecastChart" ],
   "bef-form-wizard": [ "form-wizard", "FormWizard" ],
   "bef-currency": [ "format", "Currency" ],

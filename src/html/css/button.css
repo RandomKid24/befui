@@ -115,7 +115,7 @@
   border-bottom-width: 4px;
 }
 .border-foreground,
-.border-foreground\/80 {
+.border-foreground\/10 {
   border-color: var(--foreground);
 }
 .border-primary\/40 {

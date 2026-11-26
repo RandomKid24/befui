@@ -157,3 +157,4 @@ export * from './review-inbox';
 export * from './health-vitals';
 export * from './smart-home-tiles';
 export * from './return-calculator';
+export * from './floating-shell';

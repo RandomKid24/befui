@@ -79,7 +79,6 @@
   border-style: var(--tw-border-style);
   border-width: 1px;
 }
-.bg-card,
 .bg-card\/80 {
   background-color: var(--card);
 }

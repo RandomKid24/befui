@@ -2,7 +2,6 @@
 
 /* Theme variables it reads (set them on :root, or .dark for dark mode) */
 :root {
-  --accent: #eff6ff;
   --border: #e2e8f0;
   --card: #fff;
   --container-3xl: 48rem;
@@ -10,6 +9,7 @@
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
   --font-weight-semibold: 600;
   --muted-foreground: #5b6b80;
+  --primary: #2563eb;
   --radius: .5rem;
   --spacing: .25rem;
   --text-3xl: 1.875rem;
@@ -22,10 +22,10 @@
 }
 
 .dark {
-  --accent: #14213d;
   --border: #1f2430;
   --card: #0f1218;
   --muted-foreground: #8b94a5;
+  --primary: #3b82f6;
 }
 
 /* Utility rules */
@@ -40,6 +40,13 @@
 }
 .max-w-3xl {
   max-width: var(--container-3xl);
+}
+.min-w-0 {
+  min-width: 0;
+}
+.grid-cols-\[minmax\(0\,
+1fr\)\] {
+  grid-template-columns: minmax(0,1fr);
 }
 .flex-col {
   flex-direction: column;
@@ -72,16 +79,26 @@
   border-style: var(--tw-border-style);
   border-width: 1px;
 }
-.bg-accent,
-.bg-accent\/60 {
-  background-color: var(--accent);
+.bg-\[color-mix\(in_srgb\,
+var\(--primary\)_10\%\,
+var\(--card\)\)\] {
+  background-color: var(--primary);
 }
+
+@supports (color:color-mix(in lab,red,red)) {
+  .bg-\[color-mix\(in_srgb\,
+  var\(--primary\)_10\%\,
+  var\(--card\)\)\] {
+    background-color: color-mix(in srgb,var(--primary) 10%,var(--card));
+  }
+}
+
 .bg-border,
 .bg-border\/60 {
   background-color: var(--border);
 }
 .bg-card,
-.bg-card\/80 {
+.bg-card\/65 {
   background-color: var(--card);
 }
 .p-4 {

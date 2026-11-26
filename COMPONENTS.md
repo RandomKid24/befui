@@ -1,15 +1,16 @@
 # Components
 
-Every befui component and block. **310 React components**, **269 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **38 page blocks**.
+Every befui component and block. **311 React components**, **269 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **42 page blocks**.
 (Generated from the registry by `npm run registry:build`. Do not edit by hand.)
 
 Install a React component with `npx github:RandomKid24/befui add <name>`, the Flutter version with `npx github:RandomKid24/befui add <name> --flutter`.
 
-## Layout (6, 0 on Flutter)
+## Layout (7, 0 on Flutter)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
 | `app-shell` | Sidebar, topbar and scrolling content area, plus a page header. | ✓ |  |
+| `floating-shell` | Dashboard frame with a see-through menu floating over a soft backdrop: a sidebar that folds to icons or a top bar, a stretching highlight and a phone drawer. |  |  |
 | `landing-sections` | Marketing page parts: Hero, LogoStrip, FeatureGrid, StatsStrip, Faq, CtaBanner and SiteFooter. Stack them with a Navbar. | ✓ |  |
 | `resizable-panels` | Three panels side by side: drag the left and right panels wider or narrower, or collapse them. For inbox and IDE layouts. | ✓ |  |
 | `settings-layout` | Settings page frame: vertical section list on the left, SettingsSection rows (title and help on the left, controls on the right). | ✓ |  |
@@ -365,7 +366,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 |---|---|:-:|:-:|
 | `icons` |  |  |  |
 
-## Blocks (38)
+## Blocks (42)
 
 Full screens built from the components, with mock data you swap for your own API.
 
@@ -380,9 +381,11 @@ Full screens built from the components, with mock data you swap for your own API
 | `chat-app` | Messaging | Conversation list with unread badges beside a thread with a composer and a typing indicator. |
 | `checkout-page` | Commerce | Delivery address form with validation, shipping options, coupon code and a live order summary. |
 | `contact-page` | Marketing | Contact form with validation and a confirmation, beside an FAQ accordion. |
+| `crm-desk` | Dashboard | A sales dashboard with a floating sidebar: totals, revenue, the deal closest to closing, tasks, a pipeline you advance and a team ranking. |
 | `ecommerce-dashboard` | Commerce | Marketing-style dashboard: KPI tiles, a best-seller tile, sales overview as stacked monthly bars you can pick, a channel donut that follows the pick, recent orders and top products. |
 | `employee-directory` | HRMS | Searchable table with status filter, row selection, actions and pagination. |
 | `finance-dashboard` | Dashboard | Money overview: a balance card, income against spending bars with a 6 or 12 month switch, recent activity, a working quick transfer, a tip tile that moves money to a goal and savings goals. |
+| `home-desk` | Dashboard | A smart home dashboard with a floating sidebar: devices by room, one-tap scenes, all off and weekly energy use. |
 | `hrms-overview` | HRMS | People dashboard: a planned-absences timeline with weekends hatched and pending leave you approve in place, upcoming events, onboarding progress and an assistant that answers HR questions. |
 | `inbox` | Layout | Two-pane mail view: searchable list with unread dots, message reader with reply, archive and delete. Single pane on mobile. |
 | `invoice-page` | Commerce | A full invoice with print, download and send actions. |
@@ -399,6 +402,7 @@ Full screens built from the components, with mock data you swap for your own API
 | `pricing-page` | Marketing | Headline, monthly or yearly switch, three plan cards with a highlighted one, and an FAQ. |
 | `profile-page` | Account | Cover and avatar header with actions, then About (details list) and Activity (timeline) tabs. |
 | `project-overview` | Dashboard | Task management screen: a filled total tile, project analytics with hatched day bars, a reminder, team collaboration, a progress ring and a working time tracker. |
+| `property-desk` | Dashboard | A property investor dashboard with a floating sidebar: portfolio value, rent to chase, value by city, yields, searchable homes and a return calculator. |
 | `reports-table` | Reports | Searchable, filterable, sortable reports table with row action menus and a details drawer. |
 | `reset-password` | Auth | Four steps: ask for email, check your inbox with a resend timer, choose a new password, done. |
 | `sales-dashboard` | Marketing | Revenue-first sales report: one large total with change chips, a dark best-deal tile, revenue by rep, a sales streak, deals by source that drive a hatched monthly chart, and weekly sales dynamics. |
@@ -409,3 +413,4 @@ Full screens built from the components, with mock data you swap for your own API
 | `team-page` | Marketing | Heading, a grid of team members with roles and short bios, and a hiring call to action. |
 | `top-nav-layout` | Layout | App frame with a top navigation bar instead of a sidebar, with notifications, theme toggle and user menu. |
 | `user-management` | Account | Team members table with search, sort, role and status, row actions (suspend, remove) and an invite dialog with validation. |
+| `wellbeing-desk` | Dashboard | A health dashboard with a floating top menu: heart rate, water, medicines, weekly steps and a 30-day habit. |

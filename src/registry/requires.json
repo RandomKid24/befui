@@ -324,6 +324,13 @@
     "icons",
     "input"
   ],
+  "floating-shell": [
+    "button",
+    "dialog",
+    "icons",
+    "stretch-nav",
+    "theme-toggle"
+  ],
   "forecast-chart": [
     "area-chart",
     "charts"
