@@ -52,8 +52,8 @@ function Pass({ appName, email, status }: { appName: string; email: string; stat
   const { name, initials, domain } = readEmail(email);
   const [stamp, tone] = STAMP[status];
   return (
-    <div className="w-full max-w-72">
-      <div aria-hidden className="mx-auto -mb-px h-16 w-6 bg-foreground/80 max-md:hidden" />
+    <div className="flex w-full max-w-72 flex-col">
+      <div aria-hidden className="mx-auto -mb-px min-h-16 w-6 flex-1 bg-foreground/80 max-md:hidden" />
       <div className="rounded-xl border bg-card shadow-lg">
         <div className="px-5 pt-3">
           <div aria-hidden className="mx-auto mb-3 h-2 w-14 rounded-full border bg-muted max-md:hidden" />
@@ -82,6 +82,7 @@ function Pass({ appName, email, status }: { appName: string; email: string; stat
           <span key={status} className={cn('-rotate-3 rounded-sm border-2 px-2.5 py-1 font-mono text-xs font-semibold uppercase tracking-widest motion-safe:animate-pop', tone)}>{stamp}</span>
         </div>
       </div>
+      <div aria-hidden className="min-h-16 flex-1 max-md:hidden" />
     </div>
   );
 }
@@ -141,8 +142,8 @@ export function LoginPass({ onSignIn, onForgotPassword, appName = 'Acme', classN
   const capsCheck = (e: React.KeyboardEvent) => setCaps(e.getModifierState?.('CapsLock') ?? false);
 
   return (
-    <div className={cn('grid w-full bg-background md:min-h-[36rem] md:grid-cols-2', className)}>
-      <div className="flex items-start justify-center overflow-hidden bg-muted p-5 md:order-2 md:border-l md:pt-0">
+    <div className={cn('grid min-h-dvh w-full content-start bg-background md:grid-cols-2 md:content-stretch', className)}>
+      <div className="flex justify-center overflow-hidden bg-muted p-5 md:order-2 md:border-l md:py-0">
         <Pass appName={appName} email={email} status={status} />
       </div>
       <div className="grid place-items-center px-6 py-10">

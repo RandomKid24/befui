@@ -1928,7 +1928,7 @@ import { LoginPass } from '@/components/ui/login-pass';
 export default function LoginPassDemo() {
   return (
     <LoginPass
-      className="max-w-4xl overflow-hidden rounded-xl border"
+      className="min-h-[36rem] max-w-4xl overflow-hidden rounded-xl border"
       onForgotPassword={() => {}}
       // Demo only: any password of 8 or more characters gets in. Call your auth API here.
       onSignIn={async ({ password }) => {
