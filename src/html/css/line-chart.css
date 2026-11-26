@@ -4,6 +4,7 @@
 :root {
   --background: #fff;
   --border: #e2e8f0;
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
   --elev-3: 0 2px 4px #0f172a0d, 0 12px 24px -6px #0f172a1f, 0 4px 8px -4px #0f172a0f;
   --font-weight-medium: 500;
   --info: #2563eb;
@@ -177,6 +178,22 @@
 .shadow-lg {
   --tw-shadow: var(--elev-3);
   box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
+}
+
+@media (prefers-reduced-motion:no-preference) {
+  .motion-safe\:animate-draw-x {
+    animation: draw-x 1.1s var(--ease-out) backwards;
+  }
+}
+
+/* Animations */
+@keyframes draw-x {
+  0% {
+    clip-path: inset(-10% 100% -10% -10%);
+  }
+  to {
+    clip-path: inset(-10%);
+  }
 }
 
 @property --tw-pan-x {

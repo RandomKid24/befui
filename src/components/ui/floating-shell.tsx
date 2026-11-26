@@ -182,7 +182,7 @@ export function FloatingShell({ brand, groups, value, onChange, layout = 'sideba
             {user && layout === 'top' && <Avatar name={user.name} size="sm" />}
           </div>
         </div>
-        <main key={value} className="flex min-w-0 flex-1 flex-col gap-3 [&>*]:shrink-0 motion-safe:animate-pop">{children}</main>
+        <main key={value} className="flex min-w-0 flex-1 flex-col gap-3 [&>*]:shrink-0 motion-safe:[&>*]:animate-rise [&>*:nth-child(2)]:[animation-delay:80ms] [&>*:nth-child(3)]:[animation-delay:160ms] [&>*:nth-child(n+4)]:[animation-delay:240ms]">{children}</main>
       </div>
     </div>
   );

@@ -1,5 +1,64 @@
 [
   {
+    "version": "1.24.0",
+    "date": "2026-11-26",
+    "title": "Counting numbers, title reveal and a paint grid",
+    "entries": [
+      {
+        "kind": "added",
+        "text": "Paint grid: a weekly plan you paint by dragging, for opening hours, heating or on-call cover. Works with mouse, touch and keyboard.",
+        "slugs": [
+          "paint-grid"
+        ]
+      },
+      {
+        "kind": "changed",
+        "text": "Headline numbers count up the first time they are seen and keep their currency, units and digit grouping. Labels with two numbers, such as 6h 30m, stay still.",
+        "slugs": [
+          "stat-card",
+          "kpi-strip",
+          "number-ticker"
+        ]
+      },
+      {
+        "kind": "changed",
+        "text": "Desk kit: the page title rises word by word, tiles count up, and a bar can be marked pending to show it hatched.",
+        "slugs": [
+          "desk-kit"
+        ]
+      },
+      {
+        "kind": "changed",
+        "text": "Floating shell: sections arrive one after another when you change page.",
+        "slugs": [
+          "floating-shell"
+        ]
+      },
+      {
+        "kind": "changed",
+        "text": "Line and area charts draw again when you switch to a different range.",
+        "slugs": [
+          "line-chart",
+          "area-chart"
+        ]
+      },
+      {
+        "kind": "added",
+        "text": "OTP input: a verifying state that ripples along the boxes while your server checks the code.",
+        "slugs": [
+          "otp-input"
+        ]
+      },
+      {
+        "kind": "changed",
+        "text": "Home control desk has a new Cooling plan page.",
+        "slugs": [
+          "block:home-desk"
+        ]
+      }
+    ]
+  },
+  {
     "version": "1.23.1",
     "date": "2026-11-26",
     "title": "Safer add, and ready-made update commands",

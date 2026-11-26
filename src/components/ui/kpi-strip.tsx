@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { cn } from '@/lib/utils';
 import { ArrowDownRightIcon, ArrowUpRightIcon } from './icons';
+import { CountText } from './number-ticker';
 
 export interface Kpi {
   label: string;
@@ -24,7 +25,7 @@ export function KpiStrip({ items, className }: { items: Kpi[]; className?: strin
         return (
           <div key={k.label} style={{ animationDelay: `${i * 70}ms` }} className="grid min-w-0 gap-1 px-5 py-4 motion-safe:animate-rise">
             <dt className="truncate text-[13px] text-muted-foreground">{k.label}</dt>
-            <dd className="text-2xl font-semibold leading-none tracking-tight tabular-nums">{k.value}</dd>
+            <dd className="text-2xl font-semibold leading-none tracking-tight tabular-nums">{typeof k.value === 'string' || typeof k.value === 'number' ? <CountText>{k.value}</CountText> : k.value}</dd>
             {k.delta !== undefined || k.hint ? (
               <dd className="flex items-center gap-1 text-xs text-muted-foreground">
                 {k.delta !== undefined && (

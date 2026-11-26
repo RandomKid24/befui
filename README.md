@@ -4,7 +4,7 @@
 
 **Interfaces people actually enjoy using.**
 
-313 copy-paste React components, 389 hand-drawn icons and 42 full-page blocks.<br/>
+314 copy-paste React components, 389 hand-drawn icons and 42 full-page blocks.<br/>
 Plus **121 Flutter widgets** for Android and iOS, and every component as a `<bef-*>` HTML tag.<br/>
 Built on Radix, Tailwind 4 and CSS variables. You own every file.
 
@@ -202,7 +202,7 @@ Add a `## x.y.z` section to `CHANGELOG.md`, then `npm version minor` (checks the
 Some components (loader, bottom sheet, toast...) need keyframes from `index.css`. After adding components, run `npx github:RandomKid24/befui update` to append any your project is missing (`--check` only reports, handy in CI). `add` also prints a warning when something is missing.
 
 <!-- components:start -->
-### Components (313)
+### Components (314)
 
 <details>
 <summary><b>Layout</b> (8)</summary>
@@ -219,9 +219,9 @@ Some components (loader, bottom sheet, toast...) need keyframes from `index.css`
 </details>
 
 <details>
-<summary><b>Inputs</b> (58)</summary>
+<summary><b>Inputs</b> (59)</summary>
 
-`api-key-manager` · `autocomplete` · `autosize-textarea` · `avatar-upload` · `button` · `button-group` · `calendar` · `cascader` · `checkbox` · `chip` · `color-picker` · `combobox` · `copy-button` · `coupon-input` · `currency-input` · `date-picker` · `datetime-picker` · `dropzone` · `duration-input` · `fab` · `file-uploader` · `filter-builder` · `form-wizard` · `gradient-picker` · `image-upload` · `inline-edit` · `input` · `input-group` · `kv-editor` · `label` · `login-pass` · `mention-input` · `notification-preferences` · `number-stepper` · `otp-input` · `password-input` · `phone-input` · `radio-group` · `range-slider` · `rating` · `rich-text-editor` · `schema-form` · `search-bar` · `search-input` · `segmented` · `select` · `shortcut-recorder` · `signature-field` · `signature-pad` · `slider` · `split-button` · `switch` · `tag-input` · `team-invite` · `theme-toggle` · `toggle` · `toggle-group` · `transfer-list`
+`api-key-manager` · `autocomplete` · `autosize-textarea` · `avatar-upload` · `button` · `button-group` · `calendar` · `cascader` · `checkbox` · `chip` · `color-picker` · `combobox` · `copy-button` · `coupon-input` · `currency-input` · `date-picker` · `datetime-picker` · `dropzone` · `duration-input` · `fab` · `file-uploader` · `filter-builder` · `form-wizard` · `gradient-picker` · `image-upload` · `inline-edit` · `input` · `input-group` · `kv-editor` · `label` · `login-pass` · `mention-input` · `notification-preferences` · `number-stepper` · `otp-input` · `paint-grid` · `password-input` · `phone-input` · `radio-group` · `range-slider` · `rating` · `rich-text-editor` · `schema-form` · `search-bar` · `search-input` · `segmented` · `select` · `shortcut-recorder` · `signature-field` · `signature-pad` · `slider` · `split-button` · `switch` · `tag-input` · `team-invite` · `theme-toggle` · `toggle` · `toggle-group` · `transfer-list`
 
 </details>
 
@@ -308,7 +308,7 @@ Full screens built from the components, with mock data you swap for your own API
 | `block:ecommerce-dashboard` | Commerce | Marketing-style dashboard: KPI tiles, a best-seller tile, sales overview as stacked monthly bars you can pick, a channel donut that follows the pick, recent orders and top products. |
 | `block:employee-directory` | HRMS | Searchable table with status filter, row selection, actions and pagination. |
 | `block:finance-dashboard` | Dashboard | Money overview: a balance card, income against spending bars with a 6 or 12 month switch, recent activity, a working quick transfer, a tip tile that moves money to a goal and savings goals. |
-| `block:home-desk` | Dashboard | A smart home dashboard with a floating sidebar: devices by room, one-tap scenes, all off and weekly energy use. |
+| `block:home-desk` | Dashboard | A smart home dashboard with a floating sidebar: devices by room, one-tap scenes, a cooling plan you paint, all off and weekly energy use. |
 | `block:hrms-overview` | HRMS | People dashboard: a planned-absences timeline with weekends hatched and pending leave you approve in place, upcoming events, onboarding progress and an assistant that answers HR questions. |
 | `block:inbox` | Layout | Two-pane mail view: searchable list with unread dots, message reader with reply, archive and delete. Single pane on mobile. |
 | `block:invoice-page` | Commerce | A full invoice with print, download and send actions. |

@@ -5,6 +5,23 @@ All notable changes to befui. Versions follow [semver](https://semver.org): new 
 
 Each release ends with a command that copies its components into your app. `--force` replaces your copies of them **and of every component they depend on**, so commit first, or swap `add` for `diff` and drop `--force` to compare without changing anything. `update` adds any new animations to your `index.css`. The command always fetches the latest version of each file.
 
+## 1.24.0 - 2026-11-26
+
+Counting numbers, title reveal and a paint grid
+
+- **Added:** Paint grid: a weekly plan you paint by dragging, for opening hours, heating or on-call cover. Works with mouse, touch and keyboard. (Paint grid)
+- **Changed:** Headline numbers count up the first time they are seen and keep their currency, units and digit grouping. Labels with two numbers, such as 6h 30m, stay still. (Stat card, KPI strip, Number ticker)
+- **Changed:** Desk kit: the page title rises word by word, tiles count up, and a bar can be marked pending to show it hatched. (Desk kit)
+- **Changed:** Floating shell: sections arrive one after another when you change page. (Floating shell)
+- **Changed:** Line and area charts draw again when you switch to a different range. (Line chart, Area chart)
+- **Added:** OTP input: a verifying state that ripples along the boxes while your server checks the code. (OTP input)
+- **Changed:** Home control desk has a new Cooling plan page. (Home control desk)
+
+```bash
+npx github:RandomKid24/befui add paint-grid stat-card kpi-strip number-ticker desk-kit floating-shell line-chart area-chart otp-input block:home-desk --force
+npx github:RandomKid24/befui update
+```
+
 ## 1.23.1 - 2026-11-26
 
 Safer add, and ready-made update commands

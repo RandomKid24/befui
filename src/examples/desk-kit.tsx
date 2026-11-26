@@ -9,7 +9,7 @@ export default function DeskKitDemo() {
         <StatTile label="Returns" value="9" note="3 waiting for pickup" trend={[4, 2, 3, 1, 2, 2, 1]} />
       </div>
       <div className="grid items-center gap-3 sm:grid-cols-[1fr_auto]">
-        <CapsuleBars label="Orders by day" data={[['Mon', 31], ['Tue', 28], ['Wed', 40], ['Thu', 34], ['Fri', 52], ['Sat', 41], ['Sun', 22]].map(([label, value]) => ({ label: String(label), value: Number(value) }))} highlight={4} />
+        <CapsuleBars label="Orders by day" data={[['Mon', 31], ['Tue', 28], ['Wed', 40], ['Thu', 34], ['Fri', 52], ['Sat', 41], ['Sun', 0]].map(([label, value]) => ({ label: String(label), value: Number(value), pending: label === 'Sun' }))} highlight={4} />
         <TickDial value={72} label="of target" display="72%" />
       </div>
     </div>

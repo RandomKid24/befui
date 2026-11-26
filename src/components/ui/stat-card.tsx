@@ -2,6 +2,7 @@ import * as React from 'react';
 import { ArrowDownRightIcon, ArrowUpRightIcon } from './icons';
 import { cn } from '@/lib/utils';
 import { Card } from './card';
+import { CountText } from './number-ticker';
 
 export function StatCard({
   label,
@@ -30,7 +31,7 @@ export function StatCard({
       </div>
       <div className="flex flex-wrap items-end justify-between gap-x-3 gap-y-2">
         <div className="grid shrink-0 gap-1">
-          <span className="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight tabular-nums">{value}</span>
+          <span className="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight tabular-nums">{typeof value === 'string' || typeof value === 'number' ? <CountText>{value}</CountText> : value}</span>
           {delta !== undefined && (
             <span className="flex items-center gap-1 whitespace-nowrap text-xs text-muted-foreground">
               <span className={cn('inline-flex items-center font-medium', up ? 'text-success' : 'text-destructive')}>

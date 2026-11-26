@@ -80,7 +80,8 @@ export function AreaChart({
           </g>
         ))}
         {labels.map((l, i) => (n <= 8 || i % Math.ceil(n / 8) === 0) && <text key={l + i} x={x(i)} y={H - 6} textAnchor="middle" className="fill-muted-foreground text-[10px]">{l}</text>)}
-        <g style={{ clipPath: on ? 'inset(-10% -10% -10% -10%)' : 'inset(-10% 100% -10% -10%)', transition: 'clip-path 1200ms cubic-bezier(0.22,1,0.36,1)' }}>
+        {/* keyed on the number of points, so switching range draws it again but a live series that slides does not */}
+        <g key={n} className={on ? 'motion-safe:animate-draw-x' : undefined} style={on ? undefined : { clipPath: 'inset(-10% 100% -10% -10%)' }}>
           {[...series.keys()].reverse().map((si) => {
             const top = edge(tops[si]!);
             const below = si > 0 && stacked ? edge(tops[si - 1]!) : labels.map((_, i) => [x(i), y(0)] as [number, number]);

@@ -4945,7 +4945,7 @@ Widget _groups(BuildContext context, List<(String, Widget)> groups) {
 ```
 
 ### OTP input (`otp-input`)
-Code boxes with paste, backspace, arrow keys and autofill. Digits land as you type, turn green on success and shake on error.
+Code boxes with paste, backspace, arrow keys and autofill. Digits land as you type, ripple while the code is checked, turn green on success and shake on error.
 - Add: `npx github:RandomKid24/befui add otp-input --flutter`
 - Import: `import 'befui/otp_input.dart';` (classes: BefOtpInput)
 - Also copies: theme.dart

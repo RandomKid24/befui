@@ -65,7 +65,8 @@ export function LineChart({
         ))}
         {labels.map((l, i) => (n <= 8 || i % Math.ceil(n / 8) === 0) && <text key={l + i} x={x(i)} y={H - 6} textAnchor="middle" className="fill-muted-foreground text-[10px]">{l}</text>)}
         {hover !== null && <line x1={x(hover)} x2={x(hover)} y1={pad.t} y2={H - pad.b} className="stroke-muted-foreground/40" />}
-        <g style={{ clipPath: on ? 'inset(-10% -10% -10% -10%)' : 'inset(-10% 100% -10% -10%)', transition: 'clip-path 1100ms cubic-bezier(0.22,1,0.36,1)' }}>
+        {/* keyed on the number of points, so switching range draws it again but a live series that slides does not */}
+        <g key={n} className={on ? 'motion-safe:animate-draw-x' : undefined} style={on ? undefined : { clipPath: 'inset(-10% 100% -10% -10%)' }}>
         {series.map((s, si) => {
           const color = s.color ?? palette[si % palette.length];
           return (

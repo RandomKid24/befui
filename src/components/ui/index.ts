@@ -160,3 +160,4 @@ export * from './return-calculator';
 export * from './floating-shell';
 export * from './desk-kit';
 export * from './motion-hooks';
+export * from './paint-grid';

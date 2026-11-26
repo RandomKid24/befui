@@ -56,6 +56,10 @@
 .border-destructive\/20 {
   border-color: var(--destructive);
 }
+.border-primary,
+.border-primary\/30 {
+  border-color: var(--primary);
+}
 .border-primary\/50 {
   border-color: var(--primary);
 }
@@ -251,6 +255,18 @@ transform\] {
   }
   .motion-safe\:animate-digit-ok {
     animation: digit-ok var(--dur-slow) var(--ease-spring) backwards;
+  }
+  .motion-safe\:\[animation-duration\:0\.9s\] {
+    animation-duration: .9s;
+  }
+  .motion-safe\:\[animation-iteration-count\:infinite\] {
+    animation-iteration-count: infinite;
+  }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .motion-reduce\:opacity-60 {
+    opacity: .6;
   }
 }
 

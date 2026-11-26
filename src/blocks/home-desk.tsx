@@ -4,7 +4,8 @@ import * as React from 'react';
 import { Button } from '@/components/ui/button';
 import { CapsuleBars, DeskHeader, StatTile, TickDial } from '@/components/ui/desk-kit';
 import { FloatingShell, GlassPanel, glass } from '@/components/ui/floating-shell';
-import { GridIcon, HomeIcon, LightbulbIcon, MinusIcon, PlusIcon, PowerIcon, ZapIcon } from '@/components/ui/icons';
+import { ClockIcon, GridIcon, HomeIcon, LightbulbIcon, MinusIcon, PlusIcon, PowerIcon, ZapIcon } from '@/components/ui/icons';
+import { PaintGrid } from '@/components/ui/paint-grid';
 import { RevealGroup } from '@/components/ui/reveal';
 import { SmartHomeTiles, type HomeDevice } from '@/components/ui/smart-home-tiles';
 import { Toaster, toast } from '@/components/ui/toast';
@@ -21,7 +22,13 @@ const start: HomeDevice[] = [
 ];
 const usage = [['Mon', 11.2], ['Tue', 9.8], ['Wed', 12.5], ['Thu', 10.1], ['Fri', 13.4], ['Sat', 15.2], ['Sun', 14.1]] as const;
 
+const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+const hours = Array.from({ length: 24 }, (_, h) => `${String(h).padStart(2, '0')}:00`);
+// cooling at night, off while everyone is out
+const nights = days.map((_, d) => hours.map((_, h) => (h < 6 || h >= 22 ? 2 : d > 4 && h >= 13 && h < 16 ? 1 : 0)));
+
 export default function HomeDesk() {
+  const [plan, setPlan] = React.useState<number[][]>(nights);
   const [view, setView] = React.useState('home');
   const [devices, setDevices] = React.useState(start);
   const change = (next: HomeDevice) => setDevices((all) => all.map((d) => (d.id === next.id ? next : d)));
@@ -47,7 +54,7 @@ export default function HomeDesk() {
       brand={{ name: 'Hearth', tagline: 'Home control', mark: <HomeIcon /> }}
       value={view}
       onChange={setView}
-      groups={[{ label: 'House', items: [{ id: 'home', label: 'Devices', icon: <GridIcon /> }, { id: 'scenes', label: 'Scenes', icon: <LightbulbIcon /> }, { id: 'energy', label: 'Energy', icon: <ZapIcon /> }] }]}
+      groups={[{ label: 'House', items: [{ id: 'home', label: 'Devices', icon: <GridIcon /> }, { id: 'plan', label: 'Cooling plan', icon: <ClockIcon /> }, { id: 'scenes', label: 'Scenes', icon: <LightbulbIcon /> }, { id: 'energy', label: 'Energy', icon: <ZapIcon /> }] }]}
       actions={<Button size="sm" variant="outline" disabled={!on} onClick={() => apply('Everything is off', () => false)}><PowerIcon /> All off</Button>}
     >
       {view === 'home' && (
@@ -69,6 +76,14 @@ export default function HomeDesk() {
             </div>
           </RevealGroup>
           <SmartHomeTiles className={cn(glass, 'max-w-none p-3')} devices={devices} onChange={change} />
+        </>
+      )}
+      {view === 'plan' && (
+        <>
+          <DeskHeader title="Cooling plan" summary="Pick a setting, then drag across the hours" actions={<Button size="sm" variant="outline" onClick={() => setPlan((p) => p.map((row, i) => (i > 0 && i < 5 ? [...p[0]!] : row)))}>Copy Monday to weekdays</Button>} />
+          <GlassPanel title="Bedroom air conditioner" note="Applies every week">
+            <PaintGrid label="Air conditioner setting by hour" rows={days} cols={hours} levels={[{ label: 'Off' }, { label: 'Eco, 26°C' }, { label: 'Cool, 23°C' }]} value={plan} onChange={setPlan} />
+          </GlassPanel>
         </>
       )}
       {view === 'scenes' && (

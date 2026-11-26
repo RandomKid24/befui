@@ -6,6 +6,7 @@
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
   --dur-slow: .7s;
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
   --elev-2: 0 1px 2px #0f172a0d, 0 4px 8px -2px #0f172a12, 0 2px 4px -2px #0f172a0a;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
@@ -72,6 +73,9 @@
 .mt-2 {
   margin-top: calc(var(--spacing) * 2);
 }
+.-mb-1 {
+  margin-bottom: calc(var(--spacing) * -1);
+}
 .block {
   display: block;
 }
@@ -80,6 +84,9 @@
 }
 .grid {
   display: grid;
+}
+.inline-block {
+  display: inline-block;
 }
 .size-full {
   width: 100%;
@@ -165,6 +172,9 @@
   white-space: nowrap;
   overflow: hidden;
 }
+.overflow-hidden {
+  overflow: hidden;
+}
 .rounded-lg {
   border-radius: calc(var(--radius) + 2px);
 }
@@ -174,6 +184,21 @@
 .rounded-sm {
   border-radius: calc(var(--radius) - 2px);
 }
+.border {
+  border-style: var(--tw-border-style);
+  border-width: 1px;
+}
+.border-foreground,
+.border-foreground\/10 {
+  border-color: var(--foreground);
+}
+
+@supports (color:color-mix(in lab,red,red)) {
+  .border-foreground\/10 {
+    border-color: color-mix(in oklab,var(--foreground) 10%,transparent);
+  }
+}
+
 .border-transparent {
   border-color: #0000;
 }
@@ -233,8 +258,14 @@
 .pt-8 {
   padding-top: calc(var(--spacing) * 8);
 }
+.pb-1 {
+  padding-bottom: var(--spacing);
+}
 .text-center {
   text-align: center;
+}
+.align-bottom {
+  vertical-align: bottom;
 }
 .text-2xl {
   font-size: var(--text-2xl);
@@ -339,6 +370,12 @@ background-color\] {
   --tw-ring-color: var(--ring);
 }
 
+@media (prefers-reduced-motion:no-preference) {
+  .motion-safe\:animate-title {
+    animation: title-rise var(--dur-slow) var(--ease-out) backwards;
+  }
+}
+
 @media (prefers-reduced-motion:reduce) {
   .motion-reduce\:transition-none {
     transition-property: none;
@@ -349,6 +386,16 @@ background-color\] {
   .xl\:text-3xl {
     font-size: var(--text-3xl);
     line-height: var(--tw-leading,var(--text-3xl--line-height));
+  }
+}
+
+/* Animations */
+@keyframes title-rise {
+  0% {
+    transform: translateY(110%);
+  }
+  to {
+    transform: none;
   }
 }
 
@@ -371,6 +418,11 @@ background-color\] {
   syntax: "*";
   inherits: false;
   initial-value: 1;
+}
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
 }
 @property --tw-leading {
   syntax: "*";

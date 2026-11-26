@@ -2105,7 +2105,7 @@ export default function NumberStepperDemo() {
 ```
 
 ## OTP input (`otp-input`)
-Code boxes with paste, backspace, arrow keys and autofill. Digits land as you type, turn green on success and shake on error.
+Code boxes with paste, backspace, arrow keys and autofill. Digits land as you type, ripple while the code is checked, turn green on success and shake on error.
 - Group: Inputs
 - Add: `npx github:RandomKid24/befui add otp-input`
 - Import: `import { OtpInput } from '@/components/ui/otp-input'`
@@ -2121,16 +2121,58 @@ export default function OtpInputDemo() {
   const [v, setV] = React.useState('');
   const [bad, setBad] = React.useState(false);
   const [ok, setOk] = React.useState(false);
+  const [checking, setChecking] = React.useState(false);
+  const timer = React.useRef<ReturnType<typeof setTimeout>>(undefined);
+  React.useEffect(() => () => clearTimeout(timer.current), []);
+  const check = (code: string) => {
+    setChecking(true);
+    // stands in for your API call
+    timer.current = setTimeout(() => {
+      setChecking(false);
+      if (code === '123456') { setOk(true); toast.success('Verified'); }
+      else { setBad(true); timer.current = setTimeout(() => setV(''), 500); }
+    }, 1200);
+  };
   return (
     <div className="grid justify-items-center gap-3">
       <OtpInput
         value={v}
         invalid={bad}
         success={ok}
+        verifying={checking}
         onChange={(x) => { setV(x); setBad(false); setOk(false); }}
-        onComplete={(x) => (x === '123456' ? (setOk(true), toast.success('Verified')) : (setBad(true), setTimeout(() => setV(''), 500)))}
+        onComplete={check}
       />
       <p className="text-xs text-muted-foreground">Try 123456, or paste any code.</p>
+    </div>
+  );
+}
+```
+
+## Paint grid (`paint-grid`)
+A weekly plan you paint by dragging: opening hours, heating or on-call cover. Pick a level, drag across the cells, or use arrows and Space.
+- Group: Inputs
+- Add: `npx github:RandomKid24/befui add paint-grid`
+- Import: `import { PaintGrid } from '@/components/ui/paint-grid'`
+
+Example:
+
+```tsx
+import * as React from 'react';
+import { Button } from '@/components/ui/button';
+import { PaintGrid } from '@/components/ui/paint-grid';
+
+const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+const hours = Array.from({ length: 24 }, (_, h) => `${String(h).padStart(2, '0')}:00`);
+// open 09:00 to 18:00 on weekdays, mornings on Saturday
+const start = days.map((_, d) => hours.map((_, h) => (d < 5 ? (h >= 9 && h < 18 ? 2 : 0) : d === 5 && h >= 9 && h < 13 ? 1 : 0)));
+
+export default function PaintGridDemo() {
+  const [plan, setPlan] = React.useState<number[][]>(start);
+  return (
+    <div className="grid w-full max-w-3xl gap-3">
+      <PaintGrid label="Support desk cover by hour" rows={days} cols={hours} levels={[{ label: 'Closed' }, { label: 'One agent' }, { label: 'Full team' }]} value={plan} onChange={setPlan} />
+      <Button size="sm" variant="outline" className="justify-self-start" onClick={() => setPlan((p) => p.map((row, i) => (i > 0 && i < 5 ? [...p[0]!] : row)))}>Copy Monday to weekdays</Button>
     </div>
   );
 }
@@ -6276,7 +6318,7 @@ Dashboard pieces: a page greeting that draws its accent rule, headline tiles wit
 - Group: Data
 - Add: `npx github:RandomKid24/befui add desk-kit`
 - Import: `import { DeskHeader, StatTile, CapsuleBars, TickDial } from '@/components/ui/desk-kit'`
-- Also needs: charts, floating-shell
+- Also needs: charts, floating-shell, number-ticker
 
 Example:
 
@@ -6292,7 +6334,7 @@ export default function DeskKitDemo() {
         <StatTile label="Returns" value="9" note="3 waiting for pickup" trend={[4, 2, 3, 1, 2, 2, 1]} />
       </div>
       <div className="grid items-center gap-3 sm:grid-cols-[1fr_auto]">
-        <CapsuleBars label="Orders by day" data={[['Mon', 31], ['Tue', 28], ['Wed', 40], ['Thu', 34], ['Fri', 52], ['Sat', 41], ['Sun', 22]].map(([label, value]) => ({ label: String(label), value: Number(value) }))} highlight={4} />
+        <CapsuleBars label="Orders by day" data={[['Mon', 31], ['Tue', 28], ['Wed', 40], ['Thu', 34], ['Fri', 52], ['Sat', 41], ['Sun', 0]].map(([label, value]) => ({ label: String(label), value: Number(value), pending: label === 'Sun' }))} highlight={4} />
         <TickDial value={72} label="of target" display="72%" />
       </div>
     </div>
@@ -6790,7 +6832,7 @@ A row of headline numbers sharing one border with dividers between them, with ch
 - Group: Data
 - Add: `npx github:RandomKid24/befui add kpi-strip`
 - Import: `import { KpiStrip } from '@/components/ui/kpi-strip'`
-- Also needs: icons
+- Also needs: icons, number-ticker
 
 Example:
 
@@ -7059,7 +7101,7 @@ export default function NetworkGraphDemo() {
 Counts up to a value with easing once it scrolls into view.
 - Group: Data
 - Add: `npx github:RandomKid24/befui add number-ticker`
-- Import: `import { NumberTicker } from '@/components/ui/number-ticker'`
+- Import: `import { NumberTicker, splitCount, CountText } from '@/components/ui/number-ticker'`
 
 Example:
 
@@ -8158,7 +8200,7 @@ KPI tile with value, trend delta and a sparkline slot.
 - Group: Data
 - Add: `npx github:RandomKid24/befui add stat-card`
 - Import: `import { StatCard } from '@/components/ui/stat-card'`
-- Also needs: card, icons
+- Also needs: card, icons, number-ticker
 
 Example:
 

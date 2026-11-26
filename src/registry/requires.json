@@ -270,7 +270,8 @@
   "description-list": [],
   "desk-kit": [
     "charts",
-    "floating-shell"
+    "floating-shell",
+    "number-ticker"
   ],
   "dialog": [
     "icons"
@@ -415,7 +416,8 @@
   ],
   "kbd": [],
   "kpi-strip": [
-    "icons"
+    "icons",
+    "number-ticker"
   ],
   "kv-editor": [
     "button",
@@ -538,6 +540,7 @@
     "icons",
     "motion-hooks"
   ],
+  "paint-grid": [],
   "parallel-coordinates": [
     "charts"
   ],
@@ -779,7 +782,8 @@
   ],
   "stat-card": [
     "card",
-    "icons"
+    "icons",
+    "number-ticker"
   ],
   "status-dot": [],
   "status-page": [

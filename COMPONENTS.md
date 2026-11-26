@@ -1,6 +1,6 @@
 # Components
 
-Every befui component and block. **313 React components**, **269 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **42 page blocks**.
+Every befui component and block. **314 React components**, **269 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **42 page blocks**.
 (Generated from the registry by `npm run registry:build`. Do not edit by hand.)
 
 Install a React component with `npx github:RandomKid24/befui add <name>`, the Flutter version with `npx github:RandomKid24/befui add <name> --flutter`.
@@ -46,7 +46,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `tree-view` | Nested expandable list with animated open and close. | ✓ | ✓ |
 | `user-menu` | Avatar button for the topbar that opens a menu with name, email, your links and Sign out. | ✓ | ✓ |
 
-## Inputs (58, 34 on Flutter)
+## Inputs (59, 34 on Flutter)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
@@ -84,7 +84,8 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `mention-input` | Textarea that suggests people when you type @. Arrow keys and Enter pick. | ✓ |  |
 | `notification-preferences` | Grid of events by channel (email, push, SMS, in-app) with a switch per cell and a switch per channel. | ✓ | ✓ |
 | `number-stepper` | Number field with plus and minus buttons and arrow keys. | ✓ | ✓ |
-| `otp-input` | Code boxes with paste, backspace, arrow keys and autofill. Digits land as you type, turn green on success and shake on error. | ✓ | ✓ |
+| `otp-input` | Code boxes with paste, backspace, arrow keys and autofill. Digits land as you type, ripple while the code is checked, turn green on success and shake on error. | ✓ | ✓ |
+| `paint-grid` | A weekly plan you paint by dragging: opening hours, heating or on-call cover. Pick a level, drag across the cells, or use arrows and Space. |  |  |
 | `password-input` | Show and hide toggle with an optional strength meter. | ✓ | ✓ |
 | `phone-input` | Phone field with a country picker. Groups digits as you type and hands back the E.164 number and whether it is complete. | ✓ | ✓ |
 | `radio-group` | Native radios as selectable cards with descriptions. | ✓ | ✓ |
@@ -387,7 +388,7 @@ Full screens built from the components, with mock data you swap for your own API
 | `ecommerce-dashboard` | Commerce | Marketing-style dashboard: KPI tiles, a best-seller tile, sales overview as stacked monthly bars you can pick, a channel donut that follows the pick, recent orders and top products. |
 | `employee-directory` | HRMS | Searchable table with status filter, row selection, actions and pagination. |
 | `finance-dashboard` | Dashboard | Money overview: a balance card, income against spending bars with a 6 or 12 month switch, recent activity, a working quick transfer, a tip tile that moves money to a goal and savings goals. |
-| `home-desk` | Dashboard | A smart home dashboard with a floating sidebar: devices by room, one-tap scenes, all off and weekly energy use. |
+| `home-desk` | Dashboard | A smart home dashboard with a floating sidebar: devices by room, one-tap scenes, a cooling plan you paint, all off and weekly energy use. |
 | `hrms-overview` | HRMS | People dashboard: a planned-absences timeline with weekends hatched and pending leave you approve in place, upcoming events, onboarding progress and an assistant that answers HR questions. |
 | `inbox` | Layout | Two-pane mail view: searchable list with unread dots, message reader with reply, archive and delete. Single pane on mobile. |
 | `invoice-page` | Commerce | A full invoice with print, download and send actions. |
