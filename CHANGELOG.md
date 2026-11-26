@@ -3,6 +3,15 @@
 All notable changes to befui. Versions follow [semver](https://semver.org): new components are minor releases, breaking prop changes are major. The same list, with links to each component, is on the docs site under Changelog.
 (Generated from src/registry/changelog.json by `npm run registry:build`. Edit the JSON, not this file.)
 
+Each release ends with a command that copies its components into your app. `--force` replaces your copies of them **and of every component they depend on**, so commit first, or swap `add` for `diff` and drop `--force` to compare without changing anything. `update` adds any new animations to your `index.css`. The command always fetches the latest version of each file.
+
+## 1.23.1 - 2026-11-26
+
+Safer add, and ready-made update commands
+
+- **Fixed:** add --force no longer replaces your index.css when lib/utils.ts is missing.
+- **Added:** Every release below ends with a command that copies its components into your app.
+
 ## 1.23.0 - 2026-11-26
 
 Motion across menus, charts and lists
@@ -11,6 +20,11 @@ Motion across menus, charts and lists
 - **Changed:** Bars, rings and needles fill when first seen, and ranked rows slide when the order changes. (Bar list, Leaderboard, Progress, Progress ring, Gauge)
 - **Changed:** Items arrive in reading order, stat cards lift on hover, stars pop, the bell rings when something new arrives, and the stepper line fills as you advance. (KPI strip, Stat card, Timeline, Rating, Notification center, Stepper)
 - **Fixed:** Stepper connector lines no longer disappear in narrow spaces. (Stepper)
+
+```bash
+npx github:RandomKid24/befui add sidebar-rail sidebar-settings sidebar-docs pagination bar-list leaderboard progress progress-ring gauge kpi-strip stat-card timeline rating notification-center stepper --force
+npx github:RandomKid24/befui update
+```
 
 ## 1.22.0 - 2026-11-26
 
@@ -22,12 +36,22 @@ Better dashboards, and motion in everyday components
 - **Changed:** Code digits land as you type and can turn green when accepted (new success prop). The checkbox tick draws itself. A toast stops counting down while the pointer or keyboard is on it. (OTP input, Checkbox, Toast)
 - **Changed:** The floating shell has page search on Command or Ctrl K, a signed-in user and a richer backdrop. The four dashboards use the befui colours, a large greeting, headline tiles, new charts and Undo. (Floating shell, Property desk, CRM desk, Home control desk, Wellbeing desk)
 
+```bash
+npx github:RandomKid24/befui add desk-kit motion-hooks kanban sortable-list tabs segmented bottom-nav otp-input checkbox toast floating-shell block:property-desk block:crm-desk block:home-desk block:wellbeing-desk --force
+npx github:RandomKid24/befui update
+```
+
 ## 1.21.0 - 2026-11-26
 
 Floating dashboards
 
 - **Added:** Floating shell: a dashboard frame with a see-through sidebar that folds to icons, or a floating top menu. (Floating shell)
 - **Added:** Four full dashboards built on it: property, sales, home control and wellbeing. (Property desk, CRM desk, Home control desk, Wellbeing desk)
+
+```bash
+npx github:RandomKid24/befui add floating-shell block:property-desk block:crm-desk block:home-desk block:wellbeing-desk --force
+npx github:RandomKid24/befui update
+```
 
 ## 1.20.0 - 2026-11-26
 
@@ -37,11 +61,21 @@ Eight dashboard pieces
 - **Added:** RevealGroup brings a grid of cards in one after another in reading order. (Reveal)
 - **Changed:** The theme toggle now spreads the new theme in a circle from the button, where the browser supports it. Reduced motion switches instantly. (Theme toggle)
 
+```bash
+npx github:RandomKid24/befui add stretch-nav challenge-tracker review-inbox health-vitals smart-home-tiles return-calculator reveal theme-toggle --force
+npx github:RandomKid24/befui update
+```
+
 ## 1.19.0 - 2026-11-26
 
 Login pass screen
 
 - **Added:** A sign-in screen with an entry pass that fills in from the email, so a wrong account or domain typo shows before you submit. (Login pass)
+
+```bash
+npx github:RandomKid24/befui add login-pass --force
+npx github:RandomKid24/befui update
+```
 
 ## 1.18.0 - 2026-11-17
 
@@ -49,11 +83,21 @@ Five sidebar designs
 
 - **Added:** Five different sidebars for different apps: an icon-only rail, a rail with a page panel, a workspace sidebar with search and collapsible groups, a plain settings menu, and a docs sidebar with nested pages and tags. (Sidebar rail, Sidebar with panel, Workspace sidebar, Settings sidebar, Docs sidebar)
 
+```bash
+npx github:RandomKid24/befui add sidebar-rail sidebar-split sidebar-workspace sidebar-settings sidebar-docs --force
+npx github:RandomKid24/befui update
+```
+
 ## 1.17.0 - 2026-11-17
 
 Practical audit logs
 
 - **Added:** Two audit log designs for real work: a filterable log (search, who, action, result, time range, row details, paging, CSV export) and a per-record history panel with a field picker. (Audit log with filters, Record history)
+
+```bash
+npx github:RandomKid24/befui add audit-log-pro audit-record-history --force
+npx github:RandomKid24/befui update
+```
 
 ## 1.16.0 - 2026-11-17
 
@@ -61,11 +105,21 @@ Four more audit log designs
 
 - **Added:** Three audit log layouts next to the table: a terminal-style one-line log, a day-grouped timeline, and a list with a detail panel for before and after values. (Audit log, terminal, Audit timeline, Audit log with detail panel)
 
+```bash
+npx github:RandomKid24/befui add audit-log-terminal audit-timeline audit-log-detail --force
+npx github:RandomKid24/befui update
+```
+
 ## 1.15.0 - 2026-11-17
 
 An audit log you can scan
 
 - **Changed:** Audit log is now a real log table: each event on one row with time (to the second), who, action, what changed (before → after), result and IP. Failed events get a red edge. Search, an action filter and an event and failed count sit on top. It takes an optional status of success or failed per entry. (Audit log)
+
+```bash
+npx github:RandomKid24/befui add audit-log --force
+npx github:RandomKid24/befui update
+```
 
 ## 1.14.0 - 2026-11-16
 
@@ -73,6 +127,11 @@ Report screens and an update progress card
 
 - **Changed:** All eighteen reports now look like report screens in an app instead of printed pages: a toolbar with the period and a print button, a strip of headline numbers, tables that run edge to edge with total rows, and a footer. They share a new report view component. Signature lines are gone. (Report view, Sales report, Income statement, Balance sheet, Payroll summary, Expense report, Stock report, Attendance report, Timesheet report, Performance review, Project status report, Incident report, Audit report, Test report, Feedback report, Lab report, Report card, Sprint report, Inspection report)
 - **Added:** Update progress: an app updater card with the target version, a large monospace percent, a status line, a segmented bar and a fetch, apply, reopen step row, with an optional Hide button. (Update progress)
+
+```bash
+npx github:RandomKid24/befui add report-view sales-report income-statement balance-sheet payroll-summary expense-report stock-report attendance-report timesheet-report performance-review project-status-report incident-report audit-report test-report feedback-report lab-report report-card sprint-report inspection-report update-progress --force
+npx github:RandomKid24/befui update
+```
 
 ## 1.13.0 - 2026-11-16
 
@@ -83,6 +142,11 @@ Four reports with a look of their own
 - **Added:** Sprint report: a burndown chart with an ideal line at its centre, committed, completed and spilled points, a velocity strip, and what shipped and what slipped with the reason. (Sprint report)
 - **Added:** Inspection report: square tick, cross and dash marks grouped by area, a rotated PASSED or FAILED stamp, and a list of deficiencies built from the failed checks. (Inspection report)
 
+```bash
+npx github:RandomKid24/befui add lab-report report-card sprint-report inspection-report --force
+npx github:RandomKid24/befui update
+```
+
 ## 1.12.0 - 2026-11-16
 
 Fourteen report documents
@@ -91,6 +155,11 @@ Fourteen report documents
 - **Added:** Team and project reports: project status report (health, milestones, budget, risks), incident report (severity, impact, cause, timeline, follow-up actions), performance review (goals scored 1 to 5, competencies, signatures) and timesheet report (hours per project per day, billable share). (Project status report, Incident report, Performance review, Timesheet report)
 - **Added:** Review reports: audit report (scope, opinion, findings by severity with recommendations), test report (pass rate, suites, failures with location) and feedback report (average rating, star distribution, NPS, themes with quotes). (Audit report, Test report, Feedback report)
 - **Fixed:** Components index: cards for new components showed a broken image until their preview picture was made. All fourteen reports now have light and dark previews.
+
+```bash
+npx github:RandomKid24/befui add sales-report income-statement balance-sheet stock-report expense-report payroll-summary attendance-report project-status-report incident-report performance-review timesheet-report audit-report test-report feedback-report --force
+npx github:RandomKid24/befui update
+```
 
 ## 1.11.1 - 2026-11-10
 
@@ -114,6 +183,11 @@ Motion, depth and density tokens, a tidier components page
 - **Fixed:** Muted text in light mode was 4.3:1 on secondary surfaces; it is now 5:1 or better in both modes, with a test. Redrew the PinOff, Fingerprint and Wand icons.
 - **Added:** Orderlane kanban: a board in three levels with collapsible status groups, fixed-width status columns and cards you drag between them. The board scrolls sideways when you drag near its edge, won and lost cards stay put, and onMove lets you ask for an attachment before a move is saved. (Orderlane kanban, Kanban board)
 - **Changed:** Fonts: Onest for text and headings, JetBrains Mono for code, replacing Inter and Bricolage Grotesque. Onest has more character than Inter and still reads clearly at small sizes. --font-sans and --font-mono in index.css and the HTML components change with it.
+
+```bash
+npx github:RandomKid24/befui add button input select skeleton spinner bottom-sheet drawer orderlane-kanban kanban --force
+npx github:RandomKid24/befui update
+```
 
 ## 1.10.0 - 2026-10-15
 
@@ -152,6 +226,11 @@ Flutter widgets for Android and iOS, a page per platform, a new hero
 - **Added:** DESIGN.md (the design rules: colour, type, shape, motion, how to add a component) and COMPONENTS.md (every component and block, with whether it has an HTML tag and a Flutter widget). COMPONENTS.md is generated by npm run registry:build.
 - **Changed:** Docs site: component pages open faster (collapsed code blocks only highlight the lines you can see) and typing in the filter, the sidebar search and the playground no longer waits for the page to re-render. Sections of a page and each demo now rise in smoothly as they load.
 
+```bash
+npx github:RandomKid24/befui add kv-editor shortcut-recorder duration-input log-viewer markdown nps-survey cron-builder json-tree feature-flag-table timezone-picker token-usage-chart org-switcher year-heatmap autosize-textarea transfer-list cascader team-invite api-key-manager parallel-coordinates network-graph swimlane-timeline bar-race webhook-log agent-trace citation-popover message-feedback eval-table artifact-panel file-tree status-page usage-meter kpi-strip cohort-table roadmap-timeline date-preset-select filter-builder signature-field coachmark resizable-panels pricing-comparison toast banner combobox funnel-chart combo-chart sparkline-table heat-calendar ring-chart range-gauge resizable-table chart-skeleton popconfirm split-button form-wizard range-slider gradient-picker autocomplete image-gallery media-player outcome-bar pace-chart drawer world-map india-map ai-chat streaming-text prompt-input ai-message thinking tool-call sources prompt-suggestions token-meter model-picker voice-wave attachment settings-layout virtual-list --force
+npx github:RandomKid24/befui update
+```
+
 ## 1.9.1 - 2026-10-14
 
 Next.js fixes for four dashboards, safer remove, readable amber and orange
@@ -160,6 +239,11 @@ Next.js fixes for four dashboards, safer remove, readable amber and orange
 - **Fixed:** befui remove now looks at every source file under your folder (pages, libs, blocks), not just components, handles relative imports, and lets you remove two components that use each other in one command.
 - **Fixed:** Themes: amber and orange use a deeper primary so links and active states are readable on white (4.5:1), and the test now checks primary text on the page background for every theme.
 - **Fixed:** Chat app and calendar app no longer fail on plain http, where crypto.randomUUID does not exist. (Chat app, Calendar app)
+
+```bash
+npx github:RandomKid24/befui add block:finance-dashboard block:analytics-dashboard block:ecommerce-dashboard block:sales-dashboard block:chat-app block:calendar-app --force
+npx github:RandomKid24/befui update
+```
 
 ## 1.9.0 - 2026-10-14
 
@@ -170,6 +254,11 @@ Ten new page blocks and befui diff and remove
 - **Added:** App pages: a kanban board page (search, priority filter, task dialog, Alt and arrow keys to move cards), a chat app and a calendar app (add events in a dialog). (Kanban board page, Chat app, Calendar app)
 - **Added:** CLI: befui diff <name> shows how your copy of a component differs from the latest, and befui remove <name> deletes a component's files. Remove refuses while other files import it, unless you pass --force.
 - **Fixed:** Blocks are now checked for accessibility in the test suite. That found and fixed unnamed progress bars in billing, campaign performance, leave approvals and project overview, and an empty table header in employee directory. (Billing page, Campaign performance, Leave approvals, Project overview, Employee directory)
+
+```bash
+npx github:RandomKid24/befui add block:otp-verify block:onboarding-wizard block:notifications-page block:server-error-page block:team-page block:contact-page block:finance-dashboard block:kanban-board-page block:chat-app block:calendar-app block:billing-page block:campaign-performance block:leave-approvals block:project-overview block:employee-directory --force
+npx github:RandomKid24/befui update
+```
 
 ## 1.8.0 - 2026-10-13
 
@@ -182,6 +271,11 @@ Next.js support, 108 more icons, brand logos and ten themes
 - **Changed:** Sign in and sign up now offer Continue with Google and GitHub buttons above an or divider. (Sign in, Sign up)
 - **Fixed:** Default dark theme: primary button text is now near-black instead of white, raising its contrast from 3.7 to 5.3 (WCAG AA). To keep the old look, set --primary-foreground back to #ffffff in .dark.
 
+```bash
+npx github:RandomKid24/befui add brand-icons block:sign-in block:sign-up --force
+npx github:RandomKid24/befui update
+```
+
 ## 1.7.2 - 2026-10-13
 
 Tour keyboard and spotlight fixes, input group disabled styling
@@ -189,6 +283,11 @@ Tour keyboard and spotlight fixes, input group disabled styling
 - **Fixed:** Tour: arrow keys no longer fire with Alt, Ctrl, Cmd or Shift held, or while focus is in another widget on the page, and they swap in right-to-left pages. The spotlight no longer trails the target while the page scrolls, and never dims the whole page before it is positioned. (Tour)
 - **Fixed:** Input group: a disabled button inside an addon no longer dims the whole field; only a disabled input does. (Input group)
 - **Changed:** Hover card: the docs now say what to keep out of it (links, buttons, anything essential), because the card cannot be reached with the keyboard. (Hover card)
+
+```bash
+npx github:RandomKid24/befui add tour input-group hover-card --force
+npx github:RandomKid24/befui update
+```
 
 ## 1.7.1 - 2026-10-13
 
@@ -199,6 +298,11 @@ Accessibility fixes: all 18 examples that failed the automated check now pass
 - **Fixed:** Names: progress bar and progress ring take an aria-label, the tag input keeps a name once tags replace its placeholder, the onboarding checklist names its bar, version log groups include the release number, the day agenda now-line has a role, and the typewriter and text reveal read their full text to screen readers. (Progress, Progress ring, Tag input, Onboarding checklist, Version log, Day agenda, Typewriter, Reveal)
 - **Changed:** Examples: sliders, the select, the tooltip icon buttons and the table progress bars now carry labels, so they show the right way to build them. (Slider, Gauge, Select, Tooltip, Table)
 
+```bash
+npx github:RandomKid24/befui add label calendar file-manager mention-input accordion progress progress-ring tag-input onboarding-checklist version-log day-agenda typewriter reveal slider gauge select tooltip table --force
+npx github:RandomKid24/befui update
+```
+
 ## 1.7.0 - 2026-10-13
 
 Seven missing basics: hover card, button and input groups, toggle group, navigation menu, menubar and tour
@@ -206,6 +310,11 @@ Seven missing basics: hover card, button and input groups, toggle group, navigat
 - **Added:** Menus and previews: hover card for a preview that opens on hover or focus, menubar for File, Edit, View style bars, and a navigation menu with mega-menu panels. (Hover card, Menubar, Navigation menu)
 - **Added:** Joined controls: button group and input group (text, icons or buttons attached to a field), and a toggle group that lets several buttons stay pressed for formatting toolbars. (Button group, Input group, Toggle group)
 - **Added:** Product tour: spotlight parts of the page one step at a time, with Back, Next, Skip, arrow keys, Escape and reduced-motion support. (Tour)
+
+```bash
+npx github:RandomKid24/befui add hover-card menubar navigation-menu button-group input-group toggle-group tour --force
+npx github:RandomKid24/befui update
+```
 
 ## 1.6.0 - 2026-10-12
 
@@ -226,6 +335,11 @@ Seven missing basics: hover card, button and input groups, toggle group, navigat
 - **Changed:** AI docs: llms.txt now has a page-recipe section (which blocks and parts to combine for a dashboard, settings page, landing page and more) and a block index grouped by purpose.
 - **Fixed:** Stat card: the delta line no longer wraps word by word and the sparkline no longer spills out of a narrow card; it drops below the number instead. Donut chart: the legend wraps under the ring in narrow cards. (Stat card, Charts)
 
+```bash
+npx github:RandomKid24/befui add charts line-chart radar-chart area-chart treemap sankey-chart box-plot-chart chord-chart pie-chart half-donut-chart stacked-bar-chart histogram-chart lollipop-chart scatter-chart circle-pack-chart word-cloud slope-chart dumbbell-chart bullet-chart butterfly-chart bump-chart pareto-chart waterfall-chart forecast-chart marimekko-chart sunburst-chart stream-chart radial-bar-chart radial-line-chart rose-chart waffle-chart ridgeline-chart matrix-heatmap candlestick-chart live-chart punch-card-chart venn-chart block:analytics-dashboard block:ecommerce-dashboard block:project-overview block:user-management block:profile-page block:billing-page block:api-keys-page block:invoice-page block:checkout-page block:landing-page block:inbox block:top-nav-layout block:not-found-page theme-toggle user-menu settings-layout description-list bar-list comparison-table invoice landing-sections uptime-bar leaderboard rating-breakdown credit-card week-strip order-tracker diff-viewer day-agenda stat-card --force
+npx github:RandomKid24/befui update
+```
+
 ## 1.5.0 - 2026-10-09
 
 Pivot and tree tables, week view, uploads with progress and auth blocks
@@ -239,12 +353,22 @@ Pivot and tree tables, week view, uploads with progress and auth blocks
 - **Fixed:** Event calendar: a multi-day event now names itself once, on its first day and at the start of each week row, instead of on every day. (Event calendar)
 - **Changed:** Changelog: every older release is rewritten with a bold label on each note, so it reads like the newer ones.
 
+```bash
+npx github:RandomKid24/befui add pivot-table tree-table file-uploader onboarding-carousel block:sign-up block:reset-password event-calendar --force
+npx github:RandomKid24/befui update
+```
+
 ## 1.4.1 - 2026-10-09
 
 An easier-to-read changelog
 
 - **Changed:** Version log: each release groups its notes under Added, Changed, Fixed and Removed, with a bold lead phrase on every note so a long release can be skimmed. Larger text and clearer spacing. (Version log)
 - **Fixed:** Event calendar: the "+n more" label no longer reads backwards in right-to-left pages. (Event calendar)
+
+```bash
+npx github:RandomKid24/befui add version-log event-calendar --force
+npx github:RandomKid24/befui update
+```
 
 ## 1.4.0 - 2026-10-09
 
@@ -256,6 +380,11 @@ Install flow, four new components, two blocks and locale support
 - **Added:** RTL switch: every preview can be flipped right-to-left to check a component.
 - **Changed:** Locale support: calendar, date picker and range picker take a locale for month and weekday names and digits. Calendar flips its arrows and arrow-key movement in right-to-left pages, and the currency input and date picker use logical start and end spacing. (Calendar, Date picker, Currency input)
 
+```bash
+npx github:RandomKid24/befui add phone-input signature-pad event-calendar virtual-list block:pricing-page block:settings-page calendar date-picker currency-input --force
+npx github:RandomKid24/befui update
+```
+
 ## 1.3.0 - 2026-10-08
 
 Animated changelog and a version log component
@@ -263,6 +392,11 @@ Animated changelog and a version log component
 - **Added:** Version log: an animated version history component. The rail draws and dots pop as releases scroll in, entries slide in one by one, releases fold open, with a version jump strip and a kind filter. The changelog page uses it. (Version log)
 - **Added:** Changelog page: a page on the docs site where you can click any component name to open it. Click any component name to open it.
 - **Added:** Icons: 95 new ones (189 in total), covering devices and media, commerce, charts, text formatting, files, map and travel, status, playback and more. Find them on the Icons page.
+
+```bash
+npx github:RandomKid24/befui add version-log --force
+npx github:RandomKid24/befui update
+```
 
 ## 1.1.0 - 2026-10-08
 
@@ -292,6 +426,11 @@ Sixty new components, blocks and a smarter CLI
 - **Changed:** Icons everywhere: every component now uses the built-in icon set. lucide-react is no longer installed by init.
 - **Changed:** Docs site: loads demos on demand (main bundle 1.4 MB down to 0.58 MB), and llms.txt is grouped by category with rules and a task map.
 
+```bash
+npx github:RandomKid24/befui add changelog testimonial-card comment-thread code-block status-dot table-of-contents search-bar currency-input inline-edit filter-bar notification-center cookie-consent permission-matrix tooltip data-table table kanban activity-feed context-menu loader date-picker block:reports-table product-card coupon-input order-summary split-pane sortable-list navbar bottom-nav fab chat mention-input profile-card terminal error-state image-viewer line-chart radar-chart audit-log file-manager swipe-actions pull-to-refresh bottom-sheet datetime-picker image-upload avatar avatar-upload schema-form rich-text-editor notification-preferences saved-views funnel-chart gantt org-chart approval-flow onboarding-checklist tag-manager shortcuts-dialog format block:sales-dashboard --force
+npx github:RandomKid24/befui update
+```
+
 ## 1.0.1 - 2026-10-07
 
 Time components and AI-friendly docs
@@ -299,6 +438,11 @@ Time components and AI-friendly docs
 - **Added:** Time: time picker, analog clock, world clock, stopwatch, timer, countdown and relative time. (Time picker, Analog clock, World clock, Stopwatch, Timer, Countdown, Relative time)
 - **Added:** Data and display: heatmap and pricing card. (Heatmap, Pricing card)
 - **Added:** AI tooling: llms.txt and llms-full.txt, AGENTS.md rules written by init, a Use with AI page, and befui add all.
+
+```bash
+npx github:RandomKid24/befui add time-picker analog-clock world-clock stopwatch timer countdown relative-time heatmap pricing-card --force
+npx github:RandomKid24/befui update
+```
 
 ## 1.0.0 - 2026-10-06
 
@@ -309,3 +453,8 @@ First release
 - **Added:** Data and layout: data table, gauge, progress ring, number ticker, stat card, charts, sidebar, app shell. (Data table, Gauge, Progress ring, Number ticker, Stat card, Charts, Sidebar, App shell)
 - **Added:** Feedback and overlays: banner, alert, toast, skeleton, dialog and sheet, alert dialog, dropdown menu, popover, tooltip, command palette. (Banner, Alert, Toast, Skeleton, Dialog and Sheet, Alert dialog, Dropdown menu, Popover, Tooltip, Command palette)
 - **Added:** Foundations: a built-in icon set, Storybook, the befui CLI (init, add, list), and HRMS and marketing blocks. (Admin shell, Employee directory, Leave approvals, Lead pipeline, Sign in)
+
+```bash
+npx github:RandomKid24/befui add button input label checkbox switch select combobox calendar segmented slider radio-group rating otp-input tag-input number-stepper chip color-picker accordion spotlight-card border-beam marquee carousel compare tilt-card shimmer-text typewriter confetti dock collapsible tree-view data-table gauge progress-ring number-ticker stat-card charts sidebar app-shell banner alert toast skeleton dialog alert-dialog dropdown-menu popover tooltip command block:admin-shell block:employee-directory block:leave-approvals block:lead-pipeline block:sign-in --force
+npx github:RandomKid24/befui update
+```

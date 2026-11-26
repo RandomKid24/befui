@@ -435,7 +435,8 @@ if (has('version') || cmd === 'version') {
   for (const n of wanted) await visit(n);
   const deps = new Set(['clsx', 'tailwind-merge', 'class-variance-authority']);
   for (const item of seen.values()) item.deps.forEach((d) => deps.add(d));
-  if (!existsSync(join(dir, 'lib/utils.ts'))) write((await load('init')).files);
+  // starter files are only filled in where missing: --force is about components and must never replace your theme (index.css)
+  if (!existsSync(join(dir, 'lib/utils.ts'))) write((await load('init')).files.filter((f) => !existsSync(join(dir, f.path))));
   for (const item of seen.values()) { const w = write(item.files); if (w.length) ok(`${item.name} → ${w[0]}`); }
   install(deps);
   await warnAnimations([...seen.values()]);

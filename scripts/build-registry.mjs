@@ -22,12 +22,18 @@ for (const [, slug, name, module, desc] of reg.matchAll(/slug: '([^']+)', name: 
 const releases = JSON.parse(readFileSync('src/registry/changelog.json', 'utf8'));
 const nameOf = (slug) => (slug.startsWith('block:') ? info[`blocks/${slug.slice(6)}`] : info[`ui/${slug}`])?.name;
 for (const r of releases) for (const e of r.entries) for (const slug of e.slugs ?? []) if (!nameOf(slug)) throw new Error(`changelog ${r.version}: unknown component "${slug}"`);
+const useIt = (r) => {
+  const slugs = [...new Set(r.entries.flatMap((e) => e.slugs ?? []))];
+  return slugs.length ? `\n\`\`\`bash\nnpx github:RandomKid24/befui add ${slugs.join(' ')} --force\nnpx github:RandomKid24/befui update\n\`\`\`\n` : '';
+};
 writeFileSync('CHANGELOG.md', `# Changelog
 
 All notable changes to befui. Versions follow [semver](https://semver.org): new components are minor releases, breaking prop changes are major. The same list, with links to each component, is on the docs site under Changelog.
 (Generated from src/registry/changelog.json by \`npm run registry:build\`. Edit the JSON, not this file.)
 
-${releases.map((r) => `## ${r.version} - ${r.date}\n\n${r.title}\n\n${r.entries.map((e) => `- **${e.kind[0].toUpperCase()}${e.kind.slice(1)}:** ${e.text}${e.slugs?.length ? ` (${e.slugs.map(nameOf).join(', ')})` : ''}`).join('\n')}\n`).join('\n')}`);
+Each release ends with a command that copies its components into your app. \`--force\` replaces your copies of them **and of every component they depend on**, so commit first, or swap \`add\` for \`diff\` and drop \`--force\` to compare without changing anything. \`update\` adds any new animations to your \`index.css\`. The command always fetches the latest version of each file.
+
+${releases.map((r) => `## ${r.version} - ${r.date}\n\n${r.title}\n\n${r.entries.map((e) => `- **${e.kind[0].toUpperCase()}${e.kind.slice(1)}:** ${e.text}${e.slugs?.length ? ` (${e.slugs.map(nameOf).join(', ')})` : ''}`).join('\n')}\n${useIt(r)}`).join('\n')}`);
 
 const HELPERS = new Set(['react', 'react-dom', 'clsx', 'tailwind-merge', 'class-variance-authority']);
 

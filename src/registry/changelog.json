@@ -1,5 +1,20 @@
 [
   {
+    "version": "1.23.1",
+    "date": "2026-11-26",
+    "title": "Safer add, and ready-made update commands",
+    "entries": [
+      {
+        "kind": "fixed",
+        "text": "add --force no longer replaces your index.css when lib/utils.ts is missing."
+      },
+      {
+        "kind": "added",
+        "text": "Every release below ends with a command that copies its components into your app."
+      }
+    ]
+  },
+  {
     "version": "1.23.0",
     "date": "2026-11-26",
     "title": "Motion across menus, charts and lists",
