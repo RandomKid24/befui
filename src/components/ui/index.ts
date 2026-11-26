@@ -150,3 +150,4 @@ export * from './sidebar-split';
 export * from './sidebar-workspace';
 export * from './sidebar-settings';
 export * from './sidebar-docs';
+export * from './login-pass';

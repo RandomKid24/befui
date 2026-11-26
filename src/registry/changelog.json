@@ -1,5 +1,19 @@
 [
   {
+    "version": "1.19.0",
+    "date": "2026-11-26",
+    "title": "Login pass screen",
+    "entries": [
+      {
+        "kind": "added",
+        "text": "A sign-in screen with an entry pass that fills in from the email, so a wrong account or domain typo shows before you submit.",
+        "slugs": [
+          "login-pass"
+        ]
+      }
+    ]
+  },
+  {
     "version": "1.18.0",
     "date": "2026-11-17",
     "title": "Five sidebar designs",

@@ -411,6 +411,13 @@
   "log-viewer": [
     "icons"
   ],
+  "login-pass": [
+    "button",
+    "checkbox",
+    "input",
+    "label",
+    "password-input"
+  ],
   "lollipop-chart": [
     "charts"
   ],

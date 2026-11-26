@@ -1,6 +1,6 @@
 # Components
 
-Every befui component and block. **303 React components**, **269 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **38 page blocks**.
+Every befui component and block. **304 React components**, **269 with an HTML tag** (`<bef-*>`), **121 Flutter widgets**, and **38 page blocks**.
 (Generated from the registry by `npm run registry:build`. Do not edit by hand.)
 
 Install a React component with `npx github:RandomKid24/befui add <name>`, the Flutter version with `npx github:RandomKid24/befui add <name> --flutter`.
@@ -43,7 +43,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `tree-view` | Nested expandable list with animated open and close. | ✓ | ✓ |
 | `user-menu` | Avatar button for the topbar that opens a menu with name, email, your links and Sign out. | ✓ | ✓ |
 
-## Inputs (57, 34 on Flutter)
+## Inputs (58, 34 on Flutter)
 
 | Component | What it is | HTML | Flutter |
 |---|---|:-:|:-:|
@@ -77,6 +77,7 @@ Install a React component with `npx github:RandomKid24/befui add <name>`, the Fl
 | `input-group` | One field with text, icons or buttons attached at the start or end, like https:// or .com. | ✓ | ✓ |
 | `kv-editor` | Environment variables or headers as key and value rows: values hidden until shown, duplicate keys flagged, and paste a .env file to fill many rows. | ✓ |  |
 | `label` | Label with required marker, plus Field for label, control and hint or error. | ✓ | ✓ |
+| `login-pass` | A full sign-in screen with an entry pass that fills in from the email and gets stamped. Domain typo hint, Caps Lock warning, loading, refused and signed-in states. |  |  |
 | `mention-input` | Textarea that suggests people when you type @. Arrow keys and Enter pick. | ✓ |  |
 | `notification-preferences` | Grid of events by channel (email, push, SMS, in-app) with a switch per cell and a switch per channel. | ✓ | ✓ |
 | `number-stepper` | Number field with plus and minus buttons and arrow keys. | ✓ | ✓ |

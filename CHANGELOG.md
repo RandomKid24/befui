@@ -3,6 +3,12 @@
 All notable changes to befui. Versions follow [semver](https://semver.org): new components are minor releases, breaking prop changes are major. The same list, with links to each component, is on the docs site under Changelog.
 (Generated from src/registry/changelog.json by `npm run registry:build`. Edit the JSON, not this file.)
 
+## 1.19.0 - 2026-11-26
+
+Login pass screen
+
+- **Added:** A sign-in screen with an entry pass that fills in from the email, so a wrong account or domain typo shows before you submit. (Login pass)
+
 ## 1.18.0 - 2026-11-17
 
 Five sidebar designs

@@ -4,7 +4,7 @@
 
 **Interfaces people actually enjoy using.**
 
-303 copy-paste React components, 389 hand-drawn icons and 38 full-page blocks.<br/>
+304 copy-paste React components, 389 hand-drawn icons and 38 full-page blocks.<br/>
 Plus **121 Flutter widgets** for Android and iOS, and every component as a `<bef-*>` HTML tag.<br/>
 Built on Radix, Tailwind 4 and CSS variables. You own every file.
 
@@ -202,7 +202,7 @@ Add a `## x.y.z` section to `CHANGELOG.md`, then `npm version minor` (checks the
 Some components (loader, bottom sheet, toast...) need keyframes from `index.css`. After adding components, run `npx github:RandomKid24/befui update` to append any your project is missing (`--check` only reports, handy in CI). `add` also prints a warning when something is missing.
 
 <!-- components:start -->
-### Components (303)
+### Components (304)
 
 <details>
 <summary><b>Layout</b> (6)</summary>
@@ -219,9 +219,9 @@ Some components (loader, bottom sheet, toast...) need keyframes from `index.css`
 </details>
 
 <details>
-<summary><b>Inputs</b> (57)</summary>
+<summary><b>Inputs</b> (58)</summary>
 
-`api-key-manager` · `autocomplete` · `autosize-textarea` · `avatar-upload` · `button` · `button-group` · `calendar` · `cascader` · `checkbox` · `chip` · `color-picker` · `combobox` · `copy-button` · `coupon-input` · `currency-input` · `date-picker` · `datetime-picker` · `dropzone` · `duration-input` · `fab` · `file-uploader` · `filter-builder` · `form-wizard` · `gradient-picker` · `image-upload` · `inline-edit` · `input` · `input-group` · `kv-editor` · `label` · `mention-input` · `notification-preferences` · `number-stepper` · `otp-input` · `password-input` · `phone-input` · `radio-group` · `range-slider` · `rating` · `rich-text-editor` · `schema-form` · `search-bar` · `search-input` · `segmented` · `select` · `shortcut-recorder` · `signature-field` · `signature-pad` · `slider` · `split-button` · `switch` · `tag-input` · `team-invite` · `theme-toggle` · `toggle` · `toggle-group` · `transfer-list`
+`api-key-manager` · `autocomplete` · `autosize-textarea` · `avatar-upload` · `button` · `button-group` · `calendar` · `cascader` · `checkbox` · `chip` · `color-picker` · `combobox` · `copy-button` · `coupon-input` · `currency-input` · `date-picker` · `datetime-picker` · `dropzone` · `duration-input` · `fab` · `file-uploader` · `filter-builder` · `form-wizard` · `gradient-picker` · `image-upload` · `inline-edit` · `input` · `input-group` · `kv-editor` · `label` · `login-pass` · `mention-input` · `notification-preferences` · `number-stepper` · `otp-input` · `password-input` · `phone-input` · `radio-group` · `range-slider` · `rating` · `rich-text-editor` · `schema-form` · `search-bar` · `search-input` · `segmented` · `select` · `shortcut-recorder` · `signature-field` · `signature-pad` · `slider` · `split-button` · `switch` · `tag-input` · `team-invite` · `theme-toggle` · `toggle` · `toggle-group` · `transfer-list`
 
 </details>
 

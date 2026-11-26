@@ -372,6 +372,7 @@ const metas: Meta[] = [
   m('sidebar-workspace', 'Workspace sidebar', 'Navigation', 'The everyday app sidebar: workspace switcher on top, search button, collapsible groups with counts, and the user with settings at the bottom.', { requires: ['avatar', 'icons', 'kbd'], keywords: ['notion','linear','favorites','groups','search','workspace'] }),
   m('sidebar-settings', 'Settings sidebar', 'Navigation', 'Plain text menu beside a settings page: group headings, one line per page, current page filled, and a red danger item.', { requires: [], keywords: ['settings','account','preferences','menu','profile'] }),
   m('sidebar-docs', 'Docs sidebar', 'Navigation', 'Navigation for docs and help sites: section titles, links, nested pages on a guide line, a bar on the current page and small New or Beta tags.', { requires: ['badge'], keywords: ['docs','documentation','help','guide','nested','toc'] }),
+  m('login-pass', 'Login pass', 'Inputs', 'A full sign-in screen with an entry pass that fills in from the email and gets stamped. Domain typo hint, Caps Lock warning, loading, refused and signed-in states.', { requires: ['button', 'checkbox', 'input', 'label', 'password-input'], keywords: ['login','sign in','auth','screen','password','pass'], wide: true }),
   m('app-shell', 'App shell', 'Layout', 'Sidebar, topbar and scrolling content area, plus a page header.', { deps: [], requires: ['sidebar'], keywords: ['layout', 'dashboard', 'frame', 'page', 'admin'], wide: true }),
 ];
 

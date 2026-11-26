@@ -627,6 +627,7 @@ export const manifest: Record<string, [file: string, name: string]> = {
   "bef-bar-loader": [ "loader", "BarLoader" ],
   "bef-loading-overlay": [ "loader", "LoadingOverlay" ],
   "bef-log-viewer": [ "log-viewer", "LogViewer" ],
+  "bef-login-pass": [ "login-pass", "LoginPass" ],
   "bef-lollipop-chart": [ "lollipop-chart", "LollipopChart" ],
   "bef-marimekko-chart": [ "marimekko-chart", "MarimekkoChart" ],
   "bef-markdown": [ "markdown", "Markdown" ],
