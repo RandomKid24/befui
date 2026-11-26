@@ -3,6 +3,15 @@
 All notable changes to befui. Versions follow [semver](https://semver.org): new components are minor releases, breaking prop changes are major. The same list, with links to each component, is on the docs site under Changelog.
 (Generated from src/registry/changelog.json by `npm run registry:build`. Edit the JSON, not this file.)
 
+## 1.23.0 - 2026-11-26
+
+Motion across menus, charts and lists
+
+- **Changed:** The highlight now glides and stretches to the page you choose. (Sidebar rail, Settings sidebar, Docs sidebar, Pagination)
+- **Changed:** Bars, rings and needles fill when first seen, and ranked rows slide when the order changes. (Bar list, Leaderboard, Progress, Progress ring, Gauge)
+- **Changed:** Items arrive in reading order, stat cards lift on hover, stars pop, the bell rings when something new arrives, and the stepper line fills as you advance. (KPI strip, Stat card, Timeline, Rating, Notification center, Stepper)
+- **Fixed:** Stepper connector lines no longer disappear in narrow spaces. (Stepper)
+
 ## 1.22.0 - 2026-11-26
 
 Better dashboards, and motion in everyday components

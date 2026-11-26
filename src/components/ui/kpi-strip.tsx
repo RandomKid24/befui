@@ -19,10 +19,10 @@ export interface Kpi {
 export function KpiStrip({ items, className }: { items: Kpi[]; className?: string }) {
   return (
     <dl className={cn('grid grid-cols-2 overflow-hidden rounded-xl border bg-card sm:flex sm:divide-x [&>div]:border-b [&>div]:sm:border-b-0 [&>div:nth-last-child(-n+2)]:border-b-0 sm:[&>div]:flex-1', className)}>
-      {items.map((k) => {
+      {items.map((k, i) => {
         const good = k.delta === undefined ? true : k.inverse ? k.delta <= 0 : k.delta >= 0;
         return (
-          <div key={k.label} className="grid min-w-0 gap-1 px-5 py-4">
+          <div key={k.label} style={{ animationDelay: `${i * 70}ms` }} className="grid min-w-0 gap-1 px-5 py-4 motion-safe:animate-rise">
             <dt className="truncate text-[13px] text-muted-foreground">{k.label}</dt>
             <dd className="text-2xl font-semibold leading-none tracking-tight tabular-nums">{k.value}</dd>
             {k.delta !== undefined || k.hint ? (

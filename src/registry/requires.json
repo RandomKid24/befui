@@ -104,7 +104,10 @@
   "banner": [
     "icons"
   ],
-  "bar-list": [],
+  "bar-list": [
+    "charts",
+    "motion-hooks"
+  ],
   "bar-race": [],
   "border-beam": [],
   "bottom-nav": [
@@ -350,7 +353,9 @@
   "format": [],
   "funnel-chart": [],
   "gantt": [],
-  "gauge": [],
+  "gauge": [
+    "charts"
+  ],
   "gradient-picker": [
     "copy-button"
   ],
@@ -427,7 +432,8 @@
   "leaderboard": [
     "avatar",
     "charts",
-    "icons"
+    "icons",
+    "motion-hooks"
   ],
   "line-chart": [
     "charts"
@@ -529,7 +535,8 @@
     "charts"
   ],
   "pagination": [
-    "icons"
+    "icons",
+    "motion-hooks"
   ],
   "parallel-coordinates": [
     "charts"
@@ -580,8 +587,12 @@
   "profile-card": [
     "avatar"
   ],
-  "progress": [],
-  "progress-ring": [],
+  "progress": [
+    "charts"
+  ],
+  "progress-ring": [
+    "charts"
+  ],
   "project-status-report": [
     "report-view"
   ],
@@ -706,12 +717,16 @@
     "tooltip"
   ],
   "sidebar-docs": [
-    "badge"
+    "badge",
+    "motion-hooks"
   ],
   "sidebar-rail": [
+    "motion-hooks",
     "tooltip"
   ],
-  "sidebar-settings": [],
+  "sidebar-settings": [
+    "motion-hooks"
+  ],
   "sidebar-split": [
     "tooltip"
   ],

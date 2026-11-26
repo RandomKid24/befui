@@ -220,7 +220,6 @@ opacity\] {
     --tw-translate-y: -1px;
     translate: var(--tw-translate-x) var(--tw-translate-y);
   }
-  .hover\:border-primary:hover,
   .hover\:border-primary\/40:hover {
     border-color: var(--primary);
   }

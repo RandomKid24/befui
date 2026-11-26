@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { Badge } from './badge';
+import { useStretch } from './motion-hooks';
 import { cn } from '@/lib/utils';
 
 export interface DocsLink { id: string; label: string; /** Small tag such as New or Beta. */ tag?: string; children?: DocsLink[] }
@@ -17,16 +18,19 @@ export function SidebarDocs({ sections, value, onChange, className }: {
   onChange: (id: string) => void;
   className?: string;
 }) {
+  const nav = React.useRef<HTMLElement>(null);
+  const { edge, style } = useStretch(nav, (el) => el.querySelector<HTMLElement>('[aria-current="page"]'), 'y');
   const has = (l: DocsLink): boolean => l.id === value || !!l.children?.some(has);
   const row = (l: DocsLink) => (
     <button type="button" aria-current={l.id === value ? 'page' : undefined} onClick={() => onChange(l.id)} className={cn('relative flex w-full items-center justify-between gap-2 rounded px-3 py-1.5 text-left text-[13px] outline-none focus-visible:ring-2 focus-visible:ring-ring/50', l.id === value ? 'font-medium text-primary' : 'text-muted-foreground hover:text-foreground')}>
-      {l.id === value && <span aria-hidden className="absolute -left-px top-1 h-[calc(100%-8px)] w-0.5 rounded-full bg-primary" />}
+      {l.id === value && !edge && <span aria-hidden className="absolute -left-px top-1 h-[calc(100%-8px)] w-0.5 rounded-full bg-primary" />}
       {l.label}
       {l.tag && <Badge variant="info" className="px-1.5 py-0 text-[10px]">{l.tag}</Badge>}
     </button>
   );
   return (
-    <nav aria-label="Documentation" className={cn('w-60 shrink-0 overflow-y-auto border-r bg-card p-4', className)}>
+    <nav ref={nav} aria-label="Documentation" className={cn('relative w-60 shrink-0 overflow-y-auto border-r bg-card p-4', className)}>
+      {edge && <span aria-hidden className="pointer-events-none absolute motion-reduce:!transition-none w-0.5 rounded-full bg-primary" style={{ ...style, left: edge.left - 1, marginBlock: 4 }} />}
       {sections.map((s) => (
         <section key={s.title} className="mb-6 last:mb-0">
           <h3 className="mb-2 px-3 text-[13px] font-semibold">{s.title}</h3>

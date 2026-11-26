@@ -1,6 +1,8 @@
 'use client';
 
+import * as React from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from './icons';
+import { useStretch } from './motion-hooks';
 import { cn } from '@/lib/utils';
 
 function pages(page: number, total: number): (number | '…')[] {
@@ -27,8 +29,11 @@ export function Pagination({
   onPageChange: (page: number) => void;
   className?: string;
 }) {
+  const nav = React.useRef<HTMLElement>(null);
+  const { edge, style } = useStretch(nav, (el) => el.querySelector<HTMLElement>('[aria-current="page"]'));
   return (
-    <nav aria-label="Pagination" className={cn('flex items-center gap-1', className)}>
+    <nav ref={nav} aria-label="Pagination" className={cn('relative flex items-center gap-1', className)}>
+      {edge && <span aria-hidden className="pointer-events-none absolute motion-reduce:!transition-none rounded-md bg-primary" style={{ ...style, top: edge.top, height: edge.height }} />}
       <button className={btn} disabled={page <= 1} onClick={() => onPageChange(page - 1)} aria-label="Previous page">
         <ChevronLeftIcon className="size-4" />
       </button>
@@ -42,7 +47,7 @@ export function Pagination({
             key={p}
             aria-current={p === page ? 'page' : undefined}
             onClick={() => onPageChange(p)}
-            className={cn(btn, p === page && 'bg-secondary text-foreground')}
+            className={cn(btn, 'relative', p === page && (edge ? 'text-primary-foreground hover:bg-transparent hover:text-primary-foreground' : 'bg-secondary text-foreground'))}
           >
             {p}
           </button>

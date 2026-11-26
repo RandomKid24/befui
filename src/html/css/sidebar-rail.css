@@ -27,6 +27,9 @@
 }
 
 /* Utility rules */
+.pointer-events-none {
+  pointer-events: none;
+}
 .absolute {
   position: absolute;
 }
@@ -39,8 +42,8 @@
 .right-1 {
   right: var(--spacing);
 }
-.-left-3 {
-  left: calc(var(--spacing) * -3);
+.left-0 {
+  left: 0;
 }
 .mt-auto {
   margin-top: auto;
@@ -57,9 +60,6 @@
 .size-10 {
   width: calc(var(--spacing) * 10);
   height: calc(var(--spacing) * 10);
-}
-.h-5 {
-  height: calc(var(--spacing) * 5);
 }
 .w-1 {
   width: var(--spacing);
@@ -178,6 +178,12 @@
 @supports (color:color-mix(in lab,red,red)) {
   .focus-visible\:ring-ring\/50:focus-visible {
     --tw-ring-color: color-mix(in oklab, var(--ring) 50%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .motion-reduce\:\!transition-none {
+    transition-property: none;
   }
 }
 

@@ -1,5 +1,52 @@
 [
   {
+    "version": "1.23.0",
+    "date": "2026-11-26",
+    "title": "Motion across menus, charts and lists",
+    "entries": [
+      {
+        "kind": "changed",
+        "text": "The highlight now glides and stretches to the page you choose.",
+        "slugs": [
+          "sidebar-rail",
+          "sidebar-settings",
+          "sidebar-docs",
+          "pagination"
+        ]
+      },
+      {
+        "kind": "changed",
+        "text": "Bars, rings and needles fill when first seen, and ranked rows slide when the order changes.",
+        "slugs": [
+          "bar-list",
+          "leaderboard",
+          "progress",
+          "progress-ring",
+          "gauge"
+        ]
+      },
+      {
+        "kind": "changed",
+        "text": "Items arrive in reading order, stat cards lift on hover, stars pop, the bell rings when something new arrives, and the stepper line fills as you advance.",
+        "slugs": [
+          "kpi-strip",
+          "stat-card",
+          "timeline",
+          "rating",
+          "notification-center",
+          "stepper"
+        ]
+      },
+      {
+        "kind": "fixed",
+        "text": "Stepper connector lines no longer disappear in narrow spaces.",
+        "slugs": [
+          "stepper"
+        ]
+      }
+    ]
+  },
+  {
     "version": "1.22.0",
     "date": "2026-11-26",
     "title": "Better dashboards, and motion in everyday components",

@@ -128,9 +128,10 @@ export function useDragLift<S>({ locate, drop }: { locate: (x: number, y: number
 /**
  * Where to draw one highlight behind the chosen item. Its front edge leaves first and the back edge catches up, so it stretches.
  * `pick` finds the chosen element; offsets are read against the container, which must be positioned.
+ * `axis` is the direction it travels: 'x' for a row (`style` holds left and right), 'y' for a menu column (top and bottom).
  */
-export function useStretch(container: React.RefObject<HTMLElement | null>, pick: (root: HTMLElement) => HTMLElement | null | undefined) {
-  const [edge, setEdge] = React.useState<{ left: number; right: number; top: number; height: number; forward: boolean } | null>(null);
+export function useStretch(container: React.RefObject<HTMLElement | null>, pick: (root: HTMLElement) => HTMLElement | null | undefined, axis: 'x' | 'y' = 'x') {
+  const [edge, setEdge] = React.useState<{ left: number; right: number; top: number; bottom: number; width: number; height: number; forward: boolean } | null>(null);
   const picker = React.useRef(pick);
   picker.current = pick;
   const measure = React.useCallback(() => {
@@ -140,9 +141,11 @@ export function useStretch(container: React.RefObject<HTMLElement | null>, pick:
     const left = el.offsetLeft;
     const right = (root.clientWidth || root.offsetWidth) - left - el.offsetWidth;
     const top = el.offsetTop;
+    const width = el.offsetWidth;
     const height = el.offsetHeight;
-    setEdge((was) => (was && was.left === left && was.right === right && was.top === top && was.height === height ? was : { left, right, top, height, forward: !was || left >= was.left }));
-  }, [container]);
+    const bottom = (root.clientHeight || root.offsetHeight) - top - height;
+    setEdge((was) => (was && was.left === left && was.right === right && was.top === top && was.bottom === bottom && was.height === height ? was : { left, right, top, bottom, width, height, forward: !was || (axis === 'x' ? left >= was.left : top >= was.top) }));
+  }, [container, axis]);
   React.useLayoutEffect(() => { measure(); });
   React.useLayoutEffect(() => {
     const root = container.current;
@@ -157,8 +160,9 @@ export function useStretch(container: React.RefObject<HTMLElement | null>, pick:
 
   const lead = 'var(--dur-base)';
   const trail = 'var(--dur-medium)';
+  const [back, front] = axis === 'x' ? (['left', 'right'] as const) : (['top', 'bottom'] as const);
   const style: React.CSSProperties | undefined = edge
-    ? { left: edge.left, right: edge.right, transition: `left ${edge.forward ? trail : lead} var(--ease-out), right ${edge.forward ? lead : trail} var(--ease-out)` }
+    ? { [back]: edge[back], [front]: edge[front], transition: `${back} ${edge.forward ? trail : lead} var(--ease-out), ${front} ${edge.forward ? lead : trail} var(--ease-out)` }
     : undefined;
   return { edge, style };
 }

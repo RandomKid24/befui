@@ -4,6 +4,8 @@
 :root {
   --card: #fff;
   --destructive: #e11d48;
+  --dur-slow: .7s;
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --muted-foreground: #5b6b80;
@@ -117,6 +119,12 @@
   font-variant-numeric: var(--tw-ordinal,) var(--tw-slashed-zero,) var(--tw-numeric-figure,) var(--tw-numeric-spacing,) var(--tw-numeric-fraction,);
 }
 
+@media (prefers-reduced-motion:no-preference) {
+  .motion-safe\:animate-rise {
+    animation: rise var(--dur-slow) var(--ease-out) backwards;
+  }
+}
+
 @media (min-width:40rem) {
   .sm\:flex {
     display: flex;
@@ -147,6 +155,18 @@
 .\[\&\>div\:nth-last-child\(-n\+2\)\]\:border-b-0>div:nth-last-child(-n+2) {
   border-bottom-style: var(--tw-border-style);
   border-bottom-width: 0;
+}
+
+/* Animations */
+@keyframes rise {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 @property --tw-divide-x-reverse {

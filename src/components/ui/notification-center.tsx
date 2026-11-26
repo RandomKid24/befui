@@ -28,12 +28,18 @@ export function NotificationCenter({
   className?: string;
 }) {
   const unread = notices.filter((n) => !n.read).length;
+  const [rings, setRings] = React.useState(0);
+  const before = React.useRef(unread);
+  React.useEffect(() => {
+    if (unread > before.current) setRings((r) => r + 1);
+    before.current = unread;
+  }, [unread]);
   return (
     <Popover>
       <PopoverTrigger asChild>
         <Button variant="ghost" size="icon" aria-label={`Notifications${unread ? `, ${unread} unread` : ''}`} className={cn('relative', className)}>
-          <BellIcon />
-          {unread > 0 && <span className="absolute right-1 top-1 grid min-w-4 place-items-center rounded-full bg-destructive px-1 text-[10px] font-semibold leading-4 text-white">{unread > 9 ? '9+' : unread}</span>}
+          <span key={rings} className={cn('grid', rings > 0 && 'origin-top motion-safe:animate-ring-bell')}><BellIcon /></span>
+          {unread > 0 && <span key={unread} className="motion-safe:animate-pop absolute right-1 top-1 grid min-w-4 place-items-center rounded-full bg-destructive px-1 text-[10px] font-semibold leading-4 text-white">{unread > 9 ? '9+' : unread}</span>}
         </Button>
       </PopoverTrigger>
       <PopoverContent align="end" className="w-80 p-0">
@@ -45,8 +51,8 @@ export function NotificationCenter({
         </div>
         <ul className="max-h-80 overflow-auto">
           {notices.length === 0 && <li className="px-3 py-10 text-center text-[13px] text-muted-foreground">You are all caught up</li>}
-          {notices.map((n) => (
-            <li key={n.id}>
+          {notices.map((n, i) => (
+            <li key={n.id} style={{ animationDelay: `${Math.min(i, 8) * 45}ms` }} className="motion-safe:animate-rise">
               <button
                 type="button"
                 onClick={() => { onChange(notices.map((x) => (x.id === n.id ? { ...x, read: true } : x))); onOpenNotice?.(n); }}

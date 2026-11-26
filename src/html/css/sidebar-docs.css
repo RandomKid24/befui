@@ -20,6 +20,9 @@
 }
 
 /* Utility rules */
+.pointer-events-none {
+  pointer-events: none;
+}
 .absolute {
   position: absolute;
 }
@@ -156,6 +159,12 @@
 @supports (color:color-mix(in lab,red,red)) {
   .focus-visible\:ring-ring\/50:focus-visible {
     --tw-ring-color: color-mix(in oklab, var(--ring) 50%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .motion-reduce\:\!transition-none {
+    transition-property: none;
   }
 }
 

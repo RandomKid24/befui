@@ -8,6 +8,8 @@
   --border: #e2e8f0;
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  --dur-slow: .7s;
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --muted-foreground: #5b6b80;
@@ -29,6 +31,18 @@
 }
 
 /* Utility rules */
+.absolute {
+  position: absolute;
+}
+.relative {
+  position: relative;
+}
+.inset-0 {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
 .mx-2 {
   margin-inline: calc(var(--spacing) * 2);
 }
@@ -52,14 +66,28 @@
   width: calc(var(--spacing) * 7);
   height: calc(var(--spacing) * 7);
 }
-.h-px {
-  height: 1px;
+.h-0\.5 {
+  height: calc(var(--spacing) * .5);
 }
 .w-full {
   width: 100%;
 }
+.min-w-6 {
+  min-width: calc(var(--spacing) * 6);
+}
 .flex-1 {
   flex: 1;
+}
+.origin-left {
+  transform-origin: 0;
+}
+.scale-x-0 {
+  --tw-scale-x: 0%;
+  scale: var(--tw-scale-x) var(--tw-scale-y);
+}
+.scale-x-100 {
+  --tw-scale-x: 100%;
+  scale: var(--tw-scale-x) var(--tw-scale-y);
 }
 .flex-col {
   flex-direction: column;
@@ -75,6 +103,9 @@
 }
 .gap-1\.5 {
   gap: calc(var(--spacing) * 1.5);
+}
+.overflow-hidden {
+  overflow: hidden;
 }
 .rounded-full {
   border-radius: 3.40282e38px;
@@ -150,10 +181,57 @@
   transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
   transition-duration: var(--tw-duration,var(--default-transition-duration));
 }
+.transition-transform {
+  transition-property: transform,translate,scale,rotate;
+  transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
+  transition-duration: var(--tw-duration,var(--default-transition-duration));
+}
+.duration-\(--dur-slow\) {
+  --tw-duration: var(--dur-slow);
+  transition-duration: var(--dur-slow);
+}
+.ease-out {
+  --tw-ease: cubic-bezier(.22, 1, .36, 1);
+  transition-timing-function: cubic-bezier(.22,1,.36,1);
+}
 .last\:flex-none:last-child {
   flex: none;
 }
+.rtl\:origin-right:where(:dir(rtl),
+[dir=rtl],
+[dir=rtl] *) {
+  transform-origin: 100%;
+}
 
+@media (prefers-reduced-motion:no-preference) {
+  .motion-safe\:\[\&_path\]\:animate-\[icon-draw_var\(--dur-slow\)_var\(--ease-out\)\] path {
+    animation: icon-draw var(--dur-slow) var(--ease-out);
+  }
+  .motion-safe\:\[\&_path\]\:\[stroke-dasharray\:1_1\] path {
+    stroke-dasharray: 1 1;
+  }
+}
+
+/* Animations */
+@keyframes icon-draw {
+  0% {
+    stroke-dashoffset: 1px;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@property --tw-scale-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+@property --tw-scale-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
 @property --tw-border-style {
   syntax: "*";
   inherits: false;

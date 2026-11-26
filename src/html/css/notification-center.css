@@ -4,6 +4,10 @@
 :root {
   --color-white: #fff;
   --destructive: #e11d48;
+  --dur-slow: .7s;
+  --dur-spring: .4s;
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
+  --ease-spring: linear(0, .4 8%, .85 20%, 1.06 32%, 1.02 46%, 1 60%, 1);
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --muted: #f8fafc;
@@ -76,6 +80,9 @@
 }
 .shrink-0 {
   flex-shrink: 0;
+}
+.origin-top {
+  transform-origin: top;
 }
 .place-items-center {
   place-items: center;
@@ -198,6 +205,59 @@
 }
 .disabled\:opacity-40:disabled {
   opacity: .4;
+}
+
+@media (prefers-reduced-motion:no-preference) {
+  .motion-safe\:animate-pop {
+    animation: pop var(--dur-spring) var(--ease-spring);
+  }
+  .motion-safe\:animate-ring-bell {
+    animation: ring-bell .9s var(--ease-out);
+  }
+  .motion-safe\:animate-rise {
+    animation: rise var(--dur-slow) var(--ease-out) backwards;
+  }
+}
+
+/* Animations */
+@keyframes pop {
+  0% {
+    opacity: 0;
+    transform: scale(.97)translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes rise {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes ring-bell {
+  15% {
+    transform: rotate(18deg);
+  }
+  30% {
+    transform: rotate(-14deg);
+  }
+  45% {
+    transform: rotate(9deg);
+  }
+  60% {
+    transform: rotate(-6deg);
+  }
+  80% {
+    transform: rotate(2deg);
+  }
 }
 
 @property --tw-border-style {

@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import * as ProgressPrimitive from '@radix-ui/react-progress';
+import { useChartIn } from './charts';
 import { cn } from '@/lib/utils';
 
 const tones = {
@@ -23,11 +24,12 @@ export function Progress({
   className?: string;
   'aria-label'?: string;
 }) {
+  const [ref, on] = useChartIn<HTMLDivElement>();
   return (
-    <ProgressPrimitive.Root value={value} aria-label={ariaLabel} className={cn('relative h-1.5 w-full overflow-hidden rounded-full bg-secondary', className)}>
+    <ProgressPrimitive.Root ref={ref} value={value} aria-label={ariaLabel} className={cn('relative h-1.5 w-full overflow-hidden rounded-full bg-secondary', className)}>
       <ProgressPrimitive.Indicator
         className={cn('h-full rounded-full transition-[width] duration-(--dur-medium) ease-out', tones[tone])}
-        style={{ width: `${Math.min(100, Math.max(0, value))}%` }}
+        style={{ width: `${on ? Math.min(100, Math.max(0, value)) : 0}%` }}
       />
     </ProgressPrimitive.Root>
   );

@@ -21,7 +21,7 @@ export function Timeline({ items, className }: { items: TimelineItem[]; classNam
   return (
     <ol className={cn('grid', className)}>
       {items.map((it, i) => (
-        <li key={i} className="relative flex gap-3 pb-5 last:pb-0">
+        <li key={i} style={{ animationDelay: `${i * 80}ms` }} className="relative flex gap-3 pb-5 last:pb-0 motion-safe:animate-rise">
           {i < items.length - 1 && <span className="absolute left-3.5 top-8 bottom-0 w-px bg-border" />}
           <span className={cn('z-10 grid size-7 shrink-0 place-items-center rounded-full [&_svg]:size-3.5', tones[it.tone ?? 'default'])}>
             {it.icon ?? <span className="size-1.5 rounded-full bg-current" />}

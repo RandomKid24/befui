@@ -23,7 +23,7 @@ export function StatCard({
 }) {
   const up = (delta ?? 0) >= 0;
   return (
-    <Card className={cn('flex flex-col gap-3 p-5', className)}>
+    <Card className={cn('flex flex-col gap-3 p-5 transition-[box-shadow,border-color,translate] duration-(--dur-base) hover:border-primary/30 hover:shadow-md motion-safe:animate-rise motion-safe:hover:-translate-y-0.5', className)}>
       <div className="flex items-center justify-between">
         <span className="text-[13px] font-medium text-muted-foreground">{label}</span>
         {icon && <span className="text-muted-foreground [&_svg]:size-4">{icon}</span>}

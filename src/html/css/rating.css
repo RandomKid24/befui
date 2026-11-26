@@ -6,6 +6,8 @@
   --default-transition-duration: .15s;
   --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
   --dur-fast: .15s;
+  --dur-medium: .5s;
+  --ease-spring: linear(0, .4 8%, .85 20%, 1.06 32%, 1.02 46%, 1 60%, 1);
   --ring: #3b82f6;
   --spacing: .25rem;
   --warning: #d97706;
@@ -74,6 +76,25 @@ opacity\] {
 @supports (color:color-mix(in lab,red,red)) {
   .focus-visible\:ring-ring\/50:focus-visible {
     --tw-ring-color: color-mix(in oklab, var(--ring) 50%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion:no-preference) {
+  .motion-safe\:animate-star {
+    animation: star var(--dur-medium) var(--ease-spring) backwards;
+  }
+}
+
+/* Animations */
+@keyframes star {
+  0% {
+    transform: scale(.6);
+  }
+  60% {
+    transform: scale(1.25);
+  }
+  to {
+    transform: none;
   }
 }
 

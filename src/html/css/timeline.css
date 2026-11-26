@@ -4,6 +4,8 @@
 :root {
   --border: #e2e8f0;
   --destructive: #e11d48;
+  --dur-slow: .7s;
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
   --font-weight-medium: 500;
   --info: #2563eb;
   --muted-foreground: #5b6b80;
@@ -169,7 +171,26 @@
 .last\:pb-0:last-child {
   padding-bottom: 0;
 }
+
+@media (prefers-reduced-motion:no-preference) {
+  .motion-safe\:animate-rise {
+    animation: rise var(--dur-slow) var(--ease-out) backwards;
+  }
+}
+
 .\[\&_svg\]\:size-3\.5 svg {
   width: calc(var(--spacing) * 3.5);
   height: calc(var(--spacing) * 3.5);
+}
+
+/* Animations */
+@keyframes rise {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }

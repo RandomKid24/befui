@@ -2,10 +2,17 @@
 
 /* Theme variables it reads (set them on :root, or .dark for dark mode) */
 :root {
+  --default-transition-duration: .15s;
+  --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
   --destructive: #e11d48;
+  --dur-base: .25s;
+  --dur-slow: .7s;
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
+  --elev-2: 0 1px 2px #0f172a0d, 0 4px 8px -2px #0f172a12, 0 2px 4px -2px #0f172a0a;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --muted-foreground: #5b6b80;
+  --primary: #2563eb;
   --spacing: .25rem;
   --success: #047857;
   --text-2xl: 1.5rem;
@@ -17,7 +24,9 @@
 
 .dark {
   --destructive: #f43f5e;
+  --elev-2: 0 1px 2px #0006, 0 4px 10px -2px #00000073, inset 0 1px 0 #ffffff0d;
   --muted-foreground: #8b94a5;
+  --primary: #3b82f6;
   --success: #10b981;
 }
 
@@ -121,11 +130,82 @@
   --tw-numeric-spacing: tabular-nums;
   font-variant-numeric: var(--tw-ordinal,) var(--tw-slashed-zero,) var(--tw-numeric-figure,) var(--tw-numeric-spacing,) var(--tw-numeric-fraction,);
 }
+.transition-\[box-shadow\,
+border-color\,
+translate\] {
+  transition-property: box-shadow,border-color,translate;
+  transition-timing-function: var(--tw-ease,var(--default-transition-timing-function));
+  transition-duration: var(--tw-duration,var(--default-transition-duration));
+}
+.duration-\(--dur-base\) {
+  --tw-duration: var(--dur-base);
+  transition-duration: var(--dur-base);
+}
+
+@media (hover:hover) {
+  .hover\:border-primary:hover,
+  .hover\:border-primary\/30:hover {
+    border-color: var(--primary);
+  }
+}
+
+@media (hover:hover) {
+  @supports (color:color-mix(in lab,red,red)) {
+    .hover\:border-primary\/30:hover {
+      border-color: color-mix(in oklab,var(--primary) 30%,transparent);
+    }
+  }
+}
+
+@media (hover:hover) {
+  .hover\:shadow-md:hover {
+    --tw-shadow: var(--elev-2);
+    box-shadow: var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow);
+  }
+}
+
+@media (prefers-reduced-motion:no-preference) {
+  .motion-safe\:animate-rise {
+    animation: rise var(--dur-slow) var(--ease-out) backwards;
+  }
+}
+
+@media (prefers-reduced-motion:no-preference) {
+  @media (hover:hover) {
+    .motion-safe\:hover\:-translate-y-0\.5:hover {
+      --tw-translate-y: calc(var(--spacing) * -.5);
+      translate: var(--tw-translate-x) var(--tw-translate-y);
+    }
+  }
+}
+
 .\[\&_svg\]\:size-4 svg {
   width: calc(var(--spacing) * 4);
   height: calc(var(--spacing) * 4);
 }
 
+/* Animations */
+@keyframes rise {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@property --tw-translate-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-translate-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
 @property --tw-leading {
   syntax: "*";
   inherits: false;
@@ -147,6 +227,39 @@
   inherits: false;
 }
 @property --tw-numeric-fraction {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-inset-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-ring-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-inset-ring-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-ring-offset-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-duration {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ease {
   syntax: "*";
   inherits: false;
 }

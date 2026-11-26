@@ -126,6 +126,9 @@
   --animate-spin-in: spin-in 0.5s var(--ease-out);
   --animate-digit-land: digit-land var(--dur-medium) var(--ease-spring) backwards;
   --animate-digit-ok: digit-ok var(--dur-slow) var(--ease-spring) backwards;
+  --animate-rise: rise var(--dur-slow) var(--ease-out) backwards;
+  --animate-star: star var(--dur-medium) var(--ease-spring) backwards;
+  --animate-ring-bell: ring-bell 0.9s var(--ease-out);
   --animate-shake: shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97);
   --animate-slide-up: slide-up 0.28s var(--ease-out);
   --animate-loader-bars: loader-bars 1s ease-in-out infinite;
@@ -160,6 +163,9 @@
 @keyframes loader-ring { 0% { transform: scale(0.4); opacity: 0.9 } 100% { transform: scale(1); opacity: 0 } }
 @keyframes digit-land { from { transform: translateY(6px) scale(0.9) } to { transform: none } }
 @keyframes digit-ok { 0% { transform: none } 45% { transform: translateY(-6px) scale(1.06) } 100% { transform: none } }
+@keyframes rise { from { opacity: 0; transform: translateY(10px) } to { opacity: 1; transform: none } }
+@keyframes star { 0% { transform: scale(0.6) } 60% { transform: scale(1.25) } 100% { transform: none } }
+@keyframes ring-bell { 15% { transform: rotate(18deg) } 30% { transform: rotate(-14deg) } 45% { transform: rotate(9deg) } 60% { transform: rotate(-6deg) } 80% { transform: rotate(2deg) } }
 @keyframes shake { 10%, 90% { transform: translateX(-1px) } 20%, 80% { transform: translateX(2px) } 30%, 50%, 70% { transform: translateX(-4px) } 40%, 60% { transform: translateX(4px) } }
 
 /* Slider: filled track and a thumb that grows on hover and press. */

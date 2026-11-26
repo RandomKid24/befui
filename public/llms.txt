@@ -107,11 +107,11 @@ SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, Chev
 - `onboarding-carousel`: Mobile first-run intro with swipeable slides, dots, Skip and a final Get started button. Exports: OnboardingCarousel. Needs: button.
 - `order-tracker`: Delivery progress as steps joined by a line that fills up to the current one. Horizontal on wide screens, vertical on phones. Exports: OrderTracker. Needs: icons.
 - `org-switcher`: The workspace dropdown at the top of a sidebar: current workspace and plan, a menu to switch, and a Create workspace row. Exports: OrgSwitcher. Needs: avatar, dropdown-menu, icons.
-- `pagination`: Page buttons with ellipsis for long ranges. Exports: Pagination. Needs: icons.
+- `pagination`: Page buttons with ellipsis for long ranges. Exports: Pagination. Needs: icons, motion-hooks.
 - `scroll-progress`: Thin bar that fills as you scroll the page or a container. Exports: ScrollProgress.
-- `sidebar-docs`: Navigation for docs and help sites: section titles, links, nested pages on a guide line, a bar on the current page and small New or Beta tags. Exports: SidebarDocs. Needs: badge.
-- `sidebar-rail`: Narrow icon-only column for apps with a few big areas. Labels in a tooltip, an active bar, unread badges and a footer slot for the user. Exports: SidebarRail. Needs: tooltip.
-- `sidebar-settings`: Plain text menu beside a settings page: group headings, one line per page, current page filled, and a red danger item. Exports: SidebarSettings.
+- `sidebar-docs`: Navigation for docs and help sites: section titles, links, nested pages on a guide line, a bar on the current page and small New or Beta tags. Exports: SidebarDocs. Needs: badge, motion-hooks.
+- `sidebar-rail`: Narrow icon-only column for apps with a few big areas. Labels in a tooltip, an active bar, unread badges and a footer slot for the user. Exports: SidebarRail. Needs: motion-hooks, tooltip.
+- `sidebar-settings`: Plain text menu beside a settings page: group headings, one line per page, current page filled, and a red danger item. Exports: SidebarSettings. Needs: motion-hooks.
 - `sidebar-split`: An icon rail that picks the area and a wider panel listing the pages of that area with counts. For apps with many pages under a few areas. Exports: SidebarSplit. Needs: tooltip.
 - `sidebar-workspace`: The everyday app sidebar: workspace switcher on top, search button, collapsible groups with counts, and the user with settings at the bottom. Exports: SidebarWorkspace. Needs: avatar, icons, kbd.
 - `stepper`: Horizontal steps for multi-step forms and onboarding. Exports: Stepper. Needs: icons.
@@ -283,7 +283,7 @@ SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, Chev
 - `audit-log-terminal`: Audit log as plain monospace lines like tail -f: time, tick, who, action, target and changes on one line, with a date line per day and failed lines in red. Exports: AuditLogTerminal. Needs: audit-log.
 - `audit-record-history`: The History panel for one record: who changed which field from what to what, newest first, with a field picker to follow one value over time. Exports: AuditRecordHistory. Needs: audit-log, avatar, relative-time.
 - `audit-timeline`: Audit log as a vertical timeline under Today, Yesterday and date headings, each event a sentence with its before and after values in a small box. Exports: AuditTimeline. Needs: audit-log.
-- `bar-list`: Ranked list with a bar behind each row: top pages, products, sources, countries. Exports: BarList.
+- `bar-list`: Ranked list with a bar behind each row: top pages, products, sources, countries. Exports: BarList. Needs: charts, motion-hooks.
 - `bar-race`: Bars that re-sort and grow as time moves, frame by frame, with play and a scrubber. Shows who overtakes whom. Exports: BarRace.
 - `box-plot-chart`: Spread per group: box for the middle half, median line, whiskers and outlier dots. Boxes open from the median; hover for the five numbers. Exports: BoxPlotChart. Needs: charts.
 - `bullet-chart`: A KPI against its target in one thin row, with shaded bands for poor, ok and good. The bar slides in on scroll. Exports: BulletChart. Needs: charts.
@@ -306,7 +306,7 @@ SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, Chev
 - `forecast-chart`: Solid line for what happened, dashed line inside a shaded band for what is expected. The band is the likely range. Exports: ForecastChart. Needs: area-chart, charts.
 - `funnel-chart`: Conversion funnel with a bar per stage and the step-to-step rate. Exports: FunnelChart.
 - `gantt`: Schedule view with a bar per task, progress fill, weekend shading and a today line. Exports: Gantt.
-- `gauge`: Half-circle meter with a needle that swings to the value. Exports: Gauge.
+- `gauge`: Half-circle meter with a needle that swings to the value. Exports: Gauge. Needs: charts.
 - `half-donut-chart`: A semicircle split into parts with a total under the arch. Half the height of a donut, so it fits dashboard cards. Exports: HalfDonutChart. Needs: charts.
 - `health-vitals`: Heart rate drawn from your readings with low and high, a list of other measurements, and a water counter. Exports: HealthVitals. Needs: button, icons.
 - `heat-calendar`: One month as a calendar grid, every day tinted by its value. Hover a day for its number; click to select. Exports: HeatCalendar. Needs: charts.
@@ -315,7 +315,7 @@ SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, Chev
 - `india-map`: India by state and union territory, with a 3D bar or pin standing on every state in your data. Zoom and pan it; click a name in the list to highlight a state. Exports: indiaRegionNames, IndiaMap. Needs: charts.
 - `kanban`: Columns of cards you drag with a mouse or finger: the card lifts, a space opens where it will land and the rest slide aside. Alt and the arrow keys move a focused card. No drag library. Exports: Kanban. Needs: motion-hooks.
 - `kpi-strip`: A row of headline numbers sharing one border with dividers between them, with change arrows. The strip at the top of a dashboard. Exports: KpiStrip. Needs: icons.
-- `leaderboard`: Ranked people or teams with avatars, score bars, gold, silver and bronze badges and place changes. Sorted for you; bars fill in on scroll. Exports: Leaderboard. Needs: avatar, charts, icons.
+- `leaderboard`: Ranked people or teams with avatars, score bars, gold, silver and bronze badges and place changes. Sorted for you; bars fill in on scroll. Exports: Leaderboard. Needs: avatar, charts, icons, motion-hooks.
 - `line-chart`: Multi-series line or area chart in plain SVG with grid, axis labels, legend and a hover readout. Exports: LineChart. Needs: charts.
 - `live-chart`: Streaming line chart that slides left as new values arrive. You give it a function for the next value; pause it any time. Exports: LiveChart.
 - `log-viewer`: Terminal-style log pane: coloured levels with counts as filters, search with marked matches, and a Follow switch that tracks new lines. Exports: LogViewer. Needs: icons.
@@ -333,8 +333,8 @@ SearchIcon, CopyIcon, CheckIcon, XIcon, PlusIcon, MenuIcon, ArrowRightIcon, Chev
 - `permission-matrix`: Roles by permissions grid of checkboxes with per-column toggle and locked roles. Exports: PermissionMatrix. Needs: checkbox, table.
 - `pie-chart`: Slices of one whole that sweep around on scroll. Hover a slice or legend row and it pulls out. Exports: PieChart. Needs: charts.
 - `pivot-table`: Cross-tab of your rows: one field down the side, another across the top, sum, count, average, min or max in each cell, with totals and heat shading. Exports: PivotTable.
-- `progress`: Thin progress bar with four tones. Exports: Progress.
-- `progress-ring`: Circular progress with an eased stroke animation. Exports: ProgressRing.
+- `progress`: Thin progress bar with four tones. Exports: Progress. Needs: charts.
+- `progress-ring`: Circular progress with an eased stroke animation. Exports: ProgressRing. Needs: charts.
 - `punch-card-chart`: A grid of dots where dot size is the value, like commits by weekday and hour. Dots pop in on a diagonal wave. Exports: PunchCardChart. Needs: charts.
 - `radar-chart`: Spider chart for several scores on the same axes: a pentagon with five, a hexagon with six. Shapes grow from the center on scroll; hover a legend name to highlight a series. Exports: RadarChart. Needs: charts.
 - `radial-bar-chart`: Concentric rings, one per goal, that sweep in on scroll. Legend hover highlights a ring; the middle takes any content. Exports: RadialBarChart. Needs: charts.

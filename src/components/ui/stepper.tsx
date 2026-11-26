@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { CheckIcon } from './icons';
 import { cn } from '@/lib/utils';
@@ -29,14 +31,19 @@ export function Stepper({
                   !done && !active && 'bg-background text-muted-foreground',
                 )}
               >
-                {done ? <CheckIcon className="size-3.5" strokeWidth={3} /> : i + 1}
+                {done ? <CheckIcon className="size-3.5 motion-safe:[&_path]:[stroke-dasharray:1_1] motion-safe:[&_path]:animate-[icon-draw_var(--dur-slow)_var(--ease-out)]" strokeWidth={3} /> : i + 1}
               </span>
               <span className="text-center">
                 <span className={cn('block text-xs font-medium', !done && !active && 'text-muted-foreground')}>{s.title}</span>
                 {s.description && <span className="block text-[11px] text-muted-foreground">{s.description}</span>}
               </span>
             </div>
-            {i < steps.length - 1 && <span className={cn('mx-2 mt-3.5 h-px flex-1 transition-colors', done ? 'bg-primary' : 'bg-border')} />}
+            {i < steps.length - 1 && (
+              // the line fills from the finished step towards the next one
+              <span className="relative mx-2 mt-3.5 h-0.5 min-w-6 flex-1 overflow-hidden rounded-full bg-border">
+                <span className={cn('absolute inset-0 origin-left bg-primary transition-transform duration-(--dur-slow) ease-out rtl:origin-right', done ? 'scale-x-100' : 'scale-x-0')} />
+              </span>
+            )}
           </li>
         );
       })}

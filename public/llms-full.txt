@@ -746,7 +746,7 @@ Page buttons with ellipsis for long ranges.
 - Group: Navigation
 - Add: `npx github:RandomKid24/befui add pagination`
 - Import: `import { Pagination } from '@/components/ui/pagination'`
-- Also needs: icons
+- Also needs: icons, motion-hooks
 
 Example:
 
@@ -790,7 +790,7 @@ Navigation for docs and help sites: section titles, links, nested pages on a gui
 - Group: Navigation
 - Add: `npx github:RandomKid24/befui add sidebar-docs`
 - Import: `import { SidebarDocs } from '@/components/ui/sidebar-docs'`
-- Also needs: badge
+- Also needs: badge, motion-hooks
 
 Example:
 
@@ -833,7 +833,7 @@ Narrow icon-only column for apps with a few big areas. Labels in a tooltip, an a
 - Group: Navigation
 - Add: `npx github:RandomKid24/befui add sidebar-rail`
 - Import: `import { SidebarRail } from '@/components/ui/sidebar-rail'`
-- Also needs: tooltip
+- Also needs: motion-hooks, tooltip
 
 Example:
 
@@ -876,6 +876,7 @@ Plain text menu beside a settings page: group headings, one line per page, curre
 - Group: Navigation
 - Add: `npx github:RandomKid24/befui add sidebar-settings`
 - Import: `import { SidebarSettings } from '@/components/ui/sidebar-settings'`
+- Also needs: motion-hooks
 
 Example:
 
@@ -5766,6 +5767,7 @@ Ranked list with a bar behind each row: top pages, products, sources, countries.
 - Skip it when: Time series, or when you need more than one number per row.
 - Add: `npx github:RandomKid24/befui add bar-list`
 - Import: `import { BarList } from '@/components/ui/bar-list'`
+- Also needs: charts, motion-hooks
 
 Example:
 
@@ -6528,6 +6530,7 @@ Half-circle meter with a needle that swings to the value.
 - Skip it when: More than one measure, or precise values. Pair with the number printed in the middle.
 - Add: `npx github:RandomKid24/befui add gauge`
 - Import: `import { Gauge } from '@/components/ui/gauge'`
+- Also needs: charts
 
 Example:
 
@@ -6814,7 +6817,7 @@ Ranked people or teams with avatars, score bars, gold, silver and bronze badges 
 - Group: Data
 - Add: `npx github:RandomKid24/befui add leaderboard`
 - Import: `import { Leaderboard } from '@/components/ui/leaderboard'`
-- Also needs: avatar, charts, icons
+- Also needs: avatar, charts, icons, motion-hooks
 
 Example:
 
@@ -7593,6 +7596,7 @@ Thin progress bar with four tones.
 - Group: Data
 - Add: `npx github:RandomKid24/befui add progress`
 - Import: `import { Progress } from '@/components/ui/progress'`
+- Also needs: charts
 - npm packages: @radix-ui/react-progress
 
 Example:
@@ -7621,6 +7625,7 @@ Circular progress with an eased stroke animation.
 - Skip it when: Several values at once: use radial-bar-chart or a progress bar list.
 - Add: `npx github:RandomKid24/befui add progress-ring`
 - Import: `import { ProgressRing } from '@/components/ui/progress-ring'`
+- Also needs: charts
 
 Example:
 

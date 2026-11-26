@@ -1,8 +1,11 @@
+'use client';
+
 import * as React from 'react';
 import { Avatar } from './avatar';
 import { ArrowDownRightIcon, ArrowUpRightIcon } from './icons';
 import { cn } from '@/lib/utils';
 import { useChartIn } from './charts';
+import { useFlip } from './motion-hooks';
 
 export interface LeaderboardItem {
   name: string;
@@ -21,12 +24,13 @@ const medal = ['bg-warning/15 text-warning', 'bg-muted-foreground/15 text-muted-
  */
 export function Leaderboard({ items, format = (n) => n.toLocaleString('en-IN'), limit, className }: { items: LeaderboardItem[]; format?: (n: number) => string; limit?: number; className?: string }) {
   const [ref, on] = useChartIn<HTMLOListElement>();
+  useFlip(ref); // someone overtaking slides past
   const sorted = [...items].sort((a, b) => b.value - a.value).slice(0, limit);
   const max = sorted[0]?.value || 1;
   return (
-    <ol ref={ref} className={cn('grid gap-1.5', className)}>
+    <ol ref={ref} className={cn('relative grid gap-1.5', className)}>
       {sorted.map((it, i) => (
-        <li key={it.name} className="relative flex items-center gap-3 overflow-hidden rounded-lg border bg-card px-3 py-2.5">
+        <li key={it.name} data-flip={it.name} className="relative flex items-center gap-3 overflow-hidden rounded-lg border bg-card px-3 py-2.5">
           <span aria-hidden className="absolute inset-y-0 left-0 bg-primary/10" style={{ width: on ? `${(it.value / max) * 100}%` : 0, transition: `width 900ms cubic-bezier(0.22,1,0.36,1) ${i * 80}ms` }} />
           <span className={cn('relative grid size-6 shrink-0 place-items-center rounded-full text-xs font-semibold tabular-nums', medal[i] ?? 'text-muted-foreground')}>{i + 1}</span>
           <Avatar name={it.name} src={it.src} size="sm" className="relative" />
