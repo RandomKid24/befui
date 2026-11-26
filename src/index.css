@@ -226,3 +226,15 @@
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
+
+/* Browser autofill: replace the yellow or blue fill with the field's own colours. The browser's background can't be changed,
+   so an inset shadow paints over it; unlike delaying its transition, this still follows a theme switch.
+   A field that isn't on --background sets --autofill-bg on itself or a parent. Unlayered so it beats utilities. */
+input:autofill, textarea:autofill, select:autofill {
+  -webkit-text-fill-color: var(--foreground);
+  caret-color: var(--foreground);
+  box-shadow: inset 0 0 0 100px var(--autofill-bg, var(--background));
+}
+input:autofill:focus-visible, textarea:autofill:focus-visible, select:autofill:focus-visible {
+  box-shadow: inset 0 0 0 100px var(--autofill-bg, var(--background)), 0 0 0 3px color-mix(in srgb, var(--ring) 15%, transparent);
+}
